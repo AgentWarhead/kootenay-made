@@ -162,7 +162,7 @@ export default function BlogPage() {
   const [featuredPost, ...otherPosts] = posts;
 
   return (
-    <div className="pt-20">
+    <div className="pt-0">
       <section className="aurora-bg grain py-20 sm:py-24 relative overflow-hidden">
         <AmbientOrbs />
         {/* Topographic pattern in hero background */}

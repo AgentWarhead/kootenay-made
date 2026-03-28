@@ -108,7 +108,7 @@ export default function Navigation() {
         <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
           <div className={`flex items-center justify-between transition-[height] duration-300 ease-out ${scrolled ? 'h-20' : 'h-24'}`}>
             {/* Logo — big and bold with breathing animation */}
-            <Link href="/" className="relative z-10 flex items-center mr-12">
+            <Link href="/" className="relative z-10 flex items-center shrink-0 mr-8 lg:mr-12">
               <Image
                 src="/brand/kmd-horizontal-nobg.png"
                 alt="Kootenay Made Digital"
@@ -116,7 +116,8 @@ export default function Navigation() {
                 height={120}
                 quality={100}
                 unoptimized
-                className={`w-auto transition-[height] duration-300 ease-out brightness-[1.5] logo-breathe ${scrolled ? 'h-10' : 'h-12'}`}
+                className={`transition-[width] duration-300 ease-out brightness-[1.5] logo-breathe ${scrolled ? 'w-[180px]' : 'w-[220px]'}`}
+                style={{ height: 'auto' }}
                 priority
               />
             </Link>

@@ -257,7 +257,7 @@ export default function StylesPage() {
   const filtered = activeFilter === 'All' ? styles : styles.filter((s) => s.filter === activeFilter);
 
   return (
-    <div className="pt-20">
+    <div className="pt-0">
       {/* Hero */}
       <section className="aurora-bg grain py-20 sm:py-28 relative">
         <AmbientOrbs />
@@ -280,7 +280,7 @@ export default function StylesPage() {
       </section>
 
       {/* Filter Pills with sliding indicator */}
-      <section className="bg-cream sticky top-20 z-30 border-b border-cream-border">
+      <section className="bg-slate/95 backdrop-blur-xl sticky top-20 z-30 border-b border-white/10">
         <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-4">
           <div className="flex gap-2 overflow-x-auto scrollbar-hide relative">
             {filters.map((f) => (
@@ -290,7 +290,7 @@ export default function StylesPage() {
                 className={`relative px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-300 ${
                   activeFilter === f
                     ? 'text-white'
-                    : 'text-text-secondary hover:bg-cream-border'
+                    : 'text-cream/60 hover:bg-white/10'
                 }`}
               >
                 {activeFilter === f && (
