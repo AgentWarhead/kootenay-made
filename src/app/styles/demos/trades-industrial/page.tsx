@@ -333,13 +333,11 @@ export default function TradesIndustrialDemo() {
           <div className="grid grid-cols-3 gap-4 md:gap-6">
             {['Kitchen Reno', 'Bathroom Remodel', 'Emergency Repair'].map((label, i) => (
               <Reveal key={label} delay={0.15 + i * 0.1}>
-                <div
-                  className="flex items-center justify-center h-28 md:h-36 text-center px-4"
-                  style={{ backgroundColor: '#2d2d2d', border: '1px solid rgba(138,155,176,0.15)' }}
-                >
-                  <span className={`${heading.className} text-sm md:text-lg font-bold uppercase tracking-wider`} style={{ color: '#ff6a00' }}>
-                    {label}
-                  </span>
+                <div className='relative aspect-[4/3] rounded-xl overflow-hidden'>
+                  <Image src={`/images/demos/gallery/ti-${i + 1}.webp`} alt={label} fill className='object-cover' />
+                  <div className='absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-3'>
+                    <span className='text-white text-sm font-medium'>{label}</span>
+                  </div>
                 </div>
               </Reveal>
             ))}

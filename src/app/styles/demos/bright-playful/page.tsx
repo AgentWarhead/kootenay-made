@@ -305,11 +305,11 @@ export default function BrightPlayfulDemo() {
               { label: 'Story Time', color: '#a78bfa' },
             ].map((item, i) => (
               <Bounce key={item.label} delay={0.15 + i * 0.1}>
-                <div
-                  className="flex items-center justify-center h-28 md:h-36 text-center px-4 rounded-3xl"
-                  style={{ backgroundColor: item.color }}
-                >
-                  <span className="text-white font-extrabold text-sm md:text-base">{item.label}</span>
+                <div className='relative aspect-[4/3] rounded-xl overflow-hidden'>
+                  <Image src={`/images/demos/gallery/bp-${i + 1}.webp`} alt={item.label} fill className='object-cover' />
+                  <div className='absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-3'>
+                    <span className='text-white text-sm font-medium'>{item.label}</span>
+                  </div>
                 </div>
               </Bounce>
             ))}

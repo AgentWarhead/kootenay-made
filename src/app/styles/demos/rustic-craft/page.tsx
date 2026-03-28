@@ -345,39 +345,11 @@ export default function RusticCraftDemo() {
               'Seasonal Special',
             ].map((beer, i) => (
               <FadeUp key={beer} delay={i * 0.1}>
-                <div
-                  className="relative flex flex-col items-center justify-center text-center rounded-lg py-10 px-4"
-                  style={{
-                    backgroundColor: `${DARK_BROWN}ee`,
-                    border: `2px solid ${AMBER}`,
-                    boxShadow: `0 0 0 4px ${DARK_BROWN}, 0 0 0 6px ${AMBER}55`,
-                  }}
-                >
-                  {/* Inner decorative border */}
-                  <div
-                    className="absolute inset-2 rounded-md pointer-events-none"
-                    style={{ border: `1px solid ${AMBER}44` }}
-                    aria-hidden="true"
-                  />
-                  <div
-                    className="w-12 h-12 rounded-full mb-4 flex items-center justify-center text-2xl"
-                    style={{ backgroundColor: `${AMBER}22`, border: `1px solid ${AMBER}66` }}
-                    aria-hidden="true"
-                  >
-                    🍺
+                <div className='relative aspect-[4/3] rounded-xl overflow-hidden'>
+                  <Image src={`/images/demos/gallery/rc-${i + 1}.webp`} alt={beer} fill className='object-cover' />
+                  <div className='absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-3'>
+                    <span className='text-white text-sm font-medium'>{beer}</span>
                   </div>
-                  <span
-                    className={`${bitter.className} font-bold text-sm md:text-base`}
-                    style={{ color: AMBER }}
-                  >
-                    {beer}
-                  </span>
-                  <span
-                    className="text-xs mt-1 uppercase tracking-widest"
-                    style={{ color: `${PARCHMENT}88` }}
-                  >
-                    Craft Brew
-                  </span>
                 </div>
               </FadeUp>
             ))}

@@ -622,16 +622,16 @@ export default function EducationNonprofitPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
             {[
-              { label: 'Adult Programs', color: '#3b82f6', bg: 'rgba(59,130,246,0.12)' },
-              { label: 'Youth Classes', color: '#b45309', bg: 'rgba(250,204,21,0.20)' },
-              { label: 'Community Events', color: '#ea580c', bg: 'rgba(251,146,60,0.18)' },
+              { label: 'Adult Programs', img: '/images/demos/gallery/en-1.webp' },
+              { label: 'Youth Classes', img: '/images/demos/gallery/en-2.webp' },
+              { label: 'Community Events', img: '/images/demos/gallery/en-3.webp' },
             ].map((item, i) => (
               <Reveal key={item.label} delay={i * 0.1}>
-                <div
-                  className="gallery-placeholder"
-                  style={{ background: item.bg, color: item.color }}
-                >
-                  <span>{item.label}</span>
+                <div className="relative aspect-[4/3] rounded-xl overflow-hidden">
+                  <Image src={item.img} alt={item.label} fill className="object-cover" />
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-3">
+                    <span className="text-white text-sm font-medium">{item.label}</span>
+                  </div>
                 </div>
               </Reveal>
             ))}

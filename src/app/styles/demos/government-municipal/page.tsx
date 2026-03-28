@@ -593,61 +593,19 @@ export default function GovernmentMunicipalPage() {
               </div>
             </Reveal>
 
-            {/* Data cards */}
+            {/* Gallery cards */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
               {[
-                {
-                  icon: (
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke={hc ? '#000000' : '#2563eb'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                      <path d="M3 17l5-10 4 6 3-4 5 8H3z" />
-                    </svg>
-                  ),
-                  label: 'Trail Networks',
-                  desc: '45+ km of maintained trails for hiking, cycling, and cross-country skiing.',
-                },
-                {
-                  icon: (
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke={hc ? '#000000' : '#2563eb'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                      <circle cx="12" cy="12" r="10" />
-                      <line x1="2" y1="12" x2="22" y2="12" />
-                      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-                    </svg>
-                  ),
-                  label: 'Sports Facilities',
-                  desc: 'Arenas, ball diamonds, tennis courts, and multi-use sports fields region-wide.',
-                },
-                {
-                  icon: (
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke={hc ? '#000000' : '#2563eb'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                      <path d="M3 21h18" />
-                      <path d="M5 21V7l7-4 7 4v14" />
-                      <path d="M9 21v-6h6v6" />
-                    </svg>
-                  ),
-                  label: 'Community Centres',
-                  desc: 'Aquatic centres, fitness studios, and multi-purpose halls in every community.',
-                },
+                { label: 'Trail Networks', img: '/images/demos/gallery/gm-1.webp' },
+                { label: 'Sports Facilities', img: '/images/demos/gallery/gm-2.webp' },
+                { label: 'Community Centres', img: '/images/demos/gallery/gm-3.webp' },
               ].map((item, i) => (
                 <Reveal key={item.label} delay={0.15 + i * 0.1}>
-                  <div
-                    className="p-6 rounded-lg"
-                    style={{
-                      backgroundColor: C.sectionAlt,
-                      border: hc ? '2px solid #000000' : '1px solid #e2e8f0',
-                    }}
-                  >
-                    <div
-                      className="w-12 h-12 rounded-lg flex items-center justify-center mb-4"
-                      style={{ backgroundColor: hc ? '#e0e0e0' : '#dbeafe' }}
-                    >
-                      {item.icon}
+                  <div className="relative aspect-[4/3] rounded-xl overflow-hidden">
+                    <Image src={item.img} alt={item.label} fill className="object-cover" />
+                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-3">
+                      <span className="text-white text-sm font-medium">{item.label}</span>
                     </div>
-                    <h3 className="text-base font-700 mb-2" style={{ color: C.navy }}>
-                      {item.label}
-                    </h3>
-                    <p className="text-sm leading-relaxed" style={{ color: C.slate }}>
-                      {item.desc}
-                    </p>
                   </div>
                 </Reveal>
               ))}

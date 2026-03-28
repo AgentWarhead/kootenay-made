@@ -539,29 +539,17 @@ export default function MusicEntertainmentPage() {
           </Reveal>
 
           <div className="grid grid-cols-3 gap-4 md:gap-6">
-            {['Main Stage', 'Intimate Sets', 'Private Events'].map((label, i) => (
+            {[
+              { label: 'Main Stage', img: '/images/demos/gallery/me-1.webp' },
+              { label: 'Intimate Sets', img: '/images/demos/gallery/me-2.webp' },
+              { label: 'Private Events', img: '/images/demos/gallery/me-3.webp' },
+            ].map(({ label, img }, i) => (
               <Reveal key={label} delay={0.15 + i * 0.1}>
-                <div
-                  className="flex items-center justify-center h-28 md:h-36 rounded-lg text-center px-3 transition-all duration-300 cursor-default"
-                  style={{
-                    backgroundColor: '#111111',
-                    border: '1px solid rgba(233,30,138,0.2)',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = 'rgba(233,30,138,0.6)'
-                    e.currentTarget.style.boxShadow = '0 0 16px rgba(233,30,138,0.15)'
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor = 'rgba(233,30,138,0.2)'
-                    e.currentTarget.style.boxShadow = 'none'
-                  }}
-                >
-                  <span
-                    className={`${bebas.className} text-sm md:text-xl tracking-wider`}
-                    style={{ color: '#e91e8a', letterSpacing: '0.08em' }}
-                  >
-                    {label}
-                  </span>
+                <div className="relative aspect-[4/3] rounded-xl overflow-hidden">
+                  <Image src={img} alt={label} fill className="object-cover" />
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-3">
+                    <span className="text-white text-sm font-medium">{label}</span>
+                  </div>
                 </div>
               </Reveal>
             ))}

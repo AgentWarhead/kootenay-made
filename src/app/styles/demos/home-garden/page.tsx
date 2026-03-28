@@ -692,23 +692,16 @@ export default function HomeGardenDemo() {
 
           <div className="grid grid-cols-3 gap-4 md:gap-6">
             {[
-              { label: 'Residential Design', icon: '🏡' },
-              { label: 'Commercial Grounds', icon: '🌳' },
-              { label: 'Seasonal Care', icon: '🍃' },
-            ].map(({ label, icon }, i) => (
+              { label: 'Residential Design', img: '/images/demos/gallery/hg-1.webp' },
+              { label: 'Commercial Grounds', img: '/images/demos/gallery/hg-2.webp' },
+              { label: 'Seasonal Care', img: '/images/demos/gallery/hg-3.webp' },
+            ].map(({ label, img }, i) => (
               <Reveal key={label} delay={0.12 + i * 0.1}>
-                <div
-                  className="flex flex-col items-center justify-center h-28 md:h-36 text-center px-4 rounded-xl"
-                  style={{
-                    backgroundColor: C.white,
-                    border: `1px solid ${C.green}22`,
-                    boxShadow: '0 2px 8px rgba(107,154,91,0.08)',
-                  }}
-                >
-                  <span className="text-2xl mb-2">{icon}</span>
-                  <span className="text-xs md:text-sm font-medium" style={{ color: C.green }}>
-                    {label}
-                  </span>
+                <div className="relative aspect-[4/3] rounded-xl overflow-hidden">
+                  <Image src={img} alt={label} fill className="object-cover" />
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-3">
+                    <span className="text-white text-sm font-medium">{label}</span>
+                  </div>
                 </div>
               </Reveal>
             ))}

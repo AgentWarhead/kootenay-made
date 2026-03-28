@@ -286,13 +286,11 @@ export default function BoldModernDemo() {
               'EV Charger Install',
             ].map((label, i) => (
               <Reveal key={label} delay={0.1 + i * 0.1}>
-                <div
-                  className="flex items-center justify-center h-32 md:h-40 text-center px-4"
-                  style={{ backgroundColor: '#1a1a1a', border: '1px solid #222' }}
-                >
-                  <span className="text-sm md:text-base font-bold uppercase tracking-wider" style={{ color: '#ff6b00' }}>
-                    {label}
-                  </span>
+                <div className='relative aspect-[4/3] rounded-xl overflow-hidden'>
+                  <Image src={`/images/demos/gallery/bm-${i + 1}.webp`} alt={label} fill className='object-cover' />
+                  <div className='absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-3'>
+                    <span className='text-white text-sm font-medium'>{label}</span>
+                  </div>
                 </div>
               </Reveal>
             ))}

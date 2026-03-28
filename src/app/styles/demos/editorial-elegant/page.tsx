@@ -245,13 +245,11 @@ export default function EditorialElegantDemo() {
             <div className="md:col-span-2 flex flex-col gap-4 md:gap-6">
               {['Lakefront Retreat', 'Mountain Chalet', 'Downtown Nelson'].map((label, i) => (
                 <Reveal key={label} delay={0.1 + i * 0.1}>
-                  <div
-                    className="flex items-center justify-center h-28 md:flex-1 text-center px-4"
-                    style={{ backgroundColor: '#1a1a1a', minHeight: '100px' }}
-                  >
-                    <span className={`${heading.className} text-sm md:text-lg`} style={{ color: '#b8860b' }}>
-                      {label}
-                    </span>
+                  <div className='relative aspect-[4/3] rounded-xl overflow-hidden'>
+                    <Image src={`/images/demos/gallery/ee-${i + 1}.webp`} alt={label} fill className='object-cover' />
+                    <div className='absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-3'>
+                      <span className='text-white text-sm font-medium'>{label}</span>
+                    </div>
                   </div>
                 </Reveal>
               ))}

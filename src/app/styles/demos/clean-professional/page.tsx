@@ -297,17 +297,14 @@ export default function CleanProfessionalDemo() {
             whileInView="visible"
             viewport={{ once: true, margin: '-40px' }}
           >
-            {['Retirement Planning', 'Tax Strategy', 'Estate Planning', 'Business Advisory'].map((label) => (
-              <motion.div
-                key={label}
-                variants={fadeIn}
-                className="rounded-lg flex items-center justify-center text-center p-8 md:p-10"
-                style={{
-                  backgroundColor: '#1a365d',
-                  minHeight: '140px',
-                }}
-              >
-                <span className="text-white font-bold text-sm md:text-base">{label}</span>
+            {['Retirement Planning', 'Tax Strategy', 'Estate Planning', 'Business Advisory'].map((label, i) => (
+              <motion.div key={label} variants={fadeIn}>
+                <div className='relative aspect-[4/3] rounded-xl overflow-hidden'>
+                  <Image src={`/images/demos/gallery/cp-${i + 1}.webp`} alt={label} fill className='object-cover' />
+                  <div className='absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-3'>
+                    <span className='text-white text-sm font-medium'>{label}</span>
+                  </div>
+                </div>
               </motion.div>
             ))}
           </motion.div>

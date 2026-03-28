@@ -413,19 +413,12 @@ export default function WarmNaturalDemo() {
 
             {/* Gallery placeholders */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              {galleryPlaceholders.map((label) => (
-                <div
-                  key={label}
-                  className="flex items-center justify-center text-center aspect-square"
-                  style={{
-                    backgroundColor: '#7d9a6b',
-                    borderRadius: '50% 45% 55% 40% / 40% 55% 45% 50%',
-                    color: '#faf6f0',
-                  }}
-                >
-                  <span className={`${lora.className} text-sm md:text-base font-bold`}>
-                    {label}
-                  </span>
+              {galleryPlaceholders.map((label, i) => (
+                <div key={label} className='relative aspect-[4/3] rounded-xl overflow-hidden'>
+                  <Image src={`/images/demos/gallery/wn-${i + 1}.webp`} alt={label} fill className='object-cover' />
+                  <div className='absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-3'>
+                    <span className='text-white text-sm font-medium'>{label}</span>
+                  </div>
                 </div>
               ))}
             </div>

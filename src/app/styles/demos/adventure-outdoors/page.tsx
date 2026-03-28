@@ -296,13 +296,11 @@ export default function AdventureOutdoorsDemo() {
           <div className="grid grid-cols-3 gap-4 md:gap-6">
             {['Backcountry Skiing', 'Mountain Biking', 'River Rafting'].map((label, i) => (
               <Reveal key={label} delay={0.15 + i * 0.1}>
-                <div
-                  className="flex items-center justify-center h-28 md:h-36 text-center px-4"
-                  style={{ backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(249,115,22,0.15)' }}
-                >
-                  <span className={`${heading.className} text-sm md:text-lg font-bold uppercase`} style={{ color: '#f97316' }}>
-                    {label}
-                  </span>
+                <div className='relative aspect-[4/3] rounded-xl overflow-hidden'>
+                  <Image src={`/images/demos/gallery/ao-${i + 1}.webp`} alt={label} fill className='object-cover' />
+                  <div className='absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-3'>
+                    <span className='text-white text-sm font-medium'>{label}</span>
+                  </div>
                 </div>
               </Reveal>
             ))}
