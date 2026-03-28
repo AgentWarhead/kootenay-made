@@ -1,12 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import ScrollReveal from '@/components/ScrollReveal';
 import Breadcrumb from '@/components/Breadcrumb';
 import MountainDivider from '@/components/MountainDivider';
 import AmbientOrbs from '@/components/AmbientOrbs';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Search, TrendingUp, Zap, ChevronDown, ChevronUp, CheckCircle2, AlertCircle } from 'lucide-react';
+import { motion, AnimatePresence, useInView } from 'framer-motion';
+import { Search, TrendingUp, Zap, ChevronDown, ChevronUp, CheckCircle2, AlertCircle, Globe, Gauge, Shield } from 'lucide-react';
 
 const flipCards = [
   { icon: Search, title: 'First Impression Score', desc: 'We\'ll show you exactly what potential customers see — load time, mobile experience, design quality — and how it stacks up against competitors.' },
@@ -27,7 +27,7 @@ function FlipCard({ card, index }: { card: typeof flipCards[0]; index: number })
   return (
     <ScrollReveal delay={index * 0.1}>
       <div
-        className="relative h-64 cursor-pointer"
+        className="relative h-64 cursor-pointer group"
         style={{ perspective: '1000px' }}
         onClick={() => setFlipped(!flipped)}
         onMouseEnter={() => setFlipped(true)}
@@ -35,17 +35,21 @@ function FlipCard({ card, index }: { card: typeof flipCards[0]; index: number })
       >
         <motion.div
           animate={{ rotateY: flipped ? 180 : 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.6, type: 'spring', stiffness: 200, damping: 25 }}
           className="absolute inset-0"
           style={{ transformStyle: 'preserve-3d' }}
         >
           {/* Front */}
-          <div className="absolute inset-0 glass-card-light rounded-xl flex flex-col items-center justify-center p-6 backface-hidden">
+          <div className="absolute inset-0 glass-card-light rounded-xl flex flex-col items-center justify-center p-6 backface-hidden overflow-hidden">
             <div className="w-16 h-16 rounded-2xl bg-copper/10 flex items-center justify-center mb-4">
               <card.icon className="text-copper" size={28} />
             </div>
             <h3 className="font-[family-name:var(--font-satoshi)] text-lg font-bold text-slate text-center">{card.title}</h3>
             <p className="text-xs text-text-tertiary mt-2">Hover to learn more</p>
+            {/* Shine sweep on hover */}
+            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent" style={{ animation: 'shine-sweep 0.8s ease-out forwards' }} />
+            </div>
           </div>
           {/* Back */}
           <div
@@ -55,6 +59,142 @@ function FlipCard({ card, index }: { card: typeof flipCards[0]; index: number })
             <p className="text-dark-text-muted text-sm leading-relaxed text-center">{card.desc}</p>
           </div>
         </motion.div>
+      </div>
+    </ScrollReveal>
+  );
+}
+
+/* ── URL Scanner Mock ── */
+function URLScanner() {
+  const [url, setUrl] = useState('');
+  const [scanning, setScanning] = useState(false);
+  const [showResults, setShowResults] = useState(false);
+
+  function handleScan() {
+    if (!url) return;
+    setScanning(true);
+    setShowResults(false);
+    setTimeout(() => {
+      setScanning(false);
+      setShowResults(true);
+    }, 2500);
+  }
+
+  const mockResults = [
+    { label: 'Performance', score: 42, icon: Gauge, color: 'text-red-400', desc: 'Needs improvement' },
+    { label: 'SEO', score: 58, icon: Search, color: 'text-amber-400', desc: 'Below average' },
+    { label: 'Mobile', score: 35, icon: Globe, color: 'text-red-400', desc: 'Poor experience' },
+    { label: 'Security', score: 71, icon: Shield, color: 'text-amber-400', desc: 'Some issues' },
+  ];
+
+  return (
+    <div className="max-w-2xl mx-auto">
+      <ScrollReveal>
+        <div className="glass-card-dark rounded-2xl p-8 overflow-hidden">
+          <p className="text-copper text-xs font-bold uppercase tracking-widest mb-4">Quick Scan Preview</p>
+          <div className="flex gap-3 mb-4">
+            <input
+              type="text"
+              value={url}
+              onChange={(e) => { setUrl(e.target.value); setShowResults(false); }}
+              placeholder="Enter your website URL..."
+              className="flex-1 bg-slate-card border border-white/10 rounded-lg px-4 py-3 text-cream placeholder:text-dark-text-muted/40 focus:outline-none focus:border-copper focus:ring-1 focus:ring-copper/40 transition-all text-sm"
+              onKeyDown={(e) => e.key === 'Enter' && handleScan()}
+            />
+            <button
+              onClick={handleScan}
+              disabled={!url || scanning}
+              className="bg-copper hover:bg-copper-light text-white font-medium px-6 py-3 rounded-lg transition-all disabled:opacity-40 text-sm whitespace-nowrap"
+            >
+              {scanning ? 'Scanning...' : 'Scan'}
+            </button>
+          </div>
+
+          {/* Scanning bar */}
+          <AnimatePresence>
+            {scanning && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="relative h-1 bg-white/5 rounded-full overflow-hidden mb-6"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-copper to-transparent scan-bar" />
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* Results */}
+          <AnimatePresence>
+            {showResults && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                <div className="grid grid-cols-2 gap-4 mb-6">
+                  {mockResults.map((r, i) => (
+                    <motion.div
+                      key={r.label}
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: i * 0.1 }}
+                      className="bg-white/5 rounded-xl p-4 text-center"
+                    >
+                      <r.icon size={20} className={`${r.color} mx-auto mb-2`} />
+                      <div className={`font-mono text-2xl font-bold ${r.color}`}>{r.score}</div>
+                      <p className="text-cream text-xs font-medium mt-1">{r.label}</p>
+                      <p className="text-dark-text-muted text-[10px] mt-0.5">{r.desc}</p>
+                    </motion.div>
+                  ))}
+                </div>
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.5 }}
+                  className="text-center text-dark-text-muted text-xs"
+                >
+                  This is a preview. Book a free audit for a complete, personalized analysis. ↓
+                </motion.p>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      </ScrollReveal>
+    </div>
+  );
+}
+
+/* ── Spring-physics FAQ accordion ── */
+function FaqItem({ faq, isOpen, onToggle, index }: { faq: typeof faqs[0]; isOpen: boolean; onToggle: () => void; index: number }) {
+  return (
+    <ScrollReveal delay={index * 0.05}>
+      <div className="glass-card-light rounded-xl overflow-hidden">
+        <button onClick={onToggle} className="w-full flex items-center justify-between px-6 py-4 text-left">
+          <span className="font-[family-name:var(--font-satoshi)] font-semibold text-slate text-sm sm:text-base pr-4">{faq.q}</span>
+          <motion.div
+            animate={{ rotate: isOpen ? 180 : 0 }}
+            transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+          >
+            <ChevronDown size={18} className={isOpen ? 'text-copper' : 'text-text-tertiary'} />
+          </motion.div>
+        </button>
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 30, opacity: { duration: 0.2 } }}
+              className="overflow-hidden"
+            >
+              <div className="px-6 pb-4">
+                <p className="text-text-secondary text-sm leading-relaxed">{faq.a}</p>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </ScrollReveal>
   );
@@ -85,11 +225,18 @@ export default function AuditPage() {
 
   return (
     <>
-      <section className="aurora-bg grain pt-32 pb-20 relative">
+      {/* Hero with spotlight sweep */}
+      <section className="aurora-bg grain pt-32 pb-20 relative overflow-hidden">
+        {/* Spotlight effect */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <div className="absolute top-0 left-0 w-1/3 h-full bg-gradient-to-r from-transparent via-white/[0.03] to-transparent spotlight-sweep" />
+        </div>
+
         <AmbientOrbs />
         <div className="relative z-10 max-w-4xl mx-auto px-6 sm:px-10 lg:px-16 text-center">
           <Breadcrumb items={[{ label: 'Free Audit' }]} dark />
           <ScrollReveal>
+            <p className="text-copper font-[family-name:var(--font-satoshi)] font-semibold text-sm tracking-[0.2em] uppercase mb-3">The Lookout</p>
             <h1 className="font-[family-name:var(--font-satoshi)] text-4xl sm:text-5xl lg:text-6xl font-bold text-cream leading-tight mb-4">
               Is your website working as hard as you are?
             </h1>
@@ -114,6 +261,17 @@ export default function AuditPage() {
               <FlipCard key={i} card={card} index={i} />
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* URL Scanner */}
+      <section className="bg-white py-16 sm:py-20 relative">
+        <div className="max-w-5xl mx-auto px-6 sm:px-10 lg:px-16">
+          <ScrollReveal>
+            <h2 className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl font-bold text-slate text-center mb-4">See it in action</h2>
+            <p className="text-text-secondary text-center mb-10 max-w-lg mx-auto">Try our quick scanner to get a preview of your website&apos;s health. The full audit goes much deeper.</p>
+          </ScrollReveal>
+          <URLScanner />
         </div>
       </section>
 
@@ -170,7 +328,7 @@ export default function AuditPage() {
 
       <MountainDivider variant={3} fillColor="#F8F4F0" />
 
-      {/* FAQ */}
+      {/* FAQ with spring physics */}
       <section className="bg-cream py-16 sm:py-20 cedar-texture relative">
         <div className="max-w-2xl mx-auto px-6 sm:px-10 lg:px-16">
           <ScrollReveal>
@@ -178,23 +336,13 @@ export default function AuditPage() {
           </ScrollReveal>
           <div className="space-y-3">
             {faqs.map((faq, i) => (
-              <ScrollReveal key={i} delay={i * 0.05}>
-                <div className="glass-card-light rounded-xl overflow-hidden">
-                  <button onClick={() => setOpenFaq(openFaq === i ? null : i)} className="w-full flex items-center justify-between px-6 py-4 text-left">
-                    <span className="font-[family-name:var(--font-satoshi)] font-semibold text-slate text-sm sm:text-base pr-4">{faq.q}</span>
-                    {openFaq === i ? <ChevronUp size={18} className="text-copper shrink-0" /> : <ChevronDown size={18} className="text-text-tertiary shrink-0" />}
-                  </button>
-                  <AnimatePresence>
-                    {openFaq === i && (
-                      <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.2 }} className="overflow-hidden">
-                        <div className="px-6 pb-4">
-                          <p className="text-text-secondary text-sm leading-relaxed">{faq.a}</p>
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              </ScrollReveal>
+              <FaqItem
+                key={i}
+                faq={faq}
+                index={i}
+                isOpen={openFaq === i}
+                onToggle={() => setOpenFaq(openFaq === i ? null : i)}
+              />
             ))}
           </div>
         </div>

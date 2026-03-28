@@ -1,8 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import ScrollReveal from '@/components/ScrollReveal';
 import Breadcrumb from '@/components/Breadcrumb';
 import { ArrowRight, Palette } from 'lucide-react';
@@ -190,58 +190,64 @@ const styles = [
   },
 ];
 
-function StyleMockup({ style }: { style: typeof styles[0] }) {
+function StyleMockup({ style, index }: { style: typeof styles[0]; index: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
+  const y = useTransform(scrollYProgress, [0, 1], [20, -20]);
+
   return (
-    <div className={`${style.mockup.bg} rounded-xl overflow-hidden shadow-2xl border border-white/10`}>
-      {/* Mock Nav */}
-      <div className={`${style.mockup.nav} px-4 py-2.5 flex items-center justify-between`}>
-        <span className={`${style.mockup.navText} text-xs font-bold tracking-wide`} style={{ fontFamily: style.mockup.headingFont }}>
-          BRAND
-        </span>
-        <div className="flex gap-3">
-          {style.mockup.cards.map((c) => (
-            <span key={c} className={`${style.mockup.navText} text-[10px] opacity-60 hidden sm:inline`}>{c}</span>
-          ))}
-          <span className="inline-block w-12 h-5 rounded text-[10px] font-medium flex items-center justify-center" style={{ backgroundColor: style.mockup.accent, color: '#fff' }}>
-            CTA
+    <motion.div ref={ref} style={{ y }} className="group/mockup">
+      <div className={`${style.mockup.bg} rounded-xl overflow-hidden shadow-2xl border border-white/10 transition-all duration-300`}>
+        {/* Mock Nav */}
+        <div className={`${style.mockup.nav} px-4 py-2.5 flex items-center justify-between`}>
+          <span className={`${style.mockup.navText} text-xs font-bold tracking-wide`} style={{ fontFamily: style.mockup.headingFont }}>
+            BRAND
           </span>
-        </div>
-      </div>
-      {/* Mock Hero */}
-      <div className="px-6 sm:px-10 py-10 sm:py-14">
-        <h3
-          className={`${style.mockup.navText} text-xl sm:text-3xl font-bold leading-tight mb-2`}
-          style={{ fontFamily: style.mockup.headingFont }}
-        >
-          {style.mockup.heroTitle}
-        </h3>
-        <p
-          className={`${style.mockup.navText} opacity-60 text-xs sm:text-sm mb-5`}
-          style={{ fontFamily: style.mockup.bodyFont }}
-        >
-          {style.mockup.heroSub}
-        </p>
-        <span
-          className={`${style.mockup.ctaBg} ${style.mockup.ctaText} text-xs font-semibold px-4 py-2 rounded-md inline-block`}
-        >
-          Get Started →
-        </span>
-      </div>
-      {/* Mock Cards */}
-      <div className="px-6 sm:px-10 pb-8 grid grid-cols-3 gap-3">
-        {style.mockup.cards.map((card) => (
-          <div
-            key={card}
-            className="rounded-lg p-3 text-center"
-            style={{ backgroundColor: `${style.mockup.accent}15`, border: `1px solid ${style.mockup.accent}30` }}
-          >
-            <span className={`${style.mockup.navText} text-[10px] sm:text-xs font-medium`} style={{ fontFamily: style.mockup.bodyFont }}>
-              {card}
+          <div className="flex gap-3">
+            {style.mockup.cards.map((c) => (
+              <span key={c} className={`${style.mockup.navText} text-[10px] opacity-60 hidden sm:inline group-hover/mockup:underline group-hover/mockup:underline-offset-2 transition-all`}>{c}</span>
+            ))}
+            <span className="inline-block w-12 h-5 rounded text-[10px] font-medium flex items-center justify-center" style={{ backgroundColor: style.mockup.accent, color: '#fff' }}>
+              CTA
             </span>
           </div>
-        ))}
+        </div>
+        {/* Mock Hero */}
+        <div className="px-6 sm:px-10 py-10 sm:py-14">
+          <h3
+            className={`${style.mockup.navText} text-xl sm:text-3xl font-bold leading-tight mb-2`}
+            style={{ fontFamily: style.mockup.headingFont }}
+          >
+            {style.mockup.heroTitle}
+          </h3>
+          <p
+            className={`${style.mockup.navText} opacity-60 text-xs sm:text-sm mb-5`}
+            style={{ fontFamily: style.mockup.bodyFont }}
+          >
+            {style.mockup.heroSub}
+          </p>
+          <span
+            className={`${style.mockup.ctaBg} ${style.mockup.ctaText} text-xs font-semibold px-4 py-2 rounded-md inline-block transition-transform duration-200 group-hover/mockup:translate-y-[1px] group-hover/mockup:shadow-sm`}
+          >
+            Get Started →
+          </span>
+        </div>
+        {/* Mock Cards */}
+        <div className="px-6 sm:px-10 pb-8 grid grid-cols-3 gap-3">
+          {style.mockup.cards.map((card) => (
+            <div
+              key={card}
+              className="rounded-lg p-3 text-center"
+              style={{ backgroundColor: `${style.mockup.accent}15`, border: `1px solid ${style.mockup.accent}30` }}
+            >
+              <span className={`${style.mockup.navText} text-[10px] sm:text-xs font-medium`} style={{ fontFamily: style.mockup.bodyFont }}>
+                {card}
+              </span>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -258,6 +264,7 @@ export default function StylesPage() {
         <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 text-center">
           <Breadcrumb items={[{ label: 'Styles' }]} dark />
           <ScrollReveal>
+            <p className="text-copper font-[family-name:var(--font-satoshi)] font-semibold text-sm tracking-[0.2em] uppercase mb-3">The Gallery</p>
             <div className="inline-flex items-center gap-2 bg-copper/10 text-copper px-4 py-1.5 rounded-full text-sm font-medium mb-6">
               <Palette size={16} />
               Style Menu
@@ -272,21 +279,28 @@ export default function StylesPage() {
         </div>
       </section>
 
-      {/* Filter Pills */}
+      {/* Filter Pills with sliding indicator */}
       <section className="bg-cream sticky top-20 z-30 border-b border-cream-border">
         <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-4">
-          <div className="flex gap-2 overflow-x-auto scrollbar-hide">
+          <div className="flex gap-2 overflow-x-auto scrollbar-hide relative">
             {filters.map((f) => (
               <button
                 key={f}
                 onClick={() => setActiveFilter(f)}
-                className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-200 ${
+                className={`relative px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-300 ${
                   activeFilter === f
-                    ? 'bg-copper text-white'
-                    : 'bg-cream-dark text-text-secondary hover:bg-cream-border'
+                    ? 'text-white'
+                    : 'text-text-secondary hover:bg-cream-border'
                 }`}
               >
-                {f}
+                {activeFilter === f && (
+                  <motion.div
+                    layoutId="filter-pill"
+                    className="absolute inset-0 bg-copper rounded-full"
+                    transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                  />
+                )}
+                <span className="relative z-10">{f}</span>
               </button>
             ))}
           </div>
@@ -306,9 +320,9 @@ export default function StylesPage() {
                 <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
                   <ScrollReveal>
                     <div className={`grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center ${i % 2 === 1 ? 'lg:grid-flow-dense' : ''}`}>
-                      {/* Mockup */}
+                      {/* Mockup with parallax */}
                       <div className={i % 2 === 1 ? 'lg:col-start-2' : ''}>
-                        <StyleMockup style={style} />
+                        <StyleMockup style={style} index={i} />
                       </div>
 
                       {/* Details */}
@@ -329,21 +343,25 @@ export default function StylesPage() {
                           {style.description}
                         </p>
 
-                        {/* Perfect For */}
+                        {/* Perfect For — staggered entrance */}
                         <div className="mb-6">
                           <span className={`text-xs font-semibold uppercase tracking-wider ${isDark ? 'text-dark-text-muted' : 'text-text-tertiary'}`}>
                             Perfect for:
                           </span>
                           <div className="flex flex-wrap gap-2 mt-2">
-                            {style.perfectFor.map((tag) => (
-                              <span
+                            {style.perfectFor.map((tag, tagIdx) => (
+                              <motion.span
                                 key={tag}
+                                initial={{ opacity: 0, y: 10 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: tagIdx * 0.08, duration: 0.4 }}
                                 className={`px-3 py-1 rounded-full text-xs font-medium ${
                                   isDark ? 'bg-white/10 text-cream' : 'bg-cream-dark text-text-primary'
                                 }`}
                               >
                                 {tag}
-                              </span>
+                              </motion.span>
                             ))}
                           </div>
                         </div>

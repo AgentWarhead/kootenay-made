@@ -38,6 +38,83 @@ function DrawIcon({ d, viewBox = '0 0 24 24', delay = 0 }: { d: string; viewBox?
   );
 }
 
+/* ── Value icon that fills from greyscale to copper on scroll ── */
+function ValueIcon({ d, delay = 0 }: { d: string; delay?: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: '-30px' });
+
+  return (
+    <motion.div
+      ref={ref}
+      className="w-12 h-12 rounded-xl bg-copper/10 flex items-center justify-center shrink-0"
+      initial={{ filter: 'grayscale(1)' }}
+      animate={inView ? { filter: 'grayscale(0)' } : {}}
+      transition={{ duration: 0.8, delay: delay + 0.3 }}
+    >
+      <DrawIcon d={d} delay={delay} />
+    </motion.div>
+  );
+}
+
+/* ── Currently widget ── */
+function CurrentlyWidget() {
+  const items = [
+    { label: 'Currently building', value: 'Kootenay Made Digital', icon: '🔨' },
+    { label: 'Currently located', value: 'Castlegar, BC', icon: '⛰️' },
+    { label: 'Currently available', value: 'New clients welcome', icon: '✓', highlight: true },
+  ];
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.6, duration: 0.6 }}
+      className="mt-8 inline-block"
+    >
+      <div className="glass-card-dark rounded-xl p-5 max-w-xs">
+        <p className="text-copper text-xs font-semibold uppercase tracking-widest mb-3">Currently</p>
+        <div className="space-y-3">
+          {items.map((item) => (
+            <div key={item.label} className="flex items-center gap-3">
+              <span className="text-sm">{item.icon}</span>
+              <div>
+                <p className="text-dark-text-muted text-[10px] uppercase tracking-wider">{item.label}</p>
+                <p className={`text-sm font-medium ${item.highlight ? 'text-forest-light' : 'text-cream'}`}>
+                  {item.value}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+/* ── Logo reveal with clip-path wipe ── */
+function LogoReveal() {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: '-60px' });
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ clipPath: 'inset(0 100% 0 0)' }}
+      animate={inView ? { clipPath: 'inset(0 0% 0 0)' } : {}}
+      transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+      className="w-48 md:w-64 shrink-0"
+    >
+      <Image
+        src="/brand/kmd-stacked-nobg.png"
+        alt="Kootenay Made Digital"
+        width={256}
+        height={256}
+        className="w-full h-auto brightness-[1.5]"
+      />
+    </motion.div>
+  );
+}
+
 const values = [
   {
     title: 'Rooted Here',
@@ -61,26 +138,50 @@ const values = [
   },
 ];
 
+const storyParagraphs = [
+  "Kootenay Made Digital started with a simple observation: the businesses in the West Kootenays are incredible — but their websites? Not so much.",
+  "I'm a Castlegar-based developer who's spent years building digital products and learning what actually works online. Not just what looks pretty — what brings in customers, builds trust, and makes the phone ring.",
+  "What makes Kootenay Made different? I use modern AI-powered tools alongside traditional design skills. This means I can deliver the quality of work you'd expect from a big-city agency — but faster and at prices that make sense for a Kootenay business. No bloated teams. No six-month timelines. No $15,000 invoices.",
+  "But technology is only half the story. The other half is being here. Being part of this community. Understanding that the plumber in Trail has different needs than the yoga studio in Nelson. Knowing that \"let's grab a coffee and figure this out\" is worth more than a hundred Zoom calls.",
+];
+
 export default function AboutPage() {
   return (
     <>
-      {/* Header */}
-      <section className="aurora-bg grain pt-32 pb-20 relative">
+      {/* Header with topo lines */}
+      <section className="aurora-bg grain pt-32 pb-20 relative overflow-hidden">
+        {/* Subtle topographic line pattern */}
+        <div className="absolute inset-0 opacity-[0.06] pointer-events-none topo-grid">
+          <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="topo-about" patternUnits="userSpaceOnUse" width="200" height="200">
+                <path d="M0 100 Q50 80, 100 100 T200 100" fill="none" stroke="#C17817" strokeWidth="0.5" />
+                <path d="M0 60 Q50 40, 100 60 T200 60" fill="none" stroke="#C17817" strokeWidth="0.5" />
+                <path d="M0 140 Q50 120, 100 140 T200 140" fill="none" stroke="#C17817" strokeWidth="0.5" />
+                <path d="M0 180 Q60 160, 120 180 T200 170" fill="none" stroke="#C17817" strokeWidth="0.3" />
+                <path d="M0 20 Q40 10, 80 25 T200 30" fill="none" stroke="#C17817" strokeWidth="0.3" />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#topo-about)" />
+          </svg>
+        </div>
+
         <AmbientOrbs />
         <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
           <Breadcrumb items={[{ label: 'About' }]} dark />
           <ScrollReveal>
-            <p className="text-copper-light font-medium text-sm tracking-wider uppercase mb-3">About</p>
+            <p className="text-copper font-[family-name:var(--font-satoshi)] font-semibold text-sm tracking-[0.2em] uppercase mb-3">The Basecamp</p>
             <h1 className="font-[family-name:var(--font-satoshi)] text-4xl sm:text-5xl md:text-6xl font-bold text-cream leading-tight max-w-3xl">
               A neighbour who happens to build great websites.
             </h1>
           </ScrollReveal>
+          <CurrentlyWidget />
         </div>
       </section>
 
       <MountainDivider variant={1} fillColor="#F8F4F0" />
 
-      {/* Story — text paragraphs fade up on scroll */}
+      {/* Story — alternating slide-in */}
       <section className="bg-cream py-20 sm:py-24 cedar-texture relative">
         <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
           <div className="max-w-3xl">
@@ -90,27 +191,33 @@ export default function AboutPage() {
               </h2>
             </ScrollReveal>
             <div className="space-y-6 text-text-secondary text-lg leading-relaxed">
-              {[
-                "Kootenay Made Digital started with a simple observation: the businesses in the West Kootenays are incredible — but their websites? Not so much.",
-                "I'm a Castlegar-based developer who's spent years building digital products and learning what actually works online. Not just what looks pretty — what brings in customers, builds trust, and makes the phone ring.",
-                "What makes Kootenay Made different? I use modern AI-powered tools alongside traditional design skills. This means I can deliver the quality of work you'd expect from a big-city agency — but faster and at prices that make sense for a Kootenay business. No bloated teams. No six-month timelines. No $15,000 invoices.",
-                "But technology is only half the story. The other half is being here. Being part of this community. Understanding that the plumber in Trail has different needs than the yoga studio in Nelson. Knowing that \"let's grab a coffee and figure this out\" is worth more than a hundred Zoom calls.",
-              ].map((text, i) => (
-                <ScrollReveal key={i} delay={i * 0.1}>
+              {storyParagraphs.map((text, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, x: i % 2 === 0 ? -40 : 40 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ duration: 0.7, delay: i * 0.15, ease: [0.16, 1, 0.3, 1] }}
+                >
                   <p>{text}</p>
-                </ScrollReveal>
+                </motion.div>
               ))}
-              <ScrollReveal delay={0.4}>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+              >
                 <p className="text-slate font-medium">
                   Every business in the Kootenays deserves a digital presence that matches the quality of their work. That&apos;s what we&apos;re here to build.
                 </p>
-              </ScrollReveal>
+              </motion.div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Values with SVG draw animation */}
+      {/* Values with greyscale → copper fill */}
       <section className="bg-white py-20 sm:py-24 relative">
         <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
           <ScrollReveal>
@@ -123,9 +230,7 @@ export default function AboutPage() {
             {values.map((v, i) => (
               <ScrollReveal key={v.title} delay={i * 0.1}>
                 <div className="flex gap-5">
-                  <div className="w-12 h-12 rounded-xl bg-copper/10 flex items-center justify-center shrink-0">
-                    <DrawIcon d={v.iconPath} delay={i * 0.15} />
-                  </div>
+                  <ValueIcon d={v.iconPath} delay={i * 0.15} />
                   <div>
                     <h3 className="font-[family-name:var(--font-satoshi)] text-lg font-bold text-slate mb-2">{v.title}</h3>
                     <p className="text-text-secondary text-sm leading-relaxed">{v.desc}</p>
@@ -139,7 +244,7 @@ export default function AboutPage() {
 
       <MountainDivider variant={2} fillColor="#1A1D20" />
 
-      {/* Why Kootenay Made — with stacked logo */}
+      {/* Why Kootenay Made — with logo reveal */}
       <section className="bg-slate grain py-20 sm:py-24 relative">
         <AmbientOrbs />
         <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
@@ -157,17 +262,7 @@ export default function AboutPage() {
                 </p>
               </ScrollReveal>
             </div>
-            <ScrollReveal delay={0.2}>
-              <div className="w-48 md:w-64 shrink-0">
-                <Image
-                  src="/brand/kmd-stacked-nobg.png"
-                  alt="Kootenay Made Digital"
-                  width={256}
-                  height={256}
-                  className="w-full h-auto brightness-[1.5]"
-                />
-              </div>
-            </ScrollReveal>
+            <LogoReveal />
           </div>
         </div>
       </section>
