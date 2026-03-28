@@ -79,19 +79,19 @@ export default function Navigation() {
                 height={120}
                 quality={100}
                 unoptimized
-                className={`w-auto transition-[height] duration-300 ease-out brightness-[1.5] logo-breathe ${scrolled ? 'h-10' : 'h-12'}`}
+                className={`w-auto transition-[height] duration-300 ease-out brightness-[1.5] logo-breathe ${scrolled ? 'h-8' : 'h-10'}`}
                 priority
               />
             </Link>
 
             {/* Desktop nav */}
-            <div className="hidden md:flex items-center gap-8">
+            <div className="hidden md:flex items-center gap-7">
               {links.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
                   className={`relative font-[family-name:var(--font-satoshi)] text-sm font-medium tracking-wide transition-colors duration-300 py-1 group ${
-                    isActive(link.href) ? 'text-cream' : 'text-dark-text-muted hover:text-cream'
+                    isActive(link.href) ? 'text-copper' : 'text-dark-text-muted hover:text-cream'
                   }`}
                   style={{ textShadow: undefined }}
                   onMouseEnter={(e) => { e.currentTarget.style.textShadow = '0 0 8px rgba(193,120,23,0.3)'; }}
