@@ -4,17 +4,33 @@ import Footer from '@/components/Footer';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Kootenay Made Digital — Locally Crafted Digital',
-  description: 'Modern websites, brands, and marketing for West Kootenay businesses. Based in Castlegar, BC.',
+  title: {
+    default: 'Kootenay Made Digital — Locally Crafted Digital',
+    template: '%s | Kootenay Made Digital',
+  },
+  description: 'Modern websites, brands, and marketing for West Kootenay businesses. Based in Castlegar, BC. Websites from $1,500.',
   metadataBase: new URL('https://kootenaymade.ca'),
+  alternates: { canonical: '/' },
   openGraph: {
     title: 'Kootenay Made Digital — Locally Crafted Digital',
-    description: 'Modern websites, brands, and marketing for West Kootenay businesses.',
+    description: 'Modern websites, brands, and marketing for West Kootenay businesses. Based in Castlegar, BC.',
     url: 'https://kootenaymade.ca',
     siteName: 'Kootenay Made Digital',
     locale: 'en_CA',
     type: 'website',
+    images: [{ url: '/og-image.svg', width: 1200, height: 630, alt: 'Kootenay Made Digital' }],
   },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Kootenay Made Digital — Locally Crafted Digital',
+    description: 'Modern websites, brands, and marketing for West Kootenay businesses.',
+    images: ['/og-image.svg'],
+  },
+  icons: {
+    icon: '/favicon.svg',
+    shortcut: '/favicon.svg',
+  },
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({
@@ -34,6 +50,35 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'LocalBusiness',
+              '@id': 'https://kootenaymade.ca',
+              name: 'Kootenay Made Digital',
+              description: 'Modern websites, brands, and marketing for West Kootenay businesses. Based in Castlegar, BC.',
+              url: 'https://kootenaymade.ca',
+              email: 'hello@kootenaymade.ca',
+              foundingDate: '2026',
+              areaServed: {
+                '@type': 'GeoCircle',
+                geoMidpoint: { '@type': 'GeoCoordinates', latitude: 49.3, longitude: -117.6 },
+                geoRadius: '100000',
+              },
+              address: {
+                '@type': 'PostalAddress',
+                addressLocality: 'Castlegar',
+                addressRegion: 'BC',
+                addressCountry: 'CA',
+              },
+              sameAs: [],
+              priceRange: '$$',
+              serviceType: ['Web Design', 'Brand Design', 'Digital Marketing', 'SEO', 'E-Commerce'],
+            }),
+          }}
+        />
       </body>
     </html>
   );

@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { ArrowRight, Mountain, Heart, Cpu, Users } from 'lucide-react';
 import ScrollReveal from '@/components/ScrollReveal';
+import Breadcrumb from '@/components/Breadcrumb';
 
 const values = [
   { icon: Mountain, title: 'Rooted Here', desc: 'Not a remote agency. We live, work, and shop in the same community as our clients.' },
@@ -17,6 +18,7 @@ export default function AboutPage() {
       {/* Header */}
       <section className="bg-slate grain pt-32 pb-20">
         <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
+          <Breadcrumb items={[{ label: 'About' }]} dark />
           <ScrollReveal>
             <p className="text-copper-light font-medium text-sm tracking-wider uppercase mb-3">About</p>
             <h1 className="font-[family-name:var(--font-satoshi)] text-4xl sm:text-5xl md:text-6xl font-bold text-cream leading-tight max-w-3xl">

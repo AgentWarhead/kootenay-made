@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import ScrollReveal from '@/components/ScrollReveal';
+import Breadcrumb from '@/components/Breadcrumb';
 import { ArrowRight, Palette } from 'lucide-react';
 
 const filters = ['All', 'Clean', 'Bold', 'Warm', 'Rustic', 'Dark', 'Playful', 'Editorial', 'Adventure'];
@@ -252,6 +253,7 @@ export default function StylesPage() {
       {/* Hero */}
       <section className="bg-slate grain py-20 sm:py-28">
         <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 text-center">
+          <Breadcrumb items={[{ label: 'Styles' }]} dark />
           <ScrollReveal>
             <div className="inline-flex items-center gap-2 bg-copper/10 text-copper px-4 py-1.5 rounded-full text-sm font-medium mb-6">
               <Palette size={16} />

@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Clock, Tag } from 'lucide-react';
+import Breadcrumb from '@/components/Breadcrumb';
 
 const posts = [
   {
@@ -34,6 +35,7 @@ export default function BlogPage() {
       {/* Hero */}
       <section className="bg-slate grain py-20 sm:py-24">
         <div className="relative z-10 max-w-4xl mx-auto px-6 sm:px-10 lg:px-16 text-center">
+          <Breadcrumb items={[{ label: 'Blog' }]} dark />
           <h1 className="font-[family-name:var(--font-satoshi)] text-4xl sm:text-5xl font-bold text-cream mb-4">
             The KMD Blog
           </h1>

@@ -1,0 +1,140 @@
+# Kootenay Made Digital — Complete Business Information
+
+> Locally crafted digital. Modern websites, brands, and marketing for West Kootenay businesses.
+
+## About
+Kootenay Made Digital is a web design and digital marketing agency founded in 2026, based in Castlegar, British Columbia, Canada. We specialize in serving small and medium businesses across the West Kootenay region. Our mission is to give local businesses a digital presence as impressive as the mountains around them.
+
+We combine modern web technology (Next.js, React, Tailwind CSS) with AI-powered tools to deliver websites and digital experiences that are fast, beautiful, and effective. Every project is locally crafted with the same care and attention that Kootenay makers put into their own work.
+
+## Service Area
+West Kootenay region of British Columbia, including:
+- Castlegar (home base)
+- Nelson
+- Trail
+- Rossland
+- Nakusp
+- Warfield
+- Fruitvale
+- Salmo
+- New Denver
+- Kaslo
+- And all surrounding communities
+
+## Complete Service List
+
+### Entry Points
+1. **Free AI Website Audit** — $0
+   - 30-minute walkthrough of your current website
+   - Performance, SEO, mobile, and design analysis
+   - Actionable improvement plan
+   - No sales pitch, no obligation
+
+2. **Google Domination Package** — $500 (one-time)
+   - Google Business Profile setup and optimization
+   - Local SEO foundation
+   - NAP consistency audit
+   - Review strategy setup
+
+3. **Social Media Launchpad** — $500 (one-time)
+   - Platform setup and optimization
+   - Content strategy
+   - Brand consistency across channels
+
+### Core Services
+4. **Modern Business Website** — $1,500–$4,000
+   - Custom design from 8 curated styles
+   - Mobile-responsive, fast-loading
+   - SEO-optimized from day one
+   - Content management capabilities
+   - Contact forms and lead capture
+   - Google Analytics integration
+   - 2-4 week delivery
+
+5. **Email Marketing Engine** — $750–$1,500 setup
+   - Platform setup (Klaviyo, Mailchimp, etc.)
+   - Welcome series automation
+   - Abandoned cart flows (for e-commerce)
+   - Newsletter templates
+   - List building strategy
+
+6. **AI Business Setup** — $1,500 flat
+   - Claude Pro installation and configuration
+   - 5 custom AI workflows for your business
+   - 1.5-hour training session
+   - 30-day support
+   - Cheat sheet and documentation
+   - Client pays $20/mo for Claude Pro directly to Anthropic
+
+### Premium Services
+7. **Shopify E-Commerce** — $3,000–$6,000
+   - Full Shopify store setup
+   - Product photography styling
+   - Payment and shipping configuration
+   - Inventory management
+   - Email marketing integration
+
+8. **Full Brand Build** — $4,000–$8,000
+   - Logo design (3 concepts, unlimited revisions)
+   - Color palette and typography system
+   - Brand voice and messaging guide
+   - Business card and stationery design
+   - Social media templates
+   - Brand guidelines document
+
+### Monthly Retainers
+9. **Essential** — $150/month
+   - Website updates and maintenance
+   - Uptime monitoring
+   - 1 hour of support per month
+   - Monthly performance report
+
+10. **Growth** — $300/month
+    - Everything in Essential
+    - SEO optimization and reporting
+    - 1 blog post per month
+    - Google Analytics insights
+    - Quarterly strategy call
+
+11. **Premium** — $500/month
+    - Everything in Growth
+    - Email campaign management
+    - Social media content
+    - Priority support
+    - Monthly strategy call
+
+### Add-ons
+- FAQ Chatbot Widget — $200–$300 (with website purchase)
+
+## Design Styles (8 Curated Options)
+
+1. **Clean & Professional** — White/light, lots of whitespace, blue accents. Perfect for: law firms, accounting, medical practices, consulting.
+
+2. **Bold & Modern** — Strong colors, geometric shapes, dark backgrounds. Perfect for: tech companies, trades, startups, fitness studios.
+
+3. **Warm & Natural** — Earth tones, organic shapes, soft gradients. Perfect for: wellness practitioners, yoga studios, therapy practices, naturopaths.
+
+4. **Rustic Craft** — Textured backgrounds, handwritten accents, vintage warmth. Perfect for: breweries, bakeries, artisan shops, farm-to-table restaurants.
+
+5. **Sleek & Dark** — Dark backgrounds, dramatic lighting, cinematic feel. Perfect for: restaurants, bars, automotive, luxury services.
+
+6. **Bright & Playful** — Vibrant colors, rounded corners, bouncy animations. Perfect for: kids' services, pet businesses, retail, entertainment.
+
+7. **Editorial & Elegant** — Magazine layout, serif headlines, sophisticated spacing. Perfect for: real estate, fashion boutiques, salons, galleries.
+
+8. **Adventure & Outdoors** — Big hero images, dynamic layout, bold type. Perfect for: tourism companies, guides, ski resorts, outdoor recreation.
+
+## Technology Stack
+- Next.js 15 (React framework)
+- Tailwind CSS 4
+- Framer Motion (animations)
+- Vercel (hosting)
+- Fontshare typography (Satoshi + General Sans)
+- AI-powered development workflow
+
+## Contact Information
+- **Email:** hello@kootenaymade.ca
+- **Location:** Castlegar, BC, Canada
+- **Website:** https://kootenaymade.ca
+- **Founded:** 2026
+- **Response Time:** Usually within 24 hours

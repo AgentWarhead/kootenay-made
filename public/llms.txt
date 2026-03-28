@@ -1,0 +1,30 @@
+# Kootenay Made Digital
+
+> Locally crafted digital. Modern websites, brands, and marketing for West Kootenay businesses.
+
+## Overview
+Kootenay Made Digital is a web design and digital marketing agency based in Castlegar, British Columbia, Canada. Founded in 2026, we serve small businesses across the West Kootenay region including Castlegar, Nelson, Trail, Rossland, and surrounding communities.
+
+## Services
+- **Modern Business Website** — $1,500–$4,000. Custom-designed, mobile-responsive websites built with Next.js.
+- **Full Brand Build** — $4,000–$8,000. Logo, colors, voice, typography, and full brand identity.
+- **Shopify E-Commerce** — $3,000–$6,000. Online stores that sell while you sleep.
+- **Email Marketing Engine** — $750–$1,500. Automated flows that nurture and convert.
+- **AI Business Setup** — $1,500. AI workflows, training, and 30-day support.
+- **Google Domination Package** — $500. Google Business Profile + local SEO.
+- **Social Media Launchpad** — $500. Social presence setup and strategy.
+- **Free AI Website Audit** — $0. 30-minute honest website review.
+
+## Monthly Retainers
+- Essential — $150/mo (updates, monitoring, 1hr support)
+- Growth — $300/mo (Essential + SEO + content + analytics)
+- Premium — $500/mo (Growth + email campaigns + social)
+
+## Design Styles
+We offer 8 curated website styles: Clean & Professional, Bold & Modern, Warm & Natural, Rustic Craft, Sleek & Dark, Bright & Playful, Editorial & Elegant, Adventure & Outdoors.
+
+## Contact
+- Email: hello@kootenaymade.ca
+- Location: Castlegar, BC, Canada
+- Service Area: West Kootenay region (Castlegar, Nelson, Trail, Rossland, Nakusp, and surrounding communities)
+- Website: https://kootenaymade.ca
