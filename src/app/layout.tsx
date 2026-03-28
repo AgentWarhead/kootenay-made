@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
-import SmoothScroll from '@/components/SmoothScroll';
 import ScrollProgress from '@/components/ScrollProgress';
 import GoldenHourScroll from '@/components/GoldenHourScroll';
 import PageTransition from '@/components/PageTransition';
@@ -56,20 +55,18 @@ export default function RootLayout({
         <link rel="preload" href="/fonts/general-sans/GeneralSans-Variable.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
       </head>
       <body className="min-h-full flex flex-col font-[family-name:var(--font-general)]">
-        <SmoothScroll>
-          <ScrollProgress />
-          <GoldenHourScroll />
-          <Navigation />
-          <main id="main-content" className="flex-1">
-            <PageTransition>
-              {children}
-            </PageTransition>
-          </main>
-          <Footer />
-          <ScrollToTop />
-          <AmbientSound />
-          <SeasonalTheme />
-        </SmoothScroll>
+        <ScrollProgress />
+        <GoldenHourScroll />
+        <Navigation />
+        <main id="main-content" className="flex-1">
+          <PageTransition>
+            {children}
+          </PageTransition>
+        </main>
+        <Footer />
+        <ScrollToTop />
+        <AmbientSound />
+        <SeasonalTheme />
         {/* Easter egg console message */}
         <script
           dangerouslySetInnerHTML={{
