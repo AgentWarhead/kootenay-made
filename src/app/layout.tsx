@@ -1,10 +1,8 @@
 import type { Metadata } from 'next';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
-import ScrollProgress from '@/components/ScrollProgress';
 import GoldenHourScroll from '@/components/GoldenHourScroll';
 import PageTransition from '@/components/PageTransition';
-import ScrollToTop from '@/components/ScrollToTop';
 import AmbientSound from '@/components/AmbientSound';
 import SeasonalTheme from '@/components/SeasonalTheme';
 import './globals.css';
@@ -55,7 +53,6 @@ export default function RootLayout({
         <link rel="preload" href="/fonts/general-sans/GeneralSans-Variable.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
       </head>
       <body className="min-h-full flex flex-col font-[family-name:var(--font-general)]">
-        <ScrollProgress />
         <GoldenHourScroll />
         <Navigation />
         <main id="main-content" className="flex-1">
@@ -64,7 +61,6 @@ export default function RootLayout({
           </PageTransition>
         </main>
         <Footer />
-        <ScrollToTop />
         <AmbientSound />
         <SeasonalTheme />
         {/* Easter egg console message */}

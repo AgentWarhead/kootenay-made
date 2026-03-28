@@ -3,7 +3,8 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { motion, AnimatePresence } from 'framer-motion';
+import { usePathname } from 'next/navigation';
+import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 
 const links = [
@@ -19,6 +20,12 @@ const links = [
 export default function Navigation() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const pathname = usePathname();
+
+  // Scroll progress integrated into nav
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
+  const [showProgress, setShowProgress] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -27,8 +34,23 @@ export default function Navigation() {
   }, []);
 
   useEffect(() => {
+    const unsub = scrollYProgress.on('change', (v) => setShowProgress(v > 0.01));
+    return unsub;
+  }, [scrollYProgress]);
+
+  useEffect(() => {
     document.body.style.overflow = mobileOpen ? 'hidden' : '';
   }, [mobileOpen]);
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [pathname]);
+
+  const isActive = (href: string) => {
+    if (href === '/') return pathname === '/';
+    return pathname.startsWith(href);
+  };
 
   return (
     <>
@@ -38,40 +60,51 @@ export default function Navigation() {
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
-            ? 'bg-cream/80 backdrop-blur-xl shadow-sm border-b border-cream-border/50'
+            ? 'bg-slate/80 backdrop-blur-xl shadow-lg border-b border-white/5'
             : 'bg-transparent'
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
           <div className="flex items-center justify-between h-20">
+            {/* Logo with breathing animation */}
             <Link href="/" className="relative z-10 flex items-center">
               <Image
                 src="/brand/kmd-horizontal-nobg.png"
                 alt="Kootenay Made Digital"
                 width={200}
                 height={40}
-                className="h-8 w-auto transition-all duration-300 brightness-[1.5]"
+                className="h-8 w-auto transition-all duration-300 brightness-[1.5] logo-breathe"
                 priority
               />
             </Link>
 
-            {/* Desktop */}
+            {/* Desktop nav */}
             <div className="hidden md:flex items-center gap-8">
               {links.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`relative font-[family-name:var(--font-general)] text-sm font-medium transition-colors duration-300 group ${
-                    scrolled ? 'text-text-secondary hover:text-slate' : 'text-dark-text-muted hover:text-cream'
-                  }`}
+                  className="relative font-[family-name:var(--font-general)] text-sm font-medium transition-colors duration-300 text-dark-text-muted hover:text-cream py-1 group"
                 >
                   {link.label}
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-copper transition-all duration-300 group-hover:w-full" />
+                  {/* Hover underline grows from center */}
+                  {!isActive(link.href) && (
+                    <span className="absolute -bottom-0.5 left-1/2 w-0 h-0.5 bg-copper/60 transition-all duration-300 -translate-x-1/2 group-hover:w-full" />
+                  )}
+                  {/* Active indicator — slides between items with spring physics */}
+                  {isActive(link.href) && (
+                    <motion.span
+                      layoutId="nav-indicator"
+                      className="absolute -bottom-0.5 left-0 right-0 h-0.5 bg-copper"
+                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                    />
+                  )}
                 </Link>
               ))}
+              {/* Get Started CTA with pulse glow */}
               <Link
                 href="/contact"
-                className="bg-copper hover:bg-copper-light text-white text-sm font-medium px-5 py-2.5 rounded-lg transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
+                className="bg-copper hover:bg-copper-light text-white text-sm font-medium px-5 py-2.5 rounded-lg transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] pulse-glow"
               >
                 Get Started
               </Link>
@@ -80,16 +113,24 @@ export default function Navigation() {
             {/* Mobile toggle */}
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className={`md:hidden relative z-10 p-2 transition-colors ${mobileOpen ? 'text-cream' : scrolled ? 'text-slate' : 'text-cream'}`}
+              className="md:hidden relative z-10 p-2 transition-colors text-cream"
               aria-label="Toggle menu"
             >
               {mobileOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
         </div>
+
+        {/* Scroll progress bar — thin copper line at bottom of nav */}
+        {showProgress && (
+          <motion.div
+            className="absolute bottom-0 left-0 right-0 h-[2px] nav-progress-bar"
+            style={{ scaleX }}
+          />
+        )}
       </nav>
 
-      {/* Mobile overlay — full-screen dark with staggered reveals */}
+      {/* Mobile overlay — full-screen dark takeover with staggered reveals */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -99,10 +140,10 @@ export default function Navigation() {
             transition={{ duration: 0.4 }}
             className="fixed inset-0 z-40 bg-slate flex flex-col items-center justify-center gap-6 overflow-hidden"
           >
-            {/* Mountain silhouette background */}
-            <div className="absolute bottom-0 left-0 right-0 opacity-5">
+            {/* Mountain silhouette at bottom */}
+            <div className="absolute bottom-0 left-0 right-0 opacity-[0.04]">
               <svg viewBox="0 0 1200 300" className="w-full" fill="#C17817">
-                <path d="M0,300 L200,100 L350,180 L500,50 L650,160 L800,80 L950,200 L1100,60 L1200,150 L1200,300 Z" />
+                <path d="M0,300 L100,180 L200,220 L350,80 L450,160 L500,50 L600,140 L700,90 L800,180 L900,60 L1000,150 L1100,100 L1200,200 L1200,300 Z" />
               </svg>
             </div>
 
@@ -116,7 +157,9 @@ export default function Navigation() {
                 <Link
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
-                  className="font-[family-name:var(--font-satoshi)] text-3xl font-bold text-cream hover:text-copper transition-colors"
+                  className={`font-[family-name:var(--font-satoshi)] text-3xl font-bold transition-colors ${
+                    isActive(link.href) ? 'text-copper' : 'text-cream hover:text-copper'
+                  }`}
                 >
                   {link.label}
                 </Link>
@@ -130,7 +173,7 @@ export default function Navigation() {
               <Link
                 href="/contact"
                 onClick={() => setMobileOpen(false)}
-                className="mt-4 bg-copper text-white text-lg font-medium px-8 py-3 rounded-lg"
+                className="mt-4 bg-copper text-white text-lg font-medium px-8 py-3 rounded-lg pulse-glow"
               >
                 Get Started
               </Link>
