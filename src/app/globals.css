@@ -1,26 +1,101 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@font-face {
+  font-family: 'Satoshi';
+  src: url('/fonts/satoshi/Satoshi-Variable.woff2') format('woff2');
+  font-weight: 300 900;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Satoshi';
+  src: url('/fonts/satoshi/Satoshi-VariableItalic.woff2') format('woff2');
+  font-weight: 300 900;
+  font-display: swap;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'General Sans';
+  src: url('/fonts/general-sans/GeneralSans-Variable.woff2') format('woff2');
+  font-weight: 200 700;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'General Sans';
+  src: url('/fonts/general-sans/GeneralSans-VariableItalic.woff2') format('woff2');
+  font-weight: 200 700;
+  font-display: swap;
+  font-style: italic;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-satoshi: 'Satoshi', system-ui, sans-serif;
+  --font-general: 'General Sans', system-ui, sans-serif;
+  --color-cream: #F8F4F0;
+  --color-cream-dark: #EFEBE6;
+  --color-cream-border: #E8E2DB;
+  --color-slate: #1A1D20;
+  --color-slate-card: #232629;
+  --color-slate-light: #2D3436;
+  --color-copper: #C17817;
+  --color-copper-light: #D4943A;
+  --color-copper-dark: #9E6012;
+  --color-forest: #2D6A4F;
+  --color-forest-light: #40916C;
+  --color-river: #4A90A4;
+  --color-river-light: #63A8BC;
+  --color-text-primary: #1A1D20;
+  --color-text-secondary: #5A5D63;
+  --color-text-tertiary: #8A8D93;
+  --color-dark-text: #F8F4F0;
+  --color-dark-text-muted: #9A9DA3;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-general);
+  background: var(--color-cream);
+  color: var(--color-text-primary);
+}
+
+::selection {
+  background: var(--color-copper);
+  color: white;
+}
+
+.grain {
+  position: relative;
+}
+
+.grain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('/noise.svg');
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.hero-gradient {
+  background: linear-gradient(135deg, #1A1D20 0%, #2D3436 40%, #1A3A2D 70%, #1A1D20 100%);
+  background-size: 300% 300%;
+  animation: gradient-shift 30s ease infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-gradient { animation: none; }
+  * { animation-duration: 0s !important; transition-duration: 0s !important; }
 }
