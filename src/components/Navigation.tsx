@@ -4,7 +4,7 @@ import { useState, useEffect, Fragment } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ArrowRight } from 'lucide-react';
 
 const links = [
@@ -61,21 +61,20 @@ export default function Navigation() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
 
-  // Scroll progress integrated into nav (trail-style dashed)
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
-  const [showProgress, setShowProgress] = useState(false);
+  // Scroll progress — direct tracking, no spring (prevents erratic jumping)
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 50);
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (docHeight > 0) {
+        setScrollProgress(window.scrollY / docHeight);
+      }
+    };
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
-
-  useEffect(() => {
-    const unsub = scrollYProgress.on('change', (v) => setShowProgress(v > 0.01));
-    return unsub;
-  }, [scrollYProgress]);
 
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? 'hidden' : '';
@@ -172,15 +171,30 @@ export default function Navigation() {
           </div>
         </div>
 
-        {/* Scroll progress — trail-style dashed line */}
-        {showProgress && (
-          <motion.div
-            className="absolute bottom-0 left-0 right-0 h-[2px] origin-left"
-            style={{
-              scaleX,
-              background: 'repeating-linear-gradient(90deg, #C17817 0px, #C17817 8px, transparent 8px, transparent 14px)',
-            }}
-          />
+        {/* Scroll progress — bear paw trail */}
+        {scrollProgress > 0.005 && (
+          <div className="absolute bottom-0 left-0 right-0 h-[6px] overflow-hidden">
+            <div
+              className="h-full flex items-center"
+              style={{ width: `${scrollProgress * 100}%`, transition: 'width 50ms linear' }}
+            >
+              {/* Repeating paw print pattern */}
+              <svg className="w-full h-full" preserveAspectRatio="none">
+                <defs>
+                  <pattern id="pawprint" x="0" y="0" width="24" height="6" patternUnits="userSpaceOnUse">
+                    {/* Main pad */}
+                    <ellipse cx="8" cy="4" rx="2.5" ry="2" fill="#C17817" opacity="0.7" />
+                    {/* Toe beans */}
+                    <circle cx="4.5" cy="1.5" r="1" fill="#C17817" opacity="0.6" />
+                    <circle cx="7" cy="0.8" r="0.9" fill="#C17817" opacity="0.6" />
+                    <circle cx="9.5" cy="0.8" r="0.9" fill="#C17817" opacity="0.6" />
+                    <circle cx="11.5" cy="1.5" r="1" fill="#C17817" opacity="0.6" />
+                  </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#pawprint)" />
+              </svg>
+            </div>
+          </div>
         )}
       </nav>
 
