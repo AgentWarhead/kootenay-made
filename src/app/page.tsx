@@ -1,186 +1,151 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import Link from 'next/link';
-import { motion, useScroll, useTransform, useInView } from 'framer-motion';
-import { ArrowRight, Globe, Palette, ShoppingBag, Mail, Bot, Search, ChevronDown } from 'lucide-react';
+import { motion, useScroll, useTransform, useInView, AnimatePresence } from 'framer-motion';
+import { ArrowRight, Globe, Palette, ShoppingBag, Mail, Bot, Search } from 'lucide-react';
 import ScrollReveal from '@/components/ScrollReveal';
-import MagneticButton from '@/components/MagneticButton';
+import RippleButton from '@/components/RippleButton';
+import TiltCard from '@/components/TiltCard';
+import CardStack from '@/components/CardStack';
 import VideoSection from '@/components/VideoSection';
 import MountainDivider from '@/components/MountainDivider';
 import AmbientOrbs from '@/components/AmbientOrbs';
 import PineTreeline from '@/components/PineTreeline';
 import FogTransition from '@/components/FogTransition';
 
-/* ── Typewriter ────────────────────────────── */
-function Typewriter({ text, delay = 1.5 }: { text: string; delay?: number }) {
-  const [displayed, setDisplayed] = useState('');
-  const [started, setStarted] = useState(false);
-
-  useEffect(() => {
-    const t = setTimeout(() => setStarted(true), delay * 1000);
-    return () => clearTimeout(t);
-  }, [delay]);
-
-  useEffect(() => {
-    if (!started) return;
-    let i = 0;
-    const iv = setInterval(() => {
-      setDisplayed(text.slice(0, ++i));
-      if (i >= text.length) clearInterval(iv);
-    }, 60);
-    return () => clearInterval(iv);
-  }, [started, text]);
-
-  return (
-    <span>
-      {displayed}
-      <span className="inline-block w-[2px] h-[1em] bg-copper ml-1 animate-pulse" />
-    </span>
-  );
-}
-
-/* ── Split Text Reveal ──────────────────────── */
-function SplitText({ text, className = '' }: { text: string; className?: string }) {
-  const words = text.split(' ');
-  return (
-    <span className={className}>
-      {words.map((word, i) => (
-        <motion.span
-          key={i}
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 + i * 0.06, ease: 'easeOut' }}
-          className="inline-block mr-[0.3em]"
-        >
-          {word}
-        </motion.span>
-      ))}
-    </span>
-  );
-}
-
-/* ── Infinite Marquee ──────────────────────── */
-function Marquee() {
-  const row1 = 'WEBSITES ◆ BRANDS ◆ MARKETING ◆ AI SETUP ◆ SEO ◆ E-COMMERCE ◆ EMAIL MARKETING ◆ KOOTENAY MADE ◆ ';
-  const row2 = 'CASTLEGAR ⛰ TRAIL ⛰ NELSON ⛰ ROSSLAND ⛰ REVELSTOKE ⛰ FERNIE ⛰ CRANBROOK ⛰ ';
-
-  return (
-    <section className="bg-slate py-8 sm:py-10 overflow-hidden border-y border-white/5 space-y-4">
-      <div className="marquee-row-left flex whitespace-nowrap">
-        {[...Array(6)].map((_, i) => (
-          <span
-            key={i}
-            className="font-[family-name:var(--font-satoshi)] text-4xl sm:text-5xl font-bold tracking-wider mx-4"
-            style={{
-              background: 'linear-gradient(90deg, #C17817, #F8F4F0)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-            }}
-          >
-            {row1}
-          </span>
-        ))}
-      </div>
-      <div className="marquee-row-right flex whitespace-nowrap">
-        {[...Array(6)].map((_, i) => (
-          <span
-            key={i}
-            className="font-[family-name:var(--font-satoshi)] text-4xl sm:text-5xl font-bold tracking-wider mx-4"
-            style={{
-              background: 'linear-gradient(90deg, #F8F4F0, #C17817)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-            }}
-          >
-            {row2}
-          </span>
-        ))}
-      </div>
-      <style jsx>{`
-        @keyframes marquee-left {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-        @keyframes marquee-right {
-          0% { transform: translateX(-50%); }
-          100% { transform: translateX(0); }
-        }
-        .marquee-row-left {
-          animation: marquee-left 30s linear infinite;
-        }
-        .marquee-row-right {
-          animation: marquee-right 35s linear infinite;
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .marquee-row-left, .marquee-row-right { animation: none; }
-        }
-      `}</style>
-    </section>
-  );
-}
-
-/* ── Counter ────────────────────────────────── */
-function Counter({ end, suffix = '', prefix = '' }: { end: number; suffix?: string; prefix?: string }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true });
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    if (!inView) return;
-    let start = 0;
-    const duration = 2000;
-    const startTime = performance.now();
-    const step = (now: number) => {
-      const progress = Math.min((now - startTime) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      start = Math.floor(eased * end);
-      setCount(start);
-      if (progress < 1) requestAnimationFrame(step);
-    };
-    requestAnimationFrame(step);
-  }, [inView, end]);
-
-  return <span ref={ref}>{prefix}{count}{suffix}</span>;
-}
-
-/* ── Floating shapes ───────────────────────── */
+/* ── Kootenay-themed floating shapes ───────── */
 function FloatingShapes() {
+  const shapes = [
+    // Pine trees
+    { type: 'pine', top: 18, left: 8 },
+    { type: 'pine', top: 65, left: 85 },
+    { type: 'pine', top: 40, left: 55 },
+    // Mountain peaks
+    { type: 'peak', top: 25, left: 30 },
+    { type: 'peak', top: 72, left: 60 },
+    // Snowflakes
+    { type: 'snow', top: 12, left: 72 },
+    { type: 'snow', top: 55, left: 15 },
+    { type: 'snow', top: 35, left: 92 },
+  ];
+
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {[...Array(6)].map((_, i) => (
+      {shapes.map((s, i) => (
         <motion.div
           key={i}
           className="absolute"
-          style={{
-            top: `${15 + (i * 14) % 70}%`,
-            left: `${5 + (i * 17) % 90}%`,
-          }}
-          animate={{
-            y: [0, -20, 0],
-            x: [0, 10, 0],
-            rotate: [0, 180, 360],
-          }}
-          transition={{
-            duration: 15 + i * 3,
-            repeat: Infinity,
-            ease: 'linear',
-          }}
+          style={{ top: `${s.top}%`, left: `${s.left}%` }}
+          animate={{ y: [0, -15, 0], x: [0, 8, 0], rotate: [0, s.type === 'snow' ? 360 : 5, 0] }}
+          transition={{ duration: 18 + i * 2.5, repeat: Infinity, ease: 'linear' }}
         >
-          {i % 2 === 0 ? (
-            <svg width="24" height="24" viewBox="0 0 24 24" className="opacity-[0.06]">
-              <polygon points="12,2 22,22 2,22" fill="#C17817" />
+          {s.type === 'pine' && (
+            <svg width="18" height="28" viewBox="0 0 18 28" className="opacity-[0.05]">
+              <polygon points="9,0 18,20 0,20" fill="#2D6A4F" />
+              <rect x="7" y="20" width="4" height="8" fill="#2D6A4F" />
             </svg>
-          ) : (
-            <svg width="20" height="20" viewBox="0 0 20 20" className="opacity-[0.06]">
-              <circle cx="10" cy="10" r="8" fill="#C17817" />
+          )}
+          {s.type === 'peak' && (
+            <svg width="28" height="20" viewBox="0 0 28 20" className="opacity-[0.05]">
+              <polygon points="14,0 28,20 0,20" fill="#C17817" />
+            </svg>
+          )}
+          {s.type === 'snow' && (
+            <svg width="16" height="16" viewBox="0 0 16 16" className="opacity-[0.05]">
+              <line x1="8" y1="0" x2="8" y2="16" stroke="#F8F4F0" strokeWidth="1" />
+              <line x1="0" y1="8" x2="16" y2="8" stroke="#F8F4F0" strokeWidth="1" />
+              <line x1="2" y1="2" x2="14" y2="14" stroke="#F8F4F0" strokeWidth="0.8" />
+              <line x1="14" y1="2" x2="2" y2="14" stroke="#F8F4F0" strokeWidth="0.8" />
             </svg>
           )}
         </motion.div>
       ))}
     </div>
+  );
+}
+
+/* ── SVG Icon with stroke-draw animation ───── */
+function DrawIcon({ Icon, inView }: { Icon: React.ComponentType<{ size?: number; className?: string; strokeWidth?: number }>; inView: boolean }) {
+  return (
+    <div className={`draw-icon ${inView ? 'draw-icon-animate' : ''}`}>
+      <Icon size={22} className="text-copper" strokeWidth={1.5} />
+    </div>
+  );
+}
+
+/* ── Counter with staggered start + progress ring ── */
+function CascadeCounter({ end, suffix = '', prefix = '', delay = 0 }: { end: number; suffix?: string; prefix?: string; delay?: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true });
+  const [count, setCount] = useState(0);
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    if (!inView) return;
+    const timeout = setTimeout(() => {
+      const duration = 2000;
+      const startTime = performance.now();
+      const step = (now: number) => {
+        const p = Math.min((now - startTime) / duration, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        setCount(Math.floor(eased * end));
+        setProgress(eased * 100);
+        if (p < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    }, delay);
+    return () => clearTimeout(timeout);
+  }, [inView, end, delay]);
+
+  const circumference = 2 * Math.PI * 36;
+  const strokeOffset = circumference - (progress / 100) * circumference;
+
+  return (
+    <div ref={ref} className="relative flex flex-col items-center">
+      {/* Progress ring behind */}
+      <div className="relative">
+        <svg width="100" height="100" className="absolute inset-0 -top-2 -left-2 opacity-20" viewBox="0 0 80 80">
+          <circle cx="40" cy="40" r="36" fill="none" stroke="#C17817" strokeWidth="2" opacity="0.2" />
+          <circle
+            cx="40" cy="40" r="36" fill="none" stroke="#C17817" strokeWidth="2"
+            strokeDasharray={circumference}
+            strokeDashoffset={strokeOffset}
+            strokeLinecap="round"
+            transform="rotate(-90 40 40)"
+            style={{ transition: 'stroke-dashoffset 0.1s linear' }}
+          />
+        </svg>
+        <p className="font-mono text-5xl sm:text-6xl md:text-7xl font-bold text-copper relative z-10">
+          {prefix}{count}{suffix}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+/* ── River scroll indicator ──────────────────── */
+function RiverScroll() {
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: 3 }}
+      className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-3"
+    >
+      <span className="text-cream/40 text-xs tracking-[0.3em] uppercase">Explore</span>
+      <svg width="20" height="48" viewBox="0 0 20 48" className="river-scroll-icon">
+        <path
+          d="M10 0 C10 0, 6 8, 10 16 C14 24, 6 32, 10 40 L10 48"
+          fill="none"
+          stroke="rgba(248,244,240,0.3)"
+          strokeWidth="2"
+          strokeLinecap="round"
+          className="river-path"
+        />
+        <circle cx="10" cy="4" r="2.5" fill="rgba(193,120,23,0.6)" className="river-dot" />
+      </svg>
+    </motion.div>
   );
 }
 
@@ -206,7 +171,7 @@ const styles = [
   { name: 'Adventure & Outdoors', tags: ['Tourism', 'Guides', 'Ski Resorts'], color: '#0EA5E9', gradient: 'from-sky-500/20 to-sky-600/5' },
 ];
 
-/* ── Pain Points (replaces testimonials) ───── */
+/* ── Pain Points (campfire stories) ──────────── */
 const painPoints = [
   { text: "I get all my work from word of mouth, but I know I'm leaving money on the table.", label: 'Every tradesperson in Trail' },
   { text: "My nephew built my website 5 years ago. I'm scared to touch it.", label: 'Restaurant owners everywhere' },
@@ -215,7 +180,7 @@ const painPoints = [
   { text: "I post on Facebook sometimes but I have no idea if it's working.", label: 'Every business owner, honestly' },
 ];
 
-/* ── Kootenay Map ──────────────────────────── */
+/* ── Kootenay towns data ─────────────────────── */
 const towns = [
   { name: 'Castlegar', cx: 250, cy: 200, types: 'Local Services • Dining • Professional' },
   { name: 'Trail', cx: 300, cy: 320, types: 'Trades • Restaurants • Retail' },
@@ -223,61 +188,77 @@ const towns = [
   { name: 'Rossland', cx: 160, cy: 290, types: 'Adventure • Hospitality • Outdoor Rec' },
 ];
 
-const mapConnections = [
-  [0, 1], [0, 2], [0, 3], [1, 3],
-];
-
-function KootenayMap() {
-  const [hovered, setHovered] = useState<number | null>(null);
+/* ── Marquee with gradient fades ─────────────── */
+function Marquee() {
+  const row1 = 'WEBSITES ◆ BRANDS ◆ MARKETING ◆ AI SETUP ◆ SEO ◆ E-COMMERCE ◆ EMAIL MARKETING ◆ KOOTENAY MADE ◆ ';
+  const row2 = 'CASTLEGAR ⛰ TRAIL ⛰ NELSON ⛰ ROSSLAND ⛰ REVELSTOKE ⛰ FERNIE ⛰ CRANBROOK ⛰ ';
 
   return (
-    <div className="relative w-full max-w-2xl mx-auto">
-      <svg viewBox="0 0 550 420" className="w-full h-auto" role="img" aria-label="West Kootenay towns map">
-        {/* Connections */}
-        {mapConnections.map(([a, b], i) => (
-          <line
+    <section className="bg-slate py-8 sm:py-10 overflow-hidden border-y border-white/5 space-y-4 relative">
+      {/* Gradient fades on edges */}
+      <div className="absolute left-0 top-0 bottom-0 w-24 sm:w-40 bg-gradient-to-r from-slate to-transparent z-10 pointer-events-none" />
+      <div className="absolute right-0 top-0 bottom-0 w-24 sm:w-40 bg-gradient-to-l from-slate to-transparent z-10 pointer-events-none" />
+
+      <div className="marquee-row-fast-left flex whitespace-nowrap">
+        {[...Array(6)].map((_, i) => (
+          <span
             key={i}
-            x1={towns[a].cx} y1={towns[a].cy}
-            x2={towns[b].cx} y2={towns[b].cy}
-            stroke="#C17817"
-            strokeWidth="1"
-            strokeDasharray="6 4"
-            opacity="0.3"
-          />
-        ))}
-
-        {/* Mountain silhouettes background */}
-        <path d="M0,380 L80,280 L130,330 L200,250 L270,310 L350,220 L430,290 L500,240 L550,300 L550,420 L0,420 Z" fill="#C17817" opacity="0.04" />
-
-        {/* Town dots and labels */}
-        {towns.map((town, i) => (
-          <g
-            key={town.name}
-            onMouseEnter={() => setHovered(i)}
-            onMouseLeave={() => setHovered(null)}
-            className="cursor-pointer"
+            className="font-[family-name:var(--font-satoshi)] text-4xl sm:text-5xl font-bold tracking-wider mx-4"
+            style={{
+              background: 'linear-gradient(90deg, #C17817, #F8F4F0)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+            }}
           >
-            {/* Glow */}
-            <circle cx={town.cx} cy={town.cy} r={hovered === i ? 24 : 12} fill="#C17817" opacity={hovered === i ? 0.15 : 0.08} className="transition-all duration-300" />
-            {/* Dot */}
-            <circle cx={town.cx} cy={town.cy} r={hovered === i ? 8 : 5} fill="#C17817" className="transition-all duration-300" />
-            {/* Label */}
-            <text x={town.cx} y={town.cy - 18} textAnchor="middle" fill="#F8F4F0" fontSize="14" fontWeight="700" fontFamily="var(--font-satoshi)">
-              {town.name}
-            </text>
-
-            {/* Tooltip */}
-            {hovered === i && (
-              <foreignObject x={town.cx - 110} y={town.cy + 14} width="220" height="60">
-                <div className="bg-slate-card/95 backdrop-blur-sm border border-copper/20 rounded-lg px-3 py-2 text-center">
-                  <p className="text-cream/70 text-xs leading-relaxed">{town.types}</p>
-                </div>
-              </foreignObject>
-            )}
-          </g>
+            {row1}
+          </span>
         ))}
-      </svg>
-    </div>
+      </div>
+      <div className="marquee-row-fast-right flex whitespace-nowrap">
+        {[...Array(6)].map((_, i) => (
+          <span
+            key={i}
+            className="font-[family-name:var(--font-satoshi)] text-4xl sm:text-5xl font-bold tracking-wider mx-4"
+            style={{
+              background: 'linear-gradient(90deg, #F8F4F0, #C17817)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+            }}
+          >
+            {row2}
+          </span>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/* ── Style scroll drag hint ──────────────────── */
+function DragHint() {
+  const [dismissed, setDismissed] = useState(false);
+
+  useEffect(() => {
+    const t = setTimeout(() => setDismissed(true), 6000);
+    return () => clearTimeout(t);
+  }, []);
+
+  return (
+    <AnimatePresence>
+      {!dismissed && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="absolute right-6 sm:right-10 top-1/2 -translate-y-1/2 z-20 flex items-center gap-2 text-cream/40 text-xs tracking-wider"
+        >
+          <motion.span animate={{ x: [0, 8, 0] }} transition={{ repeat: Infinity, duration: 1.5 }}>
+            ← Drag
+          </motion.span>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }
 
@@ -287,93 +268,110 @@ function KootenayMap() {
 export default function Home() {
   const heroRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
-  const layer1Y = useTransform(scrollYProgress, [0, 1], [0, 80]);
-  const layer2Y = useTransform(scrollYProgress, [0, 1], [0, 50]);
-  const layer3Y = useTransform(scrollYProgress, [0, 1], [0, 30]);
 
-  const [painIdx, setPainIdx] = useState(0);
+  // Dramatic parallax — clearly different speeds
+  const layer1Y = useTransform(scrollYProgress, [0, 1], [0, 150]);
+  const layer2Y = useTransform(scrollYProgress, [0, 1], [0, 100]);
+  const layer3Y = useTransform(scrollYProgress, [0, 1], [0, 50]);
+
+  // Hero mask reveal
+  const [heroRevealed, setHeroRevealed] = useState(false);
   useEffect(() => {
-    const iv = setInterval(() => setPainIdx((p) => (p + 1) % painPoints.length), 5000);
-    return () => clearInterval(iv);
+    const t = setTimeout(() => setHeroRevealed(true), 300);
+    return () => clearTimeout(t);
   }, []);
+
+  // Bento section in-view for icon draw
+  const bentoRef = useRef<HTMLDivElement>(null);
+  const bentoInView = useInView(bentoRef, { once: true, margin: '-80px' });
+
+  // Style scroll hint dismiss on interaction
+  const styleScrollRef = useRef<HTMLDivElement>(null);
+  const [styleInteracted, setStyleInteracted] = useState(false);
+  const handleStyleScroll = useCallback(() => {
+    if (!styleInteracted) setStyleInteracted(true);
+  }, [styleInteracted]);
 
   return (
     <>
-      {/* ═══ HERO ═══ */}
+      {/* ═══ HERO — 'The Summit' ═══ */}
       <section ref={heroRef} className="relative min-h-screen flex items-center overflow-hidden aurora-bg">
         <div className="absolute inset-0 grain" />
         <PineTreeline />
 
-        {/* Parallax mountain silhouettes */}
-        <motion.div style={{ y: layer1Y }} className="absolute bottom-0 left-0 right-0 opacity-[0.08]">
-          <svg viewBox="0 0 1440 320" className="w-full" preserveAspectRatio="none">
-            <path d="M0,320 L120,200 L240,280 L360,120 L480,240 L600,100 L720,220 L840,60 L960,200 L1080,140 L1200,260 L1320,80 L1440,180 L1440,320 Z" fill="#C17817"/>
+        {/* Parallax mountain silhouettes — 3 distinct layers */}
+        <motion.div style={{ y: layer1Y }} className="absolute bottom-0 left-0 right-0 opacity-[0.12]">
+          <svg viewBox="0 0 1440 400" className="w-full" preserveAspectRatio="none">
+            <path d="M0,400 L80,280 L160,340 L280,180 L380,300 L480,140 L560,260 L680,80 L800,220 L920,120 L1040,280 L1160,60 L1280,200 L1360,160 L1440,240 L1440,400 Z" fill="#C17817"/>
           </svg>
         </motion.div>
-        <motion.div style={{ y: layer2Y }} className="absolute bottom-0 left-0 right-0 opacity-[0.05]">
-          <svg viewBox="0 0 1440 280" className="w-full" preserveAspectRatio="none">
-            <path d="M0,280 L180,140 L300,220 L480,80 L600,200 L780,120 L900,240 L1080,60 L1200,180 L1380,100 L1440,160 L1440,280 Z" fill="#4A90A4"/>
+        <motion.div style={{ y: layer2Y }} className="absolute bottom-0 left-0 right-0 opacity-[0.07]">
+          <svg viewBox="0 0 1440 350" className="w-full" preserveAspectRatio="none">
+            <path d="M0,350 L120,220 L240,300 L400,100 L520,260 L680,150 L800,280 L960,80 L1100,240 L1240,120 L1360,220 L1440,180 L1440,350 Z" fill="#4A90A4"/>
           </svg>
         </motion.div>
-        <motion.div style={{ y: layer3Y }} className="absolute bottom-0 left-0 right-0 opacity-[0.03]">
-          <svg viewBox="0 0 1440 240" className="w-full" preserveAspectRatio="none">
-            <path d="M0,240 L200,100 L400,200 L600,60 L800,180 L1000,80 L1200,200 L1440,120 L1440,240 Z" fill="#2D6A4F"/>
+        <motion.div style={{ y: layer3Y }} className="absolute bottom-0 left-0 right-0 opacity-[0.04]">
+          <svg viewBox="0 0 1440 300" className="w-full" preserveAspectRatio="none">
+            <path d="M0,300 L200,120 L360,240 L520,60 L720,200 L900,100 L1100,220 L1300,80 L1440,160 L1440,300 Z" fill="#2D6A4F"/>
           </svg>
         </motion.div>
 
         <FloatingShapes />
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-32">
-          <h1 className="font-[family-name:var(--font-satoshi)] text-cream text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] max-w-4xl">
-            <SplitText text="Your Kootenay business deserves a digital presence as impressive as the mountains around it." />
-          </h1>
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.5, duration: 0.5 }}
-            className="mt-8 text-copper-light text-lg sm:text-xl font-medium h-8"
+          {/* Mountain mask sunrise reveal headline */}
+          <div className="overflow-hidden">
+            <motion.h1
+              className="font-[family-name:var(--font-satoshi)] text-cream text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] max-w-4xl"
+              initial={{ clipPath: 'polygon(0% 100%, 20% 60%, 35% 80%, 50% 40%, 65% 70%, 80% 30%, 100% 100%)' }}
+              animate={heroRevealed ? { clipPath: 'polygon(0% 0%, 20% 0%, 35% 0%, 50% 0%, 65% 0%, 80% 0%, 100% 0%, 100% 100%, 0% 100%)' } : {}}
+              transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
+            >
+              Your Kootenay business deserves a digital presence as impressive as the mountains around it.
+            </motion.h1>
+          </div>
+
+          {/* Wipe-reveal subtitle */}
+          <motion.div
+            className="mt-8 overflow-hidden"
+            initial={{ width: 0 }}
+            animate={{ width: '100%' }}
+            transition={{ delay: 1.6, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
           >
-            <Typewriter text="Locally crafted digital." delay={1.8} />
-          </motion.p>
+            <p className="text-copper-light text-lg sm:text-xl font-medium whitespace-nowrap">
+              Locally crafted digital.
+            </p>
+          </motion.div>
+
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 2.8 }}
+            transition={{ duration: 0.6, delay: 2.4 }}
             className="mt-4 text-dark-text-muted text-lg sm:text-xl max-w-2xl leading-relaxed"
           >
             Modern websites, brands, and marketing for West Kootenay businesses.
           </motion.p>
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 3.2 }}
+            transition={{ duration: 0.6, delay: 2.8 }}
             className="mt-10 flex flex-col sm:flex-row gap-4"
           >
-            <MagneticButton as="a" href="/services">
+            <RippleButton href="/services">
               <span className="inline-flex items-center justify-center gap-2 bg-copper hover:bg-copper-light text-white font-medium px-8 py-4 rounded-lg transition-colors duration-200 text-base">
                 See Our Services <ArrowRight size={18} />
               </span>
-            </MagneticButton>
-            <MagneticButton as="a" href="/audit">
+            </RippleButton>
+            <RippleButton href="/audit">
               <span className="inline-flex items-center justify-center gap-2 border border-cream/20 text-cream hover:bg-cream/10 font-medium px-8 py-4 rounded-lg transition-colors duration-200 text-base">
                 Free Website Audit
               </span>
-            </MagneticButton>
+            </RippleButton>
           </motion.div>
         </div>
 
-        {/* Scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 3.5 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2"
-        >
-          <span className="text-cream/40 text-xs tracking-widest uppercase">Explore</span>
-          <motion.div animate={{ y: [0, 8, 0] }} transition={{ repeat: Infinity, duration: 2 }}>
-            <ChevronDown className="text-cream/40" size={28} />
-          </motion.div>
-        </motion.div>
+        <RiverScroll />
       </section>
 
       <MountainDivider variant={1} fillColor="#1A1D20" />
@@ -383,7 +381,7 @@ export default function Home() {
 
       <MountainDivider variant={2} fillColor="#F8F4F0" />
 
-      {/* ═══ SERVICES BENTO ═══ */}
+      {/* ═══ SERVICES BENTO — Interactive 3D Grid ═══ */}
       <section className="bg-cream py-24 sm:py-32 cedar-texture relative">
         <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
           <ScrollReveal>
@@ -393,26 +391,21 @@ export default function Home() {
             </h2>
           </ScrollReveal>
 
-          <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div ref={bentoRef} className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {services.map((s, i) => (
-              <ScrollReveal key={s.name} delay={i * 0.08}>
-                <motion.div
-                  whileHover={{ y: -8, transition: { duration: 0.3 } }}
-                  className="group relative glass-card-light rounded-2xl p-8 h-full"
-                  style={{ perspective: '1000px' }}
-                >
-                  {/* Glassmorphism accent on hover */}
+              <TiltCard key={s.name} index={i} featured={s.large && i < 2}>
+                <div className="group relative glass-card-light rounded-2xl p-8 h-full" style={{ transform: 'translateZ(0)' }}>
                   <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-copper/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   <div className="relative z-10">
                     <div className="w-12 h-12 rounded-xl bg-cream-dark flex items-center justify-center mb-5 group-hover:bg-copper/10 transition-colors">
-                      <s.icon size={22} className="text-copper" />
+                      <DrawIcon Icon={s.icon} inView={bentoInView} />
                     </div>
                     <h3 className="font-[family-name:var(--font-satoshi)] text-xl font-bold text-slate mb-2">{s.name}</h3>
                     <p className="text-text-secondary text-sm leading-relaxed mb-4">{s.desc}</p>
                     <p className="font-[family-name:var(--font-satoshi)] text-copper font-semibold text-sm">{s.price}</p>
                   </div>
-                </motion.div>
-              </ScrollReveal>
+                </div>
+              </TiltCard>
             ))}
           </div>
 
@@ -428,7 +421,7 @@ export default function Home() {
 
       <MountainDivider variant={3} fillColor="#1A1D20" />
 
-      {/* ═══ STYLE MENU PREVIEW (horizontal scroll) ═══ */}
+      {/* ═══ STYLE MENU PREVIEW — Scroll Snap ═══ */}
       <section className="bg-slate grain py-24 sm:py-32 overflow-hidden relative">
         <AmbientOrbs />
         <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
@@ -439,31 +432,44 @@ export default function Home() {
             </h2>
           </ScrollReveal>
 
-          <div className="mt-16 flex gap-6 overflow-x-auto pb-6 -mx-6 px-6 snap-x snap-mandatory scrollbar-hide">
-            {styles.map((style, i) => (
-              <ScrollReveal key={style.name} delay={i * 0.08}>
-                <Link href="/styles" className="group">
-                  <motion.div
-                    whileHover={{ y: -6 }}
-                    className="snap-start shrink-0 w-[70vw] sm:w-80 glass-card-dark rounded-2xl p-6"
-                  >
-                    <div className={`h-40 rounded-xl mb-5 bg-gradient-to-br ${style.gradient} flex items-center justify-center relative overflow-hidden`}>
-                      <span className="font-[family-name:var(--font-satoshi)] text-4xl font-bold opacity-30" style={{ color: style.color }}>
-                        Aa
-                      </span>
-                    </div>
-                    <h3 className="font-[family-name:var(--font-satoshi)] text-lg font-bold text-cream mb-3">{style.name}</h3>
-                    <div className="flex flex-wrap gap-2">
-                      {style.tags.map((tag) => (
-                        <span key={tag} className="text-xs bg-white/5 text-dark-text-muted px-3 py-1 rounded-full">
-                          {tag}
+          <div className="mt-16 relative">
+            {/* Gradient fade edges */}
+            <div className="absolute left-0 top-0 bottom-6 w-8 sm:w-16 bg-gradient-to-r from-slate to-transparent z-10 pointer-events-none" />
+            <div className="absolute right-0 top-0 bottom-6 w-8 sm:w-16 bg-gradient-to-l from-slate to-transparent z-10 pointer-events-none" />
+
+            {!styleInteracted && <DragHint />}
+
+            <div
+              ref={styleScrollRef}
+              onScroll={handleStyleScroll}
+              onTouchStart={handleStyleScroll}
+              className="flex gap-6 overflow-x-auto pb-6 -mx-6 px-6 snap-x snap-mandatory scrollbar-hide scroll-smooth"
+            >
+              {styles.map((style, i) => (
+                <ScrollReveal key={style.name} delay={i * 0.08}>
+                  <Link href="/styles" className="group">
+                    <motion.div
+                      whileHover={{ y: -6 }}
+                      className="snap-start shrink-0 w-[70vw] sm:w-80 glass-card-dark rounded-2xl p-6"
+                    >
+                      <div className={`h-40 rounded-xl mb-5 bg-gradient-to-br ${style.gradient} flex items-center justify-center relative overflow-hidden`}>
+                        <span className="font-[family-name:var(--font-satoshi)] text-4xl font-bold opacity-30" style={{ color: style.color }}>
+                          Aa
                         </span>
-                      ))}
-                    </div>
-                  </motion.div>
-                </Link>
-              </ScrollReveal>
-            ))}
+                      </div>
+                      <h3 className="font-[family-name:var(--font-satoshi)] text-lg font-bold text-cream mb-3">{style.name}</h3>
+                      <div className="flex flex-wrap gap-2">
+                        {style.tags.map((tag) => (
+                          <span key={tag} className="text-xs bg-white/5 text-dark-text-muted px-3 py-1 rounded-full">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </motion.div>
+                  </Link>
+                </ScrollReveal>
+              ))}
+            </div>
           </div>
 
           <ScrollReveal delay={0.3}>
@@ -474,20 +480,22 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══ STATS ═══ */}
+      {/* ═══ STATS — Cascading Counters ═══ */}
       <FogTransition from="dark" />
       <section className="bg-slate relative py-24 sm:py-32 overflow-hidden">
-        {/* Topographic pattern */}
-        <svg className="absolute inset-0 w-full h-full opacity-[0.03]" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <pattern id="topo-stats" x="0" y="0" width="200" height="200" patternUnits="userSpaceOnUse">
-              <path d="M20,80 Q60,20 100,80 T180,80" fill="none" stroke="#C17817" strokeWidth="0.5"/>
-              <path d="M10,120 Q50,60 100,120 T190,120" fill="none" stroke="#C17817" strokeWidth="0.5"/>
-              <path d="M0,160 Q40,100 100,160 T200,160" fill="none" stroke="#C17817" strokeWidth="0.5"/>
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#topo-stats)" />
-        </svg>
+        {/* Drifting topographic pattern */}
+        <div className="topo-drift absolute inset-0">
+          <svg className="w-full h-full opacity-[0.03]" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="topo-stats" x="0" y="0" width="200" height="200" patternUnits="userSpaceOnUse">
+                <path d="M20,80 Q60,20 100,80 T180,80" fill="none" stroke="#C17817" strokeWidth="0.5"/>
+                <path d="M10,120 Q50,60 100,120 T190,120" fill="none" stroke="#C17817" strokeWidth="0.5"/>
+                <path d="M0,160 Q40,100 100,160 T200,160" fill="none" stroke="#C17817" strokeWidth="0.5"/>
+              </pattern>
+            </defs>
+            <rect width="200%" height="200%" fill="url(#topo-stats)" />
+          </svg>
+        </div>
         <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
             {[
@@ -496,14 +504,10 @@ export default function Home() {
               { end: 2, suffix: '-4', label: 'Weeks delivery' },
               { end: 100, suffix: '%', label: 'Kootenay Made' },
             ].map((stat, i) => (
-              <ScrollReveal key={stat.label} delay={i * 0.1}>
-                <div className="text-center">
-                  <p className="font-mono text-5xl sm:text-6xl md:text-7xl font-bold text-copper">
-                    <Counter end={stat.end} suffix={stat.suffix} />
-                  </p>
-                  <p className="text-dark-text-muted text-sm mt-2">{stat.label}</p>
-                </div>
-              </ScrollReveal>
+              <div key={stat.label} className="text-center">
+                <CascadeCounter end={stat.end} suffix={stat.suffix} delay={i * 200} />
+                <p className="text-dark-text-muted text-sm mt-4">{stat.label}</p>
+              </div>
             ))}
           </div>
         </div>
@@ -511,7 +515,7 @@ export default function Home() {
 
       <MountainDivider variant={1} fillColor="#F8F4F0" />
 
-      {/* ═══ SOUND FAMILIAR? (Pain Points) ═══ */}
+      {/* ═══ CAMPFIRE STORIES — Card Stack ═══ */}
       <section className="bg-cream py-24 sm:py-32 relative overflow-hidden cedar-texture">
         <div className="max-w-4xl mx-auto px-6 sm:px-10 lg:px-16 text-center">
           <ScrollReveal>
@@ -521,39 +525,10 @@ export default function Home() {
             </h2>
           </ScrollReveal>
 
-          <div className="relative min-h-[220px]">
-            {painPoints.map((p, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: i === painIdx ? 1 : 0 }}
-                transition={{ duration: 0.6 }}
-                className="absolute inset-0 flex flex-col items-center justify-center"
-                style={{ pointerEvents: i === painIdx ? 'auto' : 'none' }}
-              >
-                <div className="glass-card-light rounded-2xl p-8 sm:p-12 max-w-2xl">
-                  <p className="text-slate text-lg sm:text-xl leading-relaxed mb-6">
-                    {p.text}
-                  </p>
-                  <p className="text-text-secondary text-sm italic">— {p.label}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Dots */}
-          <div className="flex justify-center gap-2 mt-8">
-            {painPoints.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setPainIdx(i)}
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${i === painIdx ? 'bg-copper w-6' : 'bg-cream-border'}`}
-              />
-            ))}
-          </div>
+          <CardStack cards={painPoints} />
 
           <ScrollReveal delay={0.2}>
-            <div className="mt-12">
+            <div className="mt-20">
               <Link href="/audit" className="inline-flex items-center gap-2 text-copper hover:text-copper-dark font-medium text-lg group transition-colors">
                 If any of these sound like you, let&apos;s talk. <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
               </Link>
@@ -573,17 +548,23 @@ export default function Home() {
         <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 text-center">
           <ScrollReveal>
             <h2 className="font-[family-name:var(--font-satoshi)] text-3xl sm:text-4xl md:text-5xl font-bold text-cream leading-tight max-w-2xl mx-auto">
-              Ready to stand out online?
+              Your competitors already have a website.<br />
+              <span className="text-copper">Make yours the one people remember.</span>
             </h2>
             <p className="mt-6 text-dark-text-muted text-lg max-w-xl mx-auto leading-relaxed">
-              Book a free website audit. No sales pitch — just honest insight from your neighbour.
+              Book a free website audit. No sales pitch — just honest insight from your neighbour in the Kootenays.
             </p>
             <div className="mt-10">
-              <MagneticButton as="a" href="/audit">
-                <span className="inline-flex items-center justify-center gap-2 bg-copper hover:bg-copper-light text-white font-medium px-10 py-5 rounded-lg transition-colors duration-200 text-lg shadow-[0_0_30px_rgba(193,120,23,0.3)]">
-                  Book Your Free Audit <ArrowRight size={20} />
+              <RippleButton href="/audit">
+                <span className="relative inline-flex items-center justify-center gap-2 text-white font-medium px-10 py-5 rounded-lg text-lg">
+                  {/* Animated gradient border */}
+                  <span className="absolute inset-0 rounded-lg animated-gradient-border" />
+                  <span className="absolute inset-[2px] rounded-[6px] bg-slate" />
+                  <span className="relative z-10 inline-flex items-center gap-2">
+                    Book Your Free Audit <ArrowRight size={20} />
+                  </span>
                 </span>
-              </MagneticButton>
+              </RippleButton>
             </div>
             <p className="mt-8 text-dark-text-muted text-sm">
               Or reach us at{' '}

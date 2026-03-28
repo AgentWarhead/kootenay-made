@@ -550,3 +550,87 @@ a:hover, button:hover, [role="button"]:hover {
 .font-mono {
   font-family: 'JetBrains Mono', ui-monospace, monospace;
 }
+
+/* ═══ Sprint 2: New animations ═══ */
+
+/* Faster marquee rows */
+@keyframes marquee-fast-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes marquee-fast-right {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+.marquee-row-fast-left {
+  animation: marquee-fast-left 22s linear infinite;
+}
+.marquee-row-fast-right {
+  animation: marquee-fast-right 26s linear infinite;
+}
+
+/* Ripple effect on CTA buttons */
+@keyframes ripple-expand {
+  0% { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(60); opacity: 0; }
+}
+.ripple-effect {
+  animation: ripple-expand 0.7s ease-out forwards;
+}
+
+/* River scroll indicator */
+@keyframes river-flow {
+  0% { transform: translateY(0); opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { transform: translateY(40px); opacity: 0; }
+}
+.river-dot {
+  animation: river-flow 2.5s ease-in-out infinite;
+}
+.river-path {
+  stroke-dasharray: 80;
+  stroke-dashoffset: 80;
+  animation: river-draw 2s ease-out forwards 3s;
+}
+@keyframes river-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+/* Icon stroke-draw animation */
+.draw-icon svg {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  transition: stroke-dashoffset 0.8s ease-out;
+}
+.draw-icon-animate svg {
+  stroke-dashoffset: 0;
+}
+
+/* Campfire warm glow */
+@keyframes campfire-pulse {
+  0%, 100% { box-shadow: 0 0 30px rgba(193, 120, 23, 0.1), 0 0 60px rgba(193, 120, 23, 0.05); }
+  50% { box-shadow: 0 0 40px rgba(193, 120, 23, 0.2), 0 0 80px rgba(193, 120, 23, 0.1); }
+}
+.campfire-glow {
+  animation: campfire-pulse 3s ease-in-out infinite;
+}
+
+/* Topographic drift */
+@keyframes topo-drift {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(-100px, -50px); }
+}
+.topo-drift {
+  animation: topo-drift 60s linear infinite;
+}
+
+/* Reduced motion overrides for new animations */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-row-fast-left, .marquee-row-fast-right { animation: none; }
+  .ripple-effect { animation: none; }
+  .river-dot { animation: none; }
+  .river-path { animation: none; stroke-dashoffset: 0; }
+  .campfire-glow { animation: none; }
+  .topo-drift { animation: none; }
+}
