@@ -139,8 +139,8 @@ const values = [
 ];
 
 const storyParagraphs = [
-  "Kootenay Made Digital started with a simple observation: the businesses in the West Kootenays are incredible — but their websites? Not so much.",
-  "I'm a Castlegar-based developer who's spent years building digital products and learning what actually works online. Not just what looks pretty — what brings in customers, builds trust, and makes the phone ring.",
+  "The world is changing fast. Smart tools and AI aren't coming — they're here. And the businesses that use them well are going to thrive. We started Kootenay Made Digital because the hardest-working businesses in the West Kootenays deserve the same digital tools the big cities have — at prices that make sense here.",
+  "I'm a Castlegar-based developer who uses AI and modern tools to work faster and smarter — which means better results for less money. It's not about robots replacing people. It's about a one-person shop delivering the quality of a ten-person agency.",
   "What makes Kootenay Made different? I use modern AI-powered tools alongside traditional design skills. This means I can deliver the quality of work you'd expect from a big-city agency — but faster and at prices that make sense for a Kootenay business. No bloated teams. No six-month timelines. No $15,000 invoices.",
   "But technology is only half the story. The other half is being here. Being part of this community. Understanding that the plumber in Trail has different needs than the yoga studio in Nelson. Knowing that \"let's grab a coffee and figure this out\" is worth more than a hundred Zoom calls.",
 ];

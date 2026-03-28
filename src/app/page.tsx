@@ -152,12 +152,12 @@ function RiverScroll() {
 
 /* ── Services bento data ───────────────────── */
 const services = [
-  { icon: Globe, name: 'Modern Website', price: 'From $1,500', desc: 'Fast, responsive, built to convert.', large: true },
-  { icon: Palette, name: 'Full Brand Build', price: 'From $4,000', desc: 'Logo, colors, voice, and full identity.', large: true },
-  { icon: ShoppingBag, name: 'Shopify Store', price: 'From $3,000', desc: 'E-commerce that sells while you sleep.' },
-  { icon: Mail, name: 'Email Marketing', price: 'From $750', desc: 'Automated flows that nurture and convert.' },
-  { icon: Bot, name: 'AI Business Setup', price: '$1,500', desc: 'AI workflows, training, and 30-day support.' },
-  { icon: Search, name: 'Google Domination', price: '$500', desc: 'Local SEO + Google Business Profile.' },
+  { icon: Globe, name: 'Modern Website', price: 'From $1,500', desc: 'A website that works as hard as you do. Shows up on Google. Looks great on phones. Makes people call.', large: true },
+  { icon: Palette, name: 'Full Brand Build', price: 'From $4,000', desc: 'Logo, colours, business cards, the works. Walk into any meeting looking like you\'ve been around for 20 years.', large: true },
+  { icon: ShoppingBag, name: 'Shopify Store', price: 'From $3,000', desc: 'Sell online while you\'re out on the lake. Your store never closes.' },
+  { icon: Mail, name: 'Email Marketing', price: 'From $750', desc: 'Stay in touch with customers without lifting a finger. Birthday discounts, follow-ups — all on autopilot.' },
+  { icon: Bot, name: 'AI Business Setup', price: '$1,500', desc: 'The tools the big companies use, set up for your business. Save hours every week on the stuff you hate doing.' },
+  { icon: Search, name: 'Google Domination', price: '$500', desc: 'When someone searches "plumber near me" or "best restaurant in Trail" — you show up.' },
 ];
 
 /* ── Style previews data ───────────────────── */
@@ -174,11 +174,21 @@ const styles = [
 
 /* ── Pain Points (campfire stories) ──────────── */
 const painPoints = [
-  { text: "I get all my work from word of mouth, but I know I'm leaving money on the table.", label: 'Every tradesperson in Trail' },
-  { text: "My nephew built my website 5 years ago. I'm scared to touch it.", label: 'Restaurant owners everywhere' },
-  { text: "I know I need to be on Google, I just don't know where to start.", label: 'Small businesses across the Kootenays' },
-  { text: "My competitor just got a nice website and now I keep losing bids.", label: "Contractors who've been there" },
-  { text: "I post on Facebook sometimes but I have no idea if it's working.", label: 'Every business owner, honestly' },
+  { text: "I do great work — my customers always say so. I just wish more people could find me before they call someone else.", label: 'Contractors across the Kootenays' },
+  { text: "I've been meaning to get a website for three years now. Just never know where to start.", label: 'Every tradesperson who\'s been too busy working' },
+  { text: "Word of mouth has always been enough. But I know there's a whole group of people out there who don't know I exist yet.", label: 'Small business owners ready for the next step' },
+  { text: "People keep asking if we're still open because they can't find our hours online.", label: 'Restaurant owners who\'ve heard this too many times' },
+  { text: "We get tourists all summer but have no way to reach them before they arrive in town.", label: 'Tourism and hospitality businesses' },
+  { text: "Our menu is a PDF from 2019. I know it's not great, but I don't know how to fix it.", label: 'Restaurants doing amazing food with terrible websites' },
+  { text: "My clients find me through friends, which is wonderful. But I'd love to reach the people who don't know anyone to ask.", label: 'Wellness practitioners and therapists' },
+  { text: "I have a beautiful space and I'm proud of what I offer. I just wish my online presence matched.", label: 'Yoga studios, spas, and wellness centres' },
+  { text: "I see people visiting shops in Nelson and Trail that aren't half as good as mine — but they have a great website.", label: 'Retailers ready to level the playing field' },
+  { text: "I'd love to sell online but the whole Shopify thing feels overwhelming.", label: 'Shop owners eyeing e-commerce' },
+  { text: "My competitor just got a really nice website and I've noticed I'm hearing from fewer new clients.", label: 'Professionals seeing the shift happen' },
+  { text: "I know I need to be on Google but honestly, I don't know what that even means.", label: 'Business owners who are great at their craft, not at tech' },
+  { text: "I spend all my energy running my business. I don't have time to figure out the internet too.", label: 'Every small business owner, honestly' },
+  { text: "I tried building something myself once. Let's just say it didn't go well.", label: 'The DIY warriors who learned the hard way' },
+  { text: "I just want to feel proud when someone asks for my website.", label: 'Everyone who\'s been embarrassed to share a link' },
 ];
 
 /* ── Kootenay towns data ─────────────────────── */
@@ -328,7 +338,7 @@ export default function Home() {
               animate={heroRevealed ? { clipPath: 'polygon(0% 0%, 20% 0%, 35% 0%, 50% 0%, 65% 0%, 80% 0%, 100% 0%, 100% 100%, 0% 100%)' } : {}}
               transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
             >
-              Your Kootenay business deserves a digital presence as impressive as the mountains around it.
+              You&apos;re great at what you do. Let&apos;s make sure people know it.
             </motion.h1>
           </div>
 
@@ -350,7 +360,7 @@ export default function Home() {
             transition={{ duration: 0.6, delay: 2.4 }}
             className="mt-4 text-dark-text-muted text-lg sm:text-xl max-w-2xl leading-relaxed"
           >
-            Modern websites, brands, and marketing for West Kootenay businesses.
+            Modern websites, smart tools, and honest marketing for businesses in Castlegar, Trail, Nelson, and across the Kootenays.
           </motion.p>
 
           <motion.div
@@ -359,34 +369,35 @@ export default function Home() {
             transition={{ duration: 0.6, delay: 2.8 }}
             className="mt-10 flex flex-col sm:flex-row gap-4"
           >
-            <RippleButton href="/services">
-              <span className="inline-flex items-center justify-center gap-2 bg-copper hover:bg-copper-light text-white font-medium px-8 py-4 rounded-lg transition-colors duration-200 text-base">
-                See Our Services <ArrowRight size={18} />
-              </span>
-            </RippleButton>
             <RippleButton href="/audit">
-              <span className="inline-flex items-center justify-center gap-2 border border-cream/20 text-cream hover:bg-cream/10 font-medium px-8 py-4 rounded-lg transition-colors duration-200 text-base">
-                Free Website Audit
+              <span className="inline-flex items-center justify-center gap-2 bg-copper hover:bg-copper-light text-white font-medium px-8 py-4 rounded-lg transition-colors duration-200 text-base">
+                Get a Free Website Check-Up <ArrowRight size={18} />
               </span>
             </RippleButton>
+            <a href="#services" className="inline-flex items-center text-cream/70 hover:text-cream font-medium transition-colors duration-200 text-base mt-2 sm:mt-0">
+              See what we build ↓
+            </a>
           </motion.div>
         </div>
 
         <RiverScroll />
       </section>
 
-      <MountainDivider variant={1} fillColor="#1A1D20" />
+      <MountainDivider variant={1} fillColor="#1a1208" />
 
-      {/* ═══ MARQUEE ═══ */}
-      <Marquee />
+      {/* ═══ CAMPFIRE STORIES ═══ */}
+      <CampfireStories stories={painPoints} />
+
+      {/* ═══ VIDEO BACKGROUND — KOOTENAY ROOTS ═══ */}
+      <VideoSection />
 
       <MountainDivider variant={2} fillColor="#F8F4F0" />
 
       {/* ═══ SERVICES BENTO — Interactive 3D Grid ═══ */}
-      <section className="bg-cream py-24 sm:py-32 cedar-texture relative">
+      <section id="services" className="bg-cream py-24 sm:py-32 cedar-texture relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
           <ScrollReveal>
-            <p className="text-copper font-medium text-sm tracking-wider uppercase mb-3">What We Build</p>
+            <p className="text-copper font-medium text-sm tracking-wider uppercase mb-3">What We Can Build For You</p>
             <h2 className="font-[family-name:var(--font-satoshi)] text-3xl sm:text-4xl md:text-5xl font-bold text-slate leading-tight">
               Everything your business needs online.
             </h2>
@@ -419,6 +430,10 @@ export default function Home() {
           </ScrollReveal>
         </div>
       </section>
+
+      {/* ═══ FORCES OF NATURE — Interactive Stat Cards ═══ */}
+      <FogTransition from="dark" />
+      <ForcesOfNature />
 
       <MountainDivider variant={3} fillColor="#1A1D20" />
 
@@ -482,19 +497,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══ FORCES OF NATURE — Interactive Stat Cards ═══ */}
-      <FogTransition from="dark" />
-      <ForcesOfNature />
+      {/* ═══ MARQUEE ═══ */}
+      <Marquee />
 
-      <MountainDivider variant={1} fillColor="#1a1208" />
-
-      {/* ═══ CAMPFIRE STORIES ═══ */}
-      <CampfireStories stories={painPoints} />
-
-      {/* ═══ VIDEO BACKGROUND — KOOTENAY ROOTS ═══ */}
-      <VideoSection />
-
-      <MountainDivider variant={2} fillColor="#1A1D20" />
+      <MountainDivider variant={1} fillColor="#1A1D20" />
 
       {/* ═══ FINAL CTA ═══ */}
       <section className="aurora-bg grain py-24 sm:py-32 relative">
@@ -502,11 +508,10 @@ export default function Home() {
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-16 text-center">
           <ScrollReveal>
             <h2 className="font-[family-name:var(--font-satoshi)] text-3xl sm:text-4xl md:text-5xl font-bold text-cream leading-tight max-w-2xl mx-auto">
-              Your competitors already have a website.<br />
-              <span className="text-copper">Make yours the one people remember.</span>
+              Let&apos;s grab a coffee and talk about your business.
             </h2>
             <p className="mt-6 text-dark-text-muted text-lg max-w-xl mx-auto leading-relaxed">
-              Book a free website audit. No sales pitch — just honest insight from your neighbour in the Kootenays.
+              Our website check-up is free, takes 30 minutes, and comes with zero pressure. We&apos;ll look at where you are online, show you what&apos;s working, and give you an honest plan — whether you hire us or not.
             </p>
             <div className="mt-10">
               <RippleButton href="/audit">
@@ -515,7 +520,7 @@ export default function Home() {
                   <span className="absolute inset-0 rounded-lg animated-gradient-border" />
                   <span className="absolute inset-[2px] rounded-[6px] bg-slate" />
                   <span className="relative z-10 inline-flex items-center gap-2">
-                    Book Your Free Audit <ArrowRight size={20} />
+                    Book a Free Check-Up ☕
                   </span>
                 </span>
               </RippleButton>

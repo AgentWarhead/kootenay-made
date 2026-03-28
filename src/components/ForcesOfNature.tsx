@@ -67,14 +67,14 @@ function AuroraCard({ inView }: { inView: boolean }) {
           transition={{ delay: 0.8 }}
           className="text-cream/90 text-xl sm:text-2xl mt-2 font-semibold tracking-wide font-[family-name:var(--font-satoshi)]"
         >
-          Design Styles
+          Industries Served
         </motion.p>
       </div>
     </div>
   );
 }
 
-/* ── Card 2: Snowfall — '17+ Pages' ── */
+/* ── Card 2: Snowfall — 'Under 3 Seconds' ── */
 function SnowfallCard({ inView }: { inView: boolean }) {
   const snowflakes = useMemo(
     () => Array.from({ length: 24 }, (_, i) => ({
@@ -122,7 +122,7 @@ function SnowfallCard({ inView }: { inView: boolean }) {
           transition={{ duration: 0.8, delay: 0.3, type: 'spring', stiffness: 200 }}
           className="font-[family-name:var(--font-satoshi)] text-8xl sm:text-9xl font-black text-white drop-shadow-[0_4px_20px_rgba(255,255,255,0.2)]"
         >
-          <AnimatedCounter end={17} suffix="+" inView={inView} />
+          &lt;3
         </motion.span>
         <motion.p
           initial={{ opacity: 0, y: 10 }}
@@ -130,7 +130,7 @@ function SnowfallCard({ inView }: { inView: boolean }) {
           transition={{ delay: 0.8 }}
           className="text-cream/90 text-xl sm:text-2xl mt-2 font-semibold tracking-wide font-[family-name:var(--font-satoshi)]"
         >
-          Pages on This Site
+          Second Load Time
         </motion.p>
       </div>
     </div>
@@ -166,7 +166,7 @@ function ForestGrowthCard({ inView }: { inView: boolean }) {
   );
 }
 
-/* ── Card 4: Mountain Summit — '100% Kootenay Made' ── */
+/* ── Card 4: Mountain Summit — 'Kootenay Made' ── */
 function MountainSummitCard({ inView }: { inView: boolean }) {
   return (
     <div className="relative aspect-square rounded-2xl overflow-hidden border border-white/5 group hover:-translate-y-1 transition-transform duration-300">
