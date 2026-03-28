@@ -300,25 +300,8 @@ body {
 }
 
 /* Logo glow wrapper for dark backgrounds */
-.logo-glow {
-  position: relative;
-  display: inline-block;
-}
 
-.logo-glow::before {
-  content: '';
-  position: absolute;
-  inset: -20px;
-  background: radial-gradient(ellipse, rgba(193, 120, 23, 0.25) 0%, transparent 70%);
-  border-radius: 50%;
-  z-index: 0;
-  filter: blur(15px);
-}
 
-.logo-glow > * {
-  position: relative;
-  z-index: 1;
-}
 
 /* Glassmorphism cards */
 .glass-card-dark {

@@ -45,16 +45,14 @@ export default function Navigation() {
         <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
           <div className="flex items-center justify-between h-20">
             <Link href="/" className="relative z-10 flex items-center">
-              <div className="logo-glow">
-                <Image
-                  src="/brand/kmd-horizontal-nobg.png"
-                  alt="Kootenay Made Digital"
-                  width={200}
-                  height={40}
-                  className="h-8 w-auto transition-all duration-300 brightness-[1.3]"
-                  priority
-                />
-              </div>
+              <Image
+                src="/brand/kmd-horizontal-nobg.png"
+                alt="Kootenay Made Digital"
+                width={200}
+                height={40}
+                className="h-8 w-auto transition-all duration-300 brightness-[1.5]"
+                priority
+              />
             </Link>
 
             {/* Desktop */}
