@@ -49,7 +49,7 @@ function AuroraCard({ inView }: { inView: boolean }) {
     <div className="fon-card group relative min-h-[350px] sm:min-h-[400px] rounded-2xl overflow-hidden border border-white/5">
       {/* Background image */}
       <Image
-        src="/images/stats/aurora-bg.jpg"
+        src="/images/stats/aurora-bg.webp"
         alt="Northern lights over Kootenay mountains"
         fill
         className="object-cover"
@@ -104,7 +104,7 @@ function SnowfallCard({ inView }: { inView: boolean }) {
   return (
     <div className="fon-card group relative min-h-[350px] sm:min-h-[400px] rounded-2xl overflow-hidden border border-white/5">
       <Image
-        src="/images/stats/snow-bg.jpg"
+        src="/images/stats/snow-bg.webp"
         alt="Snowy Kootenay mountain valley"
         fill
         className="object-cover"
@@ -152,7 +152,7 @@ function ForestGrowthCard({ inView }: { inView: boolean }) {
   return (
     <div className="fon-card group relative min-h-[350px] sm:min-h-[400px] rounded-2xl overflow-hidden border border-white/5">
       <Image
-        src="/images/stats/forest-bg.jpg"
+        src="/images/stats/forest-bg.webp"
         alt="Misty Kootenay forest at dusk"
         fill
         className="object-cover"
@@ -245,7 +245,7 @@ function MountainSummitCard({ inView }: { inView: boolean }) {
   return (
     <div className="fon-card group relative min-h-[350px] sm:min-h-[400px] rounded-2xl overflow-hidden border border-white/5">
       <Image
-        src="/images/stats/mountain-bg.jpg"
+        src="/images/stats/mountain-bg.webp"
         alt="Kootenay mountain summit at golden hour"
         fill
         className="object-cover"
