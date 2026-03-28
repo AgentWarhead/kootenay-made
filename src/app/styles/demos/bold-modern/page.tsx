@@ -213,16 +213,16 @@ export default function BoldModernDemo() {
           <div className="grid md:grid-cols-3 gap-6">
             {[
               {
-                title: 'HIGH-IMPACT WEBSITE',
+                title: 'CUSTOM WEBSITE',
                 desc: 'A bold online presence that matches your brand\'s energy and professionalism.',
               },
               {
-                title: 'GOOGLE MAPS & LOCAL SEO',
-                desc: 'Dominate local search results when customers need electrical services.',
+                title: 'GOOGLE VISIBILITY',
+                desc: 'Show up when people search for electrical services in the Kootenays.',
               },
               {
-                title: 'REPUTATION MANAGEMENT',
-                desc: 'Showcase your 5-star reviews and build unstoppable trust.',
+                title: 'SMART BUSINESS TOOLS',
+                desc: 'Automate quoting, scheduling, and follow-ups. More time on the job.',
               },
             ].map((card, i) => (
               <Reveal key={card.title} delay={i * 0.15}>

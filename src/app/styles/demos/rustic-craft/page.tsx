@@ -254,16 +254,16 @@ export default function RusticCraftDemo() {
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
-                title: 'Brewery Website Design',
+                title: 'Custom Website',
                 desc: 'A rugged, handcrafted website that captures your brewery\u2019s character and story.',
               },
               {
-                title: 'Local Discovery & SEO',
-                desc: 'Put your taproom on the map \u2014 literally. Get found by locals and tourists alike.',
+                title: 'Brand Identity',
+                desc: 'Logo, colours, the works. Look as established as your oldest barrel.',
               },
               {
-                title: 'Menu & Events Management',
-                desc: 'Keep your tap list fresh and your events calendar packed with easy online updates.',
+                title: 'Social Media',
+                desc: 'Show off your taproom, your brews, and your vibe. Build a following that visits.',
               },
             ].map((card, i) => (
               <FadeUp key={card.title} delay={i * 0.15}>

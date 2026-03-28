@@ -233,18 +233,18 @@ export default function AdventureOutdoorsDemo() {
             {[
               {
                 num: 1,
-                title: 'Adventure-Ready Website',
+                title: 'Custom Website',
                 desc: 'A bold, action-packed website that gets outdoor enthusiasts excited to book.',
               },
               {
                 num: 2,
-                title: 'Google Maps & Local SEO',
-                desc: 'Show up when travellers search for Kootenay adventures and outdoor guides.',
+                title: 'Online Store',
+                desc: 'Sell gear, gift cards, and trip packages online — your store never closes.',
               },
               {
                 num: 3,
-                title: 'Booking & Social Media',
-                desc: 'Online booking integration and social content that drives bookings year-round.',
+                title: 'Social Media',
+                desc: 'Show off your adventures and build a following that books trips.',
               },
             ].map((card, i) => (
               <Reveal key={card.title} delay={i * 0.15}>

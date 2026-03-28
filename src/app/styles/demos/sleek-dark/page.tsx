@@ -204,16 +204,16 @@ export default function SleekDarkDemo() {
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
-                title: 'Custom Website Design',
+                title: 'Custom Website',
                 desc: 'A stunning, atmospheric website that captures the essence of your dining experience.',
               },
               {
-                title: 'Online Reservations & SEO',
-                desc: 'Get found by diners searching for fine dining and fill every seat, every night.',
+                title: 'Google Visibility',
+                desc: 'Show up when people search for fine dining in the Kootenays.',
               },
               {
-                title: 'Brand & Menu Design',
-                desc: 'Sophisticated menus, photography direction, and cohesive brand identity.',
+                title: 'Social Media',
+                desc: 'Show off your plates, your space, and your story. Build a following that books.',
               },
             ].map((card, i) => (
               <Reveal key={card.title} delay={i * 0.15}>

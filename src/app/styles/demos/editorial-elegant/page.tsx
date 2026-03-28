@@ -180,16 +180,16 @@ export default function EditorialElegantDemo() {
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
-                title: 'Property Showcase Website',
+                title: 'Custom Website',
                 desc: 'An elegant, magazine-quality website that presents your listings with sophistication.',
               },
               {
-                title: 'Local SEO & Lead Generation',
-                desc: 'Attract buyers and sellers searching for Kootenay properties online.',
+                title: 'Brand Identity',
+                desc: 'Logo, colours, the works. Look as established as you deserve.',
               },
               {
-                title: 'Brand & Photography Direction',
-                desc: 'Cohesive branding, listing photography guidance, and print-ready materials.',
+                title: 'Email Marketing',
+                desc: 'Stay in touch with buyers and sellers without lifting a finger. Market updates, new listings, done.',
               },
             ].map((card, i) => (
               <Reveal key={card.title} delay={i * 0.15}>

@@ -229,19 +229,19 @@ export default function BrightPlayfulDemo() {
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
-                title: 'Fun & Friendly Website',
+                title: 'Custom Website',
                 desc: 'A colourful, welcoming website that shows parents exactly why their kids will love it here.',
                 color: '#ff6b6b',
                 emoji: '🎨',
               },
               {
-                title: 'Google Maps & Local SEO',
+                title: 'Google Visibility',
                 desc: 'Help parents find you when they search for childcare in the Kootenays.',
                 color: '#4ecdc4',
                 emoji: '📍',
               },
               {
-                title: 'Social Media & Content',
+                title: 'Social Media',
                 desc: 'Engaging posts and updates that build community and trust with families.',
                 color: '#a78bfa',
                 emoji: '💜',

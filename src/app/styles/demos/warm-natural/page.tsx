@@ -141,7 +141,7 @@ export default function WarmNaturalDemo() {
 
   const services = [
     {
-      title: 'Serene Web Design',
+      title: 'Custom Website',
       desc: 'A beautiful, calming website that reflects your wellness practice and invites new clients.',
       icon: (
         <svg className="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="#7d9a6b" strokeWidth={1.5}>
@@ -150,8 +150,8 @@ export default function WarmNaturalDemo() {
       ),
     },
     {
-      title: 'Wellness SEO',
-      desc: 'Help local clients find your healing services when they need them most.',
+      title: 'Google Visibility',
+      desc: 'Show up when people search for wellness and healing in the Kootenays.',
       icon: (
         <svg className="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="#7d9a6b" strokeWidth={1.5}>
           <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
@@ -159,8 +159,8 @@ export default function WarmNaturalDemo() {
       ),
     },
     {
-      title: 'Booking & Client Flow',
-      desc: 'Streamlined online booking and client communication that feels effortless.',
+      title: 'Email Marketing',
+      desc: 'Stay in touch with clients without lifting a finger. Class updates, seasonal offers, done.',
       icon: (
         <svg className="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="#7d9a6b" strokeWidth={1.5}>
           <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
