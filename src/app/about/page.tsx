@@ -164,7 +164,7 @@ export default function AboutPage() {
                   alt="Kootenay Made Digital"
                   width={256}
                   height={256}
-                  className="w-full h-auto opacity-80"
+                  className="w-full h-auto opacity-90 drop-shadow-[0_0_25px_rgba(193,120,23,0.3)] drop-shadow-[0_0_50px_rgba(193,120,23,0.15)] brightness-110"
                 />
               </div>
             </ScrollReveal>

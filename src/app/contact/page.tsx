@@ -136,7 +136,7 @@ export default function ContactPage() {
               <ScrollReveal delay={0.2}>
                 <div className="space-y-8">
                   <div className="flex justify-center mb-4">
-                    <Image src="/brand/kmd-graphic-nobg.png" alt="Kootenay Made Digital" width={80} height={80} className="opacity-80" />
+                    <Image src="/brand/kmd-graphic-nobg.png" alt="Kootenay Made Digital" width={80} height={80} className="opacity-90 drop-shadow-[0_0_20px_rgba(193,120,23,0.3)] drop-shadow-[0_0_40px_rgba(193,120,23,0.15)] brightness-110" />
                   </div>
                   {[
                     { icon: Mail, label: 'Email', value: 'hello@kootenaymade.ca', href: 'mailto:hello@kootenaymade.ca' },
