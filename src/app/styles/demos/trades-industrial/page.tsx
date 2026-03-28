@@ -2,213 +2,582 @@
 
 import { Rajdhani, Inter } from 'next/font/google'
 import Link from 'next/link'
+import Image from 'next/image'
+import { useRef } from 'react'
+import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion'
 
-const rajdhani = Rajdhani({
+const heading = Rajdhani({
   subsets: ['latin'],
   weight: ['500', '600', '700'],
 })
 
-const inter = Inter({
+const body = Inter({
   subsets: ['latin'],
-  weight: ['400', '500'],
+  weight: ['400', '500', '700'],
 })
 
-export default function TradesIndustrialDemo() {
+/* ── Section reveal ── */
+function Reveal({ children, className = '', delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
+  const prefersReduced = useReducedMotion()
   return (
-    <div className={inter.className} style={{ fontFamily: 'Inter, sans-serif', backgroundColor: '#ffffff' }}>
-      {/* Nav */}
-      <nav style={{ backgroundColor: '#2d2d2d' }} className="px-6 py-4">
-        <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <span
-            className={rajdhani.className}
-            style={{ color: '#ff6a00', letterSpacing: '0.08em', fontWeight: 700, fontSize: '1.4rem', textTransform: 'uppercase' }}
-          >
-            Summit Plumbing &amp; Heating
+    <motion.div
+      className={className}
+      initial={prefersReduced ? {} : { opacity: 0, y: 30 }}
+      whileInView={prefersReduced ? {} : { opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.6, delay, ease: 'easeOut' }}
+    >
+      {children}
+    </motion.div>
+  )
+}
+
+/* ── Angular clip-path divider ── */
+function AngularDivider({ topColor = '#2d2d2d', bottomColor = '#1a1a1a' }: { topColor?: string; bottomColor?: string }) {
+  return (
+    <div style={{ backgroundColor: topColor, lineHeight: 0 }}>
+      <svg viewBox="0 0 1440 60" preserveAspectRatio="none" className="w-full h-10 md:h-14 block">
+        <polygon fill={bottomColor} points="0,0 1440,30 1440,60 0,60" />
+      </svg>
+    </div>
+  )
+}
+
+/* ══════════════════════════════════════════════════════════════
+   SUMMIT PLUMBING & HEATING — Trades & Industrial Demo
+   ══════════════════════════════════════════════════════════════ */
+export default function TradesIndustrialDemo() {
+  const prefersReduced = useReducedMotion()
+
+  /* Scroll progress for tool icon draw animation */
+  const toolsRef = useRef(null)
+  const { scrollYProgress: toolsScroll } = useScroll({
+    target: toolsRef,
+    offset: ['start end', 'end start'],
+  })
+  const drawLength = useTransform(toolsScroll, [0, 0.5], [1, 0])
+
+  return (
+    <div className={body.className} style={{ fontFamily: 'Inter, sans-serif', backgroundColor: '#2d2d2d', color: '#ffffff' }}>
+
+      {/* ── prefers-reduced-motion ── */}
+      <style>{`
+        @media (prefers-reduced-motion: reduce) {
+          *, *::before, *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+          }
+        }
+        @keyframes emergencyPulse {
+          0%, 100% { box-shadow: 0 0 8px rgba(255,106,0,0.4); background-color: #ff6a00; }
+          50% { box-shadow: 0 0 24px rgba(255,40,0,0.8); background-color: #ff3300; }
+        }
+      `}</style>
+
+      {/* ═══════════ 1. NAV ═══════════ */}
+      <nav style={{ backgroundColor: '#1a1a1a', borderBottom: '2px solid #ff6a00' }} className="px-6 py-4 sticky top-0 z-40">
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
+          <span className={`${heading.className} text-xl md:text-2xl font-bold uppercase tracking-wider`} style={{ color: '#ffffff' }}>
+            SUMMIT PLUMBING <span style={{ color: '#ff6a00' }}>&amp;</span> HEATING
           </span>
-          <div className="hidden md:flex gap-8">
-            <a href="#services" className="text-white/70 hover:text-white text-sm font-medium tracking-wide uppercase transition-colors">Services</a>
-            <a href="#about" className="text-white/70 hover:text-white text-sm font-medium tracking-wide uppercase transition-colors">About</a>
-            <a href="#contact" className="text-white/70 hover:text-white text-sm font-medium tracking-wide uppercase transition-colors">Contact</a>
+          <div className="hidden md:flex items-center gap-8">
+            {['Services', 'Projects', 'About', 'Contact'].map((link) => (
+              <a
+                key={link}
+                href={`#${link.toLowerCase()}`}
+                className="text-sm font-medium uppercase tracking-widest transition-colors"
+                style={{ color: 'rgba(255,255,255,0.6)' }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = '#ff6a00')}
+                onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.6)')}
+              >
+                {link}
+              </a>
+            ))}
+            <a
+              href="tel:2505550142"
+              className="text-sm font-bold uppercase tracking-wider"
+              style={{ color: '#ff6a00' }}
+            >
+              (250) 555-0142
+            </a>
           </div>
+          <a href="tel:2505550142" className="md:hidden text-sm font-bold" style={{ color: '#ff6a00' }}>
+            (250) 555-0142
+          </a>
         </div>
       </nav>
 
-      {/* Hero */}
-      <section style={{ backgroundColor: '#2d2d2d' }} className="relative overflow-hidden">
-        {/* Orange accent stripe left */}
-        <div className="absolute left-0 top-0 bottom-0 w-2" style={{ backgroundColor: '#ff6a00' }} />
-        <div className="max-w-5xl mx-auto px-8 md:px-12 py-24 md:py-36">
-          <h1
-            className={rajdhani.className}
+      {/* ═══════════ 2. HERO ═══════════ */}
+      <section className="relative overflow-hidden min-h-screen flex items-center">
+        {/* Background image */}
+        <div className="absolute inset-0">
+          <Image
+            src="/images/demos/trades-industrial-hero.webp"
+            alt="Summit Plumbing & Heating — professional plumbing work"
+            fill
+            className="object-cover"
+            priority
+            sizes="100vw"
+          />
+        </div>
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-black/50" />
+
+        {/* Angular accent */}
+        <div
+          className="absolute top-0 left-0 w-3 md:w-4"
+          style={{ backgroundColor: '#ff6a00', height: '70%', clipPath: 'polygon(0 0, 100% 0, 100% 85%, 0 100%)' }}
+        />
+
+        <div className="relative max-w-7xl mx-auto px-6 py-24 md:py-32 w-full">
+          {/* Emergency badge */}
+          <motion.div
+            className="inline-block px-4 py-2 text-xs font-bold uppercase tracking-widest text-white mb-8 rounded-sm"
             style={{
-              color: '#ffffff',
-              letterSpacing: '0.06em',
-              fontWeight: 700,
-              textTransform: 'uppercase',
-              fontSize: 'clamp(2.2rem, 5vw, 4rem)',
-              lineHeight: 1.1,
+              backgroundColor: '#ff6a00',
+              animation: prefersReduced ? 'none' : 'emergencyPulse 2s ease-in-out infinite',
             }}
+            initial={prefersReduced ? {} : { opacity: 0, scale: 0.8 }}
+            animate={prefersReduced ? {} : { opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
           >
-            Kootenay Reliable<span style={{ color: '#ff6a00' }}>.</span>
-          </h1>
-          <p className="mt-5 text-lg md:text-xl max-w-xl" style={{ color: '#8a9bb0' }}>
-            Licensed plumbing, heating, and gas fitting for the West Kootenays. Available 24/7 for emergencies.
-          </p>
-          <a
-            href="#services"
-            className="inline-block mt-8 px-8 py-3.5 font-bold text-sm uppercase tracking-widest transition-all hover:brightness-110"
+            EMERGENCY 24/7
+          </motion.div>
+
+          {/* MASSIVE phone number */}
+          <motion.a
+            href="tel:2505550142"
+            className={`${heading.className} block text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-6 transition-colors`}
+            style={{ color: '#ff6a00' }}
+            initial={prefersReduced ? {} : { opacity: 0, y: 20 }}
+            animate={prefersReduced ? {} : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.4 }}
+            onMouseEnter={(e) => (e.currentTarget.style.textShadow = '0 0 30px rgba(255,106,0,0.6)')}
+            onMouseLeave={(e) => (e.currentTarget.style.textShadow = 'none')}
+          >
+            (250) 555-0142
+          </motion.a>
+
+          <motion.h1
+            className={`${heading.className} text-4xl md:text-6xl lg:text-7xl font-bold uppercase leading-tight mb-6`}
+            initial={prefersReduced ? {} : { opacity: 0, y: 20 }}
+            animate={prefersReduced ? {} : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.6 }}
+          >
+            KOOTENAY RELIABLE
+          </motion.h1>
+
+          <motion.p
+            className="text-lg md:text-xl max-w-xl leading-relaxed mb-10"
+            style={{ color: 'rgba(255,255,255,0.7)' }}
+            initial={prefersReduced ? {} : { opacity: 0, y: 20 }}
+            animate={prefersReduced ? {} : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.8 }}
+          >
+            Plumbing, heating &amp; gas fitting for homes and businesses across the West Kootenays.
+          </motion.p>
+
+          <motion.a
+            href="#contact"
+            className={`${heading.className} inline-block px-10 py-4 text-base font-bold uppercase tracking-widest transition-all`}
             style={{ backgroundColor: '#ff6a00', color: '#ffffff' }}
+            whileHover={prefersReduced ? {} : { boxShadow: '0 0 30px rgba(255,106,0,0.6)', scale: 1.03 }}
+            initial={prefersReduced ? {} : { opacity: 0, y: 20 }}
+            animate={prefersReduced ? {} : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 1 }}
           >
-            Our Services
-          </a>
+            GET A FREE QUOTE
+          </motion.a>
         </div>
       </section>
 
-      {/* Angular divider */}
-      <div style={{ backgroundColor: '#ffffff' }} className="relative">
-        <svg viewBox="0 0 1440 48" preserveAspectRatio="none" className="w-full h-8 md:h-12 block" style={{ marginTop: '-1px' }}>
-          <polygon fill="#2d2d2d" points="0,0 1440,0 1440,48 0,0" />
-        </svg>
-      </div>
+      {/* ═══════════ 3. TRUST BAR ═══════════ */}
+      <section style={{ backgroundColor: '#ff6a00' }} className="py-5 px-6">
+        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-center">
+          {[
+            '★★★★★ 5.0 Rating',
+            '20+ Years',
+            'Licensed & Insured',
+            '24/7 Emergency',
+          ].map((item) => (
+            <span
+              key={item}
+              className={`${heading.className} text-sm md:text-base font-bold uppercase tracking-wider whitespace-nowrap`}
+              style={{ color: '#ffffff' }}
+            >
+              {item}
+            </span>
+          ))}
+        </div>
+      </section>
 
-      {/* Services */}
-      <section id="services" className="py-16 md:py-24 px-6" style={{ backgroundColor: '#ffffff' }}>
-        <div className="max-w-6xl mx-auto">
-          <h2
-            className={rajdhani.className + ' text-3xl md:text-4xl'}
-            style={{ color: '#2d2d2d', letterSpacing: '0.06em', fontWeight: 700, textTransform: 'uppercase' }}
-          >
-            What We Offer
-          </h2>
-          <div className="w-16 h-1 mb-12" style={{ backgroundColor: '#ff6a00' }} />
+      <AngularDivider topColor="#ff6a00" bottomColor="#2d2d2d" />
+
+      {/* ═══════════ 4. SERVICES ═══════════ */}
+      <section id="services" ref={toolsRef} className="relative py-20 md:py-28 px-6" style={{ backgroundColor: '#2d2d2d' }}>
+        {/* Drawing wrench SVG on scroll */}
+        <motion.svg
+          className="absolute top-1/2 right-12 -translate-y-1/2 hidden xl:block"
+          width="120"
+          height="120"
+          viewBox="0 0 120 120"
+          fill="none"
+          style={{ opacity: 0.12 }}
+        >
+          <motion.path
+            d="M90 15a25 25 0 0 0-22.93 35.18L30 87.25a10 10 0 1 0 14.14 14.14L81.82 63.93A25 25 0 0 0 90 15z"
+            stroke="#ff6a00"
+            strokeWidth="2"
+            fill="none"
+            style={{ pathLength: prefersReduced ? 1 : drawLength }}
+          />
+        </motion.svg>
+
+        {/* Drawing pipe SVG on scroll */}
+        <motion.svg
+          className="absolute top-1/2 left-12 -translate-y-1/2 hidden xl:block"
+          width="100"
+          height="100"
+          viewBox="0 0 48 48"
+          fill="none"
+          style={{ opacity: 0.12 }}
+        >
+          <motion.path
+            d="M8 14h12v6H8v14h6V22h12v12h6V22h8v-6h-8V8h-6v8H14V8H8v6z"
+            stroke="#ff6a00"
+            strokeWidth="1.5"
+            fill="none"
+            style={{ pathLength: prefersReduced ? 1 : drawLength }}
+          />
+        </motion.svg>
+
+        <div className="max-w-7xl mx-auto">
+          <Reveal>
+            <h2 className={`${heading.className} text-3xl md:text-5xl font-bold uppercase mb-4`}>
+              WHAT WE BUILD FOR YOU
+            </h2>
+            <div className="w-20 h-1.5 mb-16" style={{ backgroundColor: '#ff6a00' }} />
+          </Reveal>
+
           <div className="grid md:grid-cols-3 gap-6">
             {[
               {
                 title: 'Custom Website',
-                desc: 'Get found by homeowners who need a plumber RIGHT NOW. A fast, professional site that makes the phone ring.',
-                icon: (
-                  <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="#ff6a00" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582" />
-                  </svg>
-                ),
+                desc: 'Get found by homeowners who need a plumber RIGHT NOW.',
               },
               {
                 title: 'Google Visibility',
-                desc: 'Show up when someone searches plumber, HVAC, or heating repair in the Kootenays.',
-                icon: (
-                  <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="#ff6a00" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-                  </svg>
-                ),
+                desc: 'Top of search for plumber, HVAC, heating in the Kootenays.',
               },
               {
                 title: 'Smart Business Tools',
-                desc: 'Automate booking requests and follow-ups. Spend more time on the job, less on the phone.',
-                icon: (
-                  <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="#ff6a00" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M11.42 15.17 17.25 21A2.652 2.652 0 0 0 21 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 1 1-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 0 0 4.486-6.336l-3.276 3.277a3.004 3.004 0 0 1-2.25-2.25l3.276-3.276a4.5 4.5 0 0 0-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085" />
-                  </svg>
-                ),
+                desc: 'Automate booking and follow-ups. More time on the job.',
               },
-            ].map((card) => (
-              <div
-                key={card.title}
-                className="p-6 md:p-8 transition-all hover:translate-y-[-2px]"
-                style={{
-                  backgroundColor: '#2d2d2d',
-                  borderLeft: '4px solid #ff6a00',
-                }}
-              >
-                <div className="mb-4">{card.icon}</div>
-                <h3
-                  className={rajdhani.className}
-                  style={{ color: '#ffffff', fontWeight: 700, letterSpacing: '0.04em', textTransform: 'uppercase', fontSize: '1.25rem' }}
+            ].map((card, i) => (
+              <Reveal key={card.title} delay={i * 0.15}>
+                <motion.div
+                  className="relative p-8 h-full transition-all cursor-default overflow-hidden"
+                  style={{
+                    backgroundColor: '#1a1a1a',
+                    borderTop: '4px solid #ff6a00',
+                    backgroundImage: 'linear-gradient(135deg, rgba(138,155,176,0.05) 0%, transparent 50%)',
+                  }}
+                  whileHover={prefersReduced ? {} : { scale: 1.04, boxShadow: '0 0 30px rgba(255,106,0,0.4)' }}
+                  transition={{ type: 'spring', stiffness: 300, damping: 20 }}
                 >
-                  {card.title}
-                </h3>
-                <p className="mt-3 leading-relaxed" style={{ color: '#8a9bb0', fontSize: '0.95rem' }}>{card.desc}</p>
-              </div>
+                  {/* Steel texture overlay */}
+                  <div className="absolute inset-0 opacity-5 pointer-events-none" style={{
+                    backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(138,155,176,0.3) 2px, rgba(138,155,176,0.3) 3px)',
+                  }} />
+                  <div className="relative">
+                    <h3 className={`${heading.className} text-xl md:text-2xl font-bold uppercase mb-4`} style={{ color: '#ff6a00' }}>
+                      {card.title}
+                    </h3>
+                    <p className="leading-relaxed" style={{ color: 'rgba(255,255,255,0.6)' }}>
+                      {card.desc}
+                    </p>
+                  </div>
+                </motion.div>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Angular divider */}
-      <div style={{ backgroundColor: '#f4f5f7' }} className="relative">
-        <svg viewBox="0 0 1440 48" preserveAspectRatio="none" className="w-full h-8 md:h-12 block" style={{ marginTop: '-1px' }}>
-          <polygon fill="#ffffff" points="0,0 1440,0 0,48 0,0" />
-        </svg>
-      </div>
+      <AngularDivider topColor="#2d2d2d" bottomColor="#1a1a1a" />
 
-      {/* About */}
-      <section id="about" className="py-16 md:py-24 px-6" style={{ backgroundColor: '#f4f5f7' }}>
-        <div className="max-w-4xl mx-auto">
-          <div className="flex flex-col md:flex-row gap-10 items-start">
-            <div className="flex-1">
-              <h2
-                className={rajdhani.className}
-                style={{ color: '#2d2d2d', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase' }}
-              >
-                <span className="text-3xl md:text-4xl block">About Summit</span>
-              </h2>
-              <div className="w-12 h-1 mt-3 mb-6" style={{ backgroundColor: '#ff6a00' }} />
-              <p className="text-base md:text-lg leading-relaxed" style={{ color: '#4a4a4a' }}>
-                Summit Plumbing &amp; Heating has served the West Kootenays for over 20 years. Licensed, insured, and ready 24/7 for emergencies.
-              </p>
+      {/* ═══════════ 5. GALLERY / SHOWCASE ═══════════ */}
+      <section id="projects" className="relative py-20 md:py-28 px-6" style={{ backgroundColor: '#1a1a1a' }}>
+        <div className="max-w-7xl mx-auto">
+          <Reveal>
+            <h2 className={`${heading.className} text-3xl md:text-5xl font-bold uppercase mb-4`}>
+              RECENT PROJECTS
+            </h2>
+            <div className="w-20 h-1.5 mb-12" style={{ backgroundColor: '#ff6a00' }} />
+          </Reveal>
+
+          <Reveal delay={0.1}>
+            <div className="relative w-full max-w-3xl mx-auto mb-12 overflow-hidden" style={{ borderBottom: '4px solid #ff6a00' }}>
+              <Image
+                src="/images/demos/trades-industrial-showcase.webp"
+                alt="Summit Plumbing & Heating — recent project showcase"
+                width={800}
+                height={500}
+                className="w-full h-auto block"
+              />
             </div>
-            <div
-              className="w-full md:w-64 h-48 flex items-center justify-center flex-shrink-0"
-              style={{ backgroundColor: '#2d2d2d', border: '2px solid #8a9bb0' }}
-            >
-              <div className="text-center">
-                <span className={rajdhani.className} style={{ color: '#ff6a00', fontSize: '3rem', fontWeight: 700, lineHeight: 1 }}>20+</span>
-                <span className="block mt-1 text-sm uppercase tracking-widest" style={{ color: '#8a9bb0' }}>Years of Service</span>
-              </div>
-            </div>
+          </Reveal>
+
+          <div className="grid grid-cols-3 gap-4 md:gap-6">
+            {['Kitchen Reno', 'Bathroom Remodel', 'Emergency Repair'].map((label, i) => (
+              <Reveal key={label} delay={0.15 + i * 0.1}>
+                <div
+                  className="flex items-center justify-center h-28 md:h-36 text-center px-4"
+                  style={{ backgroundColor: '#2d2d2d', border: '1px solid rgba(138,155,176,0.15)' }}
+                >
+                  <span className={`${heading.className} text-sm md:text-lg font-bold uppercase tracking-wider`} style={{ color: '#ff6a00' }}>
+                    {label}
+                  </span>
+                </div>
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer style={{ backgroundColor: '#2d2d2d' }} className="py-10 px-6">
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-          <span
-            className={rajdhani.className}
-            style={{ color: '#ff6a00', fontWeight: 600, letterSpacing: '0.06em', textTransform: 'uppercase' }}
-          >
-            Summit Plumbing &amp; Heating
-          </span>
-          <span className="text-sm" style={{ color: '#8a9bb0' }}>
-            &copy; {new Date().getFullYear()} Summit Plumbing &amp; Heating. Sample site by Kootenay Made Digital.
-          </span>
+      <AngularDivider topColor="#1a1a1a" bottomColor="#2d2d2d" />
+
+      {/* ═══════════ 6. TESTIMONIAL ═══════════ */}
+      <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#2d2d2d' }}>
+        <div className="max-w-4xl mx-auto">
+          <Reveal>
+            <div className="flex gap-6">
+              {/* Orange accent bar */}
+              <div className="hidden sm:block w-1.5 flex-shrink-0" style={{ backgroundColor: '#ff6a00' }} />
+              <div>
+                <div className="flex gap-1 mb-6">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <span key={i} className="text-2xl" style={{ color: '#ff6a00' }}>&#9733;</span>
+                  ))}
+                </div>
+                <blockquote className={`${heading.className} text-xl md:text-3xl font-medium leading-relaxed mb-6`} style={{ color: 'rgba(255,255,255,0.9)' }}>
+                  &ldquo;Summit saved us when our pipes burst at 2am. Fast, professional, fair pricing.&rdquo;
+                </blockquote>
+                <p className="font-bold uppercase tracking-wider" style={{ color: '#ff6a00' }}>
+                  &mdash; Sarah M., Castlegar
+                </p>
+                <p className="mt-4 text-sm italic" style={{ color: 'rgba(255,255,255,0.3)' }}>
+                  (Sample review &mdash; your real reviews go here)
+                </p>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      <AngularDivider topColor="#2d2d2d" bottomColor="#1a1a1a" />
+
+      {/* ═══════════ 7. ABOUT ═══════════ */}
+      <section id="about" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#1a1a1a' }}>
+        <div className="max-w-4xl mx-auto">
+          <Reveal>
+            <h2 className={`${heading.className} text-3xl md:text-5xl font-bold uppercase mb-4`}>
+              ABOUT SUMMIT
+            </h2>
+            <div className="w-20 h-1.5 mb-10" style={{ backgroundColor: '#ff6a00' }} />
+          </Reveal>
+          <Reveal delay={0.15}>
+            <p className="text-lg md:text-xl leading-relaxed" style={{ color: 'rgba(255,255,255,0.6)' }}>
+              Summit Plumbing &amp; Heating is a locally owned and operated company with over 20 years of experience keeping Kootenay homes and businesses running. From emergency pipe repairs at 2am to full heating system installations, we bring the same level of professionalism and care to every job. Licensed, insured, and committed to honest pricing &mdash; when you call Summit, you get a team that shows up on time, does the job right, and cleans up after. We&rsquo;re your neighbours, and we take pride in the work we do for this community.
+            </p>
+          </Reveal>
+        </div>
+      </section>
+
+      <AngularDivider topColor="#1a1a1a" bottomColor="#2d2d2d" />
+
+      {/* ═══════════ 8. CONTACT ═══════════ */}
+      <section id="contact" className="relative py-20 md:py-28 px-6" style={{ backgroundColor: '#2d2d2d' }}>
+        <div className="max-w-7xl mx-auto">
+          <Reveal>
+            <h2 className={`${heading.className} text-3xl md:text-5xl font-bold uppercase mb-4`}>
+              GET IN TOUCH
+            </h2>
+            <div className="w-20 h-1.5 mb-16" style={{ backgroundColor: '#ff6a00' }} />
+          </Reveal>
+
+          <div className="grid md:grid-cols-2 gap-12 md:gap-16">
+            {/* Contact info */}
+            <Reveal>
+              <div>
+                {/* LARGE phone number */}
+                <a
+                  href="tel:2505550142"
+                  className={`${heading.className} block text-4xl md:text-5xl font-bold mb-8 transition-colors`}
+                  style={{ color: '#ff6a00' }}
+                  onMouseEnter={(e) => (e.currentTarget.style.textShadow = '0 0 20px rgba(255,106,0,0.5)')}
+                  onMouseLeave={(e) => (e.currentTarget.style.textShadow = 'none')}
+                >
+                  (250) 555-0142
+                </a>
+                <div className="space-y-4" style={{ color: 'rgba(255,255,255,0.6)' }}>
+                  <p className="text-lg">
+                    <span className="font-bold uppercase tracking-wider text-sm block mb-1" style={{ color: '#ff6a00' }}>EMAIL</span>
+                    info@summitplumbing.ca
+                  </p>
+                  <p className="text-lg">
+                    <span className="font-bold uppercase tracking-wider text-sm block mb-1" style={{ color: '#ff6a00' }}>AVAILABILITY</span>
+                    24/7 Emergency Service
+                  </p>
+                  <p className="text-lg">
+                    <span className="font-bold uppercase tracking-wider text-sm block mb-1" style={{ color: '#ff6a00' }}>SERVICE AREA</span>
+                    West Kootenays
+                  </p>
+                </div>
+
+                {/* Emergency badge */}
+                <div
+                  className="inline-block mt-8 px-6 py-3 text-sm font-bold uppercase tracking-widest text-white rounded-sm"
+                  style={{
+                    backgroundColor: '#ff6a00',
+                    animation: prefersReduced ? 'none' : 'emergencyPulse 2s ease-in-out infinite',
+                  }}
+                >
+                  24/7 EMERGENCY — CALL NOW
+                </div>
+              </div>
+            </Reveal>
+
+            {/* Contact form */}
+            <Reveal delay={0.15}>
+              <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+                <div>
+                  <label className="block text-sm font-bold uppercase tracking-wider mb-2" style={{ color: 'rgba(255,255,255,0.5)' }}>
+                    NAME
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Your name"
+                    className="w-full px-4 py-3 text-white placeholder-white/30 outline-none transition-all"
+                    style={{ backgroundColor: '#1a1a1a', border: '1px solid rgba(138,155,176,0.2)' }}
+                    onFocus={(e) => (e.currentTarget.style.borderColor = '#ff6a00')}
+                    onBlur={(e) => (e.currentTarget.style.borderColor = 'rgba(138,155,176,0.2)')}
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-bold uppercase tracking-wider mb-2" style={{ color: 'rgba(255,255,255,0.5)' }}>
+                    EMAIL
+                  </label>
+                  <input
+                    type="email"
+                    placeholder="your@email.com"
+                    className="w-full px-4 py-3 text-white placeholder-white/30 outline-none transition-all"
+                    style={{ backgroundColor: '#1a1a1a', border: '1px solid rgba(138,155,176,0.2)' }}
+                    onFocus={(e) => (e.currentTarget.style.borderColor = '#ff6a00')}
+                    onBlur={(e) => (e.currentTarget.style.borderColor = 'rgba(138,155,176,0.2)')}
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-bold uppercase tracking-wider mb-2" style={{ color: 'rgba(255,255,255,0.5)' }}>
+                    MESSAGE
+                  </label>
+                  <textarea
+                    rows={4}
+                    placeholder="Describe your plumbing or heating issue..."
+                    className="w-full px-4 py-3 text-white placeholder-white/30 outline-none transition-all resize-none"
+                    style={{ backgroundColor: '#1a1a1a', border: '1px solid rgba(138,155,176,0.2)' }}
+                    onFocus={(e) => (e.currentTarget.style.borderColor = '#ff6a00')}
+                    onBlur={(e) => (e.currentTarget.style.borderColor = 'rgba(138,155,176,0.2)')}
+                  />
+                </div>
+                <motion.button
+                  type="submit"
+                  className={`${heading.className} w-full px-8 py-4 text-base font-bold uppercase tracking-widest transition-all`}
+                  style={{ backgroundColor: '#ff6a00', color: '#ffffff' }}
+                  whileHover={prefersReduced ? {} : { boxShadow: '0 0 30px rgba(255,106,0,0.5)', scale: 1.02 }}
+                >
+                  SEND MESSAGE
+                </motion.button>
+              </form>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      <AngularDivider topColor="#2d2d2d" bottomColor="#1a1a1a" />
+
+      {/* ═══════════ 9. FOOTER ═══════════ */}
+      <footer className="py-12 px-6" style={{ backgroundColor: '#1a1a1a', borderTop: '1px solid rgba(138,155,176,0.1)' }}>
+        <div className="max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-10 mb-10">
+            <div>
+              <h3 className={`${heading.className} text-xl font-bold uppercase mb-3`} style={{ color: '#ff6a00' }}>
+                Summit Plumbing &amp; Heating
+              </h3>
+              <p className="text-sm" style={{ color: 'rgba(255,255,255,0.4)' }}>
+                Kootenay reliable. Licensed plumbing, heating &amp; gas fitting.
+              </p>
+            </div>
+            <div>
+              <h4 className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: '#ff6a00' }}>Quick Links</h4>
+              <div className="flex flex-col gap-2">
+                {['Services', 'Projects', 'About', 'Contact'].map((link) => (
+                  <a
+                    key={link}
+                    href={`#${link.toLowerCase()}`}
+                    className="text-sm transition-colors"
+                    style={{ color: 'rgba(255,255,255,0.4)' }}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = '#ff6a00')}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.4)')}
+                  >
+                    {link}
+                  </a>
+                ))}
+              </div>
+            </div>
+            <div>
+              <h4 className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: '#ff6a00' }}>Info</h4>
+              <p className="text-sm mb-1" style={{ color: 'rgba(255,255,255,0.4)' }}>24/7 Emergency Service</p>
+              <p className="text-sm mb-1" style={{ color: 'rgba(255,255,255,0.4)' }}>West Kootenays</p>
+              <p className="text-sm" style={{ color: 'rgba(255,255,255,0.4)' }}>(250) 555-0142</p>
+            </div>
+          </div>
+          <div style={{ borderTop: '1px solid rgba(138,155,176,0.1)' }} className="pt-6 text-center">
+            <span className="text-sm" style={{ color: 'rgba(255,255,255,0.25)' }}>
+              &copy; 2025 Summit Plumbing &amp; Heating. All rights reserved.
+            </span>
+          </div>
         </div>
       </footer>
 
-      {/* Sticky bottom bar */}
+      {/* ═══════════ STICKY BOTTOM BAR ═══════════ */}
       <div
         className="fixed bottom-0 left-0 right-0 z-50 px-4 py-3"
         style={{
-          backgroundColor: 'rgba(45, 45, 45, 0.95)',
+          backgroundColor: 'rgba(26,26,26,0.92)',
           backdropFilter: 'blur(12px)',
           WebkitBackdropFilter: 'blur(12px)',
           borderTop: '2px solid #ff6a00',
         }}
       >
-        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
-          <span className="text-white/90 text-sm text-center sm:text-left">
-            This is a sample design by <strong>Kootenay Made Digital</strong>
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+          <span className="text-sm text-center sm:text-left" style={{ color: 'rgba(255,255,255,0.7)' }}>
+            This is a sample design by <strong className="text-white">Kootenay Made Digital</strong>
           </span>
           <Link
             href="/contact?style=trades-industrial"
-            className="inline-block px-6 py-2.5 text-sm font-bold uppercase tracking-wider transition-all hover:brightness-110 whitespace-nowrap"
+            className={`${heading.className} inline-block px-6 py-2.5 text-sm font-bold uppercase tracking-wider transition-all whitespace-nowrap`}
             style={{ backgroundColor: '#ff6a00', color: '#ffffff' }}
+            onMouseEnter={(e) => (e.currentTarget.style.boxShadow = '0 0 20px rgba(255,106,0,0.5)')}
+            onMouseLeave={(e) => (e.currentTarget.style.boxShadow = 'none')}
           >
             Get This Style &rarr;
           </Link>
         </div>
       </div>
 
-      {/* Bottom padding for sticky bar */}
+      {/* Bottom spacer */}
       <div className="h-16" />
     </div>
   )
