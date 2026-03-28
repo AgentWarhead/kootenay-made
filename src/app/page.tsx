@@ -374,12 +374,7 @@ export default function Home() {
   const layer2Y = useTransform(scrollYProgress, [0, 1], [0, 100]);
   const layer3Y = useTransform(scrollYProgress, [0, 1], [0, 50]);
 
-  // Hero mask reveal
-  const [heroRevealed, setHeroRevealed] = useState(false);
-  useEffect(() => {
-    const t = setTimeout(() => setHeroRevealed(true), 300);
-    return () => clearTimeout(t);
-  }, []);
+  // Hero animation (staggered word reveal handles itself)
 
   // Bento section in-view for icon draw
   const bentoRef = useRef<HTMLDivElement>(null);
@@ -424,29 +419,30 @@ export default function Home() {
         <FloatingShapes />
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-16 py-24 sm:py-32">
-          {/* Mountain mask sunrise reveal headline */}
-          <div className="overflow-hidden">
-            <motion.h1
-              className="font-[family-name:var(--font-satoshi)] text-cream text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold leading-[1.08] max-w-4xl"
-              initial={{ clipPath: 'polygon(0% 100%, 20% 60%, 35% 80%, 50% 40%, 65% 70%, 80% 30%, 100% 100%)' }}
-              animate={heroRevealed ? { clipPath: 'polygon(0% 0%, 20% 0%, 35% 0%, 50% 0%, 65% 0%, 80% 0%, 100% 0%, 100% 100%, 0% 100%)' } : {}}
-              transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
-            >
-              You&apos;re great at what you do. Let&apos;s make sure people know it.
-            </motion.h1>
-          </div>
+          {/* Hero headline — staggered word reveal */}
+          <h1 className="font-[family-name:var(--font-satoshi)] text-cream text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold leading-[1.08] max-w-4xl">
+            {['You\'re', 'great', 'at', 'what', 'you', 'do.', 'Let\'s', 'make', 'sure', 'people', 'know', 'it.'].map((word, i) => (
+              <motion.span
+                key={i}
+                className="inline-block mr-[0.25em]"
+                initial={{ opacity: 0, y: 30, filter: 'blur(8px)' }}
+                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                transition={{ duration: 0.5, delay: 0.3 + i * 0.06, ease: [0.16, 1, 0.3, 1] }}
+              >
+                {word}
+              </motion.span>
+            ))}
+          </h1>
 
-          {/* Wipe-reveal subtitle */}
-          <motion.div
-            className="mt-8 overflow-hidden"
-            initial={{ width: 0 }}
-            animate={{ width: '100%' }}
-            transition={{ delay: 1.6, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+          {/* Tagline — fades in after headline */}
+          <motion.p
+            className="mt-8 text-copper-light text-lg sm:text-xl font-medium"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.4, duration: 0.6, ease: 'easeOut' }}
           >
-            <p className="text-copper-light text-lg sm:text-xl font-medium whitespace-nowrap">
-              Locally crafted digital.
-            </p>
-          </motion.div>
+            Locally crafted digital.
+          </motion.p>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
