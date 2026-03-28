@@ -191,6 +191,95 @@ const painPoints = [
   { text: "I just want to feel proud when someone asks for my website.", label: 'Everyone who\'s been embarrassed to share a link' },
 ];
 
+/* ── Industries (Who We Help) ────────────────── */
+const industries = [
+  {
+    name: 'Trades & Contractors',
+    desc: 'Plumbers, electricians, builders — the backbone of the Kootenays.',
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M8 20L20 8" /><path d="M18 6l2-2 4 4-2 2" /><path d="M10 22l-2 2-4-4 2-2" />
+      </svg>
+    ),
+  },
+  {
+    name: 'Restaurants & Cafés',
+    desc: 'From Trail diners to Nelson bistros, get tables filled.',
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M6 14h12v8a3 3 0 01-3 3H9a3 3 0 01-3-3v-8z" /><path d="M18 16h2a3 3 0 010 6h-2" /><path d="M10 10c0-2 2-2 2-4" /><path d="M14 10c0-2 2-2 2-4" />
+      </svg>
+    ),
+  },
+  {
+    name: 'Wellness & Health',
+    desc: 'Yoga studios, therapists, naturopaths — your calm online presence.',
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+        <path d="M7 24c0-10 7-17 14-17" /><path d="M21 7c0 10-7 17-14 17" /><path d="M7 24C11 20 17 14 21 7" />
+      </svg>
+    ),
+  },
+  {
+    name: 'Tourism & Adventure',
+    desc: 'Guides, resorts, outfitters — reach visitors before they arrive.',
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M3 24l7-12 4 5 6-10 5 17H3z" /><circle cx="22" cy="6" r="3" />
+      </svg>
+    ),
+  },
+  {
+    name: 'Retail & Shops',
+    desc: 'Boutiques, gift shops, galleries — sell online and in-store.',
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M6 10h16l-2 14H8L6 10z" /><path d="M10 10V7a4 4 0 018 0v3" />
+      </svg>
+    ),
+  },
+  {
+    name: 'Professional Services',
+    desc: 'Accountants, lawyers, consultants — look as sharp as your work.',
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="3" y="10" width="22" height="13" rx="2" /><path d="M10 10V7a2 2 0 012-2h4a2 2 0 012 2v3" /><path d="M3 16h22" />
+      </svg>
+    ),
+  },
+];
+
+/* ── Process steps (How It Works) ────────────── */
+const processSteps = [
+  {
+    title: 'Free Check-Up',
+    desc: 'We look at where you are online and give you an honest plan. Takes 30 minutes. Costs nothing.',
+    icon: (
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="4" y="6" width="16" height="12" rx="2" /><path d="M8 22h8" /><path d="M12 18v4" /><circle cx="23" cy="15" r="5" /><path d="M27 19l3 3" />
+      </svg>
+    ),
+  },
+  {
+    title: 'We Build',
+    desc: 'You approve the plan, we get to work. You see progress along the way and give feedback.',
+    icon: (
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M10 28l-6-6 12-12 6 6z" /><path d="M22 4l6 6-3 3" /><path d="M18 8l6 6" />
+      </svg>
+    ),
+  },
+  {
+    title: 'You Grow',
+    desc: 'Your new site launches. Customers start finding you. We stick around to help you grow.',
+    icon: (
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+        <path d="M16 28V14" /><path d="M16 20c-6-1-8-6-8-10 4 0 7 3 8 6" /><path d="M16 14c4-1 6-5 6-8-3 0-5 2-6 5" /><path d="M10 28h12" />
+      </svg>
+    ),
+  },
+];
+
 /* ── Kootenay towns data ─────────────────────── */
 const towns = [
   { name: 'Castlegar', cx: 250, cy: 200, types: 'Local Services • Dining • Professional' },
@@ -299,6 +388,11 @@ export default function Home() {
   // Style scroll hint dismiss on interaction
   const styleScrollRef = useRef<HTMLDivElement>(null);
   const [styleInteracted, setStyleInteracted] = useState(false);
+
+  // Trail timeline animation
+  const trailRef = useRef<HTMLDivElement>(null);
+  const trailInView = useInView(trailRef, { once: true, margin: '-100px' });
+
   const handleStyleScroll = useCallback(() => {
     if (!styleInteracted) setStyleInteracted(true);
   }, [styleInteracted]);
@@ -388,6 +482,56 @@ export default function Home() {
       {/* ═══ CAMPFIRE STORIES ═══ */}
       <CampfireStories stories={painPoints} />
 
+      <MountainDivider variant={2} fillColor="#1A1D20" />
+
+      {/* ═══ WHO WE HELP ═══ */}
+      <section className="bg-slate grain py-24 sm:py-32 relative overflow-hidden">
+        {/* Topographic contour pattern */}
+        <div className="absolute inset-0 opacity-[0.04] pointer-events-none">
+          <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="topo-lines" x="0" y="0" width="200" height="200" patternUnits="userSpaceOnUse">
+                <path d="M20,100 Q60,20 100,100 T180,100" fill="none" stroke="#C17817" strokeWidth="0.5" />
+                <path d="M0,60 Q40,0 80,60 T160,60" fill="none" stroke="#C17817" strokeWidth="0.5" />
+                <path d="M10,160 Q50,100 90,160 T170,160" fill="none" stroke="#C17817" strokeWidth="0.5" />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#topo-lines)" />
+          </svg>
+        </div>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
+          <ScrollReveal>
+            <p className="text-copper font-medium text-sm tracking-wider uppercase mb-3">Your Neighbours</p>
+            <h2 className="font-[family-name:var(--font-satoshi)] text-3xl sm:text-4xl md:text-5xl font-bold text-cream leading-tight">
+              We Build for Businesses Like Yours
+            </h2>
+            <p className="mt-4 text-dark-text-muted text-lg max-w-2xl leading-relaxed">
+              Whether you swing a hammer or pour lattes, we speak your language.
+            </p>
+          </ScrollReveal>
+
+          <div className="mt-16 grid grid-cols-2 lg:grid-cols-3 gap-5">
+            {industries.map((ind, i) => (
+              <ScrollReveal key={ind.name} delay={i * 0.08}>
+                <motion.div
+                  whileHover={{ y: -6 }}
+                  className="group glass-card-dark rounded-2xl p-6 border border-white/5 hover:border-copper/20 transition-all duration-300 h-full"
+                >
+                  <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center mb-4 group-hover:bg-copper/10 transition-colors text-copper group-hover:drop-shadow-[0_0_8px_rgba(193,120,23,0.5)]">
+                    {ind.icon}
+                  </div>
+                  <h3 className="font-[family-name:var(--font-satoshi)] text-base sm:text-lg font-bold text-cream mb-2">{ind.name}</h3>
+                  <p className="text-dark-text-muted text-sm leading-relaxed">{ind.desc}</p>
+                </motion.div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <MountainDivider variant={3} fillColor="#1A1D20" />
+
       {/* ═══ VIDEO BACKGROUND — KOOTENAY ROOTS ═══ */}
       <VideoSection />
 
@@ -430,6 +574,70 @@ export default function Home() {
           </ScrollReveal>
         </div>
       </section>
+
+      {/* ═══ HOW IT WORKS ═══ */}
+      <section className="bg-cream cedar-texture py-24 sm:py-32 relative border-t border-copper/10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
+          <ScrollReveal>
+            <p className="text-copper font-medium text-sm tracking-wider uppercase mb-3">Simple as 1-2-3</p>
+            <h2 className="font-[family-name:var(--font-satoshi)] text-3xl sm:text-4xl md:text-5xl font-bold text-slate leading-tight">
+              Here&apos;s How It Works
+            </h2>
+          </ScrollReveal>
+
+          <div className="mt-16 relative" ref={trailRef}>
+            {/* Trail line — desktop (horizontal dashed bg) */}
+            <div className="hidden md:block absolute top-[23px] left-[16.67%] w-[66.66%] border-t-2 border-dashed border-copper/20" />
+            <motion.div
+              className="hidden md:block absolute top-[23px] left-[16.67%] h-[2px] bg-copper origin-left"
+              initial={{ width: 0 }}
+              animate={trailInView ? { width: '66.66%' } : {}}
+              transition={{ duration: 1.5, ease: 'easeInOut' }}
+            />
+
+            {/* Trail line — mobile (vertical dashed bg) */}
+            <div className="md:hidden absolute left-1/2 -translate-x-[1px] top-6 bottom-6 border-l-2 border-dashed border-copper/20" />
+            <motion.div
+              className="md:hidden absolute left-1/2 -translate-x-[1px] top-6 w-[2px] bg-copper origin-top"
+              initial={{ height: 0 }}
+              animate={trailInView ? { height: 'calc(100% - 48px)' } : {}}
+              transition={{ duration: 1.5, ease: 'easeInOut' }}
+            />
+
+            {/* Steps */}
+            <div className="flex flex-col md:flex-row gap-16 md:gap-8">
+              {processSteps.map((step, i) => (
+                <div key={step.title} className="flex-1 flex flex-col items-center text-center relative z-10">
+                  {/* Node circle */}
+                  <motion.div
+                    className="w-12 h-12 rounded-full border-2 flex items-center justify-center mb-6"
+                    style={{ backgroundColor: '#F8F4F0', borderColor: '#C17817' }}
+                    animate={trailInView ? { backgroundColor: '#C17817' } : {}}
+                    transition={{ delay: 0.3 + i * 0.4, duration: 0.5 }}
+                  >
+                    <motion.span
+                      className="text-sm font-bold font-[family-name:var(--font-satoshi)]"
+                      style={{ color: '#C17817' }}
+                      animate={trailInView ? { color: '#F8F4F0' } : {}}
+                      transition={{ delay: 0.3 + i * 0.4, duration: 0.5 }}
+                    >
+                      {i + 1}
+                    </motion.span>
+                  </motion.div>
+                  {/* Icon */}
+                  <div className="w-16 h-16 rounded-2xl bg-cream-dark flex items-center justify-center mb-5 text-copper">
+                    {step.icon}
+                  </div>
+                  <h3 className="font-[family-name:var(--font-satoshi)] text-xl font-bold text-slate mb-3">{step.title}</h3>
+                  <p className="text-text-secondary text-sm leading-relaxed max-w-xs">{step.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <MountainDivider variant={1} fillColor="#1A1D20" />
 
       {/* ═══ FORCES OF NATURE — Interactive Stat Cards ═══ */}
       <FogTransition from="dark" />
