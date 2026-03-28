@@ -1,203 +1,763 @@
 'use client'
 
-import { Bitter, Source_Sans_3 } from 'next/font/google'
-import Link from 'next/link'
+import { Bitter, Lato } from 'next/font/google'
+import Image from 'next/image'
+import { motion, useReducedMotion } from 'framer-motion'
 
 const bitter = Bitter({
   subsets: ['latin'],
   weight: ['400', '700'],
 })
 
-const sourceSans = Source_Sans_3({
+const lato = Lato({
   subsets: ['latin'],
-  weight: ['400', '600'],
+  weight: ['400', '700'],
 })
 
+/* ── shared constants ─────────────────────────────────────────── */
+const PARCHMENT = '#f5e6c8'
+const DARK_BROWN = '#3d2b1f'
+const AMBER = '#d4942a'
+const FOREST_GREEN = '#2d4a2d'
+
+const NOISE_SVG = `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`
+
+const WOODGRAIN = `repeating-linear-gradient(
+  92deg,
+  rgba(61,43,31,0.04) 0px,
+  rgba(61,43,31,0.02) 2px,
+  transparent 2px,
+  transparent 8px,
+  rgba(61,43,31,0.03) 8px,
+  rgba(61,43,31,0.01) 10px,
+  transparent 10px,
+  transparent 20px
+)`
+
+/* ── reusable noise overlay ───────────────────────────────────── */
+function GrainOverlay() {
+  return (
+    <div
+      className="absolute inset-0 pointer-events-none z-[1]"
+      aria-hidden="true"
+      style={{
+        backgroundImage: NOISE_SVG,
+        backgroundRepeat: 'repeat',
+        backgroundSize: '256px 256px',
+        opacity: 0.06,
+      }}
+    />
+  )
+}
+
+/* ── wavy underline SVG ───────────────────────────────────────── */
+function WavyUnderline({ color = AMBER }: { color?: string }) {
+  return (
+    <svg
+      className="mx-auto mt-2"
+      width="180"
+      height="12"
+      viewBox="0 0 180 12"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M2 8 C 12 2, 22 2, 32 8 S 52 14, 62 8 S 82 2, 92 8 S 112 14, 122 8 S 142 2, 152 8 S 172 14, 178 8"
+        stroke={color}
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        fill="none"
+      />
+    </svg>
+  )
+}
+
+/* ── stamp animation wrapper ──────────────────────────────────── */
+function StampIn({
+  children,
+  className,
+  delay = 0,
+}: {
+  children: React.ReactNode
+  className?: string
+  delay?: number
+}) {
+  const prefersReduced = useReducedMotion()
+  return (
+    <motion.div
+      className={className}
+      initial={prefersReduced ? { opacity: 1 } : { scale: 1.15, rotate: 2, opacity: 0 }}
+      whileInView={prefersReduced ? { opacity: 1 } : { scale: 1, rotate: 0, opacity: 1 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.6, delay, ease: 'easeOut' }}
+    >
+      {children}
+    </motion.div>
+  )
+}
+
+/* ── fade-up animation wrapper ────────────────────────────────── */
+function FadeUp({
+  children,
+  className,
+  delay = 0,
+}: {
+  children: React.ReactNode
+  className?: string
+  delay?: number
+}) {
+  const prefersReduced = useReducedMotion()
+  return (
+    <motion.div
+      className={className}
+      initial={prefersReduced ? { opacity: 1 } : { opacity: 0, y: 24 }}
+      whileInView={prefersReduced ? { opacity: 1 } : { opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.5, delay, ease: 'easeOut' }}
+    >
+      {children}
+    </motion.div>
+  )
+}
+
+/* ═══════════════════════════════════════════════════════════════ */
+/*  MAIN PAGE                                                     */
+/* ═══════════════════════════════════════════════════════════════ */
 export default function RusticCraftDemo() {
   return (
-    <div className={sourceSans.className} style={{ fontFamily: 'Source Sans 3, sans-serif' }}>
-      {/* CSS grain overlay */}
-      <div
-        className="fixed inset-0 pointer-events-none z-20 opacity-[0.04]"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
-          backgroundRepeat: 'repeat',
-          backgroundSize: '256px 256px',
-        }}
-      />
+    <div className={lato.className}>
+      {/* ── 1. NAV ────────────────────────────────────────────── */}
+      <nav
+        className="relative px-6 py-4"
+        style={{ backgroundColor: DARK_BROWN }}
+      >
+        <GrainOverlay />
+        <div className="relative z-10 max-w-6xl mx-auto flex items-center justify-between">
+          <span
+            className={`${bitter.className} text-lg md:text-xl font-bold tracking-tight`}
+            style={{ color: PARCHMENT }}
+          >
+            Kootenay Brewing Collective
+          </span>
 
-      <div className="relative z-10">
-        {/* Nav */}
-        <nav className="px-6 py-5" style={{ backgroundColor: '#3d2b1f' }}>
-          <div className="max-w-6xl mx-auto flex items-center justify-between">
-            <span className={`${bitter.className} text-white text-xl font-bold tracking-tight`}>
-              Kootenay Brewing Collective
-            </span>
-            <div className="hidden md:flex gap-8">
-              <a href="#services" className="text-white/60 hover:text-[#d4942a] text-sm transition-colors">Brews</a>
-              <a href="#about" className="text-white/60 hover:text-[#d4942a] text-sm transition-colors">Our Story</a>
-              <a href="#contact" className="text-white/60 hover:text-[#d4942a] text-sm transition-colors">Visit</a>
-            </div>
+          <div className="hidden md:flex items-center gap-8">
+            {['Our Beers', 'About', 'Taproom', 'Contact'].map((label) => (
+              <a
+                key={label}
+                href={`#${label.toLowerCase().replace(/\s/g, '-')}`}
+                className="text-sm transition-colors"
+                style={{ color: `${PARCHMENT}aa` }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = AMBER)}
+                onMouseLeave={(e) => (e.currentTarget.style.color = `${PARCHMENT}aa`)}
+              >
+                {label}
+              </a>
+            ))}
           </div>
-        </nav>
 
-        {/* Hero */}
-        <section
-          className="relative overflow-hidden"
-          style={{ backgroundColor: '#f5e6c8' }}
-        >
-          {/* Subtle noise on hero */}
-          <div
-            className="absolute inset-0 opacity-[0.06]"
-            style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
-              backgroundRepeat: 'repeat',
-              backgroundSize: '512px 512px',
-            }}
-          />
-          <div className="relative max-w-5xl mx-auto px-6 py-24 md:py-36 text-center">
-            {/* Stamp badge */}
-            <div
-              className="inline-block px-5 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest mb-8"
-              style={{
-                border: '2px solid #d4942a',
-                color: '#d4942a',
-              }}
-            >
-              Est. Castlegar, BC
-            </div>
+          <a
+            href="tel:2505550195"
+            className="hidden lg:block text-sm font-bold"
+            style={{ color: PARCHMENT }}
+          >
+            (250) 555-0195
+          </a>
+        </div>
+      </nav>
+
+      {/* ── 2. HERO ───────────────────────────────────────────── */}
+      <section
+        className="relative min-h-screen flex items-center justify-center overflow-hidden"
+        style={{ backgroundColor: DARK_BROWN }}
+      >
+        <GrainOverlay />
+
+        {/* Decorative radial glow */}
+        <div
+          className="absolute inset-0 opacity-30"
+          style={{
+            background: `radial-gradient(ellipse 70% 50% at 50% 40%, ${AMBER}33, transparent)`,
+          }}
+          aria-hidden="true"
+        />
+
+        <div className="relative z-10 text-center px-6 py-24 md:py-32 max-w-4xl mx-auto">
+          <StampIn>
             <h1
-              className={`${bitter.className} text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6`}
-              style={{ color: '#3d2b1f' }}
+              className={`${bitter.className} text-5xl md:text-7xl lg:text-8xl font-bold leading-tight mb-6`}
+              style={{ color: PARCHMENT }}
             >
-              Small batch.<br />Big flavour.
+              Small Batch.<br />Big Flavour.
             </h1>
-            <p className="text-lg md:text-xl mb-10 max-w-lg mx-auto" style={{ color: '#3d2b1f', opacity: 0.6 }}>
-              Craft beer brewed with local ingredients and community spirit.
-            </p>
-            <a
-              href="#services"
-              className="inline-block px-8 py-3.5 text-white font-bold text-sm rounded transition-all hover:opacity-90"
-              style={{ backgroundColor: '#d4942a' }}
-            >
-              See What&apos;s On Tap
-            </a>
-          </div>
-        </section>
+          </StampIn>
 
-        {/* Services */}
-        <section id="services" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#efe0c8' }}>
-          <div className="max-w-6xl mx-auto">
-            <h2
-              className={`${bitter.className} text-3xl md:text-4xl font-bold text-center mb-4`}
-              style={{ color: '#3d2b1f' }}
+          <FadeUp delay={0.3}>
+            <p
+              className="text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed"
+              style={{ color: `${PARCHMENT}cc` }}
             >
-              What We Craft For You
-            </h2>
-            <p className="text-center mb-16 max-w-md mx-auto" style={{ color: '#3d2b1f', opacity: 0.5 }}>
-              Digital tools to grow your craft brand
+              Handcrafted ales and lagers brewed with Kootenay mountain water
+              and locally sourced ingredients.
             </p>
-            <div className="grid md:grid-cols-3 gap-8">
-              {[
-                {
-                  title: 'Custom Website',
-                  desc: 'A website with as much character as your craft. Tell your story online.',
-                },
-                {
-                  title: 'Brand Identity',
-                  desc: 'Logo, labels, tap handles — a complete look that stands out on the shelf.',
-                },
-                {
-                  title: 'Social Media',
-                  desc: "Share what's on tap and fill your taproom every weekend.",
-                },
-              ].map((card) => (
+          </FadeUp>
+
+          <FadeUp delay={0.5}>
+            <a
+              href="#taproom"
+              className="inline-block px-10 py-4 font-bold text-sm uppercase tracking-widest transition-all hover:brightness-110"
+              style={{ backgroundColor: AMBER, color: DARK_BROWN, borderRadius: '2px' }}
+            >
+              Visit the Taproom
+            </a>
+          </FadeUp>
+        </div>
+      </section>
+
+      {/* ── 3. TRUST BAR ──────────────────────────────────────── */}
+      <section
+        className="relative py-5 px-6 overflow-hidden"
+        style={{ backgroundColor: AMBER }}
+      >
+        <GrainOverlay />
+        <div
+          className="relative z-10 max-w-6xl mx-auto flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-center font-bold text-sm md:text-base"
+          style={{ color: DARK_BROWN }}
+        >
+          <span>★★★★★ 4.8 Rating</span>
+          <span className="hidden sm:inline" aria-hidden="true">·</span>
+          <span>Est. 2018</span>
+          <span className="hidden sm:inline" aria-hidden="true">·</span>
+          <span>Locally Sourced</span>
+          <span className="hidden sm:inline" aria-hidden="true">·</span>
+          <span>Open 7 Days</span>
+        </div>
+      </section>
+
+      {/* ── 4. SERVICES ───────────────────────────────────────── */}
+      <section
+        id="our-beers"
+        className="relative py-20 md:py-28 px-6 overflow-hidden"
+        style={{ backgroundColor: PARCHMENT }}
+      >
+        <GrainOverlay />
+        <div className="relative z-10 max-w-6xl mx-auto">
+          <StampIn className="text-center mb-16">
+            <h2
+              className={`${bitter.className} text-3xl md:text-5xl font-bold mb-2`}
+              style={{ color: DARK_BROWN }}
+            >
+              What We Brew for You
+            </h2>
+            <WavyUnderline />
+          </StampIn>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                title: 'Brewery Website Design',
+                desc: 'A rugged, handcrafted website that captures your brewery\u2019s character and story.',
+              },
+              {
+                title: 'Local Discovery & SEO',
+                desc: 'Put your taproom on the map \u2014 literally. Get found by locals and tourists alike.',
+              },
+              {
+                title: 'Menu & Events Management',
+                desc: 'Keep your tap list fresh and your events calendar packed with easy online updates.',
+              },
+            ].map((card, i) => (
+              <FadeUp key={card.title} delay={i * 0.15}>
                 <div
-                  key={card.title}
-                  className="rounded-lg p-8 text-center transition-all hover:translate-y-[-2px]"
+                  className="relative rounded-sm p-8 h-full overflow-hidden"
                   style={{
-                    backgroundColor: '#f5e6c8',
-                    border: '2px solid #d4942a',
-                    boxShadow: '4px 4px 0 rgba(61, 43, 31, 0.1)',
+                    backgroundColor: DARK_BROWN,
+                    border: `3px solid ${AMBER}`,
+                    boxShadow: `inset 0 0 0 1px ${AMBER}55, inset 2px 2px 8px rgba(0,0,0,0.3)`,
                   }}
                 >
-                  {/* Stamp-style icon circle */}
+                  {/* Woodgrain texture */}
                   <div
-                    className="w-14 h-14 rounded-full mx-auto mb-5 flex items-center justify-center"
-                    style={{ border: '2px dashed #d4942a' }}
-                  >
-                    <span className={`${bitter.className} text-xl font-bold`} style={{ color: '#d4942a' }}>
-                      {card.title.charAt(0)}
-                    </span>
+                    className="absolute inset-0 pointer-events-none opacity-40"
+                    aria-hidden="true"
+                    style={{ backgroundImage: WOODGRAIN }}
+                  />
+                  <div className="relative z-10">
+                    <h3
+                      className={`${bitter.className} text-xl font-bold mb-4`}
+                      style={{ color: AMBER }}
+                    >
+                      {card.title}
+                    </h3>
+                    <p
+                      className="leading-relaxed text-sm"
+                      style={{ color: `${PARCHMENT}cc` }}
+                    >
+                      {card.desc}
+                    </p>
                   </div>
-                  <h3 className={`${bitter.className} text-xl font-bold mb-3`} style={{ color: '#3d2b1f' }}>{card.title}</h3>
-                  <p className="leading-relaxed" style={{ color: '#3d2b1f', opacity: 0.65 }}>{card.desc}</p>
                 </div>
-              ))}
-            </div>
+              </FadeUp>
+            ))}
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* About */}
-        <section id="about" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#f5e6c8' }}>
-          <div className="max-w-3xl mx-auto text-center">
-            {/* Divider badge */}
+      {/* ── 5. GALLERY / ON TAP ───────────────────────────────── */}
+      <section
+        className="relative py-20 md:py-28 px-6 overflow-hidden"
+        style={{ backgroundColor: DARK_BROWN }}
+      >
+        <GrainOverlay />
+        <div className="relative z-10 max-w-6xl mx-auto">
+          <StampIn className="text-center mb-14">
+            <h2
+              className={`${bitter.className} text-3xl md:text-5xl font-bold`}
+              style={{ color: PARCHMENT }}
+            >
+              On Tap
+            </h2>
+            <WavyUnderline />
+          </StampIn>
+
+          {/* Showcase image */}
+          <FadeUp className="mb-14">
             <div
-              className="inline-block px-6 py-2 rounded-full text-xs font-bold uppercase tracking-widest mb-8"
-              style={{
-                border: '2px solid #2d4a2d',
-                color: '#2d4a2d',
-              }}
+              className="relative mx-auto max-w-3xl rounded-sm overflow-hidden"
+              style={{ border: `3px solid ${AMBER}` }}
+            >
+              <Image
+                src="/images/demos/rustic-craft-showcase.webp"
+                alt="Kootenay Brewing Collective taproom and craft beers"
+                width={800}
+                height={500}
+                className="w-full h-auto object-cover"
+                priority
+              />
+            </div>
+          </FadeUp>
+
+          {/* Beer label placeholders */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {[
+              'Kootenay Pale Ale',
+              'Cedar Stout',
+              'Trail Wheat',
+              'Seasonal Special',
+            ].map((beer, i) => (
+              <FadeUp key={beer} delay={i * 0.1}>
+                <div
+                  className="relative flex flex-col items-center justify-center text-center rounded-lg py-10 px-4"
+                  style={{
+                    backgroundColor: `${DARK_BROWN}ee`,
+                    border: `2px solid ${AMBER}`,
+                    boxShadow: `0 0 0 4px ${DARK_BROWN}, 0 0 0 6px ${AMBER}55`,
+                  }}
+                >
+                  {/* Inner decorative border */}
+                  <div
+                    className="absolute inset-2 rounded-md pointer-events-none"
+                    style={{ border: `1px solid ${AMBER}44` }}
+                    aria-hidden="true"
+                  />
+                  <div
+                    className="w-12 h-12 rounded-full mb-4 flex items-center justify-center text-2xl"
+                    style={{ backgroundColor: `${AMBER}22`, border: `1px solid ${AMBER}66` }}
+                    aria-hidden="true"
+                  >
+                    🍺
+                  </div>
+                  <span
+                    className={`${bitter.className} font-bold text-sm md:text-base`}
+                    style={{ color: AMBER }}
+                  >
+                    {beer}
+                  </span>
+                  <span
+                    className="text-xs mt-1 uppercase tracking-widest"
+                    style={{ color: `${PARCHMENT}88` }}
+                  >
+                    Craft Brew
+                  </span>
+                </div>
+              </FadeUp>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── 6. TESTIMONIAL ────────────────────────────────────── */}
+      <section
+        className="relative py-20 md:py-28 px-6 overflow-hidden"
+        style={{ backgroundColor: PARCHMENT }}
+      >
+        <GrainOverlay />
+        <div className="relative z-10 max-w-3xl mx-auto text-center">
+          <StampIn>
+            {/* Quote marks */}
+            <div
+              className={`${bitter.className} text-7xl md:text-8xl leading-none mb-4 select-none`}
+              style={{ color: AMBER }}
+              aria-hidden="true"
+            >
+              &ldquo;
+            </div>
+
+            <blockquote
+              className="text-xl md:text-2xl leading-relaxed mb-6 italic"
+              style={{ color: DARK_BROWN }}
+            >
+              Best brewery in the Kootenays. The atmosphere is incredible
+              and the beer speaks for itself. A must-visit.
+            </blockquote>
+
+            {/* Stars */}
+            <div className="text-xl mb-4" style={{ color: AMBER }} aria-label="5 out of 5 stars">
+              ★★★★★
+            </div>
+
+            <cite
+              className="not-italic font-bold text-sm block mb-4"
+              style={{ color: DARK_BROWN }}
+            >
+              — James &amp; Amy S., Rossland
+            </cite>
+
+            <p className="text-xs italic" style={{ color: `${DARK_BROWN}88` }}>
+              (Sample review — your real reviews go here)
+            </p>
+          </StampIn>
+        </div>
+      </section>
+
+      {/* ── 7. ABOUT ──────────────────────────────────────────── */}
+      <section
+        id="about"
+        className="relative py-20 md:py-28 px-6 overflow-hidden"
+        style={{ backgroundColor: DARK_BROWN }}
+      >
+        <GrainOverlay />
+        <div className="relative z-10 max-w-3xl mx-auto">
+          <StampIn className="text-center mb-10">
+            <h2
+              className={`${bitter.className} text-3xl md:text-5xl font-bold`}
+              style={{ color: PARCHMENT }}
             >
               Our Story
-            </div>
-            <h2
-              className={`${bitter.className} text-3xl md:text-4xl font-bold mb-6`}
-              style={{ color: '#3d2b1f' }}
-            >
-              About the Collective
             </h2>
-            <p className="text-lg leading-relaxed" style={{ color: '#3d2b1f', opacity: 0.7 }}>
-              Kootenay Brewing Collective is a small-batch craft brewery in Castlegar. Every pour tells a story of local ingredients and community spirit.
+            <WavyUnderline />
+          </StampIn>
+
+          <FadeUp>
+            <p
+              className="text-base md:text-lg leading-relaxed mb-6"
+              style={{ color: `${PARCHMENT}cc` }}
+            >
+              Founded in 2018 by a group of friends who shared a passion for craft
+              beer and the Kootenay lifestyle, Kootenay Brewing Collective started
+              as a dream scribbled on a napkin at a local pub. Today, we brew small
+              batches of distinctive ales and lagers using crisp Kootenay mountain
+              water and locally sourced ingredients from farms and foragers across
+              the region.
+            </p>
+            <p
+              className="text-base md:text-lg leading-relaxed"
+              style={{ color: `${PARCHMENT}cc` }}
+            >
+              We&apos;re committed to community and sustainability in everything we
+              do — from donating spent grain to local farmers, to hosting
+              neighbourhood events in our taproom every week. Every pint you enjoy
+              supports the land, the people, and the spirit of the Kootenays.
+            </p>
+          </FadeUp>
+        </div>
+      </section>
+
+      {/* ── 8. CONTACT ────────────────────────────────────────── */}
+      <section
+        id="taproom"
+        className="relative py-20 md:py-28 px-6 overflow-hidden"
+        style={{ backgroundColor: PARCHMENT }}
+      >
+        <GrainOverlay />
+        <div className="relative z-10 max-w-6xl mx-auto">
+          <StampIn className="text-center mb-14">
+            <h2
+              className={`${bitter.className} text-3xl md:text-5xl font-bold`}
+              style={{ color: DARK_BROWN }}
+            >
+              Visit the Taproom
+            </h2>
+            <WavyUnderline />
+          </StampIn>
+
+          <div className="grid md:grid-cols-2 gap-12">
+            {/* Left — Info & Map */}
+            <FadeUp>
+              <div className="space-y-6">
+                <div>
+                  <h3
+                    className={`${bitter.className} font-bold text-lg mb-2`}
+                    style={{ color: DARK_BROWN }}
+                  >
+                    Phone
+                  </h3>
+                  <p style={{ color: DARK_BROWN }}>
+                    <a href="tel:2505550195" className="hover:underline">(250) 555-0195</a>
+                  </p>
+                </div>
+                <div>
+                  <h3
+                    className={`${bitter.className} font-bold text-lg mb-2`}
+                    style={{ color: DARK_BROWN }}
+                  >
+                    Address
+                  </h3>
+                  <p style={{ color: DARK_BROWN }}>789 Riverside Dr, Trail, BC</p>
+                </div>
+                <div>
+                  <h3
+                    className={`${bitter.className} font-bold text-lg mb-2`}
+                    style={{ color: DARK_BROWN }}
+                  >
+                    Hours
+                  </h3>
+                  <p style={{ color: DARK_BROWN }}>
+                    Sun–Thu: 12–9 PM<br />
+                    Fri–Sat: 12–11 PM
+                  </p>
+                </div>
+
+                {/* Map placeholder */}
+                <div
+                  className="rounded-sm h-48 flex items-center justify-center"
+                  style={{
+                    backgroundColor: `${DARK_BROWN}11`,
+                    border: `2px dashed ${DARK_BROWN}33`,
+                  }}
+                >
+                  <span
+                    className="text-sm font-bold uppercase tracking-widest"
+                    style={{ color: `${DARK_BROWN}66` }}
+                  >
+                    Taproom Map
+                  </span>
+                </div>
+
+                <a
+                  href="#contact"
+                  className="inline-block px-8 py-3.5 font-bold text-sm uppercase tracking-widest transition-all hover:brightness-110"
+                  style={{ backgroundColor: AMBER, color: DARK_BROWN, borderRadius: '2px' }}
+                >
+                  Visit the Taproom
+                </a>
+              </div>
+            </FadeUp>
+
+            {/* Right — Contact Form */}
+            <FadeUp delay={0.15}>
+              <form
+                id="contact"
+                className="rounded-sm p-8 space-y-5"
+                style={{
+                  backgroundColor: `${PARCHMENT}`,
+                  border: `2px solid ${DARK_BROWN}33`,
+                  boxShadow: `inset 0 2px 6px rgba(61,43,31,0.08)`,
+                }}
+                onSubmit={(e) => e.preventDefault()}
+              >
+                <h3
+                  className={`${bitter.className} text-xl font-bold mb-2`}
+                  style={{ color: DARK_BROWN }}
+                >
+                  Send Us a Message
+                </h3>
+
+                <div>
+                  <label
+                    className="block text-sm font-bold mb-1"
+                    style={{ color: DARK_BROWN }}
+                    htmlFor="rc-name"
+                  >
+                    Name
+                  </label>
+                  <input
+                    id="rc-name"
+                    type="text"
+                    className="w-full px-4 py-2.5 rounded-sm text-sm outline-none transition-colors focus:ring-2"
+                    style={{
+                      backgroundColor: '#fff',
+                      border: `1.5px solid ${DARK_BROWN}44`,
+                      color: DARK_BROWN,
+                    }}
+                    onFocus={(e) => (e.currentTarget.style.borderColor = AMBER)}
+                    onBlur={(e) => (e.currentTarget.style.borderColor = `${DARK_BROWN}44`)}
+                    placeholder="Your name"
+                  />
+                </div>
+
+                <div>
+                  <label
+                    className="block text-sm font-bold mb-1"
+                    style={{ color: DARK_BROWN }}
+                    htmlFor="rc-email"
+                  >
+                    Email
+                  </label>
+                  <input
+                    id="rc-email"
+                    type="email"
+                    className="w-full px-4 py-2.5 rounded-sm text-sm outline-none transition-colors focus:ring-2"
+                    style={{
+                      backgroundColor: '#fff',
+                      border: `1.5px solid ${DARK_BROWN}44`,
+                      color: DARK_BROWN,
+                    }}
+                    placeholder="your@email.com"
+                  />
+                </div>
+
+                <div>
+                  <label
+                    className="block text-sm font-bold mb-1"
+                    style={{ color: DARK_BROWN }}
+                    htmlFor="rc-message"
+                  >
+                    Message
+                  </label>
+                  <textarea
+                    id="rc-message"
+                    rows={4}
+                    className="w-full px-4 py-2.5 rounded-sm text-sm outline-none resize-none transition-colors focus:ring-2"
+                    style={{
+                      backgroundColor: '#fff',
+                      border: `1.5px solid ${DARK_BROWN}44`,
+                      color: DARK_BROWN,
+                    }}
+                    placeholder="Tell us what you're looking for..."
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  className="w-full py-3 font-bold text-sm uppercase tracking-widest transition-all hover:brightness-110"
+                  style={{
+                    backgroundColor: AMBER,
+                    color: DARK_BROWN,
+                    borderRadius: '2px',
+                  }}
+                >
+                  Send Message
+                </button>
+              </form>
+            </FadeUp>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 9. FOOTER ─────────────────────────────────────────── */}
+      <footer
+        className="relative py-16 px-6 overflow-hidden"
+        style={{ backgroundColor: DARK_BROWN }}
+      >
+        <GrainOverlay />
+        <div className="relative z-10 max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-10 mb-12">
+            {/* Col 1 — Brand */}
+            <div>
+              <span
+                className={`${bitter.className} text-xl font-bold block mb-3`}
+                style={{ color: PARCHMENT }}
+              >
+                Kootenay Brewing Collective
+              </span>
+              <p className="text-sm leading-relaxed" style={{ color: `${PARCHMENT}99` }}>
+                Small batch. Big flavour.<br />
+                Drink Local.
+              </p>
+            </div>
+
+            {/* Col 2 — Links */}
+            <div>
+              <h4
+                className={`${bitter.className} font-bold text-sm uppercase tracking-widest mb-4`}
+                style={{ color: AMBER }}
+              >
+                Links
+              </h4>
+              <ul className="space-y-2">
+                {['Our Beers', 'About', 'Taproom', 'Contact'].map((link) => (
+                  <li key={link}>
+                    <a
+                      href={`#${link.toLowerCase().replace(/\s/g, '-')}`}
+                      className="text-sm transition-colors"
+                      style={{ color: `${PARCHMENT}88` }}
+                      onMouseEnter={(e) => (e.currentTarget.style.color = AMBER)}
+                      onMouseLeave={(e) => (e.currentTarget.style.color = `${PARCHMENT}88`)}
+                    >
+                      {link}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Col 3 — Hours & Address */}
+            <div>
+              <h4
+                className={`${bitter.className} font-bold text-sm uppercase tracking-widest mb-4`}
+                style={{ color: AMBER }}
+              >
+                Visit Us
+              </h4>
+              <p className="text-sm leading-relaxed mb-3" style={{ color: `${PARCHMENT}99` }}>
+                789 Riverside Dr, Trail, BC
+              </p>
+              <p className="text-sm leading-relaxed" style={{ color: `${PARCHMENT}99` }}>
+                Sun–Thu: 12–9 PM<br />
+                Fri–Sat: 12–11 PM
+              </p>
+            </div>
+          </div>
+
+          <div
+            className="border-t pt-8 text-center"
+            style={{ borderColor: `${PARCHMENT}22` }}
+          >
+            <p className="text-xs" style={{ color: `${PARCHMENT}66` }}>
+              &copy; 2025 Kootenay Brewing Collective. All rights reserved.
             </p>
           </div>
-        </section>
+        </div>
+      </footer>
 
-        {/* Footer */}
-        <footer className="py-10 px-6" style={{ backgroundColor: '#3d2b1f' }}>
-          <div className="max-w-6xl mx-auto text-center">
-            <span className="text-white/50 text-sm">
-              &copy; {new Date().getFullYear()} Kootenay Brewing Collective. Sample site by Kootenay Made Digital.
-            </span>
-          </div>
-        </footer>
-      </div>
+      {/* ── BOTTOM SPACER for sticky bar ──────────────────────── */}
+      <div className="h-16" aria-hidden="true" />
 
-      {/* Sticky bottom bar */}
+      {/* ── 10. STICKY BOTTOM BAR ─────────────────────────────── */}
       <div
-        className="fixed bottom-0 left-0 right-0 z-50 px-4 py-3"
+        className="fixed bottom-0 inset-x-0 z-50 px-6 py-3"
         style={{
-          backgroundColor: 'rgba(61, 43, 31, 0.94)',
-          backdropFilter: 'blur(12px)',
-          WebkitBackdropFilter: 'blur(12px)',
+          backgroundColor: `${DARK_BROWN}dd`,
+          backdropFilter: 'blur(10px)',
+          WebkitBackdropFilter: 'blur(10px)',
         }}
       >
-        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
-          <span className="text-white/90 text-sm text-center sm:text-left">
-            This is a sample design by <strong>Kootenay Made Digital</strong>
+        <div className="max-w-6xl mx-auto flex items-center justify-between">
+          <span className="text-xs md:text-sm" style={{ color: `${PARCHMENT}aa` }}>
+            This is a sample design by{' '}
+            <span className="font-bold" style={{ color: PARCHMENT }}>
+              Kootenay Made Digital
+            </span>
           </span>
-          <Link
+          <a
             href="/contact?style=rustic-craft"
-            className="inline-block px-6 py-2.5 text-sm font-bold rounded transition-all hover:opacity-90 whitespace-nowrap"
-            style={{ backgroundColor: '#d4942a', color: '#3d2b1f' }}
+            className="text-xs md:text-sm font-bold transition-colors hover:underline"
+            style={{ color: AMBER }}
           >
             Get This Style &rarr;
-          </Link>
+          </a>
         </div>
       </div>
-
-      {/* Bottom padding for sticky bar */}
-      <div className="h-16" />
     </div>
   )
 }
