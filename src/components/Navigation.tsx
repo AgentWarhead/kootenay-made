@@ -122,11 +122,11 @@ export default function Navigation() {
             </Link>
 
             {/* Desktop nav — bold uppercase with pine separators */}
-            <div className="hidden lg:flex items-center gap-0">
+            <div className="hidden xl:flex items-center gap-0">
               {links.map((link, i) => (
                 <Fragment key={link.href}>
                   {i > 0 && (
-                    <div className="mx-3">
+                    <div className="mx-2">
                       <PineSeparator />
                     </div>
                   )}
@@ -163,7 +163,7 @@ export default function Navigation() {
             {/* Mobile toggle */}
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="lg:hidden relative z-10 p-3 transition-colors text-cream"
+              className="xl:hidden relative z-10 p-3 transition-colors text-cream"
               aria-label="Toggle menu"
             >
               {mobileOpen ? <X size={24} /> : <Menu size={24} />}
