@@ -21,7 +21,8 @@ export default function CustomCursor() {
     const onMove = (e: MouseEvent) => {
       pos.current = { x: e.clientX, y: e.clientY };
       if (dotRef.current) {
-        dotRef.current.style.transform = `translate(${e.clientX - 4}px, ${e.clientY - 4}px)`;
+        dotRef.current.style.left = `${e.clientX}px`;
+        dotRef.current.style.top = `${e.clientY}px`;
       }
     };
 
@@ -44,7 +45,8 @@ export default function CustomCursor() {
       circlePos.current.x += (pos.current.x - circlePos.current.x) * 0.15;
       circlePos.current.y += (pos.current.y - circlePos.current.y) * 0.15;
       if (circleRef.current) {
-        circleRef.current.style.transform = `translate(${circlePos.current.x - 16}px, ${circlePos.current.y - 16}px)`;
+        circleRef.current.style.left = `${circlePos.current.x}px`;
+        circleRef.current.style.top = `${circlePos.current.y}px`;
       }
       raf = requestAnimationFrame(animate);
     };
@@ -75,8 +77,9 @@ export default function CustomCursor() {
           height: hovering ? 40 : 8,
           borderRadius: '50%',
           backgroundColor: '#C17817',
+          transform: 'translate(-50%, -50%)',
           transition: 'width 0.2s ease, height 0.2s ease',
-          willChange: 'transform',
+          willChange: 'left, top',
         }}
       />
       <div
@@ -87,9 +90,10 @@ export default function CustomCursor() {
           height: 32,
           borderRadius: '50%',
           border: '1px solid #C17817',
+          transform: 'translate(-50%, -50%)',
           opacity: hovering ? 0 : 0.15,
           transition: 'opacity 0.2s ease',
-          willChange: 'transform',
+          willChange: 'left, top',
         }}
       />
       <style jsx global>{`

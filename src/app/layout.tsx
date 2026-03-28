@@ -6,6 +6,8 @@ import CustomCursor from '@/components/CustomCursor';
 import ScrollProgress from '@/components/ScrollProgress';
 import PageTransition from '@/components/PageTransition';
 import ScrollToTop from '@/components/ScrollToTop';
+import AmbientSound from '@/components/AmbientSound';
+import SeasonalTheme from '@/components/SeasonalTheme';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -61,6 +63,8 @@ export default function RootLayout({
           </main>
           <Footer />
           <ScrollToTop />
+          <AmbientSound />
+          <SeasonalTheme />
         </SmoothScroll>
         {/* Easter egg console message */}
         <script

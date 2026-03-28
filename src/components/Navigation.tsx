@@ -50,7 +50,7 @@ export default function Navigation() {
                 alt="Kootenay Made Digital"
                 width={200}
                 height={40}
-                className={`h-8 w-auto transition-all duration-300 ${scrolled ? 'brightness-0' : 'brightness-0 invert'}`}
+                className="h-8 w-auto transition-all duration-300"
                 priority
               />
             </Link>

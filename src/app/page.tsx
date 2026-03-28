@@ -57,19 +57,62 @@ function SplitText({ text, className = '' }: { text: string; className?: string 
 
 /* ── Infinite Marquee ──────────────────────── */
 function Marquee() {
-  const items = 'WEBSITES • BRANDS • MARKETING • AI SETUP • SEO • E-COMMERCE • EMAIL MARKETING • KOOTENAY MADE • ';
-  const { scrollY } = useScroll();
-  const x = useTransform(scrollY, [0, 3000], [0, -200]);
+  const row1 = 'WEBSITES ◆ BRANDS ◆ MARKETING ◆ AI SETUP ◆ SEO ◆ E-COMMERCE ◆ EMAIL MARKETING ◆ KOOTENAY MADE ◆ ';
+  const row2 = 'CASTLEGAR ⛰ TRAIL ⛰ NELSON ⛰ ROSSLAND ⛰ REVELSTOKE ⛰ FERNIE ⛰ CRANBROOK ⛰ ';
 
   return (
-    <section className="bg-slate py-6 overflow-hidden border-y border-white/5">
-      <motion.div style={{ x }} className="flex whitespace-nowrap">
-        {[...Array(4)].map((_, i) => (
-          <span key={i} className="font-[family-name:var(--font-satoshi)] text-copper/60 text-2xl sm:text-3xl font-bold tracking-wider mx-4">
-            {items}
+    <section className="bg-slate py-8 sm:py-10 overflow-hidden border-y border-white/5 space-y-4">
+      <div className="marquee-row-left flex whitespace-nowrap">
+        {[...Array(6)].map((_, i) => (
+          <span
+            key={i}
+            className="font-[family-name:var(--font-satoshi)] text-4xl sm:text-5xl font-bold tracking-wider mx-4"
+            style={{
+              background: 'linear-gradient(90deg, #C17817, #F8F4F0)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+            }}
+          >
+            {row1}
           </span>
         ))}
-      </motion.div>
+      </div>
+      <div className="marquee-row-right flex whitespace-nowrap">
+        {[...Array(6)].map((_, i) => (
+          <span
+            key={i}
+            className="font-[family-name:var(--font-satoshi)] text-4xl sm:text-5xl font-bold tracking-wider mx-4"
+            style={{
+              background: 'linear-gradient(90deg, #F8F4F0, #C17817)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+            }}
+          >
+            {row2}
+          </span>
+        ))}
+      </div>
+      <style jsx>{`
+        @keyframes marquee-left {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        @keyframes marquee-right {
+          0% { transform: translateX(-50%); }
+          100% { transform: translateX(0); }
+        }
+        .marquee-row-left {
+          animation: marquee-left 30s linear infinite;
+        }
+        .marquee-row-right {
+          animation: marquee-right 35s linear infinite;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .marquee-row-left, .marquee-row-right { animation: none; }
+        }
+      `}</style>
     </section>
   );
 }
@@ -158,12 +201,80 @@ const styles = [
   { name: 'Adventure & Outdoors', tags: ['Tourism', 'Guides', 'Ski Resorts'], color: '#0EA5E9', gradient: 'from-sky-500/20 to-sky-600/5' },
 ];
 
-/* ── Testimonials ──────────────────────────── */
-const testimonials = [
-  { quote: "I've gotten more leads in two months than I did all last year.", author: 'Dave Kowalski', role: 'Summit Plumbing, Trail' },
-  { quote: 'The website feels exactly like my studio — warm, welcoming, and grounded.', author: 'Sarah Chen', role: 'Mountain Flow Yoga, Nelson' },
-  { quote: "Customers drove from Kelowna specifically because of the website.", author: 'Maria Santos', role: 'Kootenay Kitchen, Castlegar' },
+/* ── Pain Points (replaces testimonials) ───── */
+const painPoints = [
+  { text: "I get all my work from word of mouth, but I know I'm leaving money on the table.", label: 'Every tradesperson in Trail' },
+  { text: "My nephew built my website 5 years ago. I'm scared to touch it.", label: 'Restaurant owners everywhere' },
+  { text: "I know I need to be on Google, I just don't know where to start.", label: 'Small businesses across the Kootenays' },
+  { text: "My competitor just got a nice website and now I keep losing bids.", label: "Contractors who've been there" },
+  { text: "I post on Facebook sometimes but I have no idea if it's working.", label: 'Every business owner, honestly' },
 ];
+
+/* ── Kootenay Map ──────────────────────────── */
+const towns = [
+  { name: 'Castlegar', cx: 250, cy: 200, types: 'Local Services • Dining • Professional' },
+  { name: 'Trail', cx: 300, cy: 320, types: 'Trades • Restaurants • Retail' },
+  { name: 'Nelson', cx: 420, cy: 170, types: 'Wellness • Tourism • Arts' },
+  { name: 'Rossland', cx: 160, cy: 290, types: 'Adventure • Hospitality • Outdoor Rec' },
+];
+
+const mapConnections = [
+  [0, 1], [0, 2], [0, 3], [1, 3],
+];
+
+function KootenayMap() {
+  const [hovered, setHovered] = useState<number | null>(null);
+
+  return (
+    <div className="relative w-full max-w-2xl mx-auto">
+      <svg viewBox="0 0 550 420" className="w-full h-auto" role="img" aria-label="West Kootenay towns map">
+        {/* Connections */}
+        {mapConnections.map(([a, b], i) => (
+          <line
+            key={i}
+            x1={towns[a].cx} y1={towns[a].cy}
+            x2={towns[b].cx} y2={towns[b].cy}
+            stroke="#C17817"
+            strokeWidth="1"
+            strokeDasharray="6 4"
+            opacity="0.3"
+          />
+        ))}
+
+        {/* Mountain silhouettes background */}
+        <path d="M0,380 L80,280 L130,330 L200,250 L270,310 L350,220 L430,290 L500,240 L550,300 L550,420 L0,420 Z" fill="#C17817" opacity="0.04" />
+
+        {/* Town dots and labels */}
+        {towns.map((town, i) => (
+          <g
+            key={town.name}
+            onMouseEnter={() => setHovered(i)}
+            onMouseLeave={() => setHovered(null)}
+            className="cursor-pointer"
+          >
+            {/* Glow */}
+            <circle cx={town.cx} cy={town.cy} r={hovered === i ? 24 : 12} fill="#C17817" opacity={hovered === i ? 0.15 : 0.08} className="transition-all duration-300" />
+            {/* Dot */}
+            <circle cx={town.cx} cy={town.cy} r={hovered === i ? 8 : 5} fill="#C17817" className="transition-all duration-300" />
+            {/* Label */}
+            <text x={town.cx} y={town.cy - 18} textAnchor="middle" fill="#F8F4F0" fontSize="14" fontWeight="700" fontFamily="var(--font-satoshi)">
+              {town.name}
+            </text>
+
+            {/* Tooltip */}
+            {hovered === i && (
+              <foreignObject x={town.cx - 110} y={town.cy + 14} width="220" height="60">
+                <div className="bg-slate-card/95 backdrop-blur-sm border border-copper/20 rounded-lg px-3 py-2 text-center">
+                  <p className="text-cream/70 text-xs leading-relaxed">{town.types}</p>
+                </div>
+              </foreignObject>
+            )}
+          </g>
+        ))}
+      </svg>
+    </div>
+  );
+}
 
 /* ══════════════════════════════════════════════
    HOME PAGE
@@ -175,9 +286,9 @@ export default function Home() {
   const layer2Y = useTransform(scrollYProgress, [0, 1], [0, 50]);
   const layer3Y = useTransform(scrollYProgress, [0, 1], [0, 30]);
 
-  const [testimIdx, setTestimIdx] = useState(0);
+  const [painIdx, setPainIdx] = useState(0);
   useEffect(() => {
-    const iv = setInterval(() => setTestimIdx((p) => (p + 1) % testimonials.length), 5000);
+    const iv = setInterval(() => setPainIdx((p) => (p + 1) % painPoints.length), 5000);
     return () => clearInterval(iv);
   }, []);
 
@@ -386,33 +497,31 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══ TESTIMONIALS ═══ */}
+      {/* ═══ SOUND FAMILIAR? (Pain Points) ═══ */}
       <section className="bg-cream py-24 sm:py-32 relative overflow-hidden">
         <div className="max-w-4xl mx-auto px-6 sm:px-10 lg:px-16 text-center">
           <ScrollReveal>
-            <p className="text-copper font-medium text-sm tracking-wider uppercase mb-3">What People Say</p>
+            <p className="text-copper font-medium text-sm tracking-wider uppercase mb-3">Been There?</p>
             <h2 className="font-[family-name:var(--font-satoshi)] text-3xl sm:text-4xl font-bold text-slate mb-16">
-              Campfire Stories
+              Sound Familiar?
             </h2>
           </ScrollReveal>
 
-          <div className="relative min-h-[200px]">
-            {testimonials.map((t, i) => (
+          <div className="relative min-h-[220px]">
+            {painPoints.map((p, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0 }}
-                animate={{ opacity: i === testimIdx ? 1 : 0 }}
+                animate={{ opacity: i === painIdx ? 1 : 0 }}
                 transition={{ duration: 0.6 }}
                 className="absolute inset-0 flex flex-col items-center justify-center"
-                style={{ pointerEvents: i === testimIdx ? 'auto' : 'none' }}
+                style={{ pointerEvents: i === painIdx ? 'auto' : 'none' }}
               >
                 <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 sm:p-12 border border-cream-border shadow-sm max-w-2xl">
-                  <span className="text-copper text-5xl font-[family-name:var(--font-satoshi)] leading-none">&ldquo;</span>
-                  <p className="text-slate text-lg sm:text-xl leading-relaxed mt-2 mb-6 italic">
-                    {t.quote}
+                  <p className="text-slate text-lg sm:text-xl leading-relaxed mb-6">
+                    {p.text}
                   </p>
-                  <p className="font-[family-name:var(--font-satoshi)] font-bold text-slate">{t.author}</p>
-                  <p className="text-text-secondary text-sm">{t.role}</p>
+                  <p className="text-text-secondary text-sm italic">— {p.label}</p>
                 </div>
               </motion.div>
             ))}
@@ -420,14 +529,40 @@ export default function Home() {
 
           {/* Dots */}
           <div className="flex justify-center gap-2 mt-8">
-            {testimonials.map((_, i) => (
+            {painPoints.map((_, i) => (
               <button
                 key={i}
-                onClick={() => setTestimIdx(i)}
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${i === testimIdx ? 'bg-copper w-6' : 'bg-cream-border'}`}
+                onClick={() => setPainIdx(i)}
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${i === painIdx ? 'bg-copper w-6' : 'bg-cream-border'}`}
               />
             ))}
           </div>
+
+          <ScrollReveal delay={0.2}>
+            <div className="mt-12">
+              <Link href="/audit" className="inline-flex items-center gap-2 text-copper hover:text-copper-dark font-medium text-lg group transition-colors">
+                If any of these sound like you, let&apos;s talk. <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* ═══ INTERACTIVE KOOTENAY MAP ═══ */}
+      <section className="bg-slate grain py-24 sm:py-32 overflow-hidden">
+        <div className="relative z-10 max-w-5xl mx-auto px-6 sm:px-10 lg:px-16">
+          <ScrollReveal>
+            <div className="text-center mb-16">
+              <p className="text-copper-light font-medium text-sm tracking-wider uppercase mb-3">Our Roots</p>
+              <h2 className="font-[family-name:var(--font-satoshi)] text-3xl sm:text-4xl md:text-5xl font-bold text-cream leading-tight">
+                Rooted in the West Kootenays
+              </h2>
+              <p className="mt-4 text-dark-text-muted text-lg max-w-xl mx-auto">
+                Local expertise. We know these communities because we&apos;re part of them.
+              </p>
+            </div>
+          </ScrollReveal>
+          <KootenayMap />
         </div>
       </section>
 
