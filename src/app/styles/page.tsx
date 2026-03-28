@@ -6,6 +6,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import ScrollReveal from '@/components/ScrollReveal';
 import Breadcrumb from '@/components/Breadcrumb';
 import { ArrowRight, Palette } from 'lucide-react';
+import MountainDivider from '@/components/MountainDivider';
+import AmbientOrbs from '@/components/AmbientOrbs';
 
 const filters = ['All', 'Clean', 'Bold', 'Warm', 'Rustic', 'Dark', 'Playful', 'Editorial', 'Adventure'];
 
@@ -251,7 +253,8 @@ export default function StylesPage() {
   return (
     <div className="pt-20">
       {/* Hero */}
-      <section className="bg-slate grain py-20 sm:py-28">
+      <section className="aurora-bg grain py-20 sm:py-28 relative">
+        <AmbientOrbs />
         <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 text-center">
           <Breadcrumb items={[{ label: 'Styles' }]} dark />
           <ScrollReveal>
@@ -399,8 +402,11 @@ export default function StylesPage() {
         </motion.div>
       </AnimatePresence>
 
+      <MountainDivider variant={3} fillColor="#1A1D20" />
+
       {/* Bottom CTA */}
-      <section className="bg-slate grain py-20">
+      <section className="bg-slate grain py-20 relative">
+        <AmbientOrbs />
         <div className="relative z-10 max-w-3xl mx-auto px-6 sm:px-10 lg:px-16 text-center">
           <ScrollReveal>
             <h2 className="font-[family-name:var(--font-satoshi)] text-3xl sm:text-4xl font-bold text-cream mb-4">

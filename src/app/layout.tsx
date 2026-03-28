@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import SmoothScroll from '@/components/SmoothScroll';
-import CustomCursor from '@/components/CustomCursor';
 import ScrollProgress from '@/components/ScrollProgress';
+import GoldenHourScroll from '@/components/GoldenHourScroll';
 import PageTransition from '@/components/PageTransition';
 import ScrollToTop from '@/components/ScrollToTop';
 import AmbientSound from '@/components/AmbientSound';
@@ -57,8 +57,8 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col font-[family-name:var(--font-general)]">
         <SmoothScroll>
-          <CustomCursor />
           <ScrollProgress />
+          <GoldenHourScroll />
           <Navigation />
           <main id="main-content" className="flex-1">
             <PageTransition>
@@ -73,7 +73,7 @@ export default function RootLayout({
         {/* Easter egg console message */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `console.log("%cBuilt with ❤️ in Castlegar, BC.%c\\nKootenay Made Digital — hello@kootenaymade.ca", "color: #C17817; font-size: 14px; font-weight: bold;", "color: #9A9DA3; font-size: 12px;");`,
+            __html: `console.log("%c🏔️ Built with love in Castlegar, BC.%c\\nKootenay Made Digital — hello@kootenaymade.ca", "color: #C17817; font-size: 14px; font-weight: bold;", "color: #9A9DA3; font-size: 12px;");`,
           }}
         />
         <script

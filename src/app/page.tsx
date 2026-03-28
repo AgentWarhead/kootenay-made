@@ -7,6 +7,10 @@ import { ArrowRight, Globe, Palette, ShoppingBag, Mail, Bot, Search, ChevronDown
 import ScrollReveal from '@/components/ScrollReveal';
 import MagneticButton from '@/components/MagneticButton';
 import VideoSection from '@/components/VideoSection';
+import MountainDivider from '@/components/MountainDivider';
+import AmbientOrbs from '@/components/AmbientOrbs';
+import PineTreeline from '@/components/PineTreeline';
+import FogTransition from '@/components/FogTransition';
 
 /* ── Typewriter ────────────────────────────── */
 function Typewriter({ text, delay = 1.5 }: { text: string; delay?: number }) {
@@ -296,10 +300,9 @@ export default function Home() {
   return (
     <>
       {/* ═══ HERO ═══ */}
-      <section ref={heroRef} className="relative min-h-screen flex items-center overflow-hidden">
-        {/* Gradient mesh background */}
-        <div className="absolute inset-0 hero-gradient" />
+      <section ref={heroRef} className="relative min-h-screen flex items-center overflow-hidden aurora-bg">
         <div className="absolute inset-0 grain" />
+        <PineTreeline />
 
         {/* Parallax mountain silhouettes */}
         <motion.div style={{ y: layer1Y }} className="absolute bottom-0 left-0 right-0 opacity-[0.08]">
@@ -373,11 +376,15 @@ export default function Home() {
         </motion.div>
       </section>
 
+      <MountainDivider variant={1} fillColor="#1A1D20" />
+
       {/* ═══ MARQUEE ═══ */}
       <Marquee />
 
+      <MountainDivider variant={2} fillColor="#F8F4F0" />
+
       {/* ═══ SERVICES BENTO ═══ */}
-      <section className="bg-cream py-24 sm:py-32">
+      <section className="bg-cream py-24 sm:py-32 cedar-texture relative">
         <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
           <ScrollReveal>
             <p className="text-copper font-medium text-sm tracking-wider uppercase mb-3">What We Build</p>
@@ -391,7 +398,7 @@ export default function Home() {
               <ScrollReveal key={s.name} delay={i * 0.08}>
                 <motion.div
                   whileHover={{ y: -8, transition: { duration: 0.3 } }}
-                  className="group relative bg-white rounded-2xl p-8 h-full border border-cream-border hover:border-copper/30 transition-all duration-300 hover:shadow-[0_8px_30px_rgba(193,120,23,0.12)]"
+                  className="group relative glass-card-light rounded-2xl p-8 h-full"
                   style={{ perspective: '1000px' }}
                 >
                   {/* Glassmorphism accent on hover */}
@@ -419,8 +426,11 @@ export default function Home() {
         </div>
       </section>
 
+      <MountainDivider variant={3} fillColor="#1A1D20" />
+
       {/* ═══ STYLE MENU PREVIEW (horizontal scroll) ═══ */}
-      <section className="bg-slate grain py-24 sm:py-32 overflow-hidden">
+      <section className="bg-slate grain py-24 sm:py-32 overflow-hidden relative">
+        <AmbientOrbs />
         <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
           <ScrollReveal>
             <p className="text-copper-light font-medium text-sm tracking-wider uppercase mb-3">Find Your Style</p>
@@ -435,7 +445,7 @@ export default function Home() {
                 <Link href="/styles" className="group">
                   <motion.div
                     whileHover={{ y: -6 }}
-                    className={`snap-start shrink-0 w-[70vw] sm:w-80 bg-slate-card rounded-2xl p-6 border border-white/5 hover:border-copper/30 transition-all duration-300`}
+                    className="snap-start shrink-0 w-[70vw] sm:w-80 glass-card-dark rounded-2xl p-6"
                   >
                     <div className={`h-40 rounded-xl mb-5 bg-gradient-to-br ${style.gradient} flex items-center justify-center relative overflow-hidden`}>
                       <span className="font-[family-name:var(--font-satoshi)] text-4xl font-bold opacity-30" style={{ color: style.color }}>
@@ -465,6 +475,7 @@ export default function Home() {
       </section>
 
       {/* ═══ STATS ═══ */}
+      <FogTransition from="dark" />
       <section className="bg-slate relative py-24 sm:py-32 overflow-hidden">
         {/* Topographic pattern */}
         <svg className="absolute inset-0 w-full h-full opacity-[0.03]" xmlns="http://www.w3.org/2000/svg">
@@ -498,8 +509,10 @@ export default function Home() {
         </div>
       </section>
 
+      <MountainDivider variant={1} fillColor="#F8F4F0" />
+
       {/* ═══ SOUND FAMILIAR? (Pain Points) ═══ */}
-      <section className="bg-cream py-24 sm:py-32 relative overflow-hidden">
+      <section className="bg-cream py-24 sm:py-32 relative overflow-hidden cedar-texture">
         <div className="max-w-4xl mx-auto px-6 sm:px-10 lg:px-16 text-center">
           <ScrollReveal>
             <p className="text-copper font-medium text-sm tracking-wider uppercase mb-3">Around the Fire</p>
@@ -518,7 +531,7 @@ export default function Home() {
                 className="absolute inset-0 flex flex-col items-center justify-center"
                 style={{ pointerEvents: i === painIdx ? 'auto' : 'none' }}
               >
-                <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 sm:p-12 border border-cream-border shadow-sm max-w-2xl">
+                <div className="glass-card-light rounded-2xl p-8 sm:p-12 max-w-2xl">
                   <p className="text-slate text-lg sm:text-xl leading-relaxed mb-6">
                     {p.text}
                   </p>
@@ -552,8 +565,11 @@ export default function Home() {
       {/* ═══ VIDEO BACKGROUND — KOOTENAY ROOTS ═══ */}
       <VideoSection />
 
+      <MountainDivider variant={2} fillColor="#1A1D20" />
+
       {/* ═══ FINAL CTA ═══ */}
-      <section className="hero-gradient grain py-24 sm:py-32">
+      <section className="aurora-bg grain py-24 sm:py-32 relative">
+        <AmbientOrbs />
         <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 text-center">
           <ScrollReveal>
             <h2 className="font-[family-name:var(--font-satoshi)] text-3xl sm:text-4xl md:text-5xl font-bold text-cream leading-tight max-w-2xl mx-auto">

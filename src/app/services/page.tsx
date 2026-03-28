@@ -6,6 +6,9 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 import ScrollReveal from '@/components/ScrollReveal';
 import Breadcrumb from '@/components/Breadcrumb';
+import MountainDivider from '@/components/MountainDivider';
+import AmbientOrbs from '@/components/AmbientOrbs';
+import FogTransition from '@/components/FogTransition';
 
 const serviceCards = [
   { icon: Star, name: 'Free AI Website Audit', price: '$0', desc: 'A 30-minute walkthrough of your current online presence with actionable recommendations.', features: ['Full site review', 'SEO quick-check', 'Competitor comparison', 'Prioritized action plan'], tier: 'entry', highlight: true },
@@ -71,7 +74,8 @@ function PinnedCard({ card, index, total }: { card: typeof serviceCards[0]; inde
 export default function ServicesPage() {
   return (
     <>
-      <section className="bg-slate grain pt-32 pb-20">
+      <section className="aurora-bg grain pt-32 pb-20 relative">
+        <AmbientOrbs />
         <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
           <Breadcrumb items={[{ label: 'Services' }]} dark />
           <ScrollReveal>
@@ -86,8 +90,10 @@ export default function ServicesPage() {
         </div>
       </section>
 
+      <MountainDivider variant={1} fillColor="#F8F4F0" />
+
       {/* Pinned card stack */}
-      <section className="bg-cream py-20 sm:py-24">
+      <section className="bg-cream py-20 sm:py-24 cedar-texture relative">
         <div className="max-w-3xl mx-auto px-6 sm:px-10 lg:px-16">
           <ScrollReveal>
             <p className="text-copper font-medium text-sm tracking-wider uppercase mb-2">Our Services</p>
@@ -100,8 +106,11 @@ export default function ServicesPage() {
         </div>
       </section>
 
+      <MountainDivider variant={2} fillColor="#1A1D20" />
+
       {/* Retainers */}
-      <section className="bg-slate grain py-20 sm:py-24">
+      <section className="bg-slate grain py-20 sm:py-24 relative">
+        <AmbientOrbs />
         <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
           <ScrollReveal>
             <p className="text-copper-light font-medium text-sm tracking-wider uppercase mb-2">Monthly Retainers</p>
@@ -115,10 +124,8 @@ export default function ServicesPage() {
               <ScrollReveal key={r.name} delay={i * 0.1}>
                 <motion.div
                   whileHover={{ y: -4 }}
-                  className={`rounded-2xl p-8 h-full border transition-all duration-300 ${
-                    r.highlight
-                      ? 'bg-slate-card border-copper/30 ring-1 ring-copper/20'
-                      : 'bg-slate-card border-white/5 hover:border-copper/20'
+                  className={`glass-card-dark rounded-2xl p-8 h-full ${
+                    r.highlight ? 'ring-1 ring-copper/20' : ''
                   }`}
                 >
                   {r.highlight && <span className="text-xs text-copper font-semibold uppercase tracking-wider">Recommended</span>}
@@ -143,9 +150,11 @@ export default function ServicesPage() {
         </div>
       </section>
 
+      <MountainDivider variant={3} fillColor="#F8F4F0" />
+
       {/* CTA */}
-      <section className="bg-cream py-20 sm:py-24">
-        <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 text-center">
+      <section className="bg-cream py-20 sm:py-24 cedar-texture relative">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 text-center">
           <ScrollReveal>
             <h2 className="font-[family-name:var(--font-satoshi)] text-3xl sm:text-4xl font-bold text-slate">
               Not sure what you need?

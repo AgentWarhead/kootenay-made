@@ -5,6 +5,8 @@ import { Mail, MapPin, Clock, Coffee, CheckCircle2, AlertCircle } from 'lucide-r
 import { motion, AnimatePresence } from 'framer-motion';
 import ScrollReveal from '@/components/ScrollReveal';
 import Breadcrumb from '@/components/Breadcrumb';
+import MountainDivider from '@/components/MountainDivider';
+import AmbientOrbs from '@/components/AmbientOrbs';
 
 export default function ContactPage() {
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
@@ -35,7 +37,8 @@ export default function ContactPage() {
   return (
     <>
       {/* Header */}
-      <section className="bg-slate grain pt-32 pb-20">
+      <section className="aurora-bg grain pt-32 pb-20 relative">
+        <AmbientOrbs />
         <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
           <Breadcrumb items={[{ label: 'Contact' }]} dark />
           <ScrollReveal>
@@ -50,8 +53,10 @@ export default function ContactPage() {
         </div>
       </section>
 
+      <MountainDivider variant={1} fillColor="#F8F4F0" />
+
       {/* Form + Info */}
-      <section className="bg-cream py-20 sm:py-24">
+      <section className="bg-cream py-20 sm:py-24 cedar-texture relative">
         <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-16">
             {/* Form */}
@@ -67,7 +72,7 @@ export default function ContactPage() {
                     >
                       <CheckCircle2 className="text-forest mx-auto mb-4" size={48} />
                       <h3 className="font-[family-name:var(--font-satoshi)] text-2xl font-bold text-slate mb-2">Message sent!</h3>
-                      <p className="text-text-secondary">We&apos;ll be in touch within 24 hours. Talk soon!</p>
+                      <p className="text-text-secondary">Sent! We&apos;ll get back to you faster than the ferry crosses the lake. ⛴️</p>
                     </motion.div>
                   ) : (
                     <motion.form key="form" onSubmit={handleSubmit} className="space-y-6">

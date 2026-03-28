@@ -1,28 +1,12 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Mail, MapPin } from 'lucide-react';
-
-function TopoPattern() {
-  return (
-    <svg className="absolute inset-0 w-full h-full opacity-[0.04]" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <pattern id="topo" x="0" y="0" width="200" height="200" patternUnits="userSpaceOnUse">
-          <path d="M20,80 Q60,20 100,80 T180,80" fill="none" stroke="#C17817" strokeWidth="0.5"/>
-          <path d="M10,120 Q50,60 100,120 T190,120" fill="none" stroke="#C17817" strokeWidth="0.5"/>
-          <path d="M0,160 Q40,100 100,160 T200,160" fill="none" stroke="#C17817" strokeWidth="0.5"/>
-          <path d="M30,40 Q70,0 110,40 T190,40" fill="none" stroke="#C17817" strokeWidth="0.5"/>
-          <path d="M20,190 Q80,140 140,190 T200,190" fill="none" stroke="#C17817" strokeWidth="0.5"/>
-        </pattern>
-      </defs>
-      <rect width="100%" height="100%" fill="url(#topo)" />
-    </svg>
-  );
-}
+import PineTreeline from '@/components/PineTreeline';
 
 export default function Footer() {
   return (
-    <footer className="bg-slate text-dark-text relative overflow-hidden">
-      <TopoPattern />
+    <footer className="bg-slate text-dark-text relative overflow-hidden starfield">
+      <PineTreeline className="z-[1]" />
       <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-16">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           <div>

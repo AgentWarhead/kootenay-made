@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
+import PineTreeline from '@/components/PineTreeline';
 
 export default function VideoSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -63,6 +64,7 @@ export default function VideoSection() {
 
       {/* Dark gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/60" />
+      <PineTreeline />
 
       {/* Content overlay */}
       <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-6">

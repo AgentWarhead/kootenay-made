@@ -7,6 +7,8 @@ import { ArrowRight } from 'lucide-react';
 import { motion, useInView } from 'framer-motion';
 import ScrollReveal from '@/components/ScrollReveal';
 import Breadcrumb from '@/components/Breadcrumb';
+import MountainDivider from '@/components/MountainDivider';
+import AmbientOrbs from '@/components/AmbientOrbs';
 
 /* ── SVG Icon with stroke draw animation ── */
 function DrawIcon({ d, viewBox = '0 0 24 24', delay = 0 }: { d: string; viewBox?: string; delay?: number }) {
@@ -63,7 +65,8 @@ export default function AboutPage() {
   return (
     <>
       {/* Header */}
-      <section className="bg-slate grain pt-32 pb-20">
+      <section className="aurora-bg grain pt-32 pb-20 relative">
+        <AmbientOrbs />
         <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
           <Breadcrumb items={[{ label: 'About' }]} dark />
           <ScrollReveal>
@@ -75,8 +78,10 @@ export default function AboutPage() {
         </div>
       </section>
 
+      <MountainDivider variant={1} fillColor="#F8F4F0" />
+
       {/* Story — text paragraphs fade up on scroll */}
-      <section className="bg-cream py-20 sm:py-24">
+      <section className="bg-cream py-20 sm:py-24 cedar-texture relative">
         <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
           <div className="max-w-3xl">
             <ScrollReveal>
@@ -106,7 +111,7 @@ export default function AboutPage() {
       </section>
 
       {/* Values with SVG draw animation */}
-      <section className="bg-white py-20 sm:py-24">
+      <section className="bg-white py-20 sm:py-24 relative">
         <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
           <ScrollReveal>
             <h2 className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl font-bold text-slate mb-12">
@@ -132,8 +137,11 @@ export default function AboutPage() {
         </div>
       </section>
 
+      <MountainDivider variant={2} fillColor="#1A1D20" />
+
       {/* Why Kootenay Made — with stacked logo */}
-      <section className="bg-slate grain py-20 sm:py-24">
+      <section className="bg-slate grain py-20 sm:py-24 relative">
+        <AmbientOrbs />
         <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
           <div className="flex flex-col md:flex-row gap-12 md:gap-16 items-start">
             <div className="max-w-xl flex-1">
@@ -164,9 +172,11 @@ export default function AboutPage() {
         </div>
       </section>
 
+      <MountainDivider variant={3} fillColor="#F8F4F0" />
+
       {/* CTA */}
-      <section className="bg-cream py-20 sm:py-24">
-        <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 text-center">
+      <section className="bg-cream py-20 sm:py-24 cedar-texture relative">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 text-center">
           <ScrollReveal>
             <h2 className="font-[family-name:var(--font-satoshi)] text-3xl sm:text-4xl font-bold text-slate">
               Let&apos;s talk about your business.

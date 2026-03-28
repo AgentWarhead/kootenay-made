@@ -6,6 +6,8 @@ import { ArrowRight, MapPin } from 'lucide-react';
 import { motion } from 'framer-motion';
 import ScrollReveal from '@/components/ScrollReveal';
 import Breadcrumb from '@/components/Breadcrumb';
+import MountainDivider from '@/components/MountainDivider';
+import AmbientOrbs from '@/components/AmbientOrbs';
 import { caseStudies } from './data';
 
 const imageMap: Record<string, string> = {
@@ -18,7 +20,8 @@ const imageMap: Record<string, string> = {
 export default function PortfolioPage() {
   return (
     <>
-      <section className="bg-slate grain pt-32 pb-20">
+      <section className="aurora-bg grain pt-32 pb-20 relative">
+        <AmbientOrbs />
         <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
           <Breadcrumb items={[{ label: 'Portfolio' }]} />
           <ScrollReveal>
@@ -33,8 +36,10 @@ export default function PortfolioPage() {
         </div>
       </section>
 
+      <MountainDivider variant={1} fillColor="#F8F4F0" />
+
       {/* Case studies with image reveal */}
-      <section className="bg-cream py-20 sm:py-24">
+      <section className="bg-cream py-20 sm:py-24 cedar-texture relative">
         <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {caseStudies.map((study, i) => (
@@ -42,7 +47,7 @@ export default function PortfolioPage() {
                 <Link href={`/portfolio/${study.slug}`} className="group block">
                   <motion.div
                     whileHover={{ y: -6 }}
-                    className="bg-white rounded-2xl border border-cream-border overflow-hidden transition-shadow duration-300 group-hover:shadow-xl h-full"
+                    className="glass-card-light rounded-2xl overflow-hidden h-full"
                   >
                     {/* Image with clip-path reveal */}
                     <div className="relative h-56 sm:h-64 overflow-hidden">
@@ -94,8 +99,11 @@ export default function PortfolioPage() {
         </div>
       </section>
 
+      <MountainDivider variant={2} fillColor="#1A1D20" />
+
       {/* CTA */}
-      <section className="bg-slate grain py-20">
+      <section className="bg-slate grain py-20 relative">
+        <AmbientOrbs />
         <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 text-center">
           <ScrollReveal>
             <h2 className="font-[family-name:var(--font-satoshi)] text-3xl sm:text-4xl font-bold text-cream mb-4">

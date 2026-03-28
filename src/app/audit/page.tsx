@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import ScrollReveal from '@/components/ScrollReveal';
 import Breadcrumb from '@/components/Breadcrumb';
+import MountainDivider from '@/components/MountainDivider';
+import AmbientOrbs from '@/components/AmbientOrbs';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, TrendingUp, Zap, ChevronDown, ChevronUp, CheckCircle2, AlertCircle } from 'lucide-react';
 
@@ -38,7 +40,7 @@ function FlipCard({ card, index }: { card: typeof flipCards[0]; index: number })
           style={{ transformStyle: 'preserve-3d' }}
         >
           {/* Front */}
-          <div className="absolute inset-0 bg-white rounded-xl shadow-sm border border-cream-border flex flex-col items-center justify-center p-6 backface-hidden">
+          <div className="absolute inset-0 glass-card-light rounded-xl flex flex-col items-center justify-center p-6 backface-hidden">
             <div className="w-16 h-16 rounded-2xl bg-copper/10 flex items-center justify-center mb-4">
               <card.icon className="text-copper" size={28} />
             </div>
@@ -47,7 +49,7 @@ function FlipCard({ card, index }: { card: typeof flipCards[0]; index: number })
           </div>
           {/* Back */}
           <div
-            className="absolute inset-0 bg-slate rounded-xl shadow-sm border border-copper/20 flex items-center justify-center p-6"
+            className="absolute inset-0 glass-card-dark rounded-xl flex items-center justify-center p-6"
             style={{ transform: 'rotateY(180deg)', backfaceVisibility: 'hidden' }}
           >
             <p className="text-dark-text-muted text-sm leading-relaxed text-center">{card.desc}</p>
@@ -83,7 +85,8 @@ export default function AuditPage() {
 
   return (
     <>
-      <section className="bg-slate grain pt-32 pb-20">
+      <section className="aurora-bg grain pt-32 pb-20 relative">
+        <AmbientOrbs />
         <div className="relative z-10 max-w-4xl mx-auto px-6 sm:px-10 lg:px-16 text-center">
           <Breadcrumb items={[{ label: 'Free Audit' }]} dark />
           <ScrollReveal>
@@ -98,8 +101,10 @@ export default function AuditPage() {
         </div>
       </section>
 
+      <MountainDivider variant={1} fillColor="#F8F4F0" />
+
       {/* Flip cards */}
-      <section className="bg-cream py-16 sm:py-20">
+      <section className="bg-cream py-16 sm:py-20 cedar-texture relative">
         <div className="max-w-5xl mx-auto px-6 sm:px-10 lg:px-16">
           <ScrollReveal>
             <h2 className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl font-bold text-slate text-center mb-12">What you&apos;ll learn</h2>
@@ -112,8 +117,11 @@ export default function AuditPage() {
         </div>
       </section>
 
+      <MountainDivider variant={2} fillColor="#1A1D20" />
+
       {/* Form */}
-      <section className="bg-slate grain py-16 sm:py-20">
+      <section className="bg-slate grain py-16 sm:py-20 relative">
+        <AmbientOrbs />
         <div className="relative z-10 max-w-2xl mx-auto px-6 sm:px-10 lg:px-16">
           <ScrollReveal>
             <h2 className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl font-bold text-cream text-center mb-2">Book your free audit</h2>
@@ -124,7 +132,7 @@ export default function AuditPage() {
                 <motion.div key="success" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="bg-forest/20 border border-forest/30 rounded-xl p-8 text-center">
                   <CheckCircle2 className="text-forest-light mx-auto mb-4" size={48} />
                   <h3 className="font-[family-name:var(--font-satoshi)] text-xl font-bold text-cream mb-2">Request received!</h3>
-                  <p className="text-dark-text-muted">We&apos;ll review your info and reach out within one business day to schedule your audit.</p>
+                  <p className="text-dark-text-muted">Your audit is on its way! Grab a coffee from your favorite Kootenay café while you wait. ☕</p>
                 </motion.div>
               ) : (
                 <motion.form key="form" onSubmit={handleSubmit} className="space-y-5">
@@ -160,8 +168,10 @@ export default function AuditPage() {
         </div>
       </section>
 
+      <MountainDivider variant={3} fillColor="#F8F4F0" />
+
       {/* FAQ */}
-      <section className="bg-cream py-16 sm:py-20">
+      <section className="bg-cream py-16 sm:py-20 cedar-texture relative">
         <div className="max-w-2xl mx-auto px-6 sm:px-10 lg:px-16">
           <ScrollReveal>
             <h2 className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl font-bold text-slate text-center mb-10">Common questions</h2>
@@ -169,7 +179,7 @@ export default function AuditPage() {
           <div className="space-y-3">
             {faqs.map((faq, i) => (
               <ScrollReveal key={i} delay={i * 0.05}>
-                <div className="bg-white rounded-xl border border-cream-border overflow-hidden">
+                <div className="glass-card-light rounded-xl overflow-hidden">
                   <button onClick={() => setOpenFaq(openFaq === i ? null : i)} className="w-full flex items-center justify-between px-6 py-4 text-left">
                     <span className="font-[family-name:var(--font-satoshi)] font-semibold text-slate text-sm sm:text-base pr-4">{faq.q}</span>
                     {openFaq === i ? <ChevronUp size={18} className="text-copper shrink-0" /> : <ChevronDown size={18} className="text-text-tertiary shrink-0" />}

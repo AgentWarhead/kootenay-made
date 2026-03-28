@@ -6,6 +6,8 @@ import { Clock, Tag } from 'lucide-react';
 import { motion } from 'framer-motion';
 import Breadcrumb from '@/components/Breadcrumb';
 import ScrollReveal from '@/components/ScrollReveal';
+import MountainDivider from '@/components/MountainDivider';
+import AmbientOrbs from '@/components/AmbientOrbs';
 
 const posts = [
   {
@@ -40,7 +42,8 @@ const posts = [
 export default function BlogPage() {
   return (
     <div className="pt-20">
-      <section className="bg-slate grain py-20 sm:py-24">
+      <section className="aurora-bg grain py-20 sm:py-24 relative">
+        <AmbientOrbs />
         <div className="relative z-10 max-w-4xl mx-auto px-6 sm:px-10 lg:px-16 text-center">
           <Breadcrumb items={[{ label: 'Blog' }]} dark />
           <ScrollReveal>
@@ -54,14 +57,16 @@ export default function BlogPage() {
         </div>
       </section>
 
-      <section className="bg-cream py-16 sm:py-20">
-        <div className="max-w-5xl mx-auto px-6 sm:px-10 lg:px-16">
+      <MountainDivider variant={1} fillColor="#F8F4F0" />
+
+      <section className="bg-cream py-16 sm:py-20 cedar-texture relative">
+        <div className="relative z-10 max-w-5xl mx-auto px-6 sm:px-10 lg:px-16">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {posts.map((post, i) => (
               <ScrollReveal key={post.slug} delay={i * 0.1}>
                 <Link
                   href={`/blog/${post.slug}`}
-                  className="group bg-white rounded-xl border border-cream-border overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col"
+                  className="group glass-card-light rounded-xl overflow-hidden flex flex-col"
                 >
                   {/* Blog image with clip-path reveal */}
                   <motion.div
@@ -106,7 +111,10 @@ export default function BlogPage() {
         </div>
       </section>
 
-      <section className="bg-slate grain py-16">
+      <MountainDivider variant={2} fillColor="#1A1D20" />
+
+      <section className="bg-slate grain py-16 relative">
+        <AmbientOrbs />
         <div className="relative z-10 max-w-3xl mx-auto px-6 sm:px-10 lg:px-16 text-center">
           <h2 className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl font-bold text-cream mb-4">
             Want to know where your website stands?
