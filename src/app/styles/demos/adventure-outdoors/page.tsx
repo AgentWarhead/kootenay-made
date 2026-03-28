@@ -1,205 +1,509 @@
 'use client'
 
 import { Barlow_Condensed, Inter } from 'next/font/google'
-import Image from 'next/image'
 import Link from 'next/link'
+import Image from 'next/image'
+import { useRef } from 'react'
+import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion'
 
-const barlow = Barlow_Condensed({ subsets: ['latin'], weight: ['600', '700', '800'] })
-const inter = Inter({ subsets: ['latin'], weight: ['400', '500'] })
+const heading = Barlow_Condensed({
+  subsets: ['latin'],
+  weight: ['500', '600', '700'],
+})
 
-export default function AdventureOutdoorsPage() {
+const body = Inter({
+  subsets: ['latin'],
+  weight: ['400', '500', '700'],
+})
+
+/* ── Section reveal ── */
+function Reveal({ children, className = '', delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
+  const prefersReduced = useReducedMotion()
   return (
-    <div className={`${inter.className} min-h-screen`} style={{ background: '#ffffff', color: '#1b2d1b' }}>
+    <motion.div
+      className={className}
+      initial={prefersReduced ? {} : { opacity: 0, y: 30 }}
+      whileInView={prefersReduced ? {} : { opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.6, delay, ease: 'easeOut' }}
+    >
+      {children}
+    </motion.div>
+  )
+}
+
+/* ── Trail marker number ── */
+function TrailMarker({ number }: { number: number }) {
+  return (
+    <div
+      className="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-6 text-lg font-bold"
+      style={{ backgroundColor: '#f97316', color: '#ffffff' }}
+    >
+      {number}
+    </div>
+  )
+}
+
+/* ── Mountain SVG silhouettes ── */
+function MountainLayer({ opacity, color, d }: { opacity: number; color: string; d: string }) {
+  return (
+    <svg className="absolute bottom-0 left-0 w-full" viewBox="0 0 1440 400" preserveAspectRatio="none" style={{ opacity }}>
+      <path fill={color} d={d} />
+    </svg>
+  )
+}
+
+/* ── Compass SVG ── */
+function Compass() {
+  return (
+    <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="50" cy="50" r="46" stroke="#f97316" strokeWidth="1" strokeOpacity="0.3" />
+      <circle cx="50" cy="50" r="38" stroke="#f97316" strokeWidth="0.5" strokeOpacity="0.2" />
+      <polygon points="50,12 46,30 54,30" fill="#f97316" fillOpacity="0.8" />
+      <polygon points="50,88 46,70 54,70" fill="#ffffff" fillOpacity="0.3" />
+      <polygon points="88,50 70,46 70,54" fill="#ffffff" fillOpacity="0.3" />
+      <polygon points="12,50 30,46 30,54" fill="#ffffff" fillOpacity="0.3" />
+      <circle cx="50" cy="50" r="3" fill="#f97316" />
+    </svg>
+  )
+}
+
+/* ══════════════════════════════════════════════════════════════
+   POWDER HIGHWAY ADVENTURES — Adventure & Outdoors Demo
+   ══════════════════════════════════════════════════════════════ */
+export default function AdventureOutdoorsDemo() {
+  const prefersReduced = useReducedMotion()
+
+  /* Parallax mountains in hero */
+  const heroRef = useRef(null)
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ['start start', 'end start'],
+  })
+  const layer1Y = useTransform(scrollYProgress, [0, 1], ['0%', '15%'])
+  const layer2Y = useTransform(scrollYProgress, [0, 1], ['0%', '25%'])
+  const layer3Y = useTransform(scrollYProgress, [0, 1], ['0%', '35%'])
+
+  return (
+    <div className={body.className} style={{ fontFamily: 'Inter, sans-serif', backgroundColor: '#1b2d1b', color: '#ffffff' }}>
+
       <style>{`
-        .topo-bg {
-          position: relative;
-          overflow: hidden;
+        @keyframes compassSpin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
         }
-        .topo-bg::before {
-          content: '';
-          position: absolute;
-          inset: 0;
-          opacity: 0.12;
-          background-image: url("data:image/svg+xml,%3Csvg width='400' height='400' viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='1'%3E%3Cellipse cx='200' cy='200' rx='180' ry='120'/%3E%3Cellipse cx='200' cy='200' rx='150' ry='100'/%3E%3Cellipse cx='200' cy='200' rx='120' ry='80'/%3E%3Cellipse cx='200' cy='200' rx='90' ry='60'/%3E%3Cellipse cx='200' cy='200' rx='60' ry='40'/%3E%3Cellipse cx='200' cy='200' rx='30' ry='20'/%3E%3Cellipse cx='80' cy='320' rx='100' ry='70'/%3E%3Cellipse cx='80' cy='320' rx='70' ry='50'/%3E%3Cellipse cx='80' cy='320' rx='40' ry='30'/%3E%3Cellipse cx='320' cy='80' rx='90' ry='60'/%3E%3Cellipse cx='320' cy='80' rx='60' ry='40'/%3E%3Cellipse cx='320' cy='80' rx='30' ry='20'/%3E%3C/g%3E%3C/svg%3E");
-          background-size: 400px 400px;
-        }
-        .diagonal-top {
-          clip-path: polygon(0 4%, 100% 0, 100% 100%, 0 100%);
-        }
-        .diagonal-bottom {
-          clip-path: polygon(0 0, 100% 0, 100% 96%, 0 100%);
-        }
-        .adventure-card {
-          border-top: 4px solid #f97316;
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .adventure-card:hover {
-          transform: translateY(-6px);
-          box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+        @media (prefers-reduced-motion: reduce) {
+          *, *::before, *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+          }
         }
       `}</style>
 
-      {/* Nav */}
-      <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-12 py-4" style={{ background: 'rgba(27, 45, 27, 0.95)', backdropFilter: 'blur(8px)' }}>
-        <Link href="/styles/demos/adventure-outdoors" className={`${barlow.className} text-xl md:text-2xl uppercase tracking-wider`} style={{ color: '#f97316', fontWeight: 800 }}>
-          Powder Highway
-        </Link>
-        <div className="hidden md:flex items-center gap-8">
-          {['Adventures', 'Gear', 'Book Now'].map((item) => (
-            <span key={item} className={`${barlow.className} text-sm uppercase tracking-wider cursor-pointer transition-colors duration-300`} style={{ color: '#ffffff', fontWeight: 600 }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = '#f97316')}
-              onMouseLeave={(e) => (e.currentTarget.style.color = '#ffffff')}
-            >
-              {item}
-            </span>
-          ))}
+      {/* ═══════════ 1. NAV ═══════════ */}
+      <nav className="px-6 py-4 sticky top-0 z-40" style={{ backgroundColor: '#1b2d1b', borderBottom: '1px solid rgba(249,115,22,0.2)' }}>
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
+          <span className={`${heading.className} text-xl md:text-2xl font-bold uppercase tracking-wider`} style={{ color: '#f97316' }}>
+            Powder Highway Adventures
+          </span>
+          <div className="hidden md:flex items-center gap-8">
+            {['Adventures', 'About', 'Gallery', 'Book'].map((link) => (
+              <a
+                key={link}
+                href={`#${link.toLowerCase()}`}
+                className="text-sm uppercase tracking-wider font-medium transition-colors"
+                style={{ color: 'rgba(255,255,255,0.5)' }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = '#f97316')}
+                onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.5)')}
+              >
+                {link}
+              </a>
+            ))}
+            <a href="tel:2505550143" className="text-sm font-bold" style={{ color: '#f97316' }}>
+              (250) 555-0143
+            </a>
+          </div>
+          <a href="tel:2505550143" className="md:hidden text-sm font-bold" style={{ color: '#f97316' }}>
+            (250) 555-0143
+          </a>
         </div>
       </nav>
 
-      {/* Hero */}
-      <section className="topo-bg relative flex flex-col items-center justify-center text-center min-h-screen px-6" style={{ background: '#1b2d1b', overflow: 'hidden' }}>
-        <Image src="/images/demos/adventure-hero.webp" alt="" fill className="object-cover" style={{ zIndex: 0 }} />
-        <div className="absolute inset-0 bg-black/40" style={{ zIndex: 1 }} />
-        <div className="relative z-10" style={{ zIndex: 2 }}>
-          <p className={`${barlow.className} text-sm md:text-base uppercase tracking-widest mb-6`} style={{ color: '#f97316', letterSpacing: '0.3em', fontWeight: 600 }}>
-            West Kootenays, BC
-          </p>
-          <h1 className={`${barlow.className} text-5xl md:text-7xl lg:text-9xl uppercase leading-none mb-8`} style={{ color: '#ffffff', fontWeight: 800 }}>
-            Your Next<br />Adventure<br />Starts Here
-          </h1>
-          <a
-            href="#services"
-            className={`${barlow.className} inline-block text-base md:text-lg uppercase tracking-wider px-10 py-4 font-bold transition-all duration-300`}
-            style={{ background: '#f97316', color: '#ffffff', letterSpacing: '0.1em' }}
-            onMouseEnter={(e) => { e.currentTarget.style.background = '#0ea5e9' }}
-            onMouseLeave={(e) => { e.currentTarget.style.background = '#f97316' }}
-          >
-            Book an Adventure →
-          </a>
+      {/* ═══════════ 2. HERO — 3-layer parallax mountains ═══════════ */}
+      <section ref={heroRef} className="relative overflow-hidden" style={{ minHeight: '100vh', display: 'flex', alignItems: 'center' }}>
+        <div className="absolute inset-0">
+          <Image
+            src="/images/demos/adventure-hero.webp"
+            alt="Powder Highway Adventures — mountain backcountry landscape"
+            fill
+            className="object-cover"
+            priority
+            sizes="100vw"
+          />
         </div>
-        {/* Bottom topo accent */}
-        <svg className="absolute bottom-0 left-0 right-0 w-full" style={{ zIndex: 3 }} height="60" preserveAspectRatio="none" viewBox="0 0 1440 60">
-          <path d="M0,60 L0,20 Q360,0 720,30 Q1080,60 1440,10 L1440,60 Z" fill="#ffffff" />
-        </svg>
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(27,45,27,0.6), rgba(27,45,27,0.8))' }} />
+
+        {/* 3-layer parallax mountain silhouettes */}
+        <motion.div className="absolute bottom-0 left-0 right-0 h-64 pointer-events-none" style={{ y: prefersReduced ? 0 : layer1Y }}>
+          <MountainLayer
+            opacity={0.15}
+            color="#1b2d1b"
+            d="M0,250 L120,180 L240,220 L400,120 L520,190 L680,80 L800,160 L960,100 L1100,180 L1200,130 L1320,200 L1440,150 L1440,400 L0,400 Z"
+          />
+        </motion.div>
+        <motion.div className="absolute bottom-0 left-0 right-0 h-64 pointer-events-none" style={{ y: prefersReduced ? 0 : layer2Y }}>
+          <MountainLayer
+            opacity={0.25}
+            color="#1b2d1b"
+            d="M0,300 L180,220 L350,270 L500,180 L650,240 L820,150 L1000,210 L1150,170 L1300,230 L1440,190 L1440,400 L0,400 Z"
+          />
+        </motion.div>
+        <motion.div className="absolute bottom-0 left-0 right-0 h-64 pointer-events-none" style={{ y: prefersReduced ? 0 : layer3Y }}>
+          <MountainLayer
+            opacity={0.5}
+            color="#1b2d1b"
+            d="M0,340 L100,290 L280,320 L420,260 L580,310 L740,250 L900,290 L1060,260 L1200,300 L1360,270 L1440,310 L1440,400 L0,400 Z"
+          />
+        </motion.div>
+
+        <div className="relative max-w-4xl mx-auto text-center px-6 py-32 md:py-44 w-full z-10">
+          <motion.p
+            className={`${heading.className} text-sm md:text-base uppercase tracking-[0.3em] mb-6`}
+            style={{ color: '#f97316' }}
+            initial={prefersReduced ? {} : { opacity: 0, y: 20 }}
+            animate={prefersReduced ? {} : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            Your next adventure starts here
+          </motion.p>
+          <motion.h1
+            className={`${heading.className} text-5xl md:text-7xl lg:text-9xl font-bold uppercase leading-[0.9] tracking-tight mb-8`}
+            initial={prefersReduced ? {} : { opacity: 0, y: 30 }}
+            animate={prefersReduced ? {} : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
+            POWDER<br />
+            <span style={{ color: '#f97316' }}>HIGHWAY</span>
+          </motion.h1>
+          <motion.div
+            initial={prefersReduced ? {} : { opacity: 0, y: 20 }}
+            animate={prefersReduced ? {} : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.7 }}
+          >
+            <a
+              href="#book"
+              className="inline-block px-12 py-4 text-sm font-bold uppercase tracking-widest transition-all hover:scale-105"
+              style={{ backgroundColor: '#f97316', color: '#ffffff', boxShadow: '0 4px 20px rgba(249,115,22,0.4)' }}
+            >
+              Book Your Adventure
+            </a>
+          </motion.div>
+        </div>
       </section>
 
-      {/* Services */}
-      <section id="services" className="px-6 md:px-12 py-16 md:py-24">
+      {/* ═══════════ 3. TRUST BAR ═══════════ */}
+      <div className="py-5 px-6" style={{ backgroundColor: '#f97316' }}>
+        <div className="max-w-5xl mx-auto flex flex-wrap justify-center items-center gap-6 md:gap-10 text-sm font-bold text-white">
+          <span className="flex items-center gap-2">
+            <span style={{ color: '#1b2d1b' }}>&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            5.0 Rating
+          </span>
+          <span className="opacity-50">&#183;</span>
+          <span>Certified Guides</span>
+          <span className="opacity-50 hidden md:inline">&#183;</span>
+          <span className="hidden md:inline">Full Safety Equipment</span>
+          <span className="opacity-50 hidden md:inline">&#183;</span>
+          <span className="hidden md:inline">Groups Welcome</span>
+        </div>
+      </div>
+
+      {/* ═══════════ 4. SERVICES — Trail Marker numbered ═══════════ */}
+      <section id="adventures" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#1b2d1b' }}>
         <div className="max-w-6xl mx-auto">
-          <p className={`${barlow.className} text-sm uppercase tracking-widest mb-3 text-center`} style={{ color: '#f97316', letterSpacing: '0.2em', fontWeight: 600 }}>
-            Digital Services
-          </p>
-          <h2 className={`${barlow.className} text-3xl md:text-5xl uppercase text-center mb-12 md:mb-16`} style={{ color: '#1b2d1b', fontWeight: 800 }}>
-            Gear Up Online
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <Reveal>
+            <h2 className={`${heading.className} text-3xl md:text-5xl font-bold uppercase text-center mb-4`}>
+              What We Can Do For You
+            </h2>
+            <div className="w-16 h-1 mx-auto mb-16" style={{ backgroundColor: '#f97316' }} />
+          </Reveal>
+
+          <div className="grid md:grid-cols-3 gap-8">
             {[
               {
-                title: 'Custom Website',
-                desc: 'Reach adventurers before they arrive. Bookings, trail info, everything in one place.',
-                icon: (
-                  <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#f97316" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <rect x="2" y="3" width="20" height="14" rx="2" />
-                    <line x1="8" y1="21" x2="16" y2="21" />
-                    <line x1="12" y1="17" x2="12" y2="21" />
-                  </svg>
-                ),
+                num: 1,
+                title: 'Adventure-Ready Website',
+                desc: 'A bold, action-packed website that gets outdoor enthusiasts excited to book.',
               },
               {
-                title: 'Shopify Store',
-                desc: 'Sell gear, passes, and guided tours online — 24/7, rain or shine.',
-                icon: (
-                  <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#f97316" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <circle cx="9" cy="21" r="1" />
-                    <circle cx="20" cy="21" r="1" />
-                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
-                  </svg>
-                ),
+                num: 2,
+                title: 'Google Maps & Local SEO',
+                desc: 'Show up when travellers search for Kootenay adventures and outdoor guides.',
               },
               {
-                title: 'Social Media',
-                desc: 'Epic shots from the trail deserve an epic feed. Build a following that books trips.',
-                icon: (
-                  <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#f97316" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <rect x="2" y="2" width="20" height="20" rx="5" />
-                    <circle cx="12" cy="12" r="5" />
-                    <circle cx="17.5" cy="6.5" r="1.5" fill="#f97316" />
-                  </svg>
-                ),
+                num: 3,
+                title: 'Booking & Social Media',
+                desc: 'Online booking integration and social content that drives bookings year-round.',
               },
-            ].map((service) => (
-              <div key={service.title} className="adventure-card p-8" style={{ background: '#1b2d1b' }}>
-                <div className="mb-5">{service.icon}</div>
-                <h3 className={`${barlow.className} text-xl md:text-2xl uppercase mb-4`} style={{ color: '#ffffff', fontWeight: 700 }}>
-                  {service.title}
-                </h3>
-                <p className="text-sm leading-relaxed" style={{ color: 'rgba(255, 255, 255, 0.7)' }}>
-                  {service.desc}
-                </p>
-              </div>
+            ].map((card, i) => (
+              <Reveal key={card.title} delay={i * 0.15}>
+                <div
+                  className="p-8 text-center transition-all cursor-default"
+                  style={{
+                    backgroundColor: 'rgba(255,255,255,0.05)',
+                    border: '1px solid rgba(249,115,22,0.15)',
+                  }}
+                >
+                  <TrailMarker number={card.num} />
+                  <h3 className={`${heading.className} text-xl font-bold uppercase mb-4`} style={{ color: '#f97316' }}>
+                    {card.title}
+                  </h3>
+                  <p className="leading-relaxed text-sm" style={{ color: 'rgba(255,255,255,0.6)' }}>
+                    {card.desc}
+                  </p>
+                </div>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* About - Diagonal section */}
-      <section className="diagonal-top diagonal-bottom px-6 md:px-12 py-24 md:py-32" style={{ background: '#1b2d1b' }}>
-        <div className="max-w-4xl mx-auto text-center">
-          <p className={`${barlow.className} text-sm uppercase tracking-widest mb-4`} style={{ color: '#f97316', letterSpacing: '0.2em', fontWeight: 600 }}>
-            About Us
-          </p>
-          <h2 className={`${barlow.className} text-3xl md:text-5xl uppercase mb-8`} style={{ color: '#ffffff', fontWeight: 800 }}>
-            Life&apos;s Too Short for Boring Weekends
-          </h2>
-          <p className="text-lg md:text-xl leading-relaxed max-w-2xl mx-auto" style={{ color: 'rgba(255, 255, 255, 0.8)' }}>
-            Powder Highway Adventures offers guided backcountry skiing, mountain biking, and rafting trips across the West Kootenays. Life&apos;s too short for boring weekends.
-          </p>
-        </div>
-      </section>
+      {/* ═══════════ 5. GALLERY — Recent Adventures ═══════════ */}
+      <section id="gallery" className="py-20 md:py-28 px-6" style={{ backgroundColor: 'rgba(27,45,27,0.9)' }}>
+        <div className="max-w-6xl mx-auto">
+          <Reveal>
+            <h2 className={`${heading.className} text-3xl md:text-5xl font-bold uppercase text-center mb-4`}>
+              Recent Adventures
+            </h2>
+            <div className="w-16 h-1 mx-auto mb-12" style={{ backgroundColor: '#f97316' }} />
+          </Reveal>
 
-      {/* Stats row */}
-      <section className="px-6 md:px-12 py-16 md:py-20">
-        <div className="max-w-4xl mx-auto grid grid-cols-3 gap-8 text-center">
-          {[
-            { num: '200+', label: 'Trips / Year' },
-            { num: '12', label: 'Trail Systems' },
-            { num: '5★', label: 'Experience' },
-          ].map((stat) => (
-            <div key={stat.label}>
-              <p className={`${barlow.className} text-3xl md:text-5xl uppercase`} style={{ color: '#f97316', fontWeight: 800 }}>{stat.num}</p>
-              <p className="text-xs md:text-sm uppercase tracking-wider mt-2" style={{ color: '#6b6b6b' }}>{stat.label}</p>
+          <Reveal delay={0.1}>
+            <div className="flex justify-center mb-10">
+              <div className="overflow-hidden w-full max-w-3xl" style={{ border: '2px solid rgba(249,115,22,0.2)' }}>
+                <Image
+                  src="/images/demos/adventure-hero.webp"
+                  alt="Powder Highway Adventures — mountain backcountry action"
+                  width={800}
+                  height={450}
+                  className="w-full h-auto block"
+                />
+              </div>
             </div>
-          ))}
+          </Reveal>
+
+          <div className="grid grid-cols-3 gap-4 md:gap-6">
+            {['Backcountry Skiing', 'Mountain Biking', 'River Rafting'].map((label, i) => (
+              <Reveal key={label} delay={0.15 + i * 0.1}>
+                <div
+                  className="flex items-center justify-center h-28 md:h-36 text-center px-4"
+                  style={{ backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(249,115,22,0.15)' }}
+                >
+                  <span className={`${heading.className} text-sm md:text-lg font-bold uppercase`} style={{ color: '#f97316' }}>
+                    {label}
+                  </span>
+                </div>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="px-6 md:px-12 py-10" style={{ background: '#1b2d1b' }}>
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className={`${barlow.className} text-lg uppercase tracking-wider`} style={{ color: '#f97316', fontWeight: 800 }}>Powder Highway</p>
-          <p className="text-xs" style={{ color: 'rgba(255, 255, 255, 0.4)' }}>
-            &copy; {new Date().getFullYear()} Powder Highway Adventures. All rights reserved.
-          </p>
+      {/* ═══════════ 6. TESTIMONIAL ═══════════ */}
+      <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#1b2d1b' }}>
+        <div className="max-w-3xl mx-auto text-center">
+          <Reveal>
+            <div className="mb-6 text-2xl" style={{ color: '#f97316' }}>
+              &#9733;&#9733;&#9733;&#9733;&#9733;
+            </div>
+            <blockquote className="text-xl md:text-2xl leading-relaxed mb-6 font-medium" style={{ color: 'rgba(255,255,255,0.9)' }}>
+              &ldquo;The best day of my life. Our guide was incredible and the terrain was unlike anything I have ever seen.&rdquo;
+            </blockquote>
+            <p className={`${heading.className} text-sm uppercase tracking-widest font-bold`} style={{ color: '#f97316' }}>
+              &mdash; Chris B., Vancouver
+            </p>
+            <p className="mt-4 text-xs" style={{ color: 'rgba(255,255,255,0.3)' }}>
+              (Sample review &mdash; your real reviews go here)
+            </p>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ═══════════ 7. ABOUT ═══════════ */}
+      <section id="about" className="py-20 md:py-28 px-6" style={{ backgroundColor: 'rgba(27,45,27,0.9)' }}>
+        <div className="max-w-3xl mx-auto text-center">
+          <Reveal>
+            <TrailMarker number={7} />
+            <h2 className={`${heading.className} text-3xl md:text-5xl font-bold uppercase mb-4`}>
+              About Powder Highway
+            </h2>
+            <div className="w-16 h-1 mx-auto mb-10" style={{ backgroundColor: '#f97316' }} />
+          </Reveal>
+          <Reveal delay={0.15}>
+            <p className="text-lg leading-relaxed" style={{ color: 'rgba(255,255,255,0.6)' }}>
+              Powder Highway Adventures was founded by lifelong Kootenay locals with a passion for the mountains. Our certified guides have spent decades exploring the backcountry &mdash; from deep powder skiing in the Selkirks to white-water rafting on the Columbia River. We believe that the best adventures are the ones that leave you breathless, laughing, and planning your next trip before you have even finished the first. Whether you are a seasoned explorer or a first-timer, we will take you somewhere unforgettable.
+            </p>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ═══════════ 8. CONTACT ═══════════ */}
+      <section id="book" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#1b2d1b' }}>
+        <div className="max-w-6xl mx-auto">
+          <Reveal>
+            <h2 className={`${heading.className} text-3xl md:text-5xl font-bold uppercase text-center mb-4`}>
+              Book Your Adventure
+            </h2>
+            <div className="w-16 h-1 mx-auto mb-16" style={{ backgroundColor: '#f97316' }} />
+          </Reveal>
+
+          <div className="grid md:grid-cols-2 gap-12 md:gap-16">
+            <Reveal>
+              <div className="space-y-6">
+                <div>
+                  <h3 className={`${heading.className} text-xs font-bold uppercase tracking-widest mb-2`} style={{ color: '#f97316' }}>Phone</h3>
+                  <p style={{ color: 'rgba(255,255,255,0.7)' }}>(250) 555-0143</p>
+                </div>
+                <div>
+                  <h3 className={`${heading.className} text-xs font-bold uppercase tracking-widest mb-2`} style={{ color: '#f97316' }}>Email</h3>
+                  <p style={{ color: 'rgba(255,255,255,0.7)' }}>info@powderhighway.ca</p>
+                </div>
+                <div>
+                  <h3 className={`${heading.className} text-xs font-bold uppercase tracking-widest mb-2`} style={{ color: '#f97316' }}>Season</h3>
+                  <p style={{ color: 'rgba(255,255,255,0.7)' }}>April &ndash; October</p>
+                </div>
+                <div>
+                  <h3 className={`${heading.className} text-xs font-bold uppercase tracking-widest mb-2`} style={{ color: '#f97316' }}>Location</h3>
+                  <p style={{ color: 'rgba(255,255,255,0.7)' }}>Revelstoke &amp; the Kootenays, BC</p>
+                </div>
+                <a
+                  href="tel:2505550143"
+                  className="inline-block px-10 py-4 text-sm font-bold uppercase tracking-widest transition-all hover:scale-105 mt-4"
+                  style={{ backgroundColor: '#f97316', color: '#ffffff', boxShadow: '0 4px 20px rgba(249,115,22,0.3)' }}
+                >
+                  Book Your Adventure
+                </a>
+              </div>
+            </Reveal>
+
+            <Reveal delay={0.15}>
+              <form onSubmit={(e) => e.preventDefault()} className="space-y-5">
+                <div>
+                  <label className="block text-xs font-bold uppercase tracking-widest mb-2" style={{ color: 'rgba(255,255,255,0.5)' }}>Name</label>
+                  <input
+                    type="text"
+                    placeholder="Your name"
+                    className="w-full px-4 py-3 text-sm text-white placeholder-white/30 outline-none transition-all"
+                    style={{ backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(249,115,22,0.2)' }}
+                    onFocus={(e) => (e.currentTarget.style.borderColor = '#f97316')}
+                    onBlur={(e) => (e.currentTarget.style.borderColor = 'rgba(249,115,22,0.2)')}
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold uppercase tracking-widest mb-2" style={{ color: 'rgba(255,255,255,0.5)' }}>Email</label>
+                  <input
+                    type="email"
+                    placeholder="you@example.com"
+                    className="w-full px-4 py-3 text-sm text-white placeholder-white/30 outline-none transition-all"
+                    style={{ backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(249,115,22,0.2)' }}
+                    onFocus={(e) => (e.currentTarget.style.borderColor = '#f97316')}
+                    onBlur={(e) => (e.currentTarget.style.borderColor = 'rgba(249,115,22,0.2)')}
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold uppercase tracking-widest mb-2" style={{ color: 'rgba(255,255,255,0.5)' }}>Message</label>
+                  <textarea
+                    rows={4}
+                    placeholder="What adventure are you looking for?"
+                    className="w-full px-4 py-3 text-sm text-white placeholder-white/30 outline-none transition-all resize-none"
+                    style={{ backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(249,115,22,0.2)' }}
+                    onFocus={(e) => (e.currentTarget.style.borderColor = '#f97316')}
+                    onBlur={(e) => (e.currentTarget.style.borderColor = 'rgba(249,115,22,0.2)')}
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="w-full px-8 py-4 text-sm font-bold uppercase tracking-widest transition-all hover:opacity-90"
+                  style={{ backgroundColor: '#f97316', color: '#ffffff' }}
+                >
+                  Send Message
+                </button>
+              </form>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════ 9. FOOTER + Compass ═══════════ */}
+      <footer className="relative py-14 px-6" style={{ backgroundColor: '#0f1f0f', borderTop: '1px solid rgba(249,115,22,0.1)' }}>
+        {/* Slowly rotating compass */}
+        <div className="absolute bottom-8 right-8 w-16 h-16 opacity-30 hidden md:block" style={{ animation: 'compassSpin 30s linear infinite' }}>
+          <Compass />
+        </div>
+
+        <div className="max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-10 mb-10">
+            <div>
+              <h3 className={`${heading.className} text-lg font-bold uppercase mb-3`} style={{ color: '#f97316' }}>
+                Powder Highway Adventures
+              </h3>
+              <p className="text-sm text-white/40">
+                Certified guided adventures in the Kootenays.
+              </p>
+            </div>
+            <div>
+              <h4 className="text-xs font-bold uppercase tracking-widest text-white mb-3">Quick Links</h4>
+              <div className="flex flex-col gap-2">
+                {['Adventures', 'About', 'Gallery', 'Book'].map((link) => (
+                  <a
+                    key={link}
+                    href={`#${link.toLowerCase()}`}
+                    className="text-sm text-white/40 hover:text-white transition-colors"
+                  >
+                    {link}
+                  </a>
+                ))}
+              </div>
+            </div>
+            <div>
+              <h4 className="text-xs font-bold uppercase tracking-widest text-white mb-3">Info</h4>
+              <p className="text-sm text-white/40 mb-1">Season: April &ndash; October</p>
+              <p className="text-sm text-white/40 mb-1">Revelstoke &amp; the Kootenays, BC</p>
+              <p className="text-sm text-white/40">(250) 555-0143</p>
+            </div>
+          </div>
+          <div className="border-t border-white/10 pt-6 text-center">
+            <span className="text-sm text-white/25">
+              &copy; 2025 Powder Highway Adventures. All rights reserved.
+            </span>
+          </div>
         </div>
       </footer>
 
-      {/* Sticky Bottom Bar */}
-      <div className="fixed bottom-0 left-0 right-0 z-50 flex items-center justify-between px-4 md:px-8 py-3" style={{ background: 'rgba(27, 45, 27, 0.95)', backdropFilter: 'blur(10px)', borderTop: '2px solid #f97316' }}>
-        <p className="text-xs md:text-sm" style={{ color: 'rgba(255, 255, 255, 0.6)' }}>
-          This is a sample design by <span style={{ color: '#f97316' }}>Kootenay Made Digital</span>
-        </p>
-        <Link
-          href="/contact?style=adventure-outdoors"
-          className={`${barlow.className} text-xs md:text-sm uppercase tracking-wider px-5 py-2 font-bold transition-all duration-300 whitespace-nowrap`}
-          style={{ background: '#f97316', color: '#ffffff' }}
-          onMouseEnter={(e) => { e.currentTarget.style.background = '#0ea5e9' }}
-          onMouseLeave={(e) => { e.currentTarget.style.background = '#f97316' }}
-        >
-          Get This Style &rarr;
-        </Link>
+      {/* ═══════════ STICKY BOTTOM BAR ═══════════ */}
+      <div
+        className="fixed bottom-0 left-0 right-0 z-50 px-4 py-3"
+        style={{
+          backgroundColor: 'rgba(27,45,27,0.92)',
+          backdropFilter: 'blur(12px)',
+          WebkitBackdropFilter: 'blur(12px)',
+          borderTop: '2px solid #f97316',
+        }}
+      >
+        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+          <span className="text-sm text-center sm:text-left" style={{ color: 'rgba(255,255,255,0.7)' }}>
+            This is a sample design by <strong className="text-white">Kootenay Made Digital</strong>
+          </span>
+          <Link
+            href="/contact?style=adventure-outdoors"
+            className="inline-block px-6 py-2.5 text-sm font-bold uppercase tracking-wider transition-all hover:scale-105 whitespace-nowrap"
+            style={{ backgroundColor: '#f97316', color: '#ffffff' }}
+          >
+            Get This Style &rarr;
+          </Link>
+        </div>
       </div>
 
-      {/* Bottom padding for sticky bar */}
       <div className="h-16" />
     </div>
   )
