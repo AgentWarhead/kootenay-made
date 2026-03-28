@@ -75,8 +75,10 @@ export default function Navigation() {
               <Image
                 src="/brand/kmd-horizontal-nobg.png"
                 alt="Kootenay Made Digital"
-                width={200}
-                height={48}
+                width={600}
+                height={120}
+                quality={100}
+                unoptimized
                 className={`w-auto transition-[height] duration-300 ease-out brightness-[1.5] logo-breathe ${scrolled ? 'h-10' : 'h-12'}`}
                 priority
               />

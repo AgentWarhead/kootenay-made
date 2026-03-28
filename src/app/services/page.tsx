@@ -13,7 +13,7 @@ const serviceCards = [
   { icon: Star, name: 'Free AI Website Audit', price: '$0', desc: 'A 30-minute walkthrough of your current online presence with actionable recommendations.', features: ['Full site review', 'SEO quick-check', 'Competitor comparison', 'Prioritized action plan'], tier: 'entry', highlight: true },
   { icon: Search, name: 'Google Domination Package', price: '$500', desc: 'Get found on Google Maps and local search. One-time setup that keeps working.', features: ['Google Business Profile setup', 'Local SEO foundations', 'Review strategy', 'Directory listings'], tier: 'entry' },
   { icon: Megaphone, name: 'Social Media Launchpad', price: '$500', desc: 'Professional social media presence from scratch.', features: ['Profile creation & branding', 'Content templates', 'Posting strategy', 'Platform optimization'], tier: 'entry' },
-  { icon: Globe, name: 'Modern Business Website', price: '$1,500–$4,000', desc: 'Fast, beautiful, mobile-first — designed to bring in customers.', features: ['Custom design', 'Mobile responsive', 'SEO-optimized', 'Contact forms & CTAs', 'Google Analytics', 'Content writing included', '2–4 week delivery'], tier: 'core', highlight: true },
+  { icon: Globe, name: 'Modern Business Website', price: '$1,500–$4,000', desc: 'Fast, beautiful, mobile-first — designed to bring in customers.', features: ['Custom design', 'Mobile responsive', 'SEO-optimized', 'Contact forms & CTAs', 'Google Analytics', 'Content writing included', '2–4 week delivery'], tier: 'core' },
   { icon: Mail, name: 'Email Marketing Engine', price: '$750–$1,500', desc: 'Automated email flows that nurture leads and bring customers back.', features: ['Platform setup', 'Welcome sequence', 'Abandoned cart flow', 'Newsletter template', 'List building strategy'], tier: 'core' },
   { icon: Bot, name: 'AI Business Setup', price: '$1,500', desc: 'AI tools that save you time. Custom workflows and training.', features: ['Claude Pro setup', '5 custom workflows', '1.5hr training', '30-day support', 'Quick-reference cheat sheet'], tier: 'core' },
   { icon: ShoppingBag, name: 'Shopify E-Commerce', price: '$3,000–$6,000', desc: 'A complete online store — built to sell, optimized to convert.', features: ['Custom Shopify theme', 'Product catalog', 'Payment & shipping', 'Email integration', 'SEO & analytics', 'Training'], tier: 'premium' },
@@ -69,7 +69,7 @@ function PinnedCard({ card, index, total }: { card: typeof serviceCards[0]; inde
     <motion.div
       ref={ref}
       style={{ y, scale, x, rotate, zIndex: index }}
-      className="sticky top-28"
+      className="sticky top-32"
     >
       <div className={`rounded-2xl p-8 sm:p-10 border ${card.highlight ? 'border-copper/40 shadow-lg' : 'border-cream-border'} ${tierColors[card.tier]} mb-6 relative overflow-hidden`}>
         {/* Animated copper border for highlighted cards */}
@@ -295,11 +295,15 @@ export default function ServicesPage() {
             <h2 className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl font-bold text-slate mb-12">From quick wins to full builds.</h2>
           </ScrollReveal>
 
-          {serviceCards.map((card, i) => (
-            <PinnedCard key={card.name} card={card} index={i} total={serviceCards.length} />
-          ))}
+          <div className="relative">
+            {serviceCards.map((card, i) => (
+              <PinnedCard key={card.name} card={card} index={i} total={serviceCards.length} />
+            ))}
+          </div>
 
-          <HowItWorks />
+          <div className="relative z-20">
+            <HowItWorks />
+          </div>
         </div>
       </section>
 
