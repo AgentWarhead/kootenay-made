@@ -747,3 +747,80 @@ a:hover, button:hover, [role="button"]:hover {
   .line-draw-animate { animation: none; stroke-dashoffset: 0; }
   .topo-grid { animation: none; }
 }
+
+/* ═══ Sprint 4: Micro-interactions & Polish ═══ */
+
+/* Form input copper focus glow */
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--color-copper) !important;
+  box-shadow: 0 0 0 3px rgba(193, 120, 23, 0.15);
+  animation: copper-focus-pulse 0.8s ease-out;
+}
+
+@keyframes copper-focus-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(193, 120, 23, 0.4); }
+  50% { box-shadow: 0 0 12px 3px rgba(193, 120, 23, 0.2); }
+  100% { box-shadow: 0 0 0 3px rgba(193, 120, 23, 0.15); }
+}
+
+/* Toast fade in/out for easter eggs */
+@keyframes fade-in-out {
+  0% { opacity: 0; transform: translateY(8px); }
+  15% { opacity: 1; transform: translateY(0); }
+  80% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-4px); }
+}
+
+.animate-fade-in-out {
+  animation: fade-in-out 3s ease forwards;
+}
+
+/* Konami retro flash */
+@keyframes retro-flash {
+  0% { opacity: 0; }
+  5% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.animate-retro-flash {
+  animation: retro-flash 3.5s ease forwards;
+}
+
+/* Mountain ridge shimmer for skeleton loading */
+@keyframes ridge-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton-ridge {
+  background: linear-gradient(
+    90deg,
+    var(--color-cream-dark) 0%,
+    var(--color-cream) 20%,
+    var(--color-cream-dark) 40%,
+    var(--color-cream) 60%,
+    var(--color-cream-dark) 80%,
+    var(--color-cream) 100%
+  );
+  background-size: 200% 100%;
+  animation: ridge-shimmer 2.5s ease-in-out infinite;
+  border-radius: 4px;
+}
+
+/* Konami code scrolling text */
+@keyframes konami-scroll {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+/* Reduced motion overrides for Sprint 4 */
+@media (prefers-reduced-motion: reduce) {
+  input:focus, textarea:focus, select:focus {
+    animation: none;
+    box-shadow: 0 0 0 3px rgba(193, 120, 23, 0.15);
+  }
+  .animate-retro-flash { animation: none; display: none; }
+  .skeleton-ridge { animation: none; }
+}

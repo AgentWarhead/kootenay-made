@@ -1,9 +1,71 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Mail, MapPin, Mountain } from 'lucide-react';
+
+function TripleClickLogo() {
+  const clickCount = useRef(0);
+  const timer = useRef<ReturnType<typeof setTimeout>>(null);
+  const [toast, setToast] = useState(false);
+
+  const handleClick = useCallback(() => {
+    clickCount.current++;
+    if (timer.current) clearTimeout(timer.current);
+    if (clickCount.current >= 3) {
+      clickCount.current = 0;
+      setToast(true);
+      setTimeout(() => setToast(false), 3000);
+    } else {
+      timer.current = setTimeout(() => { clickCount.current = 0; }, 500);
+    }
+  }, []);
+
+  return (
+    <div className="relative">
+      <div onClick={handleClick} className="cursor-pointer">
+        <Image
+          src="/brand/kmd-stacked-nobg.png"
+          alt="Kootenay Made Digital"
+          width={160}
+          height={80}
+          className="h-16 w-auto mb-4 brightness-[1.5]"
+        />
+      </div>
+      {toast && (
+        <div
+          className="absolute -top-10 left-0 bg-copper text-white text-xs px-3 py-1.5 rounded-full whitespace-nowrap animate-fade-in-out"
+          style={{ animation: 'fade-in-out 3s ease forwards' }}
+        >
+          You found the secret trail! 🐾
+        </div>
+      )}
+    </div>
+  );
+}
+
+function EndOfTrail() {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const scrollBottom = window.innerHeight + window.scrollY;
+      const docHeight = document.documentElement.scrollHeight;
+      setVisible(scrollBottom >= docHeight - 2);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  if (!visible) return null;
+
+  return (
+    <div className="text-center py-3 text-dark-text-muted/40 text-xs">
+      You&apos;ve reached the end of the trail. 🏕️
+    </div>
+  );
+}
 
 function LiveClock() {
   const [time, setTime] = useState('');
@@ -86,13 +148,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {/* Brand column */}
           <div>
-            <Image
-              src="/brand/kmd-stacked-nobg.png"
-              alt="Kootenay Made Digital"
-              width={160}
-              height={80}
-              className="h-16 w-auto mb-4 brightness-[1.5]"
-            />
+            <TripleClickLogo />
             <p className="text-dark-text-muted text-sm leading-relaxed max-w-xs">
               Locally crafted digital. Modern websites, brands, and marketing for West Kootenay businesses.
             </p>
@@ -149,6 +205,7 @@ export default function Footer() {
           </p>
         </div>
       </div>
+      <EndOfTrail />
     </footer>
   );
 }

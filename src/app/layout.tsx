@@ -5,6 +5,9 @@ import GoldenHourScroll from '@/components/GoldenHourScroll';
 import PageTransition from '@/components/PageTransition';
 import AmbientSound from '@/components/AmbientSound';
 import SeasonalTheme from '@/components/SeasonalTheme';
+import SeasonalParticles from '@/components/SeasonalParticles';
+import KonamiCode from '@/components/KonamiCode';
+import RouteProgress from '@/components/RouteProgress';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -63,10 +66,30 @@ export default function RootLayout({
         <Footer />
         <AmbientSound />
         <SeasonalTheme />
+        <SeasonalParticles />
+        <KonamiCode />
+        <RouteProgress />
         {/* Easter egg console message */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `console.log("%c🏔️ Built with love in Castlegar, BC.%c\\nKootenay Made Digital — hello@kootenaymade.ca", "color: #C17817; font-size: 14px; font-weight: bold;", "color: #9A9DA3; font-size: 12px;");`,
+            __html: `console.log("%c" +
+"        /\\\\\\n" +
+"       /  \\\\\\n" +
+"      / ❄️ \\\\\\n" +
+"     /      \\\\\\n" +
+"    /  /\\\\    \\\\\\n" +
+"   /  /  \\\\    \\\\\\n" +
+"  /  /    \\\\    \\\\\\n" +
+" /__/ KMD  \\\\____\\\\\\n" +
+" ~~~~~~~~~~~~~~~~\\n" +
+"\\n" +
+" 🏔️ KOOTENAY MADE DIGITAL\\n" +
+" Locally crafted in Castlegar, BC\\n" +
+" hello@kootenaymade.ca\\n" +
+"\\n" +
+" Built with Next.js, Framer Motion & ☕\\n" +
+" Looking for work? We\\'re hiring.\\n",
+"color: #C17817; font-family: monospace; font-size: 11px; line-height: 1.3;");`,
           }}
         />
         <script
