@@ -4,18 +4,9 @@ import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
 import { ArrowRight, Globe, Palette, ShoppingBag, Mail, Bot, Search, ChevronDown } from 'lucide-react';
-import dynamic from 'next/dynamic';
 import ScrollReveal from '@/components/ScrollReveal';
 import MagneticButton from '@/components/MagneticButton';
-
-const KootenayTerrain = dynamic(() => import('@/components/KootenayTerrain'), {
-  ssr: false,
-  loading: () => (
-    <div className="w-full h-[400px] sm:h-[600px] flex items-center justify-center bg-slate">
-      <p className="text-dark-text-muted text-sm animate-pulse">Loading terrain…</p>
-    </div>
-  ),
-});
+import VideoSection from '@/components/VideoSection';
 
 /* ── Typewriter ────────────────────────────── */
 function Typewriter({ text, delay = 1.5 }: { text: string; delay?: number }) {
@@ -558,23 +549,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══ INTERACTIVE 3D KOOTENAY TERRAIN ═══ */}
-      <section className="bg-slate overflow-hidden">
-        <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 pt-24 sm:pt-32">
-          <ScrollReveal>
-            <div className="text-center mb-10">
-              <p className="text-copper-light font-medium text-sm tracking-wider uppercase mb-3">Our Roots</p>
-              <h2 className="font-[family-name:var(--font-satoshi)] text-3xl sm:text-4xl md:text-5xl font-bold text-cream leading-tight">
-                Rooted in the West Kootenays
-              </h2>
-              <p className="mt-4 text-dark-text-muted text-lg max-w-xl mx-auto">
-                Local expertise. We know these communities because we&apos;re part of them.
-              </p>
-            </div>
-          </ScrollReveal>
-        </div>
-        <KootenayTerrain />
-      </section>
+      {/* ═══ VIDEO BACKGROUND — KOOTENAY ROOTS ═══ */}
+      <VideoSection />
 
       {/* ═══ FINAL CTA ═══ */}
       <section className="hero-gradient grain py-24 sm:py-32">
