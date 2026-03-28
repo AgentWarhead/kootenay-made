@@ -2,12 +2,11 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'About',
-  description: 'Kootenay Made Digital is a web design agency based in Castlegar, BC. Founded in 2026, we build modern websites for West Kootenay businesses.',
-  alternates: { canonical: '/about' },
+  description: 'Meet the maker behind Kootenay Made Digital. Based in Castlegar, BC — building modern websites for West Kootenay businesses.',
   openGraph: {
     title: 'About | Kootenay Made Digital',
-    description: 'A neighbour who happens to build great websites. Based in Castlegar, serving the West Kootenays.',
-    url: 'https://kootenaymade.ca/about',
+    description: 'Meet the maker behind Kootenay Made Digital.',
+    images: [{ url: '/images/og/default.png', width: 1200, height: 630 }],
   },
 };
 

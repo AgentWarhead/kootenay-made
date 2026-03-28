@@ -1,13 +1,12 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Style Menu',
-  description: 'Browse 8 curated website design styles for your business. From Clean & Professional to Adventure & Outdoors — find the one that fits.',
-  alternates: { canonical: '/styles' },
+  title: 'Design Styles',
+  description: 'Browse 8 real design aesthetics — from Clean & Professional to Adventure & Outdoors. Pick the one that fits your business.',
   openGraph: {
-    title: 'Style Menu | Kootenay Made Digital',
-    description: 'Browse real design aesthetics — pick the one that feels like your business.',
-    url: 'https://kootenaymade.ca/styles',
+    title: 'Design Styles | Kootenay Made Digital',
+    description: 'Browse 8 design aesthetics. Pick the one that fits your business.',
+    images: [{ url: '/images/og/styles.png', width: 1200, height: 630 }],
   },
 };
 

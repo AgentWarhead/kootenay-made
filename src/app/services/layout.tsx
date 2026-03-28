@@ -2,12 +2,11 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Services & Pricing',
-  description: 'Web design, branding, e-commerce, and digital marketing services for West Kootenay businesses. Transparent pricing from $500.',
-  alternates: { canonical: '/services' },
+  description: 'Modern websites from $1,500. Full brand builds from $4,000. Transparent pricing for West Kootenay businesses.',
   openGraph: {
     title: 'Services & Pricing | Kootenay Made Digital',
-    description: 'Web design, branding, e-commerce, and digital marketing. Transparent pricing from $500.',
-    url: 'https://kootenaymade.ca/services',
+    description: 'Modern websites from $1,500. Full brand builds from $4,000. Transparent pricing.',
+    images: [{ url: '/images/og/services.png', width: 1200, height: 630 }],
   },
 };
 

@@ -1,11 +1,19 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowRight, MapPin } from 'lucide-react';
 import { motion } from 'framer-motion';
 import ScrollReveal from '@/components/ScrollReveal';
 import Breadcrumb from '@/components/Breadcrumb';
 import { caseStudies } from './data';
+
+const imageMap: Record<string, string> = {
+  'summit-plumbing': '/images/portfolio/summit-plumbing.png',
+  'mountain-flow-yoga': '/images/portfolio/mountain-flow-yoga.png',
+  'kootenay-kitchen': '/images/portfolio/kootenay-kitchen.png',
+  'powder-highway-adventures': '/images/portfolio/powder-highway.png',
+};
 
 export default function PortfolioPage() {
   return (
@@ -25,22 +33,34 @@ export default function PortfolioPage() {
         </div>
       </section>
 
+      {/* Case studies with image reveal */}
       <section className="bg-cream py-20 sm:py-24">
         <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {caseStudies.map((study, i) => (
               <ScrollReveal key={study.slug} delay={i * 0.1}>
                 <Link href={`/portfolio/${study.slug}`} className="group block">
-                  <div className="bg-white rounded-2xl border border-cream-border overflow-hidden transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-lg h-full">
-                    {/* Style color bar */}
-                    <div className="h-2" style={{ background: study.styleColor }} />
-                    
-                    {/* Mockup placeholder */}
-                    <div className="h-48 bg-gradient-to-br from-slate/5 to-slate/10 flex items-center justify-center">
-                      <div className="text-center">
-                        <p className="font-[family-name:var(--font-satoshi)] text-2xl font-bold text-slate/20">{study.name.split(' ').map(w => w[0]).join('')}</p>
-                        <p className="text-xs text-text-tertiary mt-1">Website Preview</p>
-                      </div>
+                  <motion.div
+                    whileHover={{ y: -6 }}
+                    className="bg-white rounded-2xl border border-cream-border overflow-hidden transition-shadow duration-300 group-hover:shadow-xl h-full"
+                  >
+                    {/* Image with clip-path reveal */}
+                    <div className="relative h-56 sm:h-64 overflow-hidden">
+                      <motion.div
+                        initial={{ clipPath: 'inset(0 100% 0 0)' }}
+                        whileInView={{ clipPath: 'inset(0 0% 0 0)' }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8, ease: 'easeOut', delay: i * 0.1 }}
+                        className="absolute inset-0"
+                      >
+                        <Image
+                          src={imageMap[study.slug]}
+                          alt={study.name}
+                          fill
+                          className="object-cover group-hover:scale-105 transition-transform duration-700"
+                        />
+                      </motion.div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
                     </div>
                     
                     <div className="p-6 sm:p-8">
@@ -66,7 +86,7 @@ export default function PortfolioPage() {
                         View Case Study <ArrowRight size={16} />
                       </span>
                     </div>
-                  </div>
+                  </motion.div>
                 </Link>
               </ScrollReveal>
             ))}

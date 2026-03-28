@@ -56,7 +56,7 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto; /* Lenis handles smooth scrolling */
 }
 
 body {
@@ -168,4 +168,21 @@ body {
 }
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* JetBrains Mono for stats */
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('https://fonts.gstatic.com/s/jetbrainsmono/v18/tDbY2o-flEEny0FPpPFrqRY1IY2lPzU.woff2') format('woff2');
+  font-weight: 700;
+  font-display: swap;
+}
+
+.font-mono {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
 }

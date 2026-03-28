@@ -2,12 +2,11 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Free Website Audit',
-  description: 'Get a free 30-minute website audit for your Kootenay business. Performance, SEO, and design review — no obligation.',
-  alternates: { canonical: '/audit' },
+  description: 'Is your website working as hard as you are? Find out in 30 minutes — completely free. No sales pitch. No obligation.',
   openGraph: {
     title: 'Free Website Audit | Kootenay Made Digital',
-    description: 'Is your website working as hard as you are? Find out in 30 minutes — completely free.',
-    url: 'https://kootenaymade.ca/audit',
+    description: 'Is your website working as hard as you are? Find out in 30 minutes — free.',
+    images: [{ url: '/images/og/audit.png', width: 1200, height: 630 }],
   },
 };
 

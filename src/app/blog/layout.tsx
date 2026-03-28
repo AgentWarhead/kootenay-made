@@ -2,12 +2,11 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Blog',
-  description: 'Practical digital marketing and web design advice for Kootenay businesses. No jargon, no fluff — just what works.',
-  alternates: { canonical: '/blog' },
+  description: 'Practical advice for Kootenay businesses navigating the digital world. No jargon. No fluff. Just what works.',
   openGraph: {
     title: 'Blog | Kootenay Made Digital',
-    description: 'Practical advice for Kootenay businesses navigating the digital world.',
-    url: 'https://kootenaymade.ca/blog',
+    description: 'Practical digital advice for Kootenay businesses.',
+    images: [{ url: '/images/og/blog.png', width: 1200, height: 630 }],
   },
 };
 

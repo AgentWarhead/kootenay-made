@@ -65,7 +65,7 @@ export default function RootLayout({
         {/* Easter egg console message */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `console.log("%cBuilt with ❤️ in Castlegar, BC.%c\\nkootenaymade.ca", "color: #C17817; font-size: 14px; font-weight: bold;", "color: #9A9DA3; font-size: 12px;");`,
+            __html: `console.log("%cBuilt with ❤️ in Castlegar, BC.%c\\nKootenay Made Digital — hello@kootenaymade.ca", "color: #C17817; font-size: 14px; font-weight: bold;", "color: #9A9DA3; font-size: 12px;");`,
           }}
         />
         <script

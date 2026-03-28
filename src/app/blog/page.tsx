@@ -1,6 +1,11 @@
+'use client';
+
 import Link from 'next/link';
+import Image from 'next/image';
 import { Clock, Tag } from 'lucide-react';
+import { motion } from 'framer-motion';
 import Breadcrumb from '@/components/Breadcrumb';
+import ScrollReveal from '@/components/ScrollReveal';
 
 const posts = [
   {
@@ -10,6 +15,7 @@ const posts = [
     date: 'March 28, 2026',
     readTime: '5 min read',
     category: 'Web Design',
+    image: '/images/blog/new-website.png',
   },
   {
     slug: 'google-business-profile',
@@ -18,6 +24,7 @@ const posts = [
     date: 'March 28, 2026',
     readTime: '6 min read',
     category: 'Local SEO',
+    image: '/images/blog/google-profile.png',
   },
   {
     slug: 'what-to-expect-web-designer',
@@ -26,65 +33,79 @@ const posts = [
     date: 'March 28, 2026',
     readTime: '5 min read',
     category: 'Getting Started',
+    image: '/images/blog/web-designer.png',
   },
 ];
 
 export default function BlogPage() {
   return (
     <div className="pt-20">
-      {/* Hero */}
       <section className="bg-slate grain py-20 sm:py-24">
         <div className="relative z-10 max-w-4xl mx-auto px-6 sm:px-10 lg:px-16 text-center">
           <Breadcrumb items={[{ label: 'Blog' }]} dark />
-          <h1 className="font-[family-name:var(--font-satoshi)] text-4xl sm:text-5xl font-bold text-cream mb-4">
-            The KMD Blog
-          </h1>
-          <p className="text-dark-text-muted text-lg max-w-xl mx-auto">
-            Practical advice for Kootenay businesses navigating the digital world. No jargon. No fluff. Just what works.
-          </p>
+          <ScrollReveal>
+            <h1 className="font-[family-name:var(--font-satoshi)] text-4xl sm:text-5xl font-bold text-cream mb-4">
+              From the Workshop
+            </h1>
+            <p className="text-dark-text-muted text-lg max-w-xl mx-auto">
+              Practical advice for Kootenay businesses navigating the digital world. No jargon. No fluff. Just what works.
+            </p>
+          </ScrollReveal>
         </div>
       </section>
 
-      {/* Posts Grid */}
       <section className="bg-cream py-16 sm:py-20">
         <div className="max-w-5xl mx-auto px-6 sm:px-10 lg:px-16">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {posts.map((post) => (
-              <Link
-                key={post.slug}
-                href={`/blog/${post.slug}`}
-                className="group bg-white rounded-xl border border-cream-border overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col"
-              >
-                {/* Colored top bar */}
-                <div className="h-1.5 bg-copper" />
-                <div className="p-6 flex flex-col flex-1">
-                  <div className="flex items-center gap-2 mb-3">
-                    <span className="inline-flex items-center gap-1 bg-copper/10 text-copper text-xs font-medium px-2.5 py-1 rounded-full">
-                      <Tag size={12} />
-                      {post.category}
-                    </span>
+            {posts.map((post, i) => (
+              <ScrollReveal key={post.slug} delay={i * 0.1}>
+                <Link
+                  href={`/blog/${post.slug}`}
+                  className="group bg-white rounded-xl border border-cream-border overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col"
+                >
+                  {/* Blog image with clip-path reveal */}
+                  <motion.div
+                    initial={{ clipPath: 'inset(0 100% 0 0)' }}
+                    whileInView={{ clipPath: 'inset(0 0% 0 0)' }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8, ease: 'easeOut', delay: i * 0.1 }}
+                    className="relative h-44 overflow-hidden"
+                  >
+                    <Image
+                      src={post.image}
+                      alt={post.title}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-700"
+                    />
+                  </motion.div>
+                  <div className="p-6 flex flex-col flex-1">
+                    <div className="flex items-center gap-2 mb-3">
+                      <span className="inline-flex items-center gap-1 bg-copper/10 text-copper text-xs font-medium px-2.5 py-1 rounded-full">
+                        <Tag size={12} />
+                        {post.category}
+                      </span>
+                    </div>
+                    <h2 className="font-[family-name:var(--font-satoshi)] text-lg font-bold text-slate mb-2 group-hover:text-copper transition-colors leading-snug">
+                      {post.title}
+                    </h2>
+                    <p className="text-text-secondary text-sm leading-relaxed mb-4 flex-1">
+                      {post.excerpt}
+                    </p>
+                    <div className="flex items-center gap-4 text-text-tertiary text-xs">
+                      <span>{post.date}</span>
+                      <span className="flex items-center gap-1">
+                        <Clock size={12} />
+                        {post.readTime}
+                      </span>
+                    </div>
                   </div>
-                  <h2 className="font-[family-name:var(--font-satoshi)] text-lg font-bold text-slate mb-2 group-hover:text-copper transition-colors leading-snug">
-                    {post.title}
-                  </h2>
-                  <p className="text-text-secondary text-sm leading-relaxed mb-4 flex-1">
-                    {post.excerpt}
-                  </p>
-                  <div className="flex items-center gap-4 text-text-tertiary text-xs">
-                    <span>{post.date}</span>
-                    <span className="flex items-center gap-1">
-                      <Clock size={12} />
-                      {post.readTime}
-                    </span>
-                  </div>
-                </div>
-              </Link>
+                </Link>
+              </ScrollReveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA */}
       <section className="bg-slate grain py-16">
         <div className="relative z-10 max-w-3xl mx-auto px-6 sm:px-10 lg:px-16 text-center">
           <h2 className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl font-bold text-cream mb-4">

@@ -6,12 +6,57 @@ import Breadcrumb from '@/components/Breadcrumb';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, TrendingUp, Zap, ChevronDown, ChevronUp, CheckCircle2, AlertCircle } from 'lucide-react';
 
+const flipCards = [
+  { icon: Search, title: 'First Impression Score', desc: 'We\'ll show you exactly what potential customers see — load time, mobile experience, design quality — and how it stacks up against competitors.' },
+  { icon: TrendingUp, title: 'Google Visibility', desc: 'Your local search presence, Google Business Profile status, and what\'s helping (or hurting) your visibility right now.' },
+  { icon: Zap, title: 'Quick Wins', desc: 'Actionable changes — some free, some simple — that can make an immediate difference. No strings attached.' },
+];
+
 const faqs = [
   { q: 'Is this really free? What\'s the catch?', a: 'No catch. We use the audit to show you what we can do — and to learn about local businesses. If you like what you see and want help, great. If not, you still walk away with real, actionable insights. Zero pressure.' },
   { q: 'I don\'t have a website yet. Can I still do this?', a: 'Absolutely. We\'ll review your current online presence — Google Business Profile, social media, competitor landscape — and give you a roadmap for getting started the right way.' },
   { q: 'How long does the audit take?', a: 'About 30 minutes. We\'ll share our screen, walk you through what we found, and answer any questions. Quick, focused, and zero jargon.' },
-  { q: 'Will you try to sell me something?', a: 'We\'ll tell you what we found and what we\'d recommend. If you ask about our services, we\'re happy to explain them. But we won\'t push. Our best clients come to us when they\'re ready — not when they\'re pressured.' },
+  { q: 'Will you try to sell me something?', a: 'We\'ll tell you what we found and what we\'d recommend. If you ask about our services, we\'re happy to explain them. But we won\'t push.' },
 ];
+
+function FlipCard({ card, index }: { card: typeof flipCards[0]; index: number }) {
+  const [flipped, setFlipped] = useState(false);
+
+  return (
+    <ScrollReveal delay={index * 0.1}>
+      <div
+        className="relative h-64 cursor-pointer"
+        style={{ perspective: '1000px' }}
+        onClick={() => setFlipped(!flipped)}
+        onMouseEnter={() => setFlipped(true)}
+        onMouseLeave={() => setFlipped(false)}
+      >
+        <motion.div
+          animate={{ rotateY: flipped ? 180 : 0 }}
+          transition={{ duration: 0.5 }}
+          className="absolute inset-0"
+          style={{ transformStyle: 'preserve-3d' }}
+        >
+          {/* Front */}
+          <div className="absolute inset-0 bg-white rounded-xl shadow-sm border border-cream-border flex flex-col items-center justify-center p-6 backface-hidden">
+            <div className="w-16 h-16 rounded-2xl bg-copper/10 flex items-center justify-center mb-4">
+              <card.icon className="text-copper" size={28} />
+            </div>
+            <h3 className="font-[family-name:var(--font-satoshi)] text-lg font-bold text-slate text-center">{card.title}</h3>
+            <p className="text-xs text-text-tertiary mt-2">Hover to learn more</p>
+          </div>
+          {/* Back */}
+          <div
+            className="absolute inset-0 bg-slate rounded-xl shadow-sm border border-copper/20 flex items-center justify-center p-6"
+            style={{ transform: 'rotateY(180deg)', backfaceVisibility: 'hidden' }}
+          >
+            <p className="text-dark-text-muted text-sm leading-relaxed text-center">{card.desc}</p>
+          </div>
+        </motion.div>
+      </div>
+    </ScrollReveal>
+  );
+}
 
 export default function AuditPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
@@ -38,7 +83,6 @@ export default function AuditPage() {
 
   return (
     <>
-      {/* Hero */}
       <section className="bg-slate grain pt-32 pb-20">
         <div className="relative z-10 max-w-4xl mx-auto px-6 sm:px-10 lg:px-16 text-center">
           <Breadcrumb items={[{ label: 'Free Audit' }]} dark />
@@ -54,27 +98,15 @@ export default function AuditPage() {
         </div>
       </section>
 
-      {/* What You'll Learn */}
+      {/* Flip cards */}
       <section className="bg-cream py-16 sm:py-20">
         <div className="max-w-5xl mx-auto px-6 sm:px-10 lg:px-16">
           <ScrollReveal>
             <h2 className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl font-bold text-slate text-center mb-12">What you&apos;ll learn</h2>
           </ScrollReveal>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              { icon: Search, title: 'Your website\'s first impression score', desc: 'We\'ll show you exactly what potential customers see — load time, mobile experience, design quality — and how it stacks up.' },
-              { icon: TrendingUp, title: 'How you show up on Google', desc: 'Your local search presence, Google Business Profile, and what\'s helping (or hurting) your visibility right now.' },
-              { icon: Zap, title: 'Quick wins you can implement today', desc: 'Actionable changes — some free, some simple — that can make an immediate difference. No strings attached.' },
-            ].map((card, i) => (
-              <ScrollReveal key={i} delay={i * 0.1}>
-                <div className="bg-white rounded-xl p-6 sm:p-8 shadow-sm border border-cream-border h-full transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
-                  <div className="w-12 h-12 rounded-lg bg-copper/10 flex items-center justify-center mb-4">
-                    <card.icon className="text-copper" size={24} />
-                  </div>
-                  <h3 className="font-[family-name:var(--font-satoshi)] text-lg font-bold text-slate mb-2">{card.title}</h3>
-                  <p className="text-text-secondary text-sm leading-relaxed">{card.desc}</p>
-                </div>
-              </ScrollReveal>
+            {flipCards.map((card, i) => (
+              <FlipCard key={i} card={card} index={i} />
             ))}
           </div>
         </div>
@@ -85,14 +117,14 @@ export default function AuditPage() {
         <div className="relative z-10 max-w-2xl mx-auto px-6 sm:px-10 lg:px-16">
           <ScrollReveal>
             <h2 className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl font-bold text-cream text-center mb-2">Book your free audit</h2>
-            <p className="text-dark-text-muted text-center mb-10">Takes 30 seconds to request. We&apos;ll be in touch within one business day.</p>
+            <p className="text-dark-text-muted text-center mb-10">Takes 30 seconds. We&apos;ll be in touch within one business day.</p>
 
             <AnimatePresence mode="wait">
               {status === 'success' ? (
                 <motion.div key="success" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="bg-forest/20 border border-forest/30 rounded-xl p-8 text-center">
                   <CheckCircle2 className="text-forest-light mx-auto mb-4" size={48} />
                   <h3 className="font-[family-name:var(--font-satoshi)] text-xl font-bold text-cream mb-2">Request received!</h3>
-                  <p className="text-dark-text-muted">We&apos;ll review your info and reach out within one business day to schedule your audit. Talk soon!</p>
+                  <p className="text-dark-text-muted">We&apos;ll review your info and reach out within one business day to schedule your audit.</p>
                 </motion.div>
               ) : (
                 <motion.form key="form" onSubmit={handleSubmit} className="space-y-5">
@@ -107,7 +139,7 @@ export default function AuditPage() {
                       <label htmlFor={`audit-${field.name}`} className="block text-sm font-medium text-dark-text-muted mb-1.5">
                         {field.label} {!field.required && <span className="text-dark-text-muted/50">(optional)</span>}
                       </label>
-                      <input type={field.type} id={`audit-${field.name}`} name={field.name} required={field.required} className="w-full bg-slate-card border border-white/10 rounded-lg px-4 py-3 text-cream placeholder:text-dark-text-muted/40 focus:outline-none focus:border-copper transition-colors" placeholder={field.label} />
+                      <input type={field.type} id={`audit-${field.name}`} name={field.name} required={field.required} className="w-full bg-slate-card border border-white/10 rounded-lg px-4 py-3 text-cream placeholder:text-dark-text-muted/40 focus:outline-none focus:border-copper focus:ring-1 focus:ring-copper/40 transition-all" placeholder={field.label} />
                     </div>
                   ))}
                   <AnimatePresence>
