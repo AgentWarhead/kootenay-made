@@ -13,6 +13,7 @@ import MountainDivider from '@/components/MountainDivider';
 import AmbientOrbs from '@/components/AmbientOrbs';
 import PineTreeline from '@/components/PineTreeline';
 import FogTransition from '@/components/FogTransition';
+import ForcesOfNature from '@/components/ForcesOfNature';
 
 /* ── Kootenay-themed floating shapes ───────── */
 function FloatingShapes() {
@@ -481,38 +482,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══ STATS — Cascading Counters ═══ */}
+      {/* ═══ FORCES OF NATURE — Interactive Stat Cards ═══ */}
       <FogTransition from="dark" />
-      <section className="bg-slate relative py-24 sm:py-32 overflow-hidden">
-        {/* Drifting topographic pattern */}
-        <div className="topo-drift absolute inset-0">
-          <svg className="w-full h-full opacity-[0.03]" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <pattern id="topo-stats" x="0" y="0" width="200" height="200" patternUnits="userSpaceOnUse">
-                <path d="M20,80 Q60,20 100,80 T180,80" fill="none" stroke="#C17817" strokeWidth="0.5"/>
-                <path d="M10,120 Q50,60 100,120 T190,120" fill="none" stroke="#C17817" strokeWidth="0.5"/>
-                <path d="M0,160 Q40,100 100,160 T200,160" fill="none" stroke="#C17817" strokeWidth="0.5"/>
-              </pattern>
-            </defs>
-            <rect width="200%" height="200%" fill="url(#topo-stats)" />
-          </svg>
-        </div>
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
-            {[
-              { end: 17, suffix: '+', label: 'Pages on this site' },
-              { end: 8, suffix: '', label: 'Design styles' },
-              { end: 2, suffix: '-4', label: 'Weeks delivery' },
-              { end: 100, suffix: '%', label: 'Kootenay Made' },
-            ].map((stat, i) => (
-              <div key={stat.label} className="text-center">
-                <CascadeCounter end={stat.end} suffix={stat.suffix} delay={i * 200} />
-                <p className="text-dark-text-muted text-sm mt-4">{stat.label}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <ForcesOfNature />
 
       <MountainDivider variant={1} fillColor="#1a1208" />
 
