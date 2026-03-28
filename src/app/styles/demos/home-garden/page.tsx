@@ -1,6 +1,7 @@
 'use client'
 
 import { Libre_Baskerville, Inter } from 'next/font/google'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useRef } from 'react'
 
@@ -84,8 +85,10 @@ export default function HomeGardenPage() {
       </nav>
 
       {/* Hero */}
-      <section className="relative px-6 py-28 md:py-40">
-        <div className="max-w-3xl mx-auto text-center garden-fade" ref={addRef}>
+      <section className="relative px-6 py-28 md:py-40" style={{ overflow: 'hidden' }}>
+        <Image src="/images/demos/garden-hero.webp" alt="" fill className="object-cover" style={{ zIndex: 0 }} />
+        <div className="absolute inset-0 bg-black/30" style={{ zIndex: 1 }} />
+        <div className="max-w-3xl mx-auto text-center garden-fade" ref={addRef} style={{ position: 'relative', zIndex: 2 }}>
           <p className="text-sm uppercase tracking-wider mb-6" style={{ color: '#c17549', letterSpacing: '0.15em' }}>Est. 2012 &middot; West Kootenays</p>
           <h1 className={`${baskerville.className} text-4xl md:text-6xl lg:text-7xl leading-tight mb-8`} style={{ color: '#3d3529' }}>
             Rooted in<br /><span style={{ color: '#6b9a5b' }}>beautiful</span>

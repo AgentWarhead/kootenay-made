@@ -1,6 +1,7 @@
 'use client'
 
 import { Cormorant_Garamond, Raleway } from 'next/font/google'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useRef } from 'react'
 
@@ -80,9 +81,11 @@ export default function SleekDarkPage() {
       </nav>
 
       {/* Hero */}
-      <section className="relative flex flex-col items-center justify-center text-center min-h-screen px-6" style={{ background: '#0a0a0a' }}>
-        <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse at 50% 40%, rgba(201, 169, 110, 0.06) 0%, transparent 70%)' }} />
-        <div className="relative reveal-text" ref={addRevealRef}>
+      <section className="relative flex flex-col items-center justify-center text-center min-h-screen px-6" style={{ background: '#0a0a0a', overflow: 'hidden' }}>
+        <Image src="/images/demos/sleek-dark-hero.webp" alt="" fill className="object-cover" style={{ zIndex: 0 }} />
+        <div className="absolute inset-0 bg-black/50" style={{ zIndex: 1 }} />
+        <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse at 50% 40%, rgba(201, 169, 110, 0.06) 0%, transparent 70%)', zIndex: 1 }} />
+        <div className="relative reveal-text" ref={addRevealRef} style={{ zIndex: 2 }}>
           <p className="text-sm tracking-widest uppercase mb-6" style={{ color: '#c9a96e', letterSpacing: '0.25em' }}>
             Ember Kitchen &amp; Bar
           </p>

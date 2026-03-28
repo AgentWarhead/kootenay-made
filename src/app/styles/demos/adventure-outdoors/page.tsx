@@ -1,6 +1,7 @@
 'use client'
 
 import { Barlow_Condensed, Inter } from 'next/font/google'
+import Image from 'next/image'
 import Link from 'next/link'
 
 const barlow = Barlow_Condensed({ subsets: ['latin'], weight: ['600', '700', '800'] })
@@ -56,8 +57,10 @@ export default function AdventureOutdoorsPage() {
       </nav>
 
       {/* Hero */}
-      <section className="topo-bg relative flex flex-col items-center justify-center text-center min-h-screen px-6" style={{ background: '#1b2d1b' }}>
-        <div className="relative z-10">
+      <section className="topo-bg relative flex flex-col items-center justify-center text-center min-h-screen px-6" style={{ background: '#1b2d1b', overflow: 'hidden' }}>
+        <Image src="/images/demos/adventure-hero.webp" alt="" fill className="object-cover" style={{ zIndex: 0 }} />
+        <div className="absolute inset-0 bg-black/40" style={{ zIndex: 1 }} />
+        <div className="relative z-10" style={{ zIndex: 2 }}>
           <p className={`${barlow.className} text-sm md:text-base uppercase tracking-widest mb-6`} style={{ color: '#f97316', letterSpacing: '0.3em', fontWeight: 600 }}>
             West Kootenays, BC
           </p>
@@ -75,7 +78,7 @@ export default function AdventureOutdoorsPage() {
           </a>
         </div>
         {/* Bottom topo accent */}
-        <svg className="absolute bottom-0 left-0 right-0 w-full" height="60" preserveAspectRatio="none" viewBox="0 0 1440 60">
+        <svg className="absolute bottom-0 left-0 right-0 w-full" style={{ zIndex: 3 }} height="60" preserveAspectRatio="none" viewBox="0 0 1440 60">
           <path d="M0,60 L0,20 Q360,0 720,30 Q1080,60 1440,10 L1440,60 Z" fill="#ffffff" />
         </svg>
       </section>

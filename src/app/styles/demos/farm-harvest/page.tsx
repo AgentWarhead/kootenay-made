@@ -1,6 +1,7 @@
 'use client'
 
 import { Caveat, Lato } from 'next/font/google'
+import Image from 'next/image'
 import Link from 'next/link'
 
 const caveat = Caveat({
@@ -35,8 +36,10 @@ export default function FarmHarvestDemo() {
 
       {/* Hero */}
       <section style={{ backgroundColor: '#fefcf3' }} className="relative overflow-hidden">
+        <Image src="/images/demos/farm-hero.webp" alt="" fill className="object-cover" style={{ zIndex: 0 }} />
+        <div className="absolute inset-0 bg-black/30" style={{ zIndex: 1 }} />
         {/* Leaf vine SVG border top */}
-        <div className="absolute top-0 left-0 right-0 h-16 opacity-20 flex items-center justify-center overflow-hidden">
+        <div className="absolute top-0 left-0 right-0 h-16 opacity-20 flex items-center justify-center overflow-hidden" style={{ zIndex: 2 }}>
           <svg viewBox="0 0 800 40" className="w-full h-full" fill="#4a7c59">
             <path d="M0,20 Q50,5 100,20 Q150,35 200,20 Q250,5 300,20 Q350,35 400,20 Q450,5 500,20 Q550,35 600,20 Q650,5 700,20 Q750,35 800,20" stroke="#4a7c59" strokeWidth="1.5" fill="none" />
             {/* Leaves along the vine */}
@@ -51,7 +54,7 @@ export default function FarmHarvestDemo() {
           </svg>
         </div>
 
-        <div className="max-w-4xl mx-auto text-center px-6 py-24 md:py-36">
+        <div className="max-w-4xl mx-auto text-center px-6 py-24 md:py-36" style={{ position: 'relative', zIndex: 2 }}>
           <p className={caveat.className} style={{ color: '#e8a838', fontSize: '1.3rem' }}>
             Grown with love in the Kootenays
           </p>
