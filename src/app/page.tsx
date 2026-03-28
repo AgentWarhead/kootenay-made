@@ -179,7 +179,7 @@ const painPoints = [
   { text: "Word of mouth has always been enough. But I know there's a whole group of people out there who don't know I exist yet.", label: 'Small business owners ready for the next step' },
   { text: "People keep asking if we're still open because they can't find our hours online.", label: 'Restaurant owners who\'ve heard this too many times' },
   { text: "We get tourists all summer but have no way to reach them before they arrive in town.", label: 'Tourism and hospitality businesses' },
-  { text: "Our menu is a PDF from 2019. I know it's not great, but I don't know how to fix it.", label: 'Restaurants doing amazing food with terrible websites' },
+  { text: "I know my business could reach more people. I just need someone to show me how.", label: 'Business owners ready for the next step' },
   { text: "My clients find me through friends, which is wonderful. But I'd love to reach the people who don't know anyone to ask.", label: 'Wellness practitioners and therapists' },
   { text: "I have a beautiful space and I'm proud of what I offer. I just wish my online presence matched.", label: 'Yoga studios, spas, and wellness centres' },
   { text: "I see people visiting shops in Nelson and Trail that aren't half as good as mine — but they have a great website.", label: 'Retailers ready to level the playing field' },
@@ -187,7 +187,7 @@ const painPoints = [
   { text: "My competitor just got a really nice website and I've noticed I'm hearing from fewer new clients.", label: 'Professionals seeing the shift happen' },
   { text: "I know I need to be on Google but honestly, I don't know what that even means.", label: 'Business owners who are great at their craft, not at tech' },
   { text: "I spend all my energy running my business. I don't have time to figure out the internet too.", label: 'Every small business owner, honestly' },
-  { text: "I tried building something myself once. Let's just say it didn't go well.", label: 'The DIY warriors who learned the hard way' },
+  { text: "I want to start selling online but I don't know the first step.", label: 'Shop owners ready for e-commerce' },
   { text: "I just want to feel proud when someone asks for my website.", label: 'Everyone who\'s been embarrassed to share a link' },
 ];
 

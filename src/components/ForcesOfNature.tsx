@@ -59,7 +59,7 @@ function AuroraCard({ inView }: { inView: boolean }) {
           transition={{ duration: 0.8, delay: 0.3, type: 'spring', stiffness: 200 }}
           className="font-[family-name:var(--font-satoshi)] text-8xl sm:text-9xl font-black aurora-text-fill drop-shadow-[0_4px_20px_rgba(0,200,150,0.3)]"
         >
-          <AnimatedCounter end={8} inView={inView} />
+          <AnimatedCounter end={7} inView={inView} />
         </motion.span>
         <motion.p
           initial={{ opacity: 0, y: 10 }}
@@ -67,7 +67,7 @@ function AuroraCard({ inView }: { inView: boolean }) {
           transition={{ delay: 0.8 }}
           className="text-cream/90 text-xl sm:text-2xl mt-2 font-semibold tracking-wide font-[family-name:var(--font-satoshi)]"
         >
-          Industries Served
+          Services Under One Roof
         </motion.p>
       </div>
     </div>
@@ -122,7 +122,7 @@ function SnowfallCard({ inView }: { inView: boolean }) {
           transition={{ duration: 0.8, delay: 0.3, type: 'spring', stiffness: 200 }}
           className="font-[family-name:var(--font-satoshi)] text-8xl sm:text-9xl font-black text-white drop-shadow-[0_4px_20px_rgba(255,255,255,0.2)]"
         >
-          &lt;3
+          24/7
         </motion.span>
         <motion.p
           initial={{ opacity: 0, y: 10 }}
@@ -130,7 +130,7 @@ function SnowfallCard({ inView }: { inView: boolean }) {
           transition={{ delay: 0.8 }}
           className="text-cream/90 text-xl sm:text-2xl mt-2 font-semibold tracking-wide font-[family-name:var(--font-satoshi)]"
         >
-          Second Load Time
+          Your Website Never Sleeps
         </motion.p>
       </div>
     </div>
