@@ -1,8 +1,7 @@
 import type { Metadata } from 'next';
-import Navigation from '@/components/Navigation';
-import Footer from '@/components/Footer';
+import LayoutShell from '@/components/LayoutShell';
 import GoldenHourScroll from '@/components/GoldenHourScroll';
-import PageTransition from '@/components/PageTransition';
+
 import AmbientSound from '@/components/AmbientSound';
 import SeasonalTheme from '@/components/SeasonalTheme';
 import SeasonalParticles from '@/components/SeasonalParticles';
@@ -57,13 +56,9 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col font-[family-name:var(--font-general)]">
         <GoldenHourScroll />
-        <Navigation />
-        <main id="main-content" className="flex-1">
-          <PageTransition>
-            {children}
-          </PageTransition>
-        </main>
-        <Footer />
+        <LayoutShell>
+          {children}
+        </LayoutShell>
         <AmbientSound />
         <SeasonalTheme />
         <SeasonalParticles />
