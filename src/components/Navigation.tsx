@@ -1,11 +1,11 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Fragment } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ArrowRight } from 'lucide-react';
 
 const links = [
   { href: '/', label: 'Home' },
@@ -17,12 +17,51 @@ const links = [
   { href: '/contact', label: 'Contact' },
 ];
 
+/* ── Tiny pine tree separator ── */
+function PineSeparator() {
+  return (
+    <svg width="6" height="10" viewBox="0 0 6 10" className="opacity-20 shrink-0" aria-hidden="true">
+      <polygon points="3,0 6,4 5,4 6,7 0,7 1,4 0,4" fill="#C17817" />
+      <rect x="2.5" y="7" width="1" height="3" fill="#C17817" />
+    </svg>
+  );
+}
+
+/* ── Mountain peak active indicator ── */
+function MountainPeakIndicator() {
+  return (
+    <motion.span
+      layoutId="nav-peak"
+      className="absolute -bottom-2 left-1/2 -translate-x-1/2"
+      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+    >
+      <svg width="10" height="6" viewBox="0 0 10 6" aria-hidden="true">
+        <polygon points="5,0 10,6 0,6" fill="#C17817" />
+      </svg>
+    </motion.span>
+  );
+}
+
+/* ── Mountain ridgeline bottom edge ── */
+function MountainRidgeline({ scrolled }: { scrolled: boolean }) {
+  return (
+    <div className={`absolute -bottom-[9px] left-0 right-0 transition-opacity duration-300 ${scrolled ? 'opacity-100' : 'opacity-0'}`} aria-hidden="true">
+      <svg viewBox="0 0 1440 10" preserveAspectRatio="none" className="w-full h-[10px]">
+        <path
+          d="M0,10 L40,6 L80,8 L120,3 L160,7 L200,2 L240,6 L280,4 L320,8 L360,1 L400,5 L440,3 L480,7 L520,2 L560,6 L600,4 L640,8 L680,1 L720,5 L760,3 L800,7 L840,2 L880,6 L920,4 L960,8 L1000,1 L1040,5 L1080,3 L1120,7 L1160,2 L1200,6 L1240,4 L1280,8 L1320,3 L1360,6 L1400,2 L1440,5 L1440,10 L0,10 Z"
+          fill="rgba(193,120,23,0.25)"
+        />
+      </svg>
+    </div>
+  );
+}
+
 export default function Navigation() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
 
-  // Scroll progress integrated into nav
+  // Scroll progress integrated into nav (trail-style dashed)
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
   const [showProgress, setShowProgress] = useState(false);
@@ -42,7 +81,6 @@ export default function Navigation() {
     document.body.style.overflow = mobileOpen ? 'hidden' : '';
   }, [mobileOpen]);
 
-  // Close mobile menu on route change
   useEffect(() => {
     setMobileOpen(false);
   }, [pathname]);
@@ -60,18 +98,17 @@ export default function Navigation() {
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-[background-color,box-shadow] duration-300 ease-out ${
           scrolled
-            ? 'bg-slate/80 backdrop-blur-xl shadow-lg'
+            ? 'bg-slate/90 backdrop-blur-xl shadow-lg'
             : 'bg-transparent backdrop-blur-sm'
         }`}
       >
-        {/* Copper horizon line — visible when scrolled */}
-        {scrolled && (
-          <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-copper/40 to-transparent" />
-        )}
+        {/* Mountain ridgeline bottom edge — appears on scroll */}
+        <MountainRidgeline scrolled={scrolled} />
+
         <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
           <div className={`flex items-center justify-between transition-[height] duration-300 ease-out ${scrolled ? 'h-20' : 'h-24'}`}>
-            {/* Logo with breathing animation */}
-            <Link href="/" className="relative z-10 flex items-center">
+            {/* Logo — big and bold with breathing animation */}
+            <Link href="/" className="relative z-10 flex items-center mr-12">
               <Image
                 src="/brand/kmd-horizontal-nobg.png"
                 alt="Kootenay Made Digital"
@@ -79,46 +116,48 @@ export default function Navigation() {
                 height={120}
                 quality={100}
                 unoptimized
-                className={`w-auto transition-[height] duration-300 ease-out brightness-[1.5] logo-breathe ${scrolled ? 'h-8' : 'h-10'}`}
+                className={`w-auto transition-[height] duration-300 ease-out brightness-[1.5] logo-breathe ${scrolled ? 'h-10' : 'h-12'}`}
                 priority
               />
             </Link>
 
-            {/* Desktop nav */}
-            <div className="hidden md:flex items-center gap-7">
-              {links.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`relative font-[family-name:var(--font-satoshi)] text-sm font-medium tracking-wide transition-colors duration-300 py-1 group ${
-                    isActive(link.href) ? 'text-copper' : 'text-dark-text-muted hover:text-cream'
-                  }`}
-                  style={{ textShadow: undefined }}
-                  onMouseEnter={(e) => { e.currentTarget.style.textShadow = '0 0 8px rgba(193,120,23,0.3)'; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.textShadow = 'none'; }}
-                >
-                  {link.label}
-                  {/* Hover underline grows from center */}
-                  {!isActive(link.href) && (
-                    <span className="absolute -bottom-0.5 left-1/2 w-0 h-0.5 bg-copper/60 transition-all duration-300 -translate-x-1/2 group-hover:w-full" />
+            {/* Desktop nav — bold uppercase with pine separators */}
+            <div className="hidden md:flex items-center gap-0">
+              {links.map((link, i) => (
+                <Fragment key={link.href}>
+                  {i > 0 && (
+                    <div className="mx-3">
+                      <PineSeparator />
+                    </div>
                   )}
-                  {/* Active indicator — slides between items with spring physics */}
-                  {isActive(link.href) && (
-                    <motion.span
-                      layoutId="nav-indicator"
-                      className="absolute -bottom-0.5 left-0 right-0 h-0.5 bg-copper"
-                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                    />
-                  )}
-                </Link>
+                  <Link
+                    href={link.href}
+                    className={`relative font-[family-name:var(--font-satoshi)] text-[13px] font-semibold uppercase tracking-[0.15em] transition-colors duration-300 py-1 group ${
+                      isActive(link.href) ? 'text-copper' : 'text-cream/70 hover:text-cream'
+                    }`}
+                    onMouseEnter={(e) => { e.currentTarget.style.textShadow = '0 0 10px rgba(193,120,23,0.4)'; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.textShadow = 'none'; }}
+                  >
+                    {link.label}
+                    {/* Hover underline grows from center */}
+                    {!isActive(link.href) && (
+                      <span className="absolute -bottom-1 left-1/2 w-0 h-0.5 bg-copper/50 transition-all duration-300 -translate-x-1/2 group-hover:w-full" />
+                    )}
+                    {/* Active indicator — mountain peak slides between items */}
+                    {isActive(link.href) && <MountainPeakIndicator />}
+                  </Link>
+                </Fragment>
               ))}
-              {/* Get Started CTA with pulse glow */}
-              <Link
-                href="/contact"
-                className="bg-copper hover:bg-copper-light text-white text-sm font-medium px-6 py-3 rounded-xl border border-copper/30 transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] pulse-glow"
-              >
-                Get Started
-              </Link>
+              {/* Get Started CTA */}
+              <div className="ml-6">
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center gap-2 bg-copper hover:bg-copper-light text-white text-[13px] font-semibold uppercase tracking-[0.1em] px-6 py-2.5 rounded-lg border border-copper/30 transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] pulse-glow group"
+                >
+                  Get Started
+                  <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-0.5" />
+                </Link>
+              </div>
             </div>
 
             {/* Mobile toggle */}
@@ -132,11 +171,14 @@ export default function Navigation() {
           </div>
         </div>
 
-        {/* Scroll progress bar — thin copper line at bottom of nav */}
+        {/* Scroll progress — trail-style dashed line */}
         {showProgress && (
           <motion.div
-            className="absolute bottom-0 left-0 right-0 h-[2px] nav-progress-bar"
-            style={{ scaleX }}
+            className="absolute bottom-0 left-0 right-0 h-[2px] origin-left"
+            style={{
+              scaleX,
+              background: 'repeating-linear-gradient(90deg, #C17817 0px, #C17817 8px, transparent 8px, transparent 14px)',
+            }}
           />
         )}
       </nav>
@@ -168,7 +210,7 @@ export default function Navigation() {
                 <Link
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
-                  className={`font-[family-name:var(--font-satoshi)] text-3xl font-bold transition-colors ${
+                  className={`font-[family-name:var(--font-satoshi)] text-3xl font-bold uppercase tracking-wide transition-colors ${
                     isActive(link.href) ? 'text-copper' : 'text-cream hover:text-copper'
                   }`}
                 >
@@ -184,9 +226,9 @@ export default function Navigation() {
               <Link
                 href="/contact"
                 onClick={() => setMobileOpen(false)}
-                className="mt-4 bg-copper text-white text-lg font-medium px-8 py-3 rounded-lg pulse-glow"
+                className="mt-4 inline-flex items-center gap-2 bg-copper text-white text-lg font-semibold uppercase tracking-wide px-8 py-3 rounded-lg pulse-glow"
               >
-                Get Started
+                Get Started <ArrowRight size={18} />
               </Link>
             </motion.div>
           </motion.div>
