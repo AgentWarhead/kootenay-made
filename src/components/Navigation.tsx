@@ -58,22 +58,26 @@ export default function Navigation() {
         Skip to content
       </a>
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-[background-color,box-shadow] duration-300 ease-out ${
           scrolled
-            ? 'bg-slate/80 backdrop-blur-xl shadow-lg border-b border-white/5'
-            : 'bg-transparent'
+            ? 'bg-slate/80 backdrop-blur-xl shadow-lg'
+            : 'bg-transparent backdrop-blur-sm'
         }`}
       >
+        {/* Copper horizon line — visible when scrolled */}
+        {scrolled && (
+          <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-copper/40 to-transparent" />
+        )}
         <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
-          <div className="flex items-center justify-between h-20">
+          <div className={`flex items-center justify-between transition-[height] duration-300 ease-out ${scrolled ? 'h-20' : 'h-24'}`}>
             {/* Logo with breathing animation */}
             <Link href="/" className="relative z-10 flex items-center">
               <Image
                 src="/brand/kmd-horizontal-nobg.png"
                 alt="Kootenay Made Digital"
                 width={200}
-                height={40}
-                className="h-8 w-auto transition-all duration-300 brightness-[1.5] logo-breathe"
+                height={48}
+                className={`w-auto transition-[height] duration-300 ease-out brightness-[1.5] logo-breathe ${scrolled ? 'h-10' : 'h-12'}`}
                 priority
               />
             </Link>
@@ -84,7 +88,12 @@ export default function Navigation() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="relative font-[family-name:var(--font-general)] text-sm font-medium transition-colors duration-300 text-dark-text-muted hover:text-cream py-1 group"
+                  className={`relative font-[family-name:var(--font-satoshi)] text-sm font-medium tracking-wide transition-colors duration-300 py-1 group ${
+                    isActive(link.href) ? 'text-cream' : 'text-dark-text-muted hover:text-cream'
+                  }`}
+                  style={{ textShadow: undefined }}
+                  onMouseEnter={(e) => { e.currentTarget.style.textShadow = '0 0 8px rgba(193,120,23,0.3)'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.textShadow = 'none'; }}
                 >
                   {link.label}
                   {/* Hover underline grows from center */}
@@ -104,7 +113,7 @@ export default function Navigation() {
               {/* Get Started CTA with pulse glow */}
               <Link
                 href="/contact"
-                className="bg-copper hover:bg-copper-light text-white text-sm font-medium px-5 py-2.5 rounded-lg transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] pulse-glow"
+                className="bg-copper hover:bg-copper-light text-white text-sm font-medium px-6 py-3 rounded-xl border border-copper/30 transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] pulse-glow"
               >
                 Get Started
               </Link>

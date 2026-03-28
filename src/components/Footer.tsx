@@ -30,7 +30,7 @@ function TripleClickLogo() {
           alt="Kootenay Made Digital"
           width={160}
           height={80}
-          className="h-16 w-auto mb-4 brightness-[1.5]"
+          className="h-24 w-auto mb-4 brightness-[1.5]"
         />
       </div>
       {toast && (

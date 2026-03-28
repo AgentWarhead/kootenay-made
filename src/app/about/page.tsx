@@ -102,7 +102,7 @@ function LogoReveal() {
       initial={{ clipPath: 'inset(0 100% 0 0)' }}
       animate={inView ? { clipPath: 'inset(0 0% 0 0)' } : {}}
       transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-      className="w-48 md:w-64 shrink-0"
+      className="w-64 md:w-80 shrink-0"
     >
       <Image
         src="/brand/kmd-stacked-nobg.png"
