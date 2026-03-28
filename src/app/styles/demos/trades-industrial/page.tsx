@@ -161,6 +161,7 @@ export default function TradesIndustrialDemo() {
 
           <motion.h1
             className={`${heading.className} text-4xl md:text-6xl lg:text-7xl font-bold uppercase leading-tight mb-6`}
+            style={{ textShadow: '0 2px 20px rgba(0,0,0,0.5)' }}
             initial={prefersReduced ? {} : { opacity: 0, y: 20 }}
             animate={prefersReduced ? {} : { opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.6 }}

@@ -134,10 +134,10 @@ export default function RusticCraftDemo() {
         <GrainOverlay />
         <div className="relative z-10 max-w-6xl mx-auto flex items-center justify-between">
           <span
-            className={`${bitter.className} text-lg md:text-xl font-bold tracking-tight`}
+            className={`${bitter.className} text-xl md:text-2xl font-bold tracking-tight`}
             style={{ color: PARCHMENT }}
           >
-            Kootenay Brewing Collective
+            <span style={{ color: AMBER }}>Kootenay</span> Brewing Collective
           </span>
 
           <div className="hidden md:flex items-center gap-8">
@@ -185,7 +185,7 @@ export default function RusticCraftDemo() {
           <StampIn>
             <h1
               className={`${bitter.className} text-5xl md:text-7xl lg:text-8xl font-bold leading-tight mb-6`}
-              style={{ color: PARCHMENT }}
+              style={{ color: PARCHMENT, textShadow: '0 2px 20px rgba(0,0,0,0.5)' }}
             >
               Small Batch.<br />Big Flavour.
             </h1>

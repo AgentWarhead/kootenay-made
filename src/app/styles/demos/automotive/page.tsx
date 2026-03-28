@@ -193,7 +193,7 @@ export default function AutomotiveDemo() {
 
             <motion.h1
               className={`${heading.className} text-6xl sm:text-7xl md:text-8xl lg:text-9xl leading-[0.9] tracking-wider`}
-              style={chromeGradient}
+              style={{ ...chromeGradient, textShadow: '0 2px 20px rgba(0,0,0,0.5)' }}
               initial={prefersReduced ? {} : { opacity: 0, clipPath: 'polygon(0 0, 0 0, 0 100%, 0 100%)' }}
               animate={prefersReduced ? {} : { opacity: 1, clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)' }}
               transition={{ duration: 1, delay: 0.4, ease: 'easeOut' }}

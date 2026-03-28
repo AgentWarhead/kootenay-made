@@ -216,8 +216,8 @@ export default function GovernmentMunicipalPage() {
         <div className="max-w-6xl mx-auto flex items-center justify-between h-16 gap-4">
           {/* Logo / Name */}
           <span
-            className="text-base md:text-lg font-bold leading-tight"
-            style={{ color: C.navText, maxWidth: '240px' }}
+            className="text-lg md:text-xl font-bold tracking-tight leading-tight"
+            style={{ color: C.navText, maxWidth: '240px', letterSpacing: '0.02em', borderBottom: '2px solid rgba(255,255,255,0.3)', paddingBottom: '2px' }}
           >
             West Kootenay Parks &amp; Recreation
           </span>
@@ -373,7 +373,7 @@ export default function GovernmentMunicipalPage() {
               <div className="flex-1 text-center md:text-left">
                 <motion.h1
                   className="text-5xl sm:text-6xl md:text-7xl font-700 leading-tight mb-6"
-                  style={{ color: hc ? '#ffffff' : '#ffffff' }}
+                  style={{ color: hc ? '#ffffff' : '#ffffff', textShadow: '0 2px 20px rgba(0,0,0,0.5)' }}
                   initial={prefersReduced ? {} : { opacity: 0, y: 40 }}
                   animate={prefersReduced ? {} : { opacity: 1, y: 0 }}
                   transition={{ duration: 0.75, delay: 0.3 }}

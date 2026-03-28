@@ -74,7 +74,7 @@ export default function EditorialElegantDemo() {
       {/* ═══════════ 1. NAV ═══════════ */}
       <nav className="px-6 py-5 sticky top-0 z-40" style={{ backgroundColor: '#faf9f7', borderBottom: '1px solid #e8e6e1' }}>
         <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <span className={`${heading.className} text-xl md:text-2xl`} style={{ color: '#1a1a1a', fontWeight: 400 }}>
+          <span className={`${heading.className} text-xl md:text-2xl`} style={{ color: '#1a1a1a', fontWeight: 400, fontStyle: 'italic', letterSpacing: '0.04em' }}>
             Pinnacle Real Estate
           </span>
           <div className="hidden md:flex items-center gap-8">
@@ -121,7 +121,7 @@ export default function EditorialElegantDemo() {
           </motion.p>
           <motion.h1
             className={`${heading.className} text-5xl md:text-7xl lg:text-8xl leading-tight mb-8`}
-            style={{ color: '#faf9f7', fontWeight: 400 }}
+            style={{ color: '#faf9f7', fontWeight: 400, textShadow: '0 2px 20px rgba(0,0,0,0.3)' }}
             initial={prefersReduced ? {} : { opacity: 0, y: 30 }}
             animate={prefersReduced ? {} : { opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}

@@ -237,7 +237,7 @@ export default function WarmNaturalDemo() {
           style={{ backgroundColor: 'rgba(250, 246, 240, 0.92)', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)' }}
         >
           <div className="max-w-6xl mx-auto flex items-center justify-between">
-            <span className={`${lora.className} text-xl font-bold`} style={{ color: '#8b7355' }}>
+            <span className={`${lora.className} text-xl md:text-2xl font-bold`} style={{ color: '#8b7355', fontStyle: 'italic', letterSpacing: '0.03em' }}>
               Mountain Flow Wellness
             </span>
             <div className="hidden md:flex items-center gap-8">

@@ -235,8 +235,8 @@ export default function EducationNonprofitPage() {
         className="sticky top-0 z-50 flex items-center justify-between px-5 md:px-10 py-4"
         style={{ background: '#eff6ff', borderBottom: '1px solid #dbeafe' }}
       >
-        <span className="text-base md:text-lg font-semibold leading-tight max-w-[220px] md:max-w-none" style={{ color: '#1e3a5f' }}>
-          Kootenay Community Learning Centre
+        <span className="text-lg md:text-xl font-bold tracking-tight leading-tight max-w-[220px] md:max-w-none" style={{ color: '#1e40af' }}>
+          Kootenay Community <span style={{ color: '#f59e0b' }}>Learning</span> Centre
         </span>
 
         {/* Desktop nav */}

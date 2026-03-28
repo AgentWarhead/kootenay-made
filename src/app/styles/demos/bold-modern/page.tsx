@@ -68,8 +68,8 @@ export default function BoldModernDemo() {
       {/* ─── 1. NAV ─────────────────────────────────────────── */}
       <nav style={{ backgroundColor: '#111111', borderBottom: '1px solid #222' }} className="relative z-40 px-6 py-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <span className="text-xl md:text-2xl font-bold tracking-tight uppercase">
-            VOLT ELECTRIC CO.
+          <span className="text-xl md:text-2xl font-bold tracking-wider uppercase">
+            <span style={{ color: '#ff6b00' }}>VOLT</span> ELECTRIC CO.
           </span>
           <div className="hidden md:flex items-center gap-8">
             {['SERVICES', 'ABOUT', 'PROJECTS', 'CONTACT'].map((link) => (
@@ -129,6 +129,7 @@ export default function BoldModernDemo() {
 
             <motion.h1
               className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold uppercase leading-[0.9] tracking-tight"
+              style={{ textShadow: '0 2px 20px rgba(0,0,0,0.5)' }}
               initial={prefersReduced ? {} : { opacity: 0, clipPath: 'polygon(0 0, 0 0, 0 100%, 0 100%)' }}
               animate={prefersReduced ? {} : { opacity: 1, clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)' }}
               transition={{ duration: 1, delay: 0.4, ease: 'easeOut' }}

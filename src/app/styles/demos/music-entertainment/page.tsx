@@ -248,6 +248,7 @@ export default function MusicEntertainmentPage() {
               color: '#ffffff',
               letterSpacing: '0.04em',
               marginBottom: '1.5rem',
+              textShadow: '0 2px 20px rgba(0,0,0,0.5)',
             }}
             initial={prefersReduced ? {} : { opacity: 0, y: 40 }}
             animate={prefersReduced ? {} : { opacity: 1, y: 0 }}

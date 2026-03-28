@@ -142,7 +142,7 @@ export default function AdventureOutdoorsDemo() {
             sizes="100vw"
           />
         </div>
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(27,45,27,0.6), rgba(27,45,27,0.8))' }} />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(27,45,27,0.65), rgba(27,45,27,0.85))' }} />
 
         {/* 3-layer parallax mountain silhouettes */}
         <motion.div className="absolute bottom-0 left-0 right-0 h-64 pointer-events-none" style={{ y: prefersReduced ? 0 : layer1Y }}>
@@ -179,6 +179,7 @@ export default function AdventureOutdoorsDemo() {
           </motion.p>
           <motion.h1
             className={`${heading.className} text-5xl md:text-7xl lg:text-9xl font-bold uppercase leading-[0.9] tracking-tight mb-8`}
+            style={{ textShadow: '0 2px 20px rgba(0,0,0,0.5)' }}
             initial={prefersReduced ? {} : { opacity: 0, y: 30 }}
             animate={prefersReduced ? {} : { opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}

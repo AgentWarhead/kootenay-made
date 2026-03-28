@@ -248,8 +248,8 @@ export default function HomeGardenDemo() {
       >
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <span
-            className={`${heading.className} text-lg md:text-xl italic font-normal`}
-            style={{ color: C.darkGreen }}
+            className={`${heading.className} text-xl md:text-2xl italic font-normal`}
+            style={{ color: C.darkGreen, letterSpacing: '0.02em' }}
           >
             Cedarview Landscaping
           </span>
@@ -307,7 +307,7 @@ export default function HomeGardenDemo() {
         </div>
 
         {/* Light overlay — keep it bright and airy */}
-        <div className="absolute inset-0 bg-black/20" />
+        <div className="absolute inset-0 bg-black/40" />
 
         {/* Botanical decoration in hero */}
         <div className="absolute top-0 left-0 pointer-events-none">
@@ -327,7 +327,7 @@ export default function HomeGardenDemo() {
 
           <motion.h1
             className={`${heading.className} text-4xl sm:text-5xl md:text-7xl font-bold leading-tight mb-6 max-w-3xl`}
-            style={{ color: C.darkGreen }}
+            style={{ color: '#ffffff', textShadow: '0 2px 20px rgba(0,0,0,0.5)' }}
             initial={prefersReduced ? {} : { opacity: 0, y: 22 }}
             animate={prefersReduced ? {} : { opacity: 1, y: 0 }}
             transition={{ duration: 0.75, delay: 0.4 }}

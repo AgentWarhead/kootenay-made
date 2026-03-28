@@ -188,7 +188,7 @@ export default function FarmHarvestDemo() {
           />
         </div>
         {/* Light overlay */}
-        <div className="absolute inset-0 bg-black/30" />
+        <div className="absolute inset-0 bg-black/45" />
 
         <div className="relative max-w-4xl mx-auto text-center px-6 py-32 md:py-44 w-full">
           <motion.p
@@ -202,7 +202,7 @@ export default function FarmHarvestDemo() {
           </motion.p>
           <motion.h1
             className={`${accent.className} text-5xl md:text-7xl lg:text-8xl leading-tight mb-8`}
-            style={{ color: '#ffffff' }}
+            style={{ color: '#ffffff', textShadow: '0 2px 20px rgba(0,0,0,0.5)' }}
             initial={prefersReduced ? {} : { opacity: 0, y: 30 }}
             animate={prefersReduced ? {} : { opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}

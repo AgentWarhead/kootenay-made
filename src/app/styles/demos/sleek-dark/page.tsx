@@ -83,7 +83,7 @@ export default function SleekDarkDemo() {
       {/* ═══════════ 1. NAV ═══════════ */}
       <nav style={{ backgroundColor: '#0a0a0a', borderBottom: '1px solid rgba(201,169,110,0.15)' }} className="px-6 py-5 sticky top-0 z-40">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <span className={`${heading.className} text-2xl md:text-3xl tracking-wide`} style={{ color: '#c9a96e', fontWeight: 300 }}>
+          <span className={`${heading.className} text-2xl md:text-3xl tracking-wide`} style={{ color: '#c9a96e', fontWeight: 300, letterSpacing: '0.05em' }}>
             Ember Kitchen &amp; Bar
           </span>
           <div className="hidden md:flex items-center gap-8">
@@ -142,7 +142,7 @@ export default function SleekDarkDemo() {
           >
             An experience awaits
           </motion.p>
-          <h1 className={`${heading.className} text-5xl md:text-7xl lg:text-8xl leading-tight mb-8`} style={{ fontWeight: 300, color: '#f5f0e8' }}>
+          <h1 className={`${heading.className} text-5xl md:text-7xl lg:text-8xl leading-tight mb-8`} style={{ fontWeight: 300, color: '#f5f0e8', textShadow: '0 2px 20px rgba(0,0,0,0.5)' }}>
             <GoldReveal>Ember Kitchen</GoldReveal>
             <br />
             <GoldReveal>&amp; Bar</GoldReveal>

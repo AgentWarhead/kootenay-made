@@ -105,7 +105,7 @@ export default function BrightPlayfulDemo() {
       {/* ═══════════ 1. NAV ═══════════ */}
       <nav className="px-6 py-4 sticky top-0 z-40" style={{ backgroundColor: '#ffffff', borderBottom: '3px solid #4ecdc4' }}>
         <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <span className="text-xl md:text-2xl font-extrabold" style={{ color: '#ff6b6b' }}>
+          <span className="text-xl md:text-2xl font-extrabold" style={{ color: '#ff6b6b', letterSpacing: '-0.01em' }}>
             Little Explorers <span style={{ color: '#4ecdc4' }}>Daycare</span>
           </span>
           <div className="hidden md:flex items-center gap-8">

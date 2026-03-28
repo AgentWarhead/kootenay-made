@@ -70,7 +70,7 @@ export default function MedicalDentalDemo() {
       {/* ═══════════ 1. NAV ═══════════ */}
       <nav style={{ backgroundColor: '#ffffff', borderBottom: '1px solid #e2e8f0' }} className="px-6 py-4 sticky top-0 z-40">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <span className="text-xl md:text-2xl font-bold" style={{ color: '#0891b2' }}>
+          <span className="text-xl md:text-2xl font-extrabold tracking-tight" style={{ color: '#0891b2', letterSpacing: '0.02em' }}>
             Kootenay Family Dental
           </span>
           <div className="hidden md:flex items-center gap-8">
@@ -114,7 +114,7 @@ export default function MedicalDentalDemo() {
           />
         </div>
         {/* Light bright overlay */}
-        <div className="absolute inset-0 bg-white/40" />
+        <div className="absolute inset-0 bg-white/60" />
 
         <div className="relative max-w-4xl mx-auto text-center px-6 py-32 md:py-44 w-full">
           <motion.p

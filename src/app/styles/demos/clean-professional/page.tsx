@@ -105,7 +105,7 @@ export default function CleanProfessionalDemo() {
       {/* ═══════════ 1. NAV ═══════════ */}
       <nav style={{ backgroundColor: '#1a365d' }} className="px-6 py-4 sticky top-0 z-40">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <span className="text-white text-xl font-bold tracking-tight">Ridgeline Financial Group</span>
+          <span className="text-white text-xl md:text-2xl font-bold tracking-tight" style={{ letterSpacing: '0.02em', borderBottom: '2px solid rgba(255,255,255,0.3)', paddingBottom: '2px' }}>Ridgeline Financial Group</span>
           <div className="hidden md:flex items-center gap-8">
             <a href="#services" className="text-white/80 hover:text-white text-sm transition-colors">Services</a>
             <a href="#about" className="text-white/80 hover:text-white text-sm transition-colors">About</a>
@@ -144,6 +144,7 @@ export default function CleanProfessionalDemo() {
         <div className="relative max-w-4xl mx-auto text-center px-6 py-28 md:py-40 w-full">
           <motion.h1
             className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6 text-white"
+            style={{ textShadow: '0 2px 20px rgba(0,0,0,0.5)' }}
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: 'easeOut' }}
