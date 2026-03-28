@@ -24,8 +24,11 @@ export default function Footer() {
               {[
                 { href: '/', label: 'Home' },
                 { href: '/services', label: 'Services' },
+                { href: '/styles', label: 'Styles' },
+                { href: '/blog', label: 'Blog' },
                 { href: '/about', label: 'About' },
                 { href: '/contact', label: 'Contact' },
+                { href: '/audit', label: 'Free Audit' },
               ].map((link) => (
                 <Link key={link.href} href={link.href} className="text-dark-text-muted hover:text-cream transition-colors text-sm group relative inline-block w-fit">
                   {link.label}
