@@ -7,7 +7,7 @@ import { ArrowRight, Globe, Palette, ShoppingBag, Mail, Bot, Search } from 'luci
 import ScrollReveal from '@/components/ScrollReveal';
 import RippleButton from '@/components/RippleButton';
 import TiltCard from '@/components/TiltCard';
-import CardStack from '@/components/CardStack';
+import CampfireStories from '@/components/CampfireStories';
 import VideoSection from '@/components/VideoSection';
 import MountainDivider from '@/components/MountainDivider';
 import AmbientOrbs from '@/components/AmbientOrbs';
@@ -513,29 +513,10 @@ export default function Home() {
         </div>
       </section>
 
-      <MountainDivider variant={1} fillColor="#F8F4F0" />
+      <MountainDivider variant={1} fillColor="#1a1208" />
 
-      {/* ═══ CAMPFIRE STORIES — Card Stack ═══ */}
-      <section className="bg-cream py-24 sm:py-32 relative overflow-hidden cedar-texture">
-        <div className="max-w-4xl mx-auto px-6 sm:px-10 lg:px-16 text-center">
-          <ScrollReveal>
-            <p className="text-copper font-medium text-sm tracking-wider uppercase mb-3">Around the Fire</p>
-            <h2 className="font-[family-name:var(--font-satoshi)] text-3xl sm:text-4xl font-bold text-slate mb-16">
-              Campfire Stories
-            </h2>
-          </ScrollReveal>
-
-          <CardStack cards={painPoints} />
-
-          <ScrollReveal delay={0.2}>
-            <div className="mt-20">
-              <Link href="/audit" className="inline-flex items-center gap-2 text-copper hover:text-copper-dark font-medium text-lg group transition-colors">
-                If any of these sound like you, let&apos;s talk. <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-              </Link>
-            </div>
-          </ScrollReveal>
-        </div>
-      </section>
+      {/* ═══ CAMPFIRE STORIES ═══ */}
+      <CampfireStories stories={painPoints} />
 
       {/* ═══ VIDEO BACKGROUND — KOOTENAY ROOTS ═══ */}
       <VideoSection />

@@ -824,3 +824,99 @@ input:focus, textarea:focus, select:focus {
   .animate-retro-flash { animation: none; display: none; }
   .skeleton-ridge { animation: none; }
 }
+
+/* ══ Campfire Stories Section ══ */
+.campfire-flame-outer {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 32px;
+  background: radial-gradient(ellipse at bottom, #ff6a00 0%, #ff9500 40%, transparent 70%);
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  animation: flame-dance 1.5s ease-in-out infinite alternate;
+  filter: blur(1px);
+}
+
+.campfire-flame-inner {
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 12px;
+  height: 24px;
+  background: radial-gradient(ellipse at bottom, #ffcc00 0%, #ff8800 60%, transparent 80%);
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  animation: flame-dance 1.2s ease-in-out infinite alternate-reverse;
+  filter: blur(0.5px);
+}
+
+.campfire-flame-core {
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 16px;
+  background: radial-gradient(ellipse at bottom, #fff4cc 0%, #ffdd44 80%, transparent 100%);
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  animation: flame-dance 0.8s ease-in-out infinite alternate;
+}
+
+@keyframes flame-dance {
+  0% { transform: translateX(-50%) scaleY(1) scaleX(1); }
+  25% { transform: translateX(-48%) scaleY(1.1) scaleX(0.9); }
+  50% { transform: translateX(-52%) scaleY(0.95) scaleX(1.05); }
+  75% { transform: translateX(-50%) scaleY(1.08) scaleX(0.95); }
+  100% { transform: translateX(-50%) scaleY(1) scaleX(1); }
+}
+
+.campfire-spark {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: #ff9500;
+  border-radius: 50%;
+  animation: spark-rise 2.5s ease-out infinite;
+}
+
+.campfire-spark-1 { left: 45%; animation-delay: 0s; }
+.campfire-spark-2 { left: 55%; animation-delay: 0.8s; }
+.campfire-spark-3 { left: 50%; animation-delay: 1.6s; }
+
+@keyframes spark-rise {
+  0% { bottom: 8px; opacity: 1; transform: translateX(0); }
+  50% { opacity: 0.6; transform: translateX(4px); }
+  100% { bottom: 60px; opacity: 0; transform: translateX(-3px); }
+}
+
+.campfire-smoke {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(200, 180, 160, 0.04);
+  filter: blur(8px);
+  animation: smoke-rise 6s ease-out infinite;
+}
+
+.campfire-smoke-1 { animation-delay: 0s; left: -10px; }
+.campfire-smoke-2 { animation-delay: 3s; left: 10px; }
+
+@keyframes smoke-rise {
+  0% { transform: translateY(0) scale(0.5); opacity: 0.06; }
+  50% { transform: translateY(-80px) scale(1.2); opacity: 0.03; }
+  100% { transform: translateY(-160px) scale(2); opacity: 0; }
+}
+
+/* Radial gradient utility */
+.bg-gradient-radial {
+  background: radial-gradient(var(--tw-gradient-stops));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .campfire-flame-outer, .campfire-flame-inner, .campfire-flame-core { animation: none; }
+  .campfire-spark { animation: none; display: none; }
+  .campfire-smoke { animation: none; display: none; }
+}
