@@ -142,32 +142,13 @@ function ForestGrowthCard({ inView }: { inView: boolean }) {
   return (
     <div className="relative aspect-square rounded-2xl overflow-hidden border border-white/5 group hover:-translate-y-1 transition-transform duration-300">
       <Image src="/images/stats/forest-bg.webp" alt="Misty Kootenay forest" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/15 z-[1]" />
-
-      {/* Growing tree — positioned top half so it doesn't compete with text */}
-      <div className="absolute top-[10%] left-1/2 -translate-x-1/2 z-[2] w-32 sm:w-40">
-        <svg viewBox="0 0 100 140" className={`w-full ${inView ? 'tree-grow' : ''}`} fill="none">
-          {/* Trunk */}
-          <line x1="50" y1="140" x2="50" y2="30" stroke="#40916C" strokeWidth="3" strokeLinecap="round" className="tree-trunk" />
-          {/* Branches */}
-          <line x1="50" y1="100" x2="25" y2="85" stroke="#40916C" strokeWidth="2" className="tree-branch branch-1" />
-          <line x1="50" y1="100" x2="75" y2="85" stroke="#40916C" strokeWidth="2" className="tree-branch branch-2" />
-          <line x1="50" y1="75" x2="20" y2="58" stroke="#40916C" strokeWidth="2" className="tree-branch branch-3" />
-          <line x1="50" y1="75" x2="80" y2="58" stroke="#40916C" strokeWidth="2" className="tree-branch branch-4" />
-          <line x1="50" y1="50" x2="30" y2="38" stroke="#40916C" strokeWidth="1.5" className="tree-branch branch-5" />
-          <line x1="50" y1="50" x2="70" y2="38" stroke="#40916C" strokeWidth="1.5" className="tree-branch branch-6" />
-          {/* Canopy */}
-          <polygon points="50,10 30,45 70,45" fill="#2D6A4F" className="tree-needles needle-1" />
-          <polygon points="50,25 25,65 75,65" fill="#2D6A4F" opacity="0.7" className="tree-needles needle-2" />
-          <polygon points="50,45 20,90 80,90" fill="#2D6A4F" opacity="0.5" className="tree-needles needle-3" />
-        </svg>
-      </div>
+      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent z-[1]" />
 
       <div className="absolute inset-0 z-[3] flex flex-col items-center justify-end pb-10 sm:pb-12 text-center px-6">
         <motion.span
           initial={{ opacity: 0, scale: 0.8 }}
           animate={inView ? { opacity: 1, scale: 1 } : {}}
-          transition={{ duration: 0.8, delay: 1.5, type: 'spring', stiffness: 200 }}
+          transition={{ duration: 0.8, delay: 0.3, type: 'spring', stiffness: 200 }}
           className="font-[family-name:var(--font-satoshi)] text-8xl sm:text-9xl font-black text-forest-light drop-shadow-[0_4px_20px_rgba(45,106,79,0.4)]"
         >
           2-4
@@ -190,31 +171,7 @@ function MountainSummitCard({ inView }: { inView: boolean }) {
   return (
     <div className="relative aspect-square rounded-2xl overflow-hidden border border-white/5 group hover:-translate-y-1 transition-transform duration-300">
       <Image src="/images/stats/mountain-bg.webp" alt="Kootenay mountain summit" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10 z-[1]" />
-
-      {/* Mountain ridgeline SVG — centered in card */}
-      <div className="absolute inset-0 z-[2] flex items-center justify-center px-8">
-        <svg viewBox="0 0 400 160" className={`w-full max-w-sm ${inView ? 'mountain-draw' : ''}`} fill="none">
-          {/* Bold ridgeline */}
-          <polyline
-            points="0,140 60,100 120,120 180,60 200,30 220,60 280,90 340,75 400,140"
-            stroke="#C17817"
-            strokeWidth="3"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="mountain-ridge"
-          />
-          {/* Summit flag */}
-          <g className="summit-flag">
-            <line x1="200" y1="30" x2="200" y2="5" stroke="#C17817" strokeWidth="2.5" />
-            <polygon points="200,5 222,14 200,23" fill="#C17817" />
-          </g>
-          {/* Particles */}
-          {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => (
-            <circle key={i} cx="200" cy="5" r="2.5" fill="#C17817" className={`summit-particle particle-${i}`} />
-          ))}
-        </svg>
-      </div>
+      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent z-[1]" />
 
       <div className="absolute inset-0 z-[3] flex flex-col items-center justify-end pb-10 sm:pb-12 text-center px-6">
         <motion.span
