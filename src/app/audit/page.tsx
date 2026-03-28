@@ -90,21 +90,21 @@ function URLScanner() {
   return (
     <div className="max-w-2xl mx-auto">
       <ScrollReveal>
-        <div className="glass-card-dark rounded-2xl p-8 overflow-hidden">
+        <div className="glass-card-dark rounded-2xl p-5 sm:p-8 overflow-hidden">
           <p className="text-copper text-xs font-bold uppercase tracking-widest mb-4">Quick Scan Preview</p>
-          <div className="flex gap-3 mb-4">
+          <div className="flex flex-wrap gap-3 mb-4">
             <input
               type="text"
               value={url}
               onChange={(e) => { setUrl(e.target.value); setShowResults(false); }}
               placeholder="Enter your website URL..."
-              className="flex-1 bg-slate-card border border-white/10 rounded-lg px-4 py-3 text-cream placeholder:text-dark-text-muted/40 focus:outline-none focus:border-copper focus:ring-1 focus:ring-copper/40 transition-all text-sm"
+              className="flex-1 min-w-0 bg-slate-card border border-white/10 rounded-lg px-4 py-3 text-cream placeholder:text-dark-text-muted/40 focus:outline-none focus:border-copper focus:ring-1 focus:ring-copper/40 transition-all text-sm"
               onKeyDown={(e) => e.key === 'Enter' && handleScan()}
             />
             <button
               onClick={handleScan}
               disabled={!url || scanning}
-              className="bg-copper hover:bg-copper-light text-white font-medium px-6 py-3 rounded-lg transition-all disabled:opacity-40 text-sm whitespace-nowrap"
+              className="w-full sm:w-auto bg-copper hover:bg-copper-light text-white font-medium px-6 py-3 rounded-lg transition-all disabled:opacity-40 text-sm whitespace-nowrap"
             >
               {scanning ? 'Scanning...' : 'Scan'}
             </button>
@@ -133,17 +133,17 @@ function URLScanner() {
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.5 }}
               >
-                <div className="grid grid-cols-2 gap-4 mb-6">
+                <div className="grid grid-cols-2 gap-3 sm:gap-4 mb-6">
                   {mockResults.map((r, i) => (
                     <motion.div
                       key={r.label}
                       initial={{ opacity: 0, scale: 0.9 }}
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ delay: i * 0.1 }}
-                      className="bg-white/5 rounded-xl p-4 text-center"
+                      className="bg-white/5 rounded-xl p-3 sm:p-4 text-center"
                     >
                       <r.icon size={20} className={`${r.color} mx-auto mb-2`} />
-                      <div className={`font-mono text-2xl font-bold ${r.color}`}>{r.score}</div>
+                      <div className={`font-mono text-xl sm:text-2xl font-bold ${r.color}`}>{r.score}</div>
                       <p className="text-cream text-xs font-medium mt-1">{r.label}</p>
                       <p className="text-dark-text-muted text-[10px] mt-0.5">{r.desc}</p>
                     </motion.div>
@@ -233,11 +233,11 @@ export default function AuditPage() {
         </div>
 
         <AmbientOrbs />
-        <div className="relative z-10 max-w-4xl mx-auto px-6 sm:px-10 lg:px-16 text-center">
+        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-16 text-center">
           <Breadcrumb items={[{ label: 'Free Audit' }]} dark />
           <ScrollReveal>
             <p className="text-copper font-[family-name:var(--font-satoshi)] font-semibold text-sm tracking-[0.2em] uppercase mb-3">The Lookout</p>
-            <h1 className="font-[family-name:var(--font-satoshi)] text-4xl sm:text-5xl lg:text-6xl font-bold text-cream leading-tight mb-4">
+            <h1 className="font-[family-name:var(--font-satoshi)] text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-cream leading-tight mb-4">
               Is your website working as hard as you are?
             </h1>
             <p className="text-dark-text-muted text-lg sm:text-xl max-w-2xl mx-auto mb-2">
@@ -252,11 +252,11 @@ export default function AuditPage() {
 
       {/* Flip cards */}
       <section className="bg-cream py-16 sm:py-20 cedar-texture relative">
-        <div className="max-w-5xl mx-auto px-6 sm:px-10 lg:px-16">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-16">
           <ScrollReveal>
             <h2 className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl font-bold text-slate text-center mb-12">What you&apos;ll learn</h2>
           </ScrollReveal>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {flipCards.map((card, i) => (
               <FlipCard key={i} card={card} index={i} />
             ))}
@@ -266,7 +266,7 @@ export default function AuditPage() {
 
       {/* URL Scanner */}
       <section className="bg-white py-16 sm:py-20 relative">
-        <div className="max-w-5xl mx-auto px-6 sm:px-10 lg:px-16">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-16">
           <ScrollReveal>
             <h2 className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl font-bold text-slate text-center mb-4">See it in action</h2>
             <p className="text-text-secondary text-center mb-10 max-w-lg mx-auto">Try our quick scanner to get a preview of your website&apos;s health. The full audit goes much deeper.</p>
@@ -280,7 +280,7 @@ export default function AuditPage() {
       {/* Form */}
       <section className="bg-slate grain py-16 sm:py-20 relative">
         <AmbientOrbs />
-        <div className="relative z-10 max-w-2xl mx-auto px-6 sm:px-10 lg:px-16">
+        <div className="relative z-10 max-w-2xl mx-auto px-4 sm:px-6 lg:px-16">
           <ScrollReveal>
             <h2 className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl font-bold text-cream text-center mb-2">Book your free audit</h2>
             <p className="text-dark-text-muted text-center mb-10">Takes 30 seconds. We&apos;ll be in touch within one business day.</p>
@@ -330,7 +330,7 @@ export default function AuditPage() {
 
       {/* FAQ with spring physics */}
       <section className="bg-cream py-16 sm:py-20 cedar-texture relative">
-        <div className="max-w-2xl mx-auto px-6 sm:px-10 lg:px-16">
+        <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-16">
           <ScrollReveal>
             <h2 className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl font-bold text-slate text-center mb-10">Common questions</h2>
           </ScrollReveal>

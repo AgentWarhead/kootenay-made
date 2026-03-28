@@ -11,7 +11,7 @@ export default function CaseStudyClient({ study }: { study: CaseStudy }) {
     <>
       {/* Header */}
       <section className="bg-slate grain pt-32 pb-20">
-        <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
           <Breadcrumb items={[{ label: 'Portfolio', href: '/portfolio' }, { label: study.name }]} dark />
           <ScrollReveal>
             <div className="flex items-center gap-3 mb-4">
@@ -23,7 +23,7 @@ export default function CaseStudyClient({ study }: { study: CaseStudy }) {
                 {study.location}
               </span>
             </div>
-            <h1 className="font-[family-name:var(--font-satoshi)] text-4xl sm:text-5xl md:text-6xl font-bold text-cream leading-tight max-w-3xl">
+            <h1 className="font-[family-name:var(--font-satoshi)] text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-cream leading-tight max-w-3xl">
               {study.name}
             </h1>
             <p className="mt-4 text-dark-text-muted text-lg">{study.type}</p>
@@ -33,7 +33,7 @@ export default function CaseStudyClient({ study }: { study: CaseStudy }) {
 
       {/* Before State */}
       <section className="bg-cream py-16 sm:py-20">
-        <div className="max-w-3xl mx-auto px-6 sm:px-10">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6">
           <ScrollReveal>
             <p className="text-copper font-medium text-sm tracking-wider uppercase mb-3">Before</p>
             <h2 className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl font-bold text-slate mb-4">Where they started</h2>
@@ -44,7 +44,7 @@ export default function CaseStudyClient({ study }: { study: CaseStudy }) {
 
       {/* The Challenge */}
       <section className="bg-slate grain py-16 sm:py-20">
-        <div className="relative z-10 max-w-3xl mx-auto px-6 sm:px-10">
+        <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6">
           <ScrollReveal>
             <p className="text-copper-light font-medium text-sm tracking-wider uppercase mb-3">The Challenge</p>
             <h2 className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl font-bold text-cream mb-4">What they needed</h2>
@@ -55,7 +55,7 @@ export default function CaseStudyClient({ study }: { study: CaseStudy }) {
 
       {/* Our Approach */}
       <section className="bg-cream py-16 sm:py-20">
-        <div className="max-w-3xl mx-auto px-6 sm:px-10">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6">
           <ScrollReveal>
             <p className="text-copper font-medium text-sm tracking-wider uppercase mb-3">Our Approach</p>
             <h2 className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl font-bold text-slate mb-4">How we built it</h2>
@@ -78,7 +78,7 @@ export default function CaseStudyClient({ study }: { study: CaseStudy }) {
 
       {/* The Result */}
       <section className="bg-slate grain py-16 sm:py-20">
-        <div className="relative z-10 max-w-3xl mx-auto px-6 sm:px-10">
+        <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6">
           <ScrollReveal>
             <p className="text-copper-light font-medium text-sm tracking-wider uppercase mb-3">The Result</p>
             <h2 className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl font-bold text-cream mb-4">What happened next</h2>
@@ -89,9 +89,9 @@ export default function CaseStudyClient({ study }: { study: CaseStudy }) {
 
       {/* Testimonial */}
       <section className="bg-cream py-16 sm:py-20">
-        <div className="max-w-3xl mx-auto px-6 sm:px-10">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6">
           <ScrollReveal>
-            <div className="bg-white rounded-2xl border border-cream-border p-8 sm:p-10">
+            <div className="bg-white rounded-2xl border border-cream-border p-5 sm:p-8 lg:p-10">
               <Quote size={32} className="text-copper/30 mb-4" />
               <blockquote className="font-[family-name:var(--font-satoshi)] text-xl sm:text-2xl font-medium text-slate leading-relaxed mb-6">
                 &ldquo;{study.testimonial.quote}&rdquo;
@@ -107,7 +107,7 @@ export default function CaseStudyClient({ study }: { study: CaseStudy }) {
 
       {/* CTA */}
       <section className="bg-slate grain py-16">
-        <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 text-center">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-16 text-center">
           <ScrollReveal>
             <h2 className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl font-bold text-cream mb-4">
               Want results like these?

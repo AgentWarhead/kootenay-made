@@ -104,10 +104,10 @@ export default function Navigation() {
         {/* Mountain ridgeline bottom edge — appears on scroll */}
         <MountainRidgeline scrolled={scrolled} />
 
-        <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
-          <div className={`flex items-center justify-between transition-[height] duration-300 ease-out ${scrolled ? 'h-20' : 'h-24'}`}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
+          <div className={`flex items-center justify-between transition-[height] duration-300 ease-out ${scrolled ? 'h-16 sm:h-20' : 'h-20 sm:h-24'}`}>
             {/* Logo — big and bold with breathing animation */}
-            <Link href="/" className="relative z-10 flex items-center shrink-0 mr-8 lg:mr-12">
+            <Link href="/" className="relative z-10 flex items-center shrink-0 mr-4 lg:mr-12">
               <Image
                 src="/brand/kmd-horizontal-nobg.png"
                 alt="Kootenay Made Digital"
@@ -115,14 +115,14 @@ export default function Navigation() {
                 height={120}
                 quality={100}
                 unoptimized
-                className={`transition-[width] duration-300 ease-out brightness-[1.5] logo-breathe ${scrolled ? 'w-[180px]' : 'w-[220px]'}`}
+                className={`transition-[width] duration-300 ease-out brightness-[1.5] logo-breathe ${scrolled ? 'w-[140px] sm:w-[160px] lg:w-[180px]' : 'w-[160px] sm:w-[180px] lg:w-[220px]'}`}
                 style={{ height: 'auto' }}
                 priority
               />
             </Link>
 
             {/* Desktop nav — bold uppercase with pine separators */}
-            <div className="hidden md:flex items-center gap-0">
+            <div className="hidden lg:flex items-center gap-0">
               {links.map((link, i) => (
                 <Fragment key={link.href}>
                   {i > 0 && (
@@ -163,7 +163,7 @@ export default function Navigation() {
             {/* Mobile toggle */}
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="md:hidden relative z-10 p-2 transition-colors text-cream"
+              className="lg:hidden relative z-10 p-3 transition-colors text-cream"
               aria-label="Toggle menu"
             >
               {mobileOpen ? <X size={24} /> : <Menu size={24} />}
@@ -224,7 +224,7 @@ export default function Navigation() {
                 <Link
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
-                  className={`font-[family-name:var(--font-satoshi)] text-3xl font-bold uppercase tracking-wide transition-colors ${
+                  className={`font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl font-bold uppercase tracking-wide transition-colors py-2 px-4 min-h-[44px] flex items-center ${
                     isActive(link.href) ? 'text-copper' : 'text-cream hover:text-copper'
                   }`}
                 >

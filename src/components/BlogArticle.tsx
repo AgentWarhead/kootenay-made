@@ -13,7 +13,7 @@ export default function BlogArticle({ title, date, readTime, category, children 
   return (
     <div className="pt-20">
       <article className="bg-cream py-12 sm:py-16">
-        <div className="max-w-[720px] mx-auto px-6 sm:px-10">
+        <div className="max-w-[720px] mx-auto px-4 sm:px-6">
           <Link
             href="/blog"
             className="inline-flex items-center gap-1.5 text-text-tertiary hover:text-copper text-sm font-medium mb-8 transition-colors"
@@ -44,7 +44,7 @@ export default function BlogArticle({ title, date, readTime, category, children 
 
           {/* CTA */}
           <div className="mt-12 pt-8 border-t border-cream-border">
-            <div className="bg-slate grain rounded-xl p-8 text-center relative overflow-hidden">
+            <div className="bg-slate grain rounded-xl p-5 sm:p-8 text-center relative overflow-hidden">
               <div className="relative z-10">
                 <h3 className="font-[family-name:var(--font-satoshi)] text-xl font-bold text-cream mb-2">
                   Wondering how your website stacks up?

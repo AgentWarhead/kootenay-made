@@ -113,7 +113,7 @@ export default function CampfireStories({ stories }: { stories: Story[] }) {
 
       <SmokeWisps />
 
-      <div className="relative z-10 max-w-3xl mx-auto px-6 sm:px-10 lg:px-16 text-center">
+      <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-16 text-center">
         <ScrollReveal>
           <p className="text-amber-500/80 font-[family-name:var(--font-satoshi)] font-semibold text-sm tracking-[0.2em] uppercase mb-3">Around the Fire</p>
           <h2 className="font-[family-name:var(--font-satoshi)] text-3xl sm:text-4xl font-bold text-cream/90 mb-6">
@@ -136,7 +136,7 @@ export default function CampfireStories({ stories }: { stories: Story[] }) {
               transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
               className="px-2"
             >
-              <div className="bg-[#2a1f12]/60 backdrop-blur-sm border border-amber-800/20 rounded-xl p-8 sm:p-10 shadow-[0_0_60px_rgba(217,119,6,0.08)]">
+              <div className="bg-[#2a1f12]/60 backdrop-blur-sm border border-amber-800/20 rounded-xl p-5 sm:p-8 lg:p-10 shadow-[0_0_60px_rgba(217,119,6,0.08)]">
                 <p className="text-cream/85 text-lg sm:text-xl leading-relaxed mb-5 font-[family-name:var(--font-general)]">
                   &ldquo;{stories[currentIdx].text}&rdquo;
                 </p>
@@ -150,7 +150,7 @@ export default function CampfireStories({ stories }: { stories: Story[] }) {
         <div className="mt-8 flex items-center justify-center gap-6">
           <button
             onClick={prev}
-            className="w-9 h-9 rounded-full border border-amber-700/30 flex items-center justify-center text-amber-600/60 hover:text-amber-500 hover:border-amber-600/50 transition-colors"
+            className="w-10 h-10 sm:w-9 sm:h-9 rounded-full border border-amber-700/30 flex items-center justify-center text-amber-600/60 hover:text-amber-500 hover:border-amber-600/50 transition-colors min-w-[44px] min-h-[44px]"
             aria-label="Previous story"
           >
             <ChevronLeft size={16} />
@@ -171,7 +171,7 @@ export default function CampfireStories({ stories }: { stories: Story[] }) {
 
           <button
             onClick={next}
-            className="w-9 h-9 rounded-full border border-amber-700/30 flex items-center justify-center text-amber-600/60 hover:text-amber-500 hover:border-amber-600/50 transition-colors"
+            className="w-10 h-10 sm:w-9 sm:h-9 rounded-full border border-amber-700/30 flex items-center justify-center text-amber-600/60 hover:text-amber-500 hover:border-amber-600/50 transition-colors min-w-[44px] min-h-[44px]"
             aria-label="Next story"
           >
             <ChevronRight size={16} />

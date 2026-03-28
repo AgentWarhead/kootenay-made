@@ -203,7 +203,7 @@ function Marquee() {
         {[...Array(6)].map((_, i) => (
           <span
             key={i}
-            className="font-[family-name:var(--font-satoshi)] text-4xl sm:text-5xl font-bold tracking-wider mx-4"
+            className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-4xl md:text-5xl font-bold tracking-wider mx-4"
             style={{
               background: 'linear-gradient(90deg, #C17817, #F8F4F0)',
               WebkitBackgroundClip: 'text',
@@ -219,7 +219,7 @@ function Marquee() {
         {[...Array(6)].map((_, i) => (
           <span
             key={i}
-            className="font-[family-name:var(--font-satoshi)] text-4xl sm:text-5xl font-bold tracking-wider mx-4"
+            className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-4xl md:text-5xl font-bold tracking-wider mx-4"
             style={{
               background: 'linear-gradient(90deg, #F8F4F0, #C17817)',
               WebkitBackgroundClip: 'text',
@@ -318,11 +318,11 @@ export default function Home() {
 
         <FloatingShapes />
 
-        <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-32">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-16 py-24 sm:py-32">
           {/* Mountain mask sunrise reveal headline */}
           <div className="overflow-hidden">
             <motion.h1
-              className="font-[family-name:var(--font-satoshi)] text-cream text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] max-w-4xl"
+              className="font-[family-name:var(--font-satoshi)] text-cream text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold leading-[1.08] max-w-4xl"
               initial={{ clipPath: 'polygon(0% 100%, 20% 60%, 35% 80%, 50% 40%, 65% 70%, 80% 30%, 100% 100%)' }}
               animate={heroRevealed ? { clipPath: 'polygon(0% 0%, 20% 0%, 35% 0%, 50% 0%, 65% 0%, 80% 0%, 100% 0%, 100% 100%, 0% 100%)' } : {}}
               transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
@@ -383,7 +383,7 @@ export default function Home() {
 
       {/* ═══ SERVICES BENTO — Interactive 3D Grid ═══ */}
       <section className="bg-cream py-24 sm:py-32 cedar-texture relative">
-        <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
           <ScrollReveal>
             <p className="text-copper font-medium text-sm tracking-wider uppercase mb-3">What We Build</p>
             <h2 className="font-[family-name:var(--font-satoshi)] text-3xl sm:text-4xl md:text-5xl font-bold text-slate leading-tight">
@@ -424,7 +424,7 @@ export default function Home() {
       {/* ═══ STYLE MENU PREVIEW — Scroll Snap ═══ */}
       <section className="bg-slate grain py-24 sm:py-32 overflow-hidden relative">
         <AmbientOrbs />
-        <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
           <ScrollReveal>
             <p className="text-copper-light font-medium text-sm tracking-wider uppercase mb-3">Find Your Style</p>
             <h2 className="font-[family-name:var(--font-satoshi)] text-3xl sm:text-4xl md:text-5xl font-bold text-cream leading-tight max-w-2xl">
@@ -444,13 +444,14 @@ export default function Home() {
               onScroll={handleStyleScroll}
               onTouchStart={handleStyleScroll}
               className="flex gap-6 overflow-x-auto pb-6 -mx-6 px-6 snap-x snap-mandatory scrollbar-hide scroll-smooth"
+              style={{ WebkitOverflowScrolling: 'touch' }}
             >
               {styles.map((style, i) => (
                 <ScrollReveal key={style.name} delay={i * 0.08}>
                   <Link href="/styles" className="group">
                     <motion.div
                       whileHover={{ y: -6 }}
-                      className="snap-start shrink-0 w-[70vw] sm:w-80 glass-card-dark rounded-2xl p-6"
+                      className="snap-start shrink-0 w-[80vw] sm:w-80 glass-card-dark rounded-2xl p-5 sm:p-6"
                     >
                       <div className={`h-40 rounded-xl mb-5 bg-gradient-to-br ${style.gradient} flex items-center justify-center relative overflow-hidden`}>
                         <span className="font-[family-name:var(--font-satoshi)] text-4xl font-bold opacity-30" style={{ color: style.color }}>
@@ -496,8 +497,8 @@ export default function Home() {
             <rect width="200%" height="200%" fill="url(#topo-stats)" />
           </svg>
         </div>
-        <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
             {[
               { end: 17, suffix: '+', label: 'Pages on this site' },
               { end: 8, suffix: '', label: 'Design styles' },
@@ -526,7 +527,7 @@ export default function Home() {
       {/* ═══ FINAL CTA ═══ */}
       <section className="aurora-bg grain py-24 sm:py-32 relative">
         <AmbientOrbs />
-        <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 text-center">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-16 text-center">
           <ScrollReveal>
             <h2 className="font-[family-name:var(--font-satoshi)] text-3xl sm:text-4xl md:text-5xl font-bold text-cream leading-tight max-w-2xl mx-auto">
               Your competitors already have a website.<br />

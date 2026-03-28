@@ -213,11 +213,11 @@ export default function ContactPage() {
       {/* Header with parallax mountain */}
       <section className="aurora-bg grain pt-32 pb-20 relative overflow-hidden">
         <AmbientOrbs />
-        <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
           <Breadcrumb items={[{ label: 'Contact' }]} dark />
           <ScrollReveal>
             <p className="text-copper font-[family-name:var(--font-satoshi)] font-semibold text-sm tracking-[0.2em] uppercase mb-3">The Trailhead</p>
-            <h1 className="font-[family-name:var(--font-satoshi)] text-4xl sm:text-5xl md:text-6xl font-bold text-cream leading-tight max-w-3xl">
+            <h1 className="font-[family-name:var(--font-satoshi)] text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-cream leading-tight max-w-3xl">
               Come say hi.
             </h1>
             <p className="mt-6 text-dark-text-muted text-lg max-w-2xl leading-relaxed">
@@ -236,7 +236,7 @@ export default function ContactPage() {
 
       {/* Form + Info */}
       <section className="bg-cream py-20 sm:py-24 cedar-texture relative">
-        <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-16">
             {/* Form */}
             <div className="lg:col-span-3" ref={formRef}>
@@ -290,7 +290,7 @@ export default function ContactPage() {
                         disabled={status === 'sending'}
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
-                        className="w-full sm:w-auto bg-copper hover:bg-copper-light text-white font-medium px-8 py-4 rounded-lg transition-colors duration-200 disabled:opacity-60 disabled:cursor-not-allowed relative overflow-hidden"
+                        className="w-full sm:w-auto bg-copper hover:bg-copper-light text-white font-medium px-8 py-3.5 sm:py-4 rounded-lg transition-colors duration-200 disabled:opacity-60 disabled:cursor-not-allowed relative overflow-hidden"
                       >
                         {status === 'sending' ? 'Sending...' : 'Send Message'}
                       </motion.button>

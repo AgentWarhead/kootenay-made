@@ -108,7 +108,7 @@ function BackToSummit() {
   return (
     <button
       onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-      className="group flex items-center gap-2 text-dark-text-muted hover:text-copper transition-colors text-xs uppercase tracking-wider"
+      className="group flex items-center gap-2 text-dark-text-muted hover:text-copper transition-colors text-xs uppercase tracking-wider min-h-[44px] py-2"
       aria-label="Back to top"
     >
       <Mountain size={14} className="transition-transform duration-300 group-hover:-translate-y-1" />
@@ -144,7 +144,7 @@ export default function Footer() {
       <div className="ember ember-5" aria-hidden="true" />
       <div className="ember ember-6" aria-hidden="true" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-16">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-16 py-16">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {/* Brand column */}
           <div>
@@ -196,11 +196,11 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-4">
+        <div className="mt-12 pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-3 text-center sm:text-left">
           <p className="text-dark-text-muted text-xs">
             &copy; {new Date().getFullYear()} Kootenay Made Digital. All rights reserved.
           </p>
-          <p className="text-dark-text-muted/70 text-sm font-mono tracking-wide">
+          <p className="text-dark-text-muted/70 text-xs sm:text-sm font-mono tracking-wide">
             49.3&deg;N, 117.7&deg;W &mdash; Proudly built in the West Kootenays
           </p>
         </div>

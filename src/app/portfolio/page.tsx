@@ -87,7 +87,7 @@ function TrailWaypoint({ study, index, total }: { study: typeof caseStudies[0]; 
                   <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
                 </div>
 
-                <div className="p-6 sm:p-8">
+                <div className="p-4 sm:p-6 md:p-8">
                   <div className="flex items-center gap-2 mb-3">
                     <span className="text-xs font-medium px-2.5 py-1 rounded-full" style={{ background: `${study.styleColor}15`, color: study.styleColor }}>
                       {study.style}
@@ -165,13 +165,13 @@ function TrailPath({ count }: { count: number }) {
 export default function PortfolioPage() {
   return (
     <>
-      <section className="aurora-bg grain pt-32 pb-20 relative">
+      <section className="aurora-bg grain pt-32 pb-20 relative overflow-x-hidden">
         <AmbientOrbs />
-        <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
           <Breadcrumb items={[{ label: 'Portfolio' }]} />
           <ScrollReveal>
             <p className="text-copper font-[family-name:var(--font-satoshi)] font-semibold text-sm tracking-[0.2em] uppercase mb-3">The Trail</p>
-            <h1 className="font-[family-name:var(--font-satoshi)] text-4xl sm:text-5xl md:text-6xl font-bold text-cream leading-tight max-w-3xl">
+            <h1 className="font-[family-name:var(--font-satoshi)] text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-cream leading-tight max-w-3xl">
               Built for the Kootenays.
             </h1>
             <p className="mt-6 text-dark-text-muted text-lg max-w-2xl leading-relaxed">
@@ -184,12 +184,12 @@ export default function PortfolioPage() {
       <MountainDivider variant={1} fillColor="#F8F4F0" />
 
       {/* Trail layout with case studies */}
-      <section className="bg-cream py-20 sm:py-24 cedar-texture relative">
-        <div className="max-w-5xl mx-auto px-6 sm:px-10 lg:px-16 relative">
+      <section className="bg-cream py-20 sm:py-24 cedar-texture relative overflow-x-hidden">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-16 relative">
           {/* Trail path */}
           <TrailPath count={caseStudies.length} />
 
-          <div className="space-y-16 md:space-y-24 relative">
+          <div className="space-y-12 sm:space-y-16 md:space-y-24 relative">
             {caseStudies.map((study, i) => (
               <TrailWaypoint key={study.slug} study={study} index={i} total={caseStudies.length} />
             ))}
@@ -202,9 +202,9 @@ export default function PortfolioPage() {
       {/* CTA */}
       <section className="bg-slate grain py-20 relative">
         <AmbientOrbs />
-        <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 text-center">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-16 text-center">
           <ScrollReveal>
-            <h2 className="font-[family-name:var(--font-satoshi)] text-3xl sm:text-4xl font-bold text-cream mb-4">
+            <h2 className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl md:text-4xl font-bold text-cream mb-4">
               Ready to be our next success story?
             </h2>
             <p className="text-dark-text-muted text-lg mb-8 max-w-xl mx-auto">

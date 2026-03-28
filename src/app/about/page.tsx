@@ -102,7 +102,7 @@ function LogoReveal() {
       initial={{ clipPath: 'inset(0 100% 0 0)' }}
       animate={inView ? { clipPath: 'inset(0 0% 0 0)' } : {}}
       transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-      className="w-64 md:w-80 shrink-0"
+      className="w-48 sm:w-64 md:w-80 shrink-0"
     >
       <Image
         src="/brand/kmd-stacked-nobg.png"
@@ -167,7 +167,7 @@ export default function AboutPage() {
         </div>
 
         <AmbientOrbs />
-        <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
           <Breadcrumb items={[{ label: 'About' }]} dark />
           <ScrollReveal>
             <p className="text-copper font-[family-name:var(--font-satoshi)] font-semibold text-sm tracking-[0.2em] uppercase mb-3">The Basecamp</p>
@@ -182,11 +182,11 @@ export default function AboutPage() {
       <MountainDivider variant={1} fillColor="#F8F4F0" />
 
       {/* Story — alternating slide-in */}
-      <section className="bg-cream py-20 sm:py-24 cedar-texture relative">
-        <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
+      <section className="bg-cream py-20 sm:py-24 cedar-texture relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
           <div className="max-w-3xl">
             <ScrollReveal>
-              <h2 className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl font-bold text-slate mb-8">
+              <h2 className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl md:text-4xl font-bold text-slate mb-8">
                 The short version
               </h2>
             </ScrollReveal>
@@ -219,9 +219,9 @@ export default function AboutPage() {
 
       {/* Values with greyscale → copper fill */}
       <section className="bg-white py-20 sm:py-24 relative">
-        <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
           <ScrollReveal>
-            <h2 className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl font-bold text-slate mb-12">
+            <h2 className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl md:text-4xl font-bold text-slate mb-12">
               What we believe
             </h2>
           </ScrollReveal>
@@ -247,11 +247,11 @@ export default function AboutPage() {
       {/* Why Kootenay Made — with logo reveal */}
       <section className="bg-slate grain py-20 sm:py-24 relative">
         <AmbientOrbs />
-        <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
           <div className="flex flex-col md:flex-row gap-12 md:gap-16 items-start">
             <div className="max-w-xl flex-1">
               <ScrollReveal>
-                <h2 className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl font-bold text-cream mb-6">
+                <h2 className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl md:text-4xl font-bold text-cream mb-6">
                   Why &quot;Kootenay Made&quot;?
                 </h2>
                 <p className="text-dark-text-muted text-lg leading-relaxed mb-6">
@@ -271,9 +271,9 @@ export default function AboutPage() {
 
       {/* CTA */}
       <section className="bg-cream py-20 sm:py-24 cedar-texture relative">
-        <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 text-center">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-16 text-center">
           <ScrollReveal>
-            <h2 className="font-[family-name:var(--font-satoshi)] text-3xl sm:text-4xl font-bold text-slate">
+            <h2 className="font-[family-name:var(--font-satoshi)] text-3xl sm:text-4xl md:text-5xl font-bold text-slate">
               Let&apos;s talk about your business.
             </h2>
             <p className="mt-4 text-text-secondary text-lg max-w-xl mx-auto">

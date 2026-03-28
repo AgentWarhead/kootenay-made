@@ -233,7 +233,7 @@ function StyleMockup({ style, index }: { style: typeof styles[0]; index: number 
           </span>
         </div>
         {/* Mock Cards */}
-        <div className="px-6 sm:px-10 pb-8 grid grid-cols-3 gap-3">
+        <div className="px-6 sm:px-10 pb-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {style.mockup.cards.map((card) => (
             <div
               key={card}
@@ -261,7 +261,7 @@ export default function StylesPage() {
       {/* Hero */}
       <section className="aurora-bg grain py-20 sm:py-28 relative">
         <AmbientOrbs />
-        <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 text-center">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-16 text-center">
           <Breadcrumb items={[{ label: 'Styles' }]} dark />
           <ScrollReveal>
             <p className="text-copper font-[family-name:var(--font-satoshi)] font-semibold text-sm tracking-[0.2em] uppercase mb-3">The Gallery</p>
@@ -269,10 +269,10 @@ export default function StylesPage() {
               <Palette size={16} />
               Style Menu
             </div>
-            <h1 className="font-[family-name:var(--font-satoshi)] text-4xl sm:text-5xl lg:text-6xl font-bold text-cream leading-tight mb-4">
+            <h1 className="font-[family-name:var(--font-satoshi)] text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-cream leading-tight mb-4">
               Choose Your Style
             </h1>
-            <p className="text-dark-text-muted text-lg sm:text-xl max-w-2xl mx-auto">
+            <p className="text-dark-text-muted text-base sm:text-lg md:text-xl max-w-2xl mx-auto">
               Browse real design aesthetics — not vague promises. Pick the one that feels like your business, and we&apos;ll bring it to life.
             </p>
           </ScrollReveal>
@@ -280,9 +280,9 @@ export default function StylesPage() {
       </section>
 
       {/* Filter Pills with sliding indicator */}
-      <section className="bg-slate/95 backdrop-blur-xl sticky top-20 z-30 border-b border-white/10">
-        <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-4">
-          <div className="flex gap-2 overflow-x-auto scrollbar-hide relative">
+      <section className="bg-slate/95 backdrop-blur-xl sticky top-16 sm:top-20 z-30 border-b border-white/10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-16 py-4">
+          <div className="flex gap-2 overflow-x-auto scrollbar-hide relative" style={{ WebkitOverflowScrolling: 'touch' }}>
             {filters.map((f) => (
               <button
                 key={f}
@@ -317,7 +317,7 @@ export default function StylesPage() {
                 key={style.id}
                 className={`${isDark ? 'bg-slate grain' : 'bg-cream'} py-16 sm:py-24`}
               >
-                <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
+                <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
                   <ScrollReveal>
                     <div className={`grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center ${i % 2 === 1 ? 'lg:grid-flow-dense' : ''}`}>
                       {/* Mockup with parallax */}
@@ -333,13 +333,13 @@ export default function StylesPage() {
                           Style {String(i + 1).padStart(2, '0')}
                         </span>
                         <h2
-                          className={`font-[family-name:var(--font-satoshi)] text-3xl sm:text-4xl font-bold mt-2 mb-4 ${
+                          className={`font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl md:text-4xl font-bold mt-2 mb-4 ${
                             isDark ? 'text-cream' : 'text-slate'
                           }`}
                         >
                           {style.name}
                         </h2>
-                        <p className={`text-lg leading-relaxed mb-6 ${isDark ? 'text-dark-text-muted' : 'text-text-secondary'}`}>
+                        <p className={`text-base sm:text-lg leading-relaxed mb-6 ${isDark ? 'text-dark-text-muted' : 'text-text-secondary'}`}>
                           {style.description}
                         </p>
 
@@ -425,12 +425,12 @@ export default function StylesPage() {
       {/* Bottom CTA */}
       <section className="bg-slate grain py-20 relative">
         <AmbientOrbs />
-        <div className="relative z-10 max-w-3xl mx-auto px-6 sm:px-10 lg:px-16 text-center">
+        <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-16 text-center">
           <ScrollReveal>
-            <h2 className="font-[family-name:var(--font-satoshi)] text-3xl sm:text-4xl font-bold text-cream mb-4">
+            <h2 className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl md:text-4xl font-bold text-cream mb-4">
               Don&apos;t see your vibe?
             </h2>
-            <p className="text-dark-text-muted text-lg mb-8">
+            <p className="text-dark-text-muted text-base sm:text-lg mb-8">
               Every style is a starting point, not a cage. We&apos;ll customize any aesthetic to match your business perfectly.
             </p>
             <Link

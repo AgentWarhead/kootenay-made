@@ -69,9 +69,9 @@ function PinnedCard({ card, index, total }: { card: typeof serviceCards[0]; inde
     <motion.div
       ref={ref}
       style={{ y, scale, x, rotate, zIndex: index }}
-      className="sticky top-32"
+      className="sticky top-20 sm:top-24 lg:top-32"
     >
-      <div className={`rounded-2xl p-8 sm:p-10 border ${card.highlight ? 'border-copper/40 shadow-lg' : 'border-cream-border'} ${tierColors[card.tier]} mb-6 relative overflow-hidden`}>
+      <div className={`rounded-2xl p-5 sm:p-8 lg:p-10 border ${card.highlight ? 'border-copper/40 shadow-lg' : 'border-cream-border'} ${tierColors[card.tier]} mb-6 relative overflow-hidden`}>
         {/* Animated copper border for highlighted cards */}
         {card.highlight && (
           <div className="absolute inset-0 rounded-2xl animated-gradient-border opacity-20 pointer-events-none" style={{ margin: '-1px' }} />
@@ -169,12 +169,12 @@ function RetainerSection() {
   return (
     <div>
       {/* Toggle pills */}
-      <div className="flex justify-center gap-2 mb-10">
+      <div className="flex justify-center gap-2 mb-10 overflow-x-auto scrollbar-hide">
         {retainers.map((r, i) => (
           <button
             key={r.name}
             onClick={() => setActiveTier(i)}
-            className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
+            className={`px-4 sm:px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 whitespace-nowrap min-h-[44px] ${
               activeTier === i
                 ? 'bg-copper text-white shadow-lg shadow-copper/20'
                 : 'bg-white/10 text-dark-text-muted hover:bg-white/15'
@@ -199,11 +199,11 @@ function RetainerSection() {
             }}
             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className={`glass-card-dark rounded-2xl p-10 ${r.highlight ? 'ring-1 ring-copper/30' : ''}`}>
+            <div className={`glass-card-dark rounded-2xl p-6 sm:p-10 ${r.highlight ? 'ring-1 ring-copper/30' : ''}`}>
               {r.highlight && <span className="text-xs text-copper font-semibold uppercase tracking-wider">Recommended</span>}
               <h3 className="font-[family-name:var(--font-satoshi)] text-2xl font-bold text-cream mt-2">{r.name}</h3>
               <div className="mt-3 mb-6">
-                <span className="font-[family-name:var(--font-satoshi)] text-5xl font-bold text-copper">{r.price}</span>
+                <span className="font-[family-name:var(--font-satoshi)] text-4xl sm:text-5xl font-bold text-copper">{r.price}</span>
                 <span className="text-dark-text-muted text-sm">/month</span>
               </div>
               <p className="text-dark-text-muted text-base mb-8">{r.desc}</p>
@@ -271,7 +271,7 @@ export default function ServicesPage() {
     <>
       <section className="aurora-bg grain pt-32 pb-20 relative">
         <AmbientOrbs />
-        <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
           <Breadcrumb items={[{ label: 'Services' }]} dark />
           <ScrollReveal>
             <p className="text-copper font-[family-name:var(--font-satoshi)] font-semibold text-sm tracking-[0.2em] uppercase mb-3">The Workshop</p>
@@ -289,7 +289,7 @@ export default function ServicesPage() {
 
       {/* Pinned card stack */}
       <section className="bg-cream py-20 sm:py-24 cedar-texture relative">
-        <div className="max-w-3xl mx-auto px-6 sm:px-10 lg:px-16">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-16">
           <ScrollReveal>
             <p className="text-copper font-medium text-sm tracking-wider uppercase mb-2">Our Services</p>
             <h2 className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl font-bold text-slate mb-12">From quick wins to full builds.</h2>
@@ -312,7 +312,7 @@ export default function ServicesPage() {
       {/* Retainers */}
       <section className="bg-slate grain py-20 sm:py-24 relative">
         <AmbientOrbs />
-        <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
           <ScrollReveal>
             <p className="text-copper-light font-medium text-sm tracking-wider uppercase mb-2">Monthly Retainers</p>
             <h2 className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl font-bold text-cream mb-2">
@@ -330,7 +330,7 @@ export default function ServicesPage() {
 
       {/* CTA */}
       <section className="bg-cream py-20 sm:py-24 cedar-texture relative">
-        <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 text-center">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-16 text-center">
           <ScrollReveal>
             <h2 className="font-[family-name:var(--font-satoshi)] text-3xl sm:text-4xl font-bold text-slate">
               Not sure what you need?

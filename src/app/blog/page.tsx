@@ -63,7 +63,7 @@ function FeaturedPost({ post }: { post: typeof posts[0] }) {
             </motion.div>
 
             {/* Content */}
-            <div className="p-8 lg:p-12 flex flex-col justify-center">
+            <div className="p-5 sm:p-8 lg:p-12 flex flex-col justify-center">
               <div className="flex items-center gap-2 mb-4">
                 <span
                   className="inline-flex items-center gap-1 text-copper text-xs font-bold px-3 py-1.5 rounded-md bg-copper/10"
@@ -128,7 +128,7 @@ function BlogCard({ post, index }: { post: typeof posts[0]; index: number }) {
             className="object-cover group-hover:scale-105 transition-transform duration-700"
           />
         </motion.div>
-        <div className="p-6 flex flex-col flex-1">
+        <div className="p-4 sm:p-6 flex flex-col flex-1">
           <div className="flex items-center gap-2 mb-3">
             {/* Paper label tag */}
             <span
@@ -179,11 +179,11 @@ export default function BlogPage() {
           </svg>
         </div>
 
-        <div className="relative z-10 max-w-4xl mx-auto px-6 sm:px-10 lg:px-16 text-center">
+        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-16 text-center">
           <Breadcrumb items={[{ label: 'Blog' }]} dark />
           <ScrollReveal>
             <p className="text-copper font-[family-name:var(--font-satoshi)] font-semibold text-sm tracking-[0.2em] uppercase mb-3">From the Workshop</p>
-            <h1 className="font-[family-name:var(--font-satoshi)] text-4xl sm:text-5xl font-bold text-cream mb-4">
+            <h1 className="font-[family-name:var(--font-satoshi)] text-3xl sm:text-4xl md:text-5xl font-bold text-cream mb-4">
               Workshop Notes
             </h1>
             <p className="text-dark-text-muted text-lg max-w-xl mx-auto">
@@ -196,7 +196,7 @@ export default function BlogPage() {
       <MountainDivider variant={1} fillColor="#F8F4F0" />
 
       <section className="bg-cream py-16 sm:py-20 cedar-texture relative">
-        <div className="relative z-10 max-w-5xl mx-auto px-6 sm:px-10 lg:px-16">
+        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-16">
           {/* Featured post — full width */}
           <FeaturedPost post={featuredPost} />
 
@@ -215,7 +215,7 @@ export default function BlogPage() {
 
       <section className="bg-slate grain py-16 relative">
         <AmbientOrbs />
-        <div className="relative z-10 max-w-3xl mx-auto px-6 sm:px-10 lg:px-16 text-center">
+        <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-16 text-center">
           <h2 className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl font-bold text-cream mb-4">
             Want to know where your website stands?
           </h2>
