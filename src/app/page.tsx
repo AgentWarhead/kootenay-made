@@ -501,9 +501,9 @@ export default function Home() {
       <section className="bg-cream py-24 sm:py-32 relative overflow-hidden">
         <div className="max-w-4xl mx-auto px-6 sm:px-10 lg:px-16 text-center">
           <ScrollReveal>
-            <p className="text-copper font-medium text-sm tracking-wider uppercase mb-3">Been There?</p>
+            <p className="text-copper font-medium text-sm tracking-wider uppercase mb-3">Around the Fire</p>
             <h2 className="font-[family-name:var(--font-satoshi)] text-3xl sm:text-4xl font-bold text-slate mb-16">
-              Sound Familiar?
+              Campfire Stories
             </h2>
           </ScrollReveal>
 
