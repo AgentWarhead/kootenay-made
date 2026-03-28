@@ -160,7 +160,7 @@ export default function AboutPage() {
             <ScrollReveal delay={0.2}>
               <div className="w-48 md:w-64 shrink-0">
                 <Image
-                  src="/brand/kmd-stacked-white.png"
+                  src="/brand/kmd-stacked-nobg.png"
                   alt="Kootenay Made Digital"
                   width={256}
                   height={256}
