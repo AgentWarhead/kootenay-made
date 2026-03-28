@@ -156,8 +156,8 @@ body {
 }
 
 @keyframes orb-pulse {
-  0%, 100% { transform: scale(1); opacity: 0.08; }
-  50% { transform: scale(1.15); opacity: 0.12; }
+  0%, 100% { transform: scale(1); opacity: 0.12; }
+  50% { transform: scale(1.15); opacity: 0.2; }
 }
 
 .animate-orb-drift-1 { animation: orb-drift-1 20s ease-in-out infinite; }
@@ -194,56 +194,56 @@ body {
   z-index: 0;
   background: transparent;
   box-shadow:
-    120px 30px 0 0.5px rgba(255,255,255,0.5),
-    250px 80px 0 0.5px rgba(255,255,255,0.3),
-    380px 45px 0 1px rgba(255,255,255,0.6),
-    520px 120px 0 0.5px rgba(255,255,255,0.4),
-    650px 25px 0 0.5px rgba(255,255,255,0.35),
-    780px 95px 0 1px rgba(255,255,255,0.5),
-    910px 60px 0 0.5px rgba(255,255,255,0.3),
-    1040px 110px 0 0.5px rgba(255,255,255,0.45),
-    1170px 40px 0 1px rgba(255,255,255,0.55),
-    1300px 85px 0 0.5px rgba(255,255,255,0.3),
-    80px 160px 0 0.5px rgba(255,255,255,0.4),
-    200px 200px 0 1px rgba(255,255,255,0.5),
-    340px 175px 0 0.5px rgba(255,255,255,0.35),
-    480px 220px 0 0.5px rgba(255,255,255,0.45),
-    600px 190px 0 1px rgba(255,255,255,0.6),
-    740px 240px 0 0.5px rgba(255,255,255,0.3),
-    860px 170px 0 0.5px rgba(255,255,255,0.5),
-    1000px 210px 0 1px rgba(255,255,255,0.4),
-    1120px 180px 0 0.5px rgba(255,255,255,0.55),
-    1260px 230px 0 0.5px rgba(255,255,255,0.35),
-    150px 280px 0 1px rgba(255,255,255,0.4),
-    300px 310px 0 0.5px rgba(255,255,255,0.5),
-    450px 290px 0 0.5px rgba(255,255,255,0.3),
-    580px 330px 0 1px rgba(255,255,255,0.45),
-    720px 300px 0 0.5px rgba(255,255,255,0.55),
-    870px 340px 0 0.5px rgba(255,255,255,0.35),
-    1020px 280px 0 1px rgba(255,255,255,0.5),
-    1150px 320px 0 0.5px rgba(255,255,255,0.4),
-    1280px 290px 0 0.5px rgba(255,255,255,0.6),
-    1400px 310px 0 0.5px rgba(255,255,255,0.3),
-    50px 380px 0 0.5px rgba(255,255,255,0.45),
-    190px 360px 0 1px rgba(255,255,255,0.5),
-    330px 400px 0 0.5px rgba(255,255,255,0.35),
-    470px 370px 0 0.5px rgba(255,255,255,0.4),
-    620px 410px 0 1px rgba(255,255,255,0.55),
-    760px 385px 0 0.5px rgba(255,255,255,0.3),
-    900px 420px 0 0.5px rgba(255,255,255,0.5),
-    1050px 375px 0 1px rgba(255,255,255,0.4),
-    1200px 405px 0 0.5px rgba(255,255,255,0.6),
-    1350px 390px 0 0.5px rgba(255,255,255,0.35),
-    100px 450px 0 1px rgba(255,255,255,0.4),
-    260px 470px 0 0.5px rgba(255,255,255,0.5),
-    400px 440px 0 0.5px rgba(255,255,255,0.3),
-    550px 480px 0 1px rgba(255,255,255,0.55),
-    690px 455px 0 0.5px rgba(255,255,255,0.4),
-    830px 490px 0 0.5px rgba(255,255,255,0.35),
-    970px 460px 0 1px rgba(255,255,255,0.5),
-    1110px 485px 0 0.5px rgba(255,255,255,0.45),
-    1250px 450px 0 0.5px rgba(255,255,255,0.6),
-    1380px 475px 0 0.5px rgba(255,255,255,0.3);
+    120px 30px 0 0.5px rgba(255,255,255,0.7),
+    250px 80px 0 0.5px rgba(255,255,255,0.5),
+    380px 45px 0 1px rgba(255,255,255,0.8),
+    520px 120px 0 0.5px rgba(255,255,255,0.6),
+    650px 25px 0 0.5px rgba(255,255,255,0.55),
+    780px 95px 0 1px rgba(255,255,255,0.7),
+    910px 60px 0 0.5px rgba(255,255,255,0.5),
+    1040px 110px 0 0.5px rgba(255,255,255,0.65),
+    1170px 40px 0 1px rgba(255,255,255,0.75),
+    1300px 85px 0 0.5px rgba(255,255,255,0.5),
+    80px 160px 0 0.5px rgba(255,255,255,0.6),
+    200px 200px 0 1px rgba(255,255,255,0.7),
+    340px 175px 0 0.5px rgba(255,255,255,0.55),
+    480px 220px 0 0.5px rgba(255,255,255,0.65),
+    600px 190px 0 1px rgba(255,255,255,0.8),
+    740px 240px 0 0.5px rgba(255,255,255,0.5),
+    860px 170px 0 0.5px rgba(255,255,255,0.7),
+    1000px 210px 0 1px rgba(255,255,255,0.6),
+    1120px 180px 0 0.5px rgba(255,255,255,0.75),
+    1260px 230px 0 0.5px rgba(255,255,255,0.55),
+    150px 280px 0 1px rgba(255,255,255,0.6),
+    300px 310px 0 0.5px rgba(255,255,255,0.7),
+    450px 290px 0 0.5px rgba(255,255,255,0.5),
+    580px 330px 0 1px rgba(255,255,255,0.65),
+    720px 300px 0 0.5px rgba(255,255,255,0.75),
+    870px 340px 0 0.5px rgba(255,255,255,0.55),
+    1020px 280px 0 1px rgba(255,255,255,0.7),
+    1150px 320px 0 0.5px rgba(255,255,255,0.6),
+    1280px 290px 0 0.5px rgba(255,255,255,0.8),
+    1400px 310px 0 0.5px rgba(255,255,255,0.5),
+    50px 380px 0 0.5px rgba(255,255,255,0.65),
+    190px 360px 0 1px rgba(255,255,255,0.7),
+    330px 400px 0 0.5px rgba(255,255,255,0.55),
+    470px 370px 0 0.5px rgba(255,255,255,0.6),
+    620px 410px 0 1px rgba(255,255,255,0.75),
+    760px 385px 0 0.5px rgba(255,255,255,0.5),
+    900px 420px 0 0.5px rgba(255,255,255,0.7),
+    1050px 375px 0 1px rgba(255,255,255,0.6),
+    1200px 405px 0 0.5px rgba(255,255,255,0.8),
+    1350px 390px 0 0.5px rgba(255,255,255,0.55),
+    100px 450px 0 1px rgba(255,255,255,0.6),
+    260px 470px 0 0.5px rgba(255,255,255,0.7),
+    400px 440px 0 0.5px rgba(255,255,255,0.5),
+    550px 480px 0 1px rgba(255,255,255,0.75),
+    690px 455px 0 0.5px rgba(255,255,255,0.6),
+    830px 490px 0 0.5px rgba(255,255,255,0.55),
+    970px 460px 0 1px rgba(255,255,255,0.7),
+    1110px 485px 0 0.5px rgba(255,255,255,0.65),
+    1250px 450px 0 0.5px rgba(255,255,255,0.8),
+    1380px 475px 0 0.5px rgba(255,255,255,0.5);
 }
 
 /* Twinkling stars */
@@ -253,17 +253,17 @@ body {
   pointer-events: none;
   z-index: 0;
   box-shadow:
-    200px 80px 0 1px rgba(255,255,255,0.6),
-    600px 190px 0 1px rgba(255,255,255,0.5),
-    1000px 210px 0 1px rgba(255,255,255,0.55),
-    380px 400px 0 1px rgba(255,255,255,0.5),
-    1170px 40px 0 1px rgba(255,255,255,0.6);
+    200px 80px 0 1px rgba(255,255,255,0.8),
+    600px 190px 0 1px rgba(255,255,255,0.7),
+    1000px 210px 0 1px rgba(255,255,255,0.75),
+    380px 400px 0 1px rgba(255,255,255,0.7),
+    1170px 40px 0 1px rgba(255,255,255,0.8);
   animation: twinkle 4s ease-in-out infinite;
 }
 
 @keyframes twinkle {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 0.8; }
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
 }
 
 /* Cedar wood texture for light sections */
@@ -277,7 +277,7 @@ body {
   inset: 0;
   pointer-events: none;
   z-index: 0;
-  opacity: 0.025;
+  opacity: 0.04;
   background:
     repeating-linear-gradient(
       90deg,
@@ -299,20 +299,41 @@ body {
     );
 }
 
+/* Logo glow wrapper for dark backgrounds */
+.logo-glow {
+  position: relative;
+  display: inline-block;
+}
+
+.logo-glow::before {
+  content: '';
+  position: absolute;
+  inset: -20px;
+  background: radial-gradient(ellipse, rgba(193, 120, 23, 0.25) 0%, transparent 70%);
+  border-radius: 50%;
+  z-index: 0;
+  filter: blur(15px);
+}
+
+.logo-glow > * {
+  position: relative;
+  z-index: 1;
+}
+
 /* Glassmorphism cards */
 .glass-card-dark {
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.36);
   transition: all 0.3s ease;
 }
 
 .glass-card-dark:hover {
   transform: scale(1.02) translateY(-6px);
-  border-color: rgba(193, 120, 23, 0.3);
-  box-shadow: 0 12px 40px 0 rgba(193, 120, 23, 0.15);
+  border-color: rgba(193, 120, 23, 0.4);
+  box-shadow: 0 12px 40px 0 rgba(193, 120, 23, 0.15), 0 0 20px rgba(193, 120, 23, 0.1);
 }
 
 .glass-card-light {

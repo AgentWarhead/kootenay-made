@@ -159,13 +159,15 @@ export default function AboutPage() {
             </div>
             <ScrollReveal delay={0.2}>
               <div className="w-48 md:w-64 shrink-0">
-                <Image
-                  src="/brand/kmd-stacked-nobg.png"
-                  alt="Kootenay Made Digital"
-                  width={256}
-                  height={256}
-                  className="w-full h-auto opacity-90 drop-shadow-[0_0_25px_rgba(193,120,23,0.3)] drop-shadow-[0_0_50px_rgba(193,120,23,0.15)] brightness-110"
-                />
+                <div className="logo-glow">
+                  <Image
+                    src="/brand/kmd-stacked-nobg.png"
+                    alt="Kootenay Made Digital"
+                    width={256}
+                    height={256}
+                    className="w-full h-auto brightness-[1.3]"
+                  />
+                </div>
               </div>
             </ScrollReveal>
           </div>

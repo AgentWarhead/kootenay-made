@@ -10,13 +10,15 @@ export default function Footer() {
       <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-16">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           <div>
-            <Image
-              src="/brand/kmd-stacked-nobg.png"
-              alt="Kootenay Made Digital"
-              width={160}
-              height={80}
-              className="h-16 w-auto mb-4 drop-shadow-[0_0_20px_rgba(193,120,23,0.3)] drop-shadow-[0_0_40px_rgba(193,120,23,0.15)] brightness-125"
-            />
+            <div className="logo-glow">
+              <Image
+                src="/brand/kmd-stacked-nobg.png"
+                alt="Kootenay Made Digital"
+                width={160}
+                height={80}
+                className="h-16 w-auto mb-4 brightness-[1.3]"
+              />
+            </div>
             <p className="text-dark-text-muted text-sm leading-relaxed max-w-xs">
               Locally crafted digital. Modern websites, brands, and marketing for West Kootenay businesses.
             </p>
