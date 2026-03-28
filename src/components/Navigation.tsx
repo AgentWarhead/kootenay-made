@@ -122,17 +122,17 @@ export default function Navigation() {
             </Link>
 
             {/* Desktop nav — bold uppercase with pine separators */}
-            <div className="hidden xl:flex items-center gap-0">
+            <div className="hidden lg:flex items-center gap-4 xl:gap-0">
               {links.map((link, i) => (
                 <Fragment key={link.href}>
                   {i > 0 && (
-                    <div className="mx-2">
+                    <div className="mx-1 xl:mx-2 hidden xl:block">
                       <PineSeparator />
                     </div>
                   )}
                   <Link
                     href={link.href}
-                    className={`relative font-[family-name:var(--font-satoshi)] text-[13px] font-semibold uppercase tracking-[0.15em] transition-colors duration-300 py-1 group ${
+                    className={`relative font-[family-name:var(--font-satoshi)] text-[11px] xl:text-[13px] font-semibold uppercase tracking-[0.1em] xl:tracking-[0.15em] transition-colors duration-300 py-1 group ${
                       isActive(link.href) ? 'text-copper' : 'text-cream/70 hover:text-cream'
                     }`}
                     onMouseEnter={(e) => { e.currentTarget.style.textShadow = '0 0 10px rgba(193,120,23,0.4)'; }}
@@ -152,7 +152,7 @@ export default function Navigation() {
               <div className="ml-6">
                 <Link
                   href="/contact"
-                  className="inline-flex items-center gap-2 bg-copper hover:bg-copper-light text-white text-[13px] font-semibold uppercase tracking-[0.1em] px-6 py-2.5 rounded-lg border border-copper/30 transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] pulse-glow group"
+                  className="inline-flex items-center gap-2 bg-copper hover:bg-copper-light text-white text-[11px] xl:text-[13px] font-semibold uppercase tracking-[0.1em] px-4 xl:px-6 py-2 xl:py-2.5 rounded-lg border border-copper/30 transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] pulse-glow group"
                 >
                   Get Started
                   <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-0.5" />
@@ -163,7 +163,7 @@ export default function Navigation() {
             {/* Mobile toggle */}
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="xl:hidden relative z-10 p-3 transition-colors text-cream"
+              className="lg:hidden relative z-10 p-3 transition-colors text-cream"
               aria-label="Toggle menu"
             >
               {mobileOpen ? <X size={24} /> : <Menu size={24} />}
