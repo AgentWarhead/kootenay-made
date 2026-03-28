@@ -1,6 +1,11 @@
 import type { Metadata } from 'next';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
+import SmoothScroll from '@/components/SmoothScroll';
+import CustomCursor from '@/components/CustomCursor';
+import ScrollProgress from '@/components/ScrollProgress';
+import PageTransition from '@/components/PageTransition';
+import ScrollToTop from '@/components/ScrollToTop';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -18,13 +23,13 @@ export const metadata: Metadata = {
     siteName: 'Kootenay Made Digital',
     locale: 'en_CA',
     type: 'website',
-    images: [{ url: '/og-image.svg', width: 1200, height: 630, alt: 'Kootenay Made Digital' }],
+    images: [{ url: '/images/og/default.png', width: 1200, height: 630, alt: 'Kootenay Made Digital' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Kootenay Made Digital — Locally Crafted Digital',
     description: 'Modern websites, brands, and marketing for West Kootenay businesses.',
-    images: ['/og-image.svg'],
+    images: ['/images/og/default.png'],
   },
   icons: {
     icon: '/favicon.svg',
@@ -45,11 +50,24 @@ export default function RootLayout({
         <link rel="preload" href="/fonts/general-sans/GeneralSans-Variable.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
       </head>
       <body className="min-h-full flex flex-col font-[family-name:var(--font-general)]">
-        <Navigation />
-        <main id="main-content" className="flex-1">
-          {children}
-        </main>
-        <Footer />
+        <SmoothScroll>
+          <CustomCursor />
+          <ScrollProgress />
+          <Navigation />
+          <main id="main-content" className="flex-1">
+            <PageTransition>
+              {children}
+            </PageTransition>
+          </main>
+          <Footer />
+          <ScrollToTop />
+        </SmoothScroll>
+        {/* Easter egg console message */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `console.log("%cBuilt with ❤️ in Castlegar, BC.%c\\nkootenaymade.ca", "color: #C17817; font-size: 14px; font-weight: bold;", "color: #9A9DA3; font-size: 12px;");`,
+          }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

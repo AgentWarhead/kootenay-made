@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 
@@ -26,11 +27,7 @@ export default function Navigation() {
   }, []);
 
   useEffect(() => {
-    if (mobileOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
+    document.body.style.overflow = mobileOpen ? 'hidden' : '';
   }, [mobileOpen]);
 
   return (
@@ -39,21 +36,23 @@ export default function Navigation() {
         Skip to content
       </a>
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
-            ? 'bg-cream/95 backdrop-blur-md shadow-sm'
+            ? 'bg-cream/80 backdrop-blur-xl shadow-sm border-b border-cream-border/50'
             : 'bg-transparent'
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
           <div className="flex items-center justify-between h-20">
-            <Link href="/" className="relative z-10">
-              <span className={`font-[family-name:var(--font-satoshi)] text-xl font-bold tracking-tight transition-colors duration-300 ${scrolled ? 'text-slate' : 'text-cream'}`}>
-                KOOTENAY MADE
-              </span>
-              <span className={`font-[family-name:var(--font-satoshi)] text-xl font-light tracking-tight transition-colors duration-300 ml-1 ${scrolled ? 'text-copper' : 'text-copper-light'}`}>
-                DIGITAL
-              </span>
+            <Link href="/" className="relative z-10 flex items-center">
+              <Image
+                src="/brand/kmd-horizontal-nobg.png"
+                alt="Kootenay Made Digital"
+                width={200}
+                height={40}
+                className={`h-8 w-auto transition-all duration-300 ${scrolled ? 'brightness-0' : 'brightness-0 invert'}`}
+                priority
+              />
             </Link>
 
             {/* Desktop */}
@@ -81,7 +80,7 @@ export default function Navigation() {
             {/* Mobile toggle */}
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className={`md:hidden relative z-10 p-2 transition-colors ${scrolled || mobileOpen ? 'text-slate' : 'text-cream'}`}
+              className={`md:hidden relative z-10 p-2 transition-colors ${mobileOpen ? 'text-cream' : scrolled ? 'text-slate' : 'text-cream'}`}
               aria-label="Toggle menu"
             >
               {mobileOpen ? <X size={24} /> : <Menu size={24} />}
@@ -90,37 +89,48 @@ export default function Navigation() {
         </div>
       </nav>
 
-      {/* Mobile overlay */}
+      {/* Mobile overlay — full-screen dark with staggered reveals */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 bg-cream flex flex-col items-center justify-center gap-8"
+            transition={{ duration: 0.4 }}
+            className="fixed inset-0 z-40 bg-slate flex flex-col items-center justify-center gap-6 overflow-hidden"
           >
+            {/* Mountain silhouette background */}
+            <div className="absolute bottom-0 left-0 right-0 opacity-5">
+              <svg viewBox="0 0 1200 300" className="w-full" fill="#C17817">
+                <path d="M0,300 L200,100 L350,180 L500,50 L650,160 L800,80 L950,200 L1100,60 L1200,150 L1200,300 Z" />
+              </svg>
+            </div>
+
             {links.map((link, i) => (
               <motion.div
                 key={link.href}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1 }}
+                transition={{ delay: 0.1 + i * 0.08, duration: 0.4, ease: 'easeOut' }}
               >
                 <Link
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
-                  className="font-[family-name:var(--font-satoshi)] text-3xl font-bold text-slate hover:text-copper transition-colors"
+                  className="font-[family-name:var(--font-satoshi)] text-3xl font-bold text-cream hover:text-copper transition-colors"
                 >
                   {link.label}
                 </Link>
               </motion.div>
             ))}
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.7, duration: 0.4 }}
+            >
               <Link
                 href="/contact"
                 onClick={() => setMobileOpen(false)}
-                className="bg-copper text-white text-lg font-medium px-8 py-3 rounded-lg"
+                className="mt-4 bg-copper text-white text-lg font-medium px-8 py-3 rounded-lg"
               >
                 Get Started
               </Link>
