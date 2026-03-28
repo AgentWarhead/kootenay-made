@@ -173,22 +173,21 @@ export default function Navigation() {
 
         {/* Scroll progress — bear paw trail */}
         {scrollProgress > 0.005 && (
-          <div className="absolute bottom-0 left-0 right-0 h-[6px] overflow-hidden">
+          <div className="absolute -bottom-[14px] left-0 right-0 h-[14px] overflow-hidden pointer-events-none">
             <div
               className="h-full flex items-center"
-              style={{ width: `${scrollProgress * 100}%`, transition: 'width 50ms linear' }}
+              style={{ width: `${scrollProgress * 100}%`, transition: 'width 60ms linear' }}
             >
-              {/* Repeating paw print pattern */}
               <svg className="w-full h-full" preserveAspectRatio="none">
                 <defs>
-                  <pattern id="pawprint" x="0" y="0" width="24" height="6" patternUnits="userSpaceOnUse">
+                  <pattern id="pawprint" x="0" y="0" width="36" height="14" patternUnits="userSpaceOnUse">
                     {/* Main pad */}
-                    <ellipse cx="8" cy="4" rx="2.5" ry="2" fill="#C17817" opacity="0.7" />
+                    <ellipse cx="14" cy="9.5" rx="5" ry="3.5" fill="#C17817" opacity="0.55" />
                     {/* Toe beans */}
-                    <circle cx="4.5" cy="1.5" r="1" fill="#C17817" opacity="0.6" />
-                    <circle cx="7" cy="0.8" r="0.9" fill="#C17817" opacity="0.6" />
-                    <circle cx="9.5" cy="0.8" r="0.9" fill="#C17817" opacity="0.6" />
-                    <circle cx="11.5" cy="1.5" r="1" fill="#C17817" opacity="0.6" />
+                    <circle cx="7" cy="4" r="2" fill="#C17817" opacity="0.5" />
+                    <circle cx="12" cy="2" r="1.8" fill="#C17817" opacity="0.5" />
+                    <circle cx="17" cy="2" r="1.8" fill="#C17817" opacity="0.5" />
+                    <circle cx="22" cy="4" r="2" fill="#C17817" opacity="0.5" />
                   </pattern>
                 </defs>
                 <rect width="100%" height="100%" fill="url(#pawprint)" />
