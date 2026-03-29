@@ -6,6 +6,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { motion, useReducedMotion, AnimatePresence, type Variants } from 'framer-motion'
 
+
 const nunito = Nunito({ subsets: ['latin'], weight: ['400', '600'] })
 
 /* ── Floating botanical SVG leaves ── */
@@ -68,7 +69,9 @@ const botanicalKeyframes = `
 @keyframes floatC { 0%,100% { transform:translateY(0px) rotate(0deg); } 50% { transform:translateY(-22px) rotate(8deg); } }
 @keyframes floatD { 0%,100% { transform:translateY(0px) rotate(0deg); } 50% { transform:translateY(-10px) rotate(-4deg); } }
 @keyframes shimmer-border { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
-@media (prefers-reduced-motion: reduce) { .botanical-float { animation: none !important; } }
+@import url('https://api.fontshare.com/v2/css?f[]=erode@400,500,700&display=swap');
+        .heading-font { font-family: 'Erode', serif; }
+        @media (prefers-reduced-motion: reduce) { .botanical-float { animation: none !important; } }
 `
 
 function Star() {
@@ -162,17 +165,17 @@ function LiveRedesign() {
               className="absolute inset-0 w-full overflow-hidden flex flex-col"
               style={{ border: `1px solid ${sage}30`, borderRadius: '16px', boxShadow: `0 8px 40px ${sage}15, 0 2px 8px rgba(0,0,0,0.04)` }}
             >
-
+              
             {/* Background image overlay */}
             <div className="absolute inset-0 z-0">
               <img src="/images/demos/warm-natural-showcase.webp" alt="" className="w-full h-full object-cover" />
-              <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.75) 50%, rgba(0,0,0,0.88) 100%)' }} />
+              <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.78) 50%, rgba(0,0,0,0.9) 100%)' }} />
             </div>
-              {/* Grain texture */}
+{/* Grain texture */}
               <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E")`, opacity: 0.4 }} />
-              {/* Linen nav */}
-              <div className="flex items-center justify-between px-6 sm:px-10 py-5" style={{ borderBottom: `1px solid ${sage}18`, backgroundColor: 'rgba(0,0,0,0.3)' }}>
-                <motion.span className="heading-font text-base sm:text-lg" style={{ color: sage, fontStyle: 'italic', fontFamily: "'Erode', serif" }}
+              {/* Elegant nav */}
+              <div className="flex items-center justify-between px-6 sm:px-10 py-4" style={{ borderBottom: `1px solid ${sage}15` }}>
+                <motion.span className={`${"heading-font"} text-base sm:text-lg`} style={{ color: 'rgba(255,255,255,0.5)', fontStyle: 'italic' }}
                   initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: dur * 0.6, delay: stagger }}>
                   Mountain Flow Wellness
                 </motion.span>
@@ -187,54 +190,60 @@ function LiveRedesign() {
                   <span className="block w-5 h-[2px] rounded-full" style={{ backgroundColor: sage }} />
                 </motion.div>
               </div>
-              {/* Hero — lots of breathing whitespace */}
-              <div className="relative px-6 sm:px-12 md:px-16 py-10 sm:py-12 flex-1 flex flex-col justify-center">
-                <motion.div className="absolute top-0 right-0 pointer-events-none" initial={{ opacity: 0 }} animate={{ opacity: 0.16 }} transition={{ duration: dur, delay: stagger * 3 }}>
-                  {/* Organic breath/wave SVG motif */}
-                  <svg width="220" height="220" viewBox="0 0 180 180" fill="none">
-                    <path d="M10 60 C40 40, 80 80, 120 55 C155 35, 170 70, 175 90" stroke={sage} strokeWidth="1.5" fill="none" strokeLinecap="round" />
-                    <path d="M0 90 C35 65, 75 110, 120 82 C155 60, 168 95, 178 115" stroke={sage} strokeWidth="1" fill="none" strokeLinecap="round" />
-                    <path d="M5 120 C40 98, 85 138, 130 110 C158 92, 170 120, 178 140" stroke={warm} strokeWidth="0.8" fill="none" strokeLinecap="round" strokeDasharray="5 7" />
-                    <path d="M20 145 C55 128, 95 155, 140 135" stroke={sage} strokeWidth="0.7" fill="none" strokeLinecap="round" opacity="0.6" />
-                    <circle cx="125" cy="55" r="2.5" fill={warm} opacity="0.45" />
-                    <circle cx="60" cy="110" r="2" fill={sage} opacity="0.35" />
-                    <circle cx="145" cy="100" r="1.5" fill={sage} opacity="0.3" />
+              {/* Hero */}
+              <div className="relative px-5 sm:px-10 md:px-16 py-8 sm:py-10 flex-1 flex flex-col justify-center">
+                <motion.div className="absolute top-0 right-0 pointer-events-none" initial={{ opacity: 0 }} animate={{ opacity: 0.18 }} transition={{ duration: dur, delay: stagger * 3 }}>
+                  <svg width="240" height="240" viewBox="0 0 180 180" fill="none">
+                    <path d="M180 20 C140 30, 100 10, 60 40 C20 70, 10 120, 30 160" stroke={sage} strokeWidth="1.5" fill="none" strokeLinecap="round" />
+                    <path d="M160 0 C130 20, 110 60, 130 100 C150 140, 170 150, 160 180" stroke={warm} strokeWidth="1" fill="none" strokeLinecap="round" strokeDasharray="4 6" />
+                    <ellipse cx="100" cy="50" rx="12" ry="6" stroke={sage} strokeWidth="1" fill="none" transform="rotate(-30 100 50)" />
+                    <ellipse cx="70" cy="90" rx="9" ry="5" stroke={sage} strokeWidth="1" fill="none" transform="rotate(10 70 90)" />
+                    <circle cx="140" cy="30" r="3" fill={warm} opacity="0.4" />
+                    <circle cx="55" cy="130" r="2" fill={sage} opacity="0.3" />
                   </svg>
                 </motion.div>
                 <div className="relative z-10 text-center sm:text-left">
-                  <motion.div className="flex justify-center sm:justify-start mb-5 sm:mb-6" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
+                  <motion.div className="flex justify-center sm:justify-start mb-3 sm:mb-5" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
                     <span className={`${nunito.className} text-xs font-semibold uppercase tracking-[0.2em] px-5 py-2 rounded-full`} style={{ backgroundColor: `${sage}18`, color: sage, border: `1px solid ${sage}25` }}>
                       Est. 2014 &mdash; West Kootenay
                     </span>
                   </motion.div>
-                  <motion.h2 className="heading-font text-2xl sm:text-4xl md:text-5xl leading-[1.2] mb-5 sm:mb-6 sm:max-w-lg"
-                    style={{ color: 'rgba(255,255,255,0.5)', fontFamily: "'Erode', serif" }}
+                  <motion.h2 className={`${"heading-font"} text-2xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.15] mb-4 sm:mb-5 sm:max-w-xl`}
+                    style={{ color: 'rgba(255,255,255,0.5)' }}
                     initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
                     You Carry Enough.<br />Put It Down{' '}
-                    <span style={{ color: sage, fontStyle: 'italic' }}>
+                    <span className="relative inline-block" style={{ color: sage, fontStyle: 'italic' }}>
                       for an Hour.
+                      <motion.svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 12" fill="none">
+                        <motion.path d="M4 8 C40 2, 80 4, 120 7 C150 9, 172 5, 196 7" stroke={sage} strokeWidth="2" strokeLinecap="round" fill="none"
+                          initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: dur * 1.5, delay: stagger * 5, ease: 'easeOut' }} />
+                      </motion.svg>
                     </span>
                   </motion.h2>
-                  <motion.p className={`${nunito.className} text-sm sm:text-base max-w-sm sm:mx-0 mx-auto mb-8 sm:mb-10`}
-                    style={{ color: 'rgba(255,255,255,0.5)', opacity: 0.65, lineHeight: 1.8 }}
+                  <motion.p className={`${nunito.className} text-sm sm:text-lg max-w-md sm:mx-0 mx-auto mb-6 sm:mb-8`}
+                    style={{ color: 'rgba(255,255,255,0.5)', opacity: 0.7, lineHeight: 1.7 }}
                     initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 4 }}>
-                    Yoga, massage, reiki &mdash; a sanctuary designed to quiet the noise.
+                    Yoga, massage, reiki &mdash; a sanctuary designed to quiet the noise and restore your balance.
                   </motion.p>
                   <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 5 }}
                     className="flex flex-col sm:flex-row items-center sm:items-start justify-center sm:justify-start gap-4">
-                    <a href="#contact" className="heading-font inline-flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-4 text-sm sm:text-base rounded-full transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]"
-                      style={{ backgroundColor: sage, color: '#ffffff', boxShadow: `0 4px 24px ${sage}35`, letterSpacing: '0.02em', fontFamily: "'Erode', serif" }}>
-                      Book Your Escape →
+                    <a href="#contact" className={`${"heading-font"} inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 text-sm sm:text-base rounded-xl transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]`}
+                      style={{ backgroundColor: sage, color: '#fff', boxShadow: `0 4px 20px ${sage}35`, letterSpacing: '0.02em' }}>
+                      View Schedule
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
                     </a>
+                    <span className={`${nunito.className} text-sm`} style={{ color: '#999' }}>No commitment required</span>
                   </motion.div>
-                  <motion.div className="flex items-center justify-center sm:justify-start gap-2 mt-7 sm:mt-9"
+                  <motion.div className="flex items-center justify-center sm:justify-start gap-4 sm:gap-6 mt-5 sm:mt-8 flex-wrap"
                     initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur, delay: stagger * 6 }}>
-                    <span className={`${nunito.className} text-xs`} style={{ color: sage, opacity: 0.6, letterSpacing: '0.06em' }}>Certified RYT-500 &bull; 10+ Classes Weekly &bull; All Levels</span>
+                    {['Certified RYT-500', '10+ Classes Weekly', 'All Levels'].map((badge) => (
+                      <span key={badge} className={`${nunito.className} text-xs`} style={{ color: sage, opacity: 0.7, letterSpacing: '0.05em' }}>{badge}</span>
+                    ))}
                   </motion.div>
                 </div>
               </div>
-              <div className="h-[3px] w-full" style={{ background: `linear-gradient(90deg, ${sage}, ${cream}, ${warm}, ${cream}, ${sage})`, backgroundSize: '200% 100%', animation: 'shimmer-border 3s linear infinite' }} />
+              <div className="h-[3px] w-full" style={{ background: `linear-gradient(90deg, ${sage}, ${warm}, ${sage})`, backgroundSize: '200% 100%', animation: 'shimmer-border 3s linear infinite' }} />
             </motion.div>
           )}
         </AnimatePresence>
@@ -264,7 +273,7 @@ function FAQAccordion({ items }: { items: { q: string; a: string }[] }) {
           <button onClick={() => setOpen(open === i ? null : i)}
             className="w-full flex items-center justify-between px-6 py-5 text-left"
             aria-expanded={open === i}>
-            <span className={`heading-font text-base font-bold`} style={{ color: open === i ? '#7d9a6b' : '#8b7355' }}>{item.q}</span>
+            <span className={`${"heading-font"} text-base font-bold`} style={{ color: open === i ? '#7d9a6b' : '#8b7355' }}>{item.q}</span>
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
               style={{ color: '#a8d49a', flexShrink: 0, transform: open === i ? 'rotate(180deg)' : 'rotate(0deg)', transition: prefersReduced ? 'none' : 'transform 0.3s ease' }}>
               <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -344,7 +353,6 @@ export default function WarmNaturalDemo() {
 
   return (
     <div className={nunito.className} style={{ fontFamily: 'Nunito, sans-serif', color: 'rgba(255,255,255,0.5)' }}>
-      <style>{`@import url('https://api.fontshare.com/v2/css?f[]=erode@400,500,700&display=swap'); .heading-font { font-family: 'Erode', serif; }`}</style>
       <style dangerouslySetInnerHTML={{ __html: botanicalKeyframes }} />
 
       {/* Watercolor blobs */}
@@ -367,7 +375,7 @@ export default function WarmNaturalDemo() {
         {/* ── NAV ── */}
         <nav className="px-6 py-4" style={{ backgroundColor: 'rgba(250,246,240,0.92)', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)' }}>
           <div className="max-w-6xl mx-auto flex items-center justify-between">
-            <span className={`heading-font text-xl md:text-2xl font-bold`} style={{ color: 'rgba(255,255,255,0.5)', fontStyle: 'italic', letterSpacing: '0.03em' }}>Mountain Flow Wellness</span>
+            <span className={`${"heading-font"} text-xl md:text-2xl font-bold`} style={{ color: 'rgba(255,255,255,0.5)', fontStyle: 'italic', letterSpacing: '0.03em' }}>Mountain Flow Wellness</span>
             <div className="hidden md:flex items-center gap-8">
               {['Schedule', 'Classes', 'About', 'Contact'].map((label) => (
                 <a key={label} href={`#${label.toLowerCase().replace(/\s+/g, '-')}`} className="text-sm transition-colors" style={{ color: 'rgba(255,255,255,0.5)' }}
@@ -380,7 +388,7 @@ export default function WarmNaturalDemo() {
         </nav>
 
         {/* ── HERO ── */}
-        <section className="relative min-h-screen flex items-center justify-center overflow-hidden" style={{ backgroundColor: '#faf6f0' }}>
+        <section className="relative min-h-screen flex items-center justify-center overflow-hidden" style={{  }}>
           <div className="absolute inset-0">
             <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse at 20% 30%, rgba(125,154,107,0.12) 0%, transparent 60%), radial-gradient(ellipse at 80% 60%, rgba(212,165,116,0.1) 0%, transparent 55%), radial-gradient(ellipse at 50% 90%, rgba(125,154,107,0.08) 0%, transparent 50%)' }} />
           </div>
@@ -388,7 +396,7 @@ export default function WarmNaturalDemo() {
             initial={prefersReduced ? {} : { opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: 'easeOut' }}>
-            <h1 className={`heading-font text-5xl md:text-7xl font-bold leading-tight mb-6`} style={{ color: 'rgba(255,255,255,0.5)' }}>You Carry Enough.<br /><span style={{ color: '#a8d49a', fontStyle: 'italic' }}>Put It Down.</span></h1>
+            <h1 className={`${"heading-font"} text-5xl md:text-7xl font-bold leading-tight mb-6`} style={{ color: 'rgba(255,255,255,0.5)' }}>You Carry Enough.<br /><span style={{ color: '#a8d49a', fontStyle: 'italic' }}>Put It Down.</span></h1>
             <p className="text-lg md:text-xl mb-10 max-w-xl mx-auto leading-relaxed" style={{ color: 'rgba(255,255,255,0.5)', opacity: 0.75 }}>
               A holistic wellness sanctuary in the heart of Nelson — yoga, massage, and mindful healing. All levels welcome.
             </p>
@@ -416,10 +424,10 @@ export default function WarmNaturalDemo() {
 
         {/* ── WEEKLY CLASS SCHEDULE ── */}
         <div style={{ height: '60px', background: 'linear-gradient(to bottom, #d4a574, #faf6f0)' }} />
-        <section id="schedule" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#faf6f0' }}>
+        <section id="schedule" className="py-20 md:py-28 px-6" style={{  }}>
           <div className="max-w-6xl mx-auto">
             <Reveal className="text-center mb-4">
-              <h2 className={`heading-font text-3xl md:text-4xl font-bold`} style={{ color: 'rgba(255,255,255,0.5)' }}>This Week&rsquo;s Classes</h2>
+              <h2 className={`${"heading-font"} text-3xl md:text-4xl font-bold`} style={{ color: 'rgba(255,255,255,0.5)' }}>This Week&rsquo;s Classes</h2>
             </Reveal>
             <Reveal delay={0.05} className="text-center mb-12">
               <p className="text-sm max-w-md mx-auto" style={{ color: 'rgba(255,255,255,0.5)', opacity: 0.6 }}>
@@ -440,14 +448,14 @@ export default function WarmNaturalDemo() {
                 <Reveal key={day.day} delay={di * 0.06}>
                   <div className="flex flex-col gap-2">
                     <div className="text-center py-2 rounded-full text-xs font-bold uppercase tracking-wider mb-1"
-                      style={{ backgroundColor: '#7d9a6b', color: '#ffffff', textShadow: '0 2px 20px rgba(0,0,0,0.8)' }}>
+                      style={{ backgroundColor: '#7d9a6b', color: '#fff' }}>
                       {day.day}
                     </div>
                     {day.classes.map((cls, ci) => (
                       <div key={ci} className="p-3 rounded-2xl text-center"
                         style={{ backgroundColor: '#fffcf7', border: `1px solid ${cls.color}25`, boxShadow: '0 2px 8px rgba(139,115,85,0.06)' }}>
                         <div className="w-2.5 h-2.5 rounded-full mx-auto mb-2" style={{ backgroundColor: levelColors[cls.level] }} />
-                        <p className={`heading-font text-xs font-bold mb-1`} style={{ color: 'rgba(255,255,255,0.5)' }}>{cls.name}</p>
+                        <p className={`${"heading-font"} text-xs font-bold mb-1`} style={{ color: 'rgba(255,255,255,0.5)' }}>{cls.name}</p>
                         <p className="text-xs" style={{ color: 'rgba(255,255,255,0.5)', opacity: 0.6 }}>{cls.time}</p>
                         <p className="text-xs mt-1" style={{ color: '#a8d49a', opacity: 0.8 }}>{cls.instructor}</p>
                       </div>
@@ -470,7 +478,7 @@ export default function WarmNaturalDemo() {
         <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#f5f0e8' }}>
           <div className="max-w-4xl mx-auto">
             <Reveal className="text-center mb-4">
-              <h2 className={`heading-font text-3xl md:text-4xl font-bold`} style={{ color: 'rgba(255,255,255,0.5)' }}>Your First Visit</h2>
+              <h2 className={`${"heading-font"} text-3xl md:text-4xl font-bold`} style={{ color: 'rgba(255,255,255,0.5)' }}>Your First Visit</h2>
             </Reveal>
             <Reveal delay={0.05} className="text-center mb-14">
               <p className="text-sm max-w-md mx-auto" style={{ color: 'rgba(255,255,255,0.5)', opacity: 0.6 }}>
@@ -488,9 +496,9 @@ export default function WarmNaturalDemo() {
                   <div className="text-center p-6 rounded-2xl" style={{ backgroundColor: '#fffcf7', border: '1px solid rgba(125,154,107,0.15)', boxShadow: '0 2px 16px rgba(139,115,85,0.06)' }}>
                     <div className="text-3xl mb-3">{step.icon}</div>
                     <div className="w-7 h-7 rounded-full flex items-center justify-center mx-auto mb-3" style={{ backgroundColor: '#7d9a6b' }}>
-                      <span className={`heading-font text-sm font-bold text-white`}>{step.num}</span>
+                      <span className={`${"heading-font"} text-sm font-bold text-white`}>{step.num}</span>
                     </div>
-                    <h3 className={`heading-font text-base font-bold mb-2`} style={{ color: 'rgba(255,255,255,0.5)' }}>{step.title}</h3>
+                    <h3 className={`${"heading-font"} text-base font-bold mb-2`} style={{ color: 'rgba(255,255,255,0.5)' }}>{step.title}</h3>
                     <p className="text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.5)', opacity: 0.7 }}>{step.desc}</p>
                   </div>
                 </Reveal>
@@ -501,10 +509,10 @@ export default function WarmNaturalDemo() {
 
         {/* ── CLASS PACKS ── */}
         <div style={{ height: '60px', background: 'linear-gradient(to bottom, #f5f0e8, #faf6f0)' }} />
-        <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#faf6f0' }}>
+        <section className="py-20 md:py-28 px-6" style={{  }}>
           <div className="max-w-5xl mx-auto">
             <Reveal className="text-center mb-4">
-              <h2 className={`heading-font text-3xl md:text-4xl font-bold`} style={{ color: 'rgba(255,255,255,0.5)' }}>Choose Your Practice</h2>
+              <h2 className={`${"heading-font"} text-3xl md:text-4xl font-bold`} style={{ color: 'rgba(255,255,255,0.5)' }}>Choose Your Practice</h2>
             </Reveal>
             <Reveal delay={0.05} className="text-center mb-14">
               <p className="text-sm max-w-md mx-auto" style={{ color: 'rgba(255,255,255,0.5)', opacity: 0.6 }}>Flexible options so you can show up whenever you need it most.</p>
@@ -530,12 +538,12 @@ export default function WarmNaturalDemo() {
                   }}>
                   {pack.badge && (
                     <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-xs font-bold"
-                      style={{ backgroundColor: '#d4a574', color: '#ffffff', textShadow: '0 2px 20px rgba(0,0,0,0.8)' }}>
+                      style={{ backgroundColor: '#d4a574', color: '#fff' }}>
                       {pack.badge}
                     </div>
                   )}
-                  <h3 className={`heading-font text-lg font-bold mb-2`} style={{ color: pack.highlight ? '#fff' : '#8b7355' }}>{pack.label}</h3>
-                  <div className={`heading-font text-4xl font-bold mb-3`} style={{ color: pack.highlight ? '#fff' : '#7d9a6b' }}>{pack.price}</div>
+                  <h3 className={`${"heading-font"} text-lg font-bold mb-2`} style={{ color: pack.highlight ? '#fff' : '#8b7355' }}>{pack.label}</h3>
+                  <div className={`${"heading-font"} text-4xl font-bold mb-3`} style={{ color: pack.highlight ? '#fff' : '#7d9a6b' }}>{pack.price}</div>
                   <p className="text-xs leading-relaxed mb-5" style={{ color: pack.highlight ? 'rgba(255,255,255,0.85)' : '#8b7355', opacity: pack.highlight ? 1 : 0.7 }}>{pack.desc}</p>
                   <a href="#contact" className="inline-block px-5 py-2 rounded-full text-xs font-semibold transition-all"
                     style={{
@@ -554,7 +562,7 @@ export default function WarmNaturalDemo() {
         <div style={{ height: '60px', background: 'linear-gradient(to bottom, #faf6f0, #f5f0e8)' }} />
         <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#f5f0e8' }}>
           <div className="max-w-4xl mx-auto">
-            <h2 className={`heading-font text-3xl md:text-4xl font-bold text-center mb-4`} style={{ color: 'rgba(255,255,255,0.5)' }}>How It Works</h2>
+            <h2 className={`${"heading-font"} text-3xl md:text-4xl font-bold text-center mb-4`} style={{ color: 'rgba(255,255,255,0.5)' }}>How It Works</h2>
             <p className="text-center mb-16 max-w-md mx-auto text-sm" style={{ color: 'rgba(255,255,255,0.5)', opacity: 0.6 }}>Simple, gentle, no pressure. Just like your practice.</p>
             <div className="grid md:grid-cols-3 gap-10">
               {[
@@ -565,9 +573,9 @@ export default function WarmNaturalDemo() {
                 <Reveal key={step.num} delay={i * 0.15}>
                   <div className="text-center">
                     <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-5" style={{ backgroundColor: '#7d9a6b', boxShadow: '0 4px 20px rgba(125,154,107,0.25)' }}>
-                      <span className={`heading-font text-2xl font-bold text-white`}>{step.num}</span>
+                      <span className={`${"heading-font"} text-2xl font-bold text-white`}>{step.num}</span>
                     </div>
-                    <h3 className={`heading-font text-xl font-bold mb-3`} style={{ color: 'rgba(255,255,255,0.5)' }}>{step.title}</h3>
+                    <h3 className={`${"heading-font"} text-xl font-bold mb-3`} style={{ color: 'rgba(255,255,255,0.5)' }}>{step.title}</h3>
                     <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.5)', opacity: 0.7 }}>{step.desc}</p>
                   </div>
                 </Reveal>
@@ -578,10 +586,10 @@ export default function WarmNaturalDemo() {
 
         {/* ── MEET YOUR TEACHERS ── */}
         <div style={{ height: '60px', background: 'linear-gradient(to bottom, #f5f0e8, #faf6f0)' }} />
-        <section id="about" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#faf6f0' }}>
+        <section id="about" className="py-20 md:py-28 px-6" style={{  }}>
           <div className="max-w-5xl mx-auto">
             <Reveal className="text-center mb-4">
-              <h2 className={`heading-font text-3xl md:text-4xl font-bold`} style={{ color: 'rgba(255,255,255,0.5)' }}>Meet Your Teachers</h2>
+              <h2 className={`${"heading-font"} text-3xl md:text-4xl font-bold`} style={{ color: 'rgba(255,255,255,0.5)' }}>Meet Your Teachers</h2>
             </Reveal>
             <Reveal delay={0.05} className="text-center mb-14">
               <p className="text-sm max-w-md mx-auto" style={{ color: 'rgba(255,255,255,0.5)', opacity: 0.6 }}>
@@ -600,7 +608,7 @@ export default function WarmNaturalDemo() {
                       style={{ border: '3px solid rgba(125,154,107,0.3)' }}>
                       <Image src={teacher.img} alt={teacher.name} fill className="object-cover" />
                     </div>
-                    <h3 className={`heading-font text-xl font-bold mb-1`} style={{ color: 'rgba(255,255,255,0.5)' }}>{teacher.name}</h3>
+                    <h3 className={`${"heading-font"} text-xl font-bold mb-1`} style={{ color: 'rgba(255,255,255,0.5)' }}>{teacher.name}</h3>
                     <p className="text-xs font-semibold mb-1" style={{ color: '#a8d49a' }}>{teacher.creds}</p>
                     <p className="text-xs mb-4" style={{ color: 'rgba(255,255,255,0.5)', opacity: 0.6 }}>{teacher.specialty}</p>
                     <p className="text-xs italic leading-relaxed px-2" style={{ color: 'rgba(255,255,255,0.5)', opacity: 0.75 }}>{teacher.quote}</p>
@@ -620,10 +628,10 @@ export default function WarmNaturalDemo() {
             <div className="flex justify-center gap-1 mb-8">
               {[...Array(5)].map((_, j) => <Star key={j} />)}
             </div>
-            <blockquote className={`heading-font text-2xl md:text-3xl leading-relaxed mb-8`} style={{ color: '#6b5a44', fontStyle: 'italic' }}>
+            <blockquote className={`${"heading-font"} text-2xl md:text-3xl leading-relaxed mb-8`} style={{ color: '#6b5a44', fontStyle: 'italic' }}>
               &ldquo;Bookings doubled in the first month. Clients tell me they booked because the website made them feel calm and safe before they even met me.&rdquo;
             </blockquote>
-            <p className={`heading-font font-bold`} style={{ color: 'rgba(255,255,255,0.5)' }}>— Sarah L.</p>
+            <p className={`${"heading-font"} font-bold`} style={{ color: 'rgba(255,255,255,0.5)' }}>— Sarah L.</p>
             <p className="text-sm mt-1" style={{ color: 'rgba(255,255,255,0.5)', opacity: 0.55 }}>Roots &amp; Restore Yoga &middot; Nelson</p>
             <Reveal delay={0.3} className="mt-6">
               <p className="text-xs italic" style={{ color: 'rgba(255,255,255,0.5)', opacity: 0.35 }}>(Sample review — your real reviews go here)</p>
@@ -633,10 +641,10 @@ export default function WarmNaturalDemo() {
 
         {/* ═══════════ THE TRANSFORMATION ═══════════ */}
         <div style={{ height: '60px', background: 'linear-gradient(to bottom, #ede8de, #faf6f0)' }} />
-        <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#faf6f0' }}>
+        <section className="py-20 md:py-28 px-6" style={{  }}>
           <div className="max-w-5xl mx-auto">
             <Reveal>
-              <h2 className={`heading-font text-3xl md:text-4xl font-bold text-center mb-4`} style={{ color: 'rgba(255,255,255,0.5)' }}>Watch Your Website Transform</h2>
+              <h2 className={`${"heading-font"} text-3xl md:text-4xl font-bold text-center mb-4`} style={{ color: 'rgba(255,255,255,0.5)' }}>Watch Your Website Transform</h2>
               <p className="text-center mb-12 text-sm" style={{ color: 'rgba(255,255,255,0.5)', opacity: 0.6 }}>From dated to designed — in real time</p>
             </Reveal>
             <LiveRedesign />
@@ -647,7 +655,7 @@ export default function WarmNaturalDemo() {
         <div style={{ height: '60px', background: 'linear-gradient(to bottom, #faf6f0, #f5f0e8)' }} />
         <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#f5f0e8' }}>
           <div className="max-w-2xl mx-auto">
-            <h2 className={`heading-font text-3xl md:text-4xl font-bold text-center mb-4`} style={{ color: 'rgba(255,255,255,0.5)' }}>Questions &amp; Answers</h2>
+            <h2 className={`${"heading-font"} text-3xl md:text-4xl font-bold text-center mb-4`} style={{ color: 'rgba(255,255,255,0.5)' }}>Questions &amp; Answers</h2>
             <p className="text-center mb-12 text-sm" style={{ color: 'rgba(255,255,255,0.5)', opacity: 0.6 }}>Everything you need to know before your first class.</p>
             <FAQAccordion items={[
               { q: 'Do I need to book in advance?', a: 'We recommend booking online to guarantee your spot — popular classes fill up. Drop-ins are also welcome if space is available.' },
@@ -662,12 +670,12 @@ export default function WarmNaturalDemo() {
 
         {/* ── CONTACT ── */}
         <div style={{ height: '60px', background: 'linear-gradient(to bottom, #f5f0e8, #faf6f0)' }} />
-        <section id="contact" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#faf6f0' }}>
+        <section id="contact" className="py-20 md:py-28 px-6" style={{  }}>
           <div className="max-w-5xl mx-auto">
-            <h2 className={`heading-font text-3xl md:text-4xl font-bold text-center mb-16`} style={{ color: 'rgba(255,255,255,0.5)' }}>Get In Touch</h2>
+            <h2 className={`${"heading-font"} text-3xl md:text-4xl font-bold text-center mb-16`} style={{ color: 'rgba(255,255,255,0.5)' }}>Get In Touch</h2>
             <div className="grid md:grid-cols-2 gap-12 md:gap-16">
               <div>
-                <h3 className={`heading-font text-xl font-bold mb-6`} style={{ color: 'rgba(255,255,255,0.5)' }}>Contact Details</h3>
+                <h3 className={`${"heading-font"} text-xl font-bold mb-6`} style={{ color: 'rgba(255,255,255,0.5)' }}>Contact Details</h3>
                 <div className="space-y-4 text-sm" style={{ color: 'rgba(255,255,255,0.5)', opacity: 0.85 }}>
                   <p><span className="font-semibold" style={{ opacity: 1 }}>Phone:</span> (250) 555-0165</p>
                   <p><span className="font-semibold" style={{ opacity: 1 }}>Email:</span> hello@mountainflow.ca</p>
@@ -676,7 +684,7 @@ export default function WarmNaturalDemo() {
                 </div>
               </div>
               <div>
-                <h3 className={`heading-font text-xl font-bold mb-6`} style={{ color: 'rgba(255,255,255,0.5)' }}>Book a Class</h3>
+                <h3 className={`${"heading-font"} text-xl font-bold mb-6`} style={{ color: 'rgba(255,255,255,0.5)' }}>Book a Class</h3>
                 <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
                   <input type="text" placeholder="Name" className="w-full px-4 py-3 text-sm outline-none transition-shadow focus:shadow-md" style={{ backgroundColor: '#fffcf7', border: '1px solid rgba(125,154,107,0.25)', borderRadius: '30px 20px 25px 35px / 25px 35px 20px 30px', color: 'rgba(255,255,255,0.5)' }} />
                   <input type="email" placeholder="Email" className="w-full px-4 py-3 text-sm outline-none transition-shadow focus:shadow-md" style={{ backgroundColor: '#fffcf7', border: '1px solid rgba(125,154,107,0.25)', borderRadius: '25px 35px 30px 20px / 30px 20px 35px 25px', color: 'rgba(255,255,255,0.5)' }} />
@@ -705,11 +713,11 @@ export default function WarmNaturalDemo() {
           <div className="max-w-5xl mx-auto">
             <div className="grid md:grid-cols-3 gap-10 mb-10">
               <div>
-                <span className={`heading-font text-xl font-bold block mb-4`} style={{ color: '#faf6f0' }}>Mountain Flow Wellness</span>
+                <span className={`${"heading-font"} text-xl font-bold block mb-4`} style={{ color: '#faf6f0' }}>Mountain Flow Wellness</span>
                 <p className="text-sm leading-relaxed" style={{ color: '#faf6f0', opacity: 0.65 }}>A holistic wellness sanctuary in the heart of Nelson, BC.</p>
               </div>
               <div>
-                <h4 className={`heading-font font-bold mb-4`} style={{ color: '#faf6f0' }}>Quick Links</h4>
+                <h4 className={`${"heading-font"} font-bold mb-4`} style={{ color: '#faf6f0' }}>Quick Links</h4>
                 <div className="flex flex-col gap-2">
                   {['Schedule', 'Classes', 'About', 'Contact'].map((label) => (
                     <a key={label} href={`#${label.toLowerCase().replace(/\s+/g, '-')}`} className="text-sm transition-opacity hover:opacity-100" style={{ color: '#faf6f0', opacity: 0.6 }}>{label}</a>
@@ -717,7 +725,7 @@ export default function WarmNaturalDemo() {
                 </div>
               </div>
               <div>
-                <h4 className={`heading-font font-bold mb-4`} style={{ color: '#faf6f0' }}>Visit Us</h4>
+                <h4 className={`${"heading-font"} font-bold mb-4`} style={{ color: '#faf6f0' }}>Visit Us</h4>
                 <div className="space-y-2 text-sm" style={{ color: '#faf6f0', opacity: 0.65 }}>
                   <p>123 Sample St, Nelson, BC</p>
                   <p>Mon&ndash;Sat 7:00 AM &ndash; 8:00 PM</p>
@@ -743,7 +751,7 @@ export default function WarmNaturalDemo() {
           </div>
           <Link href="/contact?style=warm-natural"
             className="inline-block px-6 py-2.5 text-sm font-bold rounded-full transition-all hover:opacity-90 whitespace-nowrap"
-            style={{ backgroundColor: '#faf6f0', color: '#a8d49a' }}>
+            style={{ color: '#a8d49a' }}>
             Like What You See? Let&rsquo;s Talk &rarr;
           </Link>
         </div>
