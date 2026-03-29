@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef, useCallback } from 'react'
 import { Nunito } from 'next/font/google'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -133,6 +133,80 @@ const confettiDots = [
   { color: '#ffe66d', tx: '55px', ty: '0px' },
   { color: '#a78bfa', tx: '20px', ty: '50px' },
 ]
+
+/* ── Before/After Slider ── */
+function BeforeAfterSlider() {
+  const [pos, setPos] = useState(50)
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  const handleMove = useCallback((clientX: number) => {
+    const el = containerRef.current
+    if (!el) return
+    const rect = el.getBoundingClientRect()
+    const pct = Math.min(100, Math.max(0, ((clientX - rect.left) / rect.width) * 100))
+    setPos(pct)
+  }, [])
+
+  return (
+    <div
+      ref={containerRef}
+      className="relative w-full max-w-3xl mx-auto overflow-hidden select-none cursor-ew-resize"
+      style={{ aspectRatio: '16/9', border: '3px solid #4ecdc4', borderRadius: '1.5rem' }}
+      onMouseMove={(e) => handleMove(e.clientX)}
+      onTouchMove={(e) => handleMove(e.touches[0].clientX)}
+    >
+      {/* AFTER layer */}
+      <div
+        className="absolute inset-0 flex items-center justify-center"
+        style={{ background: 'linear-gradient(135deg, #fff5f5 0%, #f0fffe 100%)' }}
+      >
+        <div className="text-center px-8">
+          <p className="text-base font-extrabold mb-2" style={{ color: '#ff6b6b' }}>Little Explorers Daycare</p>
+          <p className="text-sm" style={{ color: '#888' }}>Warm. Trustworthy. Fully enrolled. 🌈</p>
+        </div>
+        <span
+          className="absolute top-3 right-3 text-xs font-extrabold uppercase tracking-widest px-3 py-1 rounded-full"
+          style={{ backgroundColor: '#4ecdc420', color: '#4ecdc4' }}
+        >
+          AFTER
+        </span>
+      </div>
+
+      {/* BEFORE layer */}
+      <div
+        className="absolute inset-0 flex items-center justify-center overflow-hidden"
+        style={{
+          backgroundColor: '#f5f5f5',
+          clipPath: `inset(0 ${100 - pos}% 0 0)`,
+        }}
+      >
+        <div className="text-center px-8">
+          <p className="text-sm font-bold uppercase tracking-wider mb-2" style={{ color: '#bbb' }}>Sunshine Daycare</p>
+          <p className="text-xs" style={{ color: '#ccc' }}>No photos. No programs listed. No trust.</p>
+        </div>
+        <span
+          className="absolute top-3 left-3 text-xs font-extrabold uppercase tracking-widest px-3 py-1 rounded-full"
+          style={{ backgroundColor: '#e0e0e0', color: '#999' }}
+        >
+          BEFORE
+        </span>
+      </div>
+
+      {/* Drag handle */}
+      <div
+        className="absolute top-0 bottom-0 w-0.5 z-10"
+        style={{ left: `${pos}%`, backgroundColor: '#4ecdc4' }}
+      >
+        <div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center shadow-md"
+          style={{ backgroundColor: '#4ecdc4', color: '#fff', fontWeight: 800, fontSize: '0.8rem' }}
+        >
+          ◀▶
+        </div>
+      </div>
+    </div>
+  )
+}
 
 /* ══════════════════════════════════════════════════════════════
    LITTLE EXPLORERS DAYCARE — Bright & Playful Demo
@@ -474,76 +548,9 @@ export default function BrightPlayfulDemo() {
           </Bounce>
 
           <Bounce delay={0.1}>
-            <div
-              className="flex flex-col md:flex-row rounded-3xl overflow-hidden shadow-lg"
-              style={{ border: '3px solid #e0e0e0', minHeight: 280 }}
-            >
-              {/* Before */}
-              <div
-                className="flex-1 flex flex-col items-center justify-center py-14 px-8 relative"
-                style={{ backgroundColor: '#f5f5f5' }}
-              >
-                <span
-                  className="absolute top-4 left-5 text-xs font-extrabold uppercase tracking-widest px-3 py-1 rounded-full"
-                  style={{ backgroundColor: '#e0e0e0', color: '#999' }}
-                >
-                  Before
-                </span>
-                <div
-                  className="w-full max-w-xs rounded-2xl flex items-center justify-center"
-                  style={{
-                    height: 140,
-                    background: 'repeating-linear-gradient(135deg, #e0e0e0 0px, #e0e0e0 1px, transparent 1px, transparent 14px)',
-                    border: '2px dashed #ccc',
-                  }}
-                >
-                  <div className="text-center px-4">
-                    <p className="text-xs font-bold uppercase tracking-wider mb-2" style={{ color: '#bbb' }}>Sunshine Daycare</p>
-                    <p className="text-xs" style={{ color: '#ccc' }}>No photos. No programs listed. No trust.</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Divider */}
-              <div className="relative flex-shrink-0 flex items-center justify-center z-10 md:w-0">
-                <div className="hidden md:block absolute inset-y-0 left-1/2 -translate-x-1/2 w-0.5" style={{ backgroundColor: '#e0e0e0' }} />
-                <div className="md:hidden w-full h-0.5" style={{ backgroundColor: '#e0e0e0' }} />
-                <div
-                  className="w-10 h-10 rounded-full flex items-center justify-center font-extrabold text-sm shadow-md z-20 absolute"
-                  style={{ backgroundColor: '#4ecdc4', color: '#fff' }}
-                >
-                  ↔
-                </div>
-              </div>
-
-              {/* After */}
-              <div
-                className="flex-1 flex flex-col items-center justify-center py-14 px-8 relative"
-                style={{ background: 'linear-gradient(135deg, #fff5f5 0%, #f0fffe 100%)' }}
-              >
-                <span
-                  className="absolute top-4 right-5 text-xs font-extrabold uppercase tracking-widest px-3 py-1 rounded-full"
-                  style={{ backgroundColor: '#4ecdc420', color: '#4ecdc4' }}
-                >
-                  After
-                </span>
-                <div
-                  className="w-full max-w-xs rounded-2xl flex items-center justify-center"
-                  style={{
-                    height: 140,
-                    border: '3px solid #4ecdc4',
-                    background: 'linear-gradient(135deg, #f0fffe 0%, #fff5f5 100%)',
-                  }}
-                >
-                  <div className="text-center px-4">
-                    <p className="text-sm font-extrabold mb-2" style={{ color: '#ff6b6b' }}>Little Explorers Daycare</p>
-                    <p className="text-xs" style={{ color: '#888' }}>Warm. Trustworthy. Fully enrolled. 🌈</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <BeforeAfterSlider />
             <p className="text-center text-xs mt-4 italic" style={{ color: '#bbb' }}>
-              Interactive demo — your site will showcase your team, programs, and space
+              Drag to compare — your site will showcase your team, programs, and space
             </p>
           </Bounce>
         </div>

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef, useCallback } from 'react'
 import { Bitter, Lato } from 'next/font/google'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -119,6 +119,77 @@ function FadeUp({
     >
       {children}
     </motion.div>
+  )
+}
+
+/* ── Before/After Slider ──────────────────────────────────────── */
+function BeforeAfterSlider() {
+  const [pos, setPos] = useState(50)
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  const handleMove = useCallback((clientX: number) => {
+    const el = containerRef.current
+    if (!el) return
+    const rect = el.getBoundingClientRect()
+    const pct = Math.min(100, Math.max(0, ((clientX - rect.left) / rect.width) * 100))
+    setPos(pct)
+  }, [])
+
+  return (
+    <div
+      ref={containerRef}
+      className="relative w-full max-w-3xl mx-auto overflow-hidden select-none cursor-ew-resize"
+      style={{ aspectRatio: '16/9', border: `3px solid ${AMBER}`, borderRadius: '2px' }}
+      onMouseMove={(e) => handleMove(e.clientX)}
+      onTouchMove={(e) => handleMove(e.touches[0].clientX)}
+    >
+      {/* AFTER layer */}
+      <div
+        className="absolute inset-0 flex items-center justify-center"
+        style={{ backgroundColor: DARK_BROWN }}
+      >
+        <div className="relative z-10 text-center px-8">
+          <p className="text-sm font-bold mb-2" style={{ color: AMBER }}>Kootenay Brewing Collective</p>
+          <p className="text-xs italic" style={{ color: `${PARCHMENT}99` }}>Craft, character, and a tap list they can&rsquo;t resist.</p>
+        </div>
+        <span
+          className="absolute top-3 right-3 text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-sm"
+          style={{ backgroundColor: `${AMBER}33`, color: AMBER }}
+        >
+          AFTER
+        </span>
+      </div>
+
+      {/* BEFORE layer */}
+      <div
+        className="absolute inset-0 flex items-center justify-center overflow-hidden"
+        style={{ backgroundColor: '#d9ccbb', clipPath: `inset(0 ${100 - pos}% 0 0)` }}
+      >
+        <div className="text-center px-8">
+          <p className="text-xs uppercase tracking-widest font-bold mb-2" style={{ color: '#999' }}>Mountain Craft Brewery</p>
+          <p className="text-xs" style={{ color: '#aaa' }}>No photos. No tap list. Just a phone number.</p>
+        </div>
+        <span
+          className="absolute top-3 left-3 text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-sm"
+          style={{ backgroundColor: 'rgba(0,0,0,0.12)', color: '#888' }}
+        >
+          BEFORE
+        </span>
+      </div>
+
+      {/* Drag handle */}
+      <div
+        className="absolute top-0 bottom-0 w-0.5 z-10"
+        style={{ left: `${pos}%`, backgroundColor: AMBER }}
+      >
+        <div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center shadow-md"
+          style={{ backgroundColor: DARK_BROWN, border: `2.5px solid ${AMBER}`, color: AMBER, fontSize: '0.8rem', fontWeight: 800 }}
+        >
+          ◀▶
+        </div>
+      </div>
+    </div>
   )
 }
 
@@ -531,79 +602,9 @@ export default function RusticCraftDemo() {
           </FadeUp>
 
           <FadeUp delay={0.15}>
-            <div
-              className="flex flex-col md:flex-row rounded-sm overflow-hidden"
-              style={{ border: `3px solid ${AMBER}`, minHeight: 280 }}
-            >
-              {/* Before */}
-              <div
-                className="flex-1 flex flex-col items-center justify-center py-14 px-8 relative"
-                style={{ backgroundColor: '#d9ccbb' }}
-              >
-                <span
-                  className="absolute top-4 left-5 text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-sm"
-                  style={{ backgroundColor: 'rgba(0,0,0,0.12)', color: '#888' }}
-                >
-                  Before
-                </span>
-                <div
-                  className="w-full max-w-xs rounded-sm flex items-center justify-center"
-                  style={{
-                    height: 140,
-                    background: 'repeating-linear-gradient(135deg, #c8b89a 0px, #c8b89a 1px, transparent 1px, transparent 14px)',
-                    border: '1px dashed #bbb',
-                  }}
-                >
-                  <div className="text-center px-4">
-                    <p className="text-xs uppercase tracking-widest font-bold mb-2" style={{ color: '#999' }}>Mountain Craft Brewery</p>
-                    <p className="text-xs" style={{ color: '#aaa' }}>No photos. No tap list. Just a phone number.</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Divider */}
-              <div className="relative flex-shrink-0 flex items-center justify-center z-10 md:w-0">
-                <div className="hidden md:block absolute inset-y-0 left-1/2 -translate-x-1/2 w-0.5" style={{ backgroundColor: AMBER }} />
-                <div className="md:hidden w-full h-0.5" style={{ backgroundColor: AMBER }} />
-                <div
-                  className="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm shadow-md z-20 absolute"
-                  style={{ backgroundColor: DARK_BROWN, border: `2.5px solid ${AMBER}`, color: AMBER }}
-                >
-                  ↔
-                </div>
-              </div>
-
-              {/* After */}
-              <div
-                className="flex-1 flex flex-col items-center justify-center py-14 px-8 relative"
-                style={{ backgroundColor: DARK_BROWN }}
-              >
-                <span
-                  className="absolute top-4 right-5 text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-sm"
-                  style={{ backgroundColor: `${AMBER}33`, color: AMBER }}
-                >
-                  After
-                </span>
-                <div
-                  className="w-full max-w-xs rounded-sm flex items-center justify-center relative overflow-hidden"
-                  style={{
-                    height: 140,
-                    border: `2px solid ${AMBER}`,
-                  }}
-                >
-                  <div
-                    className="absolute inset-0 pointer-events-none opacity-40"
-                    style={{ backgroundImage: WOODGRAIN }}
-                  />
-                  <div className="relative z-10 text-center px-4">
-                    <p className={`${bitter.className} text-sm font-bold mb-2`} style={{ color: AMBER }}>Kootenay Brewing Collective</p>
-                    <p className="text-xs italic" style={{ color: `${PARCHMENT}99` }}>Craft, character, and a tap list they can&rsquo;t resist.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <BeforeAfterSlider />
             <p className="text-center text-xs mt-4 italic" style={{ color: `${DARK_BROWN}77` }}>
-              Interactive demo — your site will showcase your unique brews and story
+              Drag to compare — your site will showcase your unique brews and story
             </p>
           </FadeUp>
         </div>

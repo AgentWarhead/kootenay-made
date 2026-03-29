@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef, useCallback } from 'react'
 import { Libre_Baskerville, Inter } from 'next/font/google'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -111,6 +111,77 @@ function VineCornerTR({ color = C.green, opacity = 0.14 }: { color?: string; opa
       <ellipse cx="48" cy="62" rx="7" ry="3.5" stroke={color} strokeWidth="1" fill="none" transform="rotate(-22 48 62)" />
       <path d="M84 28 C70 50 55 65 38 80" stroke={color} strokeWidth="0.8" fill="none" strokeLinecap="round" strokeDasharray="2 4" />
     </svg>
+  )
+}
+
+/* ─── Before/After Slider ───────────────────────────────────── */
+function BeforeAfterSlider() {
+  const [pos, setPos] = useState(50)
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  const handleMove = useCallback((clientX: number) => {
+    const el = containerRef.current
+    if (!el) return
+    const rect = el.getBoundingClientRect()
+    const pct = Math.min(100, Math.max(0, ((clientX - rect.left) / rect.width) * 100))
+    setPos(pct)
+  }, [])
+
+  return (
+    <div
+      ref={containerRef}
+      className="relative w-full max-w-3xl mx-auto overflow-hidden select-none cursor-ew-resize"
+      style={{ aspectRatio: '16/9', border: `1px solid ${C.green}44`, borderRadius: '1rem' }}
+      onMouseMove={(e) => handleMove(e.clientX)}
+      onTouchMove={(e) => handleMove(e.touches[0].clientX)}
+    >
+      {/* AFTER layer */}
+      <div
+        className="absolute inset-0 flex items-center justify-center"
+        style={{ backgroundColor: C.greenLight }}
+      >
+        <div className="text-center px-8">
+          <p className="text-sm font-bold mb-2" style={{ color: C.darkGreen }}>Cedarview Landscaping</p>
+          <p className="text-xs" style={{ color: '#5a6e5a' }}>Portfolio live. Google ranking. Phone ringing. 🌿</p>
+        </div>
+        <span
+          className="absolute top-3 right-3 text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full"
+          style={{ backgroundColor: `${C.green}28`, color: C.darkGreen }}
+        >
+          AFTER
+        </span>
+      </div>
+
+      {/* BEFORE layer */}
+      <div
+        className="absolute inset-0 flex items-center justify-center overflow-hidden"
+        style={{ backgroundColor: C.muted, clipPath: `inset(0 ${100 - pos}% 0 0)` }}
+      >
+        <div className="text-center px-8">
+          <p className="text-xs uppercase tracking-widest font-bold mb-2" style={{ color: '#999' }}>Valley Green Landscaping</p>
+          <p className="text-xs" style={{ color: '#bbb' }}>Facebook page only. No portfolio. No calls.</p>
+        </div>
+        <span
+          className="absolute top-3 left-3 text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full"
+          style={{ backgroundColor: 'rgba(0,0,0,0.1)', color: '#888' }}
+        >
+          BEFORE
+        </span>
+      </div>
+
+      {/* Drag handle */}
+      <div
+        className="absolute top-0 bottom-0 w-0.5 z-10"
+        style={{ left: `${pos}%`, backgroundColor: C.green }}
+      >
+        <div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center shadow-md"
+          style={{ backgroundColor: C.darkGreen, border: `2.5px solid ${C.white}`, color: C.white, fontSize: '0.8rem', fontWeight: 800 }}
+        >
+          ◀▶
+        </div>
+      </div>
+    </div>
   )
 }
 
@@ -670,77 +741,9 @@ export default function HomeGardenDemo() {
           </Reveal>
 
           <Reveal delay={0.1}>
-            <div
-              className="relative flex flex-col md:flex-row rounded-2xl overflow-hidden shadow-lg"
-              style={{ minHeight: 300, border: `1px solid ${C.green}22` }}
-            >
-              {/* Before */}
-              <div
-                className="flex-1 flex flex-col items-center justify-center py-16 px-8 relative"
-                style={{ backgroundColor: C.muted }}
-              >
-                <span
-                  className="absolute top-4 left-5 text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full"
-                  style={{ backgroundColor: 'rgba(0,0,0,0.1)', color: '#888' }}
-                >
-                  Before
-                </span>
-                <div
-                  className="w-full max-w-xs rounded-xl flex items-center justify-center"
-                  style={{
-                    height: 160,
-                    background: 'repeating-linear-gradient(135deg, #d4d4d4 0px, #d4d4d4 1px, transparent 1px, transparent 12px)',
-                    border: '1px dashed #bbb',
-                    opacity: 0.75,
-                  }}
-                >
-                  <div className="text-center px-4">
-                    <p className="text-xs uppercase tracking-widest font-bold mb-2" style={{ color: '#999' }}>Valley Green Landscaping</p>
-                    <p className="text-xs" style={{ color: '#bbb' }}>Facebook page only. No portfolio. No calls.</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Divider */}
-              <div className="relative flex-shrink-0 flex items-center justify-center z-10 md:w-0">
-                <div className="hidden md:block absolute inset-y-0 left-1/2 -translate-x-1/2 w-0.5" style={{ backgroundColor: C.white }} />
-                <div className="md:hidden w-full h-0.5" style={{ backgroundColor: C.white }} />
-                <div
-                  className="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm shadow-md z-20 absolute"
-                  style={{ backgroundColor: C.darkGreen, border: `2.5px solid ${C.white}`, color: C.white }}
-                >
-                  ↔
-                </div>
-              </div>
-
-              {/* After */}
-              <div
-                className="flex-1 flex flex-col items-center justify-center py-16 px-8 relative"
-                style={{ backgroundColor: C.greenLight }}
-              >
-                <span
-                  className="absolute top-4 right-5 text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full"
-                  style={{ backgroundColor: `${C.green}28`, color: C.darkGreen }}
-                >
-                  After
-                </span>
-                <div
-                  className="w-full max-w-xs rounded-xl flex items-center justify-center"
-                  style={{
-                    height: 160,
-                    background: `linear-gradient(135deg, ${C.green}28 0%, ${C.greenLight} 100%)`,
-                    border: `1px solid ${C.green}44`,
-                  }}
-                >
-                  <div className="text-center px-4">
-                    <p className={`${heading.className} text-sm italic font-bold mb-2`} style={{ color: C.darkGreen }}>Cedarview Landscaping</p>
-                    <p className="text-xs" style={{ color: '#5a6e5a' }}>Portfolio live. Google ranking. Phone ringing. 🌿</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <BeforeAfterSlider />
             <p className="text-center text-xs mt-4 italic" style={{ color: C.terracotta, opacity: 0.7 }}>
-              Interactive demo — your site will showcase your portfolio and seasonal services
+              Drag to compare — your site will showcase your portfolio and seasonal services
             </p>
           </Reveal>
         </div>

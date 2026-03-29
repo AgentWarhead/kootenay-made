@@ -1,10 +1,9 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef, useCallback } from 'react'
 import { Cormorant_Garamond, DM_Sans } from 'next/font/google'
 import Link from 'next/link'
 import Image from 'next/image'
-import { useRef } from 'react'
 import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion'
 
 const heading = Cormorant_Garamond({
@@ -46,6 +45,77 @@ function GoldReveal({ children, className = '' }: { children: React.ReactNode; c
     >
       {children}
     </motion.span>
+  )
+}
+
+/* ── Before/After Slider ── */
+function BeforeAfterSlider() {
+  const [pos, setPos] = useState(50)
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  const handleMove = useCallback((clientX: number) => {
+    const el = containerRef.current
+    if (!el) return
+    const rect = el.getBoundingClientRect()
+    const pct = Math.min(100, Math.max(0, ((clientX - rect.left) / rect.width) * 100))
+    setPos(pct)
+  }, [])
+
+  return (
+    <div
+      ref={containerRef}
+      className="relative w-full max-w-3xl mx-auto overflow-hidden select-none cursor-ew-resize"
+      style={{ aspectRatio: '16/9', border: '1px solid rgba(201,169,110,0.2)' }}
+      onMouseMove={(e) => handleMove(e.clientX)}
+      onTouchMove={(e) => handleMove(e.touches[0].clientX)}
+    >
+      {/* AFTER layer */}
+      <div
+        className="absolute inset-0 flex items-center justify-center"
+        style={{ background: 'linear-gradient(135deg, #1a1a1a 0%, #1f1810 100%)' }}
+      >
+        <div className="text-center px-8">
+          <p className="text-xs uppercase tracking-widest mb-2" style={{ color: '#c9a96e' }}>Ember Kitchen &amp; Bar</p>
+          <p className="text-xs italic" style={{ color: 'rgba(245,240,232,0.5)' }}>Atmospheric. Inviting. Fully booked.</p>
+        </div>
+        <span
+          className="absolute top-3 right-3 text-xs font-bold uppercase tracking-widest px-3 py-1"
+          style={{ backgroundColor: 'rgba(201,169,110,0.12)', color: '#c9a96e' }}
+        >
+          AFTER
+        </span>
+      </div>
+
+      {/* BEFORE layer */}
+      <div
+        className="absolute inset-0 flex items-center justify-center overflow-hidden"
+        style={{ backgroundColor: '#111', clipPath: `inset(0 ${100 - pos}% 0 0)` }}
+      >
+        <div className="text-center px-8">
+          <p className="text-xs uppercase tracking-widest mb-2" style={{ color: '#444' }}>Nelson Italian Kitchen</p>
+          <p className="text-xs" style={{ color: '#555' }}>No menu. No photos. No reservations.</p>
+        </div>
+        <span
+          className="absolute top-3 left-3 text-xs font-bold uppercase tracking-widest px-3 py-1"
+          style={{ backgroundColor: 'rgba(255,255,255,0.06)', color: '#666' }}
+        >
+          BEFORE
+        </span>
+      </div>
+
+      {/* Drag handle */}
+      <div
+        className="absolute top-0 bottom-0 w-px z-10"
+        style={{ left: `${pos}%`, backgroundColor: 'rgba(201,169,110,0.6)' }}
+      >
+        <div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center shadow-lg"
+          style={{ backgroundColor: '#0a0a0a', border: '1px solid rgba(201,169,110,0.4)', color: '#c9a96e', fontSize: '0.8rem', fontWeight: 800 }}
+        >
+          ◀▶
+        </div>
+      </div>
+    </div>
   )
 }
 
@@ -433,70 +503,9 @@ export default function SleekDarkDemo() {
           </Reveal>
 
           <Reveal delay={0.1}>
-            <div className="flex flex-col md:flex-row rounded-sm overflow-hidden" style={{ border: '1px solid rgba(201,169,110,0.15)', minHeight: 280 }}>
-              {/* Before */}
-              <div className="flex-1 flex flex-col items-center justify-center py-14 px-8 relative" style={{ backgroundColor: '#111' }}>
-                <span
-                  className="absolute top-4 left-5 text-xs font-bold uppercase tracking-widest px-3 py-1"
-                  style={{ backgroundColor: 'rgba(255,255,255,0.06)', color: '#666' }}
-                >
-                  Before
-                </span>
-                <div
-                  className="w-full max-w-xs flex items-center justify-center rounded-sm"
-                  style={{
-                    height: 140,
-                    background: 'repeating-linear-gradient(135deg, #222 0px, #222 1px, transparent 1px, transparent 14px)',
-                    border: '1px dashed #333',
-                  }}
-                >
-                  <div className="text-center px-4">
-                    <p className="text-xs uppercase tracking-widest mb-2" style={{ color: '#444' }}>Nelson Italian Kitchen</p>
-                    <p className="text-xs" style={{ color: '#555' }}>No menu. No photos. No reservations.</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Divider */}
-              <div className="relative flex-shrink-0 flex items-center justify-center z-10 md:w-0">
-                <div className="hidden md:block absolute inset-y-0 left-1/2 -translate-x-1/2 w-px" style={{ backgroundColor: 'rgba(201,169,110,0.2)' }} />
-                <div className="md:hidden w-full h-px" style={{ backgroundColor: 'rgba(201,169,110,0.2)' }} />
-                <div
-                  className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold shadow-lg z-20 absolute"
-                  style={{ backgroundColor: '#0a0a0a', border: '1px solid rgba(201,169,110,0.4)', color: '#c9a96e' }}
-                >
-                  ↔
-                </div>
-              </div>
-
-              {/* After */}
-              <div
-                className="flex-1 flex flex-col items-center justify-center py-14 px-8 relative"
-                style={{ background: 'linear-gradient(135deg, #1a1a1a 0%, #1f1810 100%)' }}
-              >
-                <span
-                  className="absolute top-4 right-5 text-xs font-bold uppercase tracking-widest px-3 py-1"
-                  style={{ backgroundColor: 'rgba(201,169,110,0.12)', color: '#c9a96e' }}
-                >
-                  After
-                </span>
-                <div
-                  className="w-full max-w-xs flex items-center justify-center rounded-sm"
-                  style={{
-                    height: 140,
-                    background: 'linear-gradient(135deg, rgba(201,169,110,0.1) 0%, rgba(201,169,110,0.04) 100%)',
-                    border: '1px solid rgba(201,169,110,0.25)',
-                  }}
-                >
-                  <div className="text-center px-4">
-                    <p className="text-xs uppercase tracking-widest mb-2" style={{ color: '#c9a96e' }}>Ember Kitchen &amp; Bar</p>
-                    <p className="text-xs italic" style={{ color: 'rgba(245,240,232,0.5)' }}>Atmospheric. Inviting. Fully booked.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <BeforeAfterSlider />
             <p className="text-center text-xs mt-4 italic" style={{ color: 'rgba(201,169,110,0.4)' }}>
-              Interactive demo — your site will reflect your unique brand and atmosphere
+              Drag to compare — your site will reflect your unique brand and atmosphere
             </p>
           </Reveal>
         </div>
