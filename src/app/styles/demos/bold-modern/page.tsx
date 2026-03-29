@@ -137,12 +137,20 @@ function LiveRedesign() {
               animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
               transition={{ duration: dur * 0.8, ease: 'easeOut' }}
               className="absolute inset-0 w-full overflow-hidden flex flex-col"
-              style={{ backgroundColor: '#111111', border: '1px solid rgba(255,107,0,0.3)', borderRadius: '0px', boxShadow: '0 8px 40px rgba(255,107,0,0.15), 0 2px 8px rgba(0,0,0,0.3)' }}>
+              style={{ backgroundColor: '#111111', border: '1px solid rgba(255,107,0,0.3)', borderRadius: '4px', boxShadow: '0 8px 40px rgba(255,107,0,0.15), 0 2px 8px rgba(0,0,0,0.3)', overflow: 'hidden' }}>
+              {/* Diagonal accent line — angular hero design */}
+              <motion.div className="absolute pointer-events-none" style={{ top: 0, right: 0, width: '100%', height: '100%', zIndex: 0 }}
+                initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur, delay: stagger * 2 }}>
+                <svg width="100%" height="100%" viewBox="0 0 480 480" preserveAspectRatio="none" fill="none">
+                  <line x1="340" y1="0" x2="480" y2="480" stroke="#ff6b00" strokeWidth="1.5" strokeOpacity="0.12" />
+                  <line x1="380" y1="0" x2="480" y2="260" stroke="#ff6b00" strokeWidth="0.8" strokeOpacity="0.08" />
+                </svg>
+              </motion.div>
               {/* Bold nav */}
-              <div className="flex items-center justify-between px-6 sm:px-10 py-4" style={{ borderBottom: '1px solid #222' }}>
-                <motion.span className={`${spaceGrotesk.className} text-base sm:text-lg font-bold uppercase tracking-wider`} style={{ color: '#fff' }}
+              <div className="flex items-center justify-between px-6 sm:px-10 py-4 relative z-10" style={{ borderBottom: '1px solid #222' }}>
+                <motion.span className={`text-base sm:text-lg font-bold uppercase tracking-wider`} style={{ color: '#ff6b00', fontFamily: "'Clash Display', sans-serif" }}
                   initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: dur * 0.6, delay: stagger }}>
-                  <span style={{ color: '#ff6b00' }}>VOLT</span> ELECTRIC CO.
+                  Volt Electric
                 </motion.span>
                 <motion.div className="hidden sm:flex items-center gap-6" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
                   {['SERVICES', 'ABOUT', 'PROJECTS', 'CONTACT'].map((link) => (
@@ -156,7 +164,7 @@ function LiveRedesign() {
                 </motion.div>
               </div>
               {/* Hero */}
-              <div className="relative px-5 sm:px-10 md:px-16 py-8 sm:py-12 flex-1 flex flex-col justify-center">
+              <div className="relative px-5 sm:px-10 md:px-16 py-8 sm:py-12 flex-1 flex flex-col justify-center z-10">
                 <motion.div className="absolute top-0 right-0 pointer-events-none" initial={{ opacity: 0 }} animate={{ opacity: 0.2 }} transition={{ duration: dur, delay: stagger * 3 }}>
                   <svg width="200" height="200" viewBox="0 0 160 160" fill="none">
                     <path d="M160 0 L160 80 L120 80 L120 40 L80 40 L80 0Z" fill="#ff6b00" />
@@ -174,7 +182,7 @@ function LiveRedesign() {
                       West Kootenays &mdash; 20+ Years
                     </span>
                   </motion.div>
-                  <motion.h2 className={`heading-font text-2xl sm:text-4xl md:text-5xl font-bold uppercase leading-[1.1] mb-4 sm:max-w-xl`} style={{ color: '#ffffff' }}
+                  <motion.h2 className={`heading-font text-2xl sm:text-4xl md:text-5xl font-bold uppercase leading-[1.1] mb-4 sm:max-w-xl`} style={{ color: '#ffffff', fontFamily: "'Clash Display', sans-serif" }}
                     initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
                     Your Competitor Launched Last Month. What Are You{' '}
                     <span className="relative inline-block" style={{ color: '#ff6b00' }}>

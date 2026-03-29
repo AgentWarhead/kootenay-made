@@ -131,7 +131,7 @@ function LiveRedesign() {
               style={{ backgroundColor: cream, border: `1px solid ${green}30`, borderRadius: '16px', boxShadow: `0 8px 40px ${green}15, 0 2px 8px rgba(0,0,0,0.04)` }}
             >
               <div className="flex items-center justify-between px-6 sm:px-10 py-4" style={{ borderBottom: `1px solid ${green}15` }}>
-                <motion.span className={`${accent.className} text-base sm:text-lg`} style={{ color: green }}
+                <motion.span className="heading-font text-base sm:text-lg" style={{ color: green }}
                   initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: dur * 0.6, delay: stagger }}>
                   Valley Roots Farm
                 </motion.span>

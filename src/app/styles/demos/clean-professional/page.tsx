@@ -195,13 +195,12 @@ function LiveRedesign() {
               animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
               transition={{ duration: dur * 0.8, ease: 'easeOut' }}
               className="absolute inset-0 w-full overflow-hidden flex flex-col"
-              style={{ backgroundColor: CP.white, border: `1px solid ${CP.blue}30`, borderRadius: '16px', boxShadow: `0 8px 40px ${CP.blue}15, 0 2px 8px rgba(0,0,0,0.04)` }}
+              style={{ backgroundColor: '#f8fafc', border: `2px solid ${CP.navy}20`, borderRadius: '16px', boxShadow: `0 8px 40px ${CP.navy}12, 0 2px 8px rgba(0,0,0,0.04)` }}
             >
               {/* Elegant nav */}
-              <div className="flex items-center justify-between px-6 sm:px-10 py-4" style={{ borderBottom: `1px solid ${CP.blue}15` }}>
+              <div className="flex items-center justify-between px-6 sm:px-10 py-4" style={{ borderBottom: `1px solid ${CP.navy}12`, backgroundColor: CP.white }}>
                 <motion.span
-                  className={`${inter.className} text-base sm:text-lg font-bold`}
-                  style={{ color: CP.navy, letterSpacing: '0.02em' }}
+                  style={{ color: CP.navy, letterSpacing: '0.02em', fontFamily: "'Supreme', sans-serif", fontSize: '1rem', fontWeight: 700 }}
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: dur * 0.6, delay: stagger }}
@@ -210,38 +209,40 @@ function LiveRedesign() {
                 </motion.span>
                 <motion.div className="hidden sm:flex items-center gap-6" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
                   {['Services', 'About', 'Portfolio', 'Contact'].map((link) => (
-                    <span key={link} className={`${inter.className} text-xs uppercase tracking-widest`} style={{ color: CP.slate, fontWeight: 500 }}>{link}</span>
+                    <span key={link} style={{ color: CP.slate, fontWeight: 500, fontFamily: "'Supreme', sans-serif", fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.12em' }}>{link}</span>
                   ))}
                 </motion.div>
                 <motion.div className="sm:hidden flex flex-col gap-[5px]" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur * 0.6, delay: stagger }}>
-                  <span className="block w-5 h-[2px] rounded-full" style={{ backgroundColor: CP.blue }} />
-                  <span className="block w-4 h-[2px] rounded-full" style={{ backgroundColor: CP.blue }} />
-                  <span className="block w-5 h-[2px] rounded-full" style={{ backgroundColor: CP.blue }} />
+                  <span className="block w-5 h-[2px] rounded-full" style={{ backgroundColor: CP.navy }} />
+                  <span className="block w-4 h-[2px] rounded-full" style={{ backgroundColor: CP.navy }} />
+                  <span className="block w-5 h-[2px] rounded-full" style={{ backgroundColor: CP.navy }} />
                 </motion.div>
               </div>
 
               {/* Hero */}
               <div className="relative px-5 sm:px-10 md:px-16 py-8 sm:py-14 flex-1 flex flex-col justify-center">
-                {/* Geometric SVG motif */}
-                <motion.div className="absolute top-0 right-0 pointer-events-none" initial={{ opacity: 0 }} animate={{ opacity: 0.12 }} transition={{ duration: dur, delay: stagger * 3 }}>
+                {/* Geometric SVG motif — precision / authority */}
+                <motion.div className="absolute top-0 right-0 pointer-events-none" initial={{ opacity: 0 }} animate={{ opacity: 0.10 }} transition={{ duration: dur, delay: stagger * 3 }}>
                   <svg width="220" height="220" viewBox="0 0 180 180" fill="none">
-                    <rect x="20" y="20" width="60" height="60" stroke={CP.blue} strokeWidth="1.5" fill="none" />
-                    <rect x="50" y="50" width="90" height="90" stroke={CP.navy} strokeWidth="1" fill="none" />
-                    <line x1="20" y1="20" x2="110" y2="110" stroke={CP.blue} strokeWidth="0.8" />
-                    <line x1="80" y1="20" x2="20" y2="80" stroke={CP.navy} strokeWidth="0.8" />
+                    <rect x="20" y="20" width="60" height="60" stroke={CP.navy} strokeWidth="1.5" fill="none" />
+                    <rect x="50" y="50" width="90" height="90" stroke={CP.blue} strokeWidth="1" fill="none" />
+                    <line x1="20" y1="20" x2="140" y2="140" stroke={CP.navy} strokeWidth="0.8" />
+                    <line x1="80" y1="20" x2="20" y2="80" stroke={CP.blue} strokeWidth="0.8" />
+                    <line x1="140" y1="20" x2="80" y2="80" stroke={CP.navy} strokeWidth="0.6" />
                     <circle cx="140" cy="40" r="20" stroke={CP.blue} strokeWidth="1" fill="none" />
-                    <circle cx="140" cy="40" r="8" stroke={CP.blue} strokeWidth="0.6" fill="none" />
+                    <circle cx="140" cy="40" r="8" stroke={CP.navy} strokeWidth="0.6" fill="none" />
+                    <circle cx="140" cy="40" r="2" fill={CP.blue} />
                   </svg>
                 </motion.div>
 
                 <div className="relative z-10 text-center sm:text-left">
                   <motion.div className="flex justify-center sm:justify-start mb-3 sm:mb-6" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
-                    <span className={`${inter.className} text-xs font-semibold uppercase tracking-[0.2em] px-5 py-2 rounded-full`} style={{ backgroundColor: `${CP.blue}15`, color: CP.blue, border: `1px solid ${CP.blue}25` }}>
+                    <span style={{ backgroundColor: `${CP.navy}10`, color: CP.navy, border: `1px solid ${CP.navy}20`, fontFamily: "'Supreme', sans-serif", fontSize: '0.7rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.2em', padding: '0.4rem 1.25rem', borderRadius: '999px' }}>
                       Est. 2009 &mdash; West Kootenay
                     </span>
                   </motion.div>
 
-                  <motion.h2 className={`heading-font text-2xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.15] mb-4 sm:mb-6 sm:max-w-xl font-bold`} style={{ color: CP.navy }} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
+                  <motion.h2 className="heading-font text-2xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.15] mb-4 sm:mb-6 sm:max-w-xl font-bold" style={{ color: CP.navy }} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
                     Your Money Deserves a Plan. Not a{' '}
                     <span className="relative inline-block" style={{ color: CP.blue }}>
                       Guessing Game.
@@ -251,27 +252,26 @@ function LiveRedesign() {
                     </span>
                   </motion.h2>
 
-                  <motion.p className={`${inter.className} text-sm sm:text-lg max-w-md sm:mx-0 mx-auto mb-6 sm:mb-8`} style={{ color: CP.slate, lineHeight: 1.7 }} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 4 }}>
+                  <motion.p style={{ color: CP.slate, lineHeight: 1.7, fontFamily: "'Supreme', sans-serif", fontSize: '0.95rem', maxWidth: '28rem', marginBottom: '1.75rem' }} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 4 }}>
                     Retirement, tax, and estate planning — personalized for your life and your goals.
                   </motion.p>
 
                   <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 5 }} className="flex flex-col sm:flex-row items-center sm:items-start justify-center sm:justify-start gap-4">
-                    <a href="#contact" className={`${inter.className} inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 text-sm sm:text-base rounded-xl transition-all duration-300 hover:scale-[1.03] active:scale-[0.97] font-bold`} style={{ backgroundColor: CP.blue, color: CP.white, boxShadow: `0 4px 20px ${CP.blue}35` }}>
-                      Book a Free Consultation
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                    <a href="#contact" className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]" style={{ backgroundColor: CP.navy, color: CP.white, fontFamily: "'Supreme', sans-serif", fontWeight: 700, fontSize: '0.9rem', boxShadow: `0 4px 20px ${CP.navy}30` }}>
+                      Book a Free Consultation &rarr;
                     </a>
-                    <span className={`${inter.className} text-sm`} style={{ color: '#999' }}>No commitment required</span>
+                    <span style={{ color: '#999', fontFamily: "'Supreme', sans-serif", fontSize: '0.85rem' }}>No commitment required</span>
                   </motion.div>
 
                   <motion.div className="flex items-center justify-center sm:justify-start gap-4 sm:gap-6 mt-6 flex-wrap" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur, delay: stagger * 6 }}>
                     {['CPA Certified', '15+ Years', '200+ Clients'].map((badge) => (
-                      <span key={badge} className={`${inter.className} text-xs`} style={{ color: CP.blue, opacity: 0.7, letterSpacing: '0.05em' }}>{badge}</span>
+                      <span key={badge} style={{ color: CP.navy, opacity: 0.6, letterSpacing: '0.05em', fontFamily: "'Supreme', sans-serif", fontSize: '0.75rem', fontWeight: 600 }}>{badge}</span>
                     ))}
                   </motion.div>
                 </div>
               </div>
 
-              {/* Shimmer border */}
+              {/* Shimmer border — navy/blue gradient */}
               <div className="h-[3px] w-full" style={{ background: `linear-gradient(90deg, ${CP.navy}, ${CP.blue}, ${CP.navy})`, backgroundSize: '200% 100%', animation: 'shimmer-border 3s linear infinite' }} />
             </motion.div>
           )}

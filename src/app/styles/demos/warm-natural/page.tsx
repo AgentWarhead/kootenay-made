@@ -164,9 +164,9 @@ function LiveRedesign() {
             >
               {/* Grain texture */}
               <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E")`, opacity: 0.4 }} />
-              {/* Elegant nav */}
-              <div className="flex items-center justify-between px-6 sm:px-10 py-4" style={{ borderBottom: `1px solid ${sage}15` }}>
-                <motion.span className={`heading-font text-base sm:text-lg`} style={{ color: '#8b7355', fontStyle: 'italic' }}
+              {/* Linen nav */}
+              <div className="flex items-center justify-between px-6 sm:px-10 py-5" style={{ borderBottom: `1px solid ${sage}18`, backgroundColor: cream }}>
+                <motion.span className="heading-font text-base sm:text-lg" style={{ color: sage, fontStyle: 'italic', fontFamily: "'Erode', serif" }}
                   initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: dur * 0.6, delay: stagger }}>
                   Mountain Flow Wellness
                 </motion.span>
@@ -181,60 +181,58 @@ function LiveRedesign() {
                   <span className="block w-5 h-[2px] rounded-full" style={{ backgroundColor: sage }} />
                 </motion.div>
               </div>
-              {/* Hero */}
-              <div className="relative px-5 sm:px-10 md:px-16 py-8 sm:py-10 flex-1 flex flex-col justify-center">
-                <motion.div className="absolute top-0 right-0 pointer-events-none" initial={{ opacity: 0 }} animate={{ opacity: 0.18 }} transition={{ duration: dur, delay: stagger * 3 }}>
-                  <svg width="240" height="240" viewBox="0 0 180 180" fill="none">
-                    <path d="M180 20 C140 30, 100 10, 60 40 C20 70, 10 120, 30 160" stroke={sage} strokeWidth="1.5" fill="none" strokeLinecap="round" />
-                    <path d="M160 0 C130 20, 110 60, 130 100 C150 140, 170 150, 160 180" stroke={warm} strokeWidth="1" fill="none" strokeLinecap="round" strokeDasharray="4 6" />
-                    <ellipse cx="100" cy="50" rx="12" ry="6" stroke={sage} strokeWidth="1" fill="none" transform="rotate(-30 100 50)" />
-                    <ellipse cx="70" cy="90" rx="9" ry="5" stroke={sage} strokeWidth="1" fill="none" transform="rotate(10 70 90)" />
-                    <circle cx="140" cy="30" r="3" fill={warm} opacity="0.4" />
-                    <circle cx="55" cy="130" r="2" fill={sage} opacity="0.3" />
+              {/* Hero — lots of breathing whitespace */}
+              <div className="relative px-6 sm:px-12 md:px-16 py-10 sm:py-12 flex-1 flex flex-col justify-center">
+                <motion.div className="absolute top-0 right-0 pointer-events-none" initial={{ opacity: 0 }} animate={{ opacity: 0.16 }} transition={{ duration: dur, delay: stagger * 3 }}>
+                  {/* Organic breath/wave SVG motif */}
+                  <svg width="220" height="220" viewBox="0 0 180 180" fill="none">
+                    <path d="M10 60 C40 40, 80 80, 120 55 C155 35, 170 70, 175 90" stroke={sage} strokeWidth="1.5" fill="none" strokeLinecap="round" />
+                    <path d="M0 90 C35 65, 75 110, 120 82 C155 60, 168 95, 178 115" stroke={sage} strokeWidth="1" fill="none" strokeLinecap="round" />
+                    <path d="M5 120 C40 98, 85 138, 130 110 C158 92, 170 120, 178 140" stroke={warm} strokeWidth="0.8" fill="none" strokeLinecap="round" strokeDasharray="5 7" />
+                    <path d="M20 145 C55 128, 95 155, 140 135" stroke={sage} strokeWidth="0.7" fill="none" strokeLinecap="round" opacity="0.6" />
+                    <circle cx="125" cy="55" r="2.5" fill={warm} opacity="0.45" />
+                    <circle cx="60" cy="110" r="2" fill={sage} opacity="0.35" />
+                    <circle cx="145" cy="100" r="1.5" fill={sage} opacity="0.3" />
                   </svg>
                 </motion.div>
                 <div className="relative z-10 text-center sm:text-left">
-                  <motion.div className="flex justify-center sm:justify-start mb-3 sm:mb-5" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
+                  <motion.div className="flex justify-center sm:justify-start mb-5 sm:mb-6" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
                     <span className={`${nunito.className} text-xs font-semibold uppercase tracking-[0.2em] px-5 py-2 rounded-full`} style={{ backgroundColor: `${sage}18`, color: sage, border: `1px solid ${sage}25` }}>
                       Est. 2014 &mdash; West Kootenay
                     </span>
                   </motion.div>
-                  <motion.h2 className={`heading-font text-2xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.15] mb-4 sm:mb-5 sm:max-w-xl`}
-                    style={{ color: '#8b7355' }}
+                  <motion.h2 className="heading-font text-2xl sm:text-4xl md:text-5xl leading-[1.2] mb-5 sm:mb-6 sm:max-w-lg"
+                    style={{ color: '#8b7355', fontFamily: "'Erode', serif" }}
                     initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
                     You Carry Enough.<br />Put It Down{' '}
                     <span className="relative inline-block" style={{ color: sage, fontStyle: 'italic' }}>
                       for an Hour.
                       <motion.svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 12" fill="none">
-                        <motion.path d="M4 8 C40 2, 80 4, 120 7 C150 9, 172 5, 196 7" stroke={sage} strokeWidth="2" strokeLinecap="round" fill="none"
+                        <motion.path d="M4 8 C50 2, 100 6, 150 4 C165 3.5, 182 6, 196 5" stroke={sage} strokeWidth="1.8" strokeLinecap="round" fill="none"
                           initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: dur * 1.5, delay: stagger * 5, ease: 'easeOut' }} />
                       </motion.svg>
                     </span>
                   </motion.h2>
-                  <motion.p className={`${nunito.className} text-sm sm:text-lg max-w-md sm:mx-0 mx-auto mb-6 sm:mb-8`}
-                    style={{ color: '#8b7355', opacity: 0.7, lineHeight: 1.7 }}
+                  <motion.p className={`${nunito.className} text-sm sm:text-base max-w-sm sm:mx-0 mx-auto mb-8 sm:mb-10`}
+                    style={{ color: '#8b7355', opacity: 0.65, lineHeight: 1.8 }}
                     initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 4 }}>
-                    Yoga, massage, reiki &mdash; a sanctuary designed to quiet the noise and restore your balance.
+                    Yoga, massage, reiki &mdash; a sanctuary designed to quiet the noise.
                   </motion.p>
                   <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 5 }}
                     className="flex flex-col sm:flex-row items-center sm:items-start justify-center sm:justify-start gap-4">
-                    <a href="#contact" className={`heading-font inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 text-sm sm:text-base rounded-xl transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]`}
-                      style={{ backgroundColor: sage, color: '#fff', boxShadow: `0 4px 20px ${sage}35`, letterSpacing: '0.02em' }}>
-                      View Schedule
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                    <a href="#contact" className="heading-font inline-flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-4 text-sm sm:text-base rounded-full transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]"
+                      style={{ backgroundColor: sage, color: '#fff', boxShadow: `0 4px 24px ${sage}35`, letterSpacing: '0.02em', fontFamily: "'Erode', serif" }}>
+                      Book Your Escape →
                     </a>
-                    <span className={`${nunito.className} text-sm`} style={{ color: '#999' }}>No commitment required</span>
                   </motion.div>
-                  <motion.div className="flex items-center justify-center sm:justify-start gap-4 sm:gap-6 mt-5 sm:mt-8 flex-wrap"
+                  <motion.div className="flex items-center justify-center sm:justify-start gap-2 mt-7 sm:mt-9"
                     initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur, delay: stagger * 6 }}>
-                    {['Certified RYT-500', '10+ Classes Weekly', 'All Levels'].map((badge) => (
-                      <span key={badge} className={`${nunito.className} text-xs`} style={{ color: sage, opacity: 0.7, letterSpacing: '0.05em' }}>{badge}</span>
-                    ))}
+                    <span className={`${nunito.className} text-xs`} style={{ color: sage, opacity: 0.6, letterSpacing: '0.06em' }}>Certified RYT-500 &bull; 10+ Classes Weekly &bull; All Levels</span>
                   </motion.div>
                 </div>
               </div>
-              <div className="h-[3px] w-full" style={{ background: `linear-gradient(90deg, ${sage}, ${warm}, ${sage})`, backgroundSize: '200% 100%', animation: 'shimmer-border 3s linear infinite' }} />
+              <div className="h-[3px] w-full" style={{ background: `linear-gradient(90deg, ${sage}, ${cream}, ${warm}, ${cream}, ${sage})`, backgroundSize: '200% 100%', animation: 'shimmer-border 3s linear infinite' }} />
             </motion.div>
           )}
         </AnimatePresence>

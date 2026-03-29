@@ -151,7 +151,7 @@ function LiveRedesign() {
               <div className="flex items-center justify-between px-6 sm:px-10 py-4" style={{ borderBottom: `1px solid ${orange}20` }}>
                 <motion.span className={`${heading.className} text-base sm:text-xl font-bold uppercase`} style={{ color: orange }}
                   initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: dur * 0.6, delay: stagger }}>
-                  POWDER HIGHWAY
+                  POWDER HIGHWAY ADVENTURES
                 </motion.span>
                 <motion.div className="hidden sm:flex items-center gap-6" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
                   {['Adventures', 'About', 'Gallery', 'Book'].map((link) => (

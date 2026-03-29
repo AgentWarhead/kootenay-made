@@ -197,16 +197,16 @@ function LiveRedesign() {
               animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
               transition={{ duration: dur * 0.8, ease: 'easeOut' }}
               className="absolute inset-0 w-full overflow-hidden flex flex-col"
-              style={{ backgroundColor: PARCHMENT, border: `1px solid ${AMBER}40`, borderRadius: '16px', boxShadow: `0 8px 40px ${AMBER}18, 0 2px 8px rgba(0,0,0,0.06)` }}>
-              {/* Elegant nav */}
-              <div className="flex items-center justify-between px-6 sm:px-10 py-4" style={{ borderBottom: `1px solid ${DARK_BROWN}18` }}>
-                <motion.span className={`heading-font text-base sm:text-lg font-bold`} style={{ color: DARK_BROWN }}
+              style={{ backgroundColor: '#2a1a0e', border: `2px solid ${AMBER}50`, borderRadius: '16px', boxShadow: `0 8px 40px ${AMBER}20, 0 2px 16px rgba(0,0,0,0.4)` }}>
+              {/* Nav — dark brown bg, Gambetta, amber text */}
+              <div className="flex items-center justify-between px-6 sm:px-10 py-4" style={{ borderBottom: `1px solid ${AMBER}25` }}>
+                <motion.span className={`heading-font text-base sm:text-lg font-bold`} style={{ color: AMBER, fontFamily: "'Gambetta', serif" }}
                   initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: dur * 0.6, delay: stagger }}>
                   Kootenay Brewing Co.
                 </motion.span>
                 <motion.div className="hidden sm:flex items-center gap-6" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
                   {['Our Beers', 'Taproom', 'About', 'Contact'].map((link) => (
-                    <span key={link} className={`${lato.className} text-xs uppercase tracking-widest`} style={{ color: AMBER, fontWeight: 700 }}>{link}</span>
+                    <span key={link} className={`${lato.className} text-xs uppercase tracking-widest`} style={{ color: `${AMBER}99`, fontWeight: 700 }}>{link}</span>
                   ))}
                 </motion.div>
                 <motion.div className="sm:hidden flex flex-col gap-[5px]" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur * 0.6, delay: stagger }}>
@@ -217,25 +217,29 @@ function LiveRedesign() {
               </div>
               {/* Hero */}
               <div className="relative px-5 sm:px-10 md:px-16 py-8 sm:py-12 flex-1 flex flex-col justify-center">
-                <motion.div className="absolute top-0 right-0 pointer-events-none" initial={{ opacity: 0 }} animate={{ opacity: 0.18 }} transition={{ duration: dur, delay: stagger * 3 }}>
+                {/* Wood-grain texture overlay */}
+                <div className="absolute inset-0 pointer-events-none" style={{ background: 'repeating-linear-gradient(91deg, rgba(212,148,42,0.03) 0px, transparent 2px, transparent 12px, rgba(212,148,42,0.02) 12px, transparent 14px, transparent 28px)', zIndex: 0 }} />
+                <motion.div className="absolute top-0 right-0 pointer-events-none" initial={{ opacity: 0 }} animate={{ opacity: 0.25 }} transition={{ duration: dur, delay: stagger * 3 }}>
+                  {/* Rustic hop/grain SVG motif */}
                   <svg width="200" height="200" viewBox="0 0 160 160" fill="none">
-                    <circle cx="80" cy="40" r="20" stroke={AMBER} strokeWidth="1" fill="none" />
-                    <circle cx="80" cy="40" r="12" stroke={AMBER} strokeWidth="0.5" fill="none" />
-                    <path d="M80 20 C100 30 110 60 80 80 C50 60 60 30 80 20Z" stroke={DARK_BROWN} strokeWidth="1" fill={`${AMBER}20`} />
-                    <path d="M40 100 C60 90 80 110 60 130" stroke={AMBER} strokeWidth="1.5" strokeLinecap="round" fill="none" />
-                    <path d="M50 95 C70 85 90 105 70 125" stroke={AMBER} strokeWidth="1" strokeLinecap="round" fill="none" strokeDasharray="3 4" />
+                    <circle cx="80" cy="40" r="22" stroke={AMBER} strokeWidth="1.2" fill="none" />
+                    <circle cx="80" cy="40" r="14" stroke={AMBER} strokeWidth="0.7" fill="none" strokeDasharray="4 3" />
+                    <path d="M80 18 C102 28 114 58 80 82 C46 58 58 28 80 18Z" stroke={AMBER} strokeWidth="1.5" strokeLinecap="round" fill={`${AMBER}15`} />
+                    <path d="M38 104 C58 92 84 112 62 136" stroke={AMBER} strokeWidth="1.8" strokeLinecap="round" fill="none" />
+                    <path d="M48 98 C68 86 94 106 72 130" stroke={AMBER} strokeWidth="1" strokeLinecap="round" fill="none" strokeDasharray="4 5" />
+                    <circle cx="80" cy="40" r="4" fill={AMBER} opacity="0.5" />
                   </svg>
                 </motion.div>
                 <div className="relative z-10 text-center sm:text-left">
                   <motion.div className="flex justify-center sm:justify-start mb-4" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
-                    <span className={`${lato.className} text-xs font-bold uppercase tracking-[0.2em] px-4 py-1.5 rounded-sm`} style={{ backgroundColor: `${AMBER}20`, color: AMBER, border: `1px solid ${AMBER}40` }}>
+                    <span className={`${lato.className} text-xs font-bold uppercase tracking-[0.2em] px-4 py-1.5 rounded-sm`} style={{ backgroundColor: `${AMBER}18`, color: AMBER, border: `1px solid ${AMBER}40` }}>
                       Est. 2018 &mdash; West Kootenay
                     </span>
                   </motion.div>
-                  <motion.h2 className={`heading-font text-2xl sm:text-4xl md:text-5xl leading-[1.15] mb-4 sm:max-w-xl font-bold`} style={{ color: DARK_BROWN }}
+                  <motion.h2 className={`heading-font text-2xl sm:text-4xl md:text-5xl leading-[1.15] mb-4 sm:max-w-xl font-bold`} style={{ color: PARCHMENT, fontFamily: "'Gambetta', serif" }}
                     initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
                     Brewed 12 Minutes From Where{' '}
-                    <span className="relative inline-block" style={{ color: AMBER }}>
+                    <span className="relative inline-block" style={{ color: AMBER, fontStyle: 'italic' }}>
                       You&rsquo;re Sitting.
                       <motion.svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 12" fill="none">
                         <motion.path d="M4 8 C40 2, 80 2, 120 6 C140 8, 170 4, 196 6" stroke={AMBER} strokeWidth="2" strokeLinecap="round" fill="none"
@@ -243,29 +247,28 @@ function LiveRedesign() {
                       </motion.svg>
                     </span>
                   </motion.h2>
-                  <motion.p className={`${lato.className} text-sm sm:text-base max-w-sm mx-auto sm:mx-0 mb-6`} style={{ color: `${DARK_BROWN}bb`, lineHeight: 1.7 }}
+                  <motion.p className={`${lato.className} text-sm sm:text-base max-w-sm mx-auto sm:mx-0 mb-6`} style={{ color: `${PARCHMENT}99`, lineHeight: 1.7 }}
                     initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 4 }}>
                     Small batch, big flavour — crafted with Kootenay mountain water.
                   </motion.p>
                   <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 5 }}
                     className="flex flex-col sm:flex-row items-center sm:items-start justify-center sm:justify-start gap-4">
                     <a href="#tap" className={`heading-font inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 sm:px-8 py-3.5 text-sm rounded-sm transition-all hover:scale-[1.03] active:scale-[0.97]`}
-                      style={{ backgroundColor: AMBER, color: DARK_BROWN, boxShadow: `0 4px 20px ${AMBER}35`, fontWeight: 700 }}>
-                      See What&rsquo;s on Tap
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                      style={{ backgroundColor: AMBER, color: '#2a1a0e', boxShadow: `0 4px 20px ${AMBER}40`, fontWeight: 700, fontFamily: "'Gambetta', serif" }}>
+                      See What&rsquo;s on Tap →
                     </a>
-                    <span className={`${lato.className} text-sm`} style={{ color: `${DARK_BROWN}66` }}>No commitment required</span>
+                    <span className={`${lato.className} text-sm`} style={{ color: `${AMBER}55` }}>No commitment required</span>
                   </motion.div>
                   <motion.div className="flex items-center justify-center sm:justify-start gap-4 sm:gap-6 mt-6 flex-wrap"
                     initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur, delay: stagger * 6 }}>
                     {['12 Beers on Tap', 'Dog Friendly', 'Open 7 Days'].map((badge) => (
-                      <span key={badge} className={`${lato.className} text-xs`} style={{ color: AMBER, opacity: 0.8, letterSpacing: '0.05em' }}>{badge}</span>
+                      <span key={badge} className={`${lato.className} text-xs`} style={{ color: `${AMBER}88`, letterSpacing: '0.05em' }}>{badge}</span>
                     ))}
                   </motion.div>
                 </div>
               </div>
-              {/* Shimmer border */}
-              <motion.div className="h-[3px] w-full" style={{ background: `linear-gradient(90deg, transparent, ${AMBER}, ${PARCHMENT}, ${AMBER}, transparent)`, backgroundSize: '200% 100%' }}
+              {/* Shimmer border — amber/brown gradient */}
+              <motion.div className="h-[3px] w-full" style={{ background: `linear-gradient(90deg, transparent, ${AMBER}, #c47a1a, ${AMBER}, transparent)`, backgroundSize: '200% 100%' }}
                 animate={{ backgroundPosition: ['200% 0', '-200% 0'] }} transition={{ duration: 3, repeat: Infinity, ease: 'linear' }} />
             </motion.div>
           )}

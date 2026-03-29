@@ -225,12 +225,12 @@ function LiveRedesign() {
               animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
               transition={{ duration: dur * 0.8, ease: 'easeOut' }}
               className="absolute inset-0 w-full overflow-hidden flex flex-col"
-              style={{ backgroundColor: '#fff', border: '2px solid rgba(78,205,196,0.3)', borderRadius: '24px', boxShadow: '0 8px 40px rgba(78,205,196,0.15), 0 2px 8px rgba(0,0,0,0.04)' }}>
-              {/* Colorful nav */}
-              <div className="flex items-center justify-between px-6 sm:px-10 py-4" style={{ borderBottom: '2px solid rgba(78,205,196,0.15)' }}>
-                <motion.span className={`${nunito.className} text-base sm:text-lg font-extrabold`} style={{ color: CORAL }}
+              style={{ backgroundColor: '#ffffff', border: '2px solid rgba(255,107,107,0.25)', borderRadius: '20px', boxShadow: '0 8px 40px rgba(255,107,107,0.12), 0 2px 12px rgba(78,205,196,0.1)' }}>
+              {/* Playful nav */}
+              <div className="flex items-center justify-between px-6 sm:px-10 py-4" style={{ borderBottom: '2px solid rgba(255,107,107,0.1)' }}>
+                <motion.span className={`heading-font text-base sm:text-lg font-bold`} style={{ color: CORAL, fontFamily: "'Pally', sans-serif" }}
                   initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: dur * 0.6, delay: stagger }}>
-                  Sunshine <span style={{ color: TEAL }}>Daycare</span>
+                  Sunshine Daycare
                 </motion.span>
                 <motion.div className="hidden sm:flex items-center gap-6" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
                   {['Programs', 'About', 'Gallery', 'Contact'].map((link, i) => (
@@ -260,11 +260,11 @@ function LiveRedesign() {
                       Est. 2016 &mdash; Castlegar, BC
                     </span>
                   </motion.div>
-                  <motion.h2 className={`heading-font text-2xl sm:text-4xl md:text-5xl font-extrabold leading-[1.15] mb-4 sm:max-w-xl`} style={{ color: '#333' }}
+                  <motion.h2 className={`heading-font text-2xl sm:text-4xl md:text-5xl font-bold leading-[1.15] mb-4 sm:max-w-xl`} style={{ color: '#333', fontFamily: "'Pally', sans-serif" }}
                     initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
-                    Where Curiosity{' '}
+                    You&rsquo;ll Never Wonder If They&rsquo;re Okay.{' '}
                     <span className="relative inline-block" style={{ color: CORAL }}>
-                      Grows.
+                      Here&rsquo;s Why.
                       <motion.svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 12" fill="none">
                         <motion.path d="M4 8 C40 2, 80 2, 120 6 C140 8, 170 4, 196 6" stroke={CORAL} strokeWidth="2.5" strokeLinecap="round" fill="none"
                           initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: dur * 1.5, delay: stagger * 5, ease: 'easeOut' }} />
@@ -277,23 +277,22 @@ function LiveRedesign() {
                   </motion.p>
                   <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 5 }}
                     className="flex flex-col sm:flex-row items-center sm:items-start justify-center sm:justify-start gap-4">
-                    <a href="#contact" className={`${nunito.className} inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 sm:px-8 py-3.5 text-sm rounded-2xl transition-all hover:scale-[1.03] active:scale-[0.97]`}
-                      style={{ backgroundColor: CORAL, color: '#fff', boxShadow: `0 4px 20px ${CORAL}35`, fontWeight: 800 }}>
-                      Book a Tour
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    <a href="#contact" className={`heading-font inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 sm:px-8 py-3.5 text-sm transition-all hover:scale-[1.03] active:scale-[0.97]`}
+                      style={{ backgroundColor: CORAL, color: '#fff', boxShadow: `0 4px 20px ${CORAL}35`, fontWeight: 700, borderRadius: '50px', fontFamily: "'Pally', sans-serif" }}>
+                      Book a Tour — See For Yourself →
                     </a>
                     <span className={`${nunito.className} text-sm`} style={{ color: '#ccc' }}>No commitment required</span>
                   </motion.div>
                   <motion.div className="flex items-center justify-center sm:justify-start gap-4 sm:gap-6 mt-6 flex-wrap"
                     initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur, delay: stagger * 6 }}>
-                    {['Licensed', 'First Aid Certified', '6:1 Ratio'].map((badge) => (
+                    {['Licensed', 'First Aid Certified', '15:1 Ratio'].map((badge) => (
                       <span key={badge} className={`${nunito.className} text-xs font-bold`} style={{ color: TEAL, letterSpacing: '0.05em' }}>{badge}</span>
                     ))}
                   </motion.div>
                 </div>
               </div>
               {/* Shimmer border */}
-              <motion.div className="h-[3px] w-full rounded-b-3xl" style={{ background: `linear-gradient(90deg, transparent, ${CORAL}, ${TEAL}, ${PURPLE}, ${YELLOW}, transparent)`, backgroundSize: '200% 100%' }}
+              <motion.div className="h-[3px] w-full" style={{ background: `linear-gradient(90deg, transparent, ${CORAL}, ${TEAL}, ${CORAL}, transparent)`, backgroundSize: '200% 100%', borderRadius: '0 0 20px 20px' }}
                 animate={{ backgroundPosition: ['200% 0', '-200% 0'] }} transition={{ duration: 3, repeat: Infinity, ease: 'linear' }} />
             </motion.div>
           )}

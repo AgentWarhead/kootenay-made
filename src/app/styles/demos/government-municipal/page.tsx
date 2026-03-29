@@ -130,60 +130,71 @@ function LiveRedesign() {
               animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
               transition={{ duration: dur * 0.8, ease: 'easeOut' }}
               className="absolute inset-0 w-full overflow-hidden flex flex-col"
-              style={{ backgroundColor: white, border: `1px solid ${blue}30`, borderRadius: '16px', boxShadow: `0 8px 40px ${blue}15, 0 2px 8px rgba(0,0,0,0.04)` }}
+              style={{ backgroundColor: white, border: `2px solid ${blue}`, borderRadius: '12px', boxShadow: `0 4px 24px ${blue}20, 0 2px 8px rgba(0,0,0,0.06)` }}
             >
-              <div className="flex items-center justify-between px-6 sm:px-10 py-4" style={{ borderBottom: `1px solid ${blue}15`, backgroundColor: navy }}>
-                <motion.span className={`${sourceSans.className} text-sm sm:text-base font-bold`} style={{ color: white, letterSpacing: '0.02em' }}
+              {/* White nav — accessible, high contrast */}
+              <div className="flex items-center justify-between px-5 sm:px-8 py-3" style={{ borderBottom: `2px solid ${blue}`, backgroundColor: white }}>
+                <motion.span className={`${sourceSans.className} text-xs sm:text-sm font-bold`} style={{ color: '#111827', letterSpacing: '0.01em' }}
                   initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: dur * 0.6, delay: stagger }}>
-                  West Kootenay Parks &amp; Rec
+                  West Kootenay Regional Parks
                 </motion.span>
-                <motion.div className="hidden sm:flex items-center gap-6" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
+                <motion.div className="hidden sm:flex items-center gap-5" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
                   {['Parks', 'Services', 'About', 'Contact'].map((link) => (
-                    <span key={link} className={`${sourceSans.className} text-xs uppercase tracking-widest`} style={{ color: 'rgba(255,255,255,0.75)', fontWeight: 600 }}>{link}</span>
+                    <span key={link} className={`${sourceSans.className} text-xs uppercase tracking-widest font-semibold`} style={{ color: blue }}>{link}</span>
                   ))}
                 </motion.div>
                 <motion.div className="sm:hidden flex flex-col gap-[5px]" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur * 0.6, delay: stagger }}>
-                  <span className="block w-5 h-[2px] rounded-full" style={{ backgroundColor: lightBlue }} />
-                  <span className="block w-4 h-[2px] rounded-full" style={{ backgroundColor: lightBlue }} />
-                  <span className="block w-5 h-[2px] rounded-full" style={{ backgroundColor: lightBlue }} />
+                  <span className="block w-5 h-[2px] rounded-full" style={{ backgroundColor: blue }} />
+                  <span className="block w-4 h-[2px] rounded-full" style={{ backgroundColor: blue }} />
+                  <span className="block w-5 h-[2px] rounded-full" style={{ backgroundColor: blue }} />
                 </motion.div>
               </div>
-              <div className="relative px-5 sm:px-10 md:px-16 py-8 sm:py-10 flex-1 flex flex-col justify-center">
+              <div className="relative px-5 sm:px-10 md:px-14 py-8 sm:py-10 flex-1 flex flex-col justify-center">
+                <motion.div className="absolute top-4 right-4 pointer-events-none" initial={{ opacity: 0 }} animate={{ opacity: 0.12 }} transition={{ duration: dur, delay: stagger * 3 }}>
+                  {/* Clean geometric shapes — accessible, structured */}
+                  <svg width="200" height="200" viewBox="0 0 180 180" fill="none">
+                    <circle cx="140" cy="40" r="30" stroke={blue} strokeWidth="1.5" fill="none" />
+                    <circle cx="140" cy="40" r="18" stroke={blue} strokeWidth="1" fill="none" opacity="0.6" />
+                    <circle cx="140" cy="40" r="6" fill={blue} opacity="0.5" />
+                    <rect x="30" y="100" width="40" height="40" stroke={blue} strokeWidth="1.5" fill="none" />
+                    <rect x="38" y="108" width="24" height="24" stroke={blue} strokeWidth="1" fill="none" opacity="0.5" />
+                    <line x1="50" y1="80" x2="50" y2="100" stroke={blue} strokeWidth="1" opacity="0.4" />
+                    <line x1="140" y1="70" x2="140" y2="155" stroke={blue} strokeWidth="1" opacity="0.3" strokeDasharray="4 5" />
+                    <line x1="50" y1="140" x2="130" y2="140" stroke={blue} strokeWidth="1" opacity="0.25" strokeDasharray="4 5" />
+                  </svg>
+                </motion.div>
                 <div className="relative z-10 text-center sm:text-left">
-                  <motion.div className="flex justify-center sm:justify-start mb-3 sm:mb-5" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
-                    <span className={`${sourceSans.className} text-xs font-semibold uppercase tracking-[0.2em] px-5 py-2 rounded-full`} style={{ backgroundColor: `${blue}15`, color: blue, border: `1px solid ${blue}25` }}>
+                  <motion.div className="flex justify-center sm:justify-start mb-4 sm:mb-5" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
+                    <span className={`${sourceSans.className} text-xs font-bold uppercase tracking-[0.2em] px-5 py-2 rounded-sm`} style={{ backgroundColor: `${blue}12`, color: blue, border: `1.5px solid ${blue}30` }}>
                       Est. 1980 &mdash; West Kootenay
                     </span>
                   </motion.div>
-                  <motion.h2 className={`${sourceSans.className} text-2xl sm:text-4xl md:text-5xl font-bold leading-[1.15] mb-4 sm:mb-5 sm:max-w-xl`}
-                    style={{ color: navy }}
+                  <motion.h2 className={`${sourceSans.className} text-2xl sm:text-4xl font-bold leading-[1.2] mb-4 sm:mb-5 sm:max-w-xl`}
+                    style={{ color: '#111827' }}
                     initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
-                    Find a Park.{' '}
-                    <span style={{ color: blue }}>Book a Facility.</span>
-                    <br />Report an Issue.
+                    Report It. We&rsquo;ll Handle It.{' '}
+                    <span style={{ color: blue }}>No Hold Music</span>{' '}Required.
                   </motion.h2>
                   <motion.p className={`${sourceSans.className} text-sm sm:text-base max-w-md sm:mx-0 mx-auto mb-6 sm:mb-8`}
-                    style={{ color: '#475569', lineHeight: 1.7 }}
+                    style={{ color: '#374151', lineHeight: 1.7 }}
                     initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 4 }}>
-                    Self-serve online &mdash; 24 hours a day, 7 days a week.
+                    Self-serve online &mdash; 24 hours a day, 7 days a week. No hold music, no wait.
                   </motion.p>
                   <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 5 }}
                     className="flex flex-col sm:flex-row items-center sm:items-start justify-center sm:justify-start gap-4">
                     <a href="#contact" className={`${sourceSans.className} inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 text-sm sm:text-base font-bold rounded-lg transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]`}
                       style={{ backgroundColor: blue, color: white, boxShadow: `0 4px 20px ${blue}35` }}>
-                      Find a Park
+                      Submit a Service Request →
                     </a>
                   </motion.div>
-                  <motion.div className="flex items-center justify-center sm:justify-start gap-4 sm:gap-6 mt-5 sm:mt-8 flex-wrap"
+                  <motion.div className="flex items-center justify-center sm:justify-start gap-2 mt-5 sm:mt-8"
                     initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur, delay: stagger * 6 }}>
-                    {['12 Parks', '200+ Programs', 'WCAG AA'].map((badge) => (
-                      <span key={badge} className={`${sourceSans.className} text-xs`} style={{ color: blue, opacity: 0.7, letterSpacing: '0.05em' }}>{badge}</span>
-                    ))}
+                    <span className={`${sourceSans.className} text-xs font-semibold`} style={{ color: blue, opacity: 0.75, letterSpacing: '0.04em' }}>Online 24/7 &bull; 12 Parks &bull; 8 Programs</span>
                   </motion.div>
                 </div>
               </div>
-              <div className="h-[3px] w-full" style={{ background: `linear-gradient(90deg, ${blue}, ${lightBlue}, ${blue})`, backgroundSize: '200% 100%', animation: 'shimmer-border 3s linear infinite' }} />
+              <div className="h-[3px] w-full" style={{ background: `linear-gradient(90deg, ${blue}, ${lightBlue}, white, ${lightBlue}, ${blue})`, backgroundSize: '200% 100%', animation: 'shimmer-border 3s linear infinite' }} />
             </motion.div>
           )}
         </AnimatePresence>

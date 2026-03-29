@@ -122,76 +122,79 @@ function LiveRedesign() {
               animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
               transition={{ duration: dur * 0.8, ease: 'easeOut' }}
               className="absolute inset-0 w-full overflow-hidden flex flex-col"
-              style={{ backgroundColor: black, border: `1px solid ${pink}30`, borderRadius: '16px', boxShadow: `0 8px 40px ${pink}15, 0 2px 8px rgba(0,0,0,0.3)` }}
+              style={{ backgroundColor: '#111', border: `2px solid ${pink}`, borderRadius: '16px', boxShadow: `0 0 24px ${pink}55, 0 0 60px ${pink}25, 0 2px 8px rgba(0,0,0,0.5)` }}
             >
-              <div className="flex items-center justify-between px-6 sm:px-10 py-4" style={{ borderBottom: `1px solid ${pink}20` }}>
-                <motion.span className={`heading-font text-xl sm:text-2xl tracking-widest`} style={{ color: pink, letterSpacing: '0.12em', textShadow: `0 0 10px ${pink}` }}
+              {/* Black nav with neon pink brand */}
+              <div className="flex items-center justify-between px-6 sm:px-10 py-4" style={{ borderBottom: `1px solid ${pink}30`, backgroundColor: '#111' }}>
+                <motion.span className="heading-font text-xl sm:text-2xl tracking-widest" style={{ color: pink, letterSpacing: '0.12em', textShadow: `0 0 12px ${pink}, 0 0 28px ${pink}80`, fontFamily: "'Melodrama', sans-serif" }}
                   initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: dur * 0.6, delay: stagger }}>
                   NEON PINES
                 </motion.span>
                 <motion.div className="hidden sm:flex items-center gap-6" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
                   {['Shows', 'Venue', 'About', 'Contact'].map((link) => (
-                    <span key={link} className={`${dmSans.className} text-xs uppercase tracking-widest`} style={{ color: 'rgba(255,255,255,0.55)', fontWeight: 500 }}>{link}</span>
+                    <span key={link} className={`${dmSans.className} text-xs uppercase tracking-widest`} style={{ color: 'rgba(255,255,255,0.5)', fontWeight: 500 }}>{link}</span>
                   ))}
                 </motion.div>
                 <motion.div className="sm:hidden flex flex-col gap-[5px]" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur * 0.6, delay: stagger }}>
-                  <span className="block w-5 h-[2px] rounded-full" style={{ backgroundColor: pink }} />
-                  <span className="block w-4 h-[2px] rounded-full" style={{ backgroundColor: pink }} />
-                  <span className="block w-5 h-[2px] rounded-full" style={{ backgroundColor: pink }} />
+                  <span className="block w-5 h-[2px]" style={{ backgroundColor: pink }} />
+                  <span className="block w-4 h-[2px]" style={{ backgroundColor: pink }} />
+                  <span className="block w-5 h-[2px]" style={{ backgroundColor: pink }} />
                 </motion.div>
               </div>
-              <div className="relative px-5 sm:px-10 md:px-16 py-8 sm:py-10 flex-1 flex flex-col justify-center overflow-hidden">
-                <motion.div className="absolute top-0 right-0 pointer-events-none" initial={{ opacity: 0 }} animate={{ opacity: 0.2 }} transition={{ duration: dur, delay: stagger * 3 }}>
-                  <svg width="240" height="240" viewBox="0 0 180 180" fill="none">
-                    <line x1="180" y1="0" x2="120" y2="180" stroke={pink} strokeWidth="1" />
-                    <line x1="160" y1="0" x2="100" y2="180" stroke={blue} strokeWidth="0.8" />
-                    <line x1="140" y1="0" x2="80" y2="180" stroke={pink} strokeWidth="0.5" opacity="0.5" />
-                    <path d="M130 20 L160 60 L130 100" stroke={pink} strokeWidth="1" fill="none" strokeLinecap="round" />
-                    <circle cx="150" cy="40" r="3" fill={pink} opacity="0.6" />
-                    <circle cx="160" cy="80" r="2" fill={blue} opacity="0.5" />
+              <div className="relative px-5 sm:px-10 md:px-14 py-8 sm:py-10 flex-1 flex flex-col justify-center overflow-hidden">
+                <motion.div className="absolute top-0 right-0 pointer-events-none" initial={{ opacity: 0 }} animate={{ opacity: 0.22 }} transition={{ duration: dur, delay: stagger * 3 }}>
+                  {/* Angular neon lines SVG motif — electric, sharp */}
+                  <svg width="220" height="220" viewBox="0 0 180 180" fill="none">
+                    <line x1="180" y1="0" x2="110" y2="180" stroke={pink} strokeWidth="1.2" />
+                    <line x1="160" y1="0" x2="90" y2="180" stroke={blue} strokeWidth="0.8" />
+                    <line x1="140" y1="0" x2="70" y2="180" stroke={pink} strokeWidth="0.5" opacity="0.5" />
+                    <polyline points="100,10 140,55 110,90 155,130" stroke={pink} strokeWidth="1.2" fill="none" strokeLinecap="square" />
+                    <polyline points="145,20 165,50 148,75" stroke={blue} strokeWidth="0.8" fill="none" strokeLinecap="square" />
+                    <rect x="148" y="36" width="5" height="5" fill={pink} opacity="0.7" />
+                    <rect x="155" y="78" width="4" height="4" fill={blue} opacity="0.6" />
+                    <circle cx="162" cy="110" r="3" fill={pink} opacity="0.5" />
                   </svg>
                 </motion.div>
                 <div className="relative z-10 text-center sm:text-left">
                   <motion.div className="flex justify-center sm:justify-start mb-3 sm:mb-5" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
-                    <span className={`${dmSans.className} text-xs font-semibold uppercase tracking-[0.2em] px-5 py-2 rounded-full`} style={{ backgroundColor: `${pink}15`, color: pink, border: `1px solid ${pink}30` }}>
+                    <span className={`${dmSans.className} text-xs font-semibold uppercase tracking-[0.2em] px-5 py-2`} style={{ backgroundColor: `${pink}15`, color: pink, border: `1px solid ${pink}40` }}>
                       Est. 2016 &mdash; Nelson, BC
                     </span>
                   </motion.div>
-                  <motion.h2 className={`heading-font text-3xl sm:text-5xl md:text-6xl leading-[1.05] mb-4 sm:mb-5`}
-                    style={{ color: '#ffffff', letterSpacing: '0.04em' }}
+                  <motion.h2 className="heading-font text-3xl sm:text-5xl leading-[1.05] mb-4 sm:mb-5"
+                    style={{ color: '#ffffff', letterSpacing: '0.04em', fontFamily: "'Melodrama', sans-serif" }}
                     initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
                     Saturday Sold Out.{' '}
-                    <span className="relative inline-block" style={{ color: pink, textShadow: `0 0 20px ${pink}` }}>
-                      Friday&rsquo;s Going Fast.
-                      <motion.svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 260 12" fill="none">
-                        <motion.path d="M4 8 L260 4" stroke={pink} strokeWidth="2" strokeLinecap="round" fill="none"
-                          initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: dur * 1.5, delay: stagger * 5, ease: 'easeOut' }} />
+                    <span className="relative inline-block" style={{ color: pink, textShadow: `0 0 14px ${pink}, 0 0 32px ${pink}80` }}>
+                      Going Fast.
+                      <motion.svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 10" fill="none">
+                        <motion.path d="M2 5 L198 5" stroke={pink} strokeWidth="2" strokeLinecap="square" fill="none"
+                          initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: dur * 1.2, delay: stagger * 5, ease: 'easeOut' }} />
                       </motion.svg>
                     </span>
                   </motion.h2>
-                  <motion.p className={`${dmSans.className} text-sm sm:text-lg max-w-md sm:mx-0 mx-auto mb-6 sm:mb-8`}
-                    style={{ color: 'rgba(255,255,255,0.6)', lineHeight: 1.7 }}
+                  <motion.p className={`${dmSans.className} text-sm sm:text-base max-w-md sm:mx-0 mx-auto mb-6 sm:mb-8`}
+                    style={{ color: 'rgba(255,255,255,0.55)', lineHeight: 1.7 }}
                     initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 4 }}>
                     The Kootenays&rsquo; most intimate live music venue. Real sound. Real nights. Nelson, BC.
                   </motion.p>
                   <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 5 }}
                     className="flex flex-col sm:flex-row items-center sm:items-start justify-center sm:justify-start gap-4">
-                    <a href="#contact" className={`${dmSans.className} inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 text-sm sm:text-base font-bold uppercase tracking-widest rounded-none transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]`}
-                      style={{ backgroundColor: pink, color: '#fff', boxShadow: `0 4px 20px ${pink}40`, letterSpacing: '0.12em' }}>
-                      Get Tickets
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                    <a href="#contact" className={`${dmSans.className} inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 text-sm sm:text-base font-bold uppercase tracking-widest transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]`}
+                      style={{ backgroundColor: pink, color: '#fff', boxShadow: `0 0 20px ${pink}70, 0 4px 20px ${pink}40`, letterSpacing: '0.12em' }}>
+                      Grab Tickets Before They&rsquo;re Gone →
                     </a>
                   </motion.div>
                   <motion.div className="flex items-center justify-center sm:justify-start gap-4 sm:gap-6 mt-5 sm:mt-8 flex-wrap"
                     initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur, delay: stagger * 6 }}>
-                    {['200+ Shows/Year', '300 Capacity', 'Pro Sound'].map((badge) => (
-                      <span key={badge} className={`${dmSans.className} text-xs`} style={{ color: pink, opacity: 0.7, letterSpacing: '0.05em' }}>{badge}</span>
+                    {['200+ Shows/Year', '500 Capacity', 'Pro Sound'].map((badge) => (
+                      <span key={badge} className={`${dmSans.className} text-xs`} style={{ color: pink, opacity: 0.75, letterSpacing: '0.05em' }}>{badge}</span>
                     ))}
                   </motion.div>
                 </div>
               </div>
-              <div className="h-[3px] w-full" style={{ background: `linear-gradient(90deg, ${pink}, ${blue}, ${pink})`, backgroundSize: '200% 100%', animation: 'shimmer-border 3s linear infinite' }} />
+              <div className="h-[3px] w-full" style={{ background: `linear-gradient(90deg, ${pink}, #9b24d9, ${blue}, #9b24d9, ${pink})`, backgroundSize: '200% 100%', animation: 'shimmer-border 3s linear infinite' }} />
             </motion.div>
           )}
         </AnimatePresence>

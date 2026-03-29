@@ -217,9 +217,8 @@ function LiveRedesign() {
                   <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 5 }}
                     className="flex flex-col sm:flex-row items-center sm:items-start justify-center sm:justify-start gap-4">
                     <a href="#reserve" className={`heading-font inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 sm:px-8 py-3.5 text-sm rounded-xl transition-all hover:scale-[1.03] active:scale-[0.97]`}
-                      style={{ backgroundColor: '#c9a96e', color: '#0a0a0a', boxShadow: '0 4px 20px rgba(201,169,110,0.3)', letterSpacing: '0.02em', fontWeight: 600 }}>
-                      Reserve Your Table
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                      style={{ backgroundColor: 'transparent', color: '#c9a96e', border: '1.5px solid #c9a96e', letterSpacing: '0.06em', fontWeight: 500 }}>
+                      Reserve Your Table →
                     </a>
                     <span className={`${body.className} text-sm`} style={{ color: 'rgba(201,169,110,0.4)' }}>No commitment required</span>
                   </motion.div>

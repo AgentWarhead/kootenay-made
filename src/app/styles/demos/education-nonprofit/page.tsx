@@ -181,14 +181,14 @@ function LiveRedesign() {
               className="absolute inset-0 w-full overflow-hidden flex flex-col"
               style={{ backgroundColor: EN.white, border: `1px solid ${EN.blue}30`, borderRadius: '16px', boxShadow: `0 8px 40px ${EN.blue}15, 0 2px 8px rgba(0,0,0,0.04)` }}
             >
-              {/* Elegant nav */}
-              <div className="flex items-center justify-between px-6 sm:px-10 py-4" style={{ borderBottom: `1px solid ${EN.blue}15`, backgroundColor: EN.lightBg }}>
-                <motion.span className={`${"font-heading"} text-base sm:text-lg font-bold`} style={{ color: EN.navy }} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: dur * 0.6, delay: stagger }}>
-                  Kootenay Community <span style={{ color: EN.amber }}>Learning</span>
+              {/* Nav — light blue-tinted, KCLC in General Sans bold, blue text */}
+              <div className="flex items-center justify-between px-6 sm:px-10 py-4" style={{ borderBottom: `1px solid ${EN.blue}15`, backgroundColor: '#f0f7ff' }}>
+                <motion.span style={{ color: EN.blue, fontFamily: "'General Sans', sans-serif", fontSize: '1.05rem', fontWeight: 700, letterSpacing: '0.04em' }} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: dur * 0.6, delay: stagger }}>
+                  KCLC
                 </motion.span>
                 <motion.div className="hidden sm:flex items-center gap-6" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
                   {['Programs', 'Community', 'About', 'Contact'].map((link) => (
-                    <span key={link} className={`${"font-heading"} text-xs uppercase tracking-widest font-semibold`} style={{ color: EN.blue }}>{link}</span>
+                    <span key={link} style={{ color: EN.blue, fontWeight: 600, fontFamily: "'General Sans', sans-serif", fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.12em' }}>{link}</span>
                   ))}
                 </motion.div>
                 <motion.div className="sm:hidden flex flex-col gap-[5px]" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur * 0.6, delay: stagger }}>
@@ -198,29 +198,29 @@ function LiveRedesign() {
                 </motion.div>
               </div>
 
-              {/* Hero */}
-              <div className="relative px-5 sm:px-10 md:px-16 py-8 sm:py-12 flex-1 flex flex-col justify-center" style={{ background: 'linear-gradient(145deg, #eff6ff 0%, #ffffff 100%)' }}>
-                {/* Community/hands SVG motif */}
+              {/* Hero — light blue-tinted white bg */}
+              <div className="relative px-5 sm:px-10 md:px-16 py-8 sm:py-12 flex-1 flex flex-col justify-center" style={{ background: 'linear-gradient(145deg, #e8f4ff 0%, #f5f9ff 60%, #ffffff 100%)' }}>
+                {/* Warm community shapes — circles/hands/hearts geometric */}
                 <motion.div className="absolute top-0 right-0 pointer-events-none" initial={{ opacity: 0 }} animate={{ opacity: 0.18 }} transition={{ duration: dur, delay: stagger * 3 }}>
                   <svg width="200" height="200" viewBox="0 0 160 160" fill="none">
-                    <circle cx="80" cy="55" r="22" stroke={EN.blue} strokeWidth="1.5" fill="none" />
-                    <circle cx="130" cy="75" r="16" stroke={EN.amber} strokeWidth="1.2" fill="none" opacity="0.7" />
-                    <circle cx="50" cy="90" r="14" stroke={EN.orange} strokeWidth="1" fill="none" opacity="0.6" />
-                    <path d="M80 77 C80 95, 60 110, 45 120" stroke={EN.blue} strokeWidth="1" fill="none" strokeLinecap="round" />
-                    <path d="M80 77 C80 95, 100 108, 115 118" stroke={EN.blue} strokeWidth="1" fill="none" strokeLinecap="round" />
-                    <circle cx="80" cy="130" r="5" fill={EN.blue} opacity="0.25" />
-                    <circle cx="140" cy="40" r="4" fill={EN.amber} opacity="0.35" />
+                    {/* Heart shape simplified */}
+                    <path d="M80 130 C70 120, 30 95, 30 65 C30 48, 42 38, 55 38 C64 38, 72 43, 80 52 C88 43, 96 38, 105 38 C118 38, 130 48, 130 65 C130 95, 90 120, 80 130 Z" stroke={EN.blue} strokeWidth="1.2" fill="none" opacity="0.6" />
+                    {/* Hands / community arc */}
+                    <circle cx="130" cy="38" r="14" stroke={EN.amber} strokeWidth="1.2" fill="none" opacity="0.65" />
+                    <circle cx="28" cy="125" r="10" stroke={EN.orange} strokeWidth="1" fill="none" opacity="0.5" />
+                    <circle cx="140" cy="110" r="7" fill={EN.blue} opacity="0.15" />
+                    <circle cx="18" cy="60" r="5" fill={EN.amber} opacity="0.2" />
                   </svg>
                 </motion.div>
 
                 <div className="relative z-10 text-center sm:text-left">
                   <motion.div className="flex justify-center sm:justify-start mb-3 sm:mb-6" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
-                    <span className={`${"font-heading"} text-xs font-semibold uppercase tracking-[0.2em] px-5 py-2 rounded-full`} style={{ backgroundColor: `${EN.blue}15`, color: EN.blue, border: `1px solid ${EN.blue}25` }}>
+                    <span style={{ backgroundColor: `${EN.blue}12`, color: EN.blue, border: `1px solid ${EN.blue}22`, fontFamily: "'General Sans', sans-serif", fontSize: '0.7rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.2em', padding: '0.4rem 1.25rem', borderRadius: '999px' }}>
                       Est. 2005 &mdash; West Kootenay
                     </span>
                   </motion.div>
 
-                  <motion.h2 className={`${"font-heading"} text-2xl sm:text-4xl md:text-5xl lg:text-5xl leading-[1.15] mb-4 sm:mb-6 sm:max-w-xl font-bold`} style={{ color: EN.navy }} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
+                  <motion.h2 style={{ fontFamily: "'General Sans', sans-serif", fontWeight: 700, color: EN.navy, lineHeight: 1.15, marginBottom: '1rem' }} className="text-2xl sm:text-4xl md:text-5xl lg:text-5xl sm:max-w-xl" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
                     127 Families Fed Last Month.<br />Yours Could Be Next &mdash;{' '}
                     <span className="relative inline-block" style={{ color: EN.blue }}>
                       To Help.
@@ -230,28 +230,27 @@ function LiveRedesign() {
                     </span>
                   </motion.h2>
 
-                  <motion.p className={`${"font-heading"} text-sm sm:text-lg max-w-md sm:mx-0 mx-auto mb-6 sm:mb-8`} style={{ color: EN.slate, lineHeight: 1.7 }} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 4 }}>
+                  <motion.p style={{ color: EN.slate, lineHeight: 1.7, fontFamily: "'General Sans', sans-serif", fontSize: '0.95rem', maxWidth: '28rem', marginBottom: '1.75rem' }} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 4 }}>
                     Community programs, adult education, and literacy support — many free. All local.
                   </motion.p>
 
                   <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 5 }} className="flex flex-col sm:flex-row items-center sm:items-start justify-center sm:justify-start gap-4">
-                    <a href="#contact" className={`${"font-heading"} inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 text-sm sm:text-base rounded-full transition-all duration-300 hover:scale-[1.03] active:scale-[0.97] font-semibold`} style={{ backgroundColor: EN.blue, color: EN.white, boxShadow: `0 4px 20px ${EN.blue}35` }}>
-                      Volunteer This Weekend
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                    <a href="#contact" className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 rounded-full transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]" style={{ backgroundColor: EN.blue, color: EN.white, fontFamily: "'General Sans', sans-serif", fontWeight: 700, fontSize: '0.9rem', boxShadow: `0 4px 20px ${EN.blue}35` }}>
+                      Volunteer This Weekend &rarr;
                     </a>
-                    <span className={`${"font-heading"} text-sm`} style={{ color: '#999' }}>No commitment required</span>
+                    <span style={{ color: '#999', fontFamily: "'General Sans', sans-serif", fontSize: '0.85rem' }}>No commitment required</span>
                   </motion.div>
 
                   <motion.div className="flex items-center justify-center sm:justify-start gap-4 sm:gap-6 mt-6 flex-wrap" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur, delay: stagger * 6 }}>
                     {['Registered Charity', '2000+ Served', '100% Local'].map((badge) => (
-                      <span key={badge} className={`${"font-heading"} text-xs`} style={{ color: EN.blue, opacity: 0.7, letterSpacing: '0.05em' }}>{badge}</span>
+                      <span key={badge} style={{ color: EN.blue, opacity: 0.7, letterSpacing: '0.05em', fontFamily: "'General Sans', sans-serif", fontSize: '0.75rem', fontWeight: 600 }}>{badge}</span>
                     ))}
                   </motion.div>
                 </div>
               </div>
 
-              {/* Shimmer border */}
-              <div className="h-[3px] w-full" style={{ background: `linear-gradient(90deg, ${EN.navy}, ${EN.blue}, ${EN.amber}, ${EN.blue}, ${EN.navy})`, backgroundSize: '200% 100%', animation: 'shimmer-border 3s linear infinite' }} />
+              {/* Shimmer border — blue/orange gradient */}
+              <div className="h-[3px] w-full" style={{ background: `linear-gradient(90deg, ${EN.navy}, ${EN.blue}, ${EN.amber}, ${EN.orange}, ${EN.amber}, ${EN.blue}, ${EN.navy})`, backgroundSize: '200% 100%', animation: 'shimmer-border 3s linear infinite' }} />
             </motion.div>
           )}
         </AnimatePresence>

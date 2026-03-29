@@ -142,16 +142,16 @@ function LiveRedesign() {
               animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
               transition={{ duration: dur * 0.8, ease: 'easeOut' }}
               className="absolute inset-0 w-full overflow-hidden flex flex-col"
-              style={{ backgroundColor: MD.white, border: `1px solid ${MD.teal}30`, borderRadius: '16px', boxShadow: `0 8px 40px ${MD.teal}15, 0 2px 8px rgba(0,0,0,0.04)` }}
+              style={{ backgroundColor: MD.white, border: `2px solid ${MD.teal}25`, borderRadius: '16px', boxShadow: `0 8px 40px ${MD.teal}15, 0 2px 8px rgba(0,0,0,0.04)` }}
             >
-              {/* Elegant nav */}
-              <div className="flex items-center justify-between px-6 sm:px-10 py-4" style={{ borderBottom: `1px solid ${MD.teal}15` }}>
-                <motion.span className={`${font.className} text-base sm:text-lg font-bold`} style={{ color: MD.teal }} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: dur * 0.6, delay: stagger }}>
+              {/* Nav — white/light, Ranade, teal text */}
+              <div className="flex items-center justify-between px-6 sm:px-10 py-4" style={{ borderBottom: `1px solid ${MD.teal}15`, backgroundColor: '#f0fdfe' }}>
+                <motion.span style={{ color: MD.teal, fontFamily: "'Ranade', sans-serif", fontSize: '1.05rem', fontWeight: 700 }} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: dur * 0.6, delay: stagger }}>
                   Kootenay Family Dental
                 </motion.span>
                 <motion.div className="hidden sm:flex items-center gap-6" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
                   {['Services', 'About', 'Book Now', 'Contact'].map((link) => (
-                    <span key={link} className={`${font.className} text-xs uppercase tracking-widest`} style={{ color: MD.teal, fontWeight: 500 }}>{link}</span>
+                    <span key={link} style={{ color: MD.teal, fontWeight: 500, fontFamily: "'Ranade', sans-serif", fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.12em' }}>{link}</span>
                   ))}
                 </motion.div>
                 <motion.div className="sm:hidden flex flex-col gap-[5px]" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur * 0.6, delay: stagger }}>
@@ -162,26 +162,28 @@ function LiveRedesign() {
               </div>
 
               {/* Hero */}
-              <div className="relative px-5 sm:px-10 md:px-16 py-8 sm:py-14 flex-1 flex flex-col justify-center">
-                <motion.div className="absolute top-0 right-0 pointer-events-none" initial={{ opacity: 0 }} animate={{ opacity: 0.15 }} transition={{ duration: dur, delay: stagger * 3 }}>
+              <div className="relative px-5 sm:px-10 md:px-16 py-8 sm:py-14 flex-1 flex flex-col justify-center" style={{ backgroundColor: MD.white }}>
+                {/* Soft curves/waves SVG motif — calming, not clinical */}
+                <motion.div className="absolute top-0 right-0 pointer-events-none" initial={{ opacity: 0 }} animate={{ opacity: 0.13 }} transition={{ duration: dur, delay: stagger * 3 }}>
                   <svg width="220" height="220" viewBox="0 0 180 180" fill="none">
-                    <path d="M170 30 C140 30, 120 60, 100 80 C80 100, 60 110, 40 120 C20 130, 10 150, 10 160" stroke={MD.teal} strokeWidth="2" fill="none" strokeLinecap="round" />
-                    <path d="M170 60 C145 60, 125 85, 105 100 C85 115, 65 120, 45 130" stroke={MD.teal} strokeWidth="1.2" fill="none" strokeLinecap="round" />
-                    <path d="M170 90 C150 90, 135 108, 118 118" stroke={MD.teal} strokeWidth="0.8" fill="none" strokeLinecap="round" />
-                    <circle cx="155" cy="45" r="6" stroke={MD.teal} strokeWidth="1" fill="none" />
-                    <circle cx="90" cy="100" r="4" stroke={MD.teal} strokeWidth="0.8" fill="none" />
+                    <path d="M170 20 C130 20, 100 55, 90 80 C80 105, 85 130, 60 150 C40 165, 20 168, 10 170" stroke={MD.teal} strokeWidth="2.5" fill="none" strokeLinecap="round" />
+                    <path d="M170 55 C140 55, 115 82, 100 105 C85 128, 75 148, 50 162" stroke={MD.teal} strokeWidth="1.5" fill="none" strokeLinecap="round" />
+                    <path d="M170 90 C150 90, 132 110, 118 126" stroke={MD.teal} strokeWidth="0.9" fill="none" strokeLinecap="round" />
+                    <ellipse cx="148" cy="38" rx="10" ry="6" stroke={MD.teal} strokeWidth="1" fill="none" />
+                    <circle cx="92" cy="105" r="5" stroke={MD.teal} strokeWidth="0.8" fill="none" />
+                    <circle cx="65" cy="148" r="3" fill={MD.teal} opacity="0.3" />
                   </svg>
                 </motion.div>
 
                 <div className="relative z-10 text-center sm:text-left">
                   <motion.div className="flex justify-center sm:justify-start mb-3 sm:mb-6" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
-                    <span className={`${font.className} text-xs font-semibold uppercase tracking-[0.2em] px-5 py-2 rounded-full`} style={{ backgroundColor: `${MD.teal}15`, color: MD.teal, border: `1px solid ${MD.teal}25` }}>
+                    <span style={{ backgroundColor: `${MD.teal}12`, color: MD.teal, border: `1px solid ${MD.teal}22`, fontFamily: "'Ranade', sans-serif", fontSize: '0.7rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.2em', padding: '0.4rem 1.25rem', borderRadius: '999px' }}>
                       Est. 2009 &mdash; West Kootenay
                     </span>
                   </motion.div>
 
-                  <motion.h2 className={`heading-font text-2xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.15] mb-4 sm:mb-6 sm:max-w-xl font-bold`} style={{ color: MD.dark }} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
-                    Nervous About the Dentist?<br />We Get It. That&apos;s Why{' '}
+                  <motion.h2 className="heading-font text-2xl sm:text-4xl md:text-5xl lg:text-5xl leading-[1.15] mb-4 sm:mb-6 sm:max-w-xl font-bold" style={{ color: MD.dark }} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
+                    Nervous About the Dentist? We Get It. That&apos;s Why{' '}
                     <span className="relative inline-block" style={{ color: MD.teal }}>
                       We&apos;re Different.
                       <motion.svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 12" fill="none">
@@ -190,28 +192,27 @@ function LiveRedesign() {
                     </span>
                   </motion.h2>
 
-                  <motion.p className={`${font.className} text-sm sm:text-lg max-w-md sm:mx-0 mx-auto mb-6 sm:mb-8`} style={{ color: MD.slate, lineHeight: 1.7 }} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 4 }}>
+                  <motion.p style={{ color: MD.slate, lineHeight: 1.7, fontFamily: "'Ranade', sans-serif", fontSize: '0.95rem', maxWidth: '28rem', marginBottom: '1.75rem' }} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 4 }}>
                     Gentle care for every smile — new patients always welcome, no phone call needed to book.
                   </motion.p>
 
                   <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 5 }} className="flex flex-col sm:flex-row items-center sm:items-start justify-center sm:justify-start gap-4">
-                    <a href="#book-now" className={`${font.className} inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 text-sm sm:text-base rounded-full transition-all duration-300 hover:scale-[1.03] active:scale-[0.97] font-bold uppercase tracking-widest`} style={{ backgroundColor: MD.teal, color: MD.white, boxShadow: `0 4px 20px ${MD.teal}35` }}>
-                      Book Online — No Phone Call Needed
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                    <a href="#book-now" className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 rounded-full transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]" style={{ backgroundColor: MD.teal, color: MD.white, fontFamily: "'Ranade', sans-serif", fontWeight: 700, fontSize: '0.88rem', textTransform: 'uppercase', letterSpacing: '0.06em', boxShadow: `0 4px 20px ${MD.teal}35` }}>
+                      Book Online — No Phone Call Needed &rarr;
                     </a>
-                    <span className={`${font.className} text-sm`} style={{ color: '#999' }}>No commitment required</span>
+                    <span style={{ color: '#999', fontFamily: "'Ranade', sans-serif", fontSize: '0.85rem' }}>No commitment required</span>
                   </motion.div>
 
                   <motion.div className="flex items-center justify-center sm:justify-start gap-4 sm:gap-6 mt-6 flex-wrap" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur, delay: stagger * 6 }}>
                     {['Gentle Care', 'Same-Day Emergency', 'All Ages'].map((badge) => (
-                      <span key={badge} className={`${font.className} text-xs`} style={{ color: MD.teal, opacity: 0.7, letterSpacing: '0.05em' }}>{badge}</span>
+                      <span key={badge} style={{ color: MD.teal, opacity: 0.7, letterSpacing: '0.05em', fontFamily: "'Ranade', sans-serif", fontSize: '0.75rem', fontWeight: 600 }}>{badge}</span>
                     ))}
                   </motion.div>
                 </div>
               </div>
 
-              {/* Shimmer border */}
-              <div className="h-[3px] w-full" style={{ background: `linear-gradient(90deg, ${MD.darkTeal}, ${MD.teal}, ${MD.darkTeal})`, backgroundSize: '200% 100%', animation: 'shimmer-border 3s linear infinite' }} />
+              {/* Shimmer border — teal/white gradient */}
+              <div className="h-[3px] w-full" style={{ background: `linear-gradient(90deg, ${MD.darkTeal}, ${MD.teal}, #e0f7fa, ${MD.teal}, ${MD.darkTeal})`, backgroundSize: '200% 100%', animation: 'shimmer-border 3s linear infinite' }} />
             </motion.div>
           )}
         </AnimatePresence>
