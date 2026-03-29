@@ -8,6 +8,8 @@ import ScrollReveal from '@/components/ScrollReveal';
 import Breadcrumb from '@/components/Breadcrumb';
 import MountainDivider from '@/components/MountainDivider';
 import AmbientOrbs from '@/components/AmbientOrbs';
+import TypingEcho from '@/components/TypingEcho';
+import SeasonalParticles from '@/components/SeasonalParticles';
 
 /* ── Mountain icon for location ── */
 function MountainIcon({ className = '' }: { className?: string }) {
@@ -210,6 +212,7 @@ export default function ContactPage() {
 
   return (
     <div className="overflow-x-hidden">
+      <SeasonalParticles />
       {/* Header with parallax mountain */}
       <section className="aurora-bg grain pt-32 pb-20 relative overflow-hidden">
         <AmbientOrbs />
@@ -240,6 +243,7 @@ export default function ContactPage() {
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-16">
             {/* Form */}
             <div className="lg:col-span-3" ref={formRef}>
+              <TypingEcho>
               <ScrollReveal>
                 <AnimatePresence mode="wait">
                   {status === 'success' ? (
@@ -298,6 +302,7 @@ export default function ContactPage() {
                   )}
                 </AnimatePresence>
               </ScrollReveal>
+              </TypingEcho>
             </div>
 
             {/* Info */}

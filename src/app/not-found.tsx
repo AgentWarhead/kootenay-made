@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowLeft } from 'lucide-react';
 
@@ -69,7 +70,7 @@ function SpinningCompass() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5 }}
-        className="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] font-mono text-copper tracking-widest"
+        className="absolute -top-5 left-1/2 -translate-x-1/2 text-[10px] font-mono text-copper tracking-widest z-20"
       >
         HOME
       </motion.span>
@@ -100,6 +101,10 @@ function CoordinateGrid() {
 }
 
 export default function NotFound() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <section className="min-h-screen bg-slate relative flex items-center justify-center overflow-hidden">
       {/* Background image */}
@@ -108,10 +113,10 @@ export default function NotFound() {
           src="/images/misc/404.png"
           alt="Lost in the mountains"
           fill
-          className="object-cover opacity-30"
+          className="object-cover opacity-30 sm:opacity-30 max-sm:opacity-50"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate via-slate/60 to-slate/40" />
+        <div className="absolute inset-0 bg-gradient-to-t from-slate via-slate/60 to-slate/40 max-sm:from-slate/80 max-sm:via-slate/30 max-sm:to-slate/20" />
       </div>
 
       {/* Coordinate grid overlay */}

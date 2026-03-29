@@ -78,6 +78,7 @@ export default function CaseStudyClient({ study }: { study: CaseStudy }) {
                   src={study.heroImage}
                   alt={`${study.name} screenshot`}
                   fill
+                  sizes="(max-width: 768px) 100vw, 800px"
                   className="object-cover"
                   priority
                 />

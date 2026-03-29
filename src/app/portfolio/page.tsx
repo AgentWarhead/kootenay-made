@@ -129,6 +129,7 @@ function TrailWaypoint({ study, index }: { study: typeof caseStudies[0]; index: 
                       src={study.heroImage}
                       alt={study.name}
                       fill
+                      sizes="(max-width: 768px) 100vw, 50vw"
                       className="object-cover group-hover:scale-105 transition-transform duration-700"
                     />
                   </motion.div>

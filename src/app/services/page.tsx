@@ -8,6 +8,8 @@ import ScrollReveal from '@/components/ScrollReveal';
 import Breadcrumb from '@/components/Breadcrumb';
 import MountainDivider from '@/components/MountainDivider';
 import AmbientOrbs from '@/components/AmbientOrbs';
+import BalancedText from '@/components/BalancedText';
+import CostCalculator from '@/components/CostCalculator';
 
 const serviceCards = [
   { icon: Star, name: 'Free AI Website Audit', price: '$0', desc: 'A 30-minute walkthrough of your current online presence with actionable recommendations.', features: ['Full site review', 'SEO quick-check', 'Competitor comparison', 'Prioritized action plan'], tier: 'entry', highlight: true },
@@ -90,7 +92,7 @@ function PinnedCard({ card, index, total }: { card: typeof serviceCards[0]; inde
               </div>
               <span className="font-[family-name:var(--font-satoshi)] text-2xl font-bold text-copper">{card.price}</span>
             </div>
-            <p className={`text-sm leading-relaxed mb-6 ${card.tier === 'premium' ? 'text-dark-text-muted' : 'text-text-secondary'}`}>{card.desc}</p>
+            <BalancedText as="p" className={`text-sm leading-relaxed mb-6 ${card.tier === 'premium' ? 'text-dark-text-muted' : 'text-text-secondary'}`}>{card.desc}</BalancedText>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               {card.features.map((f) => (
                 <div key={f} className="flex items-start gap-2 text-sm">
@@ -206,7 +208,7 @@ function RetainerSection() {
                 <span className="font-[family-name:var(--font-satoshi)] text-4xl sm:text-5xl font-bold text-copper">{r.price}</span>
                 <span className="text-dark-text-muted text-sm">/month</span>
               </div>
-              <p className="text-dark-text-muted text-base mb-8">{r.desc}</p>
+              <BalancedText as="p" className="text-dark-text-muted text-base mb-8">{r.desc}</BalancedText>
               <ul className="space-y-4">
                 {r.features.map((f, fi) => (
                   <motion.li
@@ -249,7 +251,7 @@ function RetainerSection() {
                 <span className="font-[family-name:var(--font-satoshi)] text-3xl font-bold text-copper">{r.price}</span>
                 <span className="text-dark-text-muted text-sm">/month</span>
               </div>
-              <p className="text-dark-text-muted text-sm mb-6">{r.desc}</p>
+              <BalancedText as="p" className="text-dark-text-muted text-sm mb-6">{r.desc}</BalancedText>
               <ul className="space-y-3">
                 {r.features.map((f) => (
                   <li key={f} className="flex items-start gap-2 text-sm text-dark-text-muted">
@@ -275,9 +277,9 @@ export default function ServicesPage() {
           <Breadcrumb items={[{ label: 'Services' }]} dark />
           <ScrollReveal>
             <p className="text-copper font-[family-name:var(--font-satoshi)] font-semibold text-sm tracking-[0.2em] uppercase mb-3">The Workshop</p>
-            <h1 className="font-[family-name:var(--font-satoshi)] text-4xl sm:text-5xl md:text-6xl font-bold text-cream leading-tight max-w-3xl">
-              Transparent pricing.<br />No surprises.
-            </h1>
+            <BalancedText as="h1" className="font-[family-name:var(--font-satoshi)] text-4xl sm:text-5xl md:text-6xl font-bold text-cream leading-tight max-w-3xl">
+              Transparent pricing. No surprises.
+            </BalancedText>
             <p className="mt-6 text-dark-text-muted text-lg max-w-2xl leading-relaxed">
               Every project is different, but you deserve to know what things cost before you pick up the phone.
             </p>
@@ -292,7 +294,7 @@ export default function ServicesPage() {
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-16">
           <ScrollReveal>
             <p className="text-copper font-medium text-sm tracking-wider uppercase mb-2">Our Services</p>
-            <h2 className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl font-bold text-slate mb-12">From quick wins to full builds.</h2>
+            <BalancedText as="h2" className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl font-bold text-slate mb-12">From quick wins to full builds.</BalancedText>
           </ScrollReveal>
 
           <div className="relative">
@@ -307,6 +309,9 @@ export default function ServicesPage() {
         </div>
       </section>
 
+      {/* Cost Calculator */}
+      <CostCalculator />
+
       <MountainDivider variant={2} fillColor="#1A1D20" bgColor="#F8F4F0" />
 
       {/* Retainers */}
@@ -315,9 +320,9 @@ export default function ServicesPage() {
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
           <ScrollReveal>
             <p className="text-copper-light font-medium text-sm tracking-wider uppercase mb-2">Monthly Retainers</p>
-            <h2 className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl font-bold text-cream mb-2">
+            <BalancedText as="h2" className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl font-bold text-cream mb-2">
               Ongoing support that grows with you.
-            </h2>
+            </BalancedText>
           </ScrollReveal>
 
           <div className="mt-12">
