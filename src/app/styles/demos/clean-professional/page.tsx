@@ -690,14 +690,14 @@ export default function CleanProfessionalDemo() {
       >
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
           <span className="text-white/90 text-sm text-center sm:text-left">
-            This is a sample design by <strong>Kootenay Made Digital</strong> &mdash; <span className="text-white/70 text-xs">Your website should look this good</span>
+            Like what you see? This could be yours. A sample by <strong>Kootenay Made Digital</strong> &mdash; <span className="text-white/70 text-xs">Your website should look this good</span>
           </span>
           <Link
             href="/contact?style=clean-professional"
             className="inline-block px-6 py-2.5 text-sm font-bold rounded-lg transition-all hover:scale-105 whitespace-nowrap"
             style={{ backgroundColor: '#ffffff', color: '#1a365d', boxShadow: '0 2px 12px rgba(255,255,255,0.2)' }}
           >
-            Get Your Free Mockup &rarr;
+            Like What You See? Let's Talk &rarr;
           </Link>
         </div>
       </div>

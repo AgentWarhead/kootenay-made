@@ -530,14 +530,14 @@ export default function FarmHarvestDemo() {
         style={{ backgroundColor: 'rgba(254,252,243,0.92)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', borderTop: '2px solid #4a7c59' }}>
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
           <span className="text-sm text-center sm:text-left" style={{ color: '#6b4226' }}>
-            This is a sample design by <strong style={{ color: '#3d2e1f' }}>Kootenay Made Digital</strong>
+            Like what you see? This could be yours. A sample by <strong style={{ color: '#3d2e1f' }}>Kootenay Made Digital</strong>
           </span>
           <Link href="/contact?style=farm-harvest"
             className="inline-block px-6 py-2.5 text-sm font-bold uppercase tracking-wider transition-all whitespace-nowrap rounded-full"
             style={{ backgroundColor: '#4a7c59', color: '#fefcf3' }}
             onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#3d6a4b')}
             onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#4a7c59')}>
-            GET YOUR FREE MOCKUP &rarr;
+            LIKE WHAT YOU SEE? LET'S TALK &rarr;
           </Link>
         </div>
       </div>

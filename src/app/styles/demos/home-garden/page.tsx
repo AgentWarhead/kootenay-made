@@ -1048,7 +1048,7 @@ export default function HomeGardenDemo() {
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="flex items-center gap-4">
             <span className="text-sm text-center sm:text-left" style={{ color: 'rgba(253,248,240,0.72)' }}>
-              This is a sample design by{' '}
+              Like what you see? This could be yours. A sample by{' '}
               <strong style={{ color: C.cream }}>Kootenay Made Digital</strong>
             </span>
             <a href="tel:2505550000" className="hidden sm:inline text-sm font-bold" style={{ color: C.green }}>
@@ -1062,7 +1062,7 @@ export default function HomeGardenDemo() {
             onMouseEnter={(e) => (e.currentTarget.style.boxShadow = '0 0 18px rgba(107,154,91,0.52)')}
             onMouseLeave={(e) => (e.currentTarget.style.boxShadow = 'none')}
           >
-            Get Your Free Mockup &rarr;
+            Like What You See? Let's Talk &rarr;
           </Link>
         </div>
       </div>

@@ -811,7 +811,7 @@ export default function RusticCraftDemo() {
                   className="inline-block px-8 py-3.5 font-bold text-sm uppercase tracking-widest transition-all hover:brightness-110"
                   style={{ backgroundColor: AMBER, color: DARK_BROWN, borderRadius: '2px' }}
                 >
-                  Get Your Free Mockup
+                  Like What You See? Let's Talk
                 </a>
               </div>
             </FadeUp>
@@ -935,7 +935,7 @@ export default function RusticCraftDemo() {
         <div className="max-w-6xl mx-auto flex items-center justify-between gap-3">
           <div className="flex items-center gap-4">
             <span className="text-xs md:text-sm" style={{ color: `${PARCHMENT}aa` }}>
-              This is a sample design by{' '}
+              Like what you see? This could be yours. A sample by{' '}
               <span className="font-bold" style={{ color: PARCHMENT }}>
                 Kootenay Made Digital
               </span>
@@ -949,7 +949,7 @@ export default function RusticCraftDemo() {
             className="text-xs md:text-sm font-bold uppercase tracking-wider transition-all whitespace-nowrap px-5 py-2.5 rounded-sm"
             style={{ backgroundColor: AMBER, color: DARK_BROWN }}
           >
-            Get Your Free Mockup &rarr;
+            Like What You See? Let's Talk &rarr;
           </Link>
         </div>
       </div>

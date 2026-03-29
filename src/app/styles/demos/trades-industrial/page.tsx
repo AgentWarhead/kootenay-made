@@ -569,7 +569,7 @@ export default function TradesIndustrialDemo() {
         style={{ backgroundColor: 'rgba(26,26,26,0.92)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', borderTop: '2px solid #ff6a00' }}>
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
           <span className="text-sm text-center sm:text-left" style={{ color: 'rgba(255,255,255,0.7)' }}>
-            This is a sample design by <strong className="text-white">Kootenay Made Digital</strong>
+            Like what you see? This could be yours. A sample by <strong className="text-white">Kootenay Made Digital</strong>
           </span>
           <Link href="/contact?style=trades-industrial"
             className={`${heading.className} inline-block px-6 py-2.5 text-sm font-bold uppercase tracking-wider transition-all whitespace-nowrap`}
@@ -577,7 +577,7 @@ export default function TradesIndustrialDemo() {
             onMouseEnter={(e) => (e.currentTarget.style.boxShadow = '0 0 20px rgba(255,106,0,0.5)')}
             onMouseLeave={(e) => (e.currentTarget.style.boxShadow = 'none')}
           >
-            GET YOUR FREE MOCKUP &rarr;
+            LIKE WHAT YOU SEE? LET'S TALK &rarr;
           </Link>
         </div>
       </div>

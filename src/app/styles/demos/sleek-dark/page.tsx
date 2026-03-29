@@ -762,7 +762,7 @@ export default function SleekDarkDemo() {
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
             <span className="text-sm text-center sm:text-left" style={{ color: 'rgba(245,240,232,0.7)' }}>
-              This is a sample design by <strong style={{ color: '#f5f0e8' }}>Kootenay Made Digital</strong>
+              Like what you see? This could be yours. A sample by <strong style={{ color: '#f5f0e8' }}>Kootenay Made Digital</strong>
             </span>
             <a href="tel:2505550000" className="text-sm font-bold hidden sm:inline" style={{ color: '#c9a96e' }}>
               (250) 555-0000
@@ -775,7 +775,7 @@ export default function SleekDarkDemo() {
             onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.85')}
             onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
           >
-            Get Your Free Mockup &rarr;
+            Like What You See? Let's Talk &rarr;
           </Link>
         </div>
       </div>

@@ -601,7 +601,7 @@ export default function GovernmentMunicipalPage() {
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 text-center sm:text-left">
             <span className="text-sm" style={{ color: hc ? '#000000' : '#475569' }}>
-              Sample design by <strong style={{ color: hc ? '#000000' : '#1e3a5f' }}>Kootenay Made Digital</strong>
+              Like what you see? This could be yours. Design by <strong style={{ color: hc ? '#000000' : '#1e3a5f' }}>Kootenay Made Digital</strong>
             </span>
             <span className="hidden sm:inline text-xs" style={{ color: hc ? '#000000' : '#2563eb', opacity: 0.5 }}>·</span>
             <span className="text-xs font-700" style={{ color: hc ? '#000000' : '#2563eb' }}>(250) 555-0116</span>
@@ -611,7 +611,7 @@ export default function GovernmentMunicipalPage() {
             style={{ backgroundColor: hc ? '#000000' : '#2563eb', color: '#ffffff', textDecoration: hc ? 'underline' : 'none', minHeight: '44px', lineHeight: '1', display: 'inline-flex', alignItems: 'center' }}
             onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = hc ? '#222222' : '#1d4ed8')}
             onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = hc ? '#000000' : '#2563eb')}>
-            Get Your Free Mockup &rarr;
+            Like What You See? Let's Talk &rarr;
           </Link>
         </div>
       </div>

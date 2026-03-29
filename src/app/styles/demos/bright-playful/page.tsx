@@ -811,7 +811,7 @@ export default function BrightPlayfulDemo() {
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="flex items-center gap-4">
             <span className="text-sm text-center sm:text-left" style={{ color: '#666' }}>
-              This is a sample design by <strong style={{ color: '#333' }}>Kootenay Made Digital</strong>
+              Like what you see? This could be yours. A sample by <strong style={{ color: '#333' }}>Kootenay Made Digital</strong>
             </span>
             <a href="tel:2505550000" className="hidden sm:inline text-sm font-extrabold" style={{ color: '#ff6b6b' }}>
               (250) 555-0000
@@ -822,7 +822,7 @@ export default function BrightPlayfulDemo() {
             className="inline-block px-6 py-2.5 text-sm font-extrabold rounded-3xl transition-all hover:scale-105 whitespace-nowrap text-white"
             style={{ backgroundColor: '#ff6b6b' }}
           >
-            Get Your Free Mockup &rarr;
+            Like What You See? Let's Talk &rarr;
           </Link>
         </div>
       </div>

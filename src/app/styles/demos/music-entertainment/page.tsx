@@ -508,7 +508,7 @@ export default function MusicEntertainmentPage() {
         style={{ backgroundColor: 'rgba(0,0,0,0.95)', backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)', borderTop: '1px solid rgba(233,30,138,0.25)' }}>
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 text-center sm:text-left">
-            <span className="text-sm" style={{ color: 'rgba(255,255,255,0.55)' }}>Sample design by <strong style={{ color: '#ffffff' }}>Kootenay Made Digital</strong></span>
+            <span className="text-sm" style={{ color: 'rgba(255,255,255,0.55)' }}>Like what you see? This could be yours. Design by <strong style={{ color: '#ffffff' }}>Kootenay Made Digital</strong></span>
             <span className="hidden sm:inline text-xs" style={{ color: 'rgba(233,30,138,0.4)' }}>·</span>
             <span className="text-xs font-bold" style={{ color: '#e91e8a' }}>(250) 555-0114</span>
           </div>
@@ -517,7 +517,7 @@ export default function MusicEntertainmentPage() {
             style={{ backgroundColor: '#e91e8a', color: '#ffffff', letterSpacing: '0.12em' }}
             onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#d6187e'; e.currentTarget.style.boxShadow = '0 0 20px rgba(233,30,138,0.5)' }}
             onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#e91e8a'; e.currentTarget.style.boxShadow = 'none' }}>
-            Get Your Free Mockup &rarr;
+            Like What You See? Let's Talk &rarr;
           </Link>
         </div>
       </div>

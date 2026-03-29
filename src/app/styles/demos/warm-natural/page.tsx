@@ -486,14 +486,14 @@ export default function WarmNaturalDemo() {
         style={{ backgroundColor: 'rgba(125,154,107,0.92)', backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)' }}>
         <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 text-center sm:text-left">
-            <span className="text-white/90 text-sm">Sample design by <strong>Kootenay Made Digital</strong></span>
+            <span className="text-white/90 text-sm">Like what you see? This could be yours. Design by <strong>Kootenay Made Digital</strong></span>
             <span className="hidden sm:inline text-white/40 text-xs">·</span>
             <span className="text-white/80 text-xs font-semibold">(250) 555-0165</span>
           </div>
           <Link href="/contact?style=warm-natural"
             className="inline-block px-6 py-2.5 text-sm font-bold rounded-full transition-all hover:opacity-90 whitespace-nowrap"
             style={{ backgroundColor: '#faf6f0', color: '#7d9a6b' }}>
-            Get Your Free Mockup &rarr;
+            Like What You See? Let's Talk &rarr;
           </Link>
         </div>
       </div>

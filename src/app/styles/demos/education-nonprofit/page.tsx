@@ -850,9 +850,9 @@ export default function EducationNonprofitPage() {
         style={{ background: 'rgba(255,255,255,0.96)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', borderTop: '2px solid #3b82f6', boxShadow: '0 -2px 20px rgba(59,130,246,0.08)' }}
       >
         <p className="text-xs md:text-sm" style={{ color: '#64748b' }}>
-          This is a sample design by{' '}
+          Like what you see? This could be yours. A sample by{' '}
           <span style={{ color: '#3b82f6', fontWeight: 600 }}>Kootenay Made Digital</span>
-          <span className="hidden sm:inline" style={{ color: '#94a3b8' }}> &mdash; Get a free mockup for your organisation</span>
+          <span className="hidden sm:inline" style={{ color: '#94a3b8' }}> &mdash; Get a let's talk for your organisation</span>
         </p>
         <Link
           href="/contact?style=education-nonprofit"
@@ -861,7 +861,7 @@ export default function EducationNonprofitPage() {
           onMouseEnter={(e) => { e.currentTarget.style.background = '#2563eb' }}
           onMouseLeave={(e) => { e.currentTarget.style.background = '#3b82f6' }}
         >
-          Get Your Free Mockup &rarr;
+          Like What You See? Let's Talk &rarr;
         </Link>
       </div>
 

@@ -665,7 +665,7 @@ export default function MedicalDentalDemo() {
       >
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
           <span className="text-sm text-center sm:text-left" style={{ color: '#64748b' }}>
-            This is a sample design by <strong style={{ color: '#1e293b' }}>Kootenay Made Digital</strong> &mdash; <span className="text-xs" style={{ color: '#94a3b8' }}>Get a free mockup for your practice</span>
+            Like what you see? This could be yours. A sample by <strong style={{ color: '#1e293b' }}>Kootenay Made Digital</strong> &mdash; <span className="text-xs" style={{ color: '#94a3b8' }}>Get a let's talk for your practice</span>
           </span>
           <Link
             href="/contact?style=medical-dental"
@@ -674,7 +674,7 @@ export default function MedicalDentalDemo() {
             onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#0e7490')}
             onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#0891b2')}
           >
-            Get Your Free Mockup &rarr;
+            Like What You See? Let's Talk &rarr;
           </Link>
         </div>
       </div>
