@@ -193,7 +193,7 @@ export default function BlogPage() {
         </div>
       </section>
 
-      <MountainDivider variant={1} fillColor="#F8F4F0" />
+      <MountainDivider variant={1} fillColor="#F8F4F0" bgColor="#1A1D20" />
 
       <section className="bg-cream py-16 sm:py-20 cedar-texture relative">
         <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-16">
@@ -211,7 +211,7 @@ export default function BlogPage() {
         </div>
       </section>
 
-      <MountainDivider variant={2} fillColor="#1A1D20" />
+      <MountainDivider variant={2} fillColor="#1A1D20" bgColor="#F8F4F0" />
 
       <section className="bg-slate grain py-16 relative">
         <AmbientOrbs />

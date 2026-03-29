@@ -181,7 +181,7 @@ export default function PortfolioPage() {
         </div>
       </section>
 
-      <MountainDivider variant={1} fillColor="#F8F4F0" />
+      <MountainDivider variant={1} fillColor="#F8F4F0" bgColor="#1A1D20" />
 
       {/* Trail layout with case studies */}
       <section className="bg-cream py-20 sm:py-24 cedar-texture relative overflow-x-hidden">
@@ -197,7 +197,7 @@ export default function PortfolioPage() {
         </div>
       </section>
 
-      <MountainDivider variant={2} fillColor="#1A1D20" />
+      <MountainDivider variant={2} fillColor="#1A1D20" bgColor="#F8F4F0" />
 
       {/* CTA */}
       <section className="bg-slate grain py-20 relative">

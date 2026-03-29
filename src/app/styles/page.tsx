@@ -90,7 +90,7 @@ export default function StylesPage() {
         </div>
       </section>
 
-      <MountainDivider variant={2} fillColor="#1A1D20" />
+      <MountainDivider variant={2} fillColor="#1A1D20" bgColor="#1A1D20" />
 
       {/* Sticky category filter tabs */}
       <div className="sticky top-16 z-30 bg-slate/95 backdrop-blur-md border-b border-white/5 grain">

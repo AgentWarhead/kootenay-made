@@ -230,7 +230,7 @@ export default function ContactPage() {
           className="absolute bottom-0 left-0 right-0 z-[1] pointer-events-none"
           style={{ y: 0 }}
         >
-          <MountainDivider variant={1} fillColor="#F8F4F0" />
+          <MountainDivider variant={1} fillColor="#F8F4F0" bgColor="#1A1D20" />
         </motion.div>
       </section>
 

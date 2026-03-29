@@ -285,7 +285,7 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <MountainDivider variant={1} fillColor="#F8F4F0" />
+      <MountainDivider variant={1} fillColor="#F8F4F0" bgColor="#1A1D20" />
 
       {/* Pinned card stack */}
       <section className="bg-cream py-20 sm:py-24 cedar-texture relative">
@@ -307,7 +307,7 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <MountainDivider variant={2} fillColor="#1A1D20" />
+      <MountainDivider variant={2} fillColor="#1A1D20" bgColor="#F8F4F0" />
 
       {/* Retainers */}
       <section className="bg-slate grain py-20 sm:py-24 relative">
@@ -326,7 +326,7 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <MountainDivider variant={3} fillColor="#F8F4F0" />
+      <MountainDivider variant={3} fillColor="#F8F4F0" bgColor="#1A1D20" />
 
       {/* CTA */}
       <section className="bg-cream py-20 sm:py-24 cedar-texture relative">
