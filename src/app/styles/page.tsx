@@ -9,6 +9,7 @@ import Breadcrumb from '@/components/Breadcrumb';
 import AmbientOrbs from '@/components/AmbientOrbs';
 import { ArrowRight } from 'lucide-react';
 import MountainDivider from '@/components/MountainDivider';
+import PretextShowcase from '@/components/PretextShowcase';
 
 const styles = [
   { slug: 'clean-professional', name: 'Clean & Professional', tags: 'Law, Accounting, Finance', category: 'professional', vibe: 'Trust, authority, clean confidence', color: '#2563EB', popular: false },
@@ -198,6 +199,9 @@ export default function StylesPage() {
           </motion.div>
         </div>
       </section>
+
+      {/* Under the Hood — Pretext Showcase */}
+      <PretextShowcase />
 
       {/* Bottom CTA */}
       <section className="bg-slate grain py-20 relative border-t border-white/5">

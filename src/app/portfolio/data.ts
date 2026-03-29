@@ -30,7 +30,7 @@ export const caseStudies: CaseStudy[] = [
     features: ['Shopify storefront with custom theme', 'Automated email marketing (Klaviyo)', 'Welcome + abandoned checkout flows', 'SEO-optimized product pages', 'Mobile-responsive design', '"Which Lappy Are You?" personality quiz'],
     techStack: ['Shopify', 'Klaviyo', 'Custom Theme'],
     liveUrl: 'https://lapphunddesigns.com',
-    heroImage: '/images/portfolio/lapphund-designs.jpg',
+    heroImage: '/images/portfolio/lapphund-designs.png',
   },
   {
     slug: 'disclosure',
@@ -46,7 +46,7 @@ export const caseStudies: CaseStudy[] = [
     features: ['CRT terminal aesthetic', 'Archetype personality system', 'Cinematic scroll experience', 'Mobile-first React Native app', 'Dark immersive design'],
     techStack: ['React Native (Expo)', 'Supabase', 'RevenueCat', 'Next.js'],
     liveUrl: 'https://getdisclosure.app',
-    heroImage: '/images/portfolio/disclosure.jpg',
+    heroImage: '/images/portfolio/disclosure.png',
   },
   {
     slug: 'generateideas',
@@ -62,7 +62,7 @@ export const caseStudies: CaseStudy[] = [
     features: ['AI idea generation engine', 'Idea refinement tools', 'Market validation features', 'Browser extensions', 'Companion mobile app (SparkQuest)'],
     techStack: ['Next.js', 'AI/ML', 'React Native'],
     liveUrl: 'https://generateideas.app',
-    heroImage: '/images/portfolio/generateideas.jpg',
+    heroImage: '/images/portfolio/generateideas.png',
   },
   {
     slug: 'cleartoenter',
@@ -78,7 +78,7 @@ export const caseStudies: CaseStudy[] = [
     features: ['Real-time Express Entry draw tracking', 'Program comparison tools', 'CRS score insights', 'Comprehensive immigration guides', 'Automatic data updates'],
     techStack: ['Next.js', 'Vercel', 'Automated Data Pipeline'],
     liveUrl: 'https://cleartoenter.ca',
-    heroImage: '/images/portfolio/cleartoenter.jpg',
+    heroImage: '/images/portfolio/cleartoenter.png',
   },
   {
     slug: 'kootenay-made',
@@ -94,6 +94,6 @@ export const caseStudies: CaseStudy[] = [
     features: ['16 industry demo templates', 'Interactive live redesign tool', 'Kootenay wilderness design system', 'Parallax mountain transitions', 'Performance-optimized animations'],
     techStack: ['Next.js 14', 'Tailwind CSS', 'Framer Motion'],
     liveUrl: 'https://kootenaymade.ca',
-    heroImage: '/images/portfolio/kootenay-made.jpg',
+    heroImage: '/images/portfolio/kootenay-made.png',
   },
 ];

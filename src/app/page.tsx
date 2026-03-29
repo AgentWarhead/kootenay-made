@@ -14,6 +14,9 @@ import AmbientOrbs from '@/components/AmbientOrbs';
 import PineTreeline from '@/components/PineTreeline';
 import FogTransition from '@/components/FogTransition';
 import ForcesOfNature from '@/components/ForcesOfNature';
+import PretextMountainTransition from '@/components/PretextMountainTransition';
+import WildernessCursorTrail from '@/components/WildernessCursorTrail';
+import BalancedText from '@/components/BalancedText';
 
 /* ── Kootenay-themed floating shapes ───────── */
 function FloatingShapes() {
@@ -394,6 +397,8 @@ export default function Home() {
 
   return (
     <>
+      <WildernessCursorTrail />
+
       {/* ═══ HERO — 'The Summit' ═══ */}
       <section ref={heroRef} className="relative min-h-screen flex items-center overflow-hidden aurora-bg">
         <div className="absolute inset-0 grain" />
@@ -475,6 +480,9 @@ export default function Home() {
 
       <MountainDivider variant={1} fillColor="#1a1208" />
 
+      {/* ═══ ASCII MOUNTAIN CONTOURS ═══ */}
+      <PretextMountainTransition />
+
       {/* ═══ CAMPFIRE STORIES ═══ */}
       <CampfireStories stories={painPoints} />
 
@@ -499,9 +507,9 @@ export default function Home() {
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
           <ScrollReveal>
             <p className="text-copper font-medium text-sm tracking-wider uppercase mb-3">Your Neighbours</p>
-            <h2 className="font-[family-name:var(--font-satoshi)] text-3xl sm:text-4xl md:text-5xl font-bold text-cream leading-tight">
+            <BalancedText as="h2" className="font-[family-name:var(--font-satoshi)] text-3xl sm:text-4xl md:text-5xl font-bold text-cream leading-tight">
               We Build for Businesses Like Yours
-            </h2>
+            </BalancedText>
             <p className="mt-4 text-dark-text-muted text-lg max-w-2xl leading-relaxed">
               Whether you swing a hammer or pour lattes, we speak your language.
             </p>
@@ -538,9 +546,9 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
           <ScrollReveal>
             <p className="text-copper font-medium text-sm tracking-wider uppercase mb-3">What We Can Build For You</p>
-            <h2 className="font-[family-name:var(--font-satoshi)] text-3xl sm:text-4xl md:text-5xl font-bold text-slate leading-tight">
+            <BalancedText as="h2" className="font-[family-name:var(--font-satoshi)] text-3xl sm:text-4xl md:text-5xl font-bold text-slate leading-tight">
               Everything your business needs online.
-            </h2>
+            </BalancedText>
           </ScrollReveal>
 
           <div ref={bentoRef} className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -711,9 +719,9 @@ export default function Home() {
         <AmbientOrbs />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-16 text-center">
           <ScrollReveal>
-            <h2 className="font-[family-name:var(--font-satoshi)] text-3xl sm:text-4xl md:text-5xl font-bold text-cream leading-tight max-w-2xl mx-auto">
+            <BalancedText as="h2" className="font-[family-name:var(--font-satoshi)] text-3xl sm:text-4xl md:text-5xl font-bold text-cream leading-tight max-w-2xl mx-auto">
               Let&apos;s grab a coffee and talk about your business.
-            </h2>
+            </BalancedText>
             <p className="mt-6 text-dark-text-muted text-lg max-w-xl mx-auto leading-relaxed">
               Our website check-up is free, takes 30 minutes, and comes with zero pressure. We&apos;ll look at where you are online, show you what&apos;s working, and give you an honest plan — whether you hire us or not.
             </p>
