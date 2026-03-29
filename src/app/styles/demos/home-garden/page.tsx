@@ -307,6 +307,17 @@ function LiveRedesign() {
                   </span>
                 ))}
               </motion.div>
+              {/* Mobile hamburger */}
+              <motion.div
+                className="sm:hidden flex flex-col gap-[5px]"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: dur * 0.6, delay: stagger }}
+              >
+                <span className="block w-5 h-[2px] rounded-full" style={{ backgroundColor: C.green }} />
+                <span className="block w-4 h-[2px] rounded-full" style={{ backgroundColor: C.green }} />
+                <span className="block w-5 h-[2px] rounded-full" style={{ backgroundColor: C.green }} />
+              </motion.div>
             </div>
 
             {/* Hero area — lush and premium */}
