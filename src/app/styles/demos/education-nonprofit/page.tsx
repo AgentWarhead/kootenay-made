@@ -181,7 +181,13 @@ function LiveRedesign() {
               className="absolute inset-0 w-full overflow-hidden flex flex-col"
               style={{ backgroundColor: EN.white, border: `1px solid ${EN.blue}30`, borderRadius: '16px', boxShadow: `0 8px 40px ${EN.blue}15, 0 2px 8px rgba(0,0,0,0.04)` }}
             >
-              {/* Nav — light blue-tinted, KCLC in General Sans bold, blue text */}
+              
+            {/* Background image overlay */}
+            <div className="absolute inset-0 z-0">
+              <img src="/images/demos/education-nonprofit-showcase.webp" alt="" className="w-full h-full object-cover" />
+              <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.8) 100%)' }} />
+            </div>
+{/* Nav — light blue-tinted, KCLC in General Sans bold, blue text */}
               <div className="flex items-center justify-between px-6 sm:px-10 py-4" style={{ borderBottom: `1px solid ${EN.blue}15`, backgroundColor: '#f0f7ff' }}>
                 <motion.span style={{ color: EN.blue, fontFamily: "'General Sans', sans-serif", fontSize: '1.05rem', fontWeight: 700, letterSpacing: '0.04em' }} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: dur * 0.6, delay: stagger }}>
                   KCLC

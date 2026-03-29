@@ -132,6 +132,12 @@ function LiveRedesign() {
               className="absolute inset-0 w-full overflow-hidden flex flex-col"
               style={{ backgroundColor: white, border: `2px solid ${blue}`, borderRadius: '12px', boxShadow: `0 4px 24px ${blue}20, 0 2px 8px rgba(0,0,0,0.06)` }}
             >
+
+            {/* Background image overlay */}
+            <div className="absolute inset-0 z-0">
+              <img src="/images/demos/government-municipal-showcase.webp" alt="" className="w-full h-full object-cover" />
+              <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.8) 100%)' }} />
+            </div>
               {/* White nav — accessible, high contrast */}
               <div className="flex items-center justify-between px-5 sm:px-8 py-3" style={{ borderBottom: `2px solid ${blue}`, backgroundColor: white }}>
                 <motion.span className={`${sourceSans.className} text-xs sm:text-sm font-bold`} style={{ color: '#111827', letterSpacing: '0.01em' }}

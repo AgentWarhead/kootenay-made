@@ -271,7 +271,13 @@ function LiveRedesign() {
                 boxShadow: `0 8px 40px ${red}18, 0 2px 8px rgba(0,0,0,0.3)`,
               }}
             >
-              {/* Elegant nav */}
+              
+            {/* Background image overlay */}
+            <div className="absolute inset-0 z-0">
+              <img src="/images/demos/automotive-hero.webp" alt="" className="w-full h-full object-cover" />
+              <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.8) 100%)' }} />
+            </div>
+{/* Elegant nav */}
               <div className="flex items-center justify-between px-6 sm:px-10 py-4" style={{ borderBottom: `1px solid ${red}20` }}>
                 <motion.span className={`${heading.className} text-base sm:text-lg tracking-wider`} style={{ ...chromeGradient }}
                   initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: dur * 0.6, delay: stagger }}>

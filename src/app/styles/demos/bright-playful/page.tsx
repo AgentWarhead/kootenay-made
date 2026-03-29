@@ -226,6 +226,12 @@ function LiveRedesign() {
               transition={{ duration: dur * 0.8, ease: 'easeOut' }}
               className="absolute inset-0 w-full overflow-hidden flex flex-col"
               style={{ backgroundColor: '#ffffff', border: '2px solid rgba(255,107,107,0.25)', borderRadius: '20px', boxShadow: '0 8px 40px rgba(255,107,107,0.12), 0 2px 12px rgba(78,205,196,0.1)' }}>
+
+            {/* Background image overlay */}
+            <div className="absolute inset-0 z-0">
+              <img src="/images/demos/bright-playful-showcase.webp" alt="" className="w-full h-full object-cover" />
+              <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.8) 100%)' }} />
+            </div>
               {/* Playful nav */}
               <div className="flex items-center justify-between px-6 sm:px-10 py-4" style={{ borderBottom: '2px solid rgba(255,107,107,0.1)' }}>
                 <motion.span className={`heading-font text-base sm:text-lg font-bold`} style={{ color: CORAL, fontFamily: "'Pally', sans-serif" }}

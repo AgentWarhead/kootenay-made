@@ -197,7 +197,13 @@ function LiveRedesign() {
               className="absolute inset-0 w-full overflow-hidden flex flex-col"
               style={{ backgroundColor: '#f8fafc', border: `2px solid ${CP.navy}20`, borderRadius: '16px', boxShadow: `0 8px 40px ${CP.navy}12, 0 2px 8px rgba(0,0,0,0.04)` }}
             >
-              {/* Elegant nav */}
+              
+            {/* Background image overlay */}
+            <div className="absolute inset-0 z-0">
+              <img src="/images/demos/clean-professional-showcase.webp" alt="" className="w-full h-full object-cover" />
+              <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.8) 100%)' }} />
+            </div>
+{/* Elegant nav */}
               <div className="flex items-center justify-between px-6 sm:px-10 py-4" style={{ borderBottom: `1px solid ${CP.navy}12`, backgroundColor: CP.white }}>
                 <motion.span
                   style={{ color: CP.navy, letterSpacing: '0.02em', fontFamily: "'Supreme', sans-serif", fontSize: '1rem', fontWeight: 700 }}

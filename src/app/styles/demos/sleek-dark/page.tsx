@@ -156,7 +156,13 @@ function LiveRedesign() {
                 boxShadow: '0 8px 40px rgba(201,169,110,0.12), 0 2px 8px rgba(0,0,0,0.3)',
               }}
             >
-              {/* Elegant nav */}
+              
+            {/* Background image overlay */}
+            <div className="absolute inset-0 z-0">
+              <img src="/images/demos/sleek-dark-hero.webp" alt="" className="w-full h-full object-cover" />
+              <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.8) 100%)' }} />
+            </div>
+{/* Elegant nav */}
               <div className="flex items-center justify-between px-6 sm:px-10 py-4" style={{ borderBottom: '1px solid rgba(201,169,110,0.12)' }}>
                 <motion.span
                   className={`heading-font text-base sm:text-lg`}

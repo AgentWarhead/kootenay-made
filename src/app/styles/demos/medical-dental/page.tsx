@@ -144,7 +144,13 @@ function LiveRedesign() {
               className="absolute inset-0 w-full overflow-hidden flex flex-col"
               style={{ backgroundColor: MD.white, border: `2px solid ${MD.teal}25`, borderRadius: '16px', boxShadow: `0 8px 40px ${MD.teal}15, 0 2px 8px rgba(0,0,0,0.04)` }}
             >
-              {/* Nav — white/light, Ranade, teal text */}
+              
+            {/* Background image overlay */}
+            <div className="absolute inset-0 z-0">
+              <img src="/images/demos/medical-dental-hero.webp" alt="" className="w-full h-full object-cover" />
+              <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.8) 100%)' }} />
+            </div>
+{/* Nav — white/light, Ranade, teal text */}
               <div className="flex items-center justify-between px-6 sm:px-10 py-4" style={{ borderBottom: `1px solid ${MD.teal}15`, backgroundColor: '#f0fdfe' }}>
                 <motion.span style={{ color: MD.teal, fontFamily: "'Ranade', sans-serif", fontSize: '1.05rem', fontWeight: 700 }} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: dur * 0.6, delay: stagger }}>
                   Kootenay Family Dental

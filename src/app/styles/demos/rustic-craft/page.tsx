@@ -198,7 +198,13 @@ function LiveRedesign() {
               transition={{ duration: dur * 0.8, ease: 'easeOut' }}
               className="absolute inset-0 w-full overflow-hidden flex flex-col"
               style={{ backgroundColor: '#2a1a0e', border: `2px solid ${AMBER}50`, borderRadius: '16px', boxShadow: `0 8px 40px ${AMBER}20, 0 2px 16px rgba(0,0,0,0.4)` }}>
-              {/* Nav — dark brown bg, Gambetta, amber text */}
+              
+            {/* Background image overlay */}
+            <div className="absolute inset-0 z-0">
+              <img src="/images/demos/rustic-craft-showcase.webp" alt="" className="w-full h-full object-cover" />
+              <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.8) 100%)' }} />
+            </div>
+{/* Nav — dark brown bg, Gambetta, amber text */}
               <div className="flex items-center justify-between px-6 sm:px-10 py-4" style={{ borderBottom: `1px solid ${AMBER}25` }}>
                 <motion.span className={`heading-font text-base sm:text-lg font-bold`} style={{ color: AMBER, fontFamily: "'Gambetta', serif" }}
                   initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: dur * 0.6, delay: stagger }}>

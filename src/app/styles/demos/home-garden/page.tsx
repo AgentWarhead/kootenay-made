@@ -302,7 +302,13 @@ function LiveRedesign() {
               boxShadow: `0 8px 40px ${C.green}15, 0 2px 8px rgba(0,0,0,0.04)`,
             }}
           >
-            {/* Elegant nav bar */}
+            
+            {/* Background image overlay */}
+            <div className="absolute inset-0 z-0">
+              <img src="/images/demos/garden-hero.webp" alt="" className="w-full h-full object-cover" />
+              <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.8) 100%)' }} />
+            </div>
+{/* Elegant nav bar */}
             <div
               className="flex items-center justify-between px-6 sm:px-10 py-4"
               style={{ borderBottom: `1px solid ${C.green}15` }}
