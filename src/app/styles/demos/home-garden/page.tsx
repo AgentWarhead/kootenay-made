@@ -560,6 +560,89 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
 export default function HomeGardenDemo() {
   const prefersReduced = useReducedMotion()
   const [activeTab, setActiveTab] = useState<'Spring' | 'Summer' | 'Fall' | 'Winter'>('Spring')
+  const [activePortfolioTab, setActivePortfolioTab] = useState<'Spring' | 'Summer' | 'Fall'>('Spring')
+
+  type PortfolioSeason = 'Spring' | 'Summer' | 'Fall'
+  const portfolioProjects: Record<PortfolioSeason, { title: string; desc: string; img: string; tag: string; tagColor: string; location: string }[]> = {
+    Spring: [
+      {
+        title: 'Kinnaird Heights Garden',
+        desc: 'Full front-yard redesign with raised beds, perennial borders, and a crushed granite path. Planted for pollinators.',
+        img: '/images/demos/home-garden-showcase.webp',
+        tag: 'Residential',
+        tagColor: C.green,
+        location: 'Castlegar, BC',
+      },
+      {
+        title: 'Columbia Ave Planters',
+        desc: 'Commercial streetscape installation — 12 large planters with seasonal colour rotation for downtown retail.',
+        img: '/images/demos/gallery/hg-1.webp',
+        tag: 'Commercial',
+        tagColor: C.terracotta,
+        location: 'Trail, BC',
+      },
+      {
+        title: 'Balfour Lakeside Renovation',
+        desc: 'Naturalized shoreline planting with native sedges, willows, and rock placement. Low-maintenance, erosion-resistant.',
+        img: '/images/demos/gallery/hg-2.webp',
+        tag: 'Naturalized',
+        tagColor: '#7a9e4a',
+        location: 'Balfour, BC',
+      },
+    ],
+    Summer: [
+      {
+        title: 'Rosemont Outdoor Living',
+        desc: 'Bluestone patio, pergola, and drought-tolerant planting beds designed for summer entertaining.',
+        img: '/images/demos/gallery/hg-2.webp',
+        tag: 'Hardscaping',
+        tagColor: C.terracotta,
+        location: 'Nelson, BC',
+      },
+      {
+        title: 'Selkirk Grounds Maintenance',
+        desc: 'Weekly grounds contract for a 20-unit strata complex — lawn, irrigation management, and seasonal colour beds.',
+        img: '/images/demos/gallery/hg-3.webp',
+        tag: 'Commercial',
+        tagColor: C.green,
+        location: 'Castlegar, BC',
+      },
+      {
+        title: 'Arrow Lakes Acreage',
+        desc: 'Large rural property — irrigation system, orchard underplanting, and meadow restoration on 3 acres.',
+        img: '/images/demos/home-garden-showcase.webp',
+        tag: 'Acreage',
+        tagColor: '#5a8e4a',
+        location: 'Nakusp, BC',
+      },
+    ],
+    Fall: [
+      {
+        title: 'Rossland Heritage Home',
+        desc: 'Fall bulb planting, ornamental grass installation, and a new stone border to frame the heritage front garden.',
+        img: '/images/demos/gallery/hg-3.webp',
+        tag: 'Residential',
+        tagColor: '#b8860b',
+        location: 'Rossland, BC',
+      },
+      {
+        title: 'Winterization Package — Nelson',
+        desc: 'Full fall cleanup, irrigation blowout, rose winterization, and mulching for 8 residential clients.',
+        img: '/images/demos/gallery/hg-1.webp',
+        tag: 'Maintenance',
+        tagColor: C.green,
+        location: 'Nelson, BC',
+      },
+      {
+        title: 'Fruitvale Commercial Beds',
+        desc: 'Fall refresh for commercial property — planted spring bulbs, ornamental kale, and shrub pruning before dormancy.',
+        img: '/images/demos/home-garden-showcase.webp',
+        tag: 'Commercial',
+        tagColor: C.terracotta,
+        location: 'Fruitvale, BC',
+      },
+    ],
+  }
 
   type Season = 'Spring' | 'Summer' | 'Fall' | 'Winter'
   const seasonalContent: Record<Season, { services: string[]; emoji: string; accent: string }> = {
@@ -767,7 +850,7 @@ export default function HomeGardenDemo() {
         </div>
       </section>
 
-      {/* ═══════════ 4. SERVICES — with PAS intro ═══════════ */}
+      {/* ═══════════ 4. DESIGN → BUILD → MAINTAIN JOURNEY ═══════════ */}
       <section
         id="services"
         className="relative py-20 md:py-28 px-6 overflow-hidden"
@@ -781,73 +864,270 @@ export default function HomeGardenDemo() {
               className={`${heading.className} text-3xl md:text-4xl font-bold mb-3`}
               style={{ color: C.darkGreen }}
             >
-              What We Build for You
+              How a Landscape Comes to Life
             </h2>
-            <div className="w-16 h-0.5 mb-8" style={{ backgroundColor: C.green }} />
-          </Reveal>
-
-          {/* PAS copy */}
-          <Reveal delay={0.1}>
-            <p
-              className="text-base md:text-lg leading-relaxed mb-14 max-w-2xl italic"
-              style={{ color: '#7a8e7a' }}
-            >
-              Your competitor gets the big landscaping contracts because their website shows a portfolio —
-              yours is a Facebook page. They&rsquo;re not better landscapers. They just look more established online.
-              One good website changes that immediately.
+            <div className="w-16 h-0.5 mb-4" style={{ backgroundColor: C.green }} />
+            <p className="text-base md:text-lg leading-relaxed mb-14 max-w-2xl italic" style={{ color: '#7a8e7a' }}>
+              From the first sketch to a garden that thrives season after season — every project moves through three phases.
             </p>
           </Reveal>
 
-          <div className="grid md:grid-cols-3 gap-6">
+          {/* 3-phase horizontal journey */}
+          <div className="relative grid md:grid-cols-3 gap-0 mb-16">
+            {/* Connector lines — desktop only */}
+            <div
+              className="hidden md:block absolute top-16 left-[calc(33.33%-1px)] w-[calc(33.33%+2px)] h-0.5 z-0"
+              style={{ backgroundColor: `${C.green}33` }}
+            />
+            <div
+              className="hidden md:block absolute top-16 left-[calc(66.66%-1px)] w-[calc(33.33%+2px)] h-0.5 z-0"
+              style={{ backgroundColor: `${C.green}33` }}
+            />
+
+            {([
+              {
+                phase: '01',
+                label: 'Design',
+                title: 'Design',
+                color: C.green,
+                svgDecor: (
+                  <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+                    <circle cx="24" cy="24" r="20" stroke={C.green} strokeWidth="1.5" fill="none" />
+                    <path d="M14 34 C14 20 20 14 34 14" stroke={C.green} strokeWidth="1.5" fill="none" strokeLinecap="round" />
+                    <ellipse cx="22" cy="26" rx="5" ry="2.5" stroke={C.green} strokeWidth="1" fill="none" transform="rotate(-30 22 26)" />
+                    <ellipse cx="30" cy="20" rx="4" ry="2" stroke={C.green} strokeWidth="1" fill="none" transform="rotate(-55 30 20)" />
+                    <circle cx="36" cy="12" r="1.5" fill={C.green} opacity="0.4" />
+                  </svg>
+                ),
+                desc: 'We listen first. Then we sketch, plan, and present a design that works with your property — light, soil, and slope all considered.',
+                examples: ['Site analysis & consultation', 'Hand-sketched concept plans', 'Plant selection & palette', 'Timeline & phasing options'],
+              },
+              {
+                phase: '02',
+                label: 'Build',
+                title: 'Build',
+                color: C.terracotta,
+                svgDecor: (
+                  <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+                    <circle cx="24" cy="24" r="20" stroke={C.terracotta} strokeWidth="1.5" fill="none" />
+                    <rect x="16" y="28" width="16" height="6" rx="1.5" stroke={C.terracotta} strokeWidth="1.2" fill="none" />
+                    <path d="M20 28 L20 20 L28 20 L28 28" stroke={C.terracotta} strokeWidth="1.2" fill="none" />
+                    <path d="M24 20 L24 14" stroke={C.terracotta} strokeWidth="1.2" strokeLinecap="round" />
+                    <path d="M20 16 L28 16" stroke={C.terracotta} strokeWidth="1" strokeLinecap="round" />
+                  </svg>
+                ),
+                desc: 'Our crew gets to work. Patios, pathways, planting beds, irrigation, and everything in between — built to last in the Kootenay climate.',
+                examples: ['Patio & pathway installation', 'Planting bed construction', 'Irrigation system install', 'Tree & shrub planting'],
+              },
+              {
+                phase: '03',
+                label: 'Maintain',
+                title: 'Maintain',
+                color: '#5a8e4a',
+                svgDecor: (
+                  <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+                    <circle cx="24" cy="24" r="20" stroke="#5a8e4a" strokeWidth="1.5" fill="none" />
+                    <path d="M16 36 C16 26 20 20 24 14 C28 20 32 26 32 36" stroke="#5a8e4a" strokeWidth="1.2" fill="none" strokeLinecap="round" />
+                    <path d="M24 14 C20 20 18 26 18 32" stroke="#5a8e4a" strokeWidth="0.8" strokeLinecap="round" strokeDasharray="2 3" />
+                    <ellipse cx="19" cy="24" rx="4" ry="2" stroke="#5a8e4a" strokeWidth="0.8" fill="none" transform="rotate(-30 19 24)" />
+                    <ellipse cx="29" cy="24" rx="4" ry="2" stroke="#5a8e4a" strokeWidth="0.8" fill="none" transform="rotate(30 29 24)" />
+                  </svg>
+                ),
+                desc: 'A living garden needs consistent care. We offer seasonal programmes that keep everything healthy, tidy, and beautiful year-round.',
+                examples: ['Weekly/bi-weekly lawn care', 'Seasonal cleanup & mulching', 'Irrigation management', 'Winter prep & pruning'],
+              },
+            ] as const).map((phase, i) => (
+              <Reveal key={phase.label} delay={i * 0.15}>
+                <div
+                  className="relative flex flex-col items-center text-center p-8 md:p-10"
+                  style={{ borderRight: i < 2 ? `1px dashed ${C.green}22` : undefined }}
+                >
+                  {/* Phase circle with botanical SVG */}
+                  <div
+                    className="relative w-16 h-16 rounded-full flex items-center justify-center mb-5 z-10"
+                    style={{
+                      backgroundColor: `${phase.color}12`,
+                      border: `2px solid ${phase.color}40`,
+                    }}
+                  >
+                    {phase.svgDecor}
+                    {/* Phase number badge */}
+                    <span
+                      className="absolute -top-1 -right-1 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold"
+                      style={{ backgroundColor: phase.color, color: C.white }}
+                    >
+                      {i + 1}
+                    </span>
+                  </div>
+
+                  {/* Arrow between phases — mobile only */}
+                  {i < 2 && (
+                    <div className="md:hidden text-2xl mb-4" style={{ color: `${C.green}40` }}>↓</div>
+                  )}
+
+                  <span
+                    className="text-xs font-bold uppercase tracking-[0.2em] mb-2"
+                    style={{ color: phase.color }}
+                  >
+                    Phase {phase.phase}
+                  </span>
+                  <h3
+                    className={`${heading.className} text-2xl font-bold mb-3`}
+                    style={{ color: C.darkGreen }}
+                  >
+                    {phase.title}
+                  </h3>
+                  <p className="text-sm leading-relaxed mb-5" style={{ color: '#5a6e5a' }}>
+                    {phase.desc}
+                  </p>
+                  <ul className="text-left w-full space-y-1.5">
+                    {phase.examples.map((ex) => (
+                      <li key={ex} className="flex items-start gap-2 text-xs" style={{ color: '#6a7e6a' }}>
+                        <span
+                          className="w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0"
+                          style={{ backgroundColor: phase.color }}
+                        />
+                        {ex}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+
+          {/* ── Project Type Cards ── */}
+          <Reveal delay={0.1}>
+            <h3
+              className={`${heading.className} text-xl md:text-2xl font-bold mb-6`}
+              style={{ color: C.darkGreen }}
+            >
+              What Type of Project is Yours?
+            </h3>
+          </Reveal>
+
+          <div className="grid md:grid-cols-3 gap-5">
             {[
               {
-                title: 'Custom Website',
-                price: 'From $1,500',
-                desc: 'Show off your portfolio. Let your work sell itself — before the phone even rings.',
-                icon: '🌿',
+                type: 'Residential Design',
+                icon: '🏡',
+                desc: 'Backyard makeovers, front gardens, outdoor living spaces, and everything in between. Designed to match your home and lifestyle.',
+                cta: 'View Portfolio',
+                accentColor: C.green,
               },
               {
-                title: 'Google Visibility',
-                price: 'From $500',
-                desc: 'When homeowners search for landscapers, you come up first. More leads, less guessing.',
-                icon: '📍',
+                type: 'Commercial Grounds',
+                icon: '🏢',
+                desc: 'Strata complexes, commercial properties, and municipal spaces. Professional maintenance contracts with consistent, reliable crews.',
+                cta: 'View Portfolio',
+                accentColor: C.terracotta,
               },
               {
-                title: 'Smart Business Tools',
-                price: 'From $750',
-                desc: 'Automate quotes and seasonal reminders. Stay busy year-round without the admin headache.',
+                type: 'Seasonal Maintenance',
                 icon: '🗓️',
+                desc: 'Spring cleanups, summer lawn care, fall leaf removal, and winterization — all on a recurring programme so you never have to think about it.',
+                cta: 'View Portfolio',
+                accentColor: '#5a8e4a',
               },
             ].map((card, i) => (
-              <Reveal key={card.title} delay={i * 0.12}>
+              <Reveal key={card.type} delay={i * 0.12}>
                 <motion.div
-                  className="relative p-8 h-full rounded-xl cursor-default"
+                  className="relative p-7 rounded-xl cursor-default h-full flex flex-col"
                   style={{
-                    backgroundColor: C.white,
-                    borderLeft: `4px solid ${C.green}`,
-                    boxShadow: '0 2px 12px rgba(107,154,91,0.10)',
+                    backgroundColor: C.cream,
+                    border: `1.5px solid ${card.accentColor}22`,
+                    boxShadow: `0 2px 14px ${card.accentColor}10`,
                   }}
-                  whileHover={
-                    prefersReduced
-                      ? {}
-                      : { y: -6, boxShadow: '0 14px 36px rgba(107,154,91,0.20)' }
-                  }
+                  whileHover={prefersReduced ? {} : { y: -5, boxShadow: `0 14px 36px ${card.accentColor}20` }}
                   transition={{ type: 'spring', stiffness: 280, damping: 22 }}
                 >
                   <span className="text-3xl mb-4 block">{card.icon}</span>
-                  <h3 className={`${heading.className} text-xl font-bold mb-1`} style={{ color: C.darkGreen }}>
-                    {card.title}
-                  </h3>
-                  <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: `${C.green}88` }}>
-                    {card.price}
-                  </p>
-                  <p className="leading-relaxed text-sm" style={{ color: '#5a6e5a' }}>
+                  <h4
+                    className={`${heading.className} text-lg font-bold mb-3`}
+                    style={{ color: C.darkGreen }}
+                  >
+                    {card.type}
+                  </h4>
+                  <p className="text-sm leading-relaxed mb-5 flex-1" style={{ color: '#5a6e5a' }}>
                     {card.desc}
                   </p>
+                  <a
+                    href="#portfolio"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider transition-colors"
+                    style={{ color: card.accentColor }}
+                    onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.7')}
+                    onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
+                  >
+                    {card.cta}
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                  </a>
                 </motion.div>
               </Reveal>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ═══════════ 4b. WHAT'S IN SEASON STRIP ═══════════ */}
+      <section
+        className="relative py-8 px-6 overflow-hidden"
+        style={{ backgroundColor: C.darkGreen }}
+      >
+        {/* Subtle botanical accent */}
+        <div className="absolute top-0 right-0 pointer-events-none opacity-10">
+          <svg width="120" height="80" viewBox="0 0 120 80" fill="none">
+            <path d="M100 8 C80 8 55 22 42 45 C29 68 35 74 18 78" stroke={C.greenLight} strokeWidth="1.5" fill="none" strokeLinecap="round" />
+            <ellipse cx="68" cy="28" rx="8" ry="4" stroke={C.greenLight} strokeWidth="1" fill="none" transform="rotate(-55 68 28)" />
+            <ellipse cx="48" cy="52" rx="6" ry="3" stroke={C.greenLight} strokeWidth="0.8" fill="none" transform="rotate(-20 48 52)" />
+          </svg>
+        </div>
+
+        <div className="max-w-7xl mx-auto">
+          <div className="flex items-center gap-4 mb-5">
+            <span
+              className={`${body.className} text-xs font-bold uppercase tracking-[0.2em]`}
+              style={{ color: C.greenLight, opacity: 0.7 }}
+            >
+              🌱 What&rsquo;s in Season Right Now
+            </span>
+            <div className="flex-1 h-px" style={{ backgroundColor: `${C.green}40` }} />
+          </div>
+
+          <div className="flex flex-wrap gap-3 md:gap-4">
+            {[
+              { name: 'Bleeding Heart', color: '#c76b8a', icon: '🌸' },
+              { name: 'Coral Bells', color: C.terracotta, icon: '🌺' },
+              { name: 'Creeping Thyme', color: C.green, icon: '🌿' },
+              { name: 'Siberian Iris', color: '#6a7ac7', icon: '💜' },
+              { name: 'Alpine Strawberry', color: '#d4505a', icon: '🍓' },
+            ].map((plant) => (
+              <div
+                key={plant.name}
+                className="flex items-center gap-2.5 px-4 py-2.5 rounded-full"
+                style={{
+                  backgroundColor: `${plant.color}22`,
+                  border: `1px solid ${plant.color}55`,
+                }}
+              >
+                {/* Nursery-tag colour dot */}
+                <span
+                  className="w-3 h-3 rounded-full flex-shrink-0"
+                  style={{ backgroundColor: plant.color }}
+                />
+                <span
+                  className={`${body.className} text-xs font-medium`}
+                  style={{ color: C.cream }}
+                >
+                  {plant.name}
+                </span>
+              </div>
+            ))}
+          </div>
+          <p className="mt-4 text-xs" style={{ color: 'rgba(253,248,240,0.35)' }}>
+            Available for spring planting — ask us about sourcing or incorporating into your design.
+          </p>
         </div>
       </section>
 
@@ -1000,7 +1280,7 @@ export default function HomeGardenDemo() {
         </div>
       </section>
 
-      {/* ═══════════ 6. GALLERY / SHOWCASE ═══════════ */}
+      {/* ═══════════ 6. SEASONAL PORTFOLIO (tabbed) ═══════════ */}
       <section
         id="portfolio"
         className="relative py-20 md:py-28 px-6 overflow-hidden"
@@ -1013,39 +1293,96 @@ export default function HomeGardenDemo() {
               className={`${heading.className} text-3xl md:text-4xl font-bold mb-3`}
               style={{ color: C.darkGreen }}
             >
-              Our Work
+              Seasonal Portfolio
             </h2>
-            <div className="w-16 h-0.5 mb-12" style={{ backgroundColor: C.green }} />
+            <div className="w-16 h-0.5 mb-4" style={{ backgroundColor: C.green }} />
+            <p className="text-sm md:text-base mb-10 max-w-xl" style={{ color: '#5a6e5a' }}>
+              Every season brings different work — here's a look at what we've built across the Kootenays.
+            </p>
           </Reveal>
 
+          {/* Season tabs */}
           <Reveal delay={0.1}>
-            <div className="relative max-w-3xl mx-auto mb-10 overflow-hidden rounded-xl shadow-md">
-              <Image
-                src="/images/demos/home-garden-showcase.webp"
-                alt="Cedarview Landscaping — portfolio showcase"
-                width={800}
-                height={500}
-                className="w-full h-auto block"
-              />
+            <div className="flex gap-2 mb-10 flex-wrap">
+              {([
+                { tab: 'Spring' as const, icon: '🌸', accent: C.green },
+                { tab: 'Summer' as const, icon: '☀️', accent: C.terracotta },
+                { tab: 'Fall' as const, icon: '🍂', accent: '#b8860b' },
+              ]).map(({ tab, icon, accent }) => (
+                <button
+                  key={tab}
+                  onClick={() => setActivePortfolioTab(tab)}
+                  className="flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-all"
+                  style={{
+                    backgroundColor: activePortfolioTab === tab ? accent : C.white,
+                    color: activePortfolioTab === tab ? C.white : C.darkGreen,
+                    border: `1.5px solid ${activePortfolioTab === tab ? accent : `${C.green}30`}`,
+                    boxShadow: activePortfolioTab === tab ? `0 4px 16px ${accent}30` : 'none',
+                  }}
+                >
+                  <span>{icon}</span>
+                  {tab}
+                </button>
+              ))}
             </div>
           </Reveal>
 
-          <div className="grid grid-cols-3 gap-4 md:gap-6">
-            {[
-              { label: 'Residential Design', img: '/images/demos/gallery/hg-1.webp' },
-              { label: 'Commercial Grounds', img: '/images/demos/gallery/hg-2.webp' },
-              { label: 'Seasonal Care', img: '/images/demos/gallery/hg-3.webp' },
-            ].map(({ label, img }, i) => (
-              <Reveal key={label} delay={0.12 + i * 0.1}>
-                <div className="relative aspect-[4/3] rounded-xl overflow-hidden">
-                  <Image src={img} alt={label} fill className="object-cover" />
-                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-3">
-                    <span className="text-white text-sm font-medium">{label}</span>
+          {/* Portfolio cards — animated on tab change */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activePortfolioTab}
+              initial={prefersReduced ? {} : { opacity: 0, y: 18 }}
+              animate={prefersReduced ? {} : { opacity: 1, y: 0 }}
+              exit={prefersReduced ? {} : { opacity: 0, y: -14 }}
+              transition={{ duration: 0.32, ease: 'easeOut' }}
+              className="grid md:grid-cols-3 gap-6"
+            >
+              {portfolioProjects[activePortfolioTab].map((project, i) => (
+                <motion.div
+                  key={project.title}
+                  className="rounded-2xl overflow-hidden cursor-default"
+                  style={{
+                    backgroundColor: C.white,
+                    border: `1px solid ${C.green}22`,
+                    boxShadow: '0 4px 20px rgba(107,154,91,0.08)',
+                  }}
+                  initial={prefersReduced ? {} : { opacity: 0, y: 12 }}
+                  animate={prefersReduced ? {} : { opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: i * 0.08 }}
+                  whileHover={prefersReduced ? {} : { y: -4, boxShadow: '0 12px 32px rgba(107,154,91,0.18)' }}
+                >
+                  {/* Image */}
+                  <div className="relative aspect-[16/9] overflow-hidden">
+                    <Image src={project.img} alt={project.title} fill className="object-cover" />
+                    {/* Season + type badge */}
+                    <div className="absolute top-3 left-3 flex gap-2">
+                      <span
+                        className="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full"
+                        style={{ backgroundColor: project.tagColor, color: C.white }}
+                      >
+                        {project.tag}
+                      </span>
+                    </div>
                   </div>
-                </div>
-              </Reveal>
-            ))}
-          </div>
+                  {/* Content */}
+                  <div className="p-5">
+                    <h3
+                      className={`${heading.className} text-base font-bold mb-1`}
+                      style={{ color: C.darkGreen }}
+                    >
+                      {project.title}
+                    </h3>
+                    <p className="text-xs mb-3 font-medium" style={{ color: C.green }}>
+                      📍 {project.location}
+                    </p>
+                    <p className="text-sm leading-relaxed" style={{ color: '#5a6e5a' }}>
+                      {project.desc}
+                    </p>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </AnimatePresence>
         </div>
       </section>
 

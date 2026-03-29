@@ -93,6 +93,90 @@ function SpeedoStat({ value, label, delay = 0 }: { value: string; label: string;
   )
 }
 
+/* ── Flip Card for vehicle showcase ── */
+function FlipCard({ front, back }: {
+  front: { title: string; subtitle: string; desc: string }
+  back: { title: string; desc: string; stat: string }
+}) {
+  const [flipped, setFlipped] = useState(false)
+  return (
+    <div
+      className="cursor-pointer"
+      style={{ perspective: '1000px', height: '280px' }}
+      onClick={() => setFlipped(f => !f)}
+    >
+      <div
+        style={{
+          position: 'relative',
+          width: '100%',
+          height: '100%',
+          transformStyle: 'preserve-3d',
+          transition: 'transform 0.6s ease',
+          transform: flipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
+        }}
+      >
+        {/* FRONT */}
+        <div style={{
+          position: 'absolute', inset: 0,
+          backfaceVisibility: 'hidden',
+          backgroundColor: '#1a1a1a',
+          border: '1px solid #333',
+          padding: '2rem',
+          display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
+        }}>
+          <div>
+            <span className="inline-block px-3 py-1 text-xs font-bold uppercase tracking-widest mb-4"
+              style={{ backgroundColor: '#333', color: '#888', border: '1px solid #444' }}>BEFORE</span>
+            <h3 className={`${heading.className} text-3xl tracking-wider mb-2`} style={{ color: '#ffffff' }}>{front.title}</h3>
+            <p className="text-xs uppercase tracking-widest mb-3" style={{ color: '#666' }}>{front.subtitle}</p>
+            <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.5)' }}>{front.desc}</p>
+          </div>
+          <p className="text-xs" style={{ color: '#555' }}>Tap to see the transformation →</p>
+        </div>
+
+        {/* BACK */}
+        <div style={{
+          position: 'absolute', inset: 0,
+          backfaceVisibility: 'hidden',
+          transform: 'rotateY(180deg)',
+          backgroundColor: '#1a0505',
+          border: '1px solid #dc2626',
+          boxShadow: '0 0 30px rgba(220,38,38,0.2)',
+          padding: '2rem',
+          display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
+        }}>
+          <div>
+            <span className="inline-block px-3 py-1 text-xs font-bold uppercase tracking-widest mb-4"
+              style={{ backgroundColor: '#dc2626', color: '#ffffff' }}>AFTER</span>
+            <h3 className={`${heading.className} text-3xl tracking-wider mb-3`} style={{ color: '#dc2626' }}>{back.title}</h3>
+            <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.7)' }}>{back.desc}</p>
+          </div>
+          <div className="mt-4 pt-4" style={{ borderTop: '1px solid rgba(220,38,38,0.3)' }}>
+            <span className={`${heading.className} text-2xl tracking-wider`} style={{ color: '#ffffff' }}>{back.stat}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+/* ── Animated progress bar ── */
+function ProgressBar({ percent, delay = 0 }: { percent: number; delay?: number }) {
+  const prefersReduced = useReducedMotion()
+  return (
+    <div className="w-full h-2 rounded-full" style={{ backgroundColor: '#222' }}>
+      <motion.div
+        className="h-2 rounded-full"
+        style={{ backgroundColor: '#dc2626' }}
+        initial={{ width: 0 }}
+        whileInView={{ width: `${percent}%` }}
+        viewport={{ once: true }}
+        transition={{ duration: 1.2, delay, ease: 'easeOut' }}
+      />
+    </div>
+  )
+}
+
 /* ── Live Redesign ── */
 function LiveRedesign() {
   const prefersReduced = useReducedMotion()
@@ -327,6 +411,10 @@ export default function AutomotiveDemo() {
           0% { background-position: 200% center; }
           100% { background-position: -200% center; }
         }
+        @keyframes tickerScroll {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
       `}</style>
 
       {/* ═══════════ 1. NAV ═══════════ */}
@@ -409,17 +497,24 @@ export default function AutomotiveDemo() {
         </div>
       </section>
 
-      {/* ═══════════ 3. TRUST BAR ═══════════ */}
-      <section style={{ backgroundColor: '#0a0a0a' }} className="py-10 px-6">
+      {/* ═══════════ 3. TRUST STRIP — horizontal ═══════════ */}
+      <section style={{ backgroundColor: '#0a0a0a', borderBottom: '1px solid #1a1a1a' }} className="py-6 px-6">
         <div className="max-w-5xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-items-center">
-            <SpeedoStat value="5.0" label="Rating" delay={0} />
-            <SpeedoStat value="25+" label="Years" delay={0.15} />
-            <SpeedoStat value="ASE" label="Certified" delay={0.3} />
-            <SpeedoStat value="ALL" label="Makes & Models" delay={0.45} />
-          </div>
-          <div className="flex justify-center mt-6">
-            <div className="flex items-center gap-1 text-lg" style={{ color: '#dc2626' }}>&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <div className="flex flex-wrap items-center justify-center gap-6 md:gap-10">
+            <div className="flex items-center gap-3">
+              <div className="flex gap-0.5">
+                {[1,2,3,4,5].map(s => <span key={s} className="text-lg" style={{ color: '#dc2626' }}>★</span>)}
+              </div>
+              <span className={`${heading.className} text-lg tracking-wider`} style={{ color: '#ffffff' }}>4.9 GOOGLE RATING</span>
+            </div>
+            <div className="w-px h-6 hidden md:block" style={{ backgroundColor: '#333' }} />
+            <span className={`${heading.className} text-lg tracking-wider`} style={{ color: '#c0c0c0' }}>ASE CERTIFIED</span>
+            <div className="w-px h-6 hidden md:block" style={{ backgroundColor: '#333' }} />
+            <span className={`${heading.className} text-lg tracking-wider`} style={{ color: '#c0c0c0' }}>25+ YEARS</span>
+            <div className="w-px h-6 hidden md:block" style={{ backgroundColor: '#333' }} />
+            <span className={`${heading.className} text-lg tracking-wider`} style={{ color: '#c0c0c0' }}>ALL MAKES &amp; MODELS</span>
+            <div className="w-px h-6 hidden md:block" style={{ backgroundColor: '#333' }} />
+            <span className={`${heading.className} text-lg tracking-wider`} style={{ color: '#c0c0c0' }}>TRAIL&apos;S MOST-REVIEWED SHOP</span>
           </div>
         </div>
       </section>
@@ -427,42 +522,131 @@ export default function AutomotiveDemo() {
       <RedStripe />
       <RacingDivider topColor="#0a0a0a" bottomColor="#111" />
 
-      {/* ═══════════ 4. SERVICES ═══════════ */}
-      <section id="services" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#111' }}>
+      {/* ═══════════ 4. THE LIFT — Card-flip vehicle showcase ═══════════ */}
+      <section id="work" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#111' }}>
         <div className="max-w-7xl mx-auto">
           <Reveal>
-            <h2 className={`${heading.className} text-4xl md:text-6xl tracking-wider mb-4`} style={chromeGradient}>
-              WHAT WE BUILD FOR YOU
-            </h2>
-            <div className="w-20 h-1.5 mb-8" style={{ backgroundColor: '#dc2626' }} />
+            <h2 className={`${heading.className} text-4xl md:text-6xl tracking-wider mb-2`} style={chromeGradient}>THE LIFT</h2>
+            <p className="text-sm uppercase tracking-widest mb-4" style={{ color: '#dc2626' }}>Recent transformations — tap to flip</p>
+            <div className="w-20 h-1.5 mb-12" style={{ backgroundColor: '#dc2626' }} />
           </Reveal>
+          <div className="grid md:grid-cols-3 gap-6">
+            <Reveal delay={0}>
+              <FlipCard
+                front={{ title: '2008 F-150', subtitle: 'Brought in from Rossland', desc: 'Seized engine, severe oil sludge buildup, multiple check engine codes. Previous shop said it was totalled.' }}
+                back={{ title: 'Full Engine Rebuild', desc: 'New short block, complete oil system flush, all codes cleared, valve cover gaskets replaced. Runs like new.', stat: 'Back on the Road in 4 Days' }}
+              />
+            </Reveal>
+            <Reveal delay={0.1}>
+              <FlipCard
+                front={{ title: '1969 Chevelle', subtitle: 'Complete bare shell', desc: '40 years of BC rust, no running gear, original drivetrain long gone. Just a body and a dream.' }}
+                back={{ title: 'Full Restoration', desc: 'Rebuilt 454 big block, all new sheet metal, PPG base coat/clear in original Fathom Green. Concours quality.', stat: '800+ Hours of Work' }}
+              />
+            </Reveal>
+            <Reveal delay={0.2}>
+              <FlipCard
+                front={{ title: '2015 Subaru WRX', subtitle: 'Stage 2 build gone wrong', desc: 'Worn clutch slipping, untuned blow-off causing lean condition at boost, intermittent misfires under load.' }}
+                back={{ title: 'Performance Build', desc: 'ACT clutch kit, Cobb AccessPort pro tune, Perrin intake + Mishimoto intercooler. Clean pull, no codes.', stat: '260whp on the Dyno' }}
+              />
+            </Reveal>
+          </div>
+        </div>
+      </section>
 
-          {/* PAS Copy */}
+      <RedStripe />
+      <RacingDivider topColor="#111" bottomColor="#0a0a0a" />
+
+      {/* ═══════════ 5. SERVICES — Shop Inspection Checklist ═══════════ */}
+      <section id="services" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#0a0a0a' }}>
+        <div className="max-w-5xl mx-auto">
+          <Reveal>
+            <h2 className={`${heading.className} text-4xl md:text-6xl tracking-wider mb-4`} style={chromeGradient}>
+              SHOP INSPECTION REPORT
+            </h2>
+            <div className="w-20 h-1.5 mb-4" style={{ backgroundColor: '#dc2626' }} />
+            <p className="text-sm uppercase tracking-widest mb-12" style={{ color: 'rgba(255,255,255,0.35)' }}>Iron Horse Garage — Service Menu</p>
+          </Reveal>
           <Reveal delay={0.1}>
-            <div className="max-w-2xl mb-14 p-6" style={{ borderLeft: '4px solid #dc2626', backgroundColor: '#1a1a1a' }}>
-              <p className="text-lg md:text-xl leading-relaxed" style={{ color: 'rgba(255,255,255,0.75)' }}>
-                Your competitor&apos;s shop shows up on Google. Yours doesn&apos;t. They&apos;re not better mechanics — they just have a better website. Every day you&apos;re invisible online is a day they&apos;re collecting your customers. Let&apos;s fix that.
-              </p>
+            <div style={{ backgroundColor: '#111', border: '1px solid #2a2a2a', borderTop: '4px solid #dc2626' }}>
+              {/* Form header */}
+              <div className="px-6 py-4 flex items-center justify-between" style={{ borderBottom: '1px solid #222', backgroundColor: '#1a1a1a' }}>
+                <div>
+                  <span className={`${heading.className} text-sm tracking-widest`} style={{ color: '#dc2626' }}>VEHICLE INSPECTION FORM</span>
+                  <p className="text-xs mt-1" style={{ color: '#555' }}>Iron Horse Garage — 123 Sample St, Trail, BC</p>
+                </div>
+                <div className="text-right">
+                  <span className={`${heading.className} text-2xl tracking-wider`} style={{ color: '#dc2626' }}>APPROVED</span>
+                  <p className="text-xs" style={{ color: '#555' }}>Date: ___________</p>
+                </div>
+              </div>
+              {/* Checklist items */}
+              <div className="divide-y" style={{ borderColor: '#1e1e1e' }}>
+                {[
+                  { label: 'Diagnostic Scan & Report', price: '$89 – $149' },
+                  { label: 'Oil Change & Filter (Synthetic)', price: '$79 – $139' },
+                  { label: 'Brake Inspection & Service', price: '$180 – $480' },
+                  { label: 'Transmission Service', price: '$220 – $440' },
+                  { label: 'Timing Belt / Chain Service', price: '$380 – $780' },
+                  { label: 'Engine Rebuild (Short Block)', price: 'Call for Quote' },
+                  { label: 'Custom Exhaust Fabrication', price: 'From $480' },
+                  { label: 'Suspension & Alignment', price: '$180 – $380' },
+                ].map((item, i) => (
+                  <div key={i} className="flex items-center justify-between px-6 py-4 transition-colors"
+                    style={{ backgroundColor: i % 2 === 0 ? '#111' : '#131313' }}
+                    onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#1a1a1a')}
+                    onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = i % 2 === 0 ? '#111' : '#131313')}
+                  >
+                    <div className="flex items-center gap-4">
+                      <span className="text-xl flex-shrink-0" style={{ color: '#dc2626' }}>☑</span>
+                      <span className={`${body.className} font-medium`} style={{ color: 'rgba(255,255,255,0.85)' }}>{item.label}</span>
+                    </div>
+                    <span className="text-sm font-mono font-bold ml-4 whitespace-nowrap" style={{ color: '#c0c0c0' }}>{item.price}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="px-6 py-4" style={{ borderTop: '1px solid #222', backgroundColor: '#1a1a1a' }}>
+                <p className="text-xs" style={{ color: '#444' }}>All work performed by ASE Certified technicians. Written estimate provided before any work begins. 12-month / 20,000km warranty on all parts and labour.</p>
+              </div>
             </div>
           </Reveal>
+        </div>
+      </section>
 
+      <RedStripe />
+      <RacingDivider topColor="#0a0a0a" bottomColor="#111" />
+
+      {/* ═══════════ 6. CURRENTLY IN THE BAY ═══════════ */}
+      <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#111' }}>
+        <div className="max-w-5xl mx-auto">
+          <Reveal>
+            <h2 className={`${heading.className} text-4xl md:text-6xl tracking-wider mb-2`} style={chromeGradient}>CURRENTLY IN THE BAY</h2>
+            <p className="text-sm uppercase tracking-widest mb-4" style={{ color: '#dc2626' }}>Live shop status — we stay busy</p>
+            <div className="w-20 h-1.5 mb-12" style={{ backgroundColor: '#dc2626' }} />
+          </Reveal>
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { title: 'CUSTOM WEBSITE', price: 'From $1,500', desc: 'A site as tough as your shop. Show your work, build trust, get found.' },
-              { title: 'GOOGLE DOMINATION', price: '$500', desc: 'When a car breaks down in the Kootenays, they find you — not your competition.' },
-              { title: 'FULL BRAND BUILD', price: 'From $4,000', desc: 'Logo, site, social — everything built to make Iron Horse unforgettable.' },
-            ].map((card, i) => (
-              <Reveal key={card.title} delay={i * 0.15}>
-                <motion.div
-                  className="p-8 h-full transition-all cursor-default"
-                  style={{ backgroundColor: '#1a1a1a', borderTop: '4px solid #dc2626', borderLeft: '1px solid #222', borderRight: '1px solid #222', borderBottom: '1px solid #222' }}
-                  whileHover={prefersReduced ? {} : { scale: 1.04, boxShadow: '0 0 30px rgba(220,38,38,0.3)' }}
-                  transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                >
-                  <h3 className={`${heading.className} text-2xl md:text-3xl tracking-wider mb-1`} style={{ color: '#dc2626' }}>{card.title}</h3>
-                  <p className="text-sm font-bold mb-4 uppercase tracking-wider" style={{ color: 'rgba(220,38,38,0.7)' }}>{card.price}</p>
-                  <p className="leading-relaxed" style={{ color: 'rgba(255,255,255,0.5)' }}>{card.desc}</p>
-                </motion.div>
+              { vehicle: '2019 Ram 1500', job: 'Differential rebuild', percent: 10, status: 'Just Dropped Off', statusColor: '#888' },
+              { vehicle: '2004 Land Cruiser', job: 'Full suspension overhaul + alignment', percent: 65, status: 'In Progress', statusColor: '#f97316' },
+              { vehicle: '2011 Porsche 911', job: 'Clutch replacement + software update', percent: 90, status: 'Nearly Done', statusColor: '#22c55e' },
+            ].map((item, i) => (
+              <Reveal key={item.vehicle} delay={i * 0.15}>
+                <div className="p-6" style={{ backgroundColor: '#1a1a1a', border: '1px solid #222', borderTop: '3px solid #dc2626' }}>
+                  <div className="flex items-start justify-between mb-3">
+                    <div>
+                      <h3 className={`${heading.className} text-xl tracking-wider`} style={{ color: '#ffffff' }}>{item.vehicle}</h3>
+                      <p className="text-xs mt-1" style={{ color: 'rgba(255,255,255,0.4)' }}>{item.job}</p>
+                    </div>
+                    <span className="text-xs font-bold px-2 py-1 rounded whitespace-nowrap ml-2" style={{ backgroundColor: 'rgba(220,38,38,0.1)', color: item.statusColor, border: `1px solid ${item.statusColor}40` }}>
+                      {item.status}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-3 mt-4">
+                    <div className="flex-1">
+                      <ProgressBar percent={item.percent} delay={i * 0.2} />
+                    </div>
+                    <span className={`${heading.className} text-lg tracking-wider flex-shrink-0`} style={{ color: '#dc2626' }}>{item.percent}%</span>
+                  </div>
+                </div>
               </Reveal>
             ))}
           </div>
@@ -472,7 +656,7 @@ export default function AutomotiveDemo() {
       <RedStripe />
       <RacingDivider topColor="#111" bottomColor="#0a0a0a" />
 
-      {/* ═══════════ 5. HOW IT WORKS ═══════════ */}
+      {/* ═══════════ 7. HOW IT WORKS ═══════════ */}
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#0a0a0a' }}>
         <div className="max-w-5xl mx-auto">
           <Reveal>
@@ -483,12 +667,10 @@ export default function AutomotiveDemo() {
           </Reveal>
 
           <div className="grid md:grid-cols-3 gap-8 relative">
-            {/* Connector line */}
-            <div className="hidden md:block absolute top-10 left-1/6 right-1/6 h-0.5" style={{ backgroundColor: '#dc2626', opacity: 0.3, left: '20%', right: '20%' }} />
             {[
-              { num: '01', title: 'WE TALK', desc: 'Free consultation. You tell us about your shop, your goals, and what makes Iron Horse different. No pressure, no jargon.' },
-              { num: '02', title: 'WE BUILD', desc: 'We design and build your site in about 2 weeks. You approve every step. No surprises.' },
-              { num: '03', title: 'YOU GROW', desc: 'Launch day. Your phone starts ringing from people who found you on Google. That\'s the whole point.' },
+              { num: '01', title: 'DROP IT OFF', desc: 'Book online or call. Bring your vehicle in — we do a full walkaround and take notes. You tell us what you\'ve noticed. We listen.' },
+              { num: '02', title: 'WE DIAGNOSE', desc: 'Scan, test drive, hands-on inspection. We find the real problem — not just the codes. Written estimate before we touch a wrench.' },
+              { num: '03', title: 'PICK IT UP FIXED', desc: 'We call when it\'s done. You pay what we quoted. No surprises. We explain everything we found and what we fixed.' },
             ].map((step, i) => (
               <Reveal key={step.num} delay={i * 0.2}>
                 <div className="text-center">
@@ -506,38 +688,8 @@ export default function AutomotiveDemo() {
       <RedStripe />
       <RacingDivider topColor="#0a0a0a" bottomColor="#111" />
 
-      {/* ═══════════ 6. GALLERY / SHOWCASE ═══════════ */}
-      <section id="work" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#111' }}>
-        <div className="max-w-7xl mx-auto">
-          <Reveal>
-            <h2 className={`${heading.className} text-4xl md:text-6xl tracking-wider mb-4`} style={chromeGradient}>RECENT WORK</h2>
-            <div className="w-20 h-1.5 mb-12" style={{ backgroundColor: '#dc2626' }} />
-          </Reveal>
-          <Reveal delay={0.1}>
-            <div className="relative w-full max-w-3xl mx-auto mb-12 overflow-hidden" style={{ borderBottom: '4px solid #dc2626' }}>
-              <Image src="/images/demos/automotive-showcase.webp" alt="Iron Horse Garage — recent automotive project" width={800} height={500} className="w-full h-auto block" />
-            </div>
-          </Reveal>
-          <div className="grid grid-cols-3 gap-4 md:gap-6">
-            {['Engine Rebuild', 'Custom Exhaust', 'Full Restore'].map((label, i) => (
-              <Reveal key={label} delay={0.15 + i * 0.1}>
-                <div className="relative aspect-[4/3] rounded-xl overflow-hidden">
-                  <Image src={`/images/demos/gallery/au-${i + 1}.webp`} alt={label} fill className="object-cover" />
-                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-3">
-                    <span className="text-white text-sm font-medium">{label}</span>
-                  </div>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <RedStripe />
-      <RacingDivider topColor="#111" bottomColor="#0a0a0a" />
-
-      {/* ═══════════ 7. THE TRANSFORMATION ═══════════ */}
-      <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#0a0a0a' }}>
+      {/* ═══════════ 8. THE TRANSFORMATION ═══════════ */}
+      <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#111' }}>
         <div className="max-w-5xl mx-auto">
           <Reveal>
             <h2 className={`${heading.className} text-4xl md:text-6xl tracking-wider mb-4`} style={chromeGradient}>
@@ -553,54 +705,50 @@ export default function AutomotiveDemo() {
       </section>
 
       <RedStripe />
-      <RacingDivider topColor="#0a0a0a" bottomColor="#111" />
+      <RacingDivider topColor="#111" bottomColor="#0a0a0a" />
 
-      {/* ═══════════ 8. TESTIMONIALS (3) ═══════════ */}
-      <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#111' }}>
-        <div className="max-w-6xl mx-auto">
+      {/* ═══════════ 9. TESTIMONIALS — Race-stripe ticker ═══════════ */}
+      <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#0a0a0a' }}>
+        <div className="max-w-7xl mx-auto">
           <Reveal>
-            <h2 className={`${heading.className} text-4xl md:text-6xl tracking-wider mb-4`} style={chromeGradient}>WHAT SHOPS SAY</h2>
-            <div className="w-20 h-1.5 mb-16" style={{ backgroundColor: '#dc2626' }} />
+            <h2 className={`${heading.className} text-4xl md:text-6xl tracking-wider mb-4`} style={chromeGradient}>WHAT THE KOOTENAYS SAY</h2>
+            <div className="w-20 h-1.5 mb-12" style={{ backgroundColor: '#dc2626' }} />
           </Reveal>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                quote: "Within a month of launching our new site, our phone was ringing every day with new customers who found us on Google. Best investment we've made.",
-                name: 'Mike R.',
-                biz: "Ridge Line Auto — Rossland, BC",
-              },
-              {
-                quote: "I was invisible online for 15 years. Now we show up first for 'mechanic Trail BC'. My competitor called to ask what I did. I didn't tell him.",
-                name: 'Tony K.',
-                biz: "Kootenay Custom Builds — Trail, BC",
-              },
-              {
-                quote: "Our fleet service bookings doubled in the first 90 days. The site paid for itself before the first invoice was even due.",
-                name: 'Sandra L.',
-                biz: "Nelson Fleet & Commercial — Nelson, BC",
-              },
-            ].map((t, i) => (
-              <Reveal key={i} delay={i * 0.15}>
-                <div className="p-8 h-full flex flex-col" style={{ backgroundColor: '#1a1a1a', borderTop: '4px solid #dc2626', border: '1px solid #222' }}>
-                  <div className="flex gap-1 mb-5">
-                    {Array.from({ length: 5 }).map((_, j) => (
-                      <span key={j} className="text-xl" style={{ color: '#dc2626' }}>&#9733;</span>
+          <Reveal delay={0.1}>
+            <div className="relative overflow-hidden" style={{ borderTop: '2px solid #dc2626', borderBottom: '2px solid #dc2626' }}>
+              <div style={{
+                display: 'flex',
+                animation: prefersReduced ? 'none' : 'tickerScroll 30s linear infinite',
+                width: 'max-content',
+                gap: '0',
+              }}>
+                {[...Array(2)].map((_, dupIdx) => (
+                  <div key={dupIdx} style={{ display: 'flex', alignItems: 'stretch' }}>
+                    {[
+                      { quote: 'Found the problem in 10 minutes that two other shops missed.', name: 'Rod K., Trail BC' },
+                      { quote: 'Honest shop. No upselling. My truck runs better than the day I bought it.', name: 'Sheila M., Rossland' },
+                      { quote: 'Brought my Camaro in for a tune. Left with a car that pulls hard in every gear.', name: 'Dave L., Castlegar' },
+                      { quote: 'Rebuilt my 5.9 Cummins. More power than factory. Incredible work.', name: 'Brian T., Trail' },
+                      { quote: 'Only shop I trust with my daily driver and my weekend toy. Period.', name: 'Karen P., Nelson' },
+                    ].map((item, i) => (
+                      <div key={`${dupIdx}-${i}`} className="flex items-center gap-6 px-8 py-6 flex-shrink-0"
+                        style={{ borderRight: '1px solid #1e1e1e', backgroundColor: i % 2 === 0 ? '#111' : '#0e0e0e' }}>
+                        <span className="text-2xl flex-shrink-0" style={{ color: '#dc2626' }}>&#9733;</span>
+                        <div>
+                          <p className={`${heading.className} text-lg md:text-xl tracking-wide whitespace-nowrap`} style={{ color: '#ffffff' }}>
+                            &ldquo;{item.quote}&rdquo;
+                          </p>
+                          <p className="text-xs mt-1 whitespace-nowrap" style={{ color: '#555' }}>{item.name}</p>
+                        </div>
+                      </div>
                     ))}
                   </div>
-                  <blockquote className="flex-1 leading-relaxed mb-6" style={{ color: 'rgba(255,255,255,0.75)' }}>
-                    &ldquo;{t.quote}&rdquo;
-                  </blockquote>
-                  <div>
-                    <p className="font-bold uppercase tracking-wider text-sm" style={{ color: '#dc2626' }}>{t.name}</p>
-                    <p className="text-xs mt-1" style={{ color: 'rgba(255,255,255,0.4)' }}>{t.biz}</p>
-                  </div>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-          <Reveal delay={0.3}>
-            <p className="mt-8 text-center text-xs italic" style={{ color: 'rgba(255,255,255,0.25)' }}>
+                ))}
+              </div>
+            </div>
+          </Reveal>
+          <Reveal delay={0.2}>
+            <p className="mt-6 text-center text-xs italic" style={{ color: 'rgba(255,255,255,0.2)' }}>
               (Sample reviews — your real reviews go here)
             </p>
           </Reveal>
@@ -608,10 +756,10 @@ export default function AutomotiveDemo() {
       </section>
 
       <RedStripe />
-      <RacingDivider topColor="#111" bottomColor="#0a0a0a" />
+      <RacingDivider topColor="#0a0a0a" bottomColor="#111" />
 
-      {/* ═══════════ 9. FAQ ═══════════ */}
-      <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#0a0a0a' }}>
+      {/* ═══════════ 10. FAQ ═══════════ */}
+      <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#111' }}>
         <div className="max-w-4xl mx-auto">
           <Reveal>
             <h2 className={`${heading.className} text-4xl md:text-6xl tracking-wider mb-4`} style={chromeGradient}>COMMON QUESTIONS</h2>
@@ -619,22 +767,22 @@ export default function AutomotiveDemo() {
           </Reveal>
           <Reveal delay={0.1}>
             <FAQAccordion items={[
-              { q: 'How long does a website take?', a: 'Most automotive sites are live in 2–3 weeks. We move fast because we know downtime costs money.' },
-              { q: 'What if I already have a website?', a: 'We\'ll review what you have. If it\'s salvageable, we rebuild on top. If it\'s hurting you, we start fresh — your call.' },
-              { q: 'Can I update the site myself?', a: 'Yes. We build on platforms you can manage without calling us every time you want to add a service or update your hours.' },
-              { q: 'What does it cost?', a: 'A custom website starts at $1,500. Google Domination SEO package is $500. Full brand build from $4,000. Book a free consultation and we\'ll give you a firm quote.' },
-              { q: 'Do you do fleet service pages or custom build portfolios?', a: 'Absolutely. Fleet clients need a dedicated landing page and commercial inquiry form. Custom build shops need a portfolio that shows off the work. We\'ve done both.' },
-              { q: 'Will this actually get my phone ringing?', a: 'That\'s the goal and the metric we optimize for. We\'ve helped shops in Trail, Nelson, and Rossland go from invisible to page one. The phone rings.' },
+              { q: 'How long does a typical repair take?', a: 'Most repairs are done same-day or next day. Engine rebuilds and full restorations take longer — we give you a firm timeline upfront so you\'re never left wondering.' },
+              { q: 'Do you work on all makes and models?', a: 'Yes. Domestic, import, diesel, classic, performance. If it has an engine, we work on it. Trucks, SUVs, cars, and powersports — all welcome.' },
+              { q: 'Do you provide written estimates?', a: 'Always. We diagnose first, give you a written quote, and don\'t start work until you approve it. No surprises on your invoice.' },
+              { q: 'Can you handle fleet vehicles?', a: 'Yes. We service commercial fleets for several local businesses. Ask about our fleet service agreements — priority scheduling and volume pricing available.' },
+              { q: 'Do you do custom builds and performance work?', a: 'Absolutely. Engine builds, suspension lifts, exhaust fab, dyno tuning — we do it all. Bring us your vision and we\'ll make it happen.' },
+              { q: 'What\'s your warranty?', a: 'All parts and labour are covered by a 12-month / 20,000km warranty. If something we fixed fails, we fix it again. That\'s the Iron Horse guarantee.' },
             ]} />
           </Reveal>
         </div>
       </section>
 
       <RedStripe />
-      <RacingDivider topColor="#0a0a0a" bottomColor="#111" />
+      <RacingDivider topColor="#111" bottomColor="#0a0a0a" />
 
-      {/* ═══════════ 10. ABOUT ═══════════ */}
-      <section id="about" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#111' }}>
+      {/* ═══════════ 11. ABOUT ═══════════ */}
+      <section id="about" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#0a0a0a' }}>
         <div className="max-w-4xl mx-auto">
           <Reveal>
             <h2 className={`${heading.className} text-4xl md:text-6xl tracking-wider mb-4`} style={chromeGradient}>ABOUT IRON HORSE</h2>
@@ -649,10 +797,10 @@ export default function AutomotiveDemo() {
       </section>
 
       <RedStripe />
-      <RacingDivider topColor="#111" bottomColor="#0a0a0a" />
+      <RacingDivider topColor="#0a0a0a" bottomColor="#111" />
 
-      {/* ═══════════ 11. CONTACT ═══════════ */}
-      <section id="contact" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#0a0a0a' }}>
+      {/* ═══════════ 12. CONTACT — Split form + info ═══════════ */}
+      <section id="contact" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#111' }}>
         <div className="max-w-7xl mx-auto">
           <Reveal>
             <h2 className={`${heading.className} text-4xl md:text-6xl tracking-wider mb-4`} style={chromeGradient}>GET IN TOUCH</h2>
@@ -660,24 +808,8 @@ export default function AutomotiveDemo() {
           </Reveal>
 
           <div className="grid md:grid-cols-2 gap-12 md:gap-16">
+            {/* Left: Form */}
             <Reveal>
-              <div>
-                <a href="tel:2505550199"
-                  className={`${heading.className} block text-4xl md:text-6xl mb-8 transition-colors tracking-wider`}
-                  style={{ color: '#dc2626' }}
-                  onMouseEnter={(e) => (e.currentTarget.style.textShadow = '0 0 20px rgba(220,38,38,0.5)')}
-                  onMouseLeave={(e) => (e.currentTarget.style.textShadow = 'none')}
-                >
-                  (250) 555-0199
-                </a>
-                <div className="space-y-4" style={{ color: 'rgba(255,255,255,0.6)' }}>
-                  <p className="text-lg"><span className="font-bold uppercase tracking-wider text-sm block mb-1" style={{ color: '#dc2626' }}>EMAIL</span>info@ironhorsegarage.ca</p>
-                  <p className="text-lg"><span className="font-bold uppercase tracking-wider text-sm block mb-1" style={{ color: '#dc2626' }}>HOURS</span>Mon&ndash;Sat 8:00 AM &ndash; 5:00 PM</p>
-                  <p className="text-lg"><span className="font-bold uppercase tracking-wider text-sm block mb-1" style={{ color: '#dc2626' }}>LOCATION</span>Trail, BC</p>
-                </div>
-              </div>
-            </Reveal>
-            <Reveal delay={0.15}>
               <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
                 <div>
                   <label className="block text-sm font-bold uppercase tracking-wider mb-2" style={{ color: 'rgba(255,255,255,0.5)' }}>NAME</label>
@@ -685,13 +817,18 @@ export default function AutomotiveDemo() {
                     onFocus={(e) => (e.currentTarget.style.borderColor = '#dc2626')} onBlur={(e) => (e.currentTarget.style.borderColor = '#333')} />
                 </div>
                 <div>
-                  <label className="block text-sm font-bold uppercase tracking-wider mb-2" style={{ color: 'rgba(255,255,255,0.5)' }}>EMAIL</label>
-                  <input type="email" placeholder="your@email.com" className="w-full px-4 py-3 text-white placeholder-white/30 outline-none transition-all" style={{ backgroundColor: '#1a1a1a', border: '1px solid #333' }}
+                  <label className="block text-sm font-bold uppercase tracking-wider mb-2" style={{ color: 'rgba(255,255,255,0.5)' }}>PHONE</label>
+                  <input type="tel" placeholder="(250) 555-0000" className="w-full px-4 py-3 text-white placeholder-white/30 outline-none transition-all" style={{ backgroundColor: '#1a1a1a', border: '1px solid #333' }}
                     onFocus={(e) => (e.currentTarget.style.borderColor = '#dc2626')} onBlur={(e) => (e.currentTarget.style.borderColor = '#333')} />
                 </div>
                 <div>
-                  <label className="block text-sm font-bold uppercase tracking-wider mb-2" style={{ color: 'rgba(255,255,255,0.5)' }}>MESSAGE</label>
-                  <textarea rows={4} placeholder="Year, make, model, and what you need..." className="w-full px-4 py-3 text-white placeholder-white/30 outline-none transition-all resize-none" style={{ backgroundColor: '#1a1a1a', border: '1px solid #333' }}
+                  <label className="block text-sm font-bold uppercase tracking-wider mb-2" style={{ color: 'rgba(255,255,255,0.5)' }}>VEHICLE</label>
+                  <input type="text" placeholder="Year, make, model" className="w-full px-4 py-3 text-white placeholder-white/30 outline-none transition-all" style={{ backgroundColor: '#1a1a1a', border: '1px solid #333' }}
+                    onFocus={(e) => (e.currentTarget.style.borderColor = '#dc2626')} onBlur={(e) => (e.currentTarget.style.borderColor = '#333')} />
+                </div>
+                <div>
+                  <label className="block text-sm font-bold uppercase tracking-wider mb-2" style={{ color: 'rgba(255,255,255,0.5)' }}>ISSUE / SERVICE NEEDED</label>
+                  <textarea rows={4} placeholder="Describe what's happening or what service you need..." className="w-full px-4 py-3 text-white placeholder-white/30 outline-none transition-all resize-none" style={{ backgroundColor: '#1a1a1a', border: '1px solid #333' }}
                     onFocus={(e) => (e.currentTarget.style.borderColor = '#dc2626')} onBlur={(e) => (e.currentTarget.style.borderColor = '#333')} />
                 </div>
                 <motion.button type="submit" className={`${heading.className} w-full px-8 py-4 text-lg tracking-widest transition-all`} style={{ backgroundColor: '#dc2626', color: '#ffffff' }}
@@ -700,13 +837,51 @@ export default function AutomotiveDemo() {
                 </motion.button>
               </form>
             </Reveal>
+
+            {/* Right: Info block */}
+            <Reveal delay={0.15}>
+              <div>
+                <a href="tel:2505550199"
+                  className={`${heading.className} block text-4xl md:text-5xl mb-8 transition-colors tracking-wider`}
+                  style={{ color: '#dc2626' }}
+                  onMouseEnter={(e) => (e.currentTarget.style.textShadow = '0 0 20px rgba(220,38,38,0.5)')}
+                  onMouseLeave={(e) => (e.currentTarget.style.textShadow = 'none')}
+                >
+                  (250) 555-0199
+                </a>
+                <div className="space-y-6 mb-8" style={{ color: 'rgba(255,255,255,0.6)' }}>
+                  <div style={{ borderLeft: '3px solid #dc2626', paddingLeft: '1rem' }}>
+                    <p className="text-xs font-bold uppercase tracking-wider mb-1" style={{ color: '#dc2626' }}>ADDRESS</p>
+                    <p>123 Sample St, Trail, BC</p>
+                  </div>
+                  <div style={{ borderLeft: '3px solid #dc2626', paddingLeft: '1rem' }}>
+                    <p className="text-xs font-bold uppercase tracking-wider mb-1" style={{ color: '#dc2626' }}>HOURS</p>
+                    <p>Mon–Fri: 8:00 AM – 5:30 PM</p>
+                    <p>Saturday: 8:00 AM – 2:00 PM</p>
+                    <p>Sunday: Closed</p>
+                  </div>
+                  <div style={{ borderLeft: '3px solid #dc2626', paddingLeft: '1rem' }}>
+                    <p className="text-xs font-bold uppercase tracking-wider mb-1" style={{ color: '#dc2626' }}>EMAIL</p>
+                    <p>info@ironhorsegarage.ca</p>
+                  </div>
+                  <div style={{ borderLeft: '3px solid #dc2626', paddingLeft: '1rem' }}>
+                    <p className="text-xs font-bold uppercase tracking-wider mb-1" style={{ color: '#dc2626' }}>SERVICE AREA</p>
+                    <p>Trail, Rossland, Castlegar &amp; the West Kootenays</p>
+                  </div>
+                </div>
+                <div className="p-4" style={{ backgroundColor: '#1a1a1a', border: '1px solid #222' }}>
+                  <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#dc2626' }}>WALK-INS WELCOME</p>
+                  <p className="text-sm" style={{ color: 'rgba(255,255,255,0.5)' }}>No appointment needed for oil changes, diagnostics, and quick services. Drop in during business hours.</p>
+                </div>
+              </div>
+            </Reveal>
           </div>
         </div>
       </section>
 
       <RedStripe />
 
-      {/* ═══════════ 12. FOOTER ═══════════ */}
+      {/* ═══════════ 13. FOOTER ═══════════ */}
       <footer className="py-12 px-6" style={{ backgroundColor: '#0a0a0a', borderTop: '1px solid #1a1a1a' }}>
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
@@ -742,7 +917,7 @@ export default function AutomotiveDemo() {
             onMouseEnter={(e) => (e.currentTarget.style.boxShadow = '0 0 20px rgba(220,38,38,0.5)')}
             onMouseLeave={(e) => (e.currentTarget.style.boxShadow = 'none')}
           >
-            LIKE WHAT YOU SEE? LET'S TALK &rarr;
+            LIKE WHAT YOU SEE? LET&apos;S TALK &rarr;
           </Link>
         </div>
       </div>

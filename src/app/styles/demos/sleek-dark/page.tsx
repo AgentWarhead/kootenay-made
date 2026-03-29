@@ -301,7 +301,8 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
 }
 
 /* ══════════════════════════════════════════════════════════════
-   EMBER KITCHEN & BAR — Sleek & Dark Demo
+   THE COPPER TABLE — Sleek & Dark Demo
+   Order: Nav → Hero → Trust Bar → Menu → Gallery → Reserve → Chef → Hours → Transformation → Testimonial → FAQ → Contact → Footer
    ══════════════════════════════════════════════════════════════ */
 export default function SleekDarkDemo() {
   const prefersReduced = useReducedMotion()
@@ -316,24 +317,24 @@ export default function SleekDarkDemo() {
 
   const faqItems = [
     {
-      question: 'How long does a website take to build?',
-      answer: 'Most restaurant and bar websites are ready in 2–3 weeks. We move fast without cutting corners — you\'ll have something you\'re proud to share.',
+      question: 'Can you build an online reservation system?',
+      answer: 'Yes. We integrate OpenTable, Resy, or a custom booking form so guests can reserve a table without calling. The widget matches your restaurant\'s aesthetic seamlessly.',
     },
     {
       question: 'Can I update my menu myself?',
-      answer: 'Absolutely. We build on platforms you can manage — no developer required. Update your menu, daily specials, and hours any time from your phone or computer.',
+      answer: 'Absolutely. We build on platforms you can manage — no developer required. Update menu items, prices, and specials any time from your phone or computer.',
     },
     {
-      question: 'Can you add online reservations or booking links?',
-      answer: 'Yes. We can integrate OpenTable, Resy, or a simple booking form directly into your site so guests can reserve a table without picking up the phone.',
+      question: 'How long does a restaurant website take to build?',
+      answer: 'Most restaurant and bar websites are ready in 2–3 weeks. We move fast without cutting corners — you\'ll have something you\'re proud to share.',
     },
     {
-      question: 'What if I already have a website?',
-      answer: 'We\'ll assess what you have and either rebuild it from scratch or redesign it to match your brand. Either way, you end up with something that actually works.',
+      question: 'Can you integrate with our point-of-sale or Google Business?',
+      answer: 'Yes. We connect your website to Google Business, set up review prompts, and can sync menus with popular POS systems. Everything works together.',
     },
     {
       question: 'What does it cost?',
-      answer: 'A custom website starts from $1,500. Google Domination (SEO + local listings) starts from $500. We\'ll give you a clear quote after a free consultation — no surprises.',
+      answer: 'A custom restaurant website starts from $1,500. We\'ll give you a clear quote after a free consultation — no surprises.',
     },
   ]
 
@@ -363,10 +364,10 @@ export default function SleekDarkDemo() {
       <nav style={{ backgroundColor: '#0a0a0a', borderBottom: '1px solid rgba(201,169,110,0.15)' }} className="px-6 py-5 sticky top-0 z-40">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <span className={`${heading.className} text-2xl md:text-3xl tracking-wide`} style={{ color: '#c9a96e', fontWeight: 300, letterSpacing: '0.05em' }}>
-            Ember Kitchen &amp; Bar
+            The Copper Table
           </span>
           <div className="hidden md:flex items-center gap-8">
-            {['Menu', 'About', 'Gallery', 'Reservations'].map((link) => (
+            {['Menu', 'Reserve', 'About', 'Contact'].map((link) => (
               <a
                 key={link}
                 href={`#${link.toLowerCase()}`}
@@ -400,7 +401,7 @@ export default function SleekDarkDemo() {
         >
           <Image
             src="/images/demos/sleek-dark-hero.webp"
-            alt="Ember Kitchen & Bar — intimate restaurant interior"
+            alt="The Copper Table — intimate restaurant interior"
             fill
             className="object-cover"
             priority
@@ -417,38 +418,54 @@ export default function SleekDarkDemo() {
             animate={prefersReduced ? {} : { opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            An experience awaits
+            Farm to table · Nelson, BC
           </motion.p>
           <h1 className={`${heading.className} text-5xl md:text-7xl lg:text-8xl leading-tight mb-8`} style={{ fontWeight: 300, color: '#f5f0e8', textShadow: '0 2px 20px rgba(0,0,0,0.5)' }}>
-            <GoldReveal>Ember Kitchen</GoldReveal>
+            <GoldReveal>The Copper</GoldReveal>
             <br />
-            <GoldReveal>&amp; Bar</GoldReveal>
+            <GoldReveal>Table</GoldReveal>
           </h1>
           <motion.div
             initial={prefersReduced ? {} : { opacity: 0, y: 20 }}
             animate={prefersReduced ? {} : { opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.8 }}
+            className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
             <a
-              href="#reservations"
+              href="#reserve"
               className="inline-block px-10 py-4 text-sm font-bold uppercase tracking-widest transition-all"
               style={{
-                border: '1px solid #c9a96e',
+                backgroundColor: '#c9a96e',
+                color: '#0a0a0a',
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.88')}
+              onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
+            >
+              Reserve Your Table
+            </a>
+            <a
+              href="#menu"
+              className="inline-block px-10 py-4 text-sm font-bold uppercase tracking-widest transition-all"
+              style={{
+                border: '1px solid rgba(201,169,110,0.5)',
                 color: '#c9a96e',
                 backgroundColor: 'transparent',
               }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = '#c9a96e'
-                e.currentTarget.style.color = '#0a0a0a'
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = 'transparent'
-                e.currentTarget.style.color = '#c9a96e'
-              }}
+              onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'rgba(201,169,110,0.1)' }}
+              onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'transparent' }}
             >
-              Make a Reservation
+              View Menu
             </a>
           </motion.div>
+          <motion.p
+            className={`${body.className} mt-8 text-sm`}
+            style={{ color: 'rgba(201,169,110,0.5)' }}
+            initial={prefersReduced ? {} : { opacity: 0 }}
+            animate={prefersReduced ? {} : { opacity: 1 }}
+            transition={{ duration: 0.6, delay: 1.1 }}
+          >
+            Wed–Sun · Dinner from 5 PM · Closed Mondays
+          </motion.p>
         </div>
       </section>
 
@@ -457,148 +474,118 @@ export default function SleekDarkDemo() {
         <div className="max-w-5xl mx-auto flex flex-wrap justify-center items-center gap-6 md:gap-10 text-sm" style={{ color: '#c9a96e' }}>
           <span className="flex items-center gap-2">
             <span style={{ color: '#c9a96e' }}>&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-            <span className="font-bold">4.9 Rating</span>
+            <span className="font-bold">4.9 Google Rating</span>
           </span>
           <span style={{ color: 'rgba(201,169,110,0.3)' }}>&#183;</span>
           <span>Est. 2019</span>
           <span style={{ color: 'rgba(201,169,110,0.3)' }} className="hidden md:inline">&#183;</span>
-          <span className="hidden md:inline">Locally Sourced</span>
+          <span className="hidden md:inline">Ingredients &lt;100km</span>
           <span style={{ color: 'rgba(201,169,110,0.3)' }} className="hidden md:inline">&#183;</span>
-          <span className="hidden md:inline">Reservations Available</span>
+          <span className="hidden md:inline">Reservations Required</span>
         </div>
       </div>
 
-      {/* ═══════════ 4. SERVICES — with PAS intro ═══════════ */}
+      {/* ═══════════ 4. THE MENU ═══════════ */}
       <section id="menu" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#0a0a0a' }}>
-        <div className="max-w-5xl mx-auto">
-          <Reveal>
-            <h2 className={`${heading.className} text-3xl md:text-5xl text-center mb-4`} style={{ color: '#f5f0e8', fontWeight: 300 }}>
-              What We Can Do For You
-            </h2>
-            <div className="w-16 h-px mx-auto mb-8" style={{ backgroundColor: '#c9a96e' }} />
-          </Reveal>
-
-          {/* PAS copy */}
-          <Reveal delay={0.1}>
-            <p className="text-center text-base md:text-lg leading-relaxed mb-16 max-w-2xl mx-auto italic" style={{ color: 'rgba(245,240,232,0.55)' }}>
-              The restaurant across town has a website that makes people hungry — yours doesn&rsquo;t even show your menu.
-              They&rsquo;re not a better restaurant. They just show up online first. Let&rsquo;s change that.
-            </p>
-          </Reveal>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                title: 'Custom Website',
-                price: 'From $1,500',
-                desc: 'A stunning, atmospheric website that captures the essence of your dining experience.',
-              },
-              {
-                title: 'Google Visibility',
-                price: 'From $500',
-                desc: 'Show up when people search for fine dining in the Kootenays.',
-              },
-              {
-                title: 'Social Media',
-                price: 'From $750',
-                desc: 'Show off your plates, your space, and your story. Build a following that books.',
-              },
-            ].map((card, i) => (
-              <Reveal key={card.title} delay={i * 0.15}>
-                <div
-                  className="relative p-8 text-center transition-all duration-500 cursor-default overflow-hidden"
-                  style={{
-                    backgroundColor: '#1a1a1a',
-                    border: '1px solid rgba(201,169,110,0.15)',
-                  }}
-                >
-                  <div
-                    className="absolute inset-0 pointer-events-none"
-                    style={{
-                      background: 'radial-gradient(circle at 50% 30%, rgba(201,169,110,0.08) 0%, transparent 70%)',
-                      animation: 'candleGlow 4s ease-in-out infinite',
-                    }}
-                  />
-                  <div className="relative">
-                    <h3 className={`${heading.className} text-xl md:text-2xl mb-2`} style={{ color: '#c9a96e', fontWeight: 400 }}>
-                      {card.title}
-                    </h3>
-                    <p className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: 'rgba(201,169,110,0.5)' }}>
-                      {card.price}
-                    </p>
-                    <p className="leading-relaxed text-sm" style={{ color: 'rgba(245,240,232,0.6)' }}>
-                      {card.desc}
-                    </p>
-                  </div>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════ 5. HOW IT WORKS ═══════════ */}
-      <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#1a1a1a' }}>
         <div className="max-w-4xl mx-auto">
           <Reveal>
+            <p className="text-center text-xs uppercase tracking-[0.3em] mb-3" style={{ color: '#c9a96e' }}>
+              Seasonal · Chef-driven
+            </p>
             <h2 className={`${heading.className} text-3xl md:text-5xl text-center mb-4`} style={{ color: '#f5f0e8', fontWeight: 300 }}>
-              How It Works
+              This Evening&rsquo;s Menu
             </h2>
             <div className="w-16 h-px mx-auto mb-16" style={{ backgroundColor: '#c9a96e' }} />
           </Reveal>
 
-          <div className="grid md:grid-cols-3 gap-8 md:gap-12 relative">
-            {/* Connector line (desktop) */}
-            <div
-              className="hidden md:block absolute top-10 left-[calc(16.66%+2rem)] right-[calc(16.66%+2rem)] h-px"
-              style={{ backgroundColor: 'rgba(201,169,110,0.2)' }}
-            />
-            {[
-              {
-                step: '01',
-                title: 'We Talk',
-                desc: 'A free, no-pressure consultation. You tell us about your restaurant, your vibe, and what you need.',
-              },
-              {
-                step: '02',
-                title: 'We Build',
-                desc: 'We design and develop your site in about 2 weeks — all crafted to match the atmosphere you\'ve worked hard to create.',
-              },
-              {
-                step: '03',
-                title: 'You Fill Tables',
-                desc: 'Launch, get found on Google, and start converting searches into reservations.',
-              },
-            ].map((item, i) => (
-              <Reveal key={item.step} delay={i * 0.15}>
-                <div className="flex flex-col items-center text-center">
-                  <div
-                    className="w-20 h-20 rounded-full flex items-center justify-center mb-6 relative z-10"
-                    style={{
-                      backgroundColor: '#0a0a0a',
-                      border: '1px solid rgba(201,169,110,0.3)',
-                    }}
-                  >
-                    <span className={`${heading.className} text-2xl`} style={{ color: '#c9a96e', fontWeight: 300 }}>
-                      {item.step}
-                    </span>
+          {/* Starters */}
+          <Reveal delay={0.05}>
+            <div className="mb-14">
+              <p className="text-xs uppercase tracking-[0.25em] mb-8 text-center" style={{ color: 'rgba(201,169,110,0.6)' }}>
+                — Starters —
+              </p>
+              <div className="grid md:grid-cols-2 gap-x-16 gap-y-6">
+                {[
+                  { name: 'Charcuterie Board', desc: 'Local cured meats, house pickles, artisan bread', price: '$22' },
+                  { name: 'Beet & Goat Cheese', desc: 'Roasted golden beets, Kootenay chèvre, candied walnuts, arugula', price: '$16' },
+                  { name: 'French Onion Soup', desc: 'Slow-caramelized onions, veal stock, gruyère croûte', price: '$14' },
+                  { name: 'Seared Scallops', desc: 'Pan-seared sea scallops, cauliflower purée, crispy capers', price: '$24' },
+                ].map((item) => (
+                  <div key={item.name} className="flex justify-between gap-4" style={{ borderBottom: '1px solid rgba(201,169,110,0.08)', paddingBottom: '1rem' }}>
+                    <div>
+                      <p className={`${heading.className} text-base md:text-lg`} style={{ color: '#f5f0e8', fontWeight: 400 }}>{item.name}</p>
+                      <p className="text-xs mt-1 leading-relaxed" style={{ color: 'rgba(245,240,232,0.45)' }}>{item.desc}</p>
+                    </div>
+                    <span className="text-sm font-bold flex-shrink-0" style={{ color: '#c9a96e' }}>{item.price}</span>
                   </div>
-                  <h3 className={`${heading.className} text-xl md:text-2xl mb-3`} style={{ color: '#f5f0e8', fontWeight: 400 }}>
-                    {item.title}
-                  </h3>
-                  <p className="text-sm leading-relaxed" style={{ color: 'rgba(245,240,232,0.5)' }}>
-                    {item.desc}
-                  </p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
+                ))}
+              </div>
+            </div>
+          </Reveal>
+
+          {/* Mains */}
+          <Reveal delay={0.1}>
+            <div className="mb-14">
+              <p className="text-xs uppercase tracking-[0.25em] mb-8 text-center" style={{ color: 'rgba(201,169,110,0.6)' }}>
+                — Mains —
+              </p>
+              <div className="grid md:grid-cols-2 gap-x-16 gap-y-6">
+                {[
+                  { name: 'Braised Short Rib', desc: 'Red wine–braised beef, celeriac purée, roasted root vegetables, gremolata', price: '$48' },
+                  { name: 'Wild Salmon', desc: 'Fraser River sockeye, lemon beurre blanc, grilled asparagus, dill oil', price: '$42' },
+                  { name: 'Mushroom Risotto', desc: 'Foraged chanterelles, Arborio rice, aged parmesan, truffle oil — vegetarian', price: '$34' },
+                  { name: 'Duck Confit', desc: 'Slow-cooked duck leg, cherry gastrique, sweet potato purée, crispy kale', price: '$46' },
+                  { name: 'Dry-Aged Striploin', desc: '10oz 45-day dry-aged BC beef, bone marrow butter, frites, peppercorn jus', price: '$62' },
+                  { name: 'Pan-Roasted Chicken', desc: 'Free-range chicken supreme, herbed pan sauce, fingerling potatoes, seasonal greens', price: '$38' },
+                ].map((item) => (
+                  <div key={item.name} className="flex justify-between gap-4" style={{ borderBottom: '1px solid rgba(201,169,110,0.08)', paddingBottom: '1rem' }}>
+                    <div>
+                      <p className={`${heading.className} text-base md:text-lg`} style={{ color: '#f5f0e8', fontWeight: 400 }}>{item.name}</p>
+                      <p className="text-xs mt-1 leading-relaxed" style={{ color: 'rgba(245,240,232,0.45)' }}>{item.desc}</p>
+                    </div>
+                    <span className="text-sm font-bold flex-shrink-0" style={{ color: '#c9a96e' }}>{item.price}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Reveal>
+
+          {/* Desserts */}
+          <Reveal delay={0.15}>
+            <div className="mb-10">
+              <p className="text-xs uppercase tracking-[0.25em] mb-8 text-center" style={{ color: 'rgba(201,169,110,0.6)' }}>
+                — Desserts —
+              </p>
+              <div className="grid md:grid-cols-2 gap-x-16 gap-y-6">
+                {[
+                  { name: 'Crème Brûlée', desc: 'Classic vanilla bean custard, caramelized sugar crust, seasonal berries', price: '$14' },
+                  { name: 'Chocolate Fondant', desc: 'Warm dark chocolate, salted caramel centre, vanilla bean ice cream', price: '$16' },
+                  { name: 'Cheese Board', desc: 'Selection of three local and imported cheeses, honeycomb, fruit preserves', price: '$22' },
+                  { name: 'Lemon Tart', desc: 'Silky lemon curd, pâte sablée, Italian meringue, candied zest', price: '$13' },
+                ].map((item) => (
+                  <div key={item.name} className="flex justify-between gap-4" style={{ borderBottom: '1px solid rgba(201,169,110,0.08)', paddingBottom: '1rem' }}>
+                    <div>
+                      <p className={`${heading.className} text-base md:text-lg`} style={{ color: '#f5f0e8', fontWeight: 400 }}>{item.name}</p>
+                      <p className="text-xs mt-1 leading-relaxed" style={{ color: 'rgba(245,240,232,0.45)' }}>{item.desc}</p>
+                    </div>
+                    <span className="text-sm font-bold flex-shrink-0" style={{ color: '#c9a96e' }}>{item.price}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Reveal>
+
+          <Reveal delay={0.2}>
+            <p className="text-center text-xs italic" style={{ color: 'rgba(245,240,232,0.3)' }}>
+              Menu changes seasonally. Please advise your server of any dietary requirements.
+            </p>
+          </Reveal>
         </div>
       </section>
 
-      {/* ═══════════ 6. GALLERY — From Our Kitchen ═══════════ */}
-      <section id="gallery" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#0a0a0a' }}>
-        <div className="max-w-6xl mx-auto">
+      {/* ═══════════ 5. FROM OUR KITCHEN — Masonry Gallery ═══════════ */}
+      <section id="gallery" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#1a1a1a' }}>
+        <div className="max-w-5xl mx-auto">
           <Reveal>
             <h2 className={`${heading.className} text-3xl md:text-5xl text-center mb-4`} style={{ color: '#f5f0e8', fontWeight: 300 }}>
               From Our Kitchen
@@ -606,37 +593,248 @@ export default function SleekDarkDemo() {
             <div className="w-16 h-px mx-auto mb-12" style={{ backgroundColor: '#c9a96e' }} />
           </Reveal>
 
+          {/* Masonry: 1 tall left + 2 stacked right top + 1 wide bottom */}
           <Reveal delay={0.1}>
-            <div className="flex justify-center mb-10">
-              <div className="overflow-hidden w-full max-w-3xl" style={{ border: '1px solid rgba(201,169,110,0.2)' }}>
-                <Image
-                  src="/images/demos/sleek-dark-hero.webp"
-                  alt="Ember Kitchen & Bar — culinary showcase"
-                  width={800}
-                  height={450}
-                  className="w-full h-auto block"
-                  style={{ objectFit: 'cover' }}
-                />
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 mb-3 md:mb-4">
+              {/* Tall vertical — spans 2 rows on md */}
+              <div className="relative row-span-2 rounded-lg overflow-hidden" style={{ minHeight: '340px', border: '1px solid rgba(201,169,110,0.0)' }}
+                onMouseEnter={(e) => { (e.currentTarget.querySelector('.gold-border') as HTMLElement)!.style.opacity = '1' }}
+                onMouseLeave={(e) => { (e.currentTarget.querySelector('.gold-border') as HTMLElement)!.style.opacity = '0' }}
+              >
+                <Image src="/images/demos/sleek-dark-hero.webp" alt="Seasonal dish — The Copper Table" fill className="object-cover" />
+                <div className="gold-border absolute inset-0 pointer-events-none transition-opacity duration-300" style={{ border: '2px solid #c9a96e', opacity: 0, borderRadius: 'inherit' }} />
+                <div className="absolute bottom-0 left-0 right-0 p-4" style={{ background: 'linear-gradient(to top, rgba(10,10,10,0.7), transparent)' }}>
+                  <p className={`${heading.className} text-sm`} style={{ color: '#c9a96e' }}>Braised Short Rib</p>
+                </div>
+              </div>
+              {/* Square 1 */}
+              <div className="relative rounded-lg overflow-hidden aspect-square col-span-1"
+                onMouseEnter={(e) => { (e.currentTarget.querySelector('.gold-border') as HTMLElement)!.style.opacity = '1' }}
+                onMouseLeave={(e) => { (e.currentTarget.querySelector('.gold-border') as HTMLElement)!.style.opacity = '0' }}
+              >
+                <Image src="/images/demos/gallery/sd-1.webp" alt="Seasonal Menu" fill className="object-cover" />
+                <div className="gold-border absolute inset-0 pointer-events-none transition-opacity duration-300" style={{ border: '2px solid #c9a96e', opacity: 0, borderRadius: 'inherit' }} />
+                <div className="absolute bottom-0 left-0 right-0 p-3" style={{ background: 'linear-gradient(to top, rgba(10,10,10,0.7), transparent)' }}>
+                  <p className={`${heading.className} text-xs`} style={{ color: '#c9a96e' }}>Seasonal Menu</p>
+                </div>
+              </div>
+              {/* Square 2 */}
+              <div className="relative rounded-lg overflow-hidden aspect-square col-span-1"
+                onMouseEnter={(e) => { (e.currentTarget.querySelector('.gold-border') as HTMLElement)!.style.opacity = '1' }}
+                onMouseLeave={(e) => { (e.currentTarget.querySelector('.gold-border') as HTMLElement)!.style.opacity = '0' }}
+              >
+                <Image src="/images/demos/gallery/sd-2.webp" alt="Cocktail Bar" fill className="object-cover" />
+                <div className="gold-border absolute inset-0 pointer-events-none transition-opacity duration-300" style={{ border: '2px solid #c9a96e', opacity: 0, borderRadius: 'inherit' }} />
+                <div className="absolute bottom-0 left-0 right-0 p-3" style={{ background: 'linear-gradient(to top, rgba(10,10,10,0.7), transparent)' }}>
+                  <p className={`${heading.className} text-xs`} style={{ color: '#c9a96e' }}>Cocktail Bar</p>
+                </div>
+              </div>
+            </div>
+            {/* Wide horizontal */}
+            <div className="relative rounded-lg overflow-hidden w-full" style={{ height: '200px' }}
+              onMouseEnter={(e) => { (e.currentTarget.querySelector('.gold-border') as HTMLElement)!.style.opacity = '1' }}
+              onMouseLeave={(e) => { (e.currentTarget.querySelector('.gold-border') as HTMLElement)!.style.opacity = '0' }}
+            >
+              <Image src="/images/demos/gallery/sd-3.webp" alt="Private Dining" fill className="object-cover" />
+              <div className="gold-border absolute inset-0 pointer-events-none transition-opacity duration-300" style={{ border: '2px solid #c9a96e', opacity: 0, borderRadius: 'inherit' }} />
+              <div className="absolute bottom-0 left-0 right-0 p-4" style={{ background: 'linear-gradient(to top, rgba(10,10,10,0.7), transparent)' }}>
+                <p className={`${heading.className} text-sm`} style={{ color: '#c9a96e' }}>Private Dining</p>
               </div>
             </div>
           </Reveal>
+        </div>
+      </section>
 
-          <div className="grid grid-cols-3 gap-4 md:gap-6">
-            {['Seasonal Menu', 'Cocktail Bar', 'Private Dining'].map((label, i) => (
-              <Reveal key={label} delay={0.15 + i * 0.1}>
-                <div className='relative aspect-[4/3] rounded-xl overflow-hidden'>
-                  <Image src={`/images/demos/gallery/sd-${i + 1}.webp`} alt={label} fill className='object-cover' />
-                  <div className='absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-3'>
-                    <span className='text-white text-sm font-medium'>{label}</span>
-                  </div>
+      {/* ═══════════ 6. RESERVE YOUR TABLE ═══════════ */}
+      <section id="reserve" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#0a0a0a' }}>
+        <div className="max-w-3xl mx-auto">
+          <Reveal>
+            <h2 className={`${heading.className} text-3xl md:text-5xl text-center mb-4`} style={{ color: '#f5f0e8', fontWeight: 300 }}>
+              Reserve Your Table
+            </h2>
+            <div className="w-16 h-px mx-auto mb-4" style={{ backgroundColor: '#c9a96e' }} />
+            <p className="text-center text-sm mb-12" style={{ color: 'rgba(201,169,110,0.5)' }}>
+              Reservations recommended. Walk-ins welcome based on availability.
+            </p>
+          </Reveal>
+
+          <Reveal delay={0.1}>
+            <div className="p-8 md:p-12" style={{ backgroundColor: '#1a1a1a', border: '1px solid rgba(201,169,110,0.15)' }}>
+              {/* Booking widget placeholder */}
+              <div className="grid md:grid-cols-3 gap-4 mb-4">
+                <div>
+                  <label className="block text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#c9a96e' }}>Date</label>
+                  <input
+                    type="date"
+                    className="w-full px-4 py-3 text-sm outline-none transition-all"
+                    style={{ backgroundColor: '#0a0a0a', border: '1px solid rgba(201,169,110,0.2)', color: '#f5f0e8', colorScheme: 'dark' }}
+                    onFocus={(e) => (e.currentTarget.style.borderColor = '#c9a96e')}
+                    onBlur={(e) => (e.currentTarget.style.borderColor = 'rgba(201,169,110,0.2)')}
+                  />
                 </div>
-              </Reveal>
-            ))}
+                <div>
+                  <label className="block text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#c9a96e' }}>Time</label>
+                  <select
+                    className="w-full px-4 py-3 text-sm outline-none transition-all"
+                    style={{ backgroundColor: '#0a0a0a', border: '1px solid rgba(201,169,110,0.2)', color: '#f5f0e8' }}
+                    onFocus={(e) => (e.currentTarget.style.borderColor = '#c9a96e')}
+                    onBlur={(e) => (e.currentTarget.style.borderColor = 'rgba(201,169,110,0.2)')}
+                  >
+                    <option>5:00 PM</option>
+                    <option>5:30 PM</option>
+                    <option>6:00 PM</option>
+                    <option>6:30 PM</option>
+                    <option>7:00 PM</option>
+                    <option>7:30 PM</option>
+                    <option>8:00 PM</option>
+                    <option>8:30 PM</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#c9a96e' }}>Party Size</label>
+                  <select
+                    className="w-full px-4 py-3 text-sm outline-none transition-all"
+                    style={{ backgroundColor: '#0a0a0a', border: '1px solid rgba(201,169,110,0.2)', color: '#f5f0e8' }}
+                    onFocus={(e) => (e.currentTarget.style.borderColor = '#c9a96e')}
+                    onBlur={(e) => (e.currentTarget.style.borderColor = 'rgba(201,169,110,0.2)')}
+                  >
+                    {[1, 2, 3, 4, 5, 6, 7].map((n) => (
+                      <option key={n}>{n} {n === 1 ? 'Guest' : 'Guests'}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+              <div className="grid md:grid-cols-2 gap-4 mb-6">
+                <div>
+                  <label className="block text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#c9a96e' }}>Name</label>
+                  <input
+                    type="text"
+                    placeholder="Your name"
+                    className="w-full px-4 py-3 text-sm outline-none transition-all"
+                    style={{ backgroundColor: '#0a0a0a', border: '1px solid rgba(201,169,110,0.2)', color: '#f5f0e8' }}
+                    onFocus={(e) => (e.currentTarget.style.borderColor = '#c9a96e')}
+                    onBlur={(e) => (e.currentTarget.style.borderColor = 'rgba(201,169,110,0.2)')}
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#c9a96e' }}>Phone</label>
+                  <input
+                    type="tel"
+                    placeholder="(250) 555-0000"
+                    className="w-full px-4 py-3 text-sm outline-none transition-all"
+                    style={{ backgroundColor: '#0a0a0a', border: '1px solid rgba(201,169,110,0.2)', color: '#f5f0e8' }}
+                    onFocus={(e) => (e.currentTarget.style.borderColor = '#c9a96e')}
+                    onBlur={(e) => (e.currentTarget.style.borderColor = 'rgba(201,169,110,0.2)')}
+                  />
+                </div>
+              </div>
+              <button
+                onClick={(e) => e.preventDefault()}
+                className="w-full px-8 py-4 text-sm font-bold uppercase tracking-widest transition-all"
+                style={{ backgroundColor: '#c9a96e', color: '#0a0a0a' }}
+                onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.88')}
+                onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
+              >
+                Request Reservation
+              </button>
+              <p className="text-center text-xs mt-4" style={{ color: 'rgba(245,240,232,0.3)' }}>
+                For parties of 8+, please call us directly at (250) 555-0195
+              </p>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ═══════════ 7. CHEF'S TABLE ═══════════ */}
+      <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#1a1a1a' }}>
+        <div className="max-w-5xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
+            <Reveal>
+              <div className="relative aspect-[3/4] rounded-lg overflow-hidden" style={{ border: '1px solid rgba(201,169,110,0.2)' }}>
+                <Image src="/images/demos/sleek-dark-hero.webp" alt="Chef Marco — The Copper Table" fill className="object-cover" />
+                <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(10,10,10,0.6) 0%, transparent 50%)' }} />
+                <div className="absolute bottom-6 left-6">
+                  <p className={`${heading.className} text-xl`} style={{ color: '#c9a96e', fontWeight: 400 }}>Chef Marco</p>
+                  <p className={`${body.className} text-xs uppercase tracking-widest mt-1`} style={{ color: 'rgba(245,240,232,0.5)' }}>Executive Chef & Co-Founder</p>
+                </div>
+              </div>
+            </Reveal>
+            <Reveal delay={0.15}>
+              <div>
+                <p className="text-xs uppercase tracking-[0.3em] mb-4" style={{ color: '#c9a96e' }}>
+                  The Philosophy
+                </p>
+                <h2 className={`${heading.className} text-3xl md:text-4xl mb-6`} style={{ color: '#f5f0e8', fontWeight: 300, lineHeight: 1.3 }}>
+                  Our ingredients travel<br /><em style={{ color: '#c9a96e' }}>less than 100km.</em>
+                </h2>
+                <div className="w-12 h-px mb-6" style={{ backgroundColor: '#c9a96e' }} />
+                <p className="text-sm leading-relaxed mb-4" style={{ color: 'rgba(245,240,232,0.6)' }}>
+                  Chef Marco trained in Vancouver and Lyon before returning to his home province to open The Copper Table in 2019. His philosophy is simple: extraordinary ingredients, treated with respect.
+                </p>
+                <p className="text-sm leading-relaxed mb-8" style={{ color: 'rgba(245,240,232,0.6)' }}>
+                  Every dish on our menu features produce from farms within 100km of Nelson — partnerships with growers in the Creston Valley, the Slocan, and the Arrow Lakes that we&rsquo;ve built over five years.
+                </p>
+                <div className="flex flex-wrap gap-6">
+                  {['Trained in Lyon', '5 Years in Nelson', '12 Farm Partners'].map((fact) => (
+                    <div key={fact}>
+                      <p className="text-xs uppercase tracking-widest" style={{ color: '#c9a96e' }}>{fact}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </Reveal>
           </div>
         </div>
       </section>
 
-      {/* ═══════════ 7. THE TRANSFORMATION ═══════════ */}
+      {/* ═══════════ 8. HOURS & LOCATION ═══════════ */}
+      <section className="py-16 px-6" style={{ backgroundColor: '#0a0a0a' }}>
+        <div className="max-w-5xl mx-auto">
+          <Reveal>
+            <div className="grid md:grid-cols-3 gap-8 p-8 md:p-12" style={{ backgroundColor: '#1a1a1a', border: '1px solid rgba(201,169,110,0.2)' }}>
+              <div>
+                <p className="text-xs uppercase tracking-[0.25em] mb-3" style={{ color: '#c9a96e' }}>Hours</p>
+                <p className="text-sm leading-relaxed" style={{ color: 'rgba(245,240,232,0.7)' }}>
+                  Wednesday – Thursday<br />
+                  5:00 PM – 9:30 PM<br /><br />
+                  Friday – Saturday<br />
+                  5:00 PM – 10:30 PM<br /><br />
+                  Sunday<br />
+                  5:00 PM – 9:00 PM<br /><br />
+                  <span style={{ color: 'rgba(201,169,110,0.5)' }}>Closed Mondays &amp; Tuesdays</span>
+                </p>
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-[0.25em] mb-3" style={{ color: '#c9a96e' }}>Location</p>
+                <p className="text-sm leading-relaxed" style={{ color: 'rgba(245,240,232,0.7)' }}>
+                  123 Sample St<br />
+                  Nelson, BC V1L 0A0<br /><br />
+                  Street parking on Baker St<br />
+                  Public lot one block south
+                </p>
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-[0.25em] mb-3" style={{ color: '#c9a96e' }}>Contact</p>
+                <p className="text-sm leading-relaxed mb-4" style={{ color: 'rgba(245,240,232,0.7)' }}>
+                  (250) 555-0195<br />
+                  reservations@thecoppetable.ca
+                </p>
+                <a
+                  href="tel:2505550195"
+                  className="inline-block px-6 py-3 text-sm font-bold uppercase tracking-widest transition-all"
+                  style={{ border: '1px solid #c9a96e', color: '#c9a96e' }}
+                  onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#c9a96e'; e.currentTarget.style.color = '#0a0a0a' }}
+                  onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = '#c9a96e' }}
+                >
+                  Call Us
+                </a>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ═══════════ 9. THE TRANSFORMATION ═══════════ */}
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#1a1a1a' }}>
         <div className="max-w-5xl mx-auto">
           <Reveal>
@@ -655,76 +853,30 @@ export default function SleekDarkDemo() {
         </div>
       </section>
 
-      {/* ═══════════ 8. TESTIMONIALS (3) ═══════════ */}
+      {/* ═══════════ 10. TESTIMONIAL — Single Pull-Quote ═══════════ */}
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#0a0a0a' }}>
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-4xl mx-auto">
           <Reveal>
-            <h2 className={`${heading.className} text-3xl md:text-5xl text-center mb-4`} style={{ color: '#f5f0e8', fontWeight: 300 }}>
-              What Our Clients Say
-            </h2>
-            <div className="w-16 h-px mx-auto mb-16" style={{ backgroundColor: '#c9a96e' }} />
-          </Reveal>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                quote: 'Our bookings doubled within a month of the new site going live. People started calling just because they found us on Google.',
-                author: 'Marcus D.',
-                business: 'The Anchor Pub & Grill',
-                town: 'Nelson',
-              },
-              {
-                quote: 'We finally have a website that looks as good as our food tastes. Our Instagram traffic tripled and the reservation form is full every weekend.',
-                author: 'Priya T.',
-                business: 'Saffron Kitchen',
-                town: 'Trail',
-              },
-              {
-                quote: 'We used to get three phone reservations a week. Now we get fifteen. The online menu and booking link changed everything.',
-                author: 'Liam R.',
-                business: 'The Red Chair',
-                town: 'Rossland',
-              },
-            ].map((t, i) => (
-              <Reveal key={t.author} delay={i * 0.15}>
-                <div
-                  className="relative p-8 h-full overflow-hidden"
-                  style={{
-                    backgroundColor: '#1a1a1a',
-                    border: '1px solid rgba(201,169,110,0.15)',
-                  }}
-                >
-                  <div
-                    className="absolute inset-0 pointer-events-none"
-                    style={{ background: 'radial-gradient(circle at 50% 0%, rgba(201,169,110,0.06) 0%, transparent 70%)' }}
-                  />
-                  <div className="relative">
-                    <div className="flex gap-1 mb-5">
-                      {Array.from({ length: 5 }).map((_, j) => (
-                        <span key={j} style={{ color: '#c9a96e' }}>&#9733;</span>
-                      ))}
-                    </div>
-                    <blockquote className="text-sm leading-relaxed mb-6 italic" style={{ color: 'rgba(245,240,232,0.7)' }}>
-                      &ldquo;{t.quote}&rdquo;
-                    </blockquote>
-                    <p className="text-xs font-bold uppercase tracking-widest" style={{ color: '#c9a96e' }}>
-                      &mdash; {t.author}, {t.town}
-                    </p>
-                    <p className="text-xs mt-1" style={{ color: 'rgba(245,240,232,0.3)' }}>{t.business}</p>
-                  </div>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-          <Reveal delay={0.3}>
-            <p className="text-center text-xs mt-8 italic" style={{ color: 'rgba(245,240,232,0.25)' }}>
-              (Sample reviews &mdash; your real reviews go here)
-            </p>
+            <div className="text-center px-6 md:px-16">
+              <div className={`${heading.className} text-6xl md:text-8xl mb-6`} style={{ color: 'rgba(201,169,110,0.2)', lineHeight: 1 }}>
+                &ldquo;
+              </div>
+              <blockquote className={`${heading.className} text-2xl md:text-3xl lg:text-4xl leading-relaxed mb-8`} style={{ color: '#f5f0e8', fontWeight: 300, fontStyle: 'italic' }}>
+                The best meal we&rsquo;ve had in the Kootenays. Period.
+              </blockquote>
+              <div className="w-12 h-px mx-auto mb-6" style={{ backgroundColor: '#c9a96e' }} />
+              <p className={`${body.className} text-sm font-bold uppercase tracking-widest`} style={{ color: '#c9a96e' }}>
+                — Sarah &amp; James T., Nelson
+              </p>
+              <p className="text-xs mt-2 italic" style={{ color: 'rgba(245,240,232,0.25)' }}>
+                (Sample review — your real reviews go here)
+              </p>
+            </div>
           </Reveal>
         </div>
       </section>
 
-      {/* ═══════════ 9. FAQ ═══════════ */}
+      {/* ═══════════ 11. FAQ ═══════════ */}
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#1a1a1a' }}>
         <div className="max-w-3xl mx-auto">
           <Reveal>
@@ -744,29 +896,12 @@ export default function SleekDarkDemo() {
         </div>
       </section>
 
-      {/* ═══════════ 10. ABOUT ═══════════ */}
-      <section id="about" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#0a0a0a' }}>
-        <div className="max-w-3xl mx-auto text-center">
-          <Reveal>
-            <h2 className={`${heading.className} text-3xl md:text-5xl mb-4`} style={{ color: '#f5f0e8', fontWeight: 300 }}>
-              About Ember
-            </h2>
-            <div className="w-16 h-px mx-auto mb-10" style={{ backgroundColor: '#c9a96e' }} />
-          </Reveal>
-          <Reveal delay={0.15}>
-            <p className="text-lg leading-relaxed" style={{ color: 'rgba(245,240,232,0.6)' }}>
-              Ember Kitchen &amp; Bar was born from a simple vision: to bring unforgettable dining to the heart of the Kootenays. Since opening in 2019, we have been committed to sourcing the finest local ingredients and transforming them into dishes that tell a story. Our intimate space, warm candlelit atmosphere, and carefully curated wine list create the perfect setting for a memorable evening. Whether it is a celebration, a date night, or simply the desire for an extraordinary meal &mdash; Ember is where moments become memories.
-            </p>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* ═══════════ 11. CONTACT ═══════════ */}
-      <section id="reservations" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#1a1a1a' }}>
+      {/* ═══════════ 12. CONTACT ═══════════ */}
+      <section id="contact" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#0a0a0a' }}>
         <div className="max-w-6xl mx-auto">
           <Reveal>
             <h2 className={`${heading.className} text-3xl md:text-5xl text-center mb-4`} style={{ color: '#f5f0e8', fontWeight: 300 }}>
-              Make a Reservation
+              Get in Touch
             </h2>
             <div className="w-16 h-px mx-auto mb-16" style={{ backgroundColor: '#c9a96e' }} />
           </Reveal>
@@ -780,11 +915,11 @@ export default function SleekDarkDemo() {
                 </div>
                 <div>
                   <h3 className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#c9a96e' }}>Email</h3>
-                  <p style={{ color: 'rgba(245,240,232,0.7)' }}>reservations@emberkitchen.ca</p>
+                  <p style={{ color: 'rgba(245,240,232,0.7)' }}>reservations@thecoppetable.ca</p>
                 </div>
                 <div>
                   <h3 className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#c9a96e' }}>Hours</h3>
-                  <p style={{ color: 'rgba(245,240,232,0.7)' }}>Wed&ndash;Sun 5:00 PM &ndash; Close</p>
+                  <p style={{ color: 'rgba(245,240,232,0.7)' }}>Wed–Sun 5:00 PM – Close</p>
                 </div>
                 <div>
                   <h3 className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#c9a96e' }}>Location</h3>
@@ -858,22 +993,22 @@ export default function SleekDarkDemo() {
         </div>
       </section>
 
-      {/* ═══════════ 12. FOOTER ═══════════ */}
+      {/* ═══════════ 13. FOOTER ═══════════ */}
       <footer className="py-14 px-6" style={{ backgroundColor: '#0a0a0a', borderTop: '1px solid rgba(201,169,110,0.1)' }}>
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-3 gap-10 mb-10">
             <div>
               <h3 className={`${heading.className} text-xl mb-3`} style={{ color: '#c9a96e', fontWeight: 300 }}>
-                Ember Kitchen &amp; Bar
+                The Copper Table
               </h3>
               <p className="text-sm" style={{ color: 'rgba(245,240,232,0.4)' }}>
-                Fine dining in the heart of the Kootenays.
+                Farm-to-table dining in the heart of Nelson.
               </p>
             </div>
             <div>
               <h4 className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: '#c9a96e' }}>Quick Links</h4>
               <div className="flex flex-col gap-2">
-                {['Menu', 'About', 'Gallery', 'Reservations'].map((link) => (
+                {['Menu', 'Reserve', 'About', 'Contact'].map((link) => (
                   <a
                     key={link}
                     href={`#${link.toLowerCase()}`}
@@ -889,14 +1024,14 @@ export default function SleekDarkDemo() {
             </div>
             <div>
               <h4 className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: '#c9a96e' }}>Info</h4>
-              <p className="text-sm mb-1" style={{ color: 'rgba(245,240,232,0.4)' }}>Wed&ndash;Sun 5:00 PM &ndash; Close</p>
+              <p className="text-sm mb-1" style={{ color: 'rgba(245,240,232,0.4)' }}>Wed–Sun 5:00 PM – Close</p>
               <p className="text-sm mb-1" style={{ color: 'rgba(245,240,232,0.4)' }}>123 Sample St, Nelson, BC</p>
               <p className="text-sm" style={{ color: 'rgba(245,240,232,0.4)' }}>(250) 555-0195</p>
             </div>
           </div>
           <div style={{ borderTop: '1px solid rgba(201,169,110,0.1)' }} className="pt-6 text-center">
             <span className="text-sm" style={{ color: 'rgba(245,240,232,0.25)' }}>
-              &copy; 2025 Ember Kitchen &amp; Bar. All rights reserved.
+              &copy; 2025 The Copper Table. All rights reserved.
             </span>
           </div>
         </div>
@@ -928,7 +1063,7 @@ export default function SleekDarkDemo() {
             onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.85')}
             onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
           >
-            Like What You See? Let's Talk &rarr;
+            Like What You See? Let&rsquo;s Talk &rarr;
           </Link>
         </div>
       </div>

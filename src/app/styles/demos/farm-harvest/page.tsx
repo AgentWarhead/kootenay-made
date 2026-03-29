@@ -4,7 +4,7 @@ import { Caveat, Lato } from 'next/font/google'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useRef, useState } from 'react'
-import { motion, AnimatePresence, useInView, useScroll, useTransform, useReducedMotion } from 'framer-motion'
+import { motion, AnimatePresence, useScroll, useTransform, useReducedMotion } from 'framer-motion'
 
 const accent = Caveat({
   subsets: ['latin'],
@@ -68,7 +68,6 @@ function LiveRedesign() {
 
   return (
     <div ref={ref} className="w-full">
-      {/* Bold label */}
       <div className="flex items-center justify-center gap-3 mb-5">
         <motion.div className="h-[1px] flex-1 max-w-[80px]" style={{ backgroundColor: transformed ? green : '#ccc' }} layout transition={{ duration: 0.4 }} />
         <AnimatePresence mode="wait">
@@ -82,7 +81,6 @@ function LiveRedesign() {
         <motion.div className="h-[1px] flex-1 max-w-[80px]" style={{ backgroundColor: transformed ? green : '#ccc' }} layout transition={{ duration: 0.4 }} />
       </div>
 
-      {/* Fixed-height container */}
       <div className="relative w-full" style={{ height: '480px' }}>
         <AnimatePresence mode="wait">
           {!transformed ? (
@@ -92,7 +90,6 @@ function LiveRedesign() {
               className="absolute inset-0 w-full overflow-hidden flex flex-col"
               style={{ backgroundColor: '#f2f0ed', border: '1px solid #d8d4cf', borderRadius: '8px', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}
             >
-              {/* Fake WordPress nav */}
               <div className="flex items-center justify-between px-4 sm:px-6 py-3" style={{ backgroundColor: '#4a7c30', borderBottom: '3px solid #3a6020' }}>
                 <div className="flex items-center gap-2">
                   <div className="w-6 h-6 rounded-full" style={{ backgroundColor: '#8bc34a' }} />
@@ -105,7 +102,6 @@ function LiveRedesign() {
                 </div>
                 <span className="sm:hidden text-xs" style={{ color: 'rgba(255,255,255,0.5)', fontFamily: 'Arial, sans-serif' }}>☰ Menu</span>
               </div>
-              {/* Hero */}
               <div className="relative px-5 sm:px-10 py-8 sm:py-14 text-center flex-1 flex flex-col justify-center">
                 <div className="absolute inset-0 opacity-[0.12]" style={{ background: 'linear-gradient(135deg, #4a7c30 0%, #8bc34a 50%, #f0e68c 100%)' }} />
                 <div className="relative z-10">
@@ -134,7 +130,6 @@ function LiveRedesign() {
               className="absolute inset-0 w-full overflow-hidden flex flex-col"
               style={{ backgroundColor: cream, border: `1px solid ${green}30`, borderRadius: '16px', boxShadow: `0 8px 40px ${green}15, 0 2px 8px rgba(0,0,0,0.04)` }}
             >
-              {/* Elegant nav */}
               <div className="flex items-center justify-between px-6 sm:px-10 py-4" style={{ borderBottom: `1px solid ${green}15` }}>
                 <motion.span className={`${accent.className} text-base sm:text-lg`} style={{ color: green }}
                   initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: dur * 0.6, delay: stagger }}>
@@ -151,9 +146,7 @@ function LiveRedesign() {
                   <span className="block w-5 h-[2px] rounded-full" style={{ backgroundColor: green }} />
                 </motion.div>
               </div>
-              {/* Hero */}
               <div className="relative px-5 sm:px-10 md:px-16 py-8 sm:py-14 flex-1 flex flex-col justify-center">
-                {/* Organic leaf/vine SVG motif */}
                 <motion.div className="absolute top-0 right-0 pointer-events-none" initial={{ opacity: 0 }} animate={{ opacity: 0.18 }} transition={{ duration: dur, delay: stagger * 3 }}>
                   <svg width="240" height="240" viewBox="0 0 180 180" fill="none">
                     <path d="M160 10 C130 20, 100 50, 80 90 C60 130, 50 160, 20 170" stroke={green} strokeWidth="1.5" fill="none" strokeLinecap="round" />
@@ -209,14 +202,12 @@ function LiveRedesign() {
                   </motion.div>
                 </div>
               </div>
-              {/* Shimmer border */}
               <div className="absolute bottom-0 left-0 right-0 h-[2px] rounded-b-[16px]" style={{ background: `linear-gradient(90deg, transparent, ${green}, ${amber}, ${green}, transparent)`, animation: 'shimmer-border 3s linear infinite', backgroundSize: '200% 100%' }} />
             </motion.div>
           )}
         </AnimatePresence>
       </div>
 
-      {/* Toggle button */}
       <div className="flex justify-center mt-8">
         <button onClick={() => setTransformed(!transformed)}
           className={`${body.className} text-sm font-medium px-6 py-3 rounded-full transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]`}
@@ -259,11 +250,34 @@ function FAQAccordion({ items }: { items: { q: string; a: string }[] }) {
   )
 }
 
+/* ── Seasonal item card ── */
+function SeasonItem({ name, note, status }: { name: string; note: string; status: 'available' | 'soon' | 'over' }) {
+  const statusConfig = {
+    available: { dot: '#22c55e', label: 'Available', bg: 'rgba(34,197,94,0.1)' },
+    soon: { dot: '#f59e0b', label: 'Coming Soon', bg: 'rgba(245,158,11,0.1)' },
+    over: { dot: '#888', label: 'Season Over', bg: 'rgba(128,128,128,0.1)' },
+  }
+  const cfg = statusConfig[status]
+  return (
+    <div className="p-4 rounded-lg" style={{ backgroundColor: '#ffffff', border: '1px solid rgba(74,124,89,0.15)' }}>
+      <div className="flex items-start justify-between gap-2 mb-2">
+        <span className={`${accent.className} text-lg font-bold`} style={{ color: '#3d2e1f' }}>{name}</span>
+        <span className="flex items-center gap-1 px-2 py-0.5 rounded-full text-xs whitespace-nowrap flex-shrink-0" style={{ backgroundColor: cfg.bg }}>
+          <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ backgroundColor: cfg.dot }} />
+          <span style={{ color: cfg.dot }}>{cfg.label}</span>
+        </span>
+      </div>
+      <p className="text-xs" style={{ color: '#888' }}>{note}</p>
+    </div>
+  )
+}
+
 /* ══════════════════════════════════════════════════════════════
    VALLEY ROOTS FARM — Farm & Harvest Demo
    ══════════════════════════════════════════════════════════════ */
 export default function FarmHarvestDemo() {
   const prefersReduced = useReducedMotion()
+  const [activeSeason, setActiveSeason] = useState<'spring' | 'summer' | 'fall'>('summer')
 
   const vineRef = useRef(null)
   const { scrollYProgress } = useScroll({
@@ -271,6 +285,33 @@ export default function FarmHarvestDemo() {
     offset: ['start start', 'end end'],
   })
   const vineLength = useTransform(scrollYProgress, [0, 1], [0, 1])
+
+  const seasonData = {
+    spring: [
+      { name: 'Asparagus', note: 'First of the season — tender and sweet', status: 'available' as const },
+      { name: 'Spinach', note: 'Baby mix, perfect for salads', status: 'available' as const },
+      { name: 'Radishes', note: 'French breakfast + cherry belle', status: 'available' as const },
+      { name: 'Snap Peas', note: 'Direct sow, ready in 3 weeks', status: 'soon' as const },
+      { name: 'Strawberries', note: 'June-bearing, est. late May', status: 'soon' as const },
+      { name: 'Winter Squash', note: 'Not until fall', status: 'over' as const },
+    ],
+    summer: [
+      { name: 'Heirloom Tomatoes', note: '12 varieties, weekly harvest', status: 'available' as const },
+      { name: 'Sweet Corn', note: 'Picked same morning', status: 'available' as const },
+      { name: 'Zucchini & Squash', note: 'Yellow crookneck + black beauty', status: 'available' as const },
+      { name: 'Blueberries', note: 'U-pick available Saturdays', status: 'available' as const },
+      { name: 'Butternut Squash', note: 'Curing now, ready late Sept', status: 'soon' as const },
+      { name: 'Asparagus', note: 'Finished for the year', status: 'over' as const },
+    ],
+    fall: [
+      { name: 'Butternut Squash', note: '3 varieties, great for soups', status: 'available' as const },
+      { name: 'Garlic', note: 'Hardneck, cured and ready', status: 'available' as const },
+      { name: 'Kale & Chard', note: 'Sweeter after first frost', status: 'available' as const },
+      { name: 'Apples', note: 'Gravenstein + golden delicious', status: 'available' as const },
+      { name: 'Strawberries', note: 'Season complete', status: 'over' as const },
+      { name: 'Sweet Corn', note: 'Season complete', status: 'over' as const },
+    ],
+  }
 
   return (
     <div className={body.className} style={{ fontFamily: 'Lato, sans-serif', backgroundColor: '#fefcf3', color: '#3d2e1f' }}>
@@ -318,27 +359,59 @@ export default function FarmHarvestDemo() {
           <motion.path d="M15 680 C10 670, 2 675, 5 685 C8 695, 15 690, 15 680Z" fill="rgba(74,124,89,0.2)" style={{ opacity: prefersReduced ? 1 : vineLength }} />
         </motion.svg>
 
-      {/* ═══════════ 2. HERO ═══════════ */}
+      {/* ═══════════ 2. HERO — "What's Fresh This Week" ═══════════ */}
       <section className="relative overflow-hidden min-h-screen flex items-center">
         <div className="absolute inset-0">
           <Image src="/images/demos/farm-hero.webp" alt="Valley Roots Farm — fields and harvest in the Kootenays" fill className="object-cover" priority sizes="100vw" />
         </div>
-        <div className="absolute inset-0 bg-black/45" />
-        <div className="relative max-w-4xl mx-auto text-center px-6 py-32 md:py-44 w-full">
-          <motion.p className="text-sm uppercase tracking-[0.3em] mb-6" style={{ color: 'rgba(255,255,255,0.8)' }}
-            initial={prefersReduced ? {} : { opacity: 0, y: 20 }} animate={prefersReduced ? {} : { opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}>
-            Grown with love in the Kootenays
-          </motion.p>
+        <div className="absolute inset-0 bg-black/55" />
+        <div className="relative max-w-5xl mx-auto px-6 py-24 md:py-32 w-full">
+          {/* Fresh this week banner */}
+          <motion.div
+            className="mb-10"
+            initial={prefersReduced ? {} : { opacity: 0, y: 20 }}
+            animate={prefersReduced ? {} : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            <span className="inline-block px-4 py-2 text-xs font-bold uppercase tracking-widest rounded-full mb-6"
+              style={{ backgroundColor: 'rgba(74,124,89,0.85)', color: '#fefcf3', backdropFilter: 'blur(8px)' }}>
+              🌿 What&apos;s Fresh This Week
+            </span>
+            <div className="flex flex-wrap gap-3 mb-8">
+              {['Heirloom Tomatoes', 'Sweet Corn', 'Zucchini', 'Blueberries'].map((item) => (
+                <span key={item} className={`${accent.className} text-lg px-4 py-2 rounded-full`}
+                  style={{ backgroundColor: 'rgba(254,252,243,0.9)', color: '#3d2e1f' }}>
+                  {item}
+                </span>
+              ))}
+              <span className={`${accent.className} text-lg px-4 py-2 rounded-full`}
+                style={{ backgroundColor: 'rgba(74,124,89,0.3)', color: '#fefcf3', border: '1px dashed rgba(254,252,243,0.4)' }}>
+                + more at the stand →
+              </span>
+            </div>
+          </motion.div>
+
           <motion.h1 className={`${accent.className} text-5xl md:text-7xl lg:text-8xl leading-tight mb-8`} style={{ color: '#ffffff', textShadow: '0 2px 20px rgba(0,0,0,0.5)' }}
-            initial={prefersReduced ? {} : { opacity: 0, y: 30 }} animate={prefersReduced ? {} : { opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.3 }}>
+            initial={prefersReduced ? {} : { opacity: 0, y: 30 }} animate={prefersReduced ? {} : { opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.4 }}>
             Valley Roots Farm
           </motion.h1>
-          <motion.div initial={prefersReduced ? {} : { opacity: 0, y: 20 }} animate={prefersReduced ? {} : { opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.6 }}>
-            <a href="#shop" className="inline-block px-10 py-4 text-sm font-bold uppercase tracking-widest transition-all rounded-full"
+          <motion.p className="text-lg mb-8 max-w-md" style={{ color: 'rgba(255,255,255,0.8)' }}
+            initial={prefersReduced ? {} : { opacity: 0, y: 20 }} animate={prefersReduced ? {} : { opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.6 }}>
+            Grown with love in the Kootenays. Certified organic, harvested fresh, delivered to your table.
+          </motion.p>
+          <motion.div initial={prefersReduced ? {} : { opacity: 0, y: 20 }} animate={prefersReduced ? {} : { opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.8 }}
+            className="flex flex-col sm:flex-row gap-4">
+            <a href="#harvest-box" className="inline-block px-10 py-4 text-sm font-bold uppercase tracking-widest transition-all rounded-full"
               style={{ backgroundColor: '#4a7c59', color: '#fefcf3' }}
               onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#3d6a4b')}
               onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#4a7c59')}>
-              Shop the Harvest
+              Get This Week&apos;s Box
+            </a>
+            <a href="#seasonal-market" className="inline-block px-8 py-4 text-sm font-bold uppercase tracking-widest transition-all rounded-full"
+              style={{ backgroundColor: 'rgba(254,252,243,0.15)', color: '#fefcf3', border: '1px solid rgba(254,252,243,0.4)', backdropFilter: 'blur(8px)' }}
+              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'rgba(254,252,243,0.25)')}
+              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'rgba(254,252,243,0.15)')}>
+              What&apos;s Growing Now
             </a>
           </motion.div>
         </div>
@@ -357,7 +430,209 @@ export default function FarmHarvestDemo() {
         </div>
       </div>
 
-      {/* ═══════════ 4. SERVICES ═══════════ */}
+      {/* ═══════════ 4. HARVEST BOX CTA ═══════════ */}
+      <section id="harvest-box" className="relative py-20 md:py-28 px-6" style={{ backgroundColor: '#fefcf3' }}>
+        <LeafCorner className="absolute top-4 left-4 opacity-60" />
+        <LeafCorner className="absolute top-4 right-4 opacity-60" flip />
+        <div className="max-w-5xl mx-auto">
+          <Reveal>
+            <div className="text-center mb-12">
+              <h2 className={`${accent.className} text-3xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>The Harvest Box</h2>
+              <div className="max-w-xs mx-auto"><WavyUnderline color="#4a7c59" /></div>
+            </div>
+          </Reveal>
+
+          {/* Single prominent CSA card */}
+          <Reveal delay={0.1}>
+            <div className="max-w-2xl mx-auto mb-16 p-8 rounded-xl text-center relative overflow-hidden"
+              style={{ backgroundColor: '#ffffff', border: '2px solid rgba(74,124,89,0.3)', boxShadow: '0 8px 40px rgba(74,124,89,0.1)' }}>
+              <LeafCorner className="absolute top-2 left-2 opacity-30" />
+              <LeafCorner className="absolute top-2 right-2 opacity-30" flip />
+              <span className="inline-block px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest mb-4"
+                style={{ backgroundColor: 'rgba(74,124,89,0.1)', color: '#4a7c59' }}>
+                This Week&apos;s CSA Box
+              </span>
+              <h3 className={`${accent.className} text-3xl mb-4`} style={{ color: '#3d2e1f' }}>Summer Abundance Box</h3>
+              <div className="flex flex-wrap justify-center gap-2 mb-6">
+                {['Heirloom Tomatoes', 'Sweet Corn (3)', 'Zucchini (2)', 'Fresh Basil', 'Blueberries (pint)', 'Kale bunch'].map(item => (
+                  <span key={item} className="px-3 py-1 rounded-full text-sm"
+                    style={{ backgroundColor: 'rgba(74,124,89,0.08)', color: '#4a7c59', border: '1px solid rgba(74,124,89,0.2)' }}>
+                    {item}
+                  </span>
+                ))}
+              </div>
+              <div className="flex items-center justify-center gap-6 mb-6">
+                <div>
+                  <span className={`${accent.className} text-4xl`} style={{ color: '#4a7c59' }}>$38</span>
+                  <p className="text-xs mt-1" style={{ color: '#888' }}>/ weekly box</p>
+                </div>
+                <div className="w-px h-10" style={{ backgroundColor: 'rgba(74,124,89,0.2)' }} />
+                <div>
+                  <span className={`${accent.className} text-4xl`} style={{ color: '#6b4226' }}>$145</span>
+                  <p className="text-xs mt-1" style={{ color: '#888' }}>/ monthly (save $7)</p>
+                </div>
+              </div>
+              <a href="#contact" className="inline-block px-10 py-4 text-sm font-bold uppercase tracking-widest transition-all rounded-full"
+                style={{ backgroundColor: '#4a7c59', color: '#fefcf3' }}
+                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#3d6a4b')}
+                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#4a7c59')}>
+                Subscribe to Weekly Box
+              </a>
+              <p className="mt-3 text-xs" style={{ color: '#aaa' }}>Pickup Saturdays 9am–1pm or local delivery $5</p>
+            </div>
+          </Reveal>
+
+          {/* How it works — 3 step */}
+          <Reveal delay={0.2}>
+            <div className="grid md:grid-cols-3 gap-6">
+              {[
+                { step: '1', title: 'Subscribe', desc: 'Choose your box size and pickup or delivery. Pay weekly or monthly.' },
+                { step: '2', title: 'We Harvest', desc: 'Box packed fresh Thursday morning with whatever\'s peak that week.' },
+                { step: '3', title: 'You Enjoy', desc: 'Pick up Saturday at the farm stand or get it delivered to your door.' },
+              ].map((s, i) => (
+                <div key={s.step} className="text-center p-6 rounded-lg" style={{ backgroundColor: '#f5f0e3' }}>
+                  <div className={`${accent.className} text-4xl mb-3`} style={{ color: '#4a7c59' }}>{s.step}</div>
+                  <h4 className={`${accent.className} text-xl mb-2`} style={{ color: '#3d2e1f' }}>{s.title}</h4>
+                  <p className="text-sm leading-relaxed" style={{ color: '#6b4226' }}>{s.desc}</p>
+                </div>
+              ))}
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ═══════════ 5. SEASONAL MARKET GRID ═══════════ */}
+      <section id="seasonal-market" className="relative py-20 md:py-28 px-6" style={{ backgroundColor: '#f5f0e3' }}>
+        <LeafCorner className="absolute bottom-4 left-4 opacity-40 rotate-180" />
+        <div className="max-w-5xl mx-auto">
+          <Reveal>
+            <div className="text-center mb-8">
+              <h2 className={`${accent.className} text-3xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>What&apos;s Growing Now</h2>
+              <div className="max-w-xs mx-auto"><WavyUnderline color="#4a7c59" /></div>
+            </div>
+          </Reveal>
+
+          {/* Season tabs */}
+          <Reveal delay={0.1}>
+            <div className="flex justify-center gap-2 mb-10">
+              {(['spring', 'summer', 'fall'] as const).map((season) => (
+                <button
+                  key={season}
+                  onClick={() => setActiveSeason(season)}
+                  className="px-6 py-2.5 text-sm font-bold uppercase tracking-widest rounded-full transition-all capitalize"
+                  style={{
+                    backgroundColor: activeSeason === season ? '#4a7c59' : 'transparent',
+                    color: activeSeason === season ? '#fefcf3' : '#6b4226',
+                    border: `2px solid ${activeSeason === season ? '#4a7c59' : 'rgba(74,124,89,0.3)'}`,
+                  }}
+                >
+                  {season === 'spring' ? '🌱 Spring' : season === 'summer' ? '☀️ Summer' : '🍂 Fall'}
+                </button>
+              ))}
+            </div>
+          </Reveal>
+
+          <motion.div
+            key={activeSeason}
+            initial={prefersReduced ? {} : { opacity: 0, y: 10 }}
+            animate={prefersReduced ? {} : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+            className="grid grid-cols-2 md:grid-cols-3 gap-4"
+          >
+            {seasonData[activeSeason].map((item) => (
+              <SeasonItem key={item.name} {...item} />
+            ))}
+          </motion.div>
+          <Reveal delay={0.3}>
+            <p className="mt-6 text-center text-sm" style={{ color: 'rgba(61,46,31,0.5)' }}>
+              Availability changes week to week. Come to the Saturday stand to see everything in season.
+            </p>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ═══════════ 6. SEED TO TABLE STORY STRIP ═══════════ */}
+      <section className="py-20 md:py-28 px-6 overflow-hidden" style={{ backgroundColor: '#fefcf3' }}>
+        <div className="max-w-6xl mx-auto">
+          <Reveal>
+            <div className="text-center mb-12">
+              <h2 className={`${accent.className} text-3xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>From Seed to Table</h2>
+              <div className="max-w-xs mx-auto"><WavyUnderline color="#4a7c59" /></div>
+            </div>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <div className="flex gap-0 overflow-x-auto pb-4" style={{ scrollbarWidth: 'thin' }}>
+              {[
+                { stage: '🌱', label: 'Soil', desc: 'Composted & mineral-balanced beds' },
+                { stage: '🫘', label: 'Seedling', desc: 'Started in our greenhouse in March' },
+                { stage: '🌿', label: 'Growing', desc: 'Hand-weeded, no pesticides' },
+                { stage: '🌾', label: 'Harvest', desc: 'Picked at peak ripeness, same day' },
+                { stage: '🛒', label: 'Your Table', desc: 'Farm stand or your front door' },
+              ].map((item, i) => (
+                <div key={item.label} className="flex items-stretch flex-shrink-0" style={{ minWidth: '160px' }}>
+                  <div className="flex flex-col items-center p-5 text-center flex-1"
+                    style={{ backgroundColor: i % 2 === 0 ? '#fefcf3' : '#f5f0e3' }}>
+                    <span className="text-4xl mb-3">{item.stage}</span>
+                    <span className={`${accent.className} text-xl mb-1`} style={{ color: '#4a7c59' }}>{item.label}</span>
+                    <p className="text-xs leading-relaxed" style={{ color: '#6b4226' }}>{item.desc}</p>
+                  </div>
+                  {i < 4 && (
+                    <div className="flex items-center px-1 flex-shrink-0">
+                      <span style={{ color: 'rgba(74,124,89,0.3)' }}>→</span>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ═══════════ 7. RECIPE OF THE WEEK ═══════════ */}
+      <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#f5f0e3' }}>
+        <LeafCorner className="absolute bottom-4 right-4 opacity-60 rotate-180" />
+        <div className="max-w-3xl mx-auto">
+          <Reveal>
+            <div className="text-center mb-8">
+              <h2 className={`${accent.className} text-3xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>Recipe of the Week</h2>
+              <div className="max-w-xs mx-auto"><WavyUnderline color="#4a7c59" /></div>
+            </div>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <div className="p-8 rounded-xl relative overflow-hidden" style={{ backgroundColor: '#ffffff', border: '1px solid rgba(74,124,89,0.2)', boxShadow: '0 4px 24px rgba(74,124,89,0.08)' }}>
+              <LeafCorner className="absolute top-0 right-0 opacity-20" flip />
+              <div className="flex items-center gap-3 mb-4">
+                <span className="text-3xl">🍅</span>
+                <div>
+                  <h3 className={`${accent.className} text-2xl`} style={{ color: '#3d2e1f' }}>Late Summer Bruschetta</h3>
+                  <p className="text-xs" style={{ color: '#888' }}>Featuring this week&apos;s heirloom tomatoes + fresh basil</p>
+                </div>
+              </div>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <h4 className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: '#4a7c59' }}>From Your Harvest Box</h4>
+                  <ul className="space-y-1 text-sm" style={{ color: '#6b4226' }}>
+                    {['3 large heirloom tomatoes, diced', 'Handful of fresh basil', '2 cloves garlic, minced', '1 tbsp olive oil', 'Sea salt + cracked pepper'].map(i => (
+                      <li key={i} className="flex items-start gap-2">
+                        <span style={{ color: '#4a7c59' }}>•</span>
+                        {i}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: '#4a7c59' }}>Method</h4>
+                  <p className="text-sm leading-relaxed" style={{ color: '#6b4226' }}>
+                    Combine tomatoes, basil, garlic and olive oil. Season generously. Let rest 20 minutes. Serve on grilled sourdough. The quality of your tomatoes does all the work.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ═══════════ 8. WHAT WE CAN DO FOR YOU ═══════════ */}
       <section id="shop" className="relative py-20 md:py-28 px-6" style={{ backgroundColor: '#fefcf3' }}>
         <LeafCorner className="absolute top-4 left-4 opacity-60" />
         <LeafCorner className="absolute top-4 right-4 opacity-60" flip />
@@ -369,7 +644,6 @@ export default function FarmHarvestDemo() {
             </div>
           </Reveal>
 
-          {/* PAS Copy */}
           <Reveal delay={0.1}>
             <div className="max-w-2xl mx-auto mb-14 p-6 rounded-lg" style={{ backgroundColor: '#f5f0e3', border: '2px solid rgba(74,124,89,0.2)', borderLeft: '4px solid #4a7c59' }}>
               <p className="text-lg leading-relaxed text-center" style={{ color: '#6b4226' }}>
@@ -400,9 +674,8 @@ export default function FarmHarvestDemo() {
         </div>
       </section>
 
-      {/* ═══════════ 5. HOW IT WORKS ═══════════ */}
+      {/* ═══════════ 9. HOW IT WORKS ═══════════ */}
       <section className="relative py-20 md:py-28 px-6" style={{ backgroundColor: '#f5f0e3' }}>
-        <LeafCorner className="absolute bottom-4 left-4 opacity-40 rotate-180" />
         <div className="max-w-5xl mx-auto">
           <Reveal>
             <div className="text-center mb-16">
@@ -429,7 +702,7 @@ export default function FarmHarvestDemo() {
         </div>
       </section>
 
-      {/* ═══════════ 6. GALLERY / SHOWCASE ═══════════ */}
+      {/* ═══════════ 10. GALLERY ═══════════ */}
       <section id="gallery" className="relative py-20 md:py-28 px-6" style={{ backgroundColor: '#fefcf3' }}>
         <LeafCorner className="absolute bottom-4 right-4 opacity-60 rotate-180" />
         <div className="max-w-6xl mx-auto">
@@ -461,7 +734,7 @@ export default function FarmHarvestDemo() {
         </div>
       </section>
 
-      {/* ═══════════ 7. THE TRANSFORMATION ═══════════ */}
+      {/* ═══════════ 11. THE TRANSFORMATION ═══════════ */}
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#f5f0e3' }}>
         <div className="max-w-5xl mx-auto">
           <Reveal>
@@ -477,7 +750,7 @@ export default function FarmHarvestDemo() {
         </div>
       </section>
 
-      {/* ═══════════ 8. TESTIMONIALS (3) ═══════════ */}
+      {/* ═══════════ 12. TESTIMONIALS — Kraft paper cards ═══════════ */}
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#fefcf3' }}>
         <div className="max-w-6xl mx-auto">
           <Reveal>
@@ -490,32 +763,37 @@ export default function FarmHarvestDemo() {
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
-                quote: "We launched our online CSA sign-up in March. By April we had more members than the entire previous season. Word of mouth is great but a website is better.",
+                quote: 'The tomatoes taste like my grandmother\'s garden. I drive past three grocery stores to get here.',
+                name: 'Margaret H.',
+                detail: 'Regular CSA member since 2021',
+              },
+              {
+                quote: 'We launched our online CSA sign-up in March. By April we had more members than the entire previous season.',
                 name: 'Claire D.',
-                biz: "Driftwood Organics — Creston, BC",
+                biz: 'Driftwood Organics — Creston, BC',
               },
               {
-                quote: "People used to drive past us to the farm stand they found on Google. Now we're the one they find first. Our berry season pre-orders sold out in a week.",
-                name: 'Tom & Mary F.',
-                biz: "Kootenay Berry Farm — Nakusp, BC",
-              },
-              {
-                quote: "The online store paid for itself in two weekends. I can take orders while I'm in the field. My kids think I'm a genius. They don't need to know it was Kootenay Made.",
+                quote: 'The online store paid for itself in two weekends. I can take orders while I\'m in the field.',
                 name: 'Paul O.',
-                biz: "Orchard Lane Farm — Kaslo, BC",
+                biz: 'Orchard Lane Farm — Kaslo, BC',
               },
             ].map((t, i) => (
               <Reveal key={i} delay={i * 0.15}>
-                <div className="p-8 h-full flex flex-col rounded-lg" style={{ backgroundColor: '#ffffff', border: '1px solid rgba(74,124,89,0.15)', boxShadow: '0 2px 16px rgba(74,124,89,0.06)' }}>
-                  <div className="flex gap-1 mb-5 justify-center text-xl" style={{ color: '#e8a838' }}>
-                    &#9733;&#9733;&#9733;&#9733;&#9733;
-                  </div>
-                  <blockquote className={`${accent.className} flex-1 text-xl md:text-2xl leading-relaxed mb-6 text-center`} style={{ color: '#3d2e1f' }}>
-                    &ldquo;{t.quote}&rdquo;
-                  </blockquote>
-                  <div className="text-center">
-                    <p className="font-bold text-sm uppercase tracking-widest" style={{ color: '#4a7c59' }}>{t.name}</p>
-                    <p className="text-xs mt-1" style={{ color: 'rgba(61,46,31,0.5)' }}>{t.biz}</p>
+                <div className="p-8 h-full flex flex-col rounded-lg relative overflow-hidden"
+                  style={{ backgroundColor: '#f5ead8', border: '1px solid rgba(107,66,38,0.15)', boxShadow: '0 2px 12px rgba(74,124,89,0.06)' }}>
+                  {/* Kraft paper texture hint */}
+                  <div className="absolute inset-0 opacity-5 pointer-events-none" style={{ backgroundImage: 'repeating-linear-gradient(45deg, rgba(107,66,38,0.5) 0px, rgba(107,66,38,0.5) 1px, transparent 1px, transparent 8px)' }} />
+                  <div className="relative">
+                    <div className="flex gap-1 mb-5 text-xl" style={{ color: '#e8a838' }}>
+                      &#9733;&#9733;&#9733;&#9733;&#9733;
+                    </div>
+                    <blockquote className={`${accent.className} flex-1 text-xl md:text-2xl leading-relaxed mb-6`} style={{ color: '#3d2e1f' }}>
+                      &ldquo;{t.quote}&rdquo;
+                    </blockquote>
+                    <div>
+                      <p className="font-bold text-sm uppercase tracking-widest" style={{ color: '#4a7c59' }}>{t.name}</p>
+                      <p className="text-xs mt-1" style={{ color: 'rgba(61,46,31,0.5)' }}>{('biz' in t ? t.biz : t.detail) || ''}</p>
+                    </div>
                   </div>
                 </div>
               </Reveal>
@@ -529,7 +807,7 @@ export default function FarmHarvestDemo() {
         </div>
       </section>
 
-      {/* ═══════════ 9. FAQ ═══════════ */}
+      {/* ═══════════ 13. FAQ ═══════════ */}
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#f5f0e3' }}>
         <div className="max-w-4xl mx-auto">
           <Reveal>
@@ -551,7 +829,7 @@ export default function FarmHarvestDemo() {
         </div>
       </section>
 
-      {/* ═══════════ 10. ABOUT ═══════════ */}
+      {/* ═══════════ 14. ABOUT ═══════════ */}
       <section id="our-farm" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#fefcf3' }}>
         <div className="max-w-3xl mx-auto text-center">
           <Reveal>
@@ -566,7 +844,7 @@ export default function FarmHarvestDemo() {
         </div>
       </section>
 
-      {/* ═══════════ 11. CONTACT ═══════════ */}
+      {/* ═══════════ 15. CONTACT ═══════════ */}
       <section id="contact" className="relative py-20 md:py-28 px-6" style={{ backgroundColor: '#f5f0e3' }}>
         <LeafCorner className="absolute top-4 right-4 opacity-60" flip />
         <div className="max-w-6xl mx-auto">
@@ -582,8 +860,8 @@ export default function FarmHarvestDemo() {
               <div className="space-y-6">
                 <div><h3 className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#4a7c59' }}>Phone</h3><p style={{ color: '#6b4226' }}>(250) 555-0167</p></div>
                 <div><h3 className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#4a7c59' }}>Email</h3><p style={{ color: '#6b4226' }}>hello@valleyrootsfarm.ca</p></div>
+                <div><h3 className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#4a7c59' }}>Address</h3><p style={{ color: '#6b4226' }}>123 Sample St, Castlegar, BC</p></div>
                 <div><h3 className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#4a7c59' }}>Farm Stand Hours</h3><p style={{ color: '#6b4226' }}>Saturdays 9:00 AM &ndash; 1:00 PM</p></div>
-                <div><h3 className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#4a7c59' }}>Location</h3><p style={{ color: '#6b4226' }}>Castlegar, BC</p></div>
                 <a href="tel:2505550167" className="inline-block px-8 py-3.5 text-sm font-bold uppercase tracking-widest transition-all mt-4 rounded-full"
                   style={{ backgroundColor: '#4a7c59', color: '#fefcf3' }}
                   onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#3d6a4b')}
@@ -624,7 +902,7 @@ export default function FarmHarvestDemo() {
         </div>
       </section>
 
-      {/* ═══════════ 12. FOOTER ═══════════ */}
+      {/* ═══════════ 16. FOOTER ═══════════ */}
       <footer className="py-14 px-6" style={{ backgroundColor: '#4a7c59' }}>
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-3 gap-10 mb-10">
@@ -644,7 +922,7 @@ export default function FarmHarvestDemo() {
             <div>
               <h4 className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: '#e8a838' }}>Info</h4>
               <p className="text-sm mb-1" style={{ color: 'rgba(254,252,243,0.6)' }}>Farm Stand: Sat 9 AM &ndash; 1 PM</p>
-              <p className="text-sm mb-1" style={{ color: 'rgba(254,252,243,0.6)' }}>Castlegar, BC</p>
+              <p className="text-sm mb-1" style={{ color: 'rgba(254,252,243,0.6)' }}>123 Sample St, Castlegar, BC</p>
               <p className="text-sm" style={{ color: 'rgba(254,252,243,0.6)' }}>(250) 555-0167</p>
             </div>
           </div>
@@ -666,7 +944,7 @@ export default function FarmHarvestDemo() {
             style={{ backgroundColor: '#4a7c59', color: '#fefcf3' }}
             onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#3d6a4b')}
             onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#4a7c59')}>
-            LIKE WHAT YOU SEE? LET'S TALK &rarr;
+            LIKE WHAT YOU SEE? LET&apos;S TALK &rarr;
           </Link>
         </div>
       </div>

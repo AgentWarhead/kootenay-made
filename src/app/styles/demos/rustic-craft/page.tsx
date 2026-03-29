@@ -1,10 +1,10 @@
 'use client'
 
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef } from 'react'
 import { Bitter, Lato } from 'next/font/google'
 import Image from 'next/image'
 import Link from 'next/link'
-import { motion, useReducedMotion, AnimatePresence, useInView } from 'framer-motion'
+import { motion, useReducedMotion, AnimatePresence } from 'framer-motion'
 
 const bitter = Bitter({
   subsets: ['latin'],
@@ -222,7 +222,6 @@ function LiveRedesign() {
               </div>
               {/* Hero */}
               <div className="relative px-5 sm:px-10 md:px-16 py-8 sm:py-12 flex-1 flex flex-col justify-center">
-                {/* Decorative hop/grain motif */}
                 <motion.div className="absolute top-0 right-0 pointer-events-none" initial={{ opacity: 0 }} animate={{ opacity: 0.18 }} transition={{ duration: dur, delay: stagger * 3 }}>
                   <svg width="200" height="200" viewBox="0 0 160 160" fill="none">
                     <circle cx="80" cy="40" r="20" stroke={AMBER} strokeWidth="1" fill="none" />
@@ -335,7 +334,11 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
 }
 
 /* ═══════════════════════════════════════════════════════════════ */
-/*  MAIN PAGE                                                     */
+/*  KOOTENAY BREWING COLLECTIVE — Rustic Craft Demo               */
+/*  Order: Nav → Hero → Trust → What's on Tap → Brewer's Pick    */
+/*         → Taproom Experience → Event Chalkboard → Our Story   */
+/*         → Transformation → Beer-Label Testimonials → FAQ      */
+/*         → Contact → Footer                                    */
 /* ═══════════════════════════════════════════════════════════════ */
 export default function RusticCraftDemo() {
   const faqItems = [
@@ -344,16 +347,16 @@ export default function RusticCraftDemo() {
       answer: 'Most craft brewery and artisan business websites are done in 2–3 weeks. We\'ll keep you in the loop at every step.',
     },
     {
-      question: 'Can I sell online or list a seasonal menu?',
-      answer: 'Absolutely. We can set up an online store (Shopify starts from $3,000) or a dynamic menu you update yourself — great for rotating taps or seasonal offerings.',
+      question: 'Can I list a rotating tap menu and seasonal beers?',
+      answer: 'Absolutely. We build a menu you can update yourself — perfect for changing tap lists, seasonal releases, and special events.',
+    },
+    {
+      question: 'Can you set up online merch or growler orders?',
+      answer: 'Yes. We can integrate a Shopify store starting from $3,000 — sell merch, gift cards, and local delivery right from your site.',
     },
     {
       question: 'What if I already have a website?',
-      answer: 'We\'ll review what you have and offer a redesign or a full rebuild — whatever makes sense. You won\'t be charged for what you don\'t need.',
-    },
-    {
-      question: 'Do I need to provide photos or content?',
-      answer: 'We help with both. If you have photos, great — we\'ll work with them. If not, we can guide you on what to shoot or write the copy ourselves.',
+      answer: 'We\'ll review what you have and offer a redesign or a full rebuild. You won\'t be charged for what you don\'t need.',
     },
     {
       question: 'What does it cost?',
@@ -371,7 +374,12 @@ export default function RusticCraftDemo() {
           0% { background-position: 200% 0; }
           100% { background-position: -200% 0; }
         }
+        .chalk-font {
+          font-family: 'Bitter', Georgia, serif;
+          letter-spacing: 0.02em;
+        }
       `}</style>
+
       {/* ── 1. NAV ────────────────────────────────────────────── */}
       <nav
         className="relative px-6 py-4 sticky top-0 z-40"
@@ -387,7 +395,7 @@ export default function RusticCraftDemo() {
           </span>
 
           <div className="hidden md:flex items-center gap-8">
-            {['Our Beers', 'About', 'Taproom', 'Contact'].map((label) => (
+            {['On Tap', 'Taproom', 'Events', 'Contact'].map((label) => (
               <a
                 key={label}
                 href={`#${label.toLowerCase().replace(/\s/g, '-')}`}
@@ -448,11 +456,11 @@ export default function RusticCraftDemo() {
 
           <FadeUp delay={0.5}>
             <a
-              href="#taproom"
+              href="#on-tap"
               className="inline-block px-10 py-4 font-bold text-sm uppercase tracking-widest transition-all hover:brightness-110"
               style={{ backgroundColor: AMBER, color: DARK_BROWN, borderRadius: '2px' }}
             >
-              Visit the Taproom
+              See What&rsquo;s on Tap
             </a>
           </FadeUp>
         </div>
@@ -472,211 +480,339 @@ export default function RusticCraftDemo() {
           <span className="hidden sm:inline" aria-hidden="true">·</span>
           <span>Est. 2018</span>
           <span className="hidden sm:inline" aria-hidden="true">·</span>
-          <span>Locally Sourced</span>
+          <span>12 Beers on Tap</span>
           <span className="hidden sm:inline" aria-hidden="true">·</span>
-          <span>Open 7 Days</span>
+          <span>Dog Friendly Patio</span>
         </div>
       </section>
 
-      {/* ── 4. SERVICES — with PAS intro ──────────────────────── */}
+      {/* ── 4. WHAT'S ON TAP — Chalkboard Style ──────────────── */}
       <section
-        id="our-beers"
+        id="on-tap"
+        className="relative py-20 md:py-28 px-6 overflow-hidden"
+        style={{ backgroundColor: DARK_BROWN }}
+      >
+        <GrainOverlay />
+        <div className="relative z-10 max-w-5xl mx-auto">
+          <StampIn className="text-center mb-12">
+            <h2
+              className={`${bitter.className} text-3xl md:text-5xl font-bold mb-2`}
+              style={{ color: PARCHMENT }}
+            >
+              What&rsquo;s on Tap
+            </h2>
+            <WavyUnderline color={PARCHMENT} />
+          </StampIn>
+
+          {/* Chalkboard panel */}
+          <FadeUp>
+            <div
+              className="relative rounded-sm p-8 md:p-10"
+              style={{
+                backgroundColor: '#1e2d1e',
+                border: `3px solid ${AMBER}55`,
+                boxShadow: `inset 0 0 60px rgba(0,0,0,0.4)`,
+              }}
+            >
+              <GrainOverlay />
+              <div className="relative z-10">
+                {/* Chalkboard header */}
+                <div className="text-center mb-8">
+                  <p className={`${bitter.className} text-xs uppercase tracking-[0.3em]`} style={{ color: `${PARCHMENT}66` }}>
+                    Today&rsquo;s Selection
+                  </p>
+                  <div className="w-24 h-px mx-auto mt-2" style={{ backgroundColor: `${PARCHMENT}33` }} />
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-x-12 gap-y-6">
+                  {[
+                    { name: 'Kootenay Pale Ale', style: 'American Pale Ale', abv: '5.2%', ibu: '38', swatch: '#d4942a', note: 'Citrus hops, light malt body, crisp finish' },
+                    { name: 'Cedar Stout', style: 'Dry Irish Stout', abv: '4.8%', ibu: '42', swatch: '#2d1a0e', note: 'Dark chocolate, roasted coffee, silky smooth' },
+                    { name: 'Trail Wheat', style: 'Hefeweizen', abv: '4.5%', ibu: '14', swatch: '#e8c76a', note: 'Banana & clove, hazy golden, refreshing' },
+                    { name: 'Arrow Lakes Red', style: 'Irish Red Ale', abv: '5.6%', ibu: '28', swatch: '#8b2500', note: 'Caramel malt, toffee notes, smooth bitterness' },
+                    { name: 'Sloan IPA', style: 'West Coast IPA', abv: '6.4%', ibu: '65', swatch: '#c8a83a', note: 'Piney resin, tropical fruit, bold bitterness' },
+                    { name: 'Seasonal Sour', style: 'Berliner Weisse', abv: '3.8%', ibu: '8', swatch: '#a0c87a', note: 'Tart raspberry, wheat base, refreshingly sour' },
+                  ].map((beer) => (
+                    <div key={beer.name} className="flex items-start gap-4" style={{ borderBottom: `1px solid ${PARCHMENT}15`, paddingBottom: '1rem' }}>
+                      {/* Beer colour swatch */}
+                      <div
+                        className="flex-shrink-0 w-10 h-10 rounded-full mt-1"
+                        style={{ backgroundColor: beer.swatch, border: `2px solid ${PARCHMENT}30`, boxShadow: `0 0 8px ${beer.swatch}66` }}
+                      />
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-baseline justify-between gap-2 flex-wrap">
+                          <span className={`${bitter.className} font-bold text-base`} style={{ color: PARCHMENT }}>{beer.name}</span>
+                          <div className="flex gap-3 text-xs" style={{ color: `${PARCHMENT}88` }}>
+                            <span style={{ color: AMBER }}>{beer.abv}</span>
+                            <span>{beer.ibu} IBU</span>
+                          </div>
+                        </div>
+                        <p className="text-xs mt-0.5" style={{ color: `${PARCHMENT}66` }}>{beer.style}</p>
+                        <p className="text-xs mt-1 italic" style={{ color: `${PARCHMENT}aa` }}>{beer.note}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <p className="text-center text-xs mt-8 italic" style={{ color: `${PARCHMENT}44` }}>
+                  Tap list rotates seasonally. Ask your server about nitro and cask options.
+                </p>
+              </div>
+            </div>
+          </FadeUp>
+        </div>
+      </section>
+
+      {/* ── 5. BREWER'S PICK SPOTLIGHT ────────────────────────── */}
+      <section
         className="relative py-20 md:py-28 px-6 overflow-hidden"
         style={{ backgroundColor: PARCHMENT }}
       >
         <GrainOverlay />
-        <div className="relative z-10 max-w-6xl mx-auto">
-          <StampIn className="text-center mb-8">
+        <div className="relative z-10 max-w-5xl mx-auto">
+          <StampIn className="text-center mb-12">
             <h2
-              className={`${bitter.className} text-3xl md:text-5xl font-bold mb-2`}
+              className={`${bitter.className} text-3xl md:text-4xl font-bold mb-2`}
               style={{ color: DARK_BROWN }}
             >
-              What We Brew for You
+              Brewer&rsquo;s Pick This Week
             </h2>
             <WavyUnderline />
           </StampIn>
 
-          {/* PAS copy */}
-          <FadeUp delay={0.1} className="mb-16">
-            <p
-              className="text-center text-base md:text-lg leading-relaxed max-w-2xl mx-auto italic"
-              style={{ color: `${DARK_BROWN}99` }}
-            >
-              Your craft is exceptional — but nobody finds you online. They find the brewery with the
-              Instagram-worthy website and the Google listing. You&rsquo;re one good website away from being
-              the one they find first.
-            </p>
+          <FadeUp>
+            <div className="grid md:grid-cols-2 gap-10 items-center">
+              <div className="relative rounded-sm overflow-hidden" style={{ border: `3px solid ${AMBER}` }}>
+                <Image
+                  src="/images/demos/rustic-craft-showcase.webp"
+                  alt="Kootenay Brewing Collective — Brewer's Pick"
+                  width={600}
+                  height={400}
+                  className="w-full h-auto object-cover"
+                />
+              </div>
+              <div>
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-12 h-12 rounded-full flex-shrink-0" style={{ backgroundColor: '#8b2500', border: `3px solid ${AMBER}` }} />
+                  <div>
+                    <h3 className={`${bitter.className} text-2xl font-bold`} style={{ color: DARK_BROWN }}>Arrow Lakes Red</h3>
+                    <p className="text-sm font-bold" style={{ color: AMBER }}>Irish Red Ale · 5.6% ABV</p>
+                  </div>
+                </div>
+                <p className="text-base leading-relaxed mb-6" style={{ color: `${DARK_BROWN}cc` }}>
+                  Our head brewer Tyler says this is the one he reaches for after a long brew day. Rich caramel malt, a touch of toffee sweetness, and a clean finish. It&rsquo;s the kind of beer that makes the Kootenay evenings feel exactly right.
+                </p>
+                <div className="grid grid-cols-2 gap-4 mb-6">
+                  {[
+                    { label: 'Food Pairing', value: 'Smoked brisket, sharp cheddar' },
+                    { label: 'Best Served', value: 'Cellar temp (12–14°C)' },
+                    { label: 'Availability', value: 'Growler fills available' },
+                    { label: 'Limited', value: 'While supply lasts' },
+                  ].map((item) => (
+                    <div key={item.label}>
+                      <p className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: AMBER }}>{item.label}</p>
+                      <p className="text-sm" style={{ color: DARK_BROWN }}>{item.value}</p>
+                    </div>
+                  ))}
+                </div>
+                <div className="inline-block px-5 py-2 rounded-sm text-xs font-bold uppercase tracking-wider" style={{ backgroundColor: `${AMBER}22`, color: AMBER, border: `2px solid ${AMBER}55` }}>
+                  Growler Fill Available ·
+                  Taproom Only
+                </div>
+              </div>
+            </div>
           </FadeUp>
+        </div>
+      </section>
+
+      {/* ── 6. TAPROOM EXPERIENCE ─────────────────────────────── */}
+      <section
+        id="taproom"
+        className="relative py-20 md:py-28 px-6 overflow-hidden"
+        style={{ backgroundColor: DARK_BROWN }}
+      >
+        <GrainOverlay />
+        <div className="relative z-10 max-w-5xl mx-auto">
+          <StampIn className="text-center mb-12">
+            <h2
+              className={`${bitter.className} text-3xl md:text-5xl font-bold mb-2`}
+              style={{ color: PARCHMENT }}
+            >
+              What to Expect
+            </h2>
+            <WavyUnderline color={PARCHMENT} />
+            <p className="mt-4 text-sm" style={{ color: `${PARCHMENT}88` }}>
+              Everything you need to know before your first visit
+            </p>
+          </StampIn>
+
+          <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-6">
+            {[
+              {
+                icon: '🍔',
+                title: 'Food',
+                detail: 'Weekly rotating food truck partner — check our events board for the schedule.',
+              },
+              {
+                icon: '🎮',
+                title: 'Games',
+                detail: 'Shuffleboard, cribbage, Jenga, and a library of 30+ board games. Always free.',
+              },
+              {
+                icon: '🍺',
+                title: 'Tours',
+                detail: 'Brewery tours every Saturday at 2 PM. See the tanks, hear the story, taste the difference.',
+              },
+              {
+                icon: '🐕',
+                title: 'Dogs',
+                detail: 'Dog-friendly patio, always. Water bowls provided. Four-legged regulars welcome.',
+              },
+            ].map((item) => (
+              <FadeUp key={item.title}>
+                <div
+                  className="relative p-6 rounded-sm text-center overflow-hidden"
+                  style={{ backgroundColor: `${DARK_BROWN}cc`, border: `2px solid ${AMBER}33` }}
+                >
+                  <div
+                    className="absolute inset-0 pointer-events-none opacity-30"
+                    style={{ backgroundImage: WOODGRAIN }}
+                  />
+                  <div className="relative z-10">
+                    <div className="text-4xl mb-3">{item.icon}</div>
+                    <h3 className={`${bitter.className} font-bold text-lg mb-2`} style={{ color: AMBER }}>{item.title}</h3>
+                    <p className="text-sm leading-relaxed" style={{ color: `${PARCHMENT}99` }}>{item.detail}</p>
+                  </div>
+                </div>
+              </FadeUp>
+            ))}
+          </div>
+
+          {/* Gallery row */}
+          <FadeUp delay={0.2} className="mt-10">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {['Kootenay Pale Ale', 'Cedar Stout', 'Trail Wheat', 'Seasonal Special'].map((beer, i) => (
+                <div key={beer} className="relative aspect-[4/3] rounded-sm overflow-hidden" style={{ border: `2px solid ${AMBER}44` }}>
+                  <Image src={`/images/demos/gallery/rc-${i + 1}.webp`} alt={beer} fill className="object-cover" />
+                  <div className="absolute bottom-0 left-0 right-0 p-2" style={{ background: 'linear-gradient(to top, rgba(61,43,31,0.8), transparent)' }}>
+                    <span className={`${lato.className} text-xs font-bold`} style={{ color: PARCHMENT }}>{beer}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </FadeUp>
+        </div>
+      </section>
+
+      {/* ── 7. EVENT CHALKBOARD ───────────────────────────────── */}
+      <section
+        id="events"
+        className="relative py-20 md:py-28 px-6 overflow-hidden"
+        style={{ backgroundColor: PARCHMENT }}
+      >
+        <GrainOverlay />
+        <div className="relative z-10 max-w-4xl mx-auto">
+          <StampIn className="text-center mb-12">
+            <h2
+              className={`${bitter.className} text-3xl md:text-4xl font-bold mb-2`}
+              style={{ color: DARK_BROWN }}
+            >
+              Coming Up at the Taproom
+            </h2>
+            <WavyUnderline />
+          </StampIn>
+
+          <FadeUp>
+            <div
+              className="relative rounded-sm p-8 md:p-10"
+              style={{ backgroundColor: '#1e2d1e', border: `3px solid ${AMBER}55` }}
+            >
+              <GrainOverlay />
+              <div className="relative z-10 space-y-6">
+                {[
+                  { date: 'Thu Apr 3', time: '7 PM', title: 'Trivia Night', desc: 'Teams of 4–6. $5 entry. Winner takes the tab. Hosted by our own bartender Dave.' },
+                  { date: 'Sat Apr 5', time: '8 PM', title: 'Live Music: The River Rats', desc: 'Local bluegrass and folk. No cover. Patio open weather permitting.' },
+                  { date: 'Sat Apr 12', time: '2 PM', title: 'Spring Release Party', desc: 'First pour of our Wildflower Saison. Limited bottles. Free tasting flights for first 50.' },
+                  { date: 'Fri Apr 18', time: '5 PM', title: 'Food Truck Friday: Kootenay BBQ', desc: 'Smoked brisket, pulled pork, and sides. Until sold out. Pairs perfectly with the Red.' },
+                ].map((event) => (
+                  <div key={event.title} className="grid md:grid-cols-[140px_1fr] gap-4 items-start" style={{ borderBottom: `1px solid ${PARCHMENT}15`, paddingBottom: '1.25rem' }}>
+                    <div>
+                      <p className={`${bitter.className} font-bold text-sm`} style={{ color: AMBER }}>{event.date}</p>
+                      <p className="text-xs" style={{ color: `${PARCHMENT}88` }}>{event.time}</p>
+                    </div>
+                    <div>
+                      <p className={`${bitter.className} font-bold text-base`} style={{ color: PARCHMENT }}>{event.title}</p>
+                      <p className="text-xs mt-1 leading-relaxed italic" style={{ color: `${PARCHMENT}aa` }}>{event.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </FadeUp>
+        </div>
+      </section>
+
+      {/* ── 8. OUR STORY ──────────────────────────────────────── */}
+      <section
+        id="about"
+        className="relative py-20 md:py-28 px-6 overflow-hidden"
+        style={{ backgroundColor: DARK_BROWN }}
+      >
+        <GrainOverlay />
+        <div className="relative z-10 max-w-5xl mx-auto">
+          <StampIn className="text-center mb-12">
+            <h2
+              className={`${bitter.className} text-3xl md:text-5xl font-bold mb-2`}
+              style={{ color: PARCHMENT }}
+            >
+              Garage to Taproom
+            </h2>
+            <WavyUnderline color={PARCHMENT} />
+          </StampIn>
 
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
-                title: 'Custom Website',
-                price: 'From $1,500',
-                desc: 'A rugged, handcrafted website that captures your brewery\'s character and story.',
-              },
-              {
-                title: 'Full Brand Build',
-                price: 'From $4,000',
-                desc: 'Logo, colours, the works. Look as established as your oldest barrel.',
-              },
-              {
-                title: 'Shopify Store',
-                price: 'From $3,000',
-                desc: 'Sell merch, growlers, and gift cards online. Your taproom, open 24/7.',
-              },
-            ].map((card, i) => (
-              <FadeUp key={card.title} delay={i * 0.15}>
-                <div
-                  className="relative rounded-sm p-8 h-full overflow-hidden"
-                  style={{
-                    backgroundColor: DARK_BROWN,
-                    border: `3px solid ${AMBER}`,
-                    boxShadow: `inset 0 0 0 1px ${AMBER}55, inset 2px 2px 8px rgba(0,0,0,0.3)`,
-                  }}
-                >
-                  <div
-                    className="absolute inset-0 pointer-events-none opacity-40"
-                    aria-hidden="true"
-                    style={{ backgroundImage: WOODGRAIN }}
-                  />
-                  <div className="relative z-10">
-                    <h3
-                      className={`${bitter.className} text-xl font-bold mb-1`}
-                      style={{ color: AMBER }}
-                    >
-                      {card.title}
-                    </h3>
-                    <p className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: `${AMBER}77` }}>
-                      {card.price}
-                    </p>
-                    <p
-                      className="leading-relaxed text-sm"
-                      style={{ color: `${PARCHMENT}cc` }}
-                    >
-                      {card.desc}
-                    </p>
-                  </div>
-                </div>
-              </FadeUp>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── 5. HOW IT WORKS ───────────────────────────────────── */}
-      <section
-        className="relative py-20 md:py-28 px-6 overflow-hidden"
-        style={{ backgroundColor: DARK_BROWN }}
-      >
-        <GrainOverlay />
-        <div className="relative z-10 max-w-4xl mx-auto">
-          <StampIn className="text-center mb-16">
-            <h2
-              className={`${bitter.className} text-3xl md:text-5xl font-bold`}
-              style={{ color: PARCHMENT }}
-            >
-              How It Works
-            </h2>
-            <WavyUnderline />
-          </StampIn>
-
-          <div className="grid md:grid-cols-3 gap-10 md:gap-8 relative">
-            <div
-              className="hidden md:block absolute top-10 left-[calc(16.66%+2rem)] right-[calc(16.66%+2rem)] h-px"
-              style={{ backgroundColor: `${AMBER}33` }}
-            />
-            {[
-              {
                 step: '01',
-                title: 'We Talk',
-                desc: 'A free consultation over a pint or a call. Tell us about your brewery, your vibe, and your goals.',
+                title: 'The Garage',
+                year: '2016',
+                desc: 'Tyler and two friends started brewing 10-litre batches in a Trail garage. They almost blew up the ceiling twice. The beer was good enough to try again.',
+                img: '/images/demos/rustic-craft-showcase.webp',
               },
               {
                 step: '02',
-                title: 'We Build',
-                desc: 'We design and build your site in about 2 weeks — handcrafted to match the character of your brand.',
+                title: 'First Batch',
+                year: '2018',
+                desc: 'The Kootenay Pale Ale hit 200 litres. Local bars started asking. A 1-tonne grain delivery showed up and there was nowhere to put it. The brewery was born.',
+                img: '/images/demos/gallery/rc-1.webp',
               },
               {
                 step: '03',
-                title: 'You Grow',
-                desc: 'Launch, get found on Google, and start turning searches into tap room visits and online orders.',
+                title: 'The Taproom',
+                year: '2020',
+                desc: 'We opened 123 Sample St on a Tuesday in March. By Friday there was a lineup. Now we pour 12 beers, host 50 events a year, and sponsor the local trail crew.',
+                img: '/images/demos/gallery/rc-2.webp',
               },
-            ].map((item, i) => (
-              <FadeUp key={item.step} delay={i * 0.15}>
-                <div className="flex flex-col items-center text-center">
+            ].map((beat) => (
+              <FadeUp key={beat.step}>
+                <div className="relative rounded-sm overflow-hidden" style={{ border: `2px solid ${AMBER}44` }}>
+                  <div className="relative h-40 overflow-hidden">
+                    <Image src={beat.img} alt={beat.title} fill className="object-cover" />
+                    <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, transparent 40%, rgba(61,43,31,0.9))' }} />
+                    <div className="absolute bottom-3 left-4 flex items-baseline gap-2">
+                      <span className={`${bitter.className} font-bold text-xl`} style={{ color: AMBER }}>{beat.title}</span>
+                      <span className="text-xs" style={{ color: `${PARCHMENT}88` }}>{beat.year}</span>
+                    </div>
+                  </div>
                   <div
-                    className="w-20 h-20 rounded-full flex items-center justify-center mb-6 relative z-10"
-                    style={{
-                      backgroundColor: DARK_BROWN,
-                      border: `3px solid ${AMBER}`,
-                    }}
+                    className="relative p-5"
+                    style={{ backgroundColor: `${DARK_BROWN}cc` }}
                   >
-                    <span className={`${bitter.className} text-xl font-bold`} style={{ color: AMBER }}>
-                      {item.step}
-                    </span>
-                  </div>
-                  <h3
-                    className={`${bitter.className} text-xl font-bold mb-3`}
-                    style={{ color: PARCHMENT }}
-                  >
-                    {item.title}
-                  </h3>
-                  <p className="text-sm leading-relaxed" style={{ color: `${PARCHMENT}88` }}>
-                    {item.desc}
-                  </p>
-                </div>
-              </FadeUp>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── 6. GALLERY / ON TAP ───────────────────────────────── */}
-      <section
-        className="relative py-20 md:py-28 px-6 overflow-hidden"
-        style={{ backgroundColor: DARK_BROWN }}
-      >
-        <GrainOverlay />
-        <div className="relative z-10 max-w-6xl mx-auto">
-          <StampIn className="text-center mb-14">
-            <h2
-              className={`${bitter.className} text-3xl md:text-5xl font-bold`}
-              style={{ color: PARCHMENT }}
-            >
-              On Tap
-            </h2>
-            <WavyUnderline />
-          </StampIn>
-
-          <FadeUp className="mb-14">
-            <div
-              className="relative mx-auto max-w-3xl rounded-sm overflow-hidden"
-              style={{ border: `3px solid ${AMBER}` }}
-            >
-              <Image
-                src="/images/demos/rustic-craft-showcase.webp"
-                alt="Kootenay Brewing Collective taproom and craft beers"
-                width={800}
-                height={500}
-                className="w-full h-auto object-cover"
-                priority
-              />
-            </div>
-          </FadeUp>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {[
-              'Kootenay Pale Ale',
-              'Cedar Stout',
-              'Trail Wheat',
-              'Seasonal Special',
-            ].map((beer, i) => (
-              <FadeUp key={beer} delay={i * 0.1}>
-                <div className='relative aspect-[4/3] rounded-xl overflow-hidden'>
-                  <Image src={`/images/demos/gallery/rc-${i + 1}.webp`} alt={beer} fill className='object-cover' />
-                  <div className='absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-3'>
-                    <span className='text-white text-sm font-medium'>{beer}</span>
+                    <div
+                      className="absolute inset-0 pointer-events-none opacity-30"
+                      style={{ backgroundImage: WOODGRAIN }}
+                    />
+                    <p className="relative z-10 text-sm leading-relaxed" style={{ color: `${PARCHMENT}cc` }}>{beat.desc}</p>
                   </div>
                 </div>
               </FadeUp>
@@ -685,7 +821,7 @@ export default function RusticCraftDemo() {
         </div>
       </section>
 
-      {/* ── 7. THE TRANSFORMATION ─────────────────────────────── */}
+      {/* ── 9. THE TRANSFORMATION ─────────────────────────────── */}
       <section
         className="relative py-20 md:py-28 px-6 overflow-hidden"
         style={{ backgroundColor: PARCHMENT }}
@@ -713,7 +849,7 @@ export default function RusticCraftDemo() {
         </div>
       </section>
 
-      {/* ── 8. TESTIMONIALS (3) ───────────────────────────────── */}
+      {/* ── 10. BEER-LABEL TESTIMONIALS ───────────────────────── */}
       <section
         className="relative py-20 md:py-28 px-6 overflow-hidden"
         style={{ backgroundColor: DARK_BROWN }}
@@ -725,60 +861,68 @@ export default function RusticCraftDemo() {
               className={`${bitter.className} text-3xl md:text-5xl font-bold`}
               style={{ color: PARCHMENT }}
             >
-              What Clients Say
+              Tasting Notes From Our Regulars
             </h2>
-            <WavyUnderline />
+            <WavyUnderline color={PARCHMENT} />
           </StampIn>
 
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
-                quote: 'Our taproom visits went up 40% after the new site. People said they found us on Google and loved what they saw before they even walked in.',
-                author: 'Shane M.',
-                business: 'Fernie Ridge Brewing',
-                town: 'Fernie',
+                beerName: 'Taproom Visits Up 40%',
+                style: 'Growth Rate · After New Website',
+                tasting: '"People said they found us on Google and loved what they saw before they even walked in. That\'s the new website doing its job."',
+                brewer: 'Shane M.',
+                brewery: 'Fernie Ridge Brewing',
+                swatch: '#d4942a',
               },
               {
-                quote: 'We finally have a site that looks as good as our bread tastes. Orders started coming through the contact form the first week.',
-                author: 'Lena K.',
-                business: 'Summit Sourdough',
-                town: 'Golden',
+                beerName: 'Orders in Week One',
+                style: 'Immediate Results · Contact Form',
+                tasting: '"We finally have a site that looks as good as our bread tastes. Orders started coming through the contact form the first week."',
+                brewer: 'Lena K.',
+                brewery: 'Summit Sourdough · Golden',
+                swatch: '#c8a83a',
               },
               {
-                quote: 'The online store paid for itself in three months. Locals love ordering our sauces and jams for gifts. Couldn\'t believe how easy it was.',
-                author: 'Darcy &amp; Paul H.',
-                business: 'Nakusp Provisions',
-                town: 'Nakusp',
+                beerName: 'Paid For Itself in 3 Months',
+                style: 'ROI · Online Store Revenue',
+                tasting: '"The online store paid for itself in three months. Locals love ordering our sauces and jams for gifts. Couldn\'t believe how easy it was."',
+                brewer: 'Darcy & Paul H.',
+                brewery: 'Nakusp Provisions',
+                swatch: '#8b5e2a',
               },
-            ].map((t, i) => (
-              <FadeUp key={t.author} delay={i * 0.15}>
+            ].map((t) => (
+              <FadeUp key={t.brewer}>
+                {/* Beer-label styled card */}
                 <div
-                  className="relative rounded-sm p-8 h-full overflow-hidden"
+                  className="relative rounded-sm overflow-hidden"
                   style={{
-                    backgroundColor: `${DARK_BROWN}cc`,
-                    border: `2px solid ${AMBER}44`,
+                    backgroundColor: PARCHMENT,
+                    border: `3px solid ${DARK_BROWN}`,
+                    boxShadow: `4px 4px 0px ${AMBER}55`,
                   }}
                 >
-                  <div
-                    className="absolute inset-0 pointer-events-none opacity-30"
-                    style={{ backgroundImage: WOODGRAIN }}
-                  />
-                  <div className="relative z-10">
-                    <div className="text-xl mb-4" style={{ color: AMBER }} aria-label="5 out of 5 stars">★★★★★</div>
-                    <div
-                      className={`${bitter.className} text-4xl leading-none mb-3 select-none`}
-                      style={{ color: AMBER, opacity: 0.5 }}
-                      aria-hidden="true"
-                    >
-                      &ldquo;
-                    </div>
-                    <blockquote className="text-sm leading-relaxed mb-5 italic" style={{ color: `${PARCHMENT}cc` }}>
-                      {t.quote}
+                  {/* Label top band */}
+                  <div className="relative py-4 px-6 text-center" style={{ backgroundColor: t.swatch }}>
+                    <GrainOverlay />
+                    <p className={`${bitter.className} font-bold text-sm relative z-10`} style={{ color: DARK_BROWN }}>{t.beerName}</p>
+                    <p className="text-xs relative z-10 mt-1" style={{ color: `${DARK_BROWN}88` }}>{t.style}</p>
+                  </div>
+                  {/* Label body */}
+                  <div className="relative p-6">
+                    <div className="w-full h-px mb-4" style={{ backgroundColor: `${DARK_BROWN}22` }} />
+                    <p className="text-xs uppercase tracking-widest mb-3 text-center font-bold" style={{ color: `${DARK_BROWN}66` }}>
+                      Tasting Notes
+                    </p>
+                    <blockquote className="text-sm leading-relaxed italic text-center" style={{ color: DARK_BROWN }}>
+                      {t.tasting}
                     </blockquote>
-                    <cite className="not-italic font-bold text-xs block" style={{ color: AMBER }}>
-                      — {t.author}, {t.town}
-                    </cite>
-                    <p className="text-xs mt-1" style={{ color: `${PARCHMENT}55` }}>{t.business}</p>
+                    <div className="w-full h-px my-4" style={{ backgroundColor: `${DARK_BROWN}22` }} />
+                    <p className="text-xs font-bold text-center uppercase tracking-widest" style={{ color: AMBER }}>
+                      {t.brewer}
+                    </p>
+                    <p className="text-xs text-center mt-1" style={{ color: `${DARK_BROWN}66` }}>{t.brewery}</p>
                   </div>
                 </div>
               </FadeUp>
@@ -792,7 +936,7 @@ export default function RusticCraftDemo() {
         </div>
       </section>
 
-      {/* ── 9. FAQ ────────────────────────────────────────────── */}
+      {/* ── 11. FAQ ────────────────────────────────────────────── */}
       <section
         className="relative py-20 md:py-28 px-6 overflow-hidden"
         style={{ backgroundColor: PARCHMENT }}
@@ -822,90 +966,47 @@ export default function RusticCraftDemo() {
         </div>
       </section>
 
-      {/* ── 10. ABOUT ─────────────────────────────────────────── */}
+      {/* ── 12. CONTACT ───────────────────────────────────────── */}
       <section
-        id="about"
+        id="contact"
         className="relative py-20 md:py-28 px-6 overflow-hidden"
         style={{ backgroundColor: DARK_BROWN }}
-      >
-        <GrainOverlay />
-        <div className="relative z-10 max-w-3xl mx-auto">
-          <StampIn className="text-center mb-10">
-            <h2
-              className={`${bitter.className} text-3xl md:text-5xl font-bold`}
-              style={{ color: PARCHMENT }}
-            >
-              Our Story
-            </h2>
-            <WavyUnderline />
-          </StampIn>
-
-          <FadeUp>
-            <p
-              className="text-base md:text-lg leading-relaxed mb-6"
-              style={{ color: `${PARCHMENT}cc` }}
-            >
-              Founded in 2018 by a group of friends who shared a passion for craft
-              beer and the Kootenay lifestyle, Kootenay Brewing Collective started
-              as a dream scribbled on a napkin at a local pub. Today, we brew small
-              batches of distinctive ales and lagers using crisp Kootenay mountain
-              water and locally sourced ingredients from farms and foragers across
-              the region.
-            </p>
-            <p
-              className="text-base md:text-lg leading-relaxed"
-              style={{ color: `${PARCHMENT}cc` }}
-            >
-              We&apos;re committed to community and sustainability in everything we
-              do — from donating spent grain to local farmers, to hosting
-              neighbourhood events in our taproom every week. Every pint you enjoy
-              supports the land, the people, and the spirit of the Kootenays.
-            </p>
-          </FadeUp>
-        </div>
-      </section>
-
-      {/* ── 11. CONTACT ───────────────────────────────────────── */}
-      <section
-        id="taproom"
-        className="relative py-20 md:py-28 px-6 overflow-hidden"
-        style={{ backgroundColor: PARCHMENT }}
       >
         <GrainOverlay />
         <div className="relative z-10 max-w-6xl mx-auto">
           <StampIn className="text-center mb-14">
             <h2
               className={`${bitter.className} text-3xl md:text-5xl font-bold`}
-              style={{ color: DARK_BROWN }}
+              style={{ color: PARCHMENT }}
             >
               Visit the Taproom
             </h2>
-            <WavyUnderline />
+            <WavyUnderline color={PARCHMENT} />
           </StampIn>
 
           <div className="grid md:grid-cols-2 gap-12">
             <FadeUp>
               <div className="space-y-6">
                 <div>
-                  <h3 className={`${bitter.className} font-bold text-lg mb-2`} style={{ color: DARK_BROWN }}>Phone</h3>
-                  <p style={{ color: DARK_BROWN }}>
+                  <h3 className={`${bitter.className} font-bold text-lg mb-2`} style={{ color: PARCHMENT }}>Phone</h3>
+                  <p style={{ color: `${PARCHMENT}cc` }}>
                     <a href="tel:2505550195" className="hover:underline">(250) 555-0195</a>
                   </p>
                 </div>
                 <div>
-                  <h3 className={`${bitter.className} font-bold text-lg mb-2`} style={{ color: DARK_BROWN }}>Address</h3>
-                  <p style={{ color: DARK_BROWN }}>123 Sample Dr, Trail, BC</p>
+                  <h3 className={`${bitter.className} font-bold text-lg mb-2`} style={{ color: PARCHMENT }}>Address</h3>
+                  <p style={{ color: `${PARCHMENT}cc` }}>123 Sample St, Trail, BC</p>
                 </div>
                 <div>
-                  <h3 className={`${bitter.className} font-bold text-lg mb-2`} style={{ color: DARK_BROWN }}>Hours</h3>
-                  <p style={{ color: DARK_BROWN }}>Sun–Thu: 12–9 PM<br />Fri–Sat: 12–11 PM</p>
+                  <h3 className={`${bitter.className} font-bold text-lg mb-2`} style={{ color: PARCHMENT }}>Hours</h3>
+                  <p style={{ color: `${PARCHMENT}cc` }}>Sun–Thu: 12–9 PM<br />Fri–Sat: 12–11 PM</p>
                 </div>
 
                 <div
                   className="rounded-sm h-48 flex items-center justify-center"
-                  style={{ backgroundColor: `${DARK_BROWN}11`, border: `2px dashed ${DARK_BROWN}33` }}
+                  style={{ backgroundColor: `${DARK_BROWN}88`, border: `2px dashed ${PARCHMENT}33` }}
                 >
-                  <span className="text-sm font-bold uppercase tracking-widest" style={{ color: `${DARK_BROWN}66` }}>
+                  <span className="text-sm font-bold uppercase tracking-widest" style={{ color: `${PARCHMENT}44` }}>
                     Taproom Map
                   </span>
                 </div>
@@ -915,14 +1016,13 @@ export default function RusticCraftDemo() {
                   className="inline-block px-8 py-3.5 font-bold text-sm uppercase tracking-widest transition-all hover:brightness-110"
                   style={{ backgroundColor: AMBER, color: DARK_BROWN, borderRadius: '2px' }}
                 >
-                  Like What You See? Let's Talk
+                  Like What You See? Let&rsquo;s Talk
                 </a>
               </div>
             </FadeUp>
 
             <FadeUp delay={0.15}>
               <form
-                id="contact"
                 className="rounded-sm p-8 space-y-5"
                 style={{ backgroundColor: PARCHMENT, border: `2px solid ${DARK_BROWN}33`, boxShadow: `inset 0 2px 6px rgba(61,43,31,0.08)` }}
                 onSubmit={(e) => e.preventDefault()}
@@ -975,7 +1075,7 @@ export default function RusticCraftDemo() {
         </div>
       </section>
 
-      {/* ── 12. FOOTER ────────────────────────────────────────── */}
+      {/* ── 13. FOOTER ────────────────────────────────────────── */}
       <footer
         className="relative py-16 px-6 overflow-hidden"
         style={{ backgroundColor: DARK_BROWN }}
@@ -994,7 +1094,7 @@ export default function RusticCraftDemo() {
             <div>
               <h4 className={`${bitter.className} font-bold text-sm uppercase tracking-widest mb-4`} style={{ color: AMBER }}>Links</h4>
               <ul className="space-y-2">
-                {['Our Beers', 'About', 'Taproom', 'Contact'].map((link) => (
+                {['On Tap', 'Taproom', 'Events', 'Contact'].map((link) => (
                   <li key={link}>
                     <a
                       href={`#${link.toLowerCase().replace(/\s/g, '-')}`}
@@ -1011,7 +1111,7 @@ export default function RusticCraftDemo() {
             </div>
             <div>
               <h4 className={`${bitter.className} font-bold text-sm uppercase tracking-widest mb-4`} style={{ color: AMBER }}>Visit Us</h4>
-              <p className="text-sm leading-relaxed mb-3" style={{ color: `${PARCHMENT}99` }}>123 Sample Dr, Trail, BC</p>
+              <p className="text-sm leading-relaxed mb-3" style={{ color: `${PARCHMENT}99` }}>123 Sample St, Trail, BC</p>
               <p className="text-sm leading-relaxed" style={{ color: `${PARCHMENT}99` }}>Sun–Thu: 12–9 PM<br />Fri–Sat: 12–11 PM</p>
             </div>
           </div>
@@ -1026,7 +1126,7 @@ export default function RusticCraftDemo() {
       {/* ── BOTTOM SPACER for sticky bar ──────────────────────── */}
       <div className="h-16" aria-hidden="true" />
 
-      {/* ── 13. STICKY BOTTOM BAR ─────────────────────────────── */}
+      {/* ── 14. STICKY BOTTOM BAR ─────────────────────────────── */}
       <div
         className="fixed bottom-0 inset-x-0 z-50 px-6 py-3"
         style={{
@@ -1053,7 +1153,7 @@ export default function RusticCraftDemo() {
             className="text-xs md:text-sm font-bold uppercase tracking-wider transition-all whitespace-nowrap px-5 py-2.5 rounded-sm"
             style={{ backgroundColor: AMBER, color: DARK_BROWN }}
           >
-            Like What You See? Let's Talk &rarr;
+            Like What You See? Let&rsquo;s Talk &rarr;
           </Link>
         </div>
       </div>

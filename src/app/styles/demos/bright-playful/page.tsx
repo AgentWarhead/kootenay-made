@@ -1,15 +1,22 @@
 'use client'
 
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef } from 'react'
 import { Nunito } from 'next/font/google'
 import Link from 'next/link'
 import Image from 'next/image'
-import { motion, useReducedMotion, AnimatePresence, useInView } from 'framer-motion'
+import { motion, useReducedMotion, AnimatePresence } from 'framer-motion'
 
 const nunito = Nunito({
   subsets: ['latin'],
   weight: ['400', '600', '700', '800'],
 })
+
+/* ── Color tokens ── */
+const CORAL = '#ff6b6b'
+const TEAL = '#4ecdc4'
+const YELLOW = '#ffe66d'
+const PURPLE = '#a78bfa'
+const SOFT_BG = '#f9f9fb'
 
 /* ── Bouncy reveal ── */
 function Bounce({ children, className = '', delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
@@ -28,7 +35,7 @@ function Bounce({ children, className = '', delay = 0 }: { children: React.React
 }
 
 /* ── SVG blob shapes ── */
-function Blob({ className = '', color = '#ff6b6b' }: { className?: string; color?: string }) {
+function Blob({ className = '', color = CORAL }: { className?: string; color?: string }) {
   return (
     <svg className={className} viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
       <path
@@ -40,7 +47,7 @@ function Blob({ className = '', color = '#ff6b6b' }: { className?: string; color
   )
 }
 
-function Blob2({ className = '', color = '#4ecdc4' }: { className?: string; color?: string }) {
+function Blob2({ className = '', color = TEAL }: { className?: string; color?: string }) {
   return (
     <svg className={className} viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
       <path
@@ -53,7 +60,7 @@ function Blob2({ className = '', color = '#4ecdc4' }: { className?: string; colo
 }
 
 /* ── FAQ Accordion ── */
-function FAQItem({ question, answer, accentColor = '#4ecdc4' }: { question: string; answer: string; accentColor?: string }) {
+function FAQItem({ question, answer, accentColor = TEAL }: { question: string; answer: string; accentColor?: string }) {
   const [open, setOpen] = useState(false)
   const prefersReduced = useReducedMotion()
   return (
@@ -121,21 +128,17 @@ const confettiStyles = `
       transition-duration: 0.01ms !important;
     }
   }
-  @keyframes shimmer-border {
-    0% { background-position: 200% 0; }
-    100% { background-position: -200% 0; }
-  }
 `
 
 const confettiDots = [
-  { color: '#ff6b6b', tx: '-40px', ty: '-50px' },
-  { color: '#4ecdc4', tx: '45px', ty: '-35px' },
-  { color: '#ffe66d', tx: '-30px', ty: '45px' },
-  { color: '#a78bfa', tx: '50px', ty: '40px' },
-  { color: '#ff6b6b', tx: '0px', ty: '-55px' },
-  { color: '#4ecdc4', tx: '-50px', ty: '10px' },
-  { color: '#ffe66d', tx: '55px', ty: '0px' },
-  { color: '#a78bfa', tx: '20px', ty: '50px' },
+  { color: CORAL, tx: '-40px', ty: '-50px' },
+  { color: TEAL, tx: '45px', ty: '-35px' },
+  { color: YELLOW, tx: '-30px', ty: '45px' },
+  { color: PURPLE, tx: '50px', ty: '40px' },
+  { color: CORAL, tx: '0px', ty: '-55px' },
+  { color: TEAL, tx: '-50px', ty: '10px' },
+  { color: YELLOW, tx: '55px', ty: '0px' },
+  { color: PURPLE, tx: '20px', ty: '50px' },
 ]
 
 /* ── Live Redesign Component ── */
@@ -151,16 +154,16 @@ function LiveRedesign() {
     <div ref={ref} className="w-full">
       {/* Bold label */}
       <div className="flex items-center justify-center gap-3 mb-5">
-        <motion.div className="h-[2px] flex-1 max-w-[80px] rounded-full" style={{ backgroundColor: transformed ? '#4ecdc4' : '#e0e0e0' }} layout transition={{ duration: 0.4 }} />
+        <motion.div className="h-[2px] flex-1 max-w-[80px] rounded-full" style={{ backgroundColor: transformed ? TEAL : '#e0e0e0' }} layout transition={{ duration: 0.4 }} />
         <AnimatePresence mode="wait">
           <motion.span key={transformed ? 'after-label' : 'before-label'}
             initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 8 }} transition={{ duration: 0.3 }}
             className={`${nunito.className} text-sm font-extrabold uppercase tracking-[0.25em]`}
-            style={{ color: transformed ? '#4ecdc4' : '#aaa' }}>
+            style={{ color: transformed ? TEAL : '#aaa' }}>
             {transformed ? '✨ After' : 'Before'}
           </motion.span>
         </AnimatePresence>
-        <motion.div className="h-[2px] flex-1 max-w-[80px] rounded-full" style={{ backgroundColor: transformed ? '#4ecdc4' : '#e0e0e0' }} layout transition={{ duration: 0.4 }} />
+        <motion.div className="h-[2px] flex-1 max-w-[80px] rounded-full" style={{ backgroundColor: transformed ? TEAL : '#e0e0e0' }} layout transition={{ duration: 0.4 }} />
       </div>
 
       {/* Fixed-height container */}
@@ -172,7 +175,7 @@ function LiveRedesign() {
               exit={{ opacity: 0, scale: 0.97, filter: 'blur(6px)', transition: { duration: 0.5 } }}
               className="absolute inset-0 w-full overflow-hidden flex flex-col"
               style={{ backgroundColor: '#f2f0ed', border: '1px solid #d8d4cf', borderRadius: '8px', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
-              {/* WordPress nav — dull blue-green for a "dated" daycare look */}
+              {/* WordPress nav */}
               <div className="flex items-center justify-between px-4 sm:px-6 py-3" style={{ backgroundColor: '#4a7a8a', borderBottom: '3px solid #366070' }}>
                 <div className="flex items-center gap-2">
                   <div className="w-6 h-6 rounded-full" style={{ backgroundColor: '#ffd700' }} />
@@ -223,73 +226,72 @@ function LiveRedesign() {
               style={{ backgroundColor: '#fff', border: '2px solid rgba(78,205,196,0.3)', borderRadius: '24px', boxShadow: '0 8px 40px rgba(78,205,196,0.15), 0 2px 8px rgba(0,0,0,0.04)' }}>
               {/* Colorful nav */}
               <div className="flex items-center justify-between px-6 sm:px-10 py-4" style={{ borderBottom: '2px solid rgba(78,205,196,0.15)' }}>
-                <motion.span className={`${nunito.className} text-base sm:text-lg font-extrabold`} style={{ color: '#ff6b6b' }}
+                <motion.span className={`${nunito.className} text-base sm:text-lg font-extrabold`} style={{ color: CORAL }}
                   initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: dur * 0.6, delay: stagger }}>
-                  Sunshine <span style={{ color: '#4ecdc4' }}>Daycare</span>
+                  Sunshine <span style={{ color: TEAL }}>Daycare</span>
                 </motion.span>
                 <motion.div className="hidden sm:flex items-center gap-6" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
                   {['Programs', 'About', 'Gallery', 'Contact'].map((link, i) => (
-                    <span key={link} className={`${nunito.className} text-xs font-bold uppercase tracking-widest`} style={{ color: ['#ff6b6b','#4ecdc4','#a78bfa','#ffe66d'][i % 4] }}>{link}</span>
+                    <span key={link} className={`${nunito.className} text-xs font-bold uppercase tracking-widest`} style={{ color: [CORAL, TEAL, PURPLE, YELLOW][i % 4] }}>{link}</span>
                   ))}
                 </motion.div>
                 <motion.div className="sm:hidden flex flex-col gap-[5px]" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur * 0.6, delay: stagger }}>
-                  <span className="block w-5 h-[2px] rounded-full" style={{ backgroundColor: '#ff6b6b' }} />
-                  <span className="block w-4 h-[2px] rounded-full" style={{ backgroundColor: '#4ecdc4' }} />
-                  <span className="block w-5 h-[2px] rounded-full" style={{ backgroundColor: '#a78bfa' }} />
+                  <span className="block w-5 h-[2px] rounded-full" style={{ backgroundColor: CORAL }} />
+                  <span className="block w-4 h-[2px] rounded-full" style={{ backgroundColor: TEAL }} />
+                  <span className="block w-5 h-[2px] rounded-full" style={{ backgroundColor: PURPLE }} />
                 </motion.div>
               </div>
               {/* Hero */}
               <div className="relative px-5 sm:px-10 md:px-16 py-8 sm:py-12 flex-1 flex flex-col justify-center overflow-hidden">
-                {/* Playful bubble motif */}
                 <motion.div className="absolute top-2 right-4 pointer-events-none" initial={{ opacity: 0 }} animate={{ opacity: 0.2 }} transition={{ duration: dur, delay: stagger * 3 }}>
                   <svg width="200" height="200" viewBox="0 0 200 200" fill="none">
-                    <circle cx="140" cy="40" r="30" fill="#ff6b6b" />
-                    <circle cx="170" cy="80" r="18" fill="#4ecdc4" />
-                    <circle cx="120" cy="70" r="12" fill="#ffe66d" />
-                    <circle cx="155" cy="120" r="22" fill="#a78bfa" opacity="0.6" />
-                    <circle cx="105" cy="110" r="8" fill="#ff6b6b" opacity="0.4" />
+                    <circle cx="140" cy="40" r="30" fill={CORAL} />
+                    <circle cx="170" cy="80" r="18" fill={TEAL} />
+                    <circle cx="120" cy="70" r="12" fill={YELLOW} />
+                    <circle cx="155" cy="120" r="22" fill={PURPLE} opacity="0.6" />
+                    <circle cx="105" cy="110" r="8" fill={CORAL} opacity="0.4" />
                   </svg>
                 </motion.div>
                 <div className="relative z-10 text-center sm:text-left">
                   <motion.div className="flex justify-center sm:justify-start mb-4" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
-                    <span className={`${nunito.className} text-xs font-extrabold uppercase tracking-[0.2em] px-4 py-1.5 rounded-full`} style={{ backgroundColor: 'rgba(78,205,196,0.12)', color: '#4ecdc4', border: '2px solid rgba(78,205,196,0.25)' }}>
+                    <span className={`${nunito.className} text-xs font-extrabold uppercase tracking-[0.2em] px-4 py-1.5 rounded-full`} style={{ backgroundColor: `${TEAL}15`, color: TEAL, border: `2px solid ${TEAL}25` }}>
                       Est. 2016 &mdash; Castlegar, BC
                     </span>
                   </motion.div>
                   <motion.h2 className={`${nunito.className} text-2xl sm:text-4xl md:text-5xl font-extrabold leading-[1.15] mb-4 sm:max-w-xl`} style={{ color: '#333' }}
                     initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
-                    You&rsquo;ll Never Wonder If They&rsquo;re Okay.{' '}
-                    <span className="relative inline-block" style={{ color: '#ff6b6b' }}>
-                      Here&rsquo;s Why.
+                    Where Curiosity{' '}
+                    <span className="relative inline-block" style={{ color: CORAL }}>
+                      Grows.
                       <motion.svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 12" fill="none">
-                        <motion.path d="M4 8 C40 2, 80 2, 120 6 C140 8, 170 4, 196 6" stroke="#ff6b6b" strokeWidth="2.5" strokeLinecap="round" fill="none"
+                        <motion.path d="M4 8 C40 2, 80 2, 120 6 C140 8, 170 4, 196 6" stroke={CORAL} strokeWidth="2.5" strokeLinecap="round" fill="none"
                           initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: dur * 1.5, delay: stagger * 5, ease: 'easeOut' }} />
                       </motion.svg>
                     </span>
                   </motion.h2>
                   <motion.p className={`${nunito.className} text-sm sm:text-base max-w-sm mx-auto sm:mx-0 mb-6`} style={{ color: '#888', lineHeight: 1.7 }}
                     initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 4 }}>
-                    A nurturing space where little ones learn, laugh, and grow every day.
+                    Professional early learning with licensed educators who care.
                   </motion.p>
                   <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 5 }}
                     className="flex flex-col sm:flex-row items-center sm:items-start justify-center sm:justify-start gap-4">
-                    <a href="#contact" className={`${nunito.className} inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 sm:px-8 py-3.5 text-sm rounded-3xl transition-all hover:scale-[1.03] active:scale-[0.97]`}
-                      style={{ backgroundColor: '#ff6b6b', color: '#fff', boxShadow: '0 4px 20px rgba(255,107,107,0.35)', fontWeight: 800 }}>
-                      Book a Tour — See For Yourself
+                    <a href="#contact" className={`${nunito.className} inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 sm:px-8 py-3.5 text-sm rounded-2xl transition-all hover:scale-[1.03] active:scale-[0.97]`}
+                      style={{ backgroundColor: CORAL, color: '#fff', boxShadow: `0 4px 20px ${CORAL}35`, fontWeight: 800 }}>
+                      Book a Tour
                       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                     </a>
                     <span className={`${nunito.className} text-sm`} style={{ color: '#ccc' }}>No commitment required</span>
                   </motion.div>
                   <motion.div className="flex items-center justify-center sm:justify-start gap-4 sm:gap-6 mt-6 flex-wrap"
                     initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur, delay: stagger * 6 }}>
-                    {['Licensed', 'First Aid Certified', '15:1 Ratio'].map((badge) => (
-                      <span key={badge} className={`${nunito.className} text-xs font-bold`} style={{ color: '#4ecdc4', letterSpacing: '0.05em' }}>{badge}</span>
+                    {['Licensed', 'First Aid Certified', '6:1 Ratio'].map((badge) => (
+                      <span key={badge} className={`${nunito.className} text-xs font-bold`} style={{ color: TEAL, letterSpacing: '0.05em' }}>{badge}</span>
                     ))}
                   </motion.div>
                 </div>
               </div>
               {/* Shimmer border */}
-              <motion.div className="h-[3px] w-full rounded-b-3xl" style={{ background: 'linear-gradient(90deg, transparent, #ff6b6b, #4ecdc4, #a78bfa, #ffe66d, transparent)', backgroundSize: '200% 100%' }}
+              <motion.div className="h-[3px] w-full rounded-b-3xl" style={{ background: `linear-gradient(90deg, transparent, ${CORAL}, ${TEAL}, ${PURPLE}, ${YELLOW}, transparent)`, backgroundSize: '200% 100%' }}
                 animate={{ backgroundPosition: ['200% 0', '-200% 0'] }} transition={{ duration: 3, repeat: Infinity, ease: 'linear' }} />
             </motion.div>
           )}
@@ -300,7 +302,7 @@ function LiveRedesign() {
       <div className="flex justify-center mt-8">
         <button onClick={() => setTransformed(!transformed)}
           className={`${nunito.className} text-sm font-extrabold px-6 py-3 rounded-full transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]`}
-          style={{ backgroundColor: transformed ? 'rgba(78,205,196,0.12)' : '#fff', color: transformed ? '#4ecdc4' : '#aaa', border: `2px solid ${transformed ? 'rgba(78,205,196,0.3)' : '#e0e0e0'}` }}>
+          style={{ backgroundColor: transformed ? `${TEAL}12` : '#fff', color: transformed ? TEAL : '#aaa', border: `2px solid ${transformed ? `${TEAL}30` : '#e0e0e0'}` }}>
           {transformed ? '← See the Before' : '✨ Watch the Transformation'}
         </button>
       </div>
@@ -309,37 +311,56 @@ function LiveRedesign() {
 }
 
 /* ══════════════════════════════════════════════════════════════
-   LITTLE EXPLORERS DAYCARE — Bright & Playful Demo
+   SUNSHINE DAYCARE — Bright & Playful Demo
+   Order: Nav → Hero → Trust Bar → Safety & Credentials → Daily
+          Schedule → Programs by Age → Meet Our Educators →
+          Transformation → Parent Testimonials → FAQ →
+          Parent Resources → Contact → Footer
    ══════════════════════════════════════════════════════════════ */
 export default function BrightPlayfulDemo() {
   const prefersReduced = useReducedMotion()
 
   const faqItems = [
     {
-      question: 'How long does a website take to build?',
-      answer: 'Most childcare and family business websites are ready in 2–3 weeks. We work fast so you can start attracting new families right away.',
-      color: '#ff6b6b',
+      question: 'What ages do you accept?',
+      answer: 'We welcome children from 6 weeks through 5 years old. Our Before & After School program serves children up to age 12.',
+      color: CORAL,
     },
     {
-      question: 'Can I add a photo gallery and staff pages?',
-      answer: 'Absolutely — those are some of the most important features for daycares. Parents want to see the space, the team, and the activities before they ever visit.',
-      color: '#4ecdc4',
+      question: 'Is childcare subsidy accepted?',
+      answer: 'Yes. We are registered with the BC Childcare Subsidy program. Our admin team helps families complete the application — we make it easy.',
+      color: TEAL,
     },
     {
-      question: 'What if I already have a website?',
-      answer: 'We\'ll review what you have and either redesign it or rebuild it from scratch — whatever gets you to a site that builds trust with parents.',
-      color: '#a78bfa',
+      question: 'How do I book a tour?',
+      answer: 'Call us at (250) 555-0162 or fill out the contact form. We offer tours Monday through Friday at 10 AM or 2 PM, and always love meeting new families.',
+      color: PURPLE,
     },
     {
-      question: 'Do I need to write all the content myself?',
-      answer: 'Not at all. We help with copywriting and can work from notes, a phone call, or even your existing Facebook page. You focus on the kids — we\'ll handle the words.',
-      color: '#ff6b6b',
+      question: 'What is your sick-child policy?',
+      answer: 'Children with fever, vomiting, or contagious illness must stay home until symptom-free for 24 hours. We follow Interior Health guidelines for all communicable diseases.',
+      color: CORAL,
     },
     {
-      question: 'What does it cost?',
-      answer: 'A custom website starts from $1,500. Google Domination (local SEO so parents find you first) starts from $500. Book a free consultation and we\'ll give you a clear, no-surprise quote.',
-      color: '#4ecdc4',
+      question: 'Are you a licensed childcare centre?',
+      answer: 'Yes. Sunshine Daycare is fully licensed by the Province of BC under the Child Care Licensing Regulation. Our licence is posted at the front entrance and available on request.',
+      color: TEAL,
     },
+  ]
+
+  const dailySchedule = [
+    { time: '7:00', label: 'Arrival & Free Play', icon: '🌅', color: '#fff3e0' },
+    { time: '8:30', label: 'Morning Circle', icon: '🎵', color: '#e3f2fd' },
+    { time: '9:00', label: 'Structured Learning', icon: '📚', color: '#f3e5f5' },
+    { time: '10:00', label: 'Outdoor Time', icon: '🌳', color: '#e8f5e9' },
+    { time: '11:00', label: 'Arts & Crafts', icon: '🎨', color: '#fff8e1' },
+    { time: '12:00', label: 'Lunch', icon: '🥗', color: '#fce4ec' },
+    { time: '12:30', label: 'Rest / Quiet Time', icon: '😴', color: '#e8eaf6' },
+    { time: '2:30', label: 'Snack & Story', icon: '📖', color: '#e0f2f1' },
+    { time: '3:00', label: 'Free Choice Play', icon: '🧩', color: '#fff3e0' },
+    { time: '4:00', label: 'Outdoor / Gym', icon: '⚽', color: '#e8f5e9' },
+    { time: '5:00', label: 'Wind Down', icon: '🌙', color: '#e3f2fd' },
+    { time: '5:30', label: 'Home Time', icon: '🏠', color: '#fce4ec' },
   ]
 
   return (
@@ -348,29 +369,29 @@ export default function BrightPlayfulDemo() {
       <style>{confettiStyles}</style>
 
       {/* ═══════════ 1. NAV ═══════════ */}
-      <nav className="px-6 py-4 sticky top-0 z-40" style={{ backgroundColor: '#ffffff', borderBottom: '3px solid #4ecdc4' }}>
+      <nav className="px-6 py-4 sticky top-0 z-40" style={{ backgroundColor: '#ffffff', borderBottom: `3px solid ${TEAL}` }}>
         <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <span className="text-xl md:text-2xl font-extrabold" style={{ color: '#ff6b6b', letterSpacing: '-0.01em' }}>
-            Little Explorers <span style={{ color: '#4ecdc4' }}>Daycare</span>
+          <span className="text-xl md:text-2xl font-extrabold" style={{ color: CORAL, letterSpacing: '-0.01em' }}>
+            Sunshine <span style={{ color: TEAL }}>Daycare</span>
           </span>
           <div className="hidden md:flex items-center gap-8">
-            {['Programs', 'About', 'Gallery', 'Contact'].map((link) => (
+            {['Programs', 'Schedule', 'Educators', 'Contact'].map((link) => (
               <a
                 key={link}
                 href={`#${link.toLowerCase()}`}
                 className="text-sm font-bold transition-colors"
                 style={{ color: '#666' }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = '#ff6b6b')}
+                onMouseEnter={(e) => (e.currentTarget.style.color = CORAL)}
                 onMouseLeave={(e) => (e.currentTarget.style.color = '#666')}
               >
                 {link}
               </a>
             ))}
-            <a href="tel:2505550162" className="text-sm font-extrabold" style={{ color: '#ff6b6b' }}>
+            <a href="tel:2505550162" className="text-sm font-extrabold" style={{ color: CORAL }}>
               (250) 555-0162
             </a>
           </div>
-          <a href="tel:2505550162" className="md:hidden text-sm font-extrabold" style={{ color: '#ff6b6b' }}>
+          <a href="tel:2505550162" className="md:hidden text-sm font-extrabold" style={{ color: CORAL }}>
             (250) 555-0162
           </a>
         </div>
@@ -378,209 +399,338 @@ export default function BrightPlayfulDemo() {
 
       {/* ═══════════ 2. HERO ═══════════ */}
       <section className="relative overflow-hidden" style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', background: 'linear-gradient(135deg, #fff5f5 0%, #f0fffe 50%, #fffbeb 100%)' }}>
-        <Blob className="absolute -top-20 -left-20 w-64 h-64 opacity-10" color="#ff6b6b" />
-        <Blob2 className="absolute top-1/3 -right-16 w-48 h-48 opacity-10" color="#4ecdc4" />
-        <Blob className="absolute bottom-10 left-1/4 w-40 h-40 opacity-8" color="#ffe66d" />
-        <Blob2 className="absolute -bottom-10 right-1/3 w-56 h-56 opacity-8" color="#a78bfa" />
+        <Blob className="absolute -top-20 -left-20 w-64 h-64 opacity-10" color={CORAL} />
+        <Blob2 className="absolute top-1/3 -right-16 w-48 h-48 opacity-10" color={TEAL} />
+        <Blob className="absolute bottom-10 left-1/4 w-40 h-40 opacity-[0.08]" color={YELLOW} />
+        <Blob2 className="absolute -bottom-10 right-1/3 w-56 h-56 opacity-[0.08]" color={PURPLE} />
 
-        <div className="relative max-w-4xl mx-auto text-center px-6 py-28 md:py-40 w-full">
-          <motion.div
-            className="text-6xl md:text-7xl mb-6"
-            initial={prefersReduced ? {} : { scale: 0, rotate: -20 }}
-            animate={prefersReduced ? {} : { scale: 1, rotate: 0 }}
-            transition={prefersReduced ? {} : { type: 'spring', stiffness: 200, damping: 12, delay: 0.2 }}
-          >
-            🌈
-          </motion.div>
-          <motion.h1
-            className="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-6"
-            style={{ color: '#333' }}
-            initial={prefersReduced ? {} : { opacity: 0, y: 30 }}
-            animate={prefersReduced ? {} : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-          >
-            Where <span style={{ color: '#ff6b6b' }}>Fun</span> Comes{' '}
-            <span style={{ color: '#4ecdc4' }}>First!</span>
-          </motion.h1>
-          <motion.p
-            className="text-lg md:text-xl mb-10 max-w-2xl mx-auto"
-            style={{ color: '#666' }}
-            initial={prefersReduced ? {} : { opacity: 0, y: 20 }}
-            animate={prefersReduced ? {} : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.5 }}
-          >
-            A nurturing, creative space where little ones learn, play, and grow every day.
-          </motion.p>
-          <motion.div
-            initial={prefersReduced ? {} : { opacity: 0, y: 20 }}
-            animate={prefersReduced ? {} : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.7 }}
-          >
-            <div className="confetti-parent">
-              {confettiDots.map((dot, i) => (
-                <span
-                  key={i}
-                  className="confetti-dot"
-                  style={{
-                    backgroundColor: dot.color,
-                    '--tx': dot.tx,
-                    '--ty': dot.ty,
-                    animationDelay: `${i * 0.05}s`,
-                  } as React.CSSProperties}
-                />
-              ))}
-              <a
-                href="#contact"
-                className="inline-block px-10 py-4 text-white font-extrabold text-sm rounded-3xl transition-all hover:scale-105"
-                style={{ backgroundColor: '#ff6b6b', boxShadow: '0 4px 20px rgba(255,107,107,0.4)' }}
+        <div className="relative max-w-5xl mx-auto px-6 py-20 md:py-32 w-full">
+          <div className="grid md:grid-cols-2 gap-10 items-center">
+            <div>
+              <motion.div
+                className="inline-block mb-6"
+                initial={prefersReduced ? {} : { opacity: 0, y: 20 }}
+                animate={prefersReduced ? {} : { opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.1 }}
               >
-                Book a Tour 🎈
-              </a>
+                <span className="text-xs font-extrabold uppercase tracking-widest px-4 py-2 rounded-full" style={{ backgroundColor: `${TEAL}15`, color: TEAL, border: `2px solid ${TEAL}25` }}>
+                  Licensed Childcare · Castlegar, BC
+                </span>
+              </motion.div>
+              <motion.h1
+                className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-6"
+                style={{ color: '#222' }}
+                initial={prefersReduced ? {} : { opacity: 0, y: 30 }}
+                animate={prefersReduced ? {} : { opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+              >
+                Where<br />
+                <span style={{ color: CORAL }}>Curiosity</span><br />
+                Grows.
+              </motion.h1>
+              <motion.p
+                className="text-base md:text-lg leading-relaxed mb-8"
+                style={{ color: '#666' }}
+                initial={prefersReduced ? {} : { opacity: 0, y: 20 }}
+                animate={prefersReduced ? {} : { opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+              >
+                Professional early childhood education in a warm, nurturing environment. Your child is safe, learning, and loved — every single day.
+              </motion.p>
+              <motion.div
+                className="flex flex-col sm:flex-row gap-4"
+                initial={prefersReduced ? {} : { opacity: 0, y: 20 }}
+                animate={prefersReduced ? {} : { opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.6 }}
+              >
+                <div className="confetti-parent">
+                  {confettiDots.map((dot, i) => (
+                    <span key={i} className="confetti-dot"
+                      style={{ backgroundColor: dot.color, '--tx': dot.tx, '--ty': dot.ty, animationDelay: `${i * 0.05}s` } as React.CSSProperties}
+                    />
+                  ))}
+                  <a href="#contact"
+                    className="inline-block px-8 py-3.5 font-extrabold text-sm rounded-2xl transition-all hover:scale-105 text-white"
+                    style={{ backgroundColor: CORAL, boxShadow: `0 4px 20px ${CORAL}40` }}>
+                    Book a Tour
+                  </a>
+                </div>
+                <a href="#programs"
+                  className="inline-block px-8 py-3.5 font-extrabold text-sm rounded-2xl transition-all hover:scale-105"
+                  style={{ backgroundColor: '#fff', border: `2px solid ${TEAL}`, color: TEAL }}>
+                  View Programs
+                </a>
+              </motion.div>
+              <motion.p
+                className="mt-4 text-sm"
+                style={{ color: '#999' }}
+                initial={prefersReduced ? {} : { opacity: 0 }}
+                animate={prefersReduced ? {} : { opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.8 }}
+              >
+                Download Parent Handbook →
+              </motion.p>
             </div>
-          </motion.div>
+            <motion.div
+              className="hidden md:block"
+              initial={prefersReduced ? {} : { opacity: 0, x: 20 }}
+              animate={prefersReduced ? {} : { opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+            >
+              <div className="relative rounded-3xl overflow-hidden" style={{ boxShadow: `0 8px 40px rgba(255,107,107,0.2)`, border: `3px solid ${TEAL}30` }}>
+                <Image
+                  src="/images/demos/bright-playful-showcase.webp"
+                  alt="Sunshine Daycare — children learning and playing"
+                  width={600}
+                  height={500}
+                  className="w-full h-auto object-cover"
+                  priority
+                />
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
       {/* ═══════════ 3. TRUST BAR ═══════════ */}
-      <div className="py-5 px-6" style={{ backgroundColor: '#4ecdc4' }}>
+      <div className="py-5 px-6" style={{ backgroundColor: TEAL }}>
         <div className="max-w-5xl mx-auto flex flex-wrap justify-center items-center gap-6 md:gap-10 text-sm font-bold text-white">
           <span className="flex items-center gap-2">
-            <span style={{ color: '#ffe66d' }}>&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            <span style={{ color: YELLOW }}>&#9733;&#9733;&#9733;&#9733;&#9733;</span>
             5.0 Rating
           </span>
           <span className="opacity-50">&#183;</span>
-          <span>Licensed Childcare</span>
+          <span>Licensed by BC</span>
           <span className="opacity-50 hidden md:inline">&#183;</span>
-          <span className="hidden md:inline">8am&ndash;5:30pm</span>
+          <span className="hidden md:inline">First Aid Certified Staff</span>
           <span className="opacity-50 hidden md:inline">&#183;</span>
-          <span className="hidden md:inline">Ages 6 weeks&ndash;5 years</span>
+          <span className="hidden md:inline">Ages 6 weeks – 12 years</span>
         </div>
       </div>
 
-      {/* ═══════════ 4. SERVICES — with PAS intro ═══════════ */}
-      <section id="programs" className="relative py-20 md:py-28 px-6 overflow-hidden" style={{ backgroundColor: '#fff' }}>
-        <Blob className="absolute -top-10 -right-10 w-40 h-40 opacity-5" color="#a78bfa" />
-        <div className="max-w-6xl mx-auto">
+      {/* ═══════════ 4. SAFETY & CREDENTIALS ═══════════ */}
+      <section className="py-16 px-6" style={{ backgroundColor: SOFT_BG }}>
+        <div className="max-w-5xl mx-auto">
           <Bounce>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-4" style={{ color: '#333' }}>
-              What We Can Do For You
+            <h2 className="text-2xl md:text-3xl font-extrabold text-center mb-3" style={{ color: '#222' }}>
+              Your Child&rsquo;s Safety Comes First
             </h2>
+            <p className="text-center text-sm mb-10" style={{ color: '#888' }}>
+              Every policy, every hire, every protocol — designed for peace of mind.
+            </p>
           </Bounce>
 
-          {/* PAS copy */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {[
+              { icon: '🏛️', label: 'Licensed by Province of BC', color: TEAL },
+              { icon: '🚑', label: 'All Staff First Aid Certified', color: CORAL },
+              { icon: '📹', label: 'Security Cameras Throughout', color: PURPLE },
+              { icon: '🌿', label: 'Allergy Protocols in Place', color: '#4caf50' },
+              { icon: '👥', label: '6:1 Child–Educator Ratio', color: YELLOW.replace('#', '#d4a500') },
+              { icon: '🔒', label: 'Secure Entry System', color: CORAL },
+              { icon: '🍱', label: 'Healthy Snacks Provided', color: '#4caf50' },
+              { icon: '💊', label: 'Medication Administration Policy', color: PURPLE },
+            ].map((item) => (
+              <Bounce key={item.label}>
+                <div
+                  className="rounded-2xl p-4 text-center"
+                  style={{ backgroundColor: '#fff', border: `2px solid ${item.color}30`, boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}
+                >
+                  <div className="text-2xl mb-2">{item.icon}</div>
+                  <p className="text-xs font-bold leading-snug" style={{ color: '#444' }}>{item.label}</p>
+                </div>
+              </Bounce>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════ 5. A DAY AT SUNSHINE — Schedule Timeline ═══════════ */}
+      <section id="schedule" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#fff' }}>
+        <div className="max-w-5xl mx-auto">
+          <Bounce>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-3" style={{ color: '#222' }}>
+              A Day at Sunshine
+            </h2>
+            <p className="text-center text-sm mb-12" style={{ color: '#888' }}>
+              Every hour is intentional — structured enough to learn, free enough to explore.
+            </p>
+          </Bounce>
+
+          {/* Horizontal scroll on mobile, grid on desktop */}
           <Bounce delay={0.1}>
-            <p className="text-center text-base md:text-lg leading-relaxed mb-16 max-w-2xl mx-auto" style={{ color: '#999' }}>
-              Parents Google daycares and pick the one that looks most trustworthy online — is that you? If your
-              website doesn&rsquo;t show your space, your team, and your warmth, they&rsquo;re enrolling somewhere else.
-              Let&rsquo;s fix that.
+            <div className="overflow-x-auto pb-4">
+              <div className="flex md:grid md:grid-cols-6 gap-3 min-w-max md:min-w-0">
+                {dailySchedule.map((block, i) => (
+                  <div
+                    key={block.time}
+                    className="rounded-2xl p-4 text-center flex-shrink-0 w-28 md:w-auto"
+                    style={{ backgroundColor: block.color, border: '2px solid rgba(0,0,0,0.05)' }}
+                  >
+                    <p className="text-xs font-extrabold mb-1" style={{ color: '#555' }}>{block.time}</p>
+                    <div className="text-2xl mb-1">{block.icon}</div>
+                    <p className="text-xs font-bold leading-tight" style={{ color: '#333' }}>{block.label}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Bounce>
+          <Bounce delay={0.2}>
+            <p className="text-center text-xs mt-6" style={{ color: '#bbb' }}>
+              Full-day schedule · Mon–Fri · 7:00 AM – 5:30 PM
+            </p>
+          </Bounce>
+        </div>
+      </section>
+
+      {/* ═══════════ 6. PROGRAMS BY AGE ═══════════ */}
+      <section id="programs" className="relative py-20 md:py-28 px-6 overflow-hidden" style={{ background: 'linear-gradient(135deg, #fff5f5 0%, #f0fffe 100%)' }}>
+        <Blob className="absolute -top-10 -right-10 w-40 h-40 opacity-[0.05]" color={PURPLE} />
+        <div className="max-w-5xl mx-auto">
+          <Bounce>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-3" style={{ color: '#222' }}>
+              Programs by Age Group
+            </h2>
+            <p className="text-center text-sm mb-12" style={{ color: '#888' }}>
+              Curriculum and ratios tailored to each developmental stage
+            </p>
+          </Bounce>
+
+          {/* Tab-style program cards */}
+          <div className="grid md:grid-cols-2 gap-6">
+            {[
+              {
+                age: 'Infant',
+                range: '6 weeks – 18 months',
+                ratio: '3:1',
+                color: CORAL,
+                emoji: '🍼',
+                highlights: ['Sensory play & exploration', 'Sleep schedule support', 'Language development', 'Skin-to-skin bonding time'],
+                hours: '7:00 AM – 5:30 PM',
+                rate: 'Starting at $45/day',
+              },
+              {
+                age: 'Toddler',
+                range: '18 months – 3 years',
+                ratio: '4:1',
+                color: TEAL,
+                emoji: '🧸',
+                highlights: ['Potty training support', 'Gross motor development', 'Early language skills', 'Parallel & co-operative play'],
+                hours: '7:00 AM – 5:30 PM',
+                rate: 'Starting at $40/day',
+              },
+              {
+                age: 'Preschool',
+                range: '3 – 5 years',
+                ratio: '8:1',
+                color: PURPLE,
+                emoji: '🎨',
+                highlights: ['School readiness programs', 'Letters, numbers & phonics', 'Social-emotional learning', 'Kindergarten preparation'],
+                hours: '7:00 AM – 5:30 PM',
+                rate: 'Starting at $35/day',
+              },
+              {
+                age: 'Before & After School',
+                range: '5 – 12 years',
+                ratio: '10:1',
+                color: '#4caf50',
+                emoji: '🚌',
+                highlights: ['Bus pickup & drop-off available', 'Homework help hour', 'Active outdoor time', 'Arts, STEM & free choice'],
+                hours: '7:00 – 8:30 AM · 3:00 – 5:30 PM',
+                rate: 'Starting at $15/session',
+              },
+            ].map((program) => (
+              <Bounce key={program.age}>
+                <div
+                  className="rounded-3xl p-6 h-full"
+                  style={{ backgroundColor: '#fff', border: `3px solid ${program.color}`, boxShadow: `0 4px 16px ${program.color}18` }}
+                >
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="text-3xl">{program.emoji}</div>
+                    <div>
+                      <h3 className="text-xl font-extrabold" style={{ color: program.color }}>{program.age}</h3>
+                      <p className="text-xs font-bold" style={{ color: '#888' }}>{program.range}</p>
+                    </div>
+                    <div className="ml-auto text-right">
+                      <p className="text-xs font-extrabold uppercase tracking-wide" style={{ color: program.color }}>Ratio</p>
+                      <p className="text-lg font-extrabold" style={{ color: '#333' }}>{program.ratio}</p>
+                    </div>
+                  </div>
+                  <ul className="space-y-2 mb-4">
+                    {program.highlights.map((h) => (
+                      <li key={h} className="flex items-start gap-2 text-sm" style={{ color: '#555' }}>
+                        <span style={{ color: program.color }}>✓</span>
+                        {h}
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="border-t pt-4 flex items-center justify-between" style={{ borderColor: `${program.color}20` }}>
+                    <p className="text-xs" style={{ color: '#888' }}>{program.hours}</p>
+                    <p className="text-sm font-extrabold" style={{ color: program.color }}>{program.rate}</p>
+                  </div>
+                </div>
+              </Bounce>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════ 7. MEET OUR EDUCATORS ═══════════ */}
+      <section id="educators" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#fff' }}>
+        <div className="max-w-5xl mx-auto">
+          <Bounce>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-3" style={{ color: '#222' }}>
+              Meet Our Educators
+            </h2>
+            <p className="text-center text-sm mb-12" style={{ color: '#888' }}>
+              Parents choose a daycare based on the people. Here&rsquo;s our team.
             </p>
           </Bounce>
 
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
-                title: 'Custom Website',
-                price: 'From $1,500',
-                desc: 'A colourful, welcoming website that shows parents exactly why their kids will love it here.',
-                color: '#ff6b6b',
+                name: 'Lisa T.',
+                role: 'Director & Lead ECE',
+                cert: 'ECE Level 3 · 12 years',
+                note: '"Every child deserves to feel seen, safe, and celebrated — that\'s the Sunshine promise."',
+                color: CORAL,
+                emoji: '🌟',
+              },
+              {
+                name: 'Ms. Sarah K.',
+                role: 'Infant & Toddler Lead',
+                cert: 'Infant Toddler Specialist · 8 years',
+                note: '"Reading time is my favourite part of every day. The look on their faces when a story surprises them — priceless."',
+                color: TEAL,
+                emoji: '📚',
+              },
+              {
+                name: 'Mr. James W.',
+                role: 'Preschool Educator',
+                cert: 'ECE Level 2 · 5 years',
+                note: '"I believe the best learning happens when kids don\'t realize they\'re learning at all."',
+                color: PURPLE,
                 emoji: '🎨',
               },
-              {
-                title: 'Google Visibility',
-                price: 'From $500',
-                desc: 'Help parents find you when they search for childcare in the Kootenays.',
-                color: '#4ecdc4',
-                emoji: '📍',
-              },
-              {
-                title: 'Social Media',
-                price: 'From $750',
-                desc: 'Engaging posts and updates that build community and trust with families.',
-                color: '#a78bfa',
-                emoji: '💜',
-              },
-            ].map((card, i) => (
-              <Bounce key={card.title} delay={i * 0.12}>
-                <motion.div
-                  className="p-8 text-center rounded-3xl cursor-default"
-                  style={{
-                    backgroundColor: '#fff',
-                    border: `3px solid ${card.color}`,
-                    boxShadow: '0 4px 20px rgba(0,0,0,0.06)',
-                  }}
-                  whileHover={prefersReduced ? {} : { rotate: [-1, 1, -1, 0], transition: { duration: 0.4 } }}
+            ].map((educator) => (
+              <Bounce key={educator.name}>
+                <div
+                  className="rounded-3xl p-6 text-center"
+                  style={{ backgroundColor: '#fff', border: `3px solid ${educator.color}30`, boxShadow: `0 4px 16px ${educator.color}12` }}
                 >
-                  <div className="text-4xl mb-4">{card.emoji}</div>
-                  <h3 className="text-xl font-extrabold mb-1" style={{ color: card.color }}>
-                    {card.title}
-                  </h3>
-                  <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: `${card.color}88` }}>
-                    {card.price}
-                  </p>
-                  <p className="leading-relaxed text-sm" style={{ color: '#666' }}>
-                    {card.desc}
-                  </p>
-                </motion.div>
-              </Bounce>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════ 5. HOW IT WORKS ═══════════ */}
-      <section className="relative py-20 md:py-28 px-6 overflow-hidden" style={{ background: 'linear-gradient(135deg, #fff5f5 0%, #f0fffe 100%)' }}>
-        <Blob2 className="absolute -bottom-10 -left-10 w-40 h-40 opacity-8" color="#ffe66d" />
-        <div className="max-w-4xl mx-auto">
-          <Bounce>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-4" style={{ color: '#333' }}>
-              How It Works ✨
-            </h2>
-            <p className="text-center mb-14 max-w-xl mx-auto" style={{ color: '#999' }}>
-              Three easy steps to a website families will love
-            </p>
-          </Bounce>
-
-          <div className="grid md:grid-cols-3 gap-8 relative">
-            <div
-              className="hidden md:block absolute top-10 left-[calc(16.66%+2rem)] right-[calc(16.66%+2rem)] h-1 rounded-full"
-              style={{ background: 'linear-gradient(90deg, #ff6b6b, #4ecdc4, #a78bfa)' }}
-            />
-            {[
-              {
-                step: '1',
-                emoji: '👋',
-                title: 'We Talk',
-                desc: 'A free, friendly chat about your daycare, what makes it special, and what you need from a website.',
-                color: '#ff6b6b',
-              },
-              {
-                step: '2',
-                emoji: '🎨',
-                title: 'We Build',
-                desc: 'We design and build your site in about 2 weeks — colourful, warm, and totally on-brand for your centre.',
-                color: '#4ecdc4',
-              },
-              {
-                step: '3',
-                emoji: '🚀',
-                title: 'You Grow',
-                desc: 'Launch, get found on Google, and start getting enquiry emails from parents who love what they see.',
-                color: '#a78bfa',
-              },
-            ].map((item, i) => (
-              <Bounce key={item.step} delay={i * 0.15}>
-                <div className="flex flex-col items-center text-center">
                   <div
-                    className="w-20 h-20 rounded-full flex items-center justify-center mb-4 text-2xl relative z-10 shadow-md"
-                    style={{ backgroundColor: item.color }}
+                    className="w-20 h-20 rounded-full mx-auto mb-4 flex items-center justify-center text-4xl"
+                    style={{ backgroundColor: `${educator.color}15`, border: `3px solid ${educator.color}40` }}
                   >
-                    {item.emoji}
+                    {educator.emoji}
                   </div>
-                  <h3 className="text-xl font-extrabold mb-2" style={{ color: item.color }}>
-                    {item.title}
-                  </h3>
-                  <p className="text-sm leading-relaxed" style={{ color: '#888' }}>
-                    {item.desc}
+                  <h3 className="text-lg font-extrabold mb-1" style={{ color: '#222' }}>{educator.name}</h3>
+                  <p className="text-sm font-bold mb-1" style={{ color: educator.color }}>{educator.role}</p>
+                  <p className="text-xs mb-4" style={{ color: '#888' }}>{educator.cert}</p>
+                  <div className="w-full h-px mb-4" style={{ backgroundColor: `${educator.color}20` }} />
+                  <p className="text-sm italic leading-relaxed" style={{ color: '#666' }}>
+                    &ldquo;{educator.note}&rdquo;
                   </p>
                 </div>
               </Bounce>
@@ -589,57 +739,12 @@ export default function BrightPlayfulDemo() {
         </div>
       </section>
 
-      {/* ═══════════ 6. GALLERY ═══════════ */}
-      <section id="gallery" className="relative py-20 md:py-28 px-6 overflow-hidden" style={{ backgroundColor: '#fff' }}>
-        <div className="max-w-6xl mx-auto">
-          <Bounce>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-4" style={{ color: '#333' }}>
-              A Day at Little Explorers
-            </h2>
-            <p className="text-center mb-12 max-w-xl mx-auto" style={{ color: '#999' }}>
-              Smiles, creativity, and adventure — every single day
-            </p>
-          </Bounce>
-
-          <Bounce delay={0.1}>
-            <div className="flex justify-center mb-10">
-              <div className="rounded-3xl overflow-hidden" style={{ boxShadow: '0 8px 30px rgba(0,0,0,0.1)' }}>
-                <Image
-                  src="/images/demos/bright-playful-showcase.webp"
-                  alt="Little Explorers Daycare — children playing and learning"
-                  width={800}
-                  height={500}
-                  className="w-full h-auto max-w-3xl block"
-                />
-              </div>
-            </div>
-          </Bounce>
-
-          <div className="grid grid-cols-3 gap-4 md:gap-6">
-            {[
-              { label: 'Arts & Crafts', color: '#ff6b6b' },
-              { label: 'Outdoor Play', color: '#4ecdc4' },
-              { label: 'Story Time', color: '#a78bfa' },
-            ].map((item, i) => (
-              <Bounce key={item.label} delay={0.15 + i * 0.1}>
-                <div className='relative aspect-[4/3] rounded-xl overflow-hidden'>
-                  <Image src={`/images/demos/gallery/bp-${i + 1}.webp`} alt={item.label} fill className='object-cover' />
-                  <div className='absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-3'>
-                    <span className='text-white text-sm font-medium'>{item.label}</span>
-                  </div>
-                </div>
-              </Bounce>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════ 7. THE TRANSFORMATION ═══════════ */}
+      {/* ═══════════ 8. THE TRANSFORMATION ═══════════ */}
       <section className="relative py-20 md:py-28 px-6 overflow-hidden" style={{ background: 'linear-gradient(135deg, #f0fffe 0%, #fffbeb 100%)' }}>
-        <Blob className="absolute -top-10 -right-10 w-40 h-40 opacity-6" color="#ff6b6b" />
+        <Blob className="absolute -top-10 -right-10 w-40 h-40 opacity-[0.06]" color={CORAL} />
         <div className="max-w-5xl mx-auto">
           <Bounce>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-4" style={{ color: '#333' }}>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-4" style={{ color: '#222' }}>
               Watch Your Website Transform ✨
             </h2>
             <p className="text-center text-sm mb-12" style={{ color: '#aaa' }}>
@@ -653,66 +758,58 @@ export default function BrightPlayfulDemo() {
         </div>
       </section>
 
-      {/* ═══════════ 8. TESTIMONIALS (3) ═══════════ */}
+      {/* ═══════════ 9. PARENT TESTIMONIALS ═══════════ */}
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#fff' }}>
         <div className="max-w-5xl mx-auto">
           <Bounce>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-4" style={{ color: '#333' }}>
-              Happy Families 💛
+            <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-3" style={{ color: '#222' }}>
+              What Parents Are Saying 💛
             </h2>
-            <p className="text-center mb-16 max-w-xl mx-auto" style={{ color: '#999' }}>
-              Real results for real Kootenay businesses
+            <p className="text-center text-sm mb-16" style={{ color: '#888' }}>
+              Specific, warm, and age-tagged — because parents trust parents
             </p>
           </Bounce>
 
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
-                quote: 'We were running on word-of-mouth only. Within two weeks of launching our new site, we had a waitlist. Parents said the website made them feel safe right away.',
+                quote: 'My 3-year-old comes home singing new songs every day. She actually asks to go on weekends. Sunshine has been incredible — I never worry while I\'m at work.',
                 author: 'Jennifer L.',
-                business: 'Sunflower Early Learning',
-                town: 'Castlegar',
-                color: '#ff6b6b',
+                age: 'Parent of a 3-year-old',
+                color: CORAL,
                 emoji: '🌻',
               },
               {
-                quote: 'Our enrolments doubled in the first month. Families told us our site looked the most professional and trustworthy out of all the daycares they visited online.',
-                author: 'Marcus &amp; Tanya R.',
-                business: 'Pebble Creek Pet Resort',
-                town: 'Nelson',
-                color: '#4ecdc4',
-                emoji: '🐾',
+                quote: 'We were nervous about our infant starting daycare. The Sunshine team sent us daily photos the first week. By day three, we were the ones who needed reassurance, not him.',
+                author: 'Marcus & Tanya R.',
+                age: 'Parents of a 9-month-old',
+                color: TEAL,
+                emoji: '🍼',
               },
               {
-                quote: 'I run a small boutique and thought a nice website was out of my budget. Kootenay Made proved me wrong — and now I get found on Google every week.',
-                author: 'Carla W.',
-                business: 'Bloom &amp; Co. Boutique',
-                town: 'Revelstoke',
-                color: '#a78bfa',
-                emoji: '🛍️',
+                quote: 'Our daughter started at Sunshine shy and barely speaking. Six months later, she\'s the kid who introduces herself to strangers. The educators deserve all the credit.',
+                author: 'Priya S.',
+                age: 'Parent of a 4-year-old',
+                color: PURPLE,
+                emoji: '🌈',
               },
-            ].map((t, i) => (
-              <Bounce key={t.author} delay={i * 0.12}>
+            ].map((t) => (
+              <Bounce key={t.author}>
                 <div
-                  className="p-8 rounded-3xl h-full"
-                  style={{
-                    border: `3px solid ${t.color}`,
-                    boxShadow: `0 4px 20px ${t.color}18`,
-                  }}
+                  className="rounded-3xl p-6 h-full"
+                  style={{ border: `3px solid ${t.color}`, boxShadow: `0 4px 20px ${t.color}18` }}
                 >
                   <div className="text-3xl mb-4">{t.emoji}</div>
                   <div className="flex gap-1 mb-4">
                     {Array.from({ length: 5 }).map((_, j) => (
-                      <span key={j} style={{ color: '#ffe66d' }}>★</span>
+                      <span key={j} style={{ color: YELLOW }}>★</span>
                     ))}
                   </div>
                   <blockquote className="text-sm leading-relaxed mb-5" style={{ color: '#555' }}>
                     &ldquo;{t.quote}&rdquo;
                   </blockquote>
-                  <p className="font-extrabold text-sm" style={{ color: t.color }}>
-                    &mdash; <span dangerouslySetInnerHTML={{ __html: t.author }} />, {t.town}
-                  </p>
-                  <p className="text-xs mt-1" style={{ color: '#ccc' }}>{t.business}</p>
+                  <p className="font-extrabold text-sm" style={{ color: t.color }}>— {t.author}</p>
+                  <p className="text-xs mt-1" style={{ color: '#bbb' }}>{t.age}</p>
                 </div>
               </Bounce>
             ))}
@@ -725,13 +822,13 @@ export default function BrightPlayfulDemo() {
         </div>
       </section>
 
-      {/* ═══════════ 9. FAQ ═══════════ */}
+      {/* ═══════════ 10. FAQ ═══════════ */}
       <section className="relative py-20 md:py-28 px-6 overflow-hidden" style={{ background: 'linear-gradient(135deg, #fff5f5 0%, #f0fffe 100%)' }}>
-        <Blob2 className="absolute -bottom-10 -right-10 w-48 h-48 opacity-8" color="#a78bfa" />
+        <Blob2 className="absolute -bottom-10 -right-10 w-48 h-48 opacity-[0.08]" color={PURPLE} />
         <div className="max-w-3xl mx-auto">
           <Bounce>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-4" style={{ color: '#333' }}>
-              Got Questions? 🙋
+            <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-3" style={{ color: '#222' }}>
+              Questions From Parents 🙋
             </h2>
             <p className="text-center mb-12" style={{ color: '#999' }}>
               Here are the ones we hear most often
@@ -748,28 +845,41 @@ export default function BrightPlayfulDemo() {
         </div>
       </section>
 
-      {/* ═══════════ 10. ABOUT ═══════════ */}
-      <section id="about" className="relative py-20 md:py-28 px-6 overflow-hidden" style={{ backgroundColor: '#fff' }}>
-        <Blob className="absolute -bottom-16 -right-16 w-48 h-48 opacity-8" color="#ff6b6b" />
-        <div className="max-w-3xl mx-auto text-center">
+      {/* ═══════════ 11. PARENT RESOURCES ═══════════ */}
+      <section className="py-16 px-6" style={{ backgroundColor: SOFT_BG }}>
+        <div className="max-w-4xl mx-auto">
           <Bounce>
-            <h2 className="text-3xl md:text-4xl font-extrabold mb-6" style={{ color: '#333' }}>
-              About Little Explorers
+            <h2 className="text-2xl md:text-3xl font-extrabold text-center mb-10" style={{ color: '#222' }}>
+              Parent Resources
             </h2>
           </Bounce>
-          <Bounce delay={0.15}>
-            <p className="text-lg leading-relaxed" style={{ color: '#666' }}>
-              Little Explorers Daycare was founded by parents, for parents. We know how important it is to find a safe, joyful place for your child to learn and grow. Our licensed team of early childhood educators creates a warm, stimulating environment where children aged 6 weeks to 5 years can explore through play, art, music, and nature. Located in the heart of Castlegar, we have been a trusted part of the community since 2016 &mdash; and we would love for your family to become part of ours.
-            </p>
-          </Bounce>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {[
+              { icon: '📋', label: 'Enrollment Forms', sub: 'Download & return', color: CORAL },
+              { icon: '📖', label: 'Parent Handbook', sub: 'Policies & procedures', color: TEAL },
+              { icon: '🥗', label: 'Monthly Menu', sub: 'What we serve', color: '#4caf50' },
+              { icon: '🎒', label: 'What to Pack', sub: 'Daily checklist', color: PURPLE },
+            ].map((r) => (
+              <Bounce key={r.label}>
+                <div
+                  className="rounded-2xl p-5 text-center cursor-pointer transition-all hover:scale-[1.03]"
+                  style={{ backgroundColor: '#fff', border: `2px solid ${r.color}30`, boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}
+                >
+                  <div className="text-3xl mb-2">{r.icon}</div>
+                  <p className="text-sm font-extrabold" style={{ color: r.color }}>{r.label}</p>
+                  <p className="text-xs mt-1" style={{ color: '#aaa' }}>{r.sub}</p>
+                </div>
+              </Bounce>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* ═══════════ 11. CONTACT ═══════════ */}
+      {/* ═══════════ 12. CONTACT ═══════════ */}
       <section id="contact" className="py-20 md:py-28 px-6" style={{ background: 'linear-gradient(135deg, #fffbeb 0%, #f0fffe 100%)' }}>
         <div className="max-w-6xl mx-auto">
           <Bounce>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-12" style={{ color: '#333' }}>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-12" style={{ color: '#222' }}>
               Come Say Hi! 👋
             </h2>
           </Bounce>
@@ -778,35 +888,26 @@ export default function BrightPlayfulDemo() {
             <Bounce>
               <div className="space-y-6">
                 <div>
-                  <h3 className="font-extrabold mb-1" style={{ color: '#ff6b6b' }}>Phone</h3>
+                  <h3 className="font-extrabold mb-1" style={{ color: CORAL }}>Phone</h3>
                   <p style={{ color: '#666' }}>(250) 555-0162</p>
                 </div>
                 <div>
-                  <h3 className="font-extrabold mb-1" style={{ color: '#4ecdc4' }}>Hours</h3>
-                  <p style={{ color: '#666' }}>Mon&ndash;Fri 7:30 AM &ndash; 5:30 PM</p>
+                  <h3 className="font-extrabold mb-1" style={{ color: TEAL }}>Hours</h3>
+                  <p style={{ color: '#666' }}>Mon&ndash;Fri 7:00 AM &ndash; 5:30 PM</p>
                 </div>
                 <div>
-                  <h3 className="font-extrabold mb-1" style={{ color: '#a78bfa' }}>Location</h3>
-                  <p style={{ color: '#666' }}>123 Sample Ave, Castlegar, BC</p>
+                  <h3 className="font-extrabold mb-1" style={{ color: PURPLE }}>Location</h3>
+                  <p style={{ color: '#666' }}>123 Sample St, Castlegar, BC</p>
                 </div>
                 <div className="confetti-parent">
                   {confettiDots.map((dot, i) => (
-                    <span
-                      key={i}
-                      className="confetti-dot"
-                      style={{
-                        backgroundColor: dot.color,
-                        '--tx': dot.tx,
-                        '--ty': dot.ty,
-                        animationDelay: `${i * 0.05}s`,
-                      } as React.CSSProperties}
+                    <span key={i} className="confetti-dot"
+                      style={{ backgroundColor: dot.color, '--tx': dot.tx, '--ty': dot.ty, animationDelay: `${i * 0.05}s` } as React.CSSProperties}
                     />
                   ))}
-                  <a
-                    href="tel:2505550162"
-                    className="inline-block px-8 py-3.5 text-white font-extrabold text-sm rounded-3xl transition-all hover:scale-105 mt-4"
-                    style={{ backgroundColor: '#ff6b6b', boxShadow: '0 4px 20px rgba(255,107,107,0.3)' }}
-                  >
+                  <a href="tel:2505550162"
+                    className="inline-block px-8 py-3.5 text-white font-extrabold text-sm rounded-2xl transition-all hover:scale-105 mt-4"
+                    style={{ backgroundColor: CORAL, boxShadow: `0 4px 20px ${CORAL}30` }}>
                     Book a Tour 🎈
                   </a>
                 </div>
@@ -816,43 +917,35 @@ export default function BrightPlayfulDemo() {
             <Bounce delay={0.15}>
               <form onSubmit={(e) => e.preventDefault()} className="space-y-5">
                 <div>
-                  <label className="block text-sm font-extrabold mb-1.5" style={{ color: '#333' }}>Name</label>
-                  <input
-                    type="text"
-                    placeholder="Your name"
+                  <label className="block text-sm font-extrabold mb-1.5" style={{ color: '#333' }}>Parent Name</label>
+                  <input type="text" placeholder="Your name"
                     className="w-full px-4 py-3 rounded-2xl text-sm outline-none transition-all"
                     style={{ border: '2px solid #e0e0e0', color: '#333' }}
-                    onFocus={(e) => (e.currentTarget.style.borderColor = '#4ecdc4')}
+                    onFocus={(e) => (e.currentTarget.style.borderColor = TEAL)}
                     onBlur={(e) => (e.currentTarget.style.borderColor = '#e0e0e0')}
                   />
                 </div>
                 <div>
                   <label className="block text-sm font-extrabold mb-1.5" style={{ color: '#333' }}>Email</label>
-                  <input
-                    type="email"
-                    placeholder="you@example.com"
+                  <input type="email" placeholder="you@example.com"
                     className="w-full px-4 py-3 rounded-2xl text-sm outline-none transition-all"
                     style={{ border: '2px solid #e0e0e0', color: '#333' }}
-                    onFocus={(e) => (e.currentTarget.style.borderColor = '#4ecdc4')}
+                    onFocus={(e) => (e.currentTarget.style.borderColor = TEAL)}
                     onBlur={(e) => (e.currentTarget.style.borderColor = '#e0e0e0')}
                   />
                 </div>
                 <div>
                   <label className="block text-sm font-extrabold mb-1.5" style={{ color: '#333' }}>Message</label>
-                  <textarea
-                    rows={4}
-                    placeholder="Tell us about your child and schedule needs..."
+                  <textarea rows={4} placeholder="Tell us about your child — age, schedule needs, any questions..."
                     className="w-full px-4 py-3 rounded-2xl text-sm outline-none transition-all resize-none"
                     style={{ border: '2px solid #e0e0e0', color: '#333' }}
-                    onFocus={(e) => (e.currentTarget.style.borderColor = '#4ecdc4')}
+                    onFocus={(e) => (e.currentTarget.style.borderColor = TEAL)}
                     onBlur={(e) => (e.currentTarget.style.borderColor = '#e0e0e0')}
                   />
                 </div>
-                <button
-                  type="submit"
+                <button type="submit"
                   className="w-full px-8 py-3.5 text-white font-extrabold text-sm rounded-2xl transition-all hover:opacity-90"
-                  style={{ backgroundColor: '#4ecdc4' }}
-                >
+                  style={{ backgroundColor: TEAL }}>
                   Send Message
                 </button>
               </form>
@@ -861,43 +954,35 @@ export default function BrightPlayfulDemo() {
         </div>
       </section>
 
-      {/* ═══════════ 12. FOOTER ═══════════ */}
-      <footer className="py-14 px-6" style={{ backgroundColor: '#333' }}>
+      {/* ═══════════ 13. FOOTER ═══════════ */}
+      <footer className="py-14 px-6" style={{ backgroundColor: '#222' }}>
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-3 gap-10 mb-10">
             <div>
               <h3 className="text-lg font-extrabold text-white mb-3">
-                Little Explorers <span style={{ color: '#4ecdc4' }}>Daycare</span>
+                Sunshine <span style={{ color: TEAL }}>Daycare</span>
               </h3>
               <p className="text-sm text-white/50">
-                A joyful place where children learn and grow.
+                Licensed early childhood care in Castlegar, BC.
               </p>
             </div>
             <div>
               <h4 className="text-sm font-extrabold text-white mb-3">Quick Links</h4>
               <div className="flex flex-col gap-2">
-                {['Programs', 'About', 'Gallery', 'Contact'].map((link) => (
-                  <a
-                    key={link}
-                    href={`#${link.toLowerCase()}`}
-                    className="text-sm text-white/50 hover:text-white transition-colors"
-                  >
-                    {link}
-                  </a>
+                {['Programs', 'Schedule', 'Educators', 'Contact'].map((link) => (
+                  <a key={link} href={`#${link.toLowerCase()}`} className="text-sm text-white/50 hover:text-white transition-colors">{link}</a>
                 ))}
               </div>
             </div>
             <div>
               <h4 className="text-sm font-extrabold text-white mb-3">Info</h4>
-              <p className="text-sm text-white/50 mb-1">Mon&ndash;Fri 7:30 AM &ndash; 5:30 PM</p>
-              <p className="text-sm text-white/50 mb-1">123 Sample Ave, Castlegar, BC</p>
+              <p className="text-sm text-white/50 mb-1">Mon–Fri 7:00 AM – 5:30 PM</p>
+              <p className="text-sm text-white/50 mb-1">123 Sample St, Castlegar, BC</p>
               <p className="text-sm text-white/50">(250) 555-0162</p>
             </div>
           </div>
           <div className="border-t border-white/10 pt-6 text-center">
-            <span className="text-sm text-white/30">
-              &copy; 2025 Little Explorers Daycare. All rights reserved.
-            </span>
+            <span className="text-sm text-white/30">&copy; 2025 Sunshine Daycare. All rights reserved.</span>
           </div>
         </div>
       </footer>
@@ -906,10 +991,10 @@ export default function BrightPlayfulDemo() {
       <div
         className="fixed bottom-0 left-0 right-0 z-50 px-4 py-3"
         style={{
-          backgroundColor: 'rgba(255,255,255,0.95)',
+          backgroundColor: 'rgba(255,255,255,0.96)',
           backdropFilter: 'blur(12px)',
           WebkitBackdropFilter: 'blur(12px)',
-          borderTop: '3px solid #4ecdc4',
+          borderTop: `3px solid ${TEAL}`,
         }}
       >
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
@@ -917,16 +1002,16 @@ export default function BrightPlayfulDemo() {
             <span className="text-sm text-center sm:text-left" style={{ color: '#666' }}>
               Sample design by <strong style={{ color: '#333' }}>Kootenay Made Digital</strong>
             </span>
-            <a href="tel:2505550000" className="hidden sm:inline text-sm font-extrabold" style={{ color: '#ff6b6b' }}>
+            <a href="tel:2505550000" className="hidden sm:inline text-sm font-extrabold" style={{ color: CORAL }}>
               (250) 555-0000
             </a>
           </div>
           <Link
             href="/contact?style=bright-playful"
-            className="inline-block px-6 py-2.5 text-sm font-extrabold rounded-3xl transition-all hover:scale-105 whitespace-nowrap text-white"
-            style={{ backgroundColor: '#ff6b6b' }}
+            className="inline-block px-6 py-2.5 text-sm font-extrabold rounded-2xl transition-all hover:scale-105 whitespace-nowrap text-white"
+            style={{ backgroundColor: CORAL }}
           >
-            Like What You See? Let's Talk &rarr;
+            Like What You See? Let&rsquo;s Talk &rarr;
           </Link>
         </div>
       </div>

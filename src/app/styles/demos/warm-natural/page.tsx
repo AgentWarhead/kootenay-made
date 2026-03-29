@@ -4,7 +4,7 @@ import { useState, useRef } from 'react'
 import { Lora, Nunito } from 'next/font/google'
 import Image from 'next/image'
 import Link from 'next/link'
-import { motion, useReducedMotion, useInView, AnimatePresence, type Variants } from 'framer-motion'
+import { motion, useReducedMotion, AnimatePresence, type Variants } from 'framer-motion'
 
 const lora = Lora({ subsets: ['latin'], weight: ['400', '700'] })
 const nunito = Nunito({ subsets: ['latin'], weight: ['400', '600'] })
@@ -49,18 +49,6 @@ const fadeUp: Variants = {
 const staggerContainer: Variants = {
   hidden: {},
   visible: { transition: { staggerChildren: 0.15 } },
-}
-
-function Section({ children, className, style, id }: { children: React.ReactNode; className?: string; style?: React.CSSProperties; id?: string }) {
-  const prefersReduced = useReducedMotion()
-  return (
-    <motion.section id={id} className={className} style={style}
-      initial={prefersReduced ? 'visible' : 'hidden'}
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.15 }}
-      variants={fadeUp}
-    >{children}</motion.section>
-  )
 }
 
 function Reveal({ children, className = '', delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
@@ -196,7 +184,6 @@ function LiveRedesign() {
               </div>
               {/* Hero */}
               <div className="relative px-5 sm:px-10 md:px-16 py-8 sm:py-10 flex-1 flex flex-col justify-center">
-                {/* Decorative SVG waves */}
                 <motion.div className="absolute top-0 right-0 pointer-events-none" initial={{ opacity: 0 }} animate={{ opacity: 0.18 }} transition={{ duration: dur, delay: stagger * 3 }}>
                   <svg width="240" height="240" viewBox="0 0 180 180" fill="none">
                     <path d="M180 20 C140 30, 100 10, 60 40 C20 70, 10 120, 30 160" stroke={sage} strokeWidth="1.5" fill="none" strokeLinecap="round" />
@@ -208,13 +195,11 @@ function LiveRedesign() {
                   </svg>
                 </motion.div>
                 <div className="relative z-10 text-center sm:text-left">
-                  {/* Business chip */}
                   <motion.div className="flex justify-center sm:justify-start mb-3 sm:mb-5" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
                     <span className={`${nunito.className} text-xs font-semibold uppercase tracking-[0.2em] px-5 py-2 rounded-full`} style={{ backgroundColor: `${sage}18`, color: sage, border: `1px solid ${sage}25` }}>
                       Est. 2014 &mdash; West Kootenay
                     </span>
                   </motion.div>
-                  {/* Headline */}
                   <motion.h2 className={`${lora.className} text-2xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.15] mb-4 sm:mb-5 sm:max-w-xl`}
                     style={{ color: '#8b7355' }}
                     initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
@@ -228,23 +213,20 @@ function LiveRedesign() {
                       </motion.svg>
                     </span>
                   </motion.h2>
-                  {/* Subline */}
                   <motion.p className={`${nunito.className} text-sm sm:text-lg max-w-md sm:mx-0 mx-auto mb-6 sm:mb-8`}
                     style={{ color: '#8b7355', opacity: 0.7, lineHeight: 1.7 }}
                     initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 4 }}>
                     Yoga, massage, reiki &mdash; a sanctuary designed to quiet the noise and restore your balance.
                   </motion.p>
-                  {/* CTA */}
                   <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 5 }}
                     className="flex flex-col sm:flex-row items-center sm:items-start justify-center sm:justify-start gap-4">
                     <a href="#contact" className={`${lora.className} inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 text-sm sm:text-base rounded-xl transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]`}
                       style={{ backgroundColor: sage, color: '#fff', boxShadow: `0 4px 20px ${sage}35`, letterSpacing: '0.02em' }}>
-                      Book Your Escape
+                      View Schedule
                       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
                     </a>
                     <span className={`${nunito.className} text-sm`} style={{ color: '#999' }}>No commitment required</span>
                   </motion.div>
-                  {/* Trust signals */}
                   <motion.div className="flex items-center justify-center sm:justify-start gap-4 sm:gap-6 mt-5 sm:mt-8 flex-wrap"
                     initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur, delay: stagger * 6 }}>
                     {['Certified RYT-500', '10+ Classes Weekly', 'All Levels'].map((badge) => (
@@ -253,19 +235,17 @@ function LiveRedesign() {
                   </motion.div>
                 </div>
               </div>
-              {/* Shimmer border */}
               <div className="h-[3px] w-full" style={{ background: `linear-gradient(90deg, ${sage}, ${warm}, ${sage})`, backgroundSize: '200% 100%', animation: 'shimmer-border 3s linear infinite' }} />
             </motion.div>
           )}
         </AnimatePresence>
       </div>
 
-      {/* Toggle button */}
       <div className="flex justify-center mt-8">
         <button
           onClick={() => setTransformed(!transformed)}
           className={`${nunito.className} text-sm font-medium px-6 py-3 rounded-full transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]`}
-          style={{ backgroundColor: transformed ? `${sage}15` : '#fff', color: transformed ? darkSage : '#666', border: `1.5px solid ${transformed ? `${sage}30` : '#ddd'}`, boxShadow: transformed ? `0 2px 12px ${sage}10` : '0 1px 4px rgba(0,0,0,0.06)' }}
+          style={{ backgroundColor: transformed ? `${'#7d9a6b'}15` : '#fff', color: transformed ? '#4f6e40' : '#666', border: `1.5px solid ${transformed ? `${'#7d9a6b'}30` : '#ddd'}`, boxShadow: transformed ? `0 2px 12px ${'#7d9a6b'}10` : '0 1px 4px rgba(0,0,0,0.06)' }}
         >
           {transformed ? '← See the Before' : '✨ Watch the Transformation'}
         </button>
@@ -274,7 +254,7 @@ function LiveRedesign() {
   )
 }
 
-/* ── FAQ Accordion (warm style) ────────────────────────────── */
+/* ── FAQ Accordion (warm style) ── */
 function FAQAccordion({ items }: { items: { q: string; a: string }[] }) {
   const [open, setOpen] = useState<number | null>(null)
   const prefersReduced = useReducedMotion()
@@ -306,35 +286,62 @@ function FAQAccordion({ items }: { items: { q: string; a: string }[] }) {
 export default function WarmNaturalDemo() {
   const prefersReduced = useReducedMotion()
 
-  const services = [
+  const schedule = [
     {
-      title: 'Custom Website',
-      desc: 'A beautiful, calming website that reflects your wellness practice and invites new clients. From $1,500.',
-      icon: (
-        <svg className="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="#7d9a6b" strokeWidth={1.5}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
-        </svg>
-      ),
+      day: 'MON',
+      classes: [
+        { name: 'Morning Flow', time: '7:00 AM', instructor: 'Priya', level: 'All Levels', color: '#7d9a6b' },
+        { name: 'Restorative Yoga', time: '6:00 PM', instructor: 'Mei', level: 'Restorative', color: '#d4a574' },
+      ],
     },
     {
-      title: 'Google Visibility',
-      desc: 'Show up when people search for wellness and healing in the Kootenays. Google Domination from $500.',
-      icon: (
-        <svg className="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="#7d9a6b" strokeWidth={1.5}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-        </svg>
-      ),
+      day: 'TUE',
+      classes: [
+        { name: 'Vinyasa Flow', time: '9:00 AM', instructor: 'Priya', level: 'Intermediate', color: '#a8c09a' },
+        { name: 'Yin & Breathwork', time: '7:00 PM', instructor: 'Mei', level: 'All Levels', color: '#d4a574' },
+      ],
     },
     {
-      title: 'Email Marketing',
-      desc: 'Stay in touch with clients without lifting a finger. Class updates, seasonal offers, done. From $750.',
-      icon: (
-        <svg className="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="#7d9a6b" strokeWidth={1.5}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
-        </svg>
-      ),
+      day: 'WED',
+      classes: [
+        { name: 'Gentle Yoga', time: '10:00 AM', instructor: 'Sasha', level: 'All Levels', color: '#7d9a6b' },
+        { name: 'Power Flow', time: '5:30 PM', instructor: 'Priya', level: 'Intermediate', color: '#a8c09a' },
+      ],
+    },
+    {
+      day: 'THU',
+      classes: [
+        { name: 'Morning Meditation', time: '7:30 AM', instructor: 'Mei', level: 'All Levels', color: '#d4a574' },
+        { name: 'Deep Stretch', time: '6:00 PM', instructor: 'Sasha', level: 'Restorative', color: '#d4a574' },
+      ],
+    },
+    {
+      day: 'FRI',
+      classes: [
+        { name: 'Flow & Restore', time: '9:00 AM', instructor: 'Priya', level: 'All Levels', color: '#7d9a6b' },
+        { name: 'Candlelight Yoga', time: '7:00 PM', instructor: 'Mei', level: 'Restorative', color: '#d4a574' },
+      ],
+    },
+    {
+      day: 'SAT',
+      classes: [
+        { name: 'Weekend Flow', time: '8:30 AM', instructor: 'Priya', level: 'All Levels', color: '#7d9a6b' },
+        { name: 'Sound Bath', time: '4:00 PM', instructor: 'Sasha', level: 'All Levels', color: '#d4a574' },
+      ],
+    },
+    {
+      day: 'SUN',
+      classes: [
+        { name: 'Slow Sunday', time: '10:00 AM', instructor: 'Mei', level: 'Restorative', color: '#d4a574' },
+      ],
     },
   ]
+
+  const levelColors: Record<string, string> = {
+    'All Levels': '#7d9a6b',
+    'Intermediate': '#a8c09a',
+    'Restorative': '#d4a574',
+  }
 
   return (
     <div className={nunito.className} style={{ fontFamily: 'Nunito, sans-serif', color: '#8b7355' }}>
@@ -362,7 +369,7 @@ export default function WarmNaturalDemo() {
           <div className="max-w-6xl mx-auto flex items-center justify-between">
             <span className={`${lora.className} text-xl md:text-2xl font-bold`} style={{ color: '#8b7355', fontStyle: 'italic', letterSpacing: '0.03em' }}>Mountain Flow Wellness</span>
             <div className="hidden md:flex items-center gap-8">
-              {['Services', 'About', 'Our Space', 'Contact'].map((label) => (
+              {['Schedule', 'Classes', 'About', 'Contact'].map((label) => (
                 <a key={label} href={`#${label.toLowerCase().replace(/\s+/g, '-')}`} className="text-sm transition-colors" style={{ color: '#8b7355' }}
                   onMouseEnter={(e) => (e.currentTarget.style.color = '#7d9a6b')}
                   onMouseLeave={(e) => (e.currentTarget.style.color = '#8b7355')}>{label}</a>
@@ -381,68 +388,171 @@ export default function WarmNaturalDemo() {
             initial={prefersReduced ? {} : { opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: 'easeOut' }}>
-            <h1 className={`${lora.className} text-5xl md:text-7xl font-bold leading-tight mb-6`} style={{ color: '#8b7355' }}>Find Your Balance</h1>
+            <h1 className={`${lora.className} text-5xl md:text-7xl font-bold leading-tight mb-6`} style={{ color: '#8b7355' }}>You Carry Enough.<br /><span style={{ color: '#7d9a6b', fontStyle: 'italic' }}>Put It Down.</span></h1>
             <p className="text-lg md:text-xl mb-10 max-w-xl mx-auto leading-relaxed" style={{ color: '#8b7355', opacity: 0.75 }}>
-              A holistic wellness sanctuary in the heart of Nelson, offering yoga, massage therapy, and mindful healing.
+              A holistic wellness sanctuary in the heart of Nelson — yoga, massage, and mindful healing. All levels welcome.
             </p>
-            <a href="#contact" className="inline-block px-10 py-4 text-white font-semibold text-sm rounded-full transition-all hover:shadow-lg"
+            <a href="#schedule" className="inline-block px-10 py-4 text-white font-semibold text-sm rounded-full transition-all hover:shadow-lg"
               style={{ backgroundColor: '#7d9a6b', boxShadow: '0 4px 20px rgba(125,154,107,0.3)' }}
               onMouseEnter={(e) => (e.currentTarget.style.transform = 'translateY(-2px)')}
               onMouseLeave={(e) => (e.currentTarget.style.transform = 'translateY(0)')}>
-              Book Your Session
+              View This Week&rsquo;s Schedule
             </a>
           </motion.div>
         </section>
 
         {/* ── TRUST BAR ── */}
-        <Section style={{ backgroundColor: '#d4a574' }} className="py-5 px-6">
-          <div className="max-w-5xl mx-auto flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-sm font-semibold" style={{ color: '#8b7355' }}>
+        <div style={{ backgroundColor: '#d4a574' }} className="py-5 px-6">
+          <div className="max-w-5xl mx-auto flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-sm font-semibold">
             <span className="flex items-center gap-1"><span style={{ color: '#faf6f0' }}>&#9733;&#9733;&#9733;&#9733;&#9733;</span><span style={{ color: '#faf6f0' }}>4.9 Rating</span></span>
             <span style={{ color: '#faf6f0', opacity: 0.5 }}>&#183;</span>
-            <span style={{ color: '#faf6f0' }}>10+ Years</span>
+            <span style={{ color: '#faf6f0' }}>RYT-500 Certified</span>
             <span style={{ color: '#faf6f0', opacity: 0.5 }}>&#183;</span>
-            <span style={{ color: '#faf6f0' }}>Certified Practitioner</span>
+            <span style={{ color: '#faf6f0' }}>10+ Classes Weekly</span>
             <span style={{ color: '#faf6f0', opacity: 0.5 }}>&#183;</span>
-            <span style={{ color: '#faf6f0' }}>Welcoming New Clients</span>
+            <span style={{ color: '#faf6f0' }}>All Levels Welcome</span>
           </div>
-        </Section>
+        </div>
 
-        {/* ── SERVICES ── */}
-        <Section id="services" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#faf6f0' }}>
-          <div className="max-w-5xl mx-auto">
-            <h2 className={`${lora.className} text-3xl md:text-4xl font-bold text-center mb-4`} style={{ color: '#8b7355' }}>Our Offerings</h2>
-
-            {/* PAS Copy */}
-            <Reveal delay={0.05}>
-              <div className="max-w-2xl mx-auto text-center mb-8">
-                <p className="text-base md:text-lg leading-relaxed" style={{ color: '#8b7355', opacity: 0.85 }}>
-                  Your healing practice deserves better than a free Wix site that screams amateur. Your clients are seeking trust and serenity before they even walk in. The wellness studio across town is fully booked every week — not because they&rsquo;re better, but because their online presence reflects the care they give.{' '}
-                  <span style={{ color: '#7d9a6b', fontWeight: 600 }}>Let&rsquo;s make yours feel that way too.</span>
-                </p>
+        {/* ── WEEKLY CLASS SCHEDULE ── */}
+        <div style={{ height: '60px', background: 'linear-gradient(to bottom, #d4a574, #faf6f0)' }} />
+        <section id="schedule" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#faf6f0' }}>
+          <div className="max-w-6xl mx-auto">
+            <Reveal className="text-center mb-4">
+              <h2 className={`${lora.className} text-3xl md:text-4xl font-bold`} style={{ color: '#8b7355' }}>This Week&rsquo;s Classes</h2>
+            </Reveal>
+            <Reveal delay={0.05} className="text-center mb-12">
+              <p className="text-sm max-w-md mx-auto" style={{ color: '#8b7355', opacity: 0.6 }}>
+                All classes held at 123 Sample St, Nelson · Drop-ins always welcome
+              </p>
+              {/* Legend */}
+              <div className="flex items-center justify-center gap-6 mt-6 flex-wrap">
+                {Object.entries(levelColors).map(([level, color]) => (
+                  <span key={level} className="flex items-center gap-2 text-xs font-semibold" style={{ color: '#8b7355' }}>
+                    <span className="w-3 h-3 rounded-full inline-block" style={{ backgroundColor: color }} />
+                    {level}
+                  </span>
+                ))}
               </div>
             </Reveal>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4">
+              {schedule.map((day, di) => (
+                <Reveal key={day.day} delay={di * 0.06}>
+                  <div className="flex flex-col gap-2">
+                    <div className="text-center py-2 rounded-full text-xs font-bold uppercase tracking-wider mb-1"
+                      style={{ backgroundColor: '#7d9a6b', color: '#fff' }}>
+                      {day.day}
+                    </div>
+                    {day.classes.map((cls, ci) => (
+                      <div key={ci} className="p-3 rounded-2xl text-center"
+                        style={{ backgroundColor: '#fffcf7', border: `1px solid ${cls.color}25`, boxShadow: '0 2px 8px rgba(139,115,85,0.06)' }}>
+                        <div className="w-2.5 h-2.5 rounded-full mx-auto mb-2" style={{ backgroundColor: levelColors[cls.level] }} />
+                        <p className={`${lora.className} text-xs font-bold mb-1`} style={{ color: '#8b7355' }}>{cls.name}</p>
+                        <p className="text-xs" style={{ color: '#8b7355', opacity: 0.6 }}>{cls.time}</p>
+                        <p className="text-xs mt-1" style={{ color: '#7d9a6b', opacity: 0.8 }}>{cls.instructor}</p>
+                      </div>
+                    ))}
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+            <Reveal delay={0.3} className="text-center mt-10">
+              <a href="#contact" className="inline-block px-8 py-3.5 text-white font-semibold text-sm rounded-full"
+                style={{ backgroundColor: '#7d9a6b', boxShadow: '0 4px 16px rgba(125,154,107,0.25)' }}>
+                Book a Class
+              </a>
+            </Reveal>
+          </div>
+        </section>
 
-            <p className="text-center mb-16 max-w-md mx-auto" style={{ color: '#8b7355', opacity: 0.6 }}>Digital support designed with the same care you give your clients</p>
-            <motion.div className="grid md:grid-cols-3 gap-8"
+        {/* ── YOUR FIRST VISIT GUIDE ── */}
+        <div style={{ height: '60px', background: 'linear-gradient(to bottom, #faf6f0, #f5f0e8)' }} />
+        <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#f5f0e8' }}>
+          <div className="max-w-4xl mx-auto">
+            <Reveal className="text-center mb-4">
+              <h2 className={`${lora.className} text-3xl md:text-4xl font-bold`} style={{ color: '#8b7355' }}>Your First Visit</h2>
+            </Reveal>
+            <Reveal delay={0.05} className="text-center mb-14">
+              <p className="text-sm max-w-md mx-auto" style={{ color: '#8b7355', opacity: 0.6 }}>
+                Never been to a yoga studio? We&rsquo;ve made it easy. No experience necessary.
+              </p>
+            </Reveal>
+            <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-8">
+              {[
+                { num: '1', icon: '📅', title: 'Browse the Schedule', desc: 'Find a class that fits your week. All Levels classes are the perfect starting point.' },
+                { num: '2', icon: '⏰', title: 'Arrive 10 Min Early', desc: 'A few minutes to settle in, meet the instructor, and let us know it\'s your first class.' },
+                { num: '3', icon: '🧘', title: 'We Provide Everything', desc: 'Mats, blocks, blankets, and props — all included. Just bring comfortable clothes.' },
+                { num: '4', icon: '🌿', title: 'Just Breathe', desc: 'There\'s no performing. No judgment. Your practice is yours, at your own pace.' },
+              ].map((step, i) => (
+                <Reveal key={step.num} delay={i * 0.12}>
+                  <div className="text-center p-6 rounded-2xl" style={{ backgroundColor: '#fffcf7', border: '1px solid rgba(125,154,107,0.15)', boxShadow: '0 2px 16px rgba(139,115,85,0.06)' }}>
+                    <div className="text-3xl mb-3">{step.icon}</div>
+                    <div className="w-7 h-7 rounded-full flex items-center justify-center mx-auto mb-3" style={{ backgroundColor: '#7d9a6b' }}>
+                      <span className={`${lora.className} text-sm font-bold text-white`}>{step.num}</span>
+                    </div>
+                    <h3 className={`${lora.className} text-base font-bold mb-2`} style={{ color: '#8b7355' }}>{step.title}</h3>
+                    <p className="text-xs leading-relaxed" style={{ color: '#8b7355', opacity: 0.7 }}>{step.desc}</p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── CLASS PACKS ── */}
+        <div style={{ height: '60px', background: 'linear-gradient(to bottom, #f5f0e8, #faf6f0)' }} />
+        <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#faf6f0' }}>
+          <div className="max-w-5xl mx-auto">
+            <Reveal className="text-center mb-4">
+              <h2 className={`${lora.className} text-3xl md:text-4xl font-bold`} style={{ color: '#8b7355' }}>Choose Your Practice</h2>
+            </Reveal>
+            <Reveal delay={0.05} className="text-center mb-14">
+              <p className="text-sm max-w-md mx-auto" style={{ color: '#8b7355', opacity: 0.6 }}>Flexible options so you can show up whenever you need it most.</p>
+            </Reveal>
+            <motion.div className="grid sm:grid-cols-2 md:grid-cols-4 gap-6"
               initial={prefersReduced ? 'visible' : 'hidden'}
               whileInView="visible"
               viewport={{ once: true, amount: 0.2 }}
               variants={staggerContainer}>
-              {services.map((card) => (
-                <motion.div key={card.title} variants={fadeUp} className="relative p-8 text-center transition-shadow hover:shadow-xl"
-                  style={{ backgroundColor: '#fffcf7', borderRadius: '60% 40% 55% 45% / 45% 55% 40% 60%', boxShadow: '0 4px 24px rgba(139,115,85,0.08)', padding: '3rem 2rem' }}>
-                  <div className="flex justify-center mb-5">{card.icon}</div>
-                  <h3 className={`${lora.className} text-xl font-bold mb-3`} style={{ color: '#8b7355' }}>{card.title}</h3>
-                  <p className="leading-relaxed text-sm" style={{ color: '#8b7355', opacity: 0.7 }}>{card.desc}</p>
+              {[
+                { label: 'Drop-In', price: '$20', desc: 'One class, anytime. Perfect for travellers or the curious.', highlight: false },
+                { label: '5-Class Pack', price: '$85', desc: 'Save $15 over drop-in. Great for trying a few classes.', highlight: false },
+                { label: '10-Class Pack', price: '$150', desc: 'The sweet spot. Saves $50. No expiry for 6 months.', highlight: true, badge: 'Best Value' },
+                { label: 'Unlimited Monthly', price: '$120', desc: 'All classes, all month. Commit to your practice.', highlight: false },
+              ].map((pack) => (
+                <motion.div key={pack.label} variants={fadeUp}
+                  className="relative p-7 text-center rounded-2xl transition-all hover:shadow-lg"
+                  style={{
+                    backgroundColor: pack.highlight ? '#7d9a6b' : '#fffcf7',
+                    border: pack.highlight ? 'none' : '1px solid rgba(125,154,107,0.2)',
+                    boxShadow: pack.highlight ? '0 8px 32px rgba(125,154,107,0.3)' : '0 2px 12px rgba(139,115,85,0.06)',
+                    transform: pack.highlight ? 'scale(1.04)' : 'scale(1)',
+                  }}>
+                  {pack.badge && (
+                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-xs font-bold"
+                      style={{ backgroundColor: '#d4a574', color: '#fff' }}>
+                      {pack.badge}
+                    </div>
+                  )}
+                  <h3 className={`${lora.className} text-lg font-bold mb-2`} style={{ color: pack.highlight ? '#fff' : '#8b7355' }}>{pack.label}</h3>
+                  <div className={`${lora.className} text-4xl font-bold mb-3`} style={{ color: pack.highlight ? '#fff' : '#7d9a6b' }}>{pack.price}</div>
+                  <p className="text-xs leading-relaxed mb-5" style={{ color: pack.highlight ? 'rgba(255,255,255,0.85)' : '#8b7355', opacity: pack.highlight ? 1 : 0.7 }}>{pack.desc}</p>
+                  <a href="#contact" className="inline-block px-5 py-2 rounded-full text-xs font-semibold transition-all"
+                    style={{
+                      backgroundColor: pack.highlight ? '#fff' : '#7d9a6b',
+                      color: pack.highlight ? '#7d9a6b' : '#fff',
+                    }}>
+                    Get Started
+                  </a>
                 </motion.div>
               ))}
             </motion.div>
           </div>
-        </Section>
+        </section>
 
         {/* ── HOW IT WORKS ── */}
         <div style={{ height: '60px', background: 'linear-gradient(to bottom, #faf6f0, #f5f0e8)' }} />
-        <Section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#f5f0e8' }}>
+        <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#f5f0e8' }}>
           <div className="max-w-4xl mx-auto">
             <h2 className={`${lora.className} text-3xl md:text-4xl font-bold text-center mb-4`} style={{ color: '#8b7355' }}>How It Works</h2>
             <p className="text-center mb-16 max-w-md mx-auto text-sm" style={{ color: '#8b7355', opacity: 0.6 }}>Simple, gentle, no pressure. Just like your practice.</p>
@@ -464,34 +574,66 @@ export default function WarmNaturalDemo() {
               ))}
             </div>
           </div>
-        </Section>
+        </section>
 
-        {/* ── GALLERY ── */}
-        <div style={{ height: '60px', background: 'linear-gradient(to bottom, #f5f0e8, #f7f2ea)' }} />
-        <Section id="our-space" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#f7f2ea' }}>
+        {/* ── MEET YOUR TEACHERS ── */}
+        <div style={{ height: '60px', background: 'linear-gradient(to bottom, #f5f0e8, #faf6f0)' }} />
+        <section id="about" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#faf6f0' }}>
           <div className="max-w-5xl mx-auto">
-            <h2 className={`${lora.className} text-3xl md:text-4xl font-bold text-center mb-16`} style={{ color: '#8b7355' }}>Our Space</h2>
-            <div className="flex justify-center mb-12">
-              <div style={{ borderRadius: '55% 45% 50% 50% / 45% 50% 50% 55%', overflow: 'hidden', boxShadow: '0 8px 40px rgba(139,115,85,0.15)' }}>
-                <Image src="/images/demos/warm-natural-showcase.webp" alt="Mountain Flow Wellness space" width={800} height={500} className="block" style={{ objectFit: 'cover' }} priority />
-              </div>
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              {['Yoga Studio', 'Treatment Room', 'Meditation Garden', 'Welcome Area'].map((label, i) => (
-                <div key={label} className='relative aspect-[4/3] rounded-xl overflow-hidden'>
-                  <Image src={`/images/demos/gallery/wn-${i + 1}.webp`} alt={label} fill className='object-cover' />
-                  <div className='absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-3'>
-                    <span className='text-white text-sm font-medium'>{label}</span>
+            <Reveal className="text-center mb-4">
+              <h2 className={`${lora.className} text-3xl md:text-4xl font-bold`} style={{ color: '#8b7355' }}>Meet Your Teachers</h2>
+            </Reveal>
+            <Reveal delay={0.05} className="text-center mb-14">
+              <p className="text-sm max-w-md mx-auto" style={{ color: '#8b7355', opacity: 0.6 }}>
+                People choose a studio based on the teacher. Here&rsquo;s who&rsquo;ll be guiding your practice.
+              </p>
+            </Reveal>
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-8">
+              {[
+                { name: 'Priya Sharma', creds: 'RYT-500 · 8 Years', specialty: 'Vinyasa, Power Flow', quote: '"Yoga isn\'t about flexibility — it\'s about showing up."', img: '/images/demos/warm-natural-showcase.webp' },
+                { name: 'Mei Chen', creds: 'RYT-200 · Reiki Level 2', specialty: 'Yin, Restorative, Sound', quote: '"The mat is a safe place for whatever you\'re carrying."', img: '/images/demos/gallery/wn-1.webp' },
+                { name: 'Sasha Okafor', creds: 'RYT-300 · 5 Years', specialty: 'Gentle, Deep Stretch', quote: '"Every body is a yoga body. No exceptions."', img: '/images/demos/gallery/wn-2.webp' },
+              ].map((teacher, i) => (
+                <Reveal key={teacher.name} delay={i * 0.12}>
+                  <div className="text-center p-6 rounded-2xl" style={{ backgroundColor: '#fffcf7', border: '1px solid rgba(125,154,107,0.15)', boxShadow: '0 4px 20px rgba(139,115,85,0.08)' }}>
+                    <div className="relative w-28 h-28 mx-auto mb-5 rounded-full overflow-hidden"
+                      style={{ border: '3px solid rgba(125,154,107,0.3)' }}>
+                      <Image src={teacher.img} alt={teacher.name} fill className="object-cover" />
+                    </div>
+                    <h3 className={`${lora.className} text-xl font-bold mb-1`} style={{ color: '#8b7355' }}>{teacher.name}</h3>
+                    <p className="text-xs font-semibold mb-1" style={{ color: '#7d9a6b' }}>{teacher.creds}</p>
+                    <p className="text-xs mb-4" style={{ color: '#8b7355', opacity: 0.6 }}>{teacher.specialty}</p>
+                    <p className="text-xs italic leading-relaxed px-2" style={{ color: '#8b7355', opacity: 0.75 }}>{teacher.quote}</p>
                   </div>
-                </div>
+                </Reveal>
               ))}
             </div>
           </div>
-        </Section>
+        </section>
 
-        {/* ═══════════ 7. THE TRANSFORMATION ═══════════ */}
-        <div style={{ height: '60px', background: 'linear-gradient(to bottom, #f7f2ea, #faf6f0)' }} />
-        <Section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#faf6f0' }}>
+        {/* ── TESTIMONIAL — Single linen-textured ── */}
+        <div style={{ height: '60px', background: 'linear-gradient(to bottom, #faf6f0, #ede8de)' }} />
+        <section className="py-24 md:py-36 px-6 relative overflow-hidden" style={{ backgroundColor: '#ede8de' }}>
+          {/* Subtle linen texture overlay */}
+          <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='4' height='4' fill='%23e8dfd2'/%3E%3Crect x='0' y='0' width='1' height='1' fill='%23ddd4c4' opacity='0.5'/%3E%3Crect x='2' y='2' width='1' height='1' fill='%23ddd4c4' opacity='0.3'/%3E%3C/svg%3E")`, opacity: 0.6 }} />
+          <Reveal className="relative max-w-2xl mx-auto text-center">
+            <div className="flex justify-center gap-1 mb-8">
+              {[...Array(5)].map((_, j) => <Star key={j} />)}
+            </div>
+            <blockquote className={`${lora.className} text-2xl md:text-3xl leading-relaxed mb-8`} style={{ color: '#6b5a44', fontStyle: 'italic' }}>
+              &ldquo;Bookings doubled in the first month. Clients tell me they booked because the website made them feel calm and safe before they even met me.&rdquo;
+            </blockquote>
+            <p className={`${lora.className} font-bold`} style={{ color: '#8b7355' }}>— Sarah L.</p>
+            <p className="text-sm mt-1" style={{ color: '#8b7355', opacity: 0.55 }}>Roots &amp; Restore Yoga &middot; Nelson</p>
+            <Reveal delay={0.3} className="mt-6">
+              <p className="text-xs italic" style={{ color: '#8b7355', opacity: 0.35 }}>(Sample review — your real reviews go here)</p>
+            </Reveal>
+          </Reveal>
+        </section>
+
+        {/* ═══════════ THE TRANSFORMATION ═══════════ */}
+        <div style={{ height: '60px', background: 'linear-gradient(to bottom, #ede8de, #faf6f0)' }} />
+        <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#faf6f0' }}>
           <div className="max-w-5xl mx-auto">
             <Reveal>
               <h2 className={`${lora.className} text-3xl md:text-4xl font-bold text-center mb-4`} style={{ color: '#8b7355' }}>Watch Your Website Transform</h2>
@@ -499,70 +641,28 @@ export default function WarmNaturalDemo() {
             </Reveal>
             <LiveRedesign />
           </div>
-        </Section>
-
-        {/* ── TESTIMONIALS (3) ── */}
-        <div style={{ height: '60px', background: 'linear-gradient(to bottom, #faf6f0, #f5f0e8)' }} />
-        <Section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#f5f0e8' }}>
-          <div className="max-w-5xl mx-auto">
-            <h2 className={`${lora.className} text-3xl md:text-4xl font-bold text-center mb-4`} style={{ color: '#8b7355' }}>From Our Community</h2>
-            <p className="text-center mb-16 text-sm" style={{ color: '#8b7355', opacity: 0.6 }}>Real practices. Real results.</p>
-            <div className="grid md:grid-cols-3 gap-8">
-              {[
-                { quote: 'Bookings doubled in the first month. Clients tell me they booked because the website made them feel calm and safe before they even met me.', name: 'Sarah L.', biz: 'Roots & Restore Yoga', town: 'Nelson' },
-                { quote: 'My old website was embarrassing to share. Now I send it to every potential client with pride. We\'re fully booked three weeks out.', name: 'Priya M.', biz: 'Kootenay Mindful Massage', town: 'Kaslo' },
-                { quote: 'I finally found us on Google! Before, nobody could find our studio unless they already knew us. Now new clients call us every week.', name: 'Trish B.', biz: 'Mountain Sage Wellness', town: 'Nakusp' },
-              ].map((t, i) => (
-                <Reveal key={i} delay={i * 0.12}>
-                  <div className="p-8 text-center" style={{ backgroundColor: '#fffcf7', borderRadius: '55% 45% 50% 50% / 45% 50% 50% 55%', boxShadow: '0 4px 24px rgba(139,115,85,0.08)', padding: '2.5rem 2rem' }}>
-                    <div className="flex justify-center gap-1 mb-4">{[...Array(5)].map((_, j) => <Star key={j} />)}</div>
-                    <blockquote className="text-sm leading-relaxed mb-5" style={{ color: '#8b7355' }}>&ldquo;{t.quote}&rdquo;</blockquote>
-                    <p className={`${lora.className} font-bold text-sm`} style={{ color: '#8b7355' }}>&mdash; {t.name}</p>
-                    <p className="text-xs mt-1" style={{ color: '#8b7355', opacity: 0.5 }}>{t.biz} &middot; {t.town}</p>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
-            <Reveal delay={0.4} className="mt-8">
-              <p className="text-center text-xs italic" style={{ color: '#8b7355', opacity: 0.35 }}>(Sample reviews &mdash; your real reviews go here)</p>
-            </Reveal>
-          </div>
-        </Section>
+        </section>
 
         {/* ── FAQ ── */}
-        <div style={{ height: '60px', background: 'linear-gradient(to bottom, #f5f0e8, #faf6f0)' }} />
-        <Section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#faf6f0' }}>
+        <div style={{ height: '60px', background: 'linear-gradient(to bottom, #faf6f0, #f5f0e8)' }} />
+        <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#f5f0e8' }}>
           <div className="max-w-2xl mx-auto">
-            <h2 className={`${lora.className} text-3xl md:text-4xl font-bold text-center mb-4`} style={{ color: '#8b7355' }}>Questions & Answers</h2>
-            <p className="text-center mb-12 text-sm" style={{ color: '#8b7355', opacity: 0.6 }}>Everything you need to know before we begin.</p>
+            <h2 className={`${lora.className} text-3xl md:text-4xl font-bold text-center mb-4`} style={{ color: '#8b7355' }}>Questions &amp; Answers</h2>
+            <p className="text-center mb-12 text-sm" style={{ color: '#8b7355', opacity: 0.6 }}>Everything you need to know before your first class.</p>
             <FAQAccordion items={[
-              { q: 'How long does a website take?', a: 'About 2–3 weeks from our first conversation to launch. We work thoughtfully and keep you involved at every step — no surprises.' },
-              { q: 'Can it connect to my booking system?', a: 'Yes. We integrate with Jane App, Mindbody, Acuity, Calendly, and most booking platforms so clients can book directly from your site.' },
-              { q: 'What if I already have a website?', a: 'We redesign it to reflect who you actually are — warm, professional, and trustworthy. You keep your URL and don\'t lose anything.' },
-              { q: 'Do I need to write the content myself?', a: 'Not at all. We have a gentle intake process to learn your story, then we write the words. You review, we refine.' },
-              { q: 'What does it cost?', a: 'Custom wellness websites start from $1,500. A full brand package starts from $4,000. Book a free consultation to discuss what\'s right for your practice.' },
-              { q: 'Will my site reflect the calming feeling of my practice?', a: 'That\'s our specialty. Every colour, font, and word is chosen to make visitors feel at ease — the same way your clients feel in your space.' },
+              { q: 'Do I need to book in advance?', a: 'We recommend booking online to guarantee your spot — popular classes fill up. Drop-ins are also welcome if space is available.' },
+              { q: 'What should I bring to my first class?', a: 'Just yourself in comfortable clothes. We provide mats, blocks, blankets, and all props. Water bottle welcome.' },
+              { q: 'I\'m not flexible — is yoga still for me?', a: 'Absolutely. Flexibility is the result of yoga, not a requirement. All Level classes are designed for every body.' },
+              { q: 'What\'s the difference between class types?', a: 'All Levels is accessible to everyone. Intermediate builds on basics. Restorative is slow, supported, and deeply relaxing — perfect for stress or injury recovery.' },
+              { q: 'Do you offer private sessions?', a: 'Yes. Private yoga and massage therapy sessions are available. Contact us to schedule — from $90/hr.' },
+              { q: 'What is your cancellation policy?', a: 'Cancel up to 4 hours before class for a full credit. Late cancellations are counted as attended.' },
             ]} />
           </div>
-        </Section>
-
-        {/* ── ABOUT ── */}
-        <div style={{ height: '60px', background: 'linear-gradient(to bottom, #faf6f0, #f5f0e8)' }} />
-        <Section id="about" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#f5f0e8' }}>
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className={`${lora.className} text-3xl md:text-4xl font-bold mb-8`} style={{ color: '#8b7355' }}>About Mountain Flow</h2>
-            <p className="text-lg leading-relaxed mb-6" style={{ color: '#8b7355', opacity: 0.85 }}>
-              Mountain Flow Wellness is a women-owned holistic wellness practice nestled in the heart of Nelson, BC. We are dedicated to healing through yoga, massage therapy, and mindfulness.
-            </p>
-            <p className="text-lg leading-relaxed" style={{ color: '#8b7355', opacity: 0.85 }}>
-              Whether you are seeking relief from tension, deepening your yoga practice, or simply looking for a peaceful place to pause — Mountain Flow is here for you.
-            </p>
-          </div>
-        </Section>
+        </section>
 
         {/* ── CONTACT ── */}
         <div style={{ height: '60px', background: 'linear-gradient(to bottom, #f5f0e8, #faf6f0)' }} />
-        <Section id="contact" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#faf6f0' }}>
+        <section id="contact" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#faf6f0' }}>
           <div className="max-w-5xl mx-auto">
             <h2 className={`${lora.className} text-3xl md:text-4xl font-bold text-center mb-16`} style={{ color: '#8b7355' }}>Get In Touch</h2>
             <div className="grid md:grid-cols-2 gap-12 md:gap-16">
@@ -571,33 +671,34 @@ export default function WarmNaturalDemo() {
                 <div className="space-y-4 text-sm" style={{ color: '#8b7355', opacity: 0.85 }}>
                   <p><span className="font-semibold" style={{ opacity: 1 }}>Phone:</span> (250) 555-0165</p>
                   <p><span className="font-semibold" style={{ opacity: 1 }}>Email:</span> hello@mountainflow.ca</p>
-                  <p><span className="font-semibold" style={{ opacity: 1 }}>Hours:</span> Tue&ndash;Sat 9:00 AM &ndash; 6:00 PM</p>
+                  <p><span className="font-semibold" style={{ opacity: 1 }}>Hours:</span> Mon&ndash;Sat 7:00 AM &ndash; 8:00 PM</p>
                   <p><span className="font-semibold" style={{ opacity: 1 }}>Location:</span> 123 Sample St, Nelson, BC</p>
                 </div>
               </div>
               <div>
-                <h3 className={`${lora.className} text-xl font-bold mb-6`} style={{ color: '#8b7355' }}>Book an Appointment</h3>
+                <h3 className={`${lora.className} text-xl font-bold mb-6`} style={{ color: '#8b7355' }}>Book a Class</h3>
                 <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
                   <input type="text" placeholder="Name" className="w-full px-4 py-3 text-sm outline-none transition-shadow focus:shadow-md" style={{ backgroundColor: '#fffcf7', border: '1px solid rgba(125,154,107,0.25)', borderRadius: '30px 20px 25px 35px / 25px 35px 20px 30px', color: '#8b7355' }} />
                   <input type="email" placeholder="Email" className="w-full px-4 py-3 text-sm outline-none transition-shadow focus:shadow-md" style={{ backgroundColor: '#fffcf7', border: '1px solid rgba(125,154,107,0.25)', borderRadius: '25px 35px 30px 20px / 30px 20px 35px 25px', color: '#8b7355' }} />
                   <select className="w-full px-4 py-3 text-sm outline-none transition-shadow focus:shadow-md" style={{ backgroundColor: '#fffcf7', border: '1px solid rgba(125,154,107,0.25)', borderRadius: '20px 30px 35px 25px / 35px 25px 30px 20px', color: '#8b7355' }} defaultValue="">
-                    <option value="" disabled>Select a Service</option>
-                    <option>Yoga Session</option>
+                    <option value="" disabled>Select a Class Type</option>
+                    <option>Morning Flow</option>
+                    <option>Vinyasa Flow</option>
+                    <option>Restorative Yoga</option>
                     <option>Massage Therapy</option>
-                    <option>Mindfulness Coaching</option>
-                    <option>Other</option>
+                    <option>Private Session</option>
                   </select>
-                  <textarea placeholder="Message" rows={4} className="w-full px-4 py-3 text-sm outline-none transition-shadow focus:shadow-md resize-none" style={{ backgroundColor: '#fffcf7', border: '1px solid rgba(125,154,107,0.25)', borderRadius: '25px 30px 20px 35px / 20px 35px 25px 30px', color: '#8b7355' }} />
+                  <textarea placeholder="Any questions or notes for us?" rows={4} className="w-full px-4 py-3 text-sm outline-none transition-shadow focus:shadow-md resize-none" style={{ backgroundColor: '#fffcf7', border: '1px solid rgba(125,154,107,0.25)', borderRadius: '25px 30px 20px 35px / 20px 35px 25px 30px', color: '#8b7355' }} />
                   <button type="submit" className="w-full px-8 py-3.5 text-white font-semibold text-sm transition-all hover:shadow-lg" style={{ backgroundColor: '#7d9a6b', borderRadius: '35px 25px 30px 20px / 25px 30px 20px 35px', boxShadow: '0 4px 16px rgba(125,154,107,0.25)' }}
                     onMouseEnter={(e) => (e.currentTarget.style.transform = 'translateY(-1px)')}
                     onMouseLeave={(e) => (e.currentTarget.style.transform = 'translateY(0)')}>
-                    Submit
+                    Send Message
                   </button>
                 </form>
               </div>
             </div>
           </div>
-        </Section>
+        </section>
 
         {/* ── FOOTER ── */}
         <footer className="py-14 px-6" style={{ backgroundColor: '#8b7355' }}>
@@ -610,7 +711,7 @@ export default function WarmNaturalDemo() {
               <div>
                 <h4 className={`${lora.className} font-bold mb-4`} style={{ color: '#faf6f0' }}>Quick Links</h4>
                 <div className="flex flex-col gap-2">
-                  {['Services', 'About', 'Our Space', 'Contact'].map((label) => (
+                  {['Schedule', 'Classes', 'About', 'Contact'].map((label) => (
                     <a key={label} href={`#${label.toLowerCase().replace(/\s+/g, '-')}`} className="text-sm transition-opacity hover:opacity-100" style={{ color: '#faf6f0', opacity: 0.6 }}>{label}</a>
                   ))}
                 </div>
@@ -619,7 +720,7 @@ export default function WarmNaturalDemo() {
                 <h4 className={`${lora.className} font-bold mb-4`} style={{ color: '#faf6f0' }}>Visit Us</h4>
                 <div className="space-y-2 text-sm" style={{ color: '#faf6f0', opacity: 0.65 }}>
                   <p>123 Sample St, Nelson, BC</p>
-                  <p>Tue&ndash;Sat 9:00 AM &ndash; 6:00 PM</p>
+                  <p>Mon&ndash;Sat 7:00 AM &ndash; 8:00 PM</p>
                   <p>(250) 555-0165</p>
                 </div>
               </div>
@@ -643,7 +744,7 @@ export default function WarmNaturalDemo() {
           <Link href="/contact?style=warm-natural"
             className="inline-block px-6 py-2.5 text-sm font-bold rounded-full transition-all hover:opacity-90 whitespace-nowrap"
             style={{ backgroundColor: '#faf6f0', color: '#7d9a6b' }}>
-            Like What You See? Let's Talk &rarr;
+            Like What You See? Let&rsquo;s Talk &rarr;
           </Link>
         </div>
       </div>

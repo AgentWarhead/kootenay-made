@@ -81,6 +81,22 @@ function Section({
   )
 }
 
+/* ─── Reveal wrapper ─── */
+function Reveal({ children, className = '', delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
+  const prefersReduced = useReducedMotion()
+  return (
+    <motion.div
+      className={className}
+      initial={prefersReduced ? {} : { opacity: 0, y: 30 }}
+      whileInView={prefersReduced ? {} : { opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.6, delay, ease: 'easeOut' }}
+    >
+      {children}
+    </motion.div>
+  )
+}
+
 /* ─── Live Redesign ─── */
 const CP = {
   navy: '#1a365d',
@@ -302,6 +318,116 @@ function FAQAccordion({ items }: { items: { q: string; a: string }[] }) {
   )
 }
 
+/* ─── Who We Serve tabs ─── */
+function WhoWeServeTabs() {
+  const [active, setActive] = useState(0)
+
+  const tabs = [
+    {
+      label: 'Individuals',
+      icon: '👤',
+      headline: 'Your personal finances, under control.',
+      services: [
+        { name: 'Tax Return Preparation', detail: 'Maximize your refund, minimize your stress' },
+        { name: 'Retirement Planning', detail: 'RRSP, TFSA, and pension strategy for your timeline' },
+        { name: 'Estate Planning', detail: 'Protect your family — today and tomorrow' },
+        { name: 'Investment Review', detail: 'Objective analysis of your current portfolio' },
+      ],
+      cta: 'Start Your Personal Plan',
+    },
+    {
+      label: 'Business Owners',
+      icon: '🏢',
+      headline: 'Stop leaving money on the table.',
+      services: [
+        { name: 'Corporate Tax Planning', detail: 'Incorporated? We find savings most accountants miss' },
+        { name: 'Bookkeeping & Payroll', detail: 'Clean books monthly, so year-end isn\'t a nightmare' },
+        { name: 'Business Structuring', detail: 'Sole prop vs. corp vs. holding — done right from day one' },
+        { name: 'HST / GST Filing', detail: 'Timely, accurate, penalty-free' },
+      ],
+      cta: 'Scale Your Business Finances',
+    },
+    {
+      label: 'Retirees',
+      icon: '🏔️',
+      headline: 'Make your money last as long as you do.',
+      services: [
+        { name: 'CPP & OAS Optimization', detail: 'When to take which payment — timing is everything' },
+        { name: 'RRSP-to-RRIF Conversion', detail: 'Tax-efficient drawdown strategy for your lifestyle' },
+        { name: 'Estate & Beneficiary Review', detail: 'Ensure your assets go where you intend them to' },
+        { name: 'Cash Flow Planning', detail: 'Monthly income mapped to your actual spending' },
+      ],
+      cta: 'Protect Your Retirement',
+    },
+  ]
+
+  const activeTab = tabs[active]
+
+  return (
+    <div>
+      {/* Tab buttons */}
+      <div className="flex flex-col sm:flex-row gap-2 mb-8">
+        {tabs.map((tab, i) => (
+          <button
+            key={tab.label}
+            className="flex-1 flex items-center justify-center gap-2 px-5 py-3.5 text-sm font-bold rounded-xl transition-all"
+            style={{
+              backgroundColor: active === i ? '#1a365d' : '#f8fafc',
+              color: active === i ? '#fff' : '#64748b',
+              border: `1.5px solid ${active === i ? '#1a365d' : '#e2e8f0'}`,
+              boxShadow: active === i ? '0 4px 16px rgba(26,54,93,0.2)' : 'none',
+            }}
+            onClick={() => setActive(i)}
+          >
+            <span>{tab.icon}</span>
+            <span>{tab.label}</span>
+          </button>
+        ))}
+      </div>
+
+      {/* Tab content */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={active}
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -8 }}
+          transition={{ duration: 0.3 }}
+          className="rounded-2xl p-6 md:p-8"
+          style={{ backgroundColor: '#ffffff', border: '1px solid #e2e8f0', boxShadow: '0 4px 20px rgba(26,54,93,0.06)' }}
+        >
+          <p className="text-xl md:text-2xl font-bold mb-6" style={{ color: '#1a365d' }}>
+            {activeTab.headline}
+          </p>
+          <div className="grid md:grid-cols-2 gap-4 mb-6">
+            {activeTab.services.map((svc) => (
+              <div key={svc.name} className="flex items-start gap-3 p-4 rounded-xl"
+                style={{ backgroundColor: '#f8fafc', border: '1px solid #e2e8f0' }}>
+                <div className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
+                  style={{ backgroundColor: '#2563eb' }}>
+                  <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
+                    <path d="M2 6l3 3 5-5" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="text-sm font-bold mb-0.5" style={{ color: '#1a365d' }}>{svc.name}</p>
+                  <p className="text-xs" style={{ color: '#64748b' }}>{svc.detail}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <a href="#contact"
+            className="inline-flex items-center gap-2 px-6 py-3 text-sm font-bold rounded-xl transition-all hover:scale-[1.02]"
+            style={{ backgroundColor: '#1a365d', color: '#fff', boxShadow: '0 4px 16px rgba(26,54,93,0.2)' }}>
+            {activeTab.cta}
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+          </a>
+        </motion.div>
+      </AnimatePresence>
+    </div>
+  )
+}
+
 export default function CleanProfessionalDemo() {
   /* ─── trust bar counter refs ─── */
   const trustRef = useRef(null)
@@ -359,7 +485,7 @@ export default function CleanProfessionalDemo() {
           <div className="hidden md:flex items-center gap-8">
             <a href="#services" className="text-white/80 hover:text-white text-sm transition-colors">Services</a>
             <a href="#about" className="text-white/80 hover:text-white text-sm transition-colors">About</a>
-            <a href="#gallery" className="text-white/80 hover:text-white text-sm transition-colors">Gallery</a>
+            <a href="#case-studies" className="text-white/80 hover:text-white text-sm transition-colors">Results</a>
             <a href="#contact" className="text-white/80 hover:text-white text-sm transition-colors">Contact</a>
             <a href="tel:2505550140" className="text-white font-bold text-sm ml-4 flex items-center gap-2">
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -372,51 +498,96 @@ export default function CleanProfessionalDemo() {
         </div>
       </nav>
 
-      {/* ═══════════ 2. HERO ═══════════ */}
-      <section className="relative overflow-hidden" style={{ minHeight: '100vh', display: 'flex', alignItems: 'center' }}>
-        <div
-          className="absolute inset-0"
+      {/* ═══════════ 2. HERO — Asymmetric authority layout ═══════════ */}
+      <section className="relative overflow-hidden" style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', backgroundColor: '#1a365d' }}>
+        {/* Grid pattern */}
+        <div className="absolute inset-0 opacity-10"
           style={{
-            background: `
-              repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(148,163,184,0.15) 59px, rgba(148,163,184,0.15) 60px),
-              repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(148,163,184,0.15) 59px, rgba(148,163,184,0.15) 60px)
-            `,
-            backgroundColor: '#f8fafc',
-          }}
-        />
-        <div className="absolute inset-0" style={{ backgroundColor: 'rgba(26,54,93,0.88)' }} />
-        <div className="relative max-w-4xl mx-auto text-center px-6 py-28 md:py-40 w-full">
-          <motion.h1
-            className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6 text-white"
-            style={{ textShadow: '0 2px 20px rgba(0,0,0,0.5)' }}
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: 'easeOut' }}
-          >
-            Financial Planning You Can Trust
-          </motion.h1>
-          <motion.p
-            className="text-lg md:text-xl mb-10 max-w-2xl mx-auto"
-            style={{ color: 'rgba(255,255,255,0.8)' }}
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.2, ease: 'easeOut' }}
-          >
-            Serving the Kootenay region with personalized financial guidance for over 15 years.
-          </motion.p>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-          >
-            <a
-              href="#contact"
-              className="inline-block px-10 py-4 text-white font-bold text-sm rounded-lg transition-all hover:scale-105"
-              style={{ backgroundColor: '#2563eb', boxShadow: '0 4px 20px rgba(37,99,235,0.4)' }}
+            backgroundImage: 'linear-gradient(rgba(255,255,255,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.15) 1px, transparent 1px)',
+            backgroundSize: '60px 60px',
+          }} />
+
+        {/* Diagonal accent */}
+        <div className="absolute right-0 top-0 bottom-0 w-1/3 hidden lg:block"
+          style={{ background: 'linear-gradient(135deg, transparent 40%, rgba(37,99,235,0.15) 100%)' }} />
+
+        <div className="relative max-w-6xl mx-auto px-6 py-24 w-full">
+          <div className="flex flex-col lg:flex-row lg:items-center gap-12 lg:gap-16">
+            {/* LEFT: Headline */}
+            <div className="flex-1">
+              <motion.div
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6"
+                style={{ backgroundColor: 'rgba(37,99,235,0.2)', border: '1px solid rgba(37,99,235,0.3)' }}
+                initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}
+              >
+                <span className="w-2 h-2 rounded-full" style={{ backgroundColor: '#60a5fa' }} />
+                <span className="text-xs font-semibold uppercase tracking-widest" style={{ color: '#93c5fd' }}>
+                  Serving the West Kootenay since 2009
+                </span>
+              </motion.div>
+              <motion.h1
+                className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-white"
+                initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: 'easeOut', delay: 0.2 }}
+              >
+                Your Money Deserves<br />
+                <span style={{ color: '#60a5fa' }}>a Real Plan.</span>
+              </motion.h1>
+              <motion.p
+                className="text-lg md:text-xl mb-8 max-w-lg"
+                style={{ color: 'rgba(255,255,255,0.7)', lineHeight: 1.7 }}
+                initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.35, ease: 'easeOut' }}
+              >
+                15 years of personalized tax, retirement, and estate planning — built for Kootenay families and business owners.
+              </motion.p>
+              <motion.div
+                className="flex flex-col sm:flex-row gap-3"
+                initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.5 }}
+              >
+                <a href="#contact"
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 text-white font-bold text-sm rounded-xl transition-all hover:scale-105"
+                  style={{ backgroundColor: '#2563eb', boxShadow: '0 4px 20px rgba(37,99,235,0.4)' }}>
+                  Book a Confidential Consultation
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                </a>
+                <a href="#services"
+                  className="inline-flex items-center justify-center px-8 py-4 text-sm font-medium rounded-xl transition-all hover:bg-white/10"
+                  style={{ color: 'rgba(255,255,255,0.7)', border: '1.5px solid rgba(255,255,255,0.2)' }}>
+                  See Our Services
+                </a>
+              </motion.div>
+            </div>
+
+            {/* RIGHT: Credential badges stacked */}
+            <motion.div
+              className="lg:w-64 xl:w-72"
+              initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.7, delay: 0.4, ease: 'easeOut' }}
             >
-              Book a Free Consultation
-            </a>
-          </motion.div>
+              <div className="space-y-3">
+                {[
+                  { badge: 'CPA', label: 'Chartered Professional Accountant', icon: '🎓' },
+                  { badge: 'CFP', label: 'Certified Financial Planner', icon: '📊' },
+                  { badge: '15+', label: 'Years of local expertise', icon: '📅' },
+                  { badge: '200+', label: 'Clients served & counting', icon: '👥' },
+                ].map((item, i) => (
+                  <motion.div
+                    key={item.badge}
+                    className="flex items-center gap-4 px-5 py-4 rounded-xl"
+                    style={{ backgroundColor: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.12)' }}
+                    initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5, delay: 0.6 + i * 0.1 }}
+                  >
+                    <div className="w-12 h-12 rounded-xl flex items-center justify-center text-lg flex-shrink-0"
+                      style={{ backgroundColor: 'rgba(37,99,235,0.2)', border: '1px solid rgba(37,99,235,0.3)' }}>
+                      {item.icon}
+                    </div>
+                    <div>
+                      <p className="text-lg font-bold leading-none" style={{ color: '#60a5fa' }}>{item.badge}</p>
+                      <p className="text-xs mt-1" style={{ color: 'rgba(255,255,255,0.5)' }}>{item.label}</p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
@@ -437,24 +608,169 @@ export default function CleanProfessionalDemo() {
           <span>Certified Planners</span>
           <span style={{ color: '#94a3b8' }} className="hidden md:inline">&#183;</span>
           <span>Free Consultation</span>
+          <span style={{ color: '#94a3b8' }} className="hidden md:inline">&#183;</span>
+          <span className="hidden md:inline" style={{ color: '#2563eb' }}>🔒 Confidential</span>
         </div>
       </div>
 
-      {/* ═══════════ 4. SERVICES ═══════════ */}
+      {/* ═══════════ 4. WHO WE SERVE — Segmented Tabs ═══════════ */}
       <Section id="services" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#ffffff' }}>
         <div className="max-w-6xl mx-auto">
           {/* PAS intro copy */}
-          <div className="max-w-3xl mx-auto text-center mb-12 px-4 py-8 rounded-xl" style={{ backgroundColor: '#f8fafc', border: '1px solid #e2e8f0' }}>
-            <p className="text-lg md:text-xl leading-relaxed" style={{ color: '#1a365d' }}>
-              <strong>Your potential clients check your website before they ever check your credentials.</strong> A generic template tells them you don&rsquo;t sweat the details — and in financial services, details are everything. The advisor down the street with the polished site is getting the consultation calls. Let&rsquo;s change that.
-            </p>
-          </div>
+          <Reveal>
+            <div className="max-w-3xl mx-auto text-center mb-12 px-4 py-8 rounded-xl" style={{ backgroundColor: '#f8fafc', border: '1px solid #e2e8f0' }}>
+              <p className="text-lg md:text-xl leading-relaxed" style={{ color: '#1a365d' }}>
+                <strong>Your potential clients check your website before they ever check your credentials.</strong> A generic template tells them you don&rsquo;t sweat the details — and in financial services, details are everything. The advisor down the street with the polished site is getting the consultation calls. Let&rsquo;s change that.
+              </p>
+            </div>
+          </Reveal>
 
+          <Reveal>
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-3" style={{ color: '#1a365d' }}>
+              Who We Serve
+            </h2>
+            <p className="text-center mb-10 max-w-xl mx-auto" style={{ color: '#94a3b8' }}>
+              Different clients, different needs — click your situation below
+            </p>
+          </Reveal>
+
+          <Reveal delay={0.1}>
+            <WhoWeServeTabs />
+          </Reveal>
+        </div>
+      </Section>
+
+      {/* ═══════════ 5. CASE STUDY CARDS ═══════════ */}
+      <Section id="case-studies" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#f8fafc' }}>
+        <div className="max-w-6xl mx-auto">
+          <Reveal>
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-3" style={{ color: '#1a365d' }}>
+              Real Results for Real Clients
+            </h2>
+            <p className="text-center mb-12 max-w-xl mx-auto" style={{ color: '#94a3b8' }}>
+              Numbers don&rsquo;t lie. Here&rsquo;s what proper financial planning looks like in practice.
+            </p>
+          </Reveal>
+
+          <motion.div
+            className="grid md:grid-cols-3 gap-6"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-60px' }}
+          >
+            {[
+              {
+                tag: 'Small Business',
+                challenge: 'Incorporated contractor losing $40K/year in tax inefficiencies',
+                approach: 'Restructured as holding company with split income strategy',
+                result: 'Saved $38,400 in year one — more than paying for the restructure 12x over',
+                icon: '💼',
+                color: '#1a365d',
+              },
+              {
+                tag: 'Retirees',
+                challenge: 'Couple drawing RRSP too early, triggering OAS clawback',
+                approach: 'Reversed drawdown order; CPP deferral + TFSA conversion strategy',
+                result: 'Increased net lifetime income by $127,000 with no lifestyle change',
+                icon: '🏔️',
+                color: '#2563eb',
+              },
+              {
+                tag: 'High-Income Individual',
+                challenge: 'Professional earning $280K/year with no tax optimization plan',
+                approach: 'Spousal RRSP, professional corporation, investment income sheltering',
+                result: 'Reduced annual tax bill by $22,000 — ongoing, every single year',
+                icon: '📈',
+                color: '#1a365d',
+              },
+            ].map((card, i) => (
+              <motion.div key={i} variants={fadeUp}
+                className="rounded-xl overflow-hidden"
+                style={{ border: '1px solid #e2e8f0', backgroundColor: '#ffffff', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}>
+                {/* Header */}
+                <div className="px-6 py-5" style={{ backgroundColor: card.color }}>
+                  <div className="flex items-center justify-between">
+                    <span className="text-2xl">{card.icon}</span>
+                    <span className="text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider"
+                      style={{ backgroundColor: 'rgba(255,255,255,0.15)', color: '#fff' }}>{card.tag}</span>
+                  </div>
+                </div>
+                {/* Body */}
+                <div className="p-6 space-y-4">
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#ef4444' }}>Challenge</p>
+                    <p className="text-sm leading-relaxed" style={{ color: '#475569' }}>{card.challenge}</p>
+                  </div>
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#2563eb' }}>Approach</p>
+                    <p className="text-sm leading-relaxed" style={{ color: '#475569' }}>{card.approach}</p>
+                  </div>
+                  <div className="pt-2 border-t border-slate-100">
+                    <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#16a34a' }}>Result</p>
+                    <p className="text-sm font-bold leading-relaxed" style={{ color: '#1a365d' }}>{card.result}</p>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+          <Reveal delay={0.3}>
+            <p className="mt-6 text-center text-xs" style={{ color: '#94a3b8' }}>
+              (Illustrative examples — actual results vary per client situation)
+            </p>
+          </Reveal>
+        </div>
+      </Section>
+
+      {/* ═══════════ 6. AUTHORITY BAR ═══════════ */}
+      <Section className="py-10 px-6" style={{ backgroundColor: '#1a365d' }}>
+        <div className="max-w-5xl mx-auto">
+          <Reveal>
+            <p className="text-xs font-bold uppercase tracking-[0.3em] text-center mb-6" style={{ color: 'rgba(255,255,255,0.4)' }}>
+              Recognized &amp; Affiliated With
+            </p>
+            <div className="flex flex-wrap justify-center items-center gap-6 md:gap-10">
+              {[
+                { abbr: 'CPA BC', name: 'BC CPA Association' },
+                { abbr: 'FP Canada', name: 'Financial Planning Canada' },
+                { abbr: 'KBOT', name: 'Kootenay Boundary\nChamber of Commerce' },
+                { abbr: 'BBB', name: 'Better Business\nBureau A+' },
+              ].map((org) => (
+                <div key={org.abbr} className="flex items-center gap-3 px-5 py-3 rounded-xl"
+                  style={{ backgroundColor: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)' }}>
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center text-xs font-bold"
+                    style={{ backgroundColor: 'rgba(37,99,235,0.3)', color: '#93c5fd', border: '1px solid rgba(37,99,235,0.4)' }}>
+                    {org.abbr}
+                  </div>
+                  <span className="text-xs leading-tight whitespace-pre-line" style={{ color: 'rgba(255,255,255,0.5)' }}>{org.name}</span>
+                </div>
+              ))}
+            </div>
+          </Reveal>
+        </div>
+      </Section>
+
+      {/* ═══════════ 7. THE TRANSFORMATION ═══════════ */}
+      <Section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#f8fafc' }}>
+        <div className="max-w-5xl mx-auto">
+          <h2 className={`${inter.className} text-3xl md:text-4xl font-bold text-center mb-4`} style={{ color: '#1a365d' }}>
+            Watch Your Website Transform
+          </h2>
+          <p className={`${inter.className} text-center mb-12 max-w-xl mx-auto`} style={{ color: '#94a3b8' }}>
+            From dated to designed — in real time
+          </p>
+          <LiveRedesign />
+        </div>
+      </Section>
+
+      {/* ═══════════ 8. TESTIMONIALS — Formal B2B style ═══════════ */}
+      <Section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#ffffff' }}>
+        <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-4" style={{ color: '#1a365d' }}>
-            What We Can Do For You
+            What Clients Are Saying
           </h2>
           <p className="text-center mb-16 max-w-xl mx-auto" style={{ color: '#94a3b8' }}>
-            Digital services tailored for financial professionals
+            Real results from real Kootenay professionals
           </p>
           <motion.div
             className="grid md:grid-cols-3 gap-8"
@@ -465,62 +781,52 @@ export default function CleanProfessionalDemo() {
           >
             {[
               {
-                title: 'Custom Website',
-                desc: 'A polished, professional website that builds trust with your clients.',
-                icon: (
-                  <svg className="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="#1a365d" strokeWidth={1.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5a17.92 17.92 0 0 1-8.716-2.247m0 0A8.966 8.966 0 0 1 3 12c0-1.264.26-2.467.73-3.563" />
-                  </svg>
-                ),
-                pricing: 'From $1,500',
+                quote: "Karen restructured our books and saved us from an audit we didn't even know was coming. The savings paid for her fees fifteen times over. Worth every penny.",
+                name: 'David L.',
+                title: 'Principal',
+                company: 'Ridgeline Accounting',
+                location: 'Castlegar, BC',
               },
               {
-                title: 'Google Visibility',
-                desc: 'Show up when people search for financial services in the Kootenays.',
-                icon: (
-                  <svg className="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="#1a365d" strokeWidth={1.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-                  </svg>
-                ),
-                pricing: 'From $500',
+                quote: "We launched our new site in January. By March, our phone was ringing with people who said they found us on Google. It paid for itself in the first month.",
+                name: 'Sandra K.',
+                title: 'Owner',
+                company: 'SK Law Office',
+                location: 'Nelson, BC',
               },
               {
-                title: 'Email Marketing',
-                desc: 'Stay in touch with clients without lifting a finger. Newsletters, updates, done.',
-                icon: (
-                  <svg className="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="#1a365d" strokeWidth={1.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 0 1 .865-.501 48.172 48.172 0 0 0 3.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z" />
-                  </svg>
-                ),
-                pricing: 'From $750',
+                quote: "I hadn't had a proper financial review in 6 years. One meeting uncovered $22,000 in annual savings I was just leaving on the table. I wish I'd done this sooner.",
+                name: 'Patricia M.',
+                title: 'Principal',
+                company: 'Summit Financial Planning',
+                location: 'Rossland, BC',
               },
-            ].map((card) => (
+            ].map((t, i) => (
               <motion.div
-                key={card.title}
+                key={i}
                 variants={fadeUp}
-                className="bg-white rounded-lg p-8 text-center transition-all duration-300 cursor-default"
-                style={{
-                  borderTop: '4px solid #1a365d',
-                  border: '1px solid #e2e8f0',
-                  borderTopWidth: '4px',
-                  borderTopColor: '#1a365d',
-                  boxShadow: '0 1px 3px rgba(0,0,0,0.06)',
-                }}
-                whileHover={{
-                  boxShadow: '0 4px 30px rgba(37,99,235,0.2), 0 0 15px rgba(37,99,235,0.1)',
-                }}
+                className="p-8 rounded-lg"
+                style={{ backgroundColor: '#f8fafc', border: '1px solid #e2e8f0', borderTop: '4px solid #1a365d' }}
               >
-                <div className="flex justify-center mb-5">{card.icon}</div>
-                <h3 className="text-xl font-bold mb-3" style={{ color: '#1a365d' }}>{card.title}</h3>
-                <p style={{ color: '#64748b' }} className="leading-relaxed mb-4">{card.desc}</p>
-                <span className="inline-block text-xs font-bold px-3 py-1 rounded-full" style={{ backgroundColor: '#eff6ff', color: '#1a365d' }}>{card.pricing}</span>
+                <div className="mb-4 text-xl" style={{ color: '#f59e0b' }}>&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <blockquote className="text-base leading-relaxed mb-6 italic" style={{ color: '#334155' }}>
+                  &ldquo;{t.quote}&rdquo;
+                </blockquote>
+                <div>
+                  <p className="font-bold text-sm" style={{ color: '#1a365d' }}>{t.name}</p>
+                  <p className="text-xs" style={{ color: '#64748b' }}>{t.title}, {t.company}</p>
+                  <p className="text-xs" style={{ color: '#94a3b8' }}>{t.location}</p>
+                </div>
               </motion.div>
             ))}
           </motion.div>
+          <p className="text-center mt-8 text-xs" style={{ color: '#94a3b8' }}>
+            (Sample reviews &mdash; your real reviews go here)
+          </p>
         </div>
       </Section>
 
-      {/* ═══════════ 5. HOW IT WORKS ═══════════ */}
+      {/* ═══════════ 9. HOW IT WORKS ═══════════ */}
       <Section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#f8fafc' }}>
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-4" style={{ color: '#1a365d' }}>
@@ -536,7 +842,6 @@ export default function CleanProfessionalDemo() {
             whileInView="visible"
             viewport={{ once: true, margin: '-60px' }}
           >
-            {/* Connecting line */}
             <div className="hidden md:block absolute top-8 left-[calc(16.67%+2rem)] right-[calc(16.67%+2rem)] h-px" style={{ backgroundColor: '#e2e8f0', zIndex: 0, top: '2rem' }} />
             {[
               {
@@ -570,122 +875,8 @@ export default function CleanProfessionalDemo() {
         </div>
       </Section>
 
-      {/* ═══════════ 6. GALLERY / SHOWCASE ═══════════ */}
-      <Section id="gallery" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#ffffff' }}>
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4" style={{ color: '#1a365d' }}>
-            Our Expertise
-          </h2>
-          <p className="text-center mb-12 max-w-xl mx-auto" style={{ color: '#94a3b8' }}>
-            Areas of financial planning we specialize in
-          </p>
-          <div className="flex justify-center mb-12">
-            <div className="rounded-lg overflow-hidden" style={{ boxShadow: '0 8px 30px rgba(0,0,0,0.12)' }}>
-              <Image
-                src="/images/demos/clean-professional-showcase.webp"
-                alt="Ridgeline Financial Group — professional financial planning showcase"
-                width={800}
-                height={500}
-                className="w-full h-auto max-w-3xl"
-                priority={false}
-              />
-            </div>
-          </div>
-          <motion.div
-            className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6"
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-40px' }}
-          >
-            {['Retirement Planning', 'Tax Strategy', 'Estate Planning', 'Business Advisory'].map((label, i) => (
-              <motion.div key={label} variants={fadeIn}>
-                <div className='relative aspect-[4/3] rounded-xl overflow-hidden'>
-                  <Image src={`/images/demos/gallery/cp-${i + 1}.webp`} alt={label} fill className='object-cover' />
-                  <div className='absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-3'>
-                    <span className='text-white text-sm font-medium'>{label}</span>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </Section>
-
-      {/* ═══════════ 7. THE TRANSFORMATION ═══════════ */}
-      <Section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#f8fafc' }}>
-        <div className="max-w-5xl mx-auto">
-          <h2 className={`${inter.className} text-3xl md:text-4xl font-bold text-center mb-4`} style={{ color: '#1a365d' }}>
-            Watch Your Website Transform
-          </h2>
-          <p className={`${inter.className} text-center mb-12 max-w-xl mx-auto`} style={{ color: '#94a3b8' }}>
-            From dated to designed — in real time
-          </p>
-          <LiveRedesign />
-        </div>
-      </Section>
-
-      {/* ═══════════ 8. TESTIMONIALS (3) ═══════════ */}
+      {/* ═══════════ 10. FAQ ═══════════ */}
       <Section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#ffffff' }}>
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4" style={{ color: '#1a365d' }}>
-            What Clients Are Saying
-          </h2>
-          <p className="text-center mb-16 max-w-xl mx-auto" style={{ color: '#94a3b8' }}>
-            Real results from real Kootenay professionals
-          </p>
-          <motion.div
-            className="grid md:grid-cols-3 gap-8"
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-60px' }}
-          >
-            {[
-              {
-                quote: "We launched our new site in January. By March, our phone was ringing with people who said they found us on Google. It paid for itself in the first month.",
-                name: 'Sandra K.',
-                business: 'SK Law Office',
-                location: 'Nelson, BC',
-              },
-              {
-                quote: "Our old website was embarrassing us at client meetings. The new one looks as professional as the service we actually provide. Referrals have doubled.",
-                name: 'David L.',
-                business: 'Ridgeline Accounting',
-                location: 'Castlegar, BC',
-              },
-              {
-                quote: "Kootenay Made built exactly what I described. Clean, trustworthy, and it actually shows up on Google. Every advisor needs this.",
-                name: 'Patricia M.',
-                business: 'Summit Financial Planning',
-                location: 'Rossland, BC',
-              },
-            ].map((t, i) => (
-              <motion.div
-                key={i}
-                variants={fadeUp}
-                className="p-8 rounded-lg"
-                style={{ backgroundColor: '#f8fafc', border: '1px solid #e2e8f0', borderTop: '4px solid #1a365d' }}
-              >
-                <div className="mb-4 text-xl" style={{ color: '#f59e0b' }}>&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                <blockquote className="text-base leading-relaxed mb-6 italic" style={{ color: '#334155' }}>
-                  &ldquo;{t.quote}&rdquo;
-                </blockquote>
-                <div>
-                  <p className="font-bold text-sm" style={{ color: '#1a365d' }}>{t.name}</p>
-                  <p className="text-xs" style={{ color: '#64748b' }}>{t.business} &mdash; {t.location}</p>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-          <p className="text-center mt-8 text-xs" style={{ color: '#94a3b8' }}>
-            (Sample reviews &mdash; your real reviews go here)
-          </p>
-        </div>
-      </Section>
-
-      {/* ═══════════ 9. FAQ ═══════════ */}
-      <Section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#f8fafc' }}>
         <div className="max-w-3xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-4" style={{ color: '#1a365d' }}>
             Frequently Asked Questions
@@ -706,8 +897,8 @@ export default function CleanProfessionalDemo() {
         </div>
       </Section>
 
-      {/* ═══════════ 10. ABOUT ═══════════ */}
-      <Section id="about" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#ffffff' }}>
+      {/* ═══════════ 11. ABOUT ═══════════ */}
+      <Section id="about" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#f8fafc' }}>
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6" style={{ color: '#1a365d' }}>
             About Ridgeline Financial Group
@@ -723,12 +914,15 @@ export default function CleanProfessionalDemo() {
         </div>
       </Section>
 
-      {/* ═══════════ 11. CONTACT ═══════════ */}
-      <Section id="contact" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#f8fafc' }}>
+      {/* ═══════════ 12. CONTACT — "Schedule a Confidential Consultation" ═══════════ */}
+      <Section id="contact" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#ffffff' }}>
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12" style={{ color: '#1a365d' }}>
-            Get In Touch
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-3" style={{ color: '#1a365d' }}>
+            Schedule a Confidential Consultation
           </h2>
+          <p className="text-center mb-12" style={{ color: '#64748b' }}>
+            🔒 Everything discussed is strictly confidential — your information is protected.
+          </p>
           <div className="grid md:grid-cols-2 gap-12">
             <div className="space-y-6">
               <div>
@@ -745,7 +939,22 @@ export default function CleanProfessionalDemo() {
               </div>
               <div>
                 <h3 className="font-bold mb-1" style={{ color: '#1a365d' }}>Location</h3>
-                <p style={{ color: '#475569' }}>123 Sample Ave, Castlegar, BC</p>
+                <p style={{ color: '#475569' }}>123 Sample St, Castlegar, BC</p>
+              </div>
+              {/* Calendar-style widget */}
+              <div className="p-5 rounded-xl" style={{ backgroundColor: '#f8fafc', border: '1px solid #e2e8f0' }}>
+                <p className="text-sm font-bold mb-3" style={{ color: '#1a365d' }}>📅 Preferred Consultation Time</p>
+                <div className="grid grid-cols-3 gap-2">
+                  {['Mon', 'Tue', 'Wed', 'Thu', 'Fri'].map((day) => (
+                    <button key={day} className="py-2 text-xs font-bold rounded-lg transition-colors"
+                      style={{ backgroundColor: '#fff', border: '1px solid #e2e8f0', color: '#64748b' }}
+                      onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#1a365d'; e.currentTarget.style.color = '#fff'; }}
+                      onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#fff'; e.currentTarget.style.color = '#64748b'; }}>
+                      {day}
+                    </button>
+                  ))}
+                </div>
+                <p className="text-xs mt-2" style={{ color: '#94a3b8' }}>Evening appointments available on request</p>
               </div>
             </div>
             <form onSubmit={(e) => e.preventDefault()} className="space-y-5">
@@ -758,18 +967,27 @@ export default function CleanProfessionalDemo() {
                 <input type="email" placeholder="you@example.com" className="w-full px-4 py-3 rounded-lg text-sm outline-none transition-all" style={{ border: '1px solid #cbd5e1', backgroundColor: '#ffffff', color: '#1e293b' }} onFocus={(e) => (e.currentTarget.style.borderColor = '#1a365d')} onBlur={(e) => (e.currentTarget.style.borderColor = '#cbd5e1')} />
               </div>
               <div>
+                <label className="block text-sm font-bold mb-1.5" style={{ color: '#1a365d' }}>I am a…</label>
+                <select className="w-full px-4 py-3 rounded-lg text-sm outline-none" style={{ border: '1px solid #cbd5e1', backgroundColor: '#ffffff', color: '#1e293b' }}>
+                  <option>Individual / Family</option>
+                  <option>Business Owner</option>
+                  <option>Retiree</option>
+                  <option>Not sure yet</option>
+                </select>
+              </div>
+              <div>
                 <label className="block text-sm font-bold mb-1.5" style={{ color: '#1a365d' }}>Message</label>
-                <textarea rows={4} placeholder="How can we help?" className="w-full px-4 py-3 rounded-lg text-sm outline-none transition-all resize-none" style={{ border: '1px solid #cbd5e1', backgroundColor: '#ffffff', color: '#1e293b' }} onFocus={(e) => (e.currentTarget.style.borderColor = '#1a365d')} onBlur={(e) => (e.currentTarget.style.borderColor = '#cbd5e1')} />
+                <textarea rows={3} placeholder="What are you hoping to accomplish?" className="w-full px-4 py-3 rounded-lg text-sm outline-none transition-all resize-none" style={{ border: '1px solid #cbd5e1', backgroundColor: '#ffffff', color: '#1e293b' }} onFocus={(e) => (e.currentTarget.style.borderColor = '#1a365d')} onBlur={(e) => (e.currentTarget.style.borderColor = '#cbd5e1')} />
               </div>
               <button type="submit" className="w-full px-8 py-3.5 text-white font-bold text-sm rounded-lg transition-all hover:opacity-90" style={{ backgroundColor: '#1a365d' }}>
-                Send Message
+                Schedule My Confidential Consultation
               </button>
             </form>
           </div>
         </div>
       </Section>
 
-      {/* ═══════════ 12. FOOTER ═══════════ */}
+      {/* ═══════════ 13. FOOTER ═══════════ */}
       <footer style={{ backgroundColor: '#1a365d' }} className="py-14 px-6">
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-3 gap-10 mb-10">
@@ -780,16 +998,16 @@ export default function CleanProfessionalDemo() {
             <div>
               <h4 className="text-white font-bold text-sm mb-3">Quick Links</h4>
               <div className="flex flex-col gap-2">
-                <a href="#services" className="text-white/60 hover:text-white text-sm transition-colors">Services</a>
+                <a href="#services" className="text-white/60 hover:text-white text-sm transition-colors">Who We Serve</a>
+                <a href="#case-studies" className="text-white/60 hover:text-white text-sm transition-colors">Case Studies</a>
                 <a href="#about" className="text-white/60 hover:text-white text-sm transition-colors">About</a>
-                <a href="#gallery" className="text-white/60 hover:text-white text-sm transition-colors">Gallery</a>
                 <a href="#contact" className="text-white/60 hover:text-white text-sm transition-colors">Contact</a>
               </div>
             </div>
             <div>
               <h4 className="text-white font-bold text-sm mb-3">Info</h4>
               <p className="text-white/60 text-sm mb-1">Mon&ndash;Fri 9:00 AM &ndash; 5:00 PM</p>
-              <p className="text-white/60 text-sm mb-1">123 Sample Ave, Castlegar, BC</p>
+              <p className="text-white/60 text-sm mb-1">123 Sample St, Castlegar, BC</p>
               <p className="text-white/60 text-sm">(250) 555-0140</p>
             </div>
           </div>
@@ -799,7 +1017,7 @@ export default function CleanProfessionalDemo() {
         </div>
       </footer>
 
-      {/* ═══════════ 13. STICKY BOTTOM BAR ═══════════ */}
+      {/* ═══════════ 14. STICKY BOTTOM BAR ═══════════ */}
       <div
         className="fixed bottom-0 left-0 right-0 z-50 px-4 py-3"
         style={{ backgroundColor: 'rgba(26, 54, 93, 0.95)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)' }}

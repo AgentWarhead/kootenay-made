@@ -72,21 +72,6 @@ function AnimatedIcon({ children, delay = 0 }: { children: React.ReactNode; dela
   )
 }
 
-/* ── Impact stat card ── */
-function ImpactStat({ icon, target, suffix, label, color, delay }: { icon: React.ReactNode; target: number; suffix: string; label: string; color: string; delay: number }) {
-  return (
-    <Reveal delay={delay} className="flex flex-col items-center text-center gap-3">
-      <div className="w-16 h-16 rounded-2xl flex items-center justify-center" style={{ background: `${color}18` }}>
-        {icon}
-      </div>
-      <div className="text-4xl md:text-5xl font-bold" style={{ color }}>
-        <CountUp target={target} suffix={suffix} />
-      </div>
-      <div className="text-sm font-semibold uppercase tracking-wider" style={{ color: '#64748b' }}>{label}</div>
-    </Reveal>
-  )
-}
-
 /* ── Decorative blob ── */
 function Blob({ size, color, opacity, top, left, right, bottom }: { size: number; color: string; opacity: number; top?: number | string; left?: number | string; right?: number | string; bottom?: number | string }) {
   return (
@@ -321,6 +306,11 @@ function FAQAccordion({ items }: { items: { q: string; a: string }[] }) {
 export default function EducationNonprofitPage() {
   const prefersReduced = useReducedMotion()
 
+  /* Donation thermometer */
+  const goalAmount = 120000
+  const currentAmount = 89450
+  const progressPct = Math.round((currentAmount / goalAmount) * 100)
+
   const faqItems = [
     {
       q: 'How long does a website take?',
@@ -362,6 +352,10 @@ export default function EducationNonprofitPage() {
           0% { background-position: 200% 0; }
           100% { background-position: -200% 0; }
         }
+        @keyframes thermometer-fill {
+          from { width: 0%; }
+          to { width: ${progressPct}%; }
+        }
         .edu-card {
           background: #ffffff;
           border-radius: 20px;
@@ -388,6 +382,9 @@ export default function EducationNonprofitPage() {
           border-color: #3b82f6;
           background: #ffffff;
         }
+        .thermo-bar {
+          animation: thermometer-fill 2s ease-out forwards;
+        }
       `}</style>
 
       {/* ═══════════════════════════════════
@@ -401,7 +398,7 @@ export default function EducationNonprofitPage() {
           Kootenay Community <span style={{ color: '#f59e0b' }}>Learning</span> Centre
         </span>
         <div className="hidden md:flex items-center gap-8">
-          {['Programs', 'Community', 'About', 'Contact'].map((item) => (
+          {['Programs', 'Impact', 'Volunteer', 'Contact'].map((item) => (
             <a key={item} href={`#${item.toLowerCase()}`} className="text-sm font-semibold transition-colors duration-200" style={{ color: '#475569', textDecoration: 'none' }} onMouseEnter={(e) => (e.currentTarget.style.color = '#3b82f6')} onMouseLeave={(e) => (e.currentTarget.style.color = '#475569')}>
               {item}
             </a>
@@ -416,223 +413,162 @@ export default function EducationNonprofitPage() {
       </nav>
 
       {/* ═══════════════════════════════════
-          2. HERO
+          2. HERO — Animated Impact Counter
       ═══════════════════════════════════ */}
       <section
-        className="relative overflow-hidden min-h-screen flex items-center"
-        style={{ background: 'linear-gradient(145deg, #eff6ff 0%, #dbeafe 60%, #eff6ff 100%)' }}
+        className="relative overflow-hidden min-h-screen flex flex-col items-center justify-center"
+        style={{ background: 'linear-gradient(145deg, #1e3a5f 0%, #1e40af 60%, #1e3a5f 100%)' }}
       >
-        <Blob size={380} color="#3b82f6" opacity={0.13} top={-100} right={-80} />
-        <Blob size={260} color="#facc15" opacity={0.22} top={60} right="12%" />
-        <Blob size={200} color="#fb923c" opacity={0.14} top="40%" right="3%" />
-        <Blob size={320} color="#facc15" opacity={0.12} bottom={-120} left={-80} />
-        <Blob size={180} color="#3b82f6" opacity={0.10} bottom={80} left="22%" />
-        <Blob size={140} color="#fb923c" opacity={0.12} top={120} left="38%" />
+        <Blob size={500} color="#3b82f6" opacity={0.25} top={-160} right={-120} />
+        <Blob size={380} color="#facc15" opacity={0.12} bottom={-120} left={-80} />
+        <Blob size={200} color="#fb923c" opacity={0.14} top="35%" right="5%" />
 
-        <div className="relative max-w-5xl mx-auto px-6 py-28 md:py-36 w-full z-10">
+        <div className="relative z-10 max-w-5xl mx-auto px-6 py-28 md:py-36 w-full text-center">
           <motion.div
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full mb-8"
-            style={{ background: 'rgba(59,130,246,0.12)', border: '1px solid rgba(59,130,246,0.2)' }}
+            style={{ background: 'rgba(250,204,21,0.15)', border: '1px solid rgba(250,204,21,0.3)' }}
             initial={prefersReduced ? {} : { opacity: 0, y: -16 }}
             animate={prefersReduced ? {} : { opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
           >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
-              <path d="M6 12v5c0 2 3 3 6 3s6-1 6-3v-5" />
-            </svg>
-            <span className="text-sm font-semibold" style={{ color: '#3b82f6' }}>Learning for Life</span>
+            <span style={{ color: '#facc15', fontSize: '1.1rem' }}>★</span>
+            <span className="text-sm font-semibold" style={{ color: '#fef3c7' }}>Est. 2005 — West Kootenay</span>
           </motion.div>
 
           <motion.h1
-            className="text-5xl sm:text-6xl md:text-7xl font-bold leading-[1.08] mb-6"
-            style={{ color: '#1e3a5f' }}
+            className="text-4xl sm:text-5xl md:text-6xl font-bold leading-[1.1] mb-6"
+            style={{ color: '#ffffff' }}
             initial={prefersReduced ? {} : { opacity: 0, y: 40 }}
             animate={prefersReduced ? {} : { opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.15, ease: 'easeOut' }}
           >
-            Learning<br />
-            <span style={{ color: '#3b82f6' }}>for Life.</span>
+            Real Impact.<br />
+            <span style={{ color: '#facc15' }}>Right Here.</span>
           </motion.h1>
 
           <motion.p
-            className="text-lg md:text-xl max-w-xl mb-10 leading-relaxed"
-            style={{ color: '#334155' }}
-            initial={prefersReduced ? {} : { opacity: 0, y: 30 }}
+            className="text-lg md:text-xl max-w-xl mx-auto mb-14 leading-relaxed"
+            style={{ color: 'rgba(255,255,255,0.75)' }}
+            initial={prefersReduced ? {} : { opacity: 0, y: 20 }}
             animate={prefersReduced ? {} : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.65, delay: 0.3, ease: 'easeOut' }}
+            transition={{ duration: 0.6, delay: 0.3 }}
           >
-            Empowering adults and families across the Kootenays through education,
-            literacy, and community programs — many of them free.
+            Every number below is a person. A family. A story that started in these halls.
           </motion.p>
 
+          {/* ── Animated Impact Counters ── */}
           <motion.div
-            className="flex flex-wrap gap-4"
-            initial={prefersReduced ? {} : { opacity: 0, y: 24 }}
+            className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 mb-14"
+            initial={prefersReduced ? {} : { opacity: 0, y: 30 }}
             animate={prefersReduced ? {} : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.45, ease: 'easeOut' }}
+            transition={{ duration: 0.7, delay: 0.45 }}
           >
-            <a href="#programs" className="inline-block px-8 py-4 rounded-full text-base font-semibold transition-all duration-250" style={{ background: '#3b82f6', color: '#ffffff', textDecoration: 'none', boxShadow: '0 6px 24px rgba(59,130,246,0.35)' }} onMouseEnter={(e) => { e.currentTarget.style.background = '#2563eb'; e.currentTarget.style.transform = 'translateY(-2px)' }} onMouseLeave={(e) => { e.currentTarget.style.background = '#3b82f6'; e.currentTarget.style.transform = 'translateY(0)' }}>
+            {[
+              { target: 2347, suffix: '', label: 'People Served', color: '#60a5fa', icon: '🧑‍🤝‍🧑' },
+              { target: 127, suffix: '', label: 'Families Fed', color: '#fbbf24', icon: '🍎' },
+              { target: 52, suffix: '', label: 'Active Volunteers', color: '#fb923c', icon: '🙌' },
+              { target: 89, suffix: 'K', label: 'Raised This Year', color: '#34d399', icon: '💚' },
+            ].map((stat, i) => (
+              <div key={stat.label} className="flex flex-col items-center text-center gap-2">
+                <div className="text-2xl mb-1">{stat.icon}</div>
+                <div
+                  className="text-4xl md:text-5xl font-bold"
+                  style={{ color: stat.color }}
+                >
+                  <CountUp target={stat.target} suffix={stat.suffix} />
+                </div>
+                <div className="text-xs font-semibold uppercase tracking-wider" style={{ color: 'rgba(255,255,255,0.55)' }}>{stat.label}</div>
+              </div>
+            ))}
+          </motion.div>
+
+          <motion.div
+            className="flex flex-wrap gap-4 justify-center"
+            initial={prefersReduced ? {} : { opacity: 0, y: 16 }}
+            animate={prefersReduced ? {} : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+          >
+            <a href="#programs" className="inline-block px-8 py-4 rounded-full text-base font-semibold transition-all duration-250" style={{ background: '#facc15', color: '#1e3a5f', textDecoration: 'none', boxShadow: '0 6px 24px rgba(250,204,21,0.35)' }} onMouseEnter={(e) => { e.currentTarget.style.background = '#fbbf24'; e.currentTarget.style.transform = 'translateY(-2px)' }} onMouseLeave={(e) => { e.currentTarget.style.background = '#facc15'; e.currentTarget.style.transform = 'translateY(0)' }}>
               Explore Programs
             </a>
-            <a href="#contact" className="inline-block px-8 py-4 rounded-full text-base font-semibold transition-all duration-250" style={{ background: 'transparent', color: '#3b82f6', border: '2px solid #3b82f6', textDecoration: 'none' }} onMouseEnter={(e) => { e.currentTarget.style.background = '#eff6ff' }} onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent' }}>
-              Get in Touch
+            <a href="#volunteer" className="inline-block px-8 py-4 rounded-full text-base font-semibold transition-all duration-250" style={{ background: 'transparent', color: '#ffffff', border: '2px solid rgba(255,255,255,0.4)', textDecoration: 'none' }} onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.1)' }} onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent' }}>
+              Volunteer Now
             </a>
           </motion.div>
         </div>
       </section>
 
       {/* ═══════════════════════════════════
-          3. TRUST BAR
-      ═══════════════════════════════════ */}
-      <section className="py-6 px-6" style={{ background: '#ffffff', borderBottom: '1px solid #f1f5f9' }}>
-        <div className="max-w-5xl mx-auto flex flex-wrap items-center justify-center gap-6 md:gap-10 text-sm font-semibold">
-          <div className="flex items-center gap-2">
-            <span style={{ color: '#facc15', fontSize: '1.1rem' }}>★★★★★</span>
-            <span style={{ color: '#3b82f6' }}>4.9 Rating</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span style={{ color: '#3b82f6' }}>♥</span>
-            <span style={{ color: '#475569' }}>Registered Non-Profit</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span style={{ color: '#fb923c' }}>●</span>
-            <span style={{ color: '#475569' }}>500+ Students Served</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span style={{ color: '#3b82f6' }}>✓</span>
-            <span style={{ color: '#475569' }}>Free Programs Available</span>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════
-          DECORATIVE BLOB TRANSITION
-      ═══════════════════════════════════ */}
-      <div className="relative h-12 overflow-visible" style={{ background: '#ffffff' }} aria-hidden="true">
-        <Blob size={160} color="#facc15" opacity={0.15} top={-50} left="10%" />
-        <Blob size={120} color="#fb923c" opacity={0.12} top={-40} right="20%" />
-        <Blob size={100} color="#3b82f6" opacity={0.10} top={-30} left="55%" />
-      </div>
-
-      {/* ═══════════════════════════════════
-          4. IMPACT COUNTERS
-      ═══════════════════════════════════ */}
-      <section className="relative overflow-hidden px-6 py-20 md:py-28" style={{ background: '#eff6ff' }}>
-        <Blob size={280} color="#3b82f6" opacity={0.07} top={-80} right={-60} />
-        <Blob size={220} color="#facc15" opacity={0.10} bottom={-60} left={-40} />
-
-        <div className="relative z-10 max-w-5xl mx-auto">
-          <Reveal className="text-center mb-14">
-            <span className="inline-block text-sm font-semibold uppercase tracking-widest mb-3" style={{ color: '#fb923c' }}>Our Impact</span>
-            <h2 className="text-3xl md:text-4xl font-bold" style={{ color: '#1e3a5f' }}>Making a difference in the Kootenays</h2>
-          </Reveal>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-6">
-            <ImpactStat delay={0} target={500} suffix="+" label="Students Served" color="#3b82f6" icon={<AnimatedIcon delay={0.1}><motion.path d="M22 10v6M2 10l10-5 10 5-10 5z" stroke="#3b82f6" strokeWidth="2" /><motion.path d="M6 12v5c0 2 3 3 6 3s6-1 6-3v-5" stroke="#3b82f6" strokeWidth="2" /></AnimatedIcon>} />
-            <ImpactStat delay={0.1} target={45} suffix="" label="Programs" color="#facc15" icon={<AnimatedIcon delay={0.2}><motion.path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" stroke="#b45309" strokeWidth="2" /><motion.path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" stroke="#b45309" strokeWidth="2" /></AnimatedIcon>} />
-            <ImpactStat delay={0.2} target={120} suffix="+" label="Volunteers" color="#fb923c" icon={<AnimatedIcon delay={0.3}><motion.path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" stroke="#fb923c" strokeWidth="2" /></AnimatedIcon>} />
-            <ImpactStat delay={0.3} target={15} suffix="" label="Years Serving" color="#3b82f6" icon={<AnimatedIcon delay={0.4}><motion.rect x="3" y="4" width="18" height="18" rx="2" ry="2" stroke="#3b82f6" strokeWidth="2" /><motion.line x1="16" y1="2" x2="16" y2="6" stroke="#3b82f6" strokeWidth="2" /><motion.line x1="8" y1="2" x2="8" y2="6" stroke="#3b82f6" strokeWidth="2" /><motion.line x1="3" y1="10" x2="21" y2="10" stroke="#3b82f6" strokeWidth="2" /></AnimatedIcon>} />
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════
-          DECORATIVE BLOB TRANSITION
-      ═══════════════════════════════════ */}
-      <div className="relative h-10 overflow-visible" style={{ background: '#ffffff' }} aria-hidden="true">
-        <Blob size={140} color="#3b82f6" opacity={0.12} top={-60} right="30%" />
-        <Blob size={90} color="#fb923c" opacity={0.11} top={-30} left="45%" />
-      </div>
-
-      {/* ═══════════════════════════════════
-          5. SERVICES
+          3. PROGRAMS CATEGORY GRID
       ═══════════════════════════════════ */}
       <section id="programs" className="px-6 md:px-10 py-20 md:py-28" style={{ background: '#ffffff' }}>
         <div className="max-w-6xl mx-auto">
-          {/* PAS intro */}
           <Reveal className="text-center mb-14">
-            <div className="max-w-3xl mx-auto px-6 py-8 rounded-2xl mb-10" style={{ background: 'linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%)', border: '1px solid rgba(59,130,246,0.15)' }}>
-              <p className="text-lg md:text-xl leading-relaxed" style={{ color: '#1e3a5f' }}>
-                <strong>Donors and parents judge your organisation by your website first.</strong> A dated site signals that you&rsquo;re struggling — even if your programs are world-class. The school or non-profit down the road with the polished site gets the donations and the enrolments. Let&rsquo;s build you something your community is proud to share.
-              </p>
-            </div>
+            <span className="inline-block text-sm font-semibold uppercase tracking-widest mb-3" style={{ color: '#fb923c' }}>What We Offer</span>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: '#1e3a5f' }}>Our Programs</h2>
+            <p className="text-base max-w-xl mx-auto" style={{ color: '#64748b' }}>
+              From literacy to food security — community support in every direction
+            </p>
           </Reveal>
 
-          <Reveal className="text-center mb-14">
-            <span className="inline-block text-sm font-semibold uppercase tracking-widest mb-3" style={{ color: '#3b82f6' }}>Digital Services</span>
-            <h2 className="text-3xl md:text-4xl font-bold" style={{ color: '#1e3a5f' }}>Grow your mission online</h2>
-            <p className="text-base mt-4 max-w-xl mx-auto" style={{ color: '#64748b' }}>We help non-profits and community organisations build a welcoming digital presence.</p>
-          </Reveal>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
               {
-                title: 'Custom Website',
-                desc: 'A welcoming hub for students, volunteers, and donors — built with accessibility and heart.',
+                name: 'Youth Tutoring',
+                desc: 'After-school support for K–12 students struggling with core subjects. Volunteer-led, evidence-based.',
+                icon: '📚',
+                color: '#eab308',
+                bg: '#fefce8',
+                border: '#fde047',
+                cta: 'Sign Up',
+              },
+              {
+                name: 'Adult Education',
+                desc: 'GED prep, digital literacy, workplace skills, and English language learning for adults of all ages.',
+                icon: '🎓',
                 color: '#3b82f6',
-                pricing: 'From $1,500',
-                icon: <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" /><line x1="8" y1="21" x2="16" y2="21" /><line x1="12" y1="17" x2="12" y2="21" /></svg>,
+                bg: '#eff6ff',
+                border: '#bfdbfe',
+                cta: 'Enrol',
               },
               {
-                title: 'Email Marketing',
-                desc: 'Keep your community connected with program updates, success stories, and upcoming events.',
-                color: '#facc15',
-                iconColor: '#b45309',
-                pricing: 'From $750',
-                icon: <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#b45309" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></svg>,
+                name: 'Food Bank',
+                desc: 'Weekly hampers, no questions asked. Fresh produce, pantry staples, and hygiene essentials every Thursday.',
+                icon: '🥦',
+                color: '#22c55e',
+                bg: '#f0fdf4',
+                border: '#bbf7d0',
+                cta: 'Learn More',
               },
               {
-                title: 'Social Media',
-                desc: 'Share your impact. Celebrate your students. Grow your community far and wide.',
-                color: '#fb923c',
-                pricing: 'From $500',
-                icon: <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fb923c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="18" cy="5" r="3" /><circle cx="6" cy="12" r="3" /><circle cx="18" cy="19" r="3" /><line x1="8.59" y1="13.51" x2="15.42" y2="17.49" /><line x1="15.41" y1="6.51" x2="8.59" y2="10.49" /></svg>,
+                name: 'Community Events',
+                desc: 'Workshops, cultural celebrations, seniors\u2019 circles, and family nights — something every week.',
+                icon: '🎉',
+                color: '#f97316',
+                bg: '#fff7ed',
+                border: '#fed7aa',
+                cta: 'See Calendar',
               },
-            ].map((service, i) => (
-              <Reveal key={service.title} delay={i * 0.1}>
-                <div className="edu-card p-8 h-full" style={{ borderTop: `4px solid ${service.color}` }}>
-                  <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-6" style={{ background: `${service.color}15` }}>
-                    {service.icon}
-                  </div>
-                  <h3 className="text-xl font-semibold mb-3" style={{ color: '#1e3a5f' }}>{service.title}</h3>
-                  <p className="text-sm leading-relaxed mb-4" style={{ color: '#64748b' }}>{service.desc}</p>
-                  <span className="inline-block text-xs font-bold px-3 py-1 rounded-full" style={{ backgroundColor: `${service.color}15`, color: service.color }}>{service.pricing}</span>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════
-          6. HOW IT WORKS
-      ═══════════════════════════════════ */}
-      <section className="relative overflow-hidden px-6 md:px-10 py-20 md:py-28" style={{ background: '#eff6ff' }}>
-        <Blob size={260} color="#3b82f6" opacity={0.07} top={-60} left={-40} />
-        <Blob size={180} color="#facc15" opacity={0.10} bottom={-50} right={-30} />
-        <div className="relative z-10 max-w-5xl mx-auto">
-          <Reveal className="text-center mb-14">
-            <span className="inline-block text-sm font-semibold uppercase tracking-widest mb-3" style={{ color: '#fb923c' }}>Our Process</span>
-            <h2 className="text-3xl md:text-4xl font-bold" style={{ color: '#1e3a5f' }}>Simple from start to launch</h2>
-            <p className="text-base mt-4 max-w-xl mx-auto" style={{ color: '#64748b' }}>No jargon, no surprises — just a clear path to a website your community loves</p>
-          </Reveal>
-          <div className="grid md:grid-cols-3 gap-10">
-            {[
-              { num: '01', color: '#3b82f6', title: 'We Listen', desc: 'Tell us about your mission, your community, and the people you serve. A free conversation with zero pressure.' },
-              { num: '02', color: '#fb923c', title: 'We Build', desc: 'We design and develop your site in about two weeks. Accessible, warm, and easy to manage. You approve every step.' },
-              { num: '03', color: '#facc15', textColor: '#b45309', title: 'You Grow', desc: 'Launch with confidence. Get found on Google. Watch donations, volunteers, and enrolments increase.' },
-            ].map((step, i) => (
-              <Reveal key={step.num} delay={i * 0.15}>
-                <div className="text-center">
-                  <div
-                    className="inline-flex items-center justify-center w-16 h-16 rounded-2xl text-white text-xl font-bold mb-6 mx-auto"
-                    style={{ backgroundColor: step.color, color: step.textColor || '#ffffff', boxShadow: `0 4px 16px ${step.color}40` }}
+            ].map((prog, i) => (
+              <Reveal key={prog.name} delay={i * 0.1}>
+                <div
+                  className="p-7 h-full flex flex-col"
+                  style={{ backgroundColor: prog.bg, border: `2px solid ${prog.border}`, borderRadius: 20, transition: 'transform 0.25s, box-shadow 0.25s' }}
+                  onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-6px)'; e.currentTarget.style.boxShadow = `0 12px 36px ${prog.color}20` }}
+                  onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none' }}
+                >
+                  <div className="text-3xl mb-4">{prog.icon}</div>
+                  <h3 className="text-lg font-bold mb-3" style={{ color: '#1e3a5f' }}>{prog.name}</h3>
+                  <p className="text-sm leading-relaxed flex-1 mb-5" style={{ color: '#475569' }}>{prog.desc}</p>
+                  <a
+                    href="#contact"
+                    className="inline-block self-start px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all"
+                    style={{ backgroundColor: prog.color, color: '#ffffff' }}
+                    onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.85')}
+                    onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
                   >
-                    {step.num}
-                  </div>
-                  <h3 className="text-xl font-semibold mb-3" style={{ color: '#1e3a5f' }}>{step.title}</h3>
-                  <p className="text-sm leading-relaxed" style={{ color: '#64748b' }}>{step.desc}</p>
+                    {prog.cta} →
+                  </a>
                 </div>
               </Reveal>
             ))}
@@ -641,43 +577,275 @@ export default function EducationNonprofitPage() {
       </section>
 
       {/* ═══════════════════════════════════
-          7. GALLERY / SHOWCASE
+          4. IMPACT STORIES — gallery reimagined
       ═══════════════════════════════════ */}
-      <section
-        className="relative overflow-hidden px-6 md:px-10 py-20 md:py-28"
-        style={{ background: '#ffffff' }}
-      >
+      <section id="impact" className="relative overflow-hidden px-6 md:px-10 py-20 md:py-28" style={{ background: '#eff6ff' }}>
+        <Blob size={280} color="#3b82f6" opacity={0.07} top={-80} right={-60} />
+        <Blob size={220} color="#facc15" opacity={0.10} bottom={-60} left={-40} />
+
         <div className="relative z-10 max-w-6xl mx-auto">
           <Reveal className="text-center mb-14">
-            <span className="inline-block text-sm font-semibold uppercase tracking-widest mb-3" style={{ color: '#fb923c' }}>Our Community</span>
-            <h2 className="text-3xl md:text-4xl font-bold" style={{ color: '#1e3a5f' }}>Learning happens here</h2>
+            <span className="inline-block text-sm font-semibold uppercase tracking-widest mb-3" style={{ color: '#3b82f6' }}>Stories of Change</span>
+            <h2 className="text-3xl md:text-4xl font-bold" style={{ color: '#1e3a5f' }}>Behind Every Number is a Person</h2>
           </Reveal>
 
-          <Reveal delay={0.1} className="mb-8">
-            <div className="relative w-full overflow-hidden" style={{ borderRadius: 20, boxShadow: '0 12px 48px rgba(59,130,246,0.15)' }}>
-              <Image
-                src="/images/demos/education-nonprofit-showcase.webp"
-                alt="Kootenay Community Learning Centre — students and volunteers"
-                width={800}
-                height={500}
-                className="w-full object-cover"
-                style={{ maxHeight: 480 }}
-                sizes="(max-width: 768px) 100vw, 800px"
-              />
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                name: 'Maria, 42',
+                program: 'Adult Literacy',
+                quote: 'I came to the centre not able to read to my kids. Eighteen months later I read them a chapter book every night. My whole life changed.',
+                img: '/images/demos/education-nonprofit-showcase.webp',
+              },
+              {
+                name: 'James, 16',
+                program: 'Youth Tutoring',
+                quote: 'I was failing Grade 10 math. The tutors here didn\'t make me feel stupid. I got 84% on my final. First time I actually liked school.',
+                img: '/images/demos/gallery/en-1.webp',
+              },
+              {
+                name: 'The Kowalski Family',
+                program: 'Food Bank',
+                quote: 'When my husband lost his job, we didn\'t know how we\'d feed the kids. The food bank kept us going for four months without any shame attached.',
+                img: '/images/demos/gallery/en-2.webp',
+              },
+            ].map((story, i) => (
+              <Reveal key={story.name} delay={i * 0.1}>
+                <div
+                  className="edu-card overflow-hidden flex flex-col"
+                  style={{ border: '1px solid #dbeafe' }}
+                >
+                  {/* Photo */}
+                  <div className="relative aspect-[16/9] overflow-hidden">
+                    <Image src={story.img} alt={story.name} fill className="object-cover" />
+                    {/* Play button overlay — implies video */}
+                    <div className="absolute inset-0 flex items-center justify-center" style={{ background: 'rgba(30,58,95,0.35)' }}>
+                      <div className="w-14 h-14 rounded-full flex items-center justify-center" style={{ background: 'rgba(255,255,255,0.9)' }}>
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="#3b82f6"><polygon points="5 3 19 12 5 21 5 3" /></svg>
+                      </div>
+                    </div>
+                    <div className="absolute top-3 left-3">
+                      <span className="px-3 py-1 text-xs font-bold rounded-full" style={{ backgroundColor: '#3b82f6', color: '#fff' }}>{story.program}</span>
+                    </div>
+                  </div>
+                  {/* Content */}
+                  <div className="p-6 flex flex-col flex-1">
+                    <div className="flex mb-3">
+                      {[1,2,3,4,5].map(j => <span key={j} style={{ color: '#facc15' }}>★</span>)}
+                    </div>
+                    <p className="text-base italic leading-relaxed flex-1 mb-4" style={{ color: '#334155' }}>
+                      &ldquo;{story.quote}&rdquo;
+                    </p>
+                    <div className="flex items-center justify-between">
+                      <span className="font-semibold text-sm" style={{ color: '#1e3a5f' }}>{story.name}</span>
+                      <a href="#" className="text-xs font-semibold" style={{ color: '#3b82f6' }}>Read Story →</a>
+                    </div>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════
+          5. DONATION THERMOMETER
+      ═══════════════════════════════════ */}
+      <section className="px-6 md:px-10 py-20 md:py-28" style={{ background: '#ffffff' }}>
+        <div className="max-w-4xl mx-auto">
+          <Reveal className="text-center mb-12">
+            <span className="inline-block text-sm font-semibold uppercase tracking-widest mb-3" style={{ color: '#22c55e' }}>Annual Fund</span>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: '#1e3a5f' }}>Help Us Cross the Finish Line</h2>
+            <p className="text-base max-w-xl mx-auto" style={{ color: '#64748b' }}>
+              We&rsquo;re {progressPct}% of the way to our annual goal. You can put us over the top.
+            </p>
+          </Reveal>
+
+          {/* Thermometer visual */}
+          <Reveal delay={0.1}>
+            <div className="p-8 md:p-12 rounded-3xl mb-10" style={{ background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)', border: '2px solid #bbf7d0' }}>
+              <div className="flex items-end justify-between mb-4">
+                <div>
+                  <div className="text-4xl font-bold mb-1" style={{ color: '#16a34a' }}>${currentAmount.toLocaleString()}</div>
+                  <div className="text-sm font-semibold" style={{ color: '#4ade80' }}>raised so far</div>
+                </div>
+                <div className="text-right">
+                  <div className="text-2xl font-bold mb-1" style={{ color: '#64748b' }}>${goalAmount.toLocaleString()}</div>
+                  <div className="text-sm font-semibold" style={{ color: '#94a3b8' }}>annual goal</div>
+                </div>
+              </div>
+
+              {/* Progress bar */}
+              <div className="relative rounded-full overflow-hidden mb-2" style={{ height: '32px', backgroundColor: '#dcfce7', border: '2px solid #86efac' }}>
+                <motion.div
+                  className="h-full rounded-full"
+                  style={{ background: 'linear-gradient(90deg, #22c55e, #16a34a)', boxShadow: '0 2px 10px rgba(34,197,94,0.4)' }}
+                  initial={{ width: '0%' }}
+                  whileInView={{ width: `${progressPct}%` }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 2, ease: 'easeOut', delay: 0.3 }}
+                />
+                {/* Percentage label inside bar */}
+                <div className="absolute inset-0 flex items-center px-4">
+                  <span className="text-xs font-bold" style={{ color: '#ffffff' }}>{progressPct}% — Almost there!</span>
+                </div>
+              </div>
+              <div className="text-xs text-right mb-8" style={{ color: '#4ade80' }}>${(goalAmount - currentAmount).toLocaleString()} to go</div>
+
+              {/* Giving levels */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+                {[
+                  { amount: '$25', impact: 'Feeds a family for a week', icon: '🍎', color: '#f59e0b' },
+                  { amount: '$50', impact: 'Textbooks for a student', icon: '📚', popular: true, color: '#3b82f6' },
+                  { amount: '$100', impact: 'Sponsors a full program', icon: '🎓', color: '#8b5cf6' },
+                ].map((level) => (
+                  <div
+                    key={level.amount}
+                    className="relative p-5 rounded-2xl cursor-pointer transition-all"
+                    style={{
+                      border: level.popular ? '2px solid #3b82f6' : '2px solid #e2e8f0',
+                      background: level.popular ? '#eff6ff' : '#ffffff',
+                      boxShadow: level.popular ? '0 4px 20px rgba(59,130,246,0.15)' : 'none',
+                    }}
+                    onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-3px)' }}
+                    onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)' }}
+                  >
+                    {level.popular && (
+                      <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full text-xs font-bold" style={{ background: '#3b82f6', color: '#fff' }}>
+                        Most Popular
+                      </div>
+                    )}
+                    <div className="text-2xl mb-2">{level.icon}</div>
+                    <div className="text-2xl font-bold mb-1" style={{ color: level.color }}>{level.amount}</div>
+                    <div className="text-xs" style={{ color: '#64748b' }}>{level.impact}</div>
+                  </div>
+                ))}
+              </div>
+
+              <a
+                href="#contact"
+                className="block w-full text-center py-4 rounded-2xl text-base font-bold transition-all"
+                style={{ background: '#22c55e', color: '#ffffff', textDecoration: 'none', boxShadow: '0 4px 18px rgba(34,197,94,0.30)' }}
+                onMouseEnter={(e) => { e.currentTarget.style.background = '#16a34a' }}
+                onMouseLeave={(e) => { e.currentTarget.style.background = '#22c55e' }}
+              >
+                Donate Now →
+              </a>
             </div>
           </Reveal>
+        </div>
+      </section>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+      {/* ═══════════════════════════════════
+          6. VOLUNTEER SIGNUP CTA
+      ═══════════════════════════════════ */}
+      <section id="volunteer" className="relative overflow-hidden px-6 md:px-10 py-20 md:py-28" style={{ background: 'linear-gradient(135deg, #1e3a5f 0%, #1e40af 100%)' }}>
+        <Blob size={300} color="#3b82f6" opacity={0.18} top={-80} right={-60} />
+        <Blob size={220} color="#facc15" opacity={0.12} bottom={-60} left={-40} />
+
+        <div className="relative z-10 max-w-4xl mx-auto">
+          <Reveal className="text-center mb-12">
+            <span className="text-4xl mb-4 block">🙌</span>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: '#ffffff' }}>Give an Hour. Change a Life.</h2>
+            <p className="text-lg max-w-xl mx-auto" style={{ color: 'rgba(255,255,255,0.75)' }}>
+              No experience needed. Just time and heart. Our volunteers make everything possible.
+            </p>
+          </Reveal>
+
+          <Reveal delay={0.1}>
+            <form
+              onSubmit={(e) => e.preventDefault()}
+              className="p-8 md:p-10"
+              style={{ background: 'rgba(255,255,255,0.95)', borderRadius: 24, boxShadow: '0 8px 48px rgba(0,0,0,0.25)' }}
+            >
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+                <div>
+                  <label className="block text-sm font-semibold mb-2" style={{ color: '#334155' }}>Your Name</label>
+                  <input type="text" placeholder="Jane Smith" className="form-input" />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold mb-2" style={{ color: '#334155' }}>Email</label>
+                  <input type="email" placeholder="jane@example.com" className="form-input" />
+                </div>
+              </div>
+              <div className="mb-5">
+                <label className="block text-sm font-semibold mb-3" style={{ color: '#334155' }}>I&rsquo;m interested in helping with:</label>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                  {['Youth Tutoring', 'Food Bank', 'Admin Help', 'Community Events'].map((opt) => (
+                    <label key={opt} className="flex items-center gap-2 cursor-pointer">
+                      <input type="checkbox" style={{ accentColor: '#3b82f6' }} />
+                      <span className="text-sm" style={{ color: '#475569' }}>{opt}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+              <button
+                type="submit"
+                className="w-full py-4 rounded-2xl text-base font-semibold transition-all"
+                style={{ background: '#3b82f6', color: '#ffffff', border: 'none', cursor: 'pointer', boxShadow: '0 4px 18px rgba(59,130,246,0.30)' }}
+                onMouseEnter={(e) => { e.currentTarget.style.background = '#2563eb' }}
+                onMouseLeave={(e) => { e.currentTarget.style.background = '#3b82f6' }}
+              >
+                I&rsquo;m In — Sign Me Up →
+              </button>
+              <p className="text-center text-xs mt-3" style={{ color: '#94a3b8' }}>No commitment required. We&rsquo;ll reach out to find the right fit.</p>
+            </form>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════
+          7. COMMUNITY CALENDAR
+      ═══════════════════════════════════ */}
+      <section className="px-6 md:px-10 py-20 md:py-28" style={{ background: '#ffffff' }}>
+        <div className="max-w-6xl mx-auto">
+          <Reveal className="text-center mb-12">
+            <span className="inline-block text-sm font-semibold uppercase tracking-widest mb-3" style={{ color: '#fb923c' }}>What&rsquo;s Coming Up</span>
+            <h2 className="text-3xl md:text-4xl font-bold" style={{ color: '#1e3a5f' }}>Community Calendar</h2>
+          </Reveal>
+
+          <div className="grid md:grid-cols-3 gap-6">
             {[
-              { label: 'Adult Programs', img: '/images/demos/gallery/en-1.webp' },
-              { label: 'Youth Classes', img: '/images/demos/gallery/en-2.webp' },
-              { label: 'Community Events', img: '/images/demos/gallery/en-3.webp' },
-            ].map((item, i) => (
-              <Reveal key={item.label} delay={i * 0.1}>
-                <div className="relative aspect-[4/3] rounded-xl overflow-hidden">
-                  <Image src={item.img} alt={item.label} fill className="object-cover" />
-                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-3">
-                    <span className="text-white text-sm font-medium">{item.label}</span>
+              {
+                date: { day: '04', month: 'Apr' },
+                title: 'Youth Tutoring Info Night',
+                time: '6:30 PM – 8:00 PM',
+                location: '123 Sample St, Castlegar',
+                color: '#eab308',
+              },
+              {
+                date: { day: '10', month: 'Apr' },
+                title: 'Spring Literacy Workshop',
+                time: '10:00 AM – 12:00 PM',
+                location: 'Community Room B',
+                color: '#3b82f6',
+              },
+              {
+                date: { day: '17', month: 'Apr' },
+                title: 'Volunteer Appreciation Night',
+                time: '7:00 PM – 9:30 PM',
+                location: '123 Sample St, Castlegar',
+                color: '#22c55e',
+              },
+            ].map((event, i) => (
+              <Reveal key={event.title} delay={i * 0.1}>
+                <div
+                  className="flex gap-4 p-5 rounded-2xl"
+                  style={{ border: `2px solid ${event.color}30`, background: `${event.color}08`, transition: 'transform 0.25s, box-shadow 0.25s' }}
+                  onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = `0 8px 24px ${event.color}25` }}
+                  onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none' }}
+                >
+                  <div
+                    className="flex flex-col items-center justify-center text-center px-4 rounded-xl flex-shrink-0"
+                    style={{ background: event.color, color: '#ffffff', minWidth: '60px', minHeight: '72px' }}
+                  >
+                    <span className="text-2xl font-bold leading-none">{event.date.day}</span>
+                    <span className="text-xs font-semibold uppercase">{event.date.month}</span>
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-base mb-1" style={{ color: '#1e3a5f' }}>{event.title}</h3>
+                    <p className="text-xs mb-1" style={{ color: '#64748b' }}>🕐 {event.time}</p>
+                    <p className="text-xs" style={{ color: '#64748b' }}>📍 {event.location}</p>
                   </div>
                 </div>
               </Reveal>
@@ -704,7 +872,7 @@ export default function EducationNonprofitPage() {
       </section>
 
       {/* ═══════════════════════════════════
-          9. TESTIMONIALS (3)
+          9. TESTIMONIALS
       ═══════════════════════════════════ */}
       <section className="px-6 md:px-10 py-20 md:py-28" style={{ background: '#ffffff' }}>
         <div className="max-w-6xl mx-auto">
@@ -770,15 +938,69 @@ export default function EducationNonprofitPage() {
       </section>
 
       {/* ═══════════════════════════════════
-          10. FAQ
+          10. SERVICES (WEB DESIGN PITCH)
       ═══════════════════════════════════ */}
-      <section className="relative overflow-hidden px-6 md:px-10 py-20 md:py-28" style={{ background: '#eff6ff' }}>
-        <Blob size={200} color="#3b82f6" opacity={0.06} top={-40} right={-30} />
+      <section className="px-6 md:px-10 py-20 md:py-28" style={{ background: '#eff6ff' }}>
+        <div className="max-w-6xl mx-auto">
+          <Reveal className="text-center mb-14">
+            <div className="max-w-3xl mx-auto px-6 py-8 rounded-2xl mb-10" style={{ background: 'linear-gradient(135deg, #ffffff 0%, #dbeafe 100%)', border: '1px solid rgba(59,130,246,0.15)' }}>
+              <p className="text-lg md:text-xl leading-relaxed" style={{ color: '#1e3a5f' }}>
+                <strong>Donors and parents judge your organisation by your website first.</strong> A dated site signals that you&rsquo;re struggling — even if your programs are world-class. The school or non-profit down the road with the polished site gets the donations and the enrolments. Let&rsquo;s build you something your community is proud to share.
+              </p>
+            </div>
+
+            <span className="inline-block text-sm font-semibold uppercase tracking-widest mb-3" style={{ color: '#3b82f6' }}>Digital Services</span>
+            <h2 className="text-3xl md:text-4xl font-bold" style={{ color: '#1e3a5f' }}>Grow your mission online</h2>
+          </Reveal>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                title: 'Custom Website',
+                desc: 'A welcoming hub for students, volunteers, and donors — built with accessibility and heart.',
+                color: '#3b82f6',
+                pricing: 'From $1,500',
+                icon: <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" /><line x1="8" y1="21" x2="16" y2="21" /><line x1="12" y1="17" x2="12" y2="21" /></svg>,
+              },
+              {
+                title: 'Email Marketing',
+                desc: 'Keep your community connected with program updates, success stories, and upcoming events.',
+                color: '#facc15',
+                iconColor: '#b45309',
+                pricing: 'From $750',
+                icon: <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#b45309" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></svg>,
+              },
+              {
+                title: 'Social Media',
+                desc: 'Share your impact. Celebrate your students. Grow your community far and wide.',
+                color: '#fb923c',
+                pricing: 'From $500',
+                icon: <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fb923c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="18" cy="5" r="3" /><circle cx="6" cy="12" r="3" /><circle cx="18" cy="19" r="3" /><line x1="8.59" y1="13.51" x2="15.42" y2="17.49" /><line x1="15.41" y1="6.51" x2="8.59" y2="10.49" /></svg>,
+              },
+            ].map((service, i) => (
+              <Reveal key={service.title} delay={i * 0.1}>
+                <div className="edu-card p-8 h-full" style={{ borderTop: `4px solid ${service.color}` }}>
+                  <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-6" style={{ background: `${service.color}15` }}>
+                    {service.icon}
+                  </div>
+                  <h3 className="text-xl font-semibold mb-3" style={{ color: '#1e3a5f' }}>{service.title}</h3>
+                  <p className="text-sm leading-relaxed mb-4" style={{ color: '#64748b' }}>{service.desc}</p>
+                  <span className="inline-block text-xs font-bold px-3 py-1 rounded-full" style={{ backgroundColor: `${service.color}15`, color: service.color }}>{service.pricing}</span>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════
+          11. FAQ
+      ═══════════════════════════════════ */}
+      <section className="relative overflow-hidden px-6 md:px-10 py-20 md:py-28" style={{ background: '#ffffff' }}>
         <div className="relative z-10 max-w-3xl mx-auto">
           <Reveal className="text-center mb-12">
             <span className="inline-block text-sm font-semibold uppercase tracking-widest mb-3" style={{ color: '#3b82f6' }}>FAQ</span>
             <h2 className="text-3xl md:text-4xl font-bold" style={{ color: '#1e3a5f' }}>Frequently Asked Questions</h2>
-            <p className="text-base mt-4" style={{ color: '#64748b' }}>Everything you need to know before we start</p>
           </Reveal>
           <Reveal delay={0.1}>
             <FAQAccordion items={faqItems} />
@@ -798,73 +1020,12 @@ export default function EducationNonprofitPage() {
       </section>
 
       {/* ═══════════════════════════════════
-          DECORATIVE BLOB TRANSITION
-      ═══════════════════════════════════ */}
-      <div className="relative h-10 overflow-visible" style={{ background: '#eff6ff' }} aria-hidden="true">
-        <Blob size={180} color="#fb923c" opacity={0.10} top={-70} left="25%" />
-        <Blob size={120} color="#facc15" opacity={0.14} top={-40} right="15%" />
-        <Blob size={100} color="#3b82f6" opacity={0.09} top={-50} left="65%" />
-      </div>
-
-      {/* ═══════════════════════════════════
-          11. ABOUT
-      ═══════════════════════════════════ */}
-      <section
-        id="about"
-        className="relative overflow-hidden px-6 md:px-10 py-20 md:py-28"
-        style={{ background: '#eff6ff' }}
-      >
-        <Blob size={260} color="#3b82f6" opacity={0.07} top={-60} right={-50} />
-        <Blob size={200} color="#fb923c" opacity={0.08} bottom={-50} left={-40} />
-
-        <div className="relative z-10 max-w-5xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-14 items-center">
-            <Reveal>
-              <span className="inline-block text-sm font-semibold uppercase tracking-widest mb-4" style={{ color: '#3b82f6' }}>About Us</span>
-              <h2 className="text-3xl md:text-4xl font-bold mb-6" style={{ color: '#1e3a5f' }}>
-                Rooted in community,<br />learning for life.
-              </h2>
-              <p className="text-base leading-relaxed mb-5" style={{ color: '#475569' }}>
-                The Kootenay Community Learning Centre has been at the heart of adult education and
-                literacy in the West Kootenays for over 15 years. We believe that learning is a lifelong
-                journey — and everyone deserves the chance to grow.
-              </p>
-              <p className="text-base leading-relaxed mb-8" style={{ color: '#475569' }}>
-                From foundational literacy to digital skills, from youth programs to seniors&rsquo; learning
-                circles, our caring team of educators and over 120 dedicated volunteers make it happen.
-                Many of our programs are offered free or at low cost.
-              </p>
-              <a href="#contact" className="inline-block px-8 py-4 rounded-full text-sm font-semibold transition-all duration-250" style={{ background: '#3b82f6', color: '#ffffff', textDecoration: 'none', boxShadow: '0 4px 18px rgba(59,130,246,0.30)' }} onMouseEnter={(e) => { e.currentTarget.style.background = '#2563eb' }} onMouseLeave={(e) => { e.currentTarget.style.background = '#3b82f6' }}>
-                Learn More About KCLC
-              </a>
-            </Reveal>
-
-            <Reveal delay={0.15}>
-              <div className="grid grid-cols-2 gap-5">
-                {[
-                  { num: '500+', label: 'Learners per year', color: '#3b82f6', bg: 'rgba(59,130,246,0.1)' },
-                  { num: '45', label: 'Active programs', color: '#b45309', bg: 'rgba(250,204,21,0.18)' },
-                  { num: '120+', label: 'Volunteers', color: '#ea580c', bg: 'rgba(251,146,60,0.15)' },
-                  { num: '15', label: 'Years in Kootenays', color: '#3b82f6', bg: 'rgba(59,130,246,0.1)' },
-                ].map((stat) => (
-                  <div key={stat.label} className="flex flex-col items-center justify-center p-6 text-center" style={{ background: stat.bg, borderRadius: 16 }}>
-                    <div className="text-3xl font-bold mb-1" style={{ color: stat.color }}>{stat.num}</div>
-                    <div className="text-xs font-semibold" style={{ color: '#64748b' }}>{stat.label}</div>
-                  </div>
-                ))}
-              </div>
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════
           12. CONTACT
       ═══════════════════════════════════ */}
       <section
         id="contact"
         className="relative overflow-hidden px-6 md:px-10 py-20 md:py-28"
-        style={{ background: '#ffffff' }}
+        style={{ background: '#eff6ff' }}
       >
         <Blob size={240} color="#facc15" opacity={0.10} top={-60} right="5%" />
         <Blob size={180} color="#3b82f6" opacity={0.08} bottom={-40} left="8%" />
@@ -882,7 +1043,7 @@ export default function EducationNonprofitPage() {
                   { icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.12 13 19.79 19.79 0 0 1 1.07 4.4 2 2 0 0 1 3.05 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 21 16.92z" /></svg>, label: 'Phone', value: '(250) 555-0113', href: 'tel:2505550113' },
                   { icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></svg>, label: 'Email', value: 'info@kclc.ca', href: 'mailto:info@kclc.ca' },
                   { icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fb923c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></svg>, label: 'Hours', value: 'Mon – Fri, 9:00 AM – 5:00 PM', href: null },
-                  { icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#facc15" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" /></svg>, label: 'Location', value: 'Castlegar, BC, Canada', href: null },
+                  { icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#facc15" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" /></svg>, label: 'Location', value: '123 Sample St, Castlegar, BC', href: null },
                 ].map((item) => (
                   <div key={item.label} className="flex items-start gap-4">
                     <div className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: '#eff6ff' }}>
@@ -942,10 +1103,10 @@ export default function EducationNonprofitPage() {
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8 mb-10">
             <div>
               <div className="text-lg font-bold mb-2" style={{ color: '#93c5fd' }}>Kootenay Community Learning Centre</div>
-              <div className="text-sm" style={{ color: 'rgba(255,255,255,0.5)' }}>Castlegar, BC · Learning for Life</div>
+              <div className="text-sm" style={{ color: 'rgba(255,255,255,0.5)' }}>123 Sample St, Castlegar, BC · Learning for Life</div>
             </div>
             <div className="flex flex-wrap gap-6 text-sm">
-              {['Programs', 'Community', 'About', 'Contact'].map((link) => (
+              {['Programs', 'Impact', 'Volunteer', 'Contact'].map((link) => (
                 <a key={link} href={`#${link.toLowerCase()}`} style={{ color: 'rgba(255,255,255,0.55)', textDecoration: 'none' }} onMouseEnter={(e) => (e.currentTarget.style.color = '#93c5fd')} onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.55)')}>
                   {link}
                 </a>
@@ -968,7 +1129,7 @@ export default function EducationNonprofitPage() {
         <p className="text-xs md:text-sm" style={{ color: '#64748b' }}>
           Sample design by{' '}
           <span style={{ color: '#3b82f6', fontWeight: 600 }}>Kootenay Made Digital</span>
-          <span className="hidden sm:inline" style={{ color: '#94a3b8' }}> &mdash; Get a let's talk for your organisation</span>
+          <span className="hidden sm:inline" style={{ color: '#94a3b8' }}> &mdash; Get a website for your organisation</span>
         </p>
         <Link
           href="/contact?style=education-nonprofit"
@@ -977,7 +1138,7 @@ export default function EducationNonprofitPage() {
           onMouseEnter={(e) => { e.currentTarget.style.background = '#2563eb' }}
           onMouseLeave={(e) => { e.currentTarget.style.background = '#3b82f6' }}
         >
-          Like What You See? Let's Talk &rarr;
+          Like What You See? Let&rsquo;s Talk &rarr;
         </Link>
       </div>
 

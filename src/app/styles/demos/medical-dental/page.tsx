@@ -163,7 +163,6 @@ function LiveRedesign() {
 
               {/* Hero */}
               <div className="relative px-5 sm:px-10 md:px-16 py-8 sm:py-14 flex-1 flex flex-col justify-center">
-                {/* Soft wave SVG motif */}
                 <motion.div className="absolute top-0 right-0 pointer-events-none" initial={{ opacity: 0 }} animate={{ opacity: 0.15 }} transition={{ duration: dur, delay: stagger * 3 }}>
                   <svg width="220" height="220" viewBox="0 0 180 180" fill="none">
                     <path d="M170 30 C140 30, 120 60, 100 80 C80 100, 60 110, 40 120 C20 130, 10 150, 10 160" stroke={MD.teal} strokeWidth="2" fill="none" strokeLinecap="round" />
@@ -258,6 +257,34 @@ function FAQAccordion({ items }: { items: { q: string; a: string }[] }) {
   )
 }
 
+/* ── Treatment Icon card ── */
+function TreatmentIcon({ icon, label, detail, price }: { icon: string; label: string; detail: string; price?: string }) {
+  const [expanded, setExpanded] = useState(false)
+  return (
+    <button
+      className="flex flex-col items-center p-4 rounded-2xl text-center transition-all w-full"
+      style={{
+        backgroundColor: expanded ? '#0891b2' : '#f0f7ff',
+        border: `1.5px solid ${expanded ? '#0891b2' : 'rgba(8,145,178,0.15)'}`,
+        boxShadow: expanded ? '0 4px 20px rgba(8,145,178,0.25)' : '0 1px 6px rgba(8,145,178,0.06)',
+      }}
+      onClick={() => setExpanded(!expanded)}
+    >
+      <span className="text-3xl mb-2">{icon}</span>
+      <p className="text-sm font-bold mb-1" style={{ color: expanded ? '#fff' : '#0891b2' }}>{label}</p>
+      <AnimatePresence>
+        {expanded && (
+          <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} transition={{ duration: 0.25 }}>
+            <p className="text-xs leading-relaxed mt-1" style={{ color: 'rgba(255,255,255,0.85)' }}>{detail}</p>
+            {price && <p className="text-xs font-bold mt-2 px-3 py-1 rounded-full inline-block" style={{ backgroundColor: 'rgba(255,255,255,0.15)', color: '#fff' }}>{price}</p>}
+          </motion.div>
+        )}
+      </AnimatePresence>
+      {!expanded && <p className="text-xs" style={{ color: 'rgba(8,145,178,0.5)' }}>Tap for details</p>}
+    </button>
+  )
+}
+
 /* ══════════════════════════════════════════════════════════════
    KOOTENAY FAMILY DENTAL — Medical & Dental Demo
    ══════════════════════════════════════════════════════════════ */
@@ -323,7 +350,7 @@ export default function MedicalDentalDemo() {
             Kootenay Family Dental
           </span>
           <div className="hidden md:flex items-center gap-8">
-            {['Services', 'About', 'Gallery', 'Book Now'].map((link) => (
+            {['Services', 'About', 'Book Now'].map((link) => (
               <a
                 key={link}
                 href={`#${link.toLowerCase().replace(' ', '-')}`}
@@ -345,7 +372,7 @@ export default function MedicalDentalDemo() {
         </div>
       </nav>
 
-      {/* ═══════════ 2. HERO ═══════════ */}
+      {/* ═══════════ 2. HERO — Calming, centered ═══════════ */}
       <section className="relative overflow-hidden min-h-screen flex items-center">
         <div className="absolute inset-0">
           <Image
@@ -369,13 +396,14 @@ export default function MedicalDentalDemo() {
             Gentle care for every smile
           </motion.p>
           <motion.h1
-            className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-8"
+            className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6"
             style={{ color: '#1e293b' }}
             initial={prefersReduced ? {} : { opacity: 0, y: 30 }}
             animate={prefersReduced ? {} : { opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
-            Kootenay Family Dental
+            Nervous?<br />
+            <span style={{ color: '#0891b2' }}>We Get It.</span>
           </motion.h1>
           <motion.p
             className="text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed"
@@ -384,12 +412,13 @@ export default function MedicalDentalDemo() {
             animate={prefersReduced ? {} : { opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
           >
-            Your family deserves a dental team that listens, cares, and makes every visit comfortable.
+            Gentle care for the whole family — now booking online. No phone call needed.
           </motion.p>
           <motion.div
             initial={prefersReduced ? {} : { opacity: 0, y: 20 }}
             animate={prefersReduced ? {} : { opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.7 }}
+            className="flex flex-col sm:flex-row gap-3 justify-center"
           >
             <a
               href="#book-now"
@@ -402,7 +431,16 @@ export default function MedicalDentalDemo() {
               onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#0e7490')}
               onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#0891b2')}
             >
-              Book an Appointment
+              Book Online Now
+            </a>
+            <a
+              href="#first-visit"
+              className="inline-block px-10 py-4 text-sm font-bold uppercase tracking-widest transition-all rounded-full"
+              style={{ backgroundColor: 'rgba(255,255,255,0.8)', color: '#0891b2', border: '2px solid rgba(8,145,178,0.3)' }}
+              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#fff')}
+              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.8)')}
+            >
+              Your First Visit →
             </a>
           </motion.div>
         </div>
@@ -430,126 +468,244 @@ export default function MedicalDentalDemo() {
         </div>
       </div>
 
-      {/* ═══════════ 4. SERVICES ═══════════ */}
-      <section id="services" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#ffffff' }}>
+      {/* ═══════════ 4. YOUR FIRST VISIT JOURNEY (UNIQUE SECTION) ═══════════ */}
+      <section id="first-visit" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#ffffff' }}>
         <div className="max-w-5xl mx-auto">
-          {/* PAS intro */}
           <Reveal>
-            <div className="max-w-3xl mx-auto text-center mb-12 px-6 py-8 rounded-2xl" style={{ backgroundColor: '#f0f7ff', border: '1px solid rgba(8,145,178,0.15)' }}>
-              <p className="text-lg md:text-xl leading-relaxed" style={{ color: '#1e293b' }}>
-                <strong>Patients are choosing the clinic with the modern website and online booking.</strong> Not because that clinic is better &mdash; but because it <em>looks</em> more trustworthy before they ever walk through the door. The practice that looks professional gets the call. Let&rsquo;s make sure that&rsquo;s yours.
-              </p>
+            <h2 className="text-3xl md:text-5xl font-bold text-center mb-4" style={{ color: '#1e293b' }}>
+              Your First Visit
+            </h2>
+            <p className="text-center mb-4 max-w-xl mx-auto text-lg" style={{ color: '#64748b' }}>
+              Not sure what happens when you get here? Here&rsquo;s exactly what to expect — no surprises.
+            </p>
+            <div className="w-16 h-1 rounded-full mx-auto mb-14" style={{ backgroundColor: '#0891b2' }} />
+          </Reveal>
+
+          {/* 3-step visual path */}
+          <div className="grid md:grid-cols-3 gap-8 relative">
+            {/* Connecting arrows (desktop only) */}
+            <div className="hidden md:block absolute top-12 left-[calc(33.33%-1rem)] w-[calc(66.66%+2rem)] h-px"
+              style={{ backgroundColor: 'rgba(8,145,178,0.2)', zIndex: 0 }} />
+
+            {[
+              {
+                step: '1',
+                icon: '💻',
+                title: 'Book Online',
+                sub: 'No phone call needed',
+                desc: 'Choose your appointment type, pick a time that works for you, and you\'re done. You\'ll get a confirmation email with everything you need.',
+                highlight: true,
+              },
+              {
+                step: '2',
+                icon: '📋',
+                title: 'Fill Forms at Home',
+                sub: 'On your own device',
+                desc: 'We\'ll send your new patient forms by email. Fill them in from your couch, at your own pace. No clipboard anxiety at reception.',
+              },
+              {
+                step: '3',
+                icon: '😊',
+                title: 'Meet Your Team',
+                sub: 'We go slow',
+                desc: 'We start with a conversation, not a drill. Dr. Patel will explain every step before it happens. You\'re always in control.',
+              },
+            ].map((item, i) => (
+              <Reveal key={item.step} delay={i * 0.15}>
+                <div className="relative text-center p-6 rounded-2xl z-10"
+                  style={{
+                    backgroundColor: item.highlight ? '#0891b2' : '#f0f7ff',
+                    border: `1.5px solid ${item.highlight ? '#0891b2' : 'rgba(8,145,178,0.15)'}`,
+                    boxShadow: item.highlight ? '0 8px 32px rgba(8,145,178,0.25)' : 'none',
+                  }}>
+                  <div className="text-5xl mb-4">{item.icon}</div>
+                  <div className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold mx-auto mb-3"
+                    style={{ backgroundColor: item.highlight ? 'rgba(255,255,255,0.25)' : '#0891b2', color: '#fff' }}>
+                    {item.step}
+                  </div>
+                  <h3 className="text-xl font-bold mb-1"
+                    style={{ color: item.highlight ? '#fff' : '#0891b2' }}>{item.title}</h3>
+                  <p className="text-xs font-semibold uppercase tracking-wider mb-3"
+                    style={{ color: item.highlight ? 'rgba(255,255,255,0.7)' : 'rgba(8,145,178,0.6)' }}>
+                    {item.sub}
+                  </p>
+                  <p className="text-sm leading-relaxed"
+                    style={{ color: item.highlight ? 'rgba(255,255,255,0.85)' : '#475569' }}>
+                    {item.desc}
+                  </p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+
+          <Reveal delay={0.4}>
+            <div className="mt-10 text-center">
+              <a href="#book-now"
+                className="inline-flex items-center gap-2 px-8 py-4 text-sm font-bold uppercase tracking-wider rounded-full transition-all hover:scale-105"
+                style={{ backgroundColor: '#0891b2', color: '#fff', boxShadow: '0 4px 20px rgba(8,145,178,0.3)' }}>
+                Start Step 1 — Book Online
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+              </a>
             </div>
           </Reveal>
-
-          <Reveal>
-            <h2 className="text-3xl md:text-5xl font-bold text-center mb-4" style={{ color: '#1e293b' }}>
-              What We Can Do For You
-            </h2>
-            <p className="text-center mb-16" style={{ color: '#64748b' }}>
-              Digital solutions tailored for dental and medical practices
-            </p>
-          </Reveal>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              { title: 'Custom Website', desc: 'Make new patients feel welcome before their first visit.', pricing: 'From $1,500' },
-              { title: 'Google Visibility', desc: 'Be the first dental clinic families find when they search.', pricing: 'From $500' },
-              { title: 'Email Marketing', desc: 'Automated recall reminders keep your schedule full.', pricing: 'From $750' },
-            ].map((card, i) => (
-              <Reveal key={card.title} delay={i * 0.15}>
-                <div
-                  className="p-8 text-center transition-all cursor-default rounded-2xl"
-                  style={{ backgroundColor: '#f0f7ff', boxShadow: '0 1px 8px rgba(8,145,178,0.06)' }}
-                  onMouseEnter={(e) => (e.currentTarget.style.boxShadow = '0 8px 32px rgba(8,145,178,0.12)')}
-                  onMouseLeave={(e) => (e.currentTarget.style.boxShadow = '0 1px 8px rgba(8,145,178,0.06)')}
-                >
-                  <div className="flex justify-center mb-4">
-                    <CheckPop delay={0.2 + i * 0.1} />
-                  </div>
-                  <h3 className="text-xl font-bold mb-3" style={{ color: '#0891b2' }}>{card.title}</h3>
-                  <p className="leading-relaxed mb-4" style={{ color: '#475569' }}>{card.desc}</p>
-                  <span className="inline-block text-xs font-bold px-3 py-1 rounded-full" style={{ backgroundColor: '#ffffff', color: '#0891b2', border: '1px solid rgba(8,145,178,0.2)' }}>{card.pricing}</span>
-                </div>
-              </Reveal>
-            ))}
-          </div>
         </div>
       </section>
 
-      {/* ═══════════ 5. HOW IT WORKS ═══════════ */}
-      <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#f0f7ff' }}>
+      {/* ═══════════ 5. TREATMENT ICONS (NO PHOTOS — tap to expand) ═══════════ */}
+      <section id="services" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#f0f7ff' }}>
         <div className="max-w-5xl mx-auto">
           <Reveal>
             <h2 className="text-3xl md:text-5xl font-bold text-center mb-4" style={{ color: '#1e293b' }}>
-              How It Works
+              Treatments We Offer
             </h2>
-            <p className="text-center mb-16" style={{ color: '#64748b' }}>
-              From first conversation to live website — no stress, no jargon
+            <p className="text-center mb-4 max-w-xl mx-auto" style={{ color: '#64748b' }}>
+              Tap any card to see details and pricing
             </p>
+            <div className="w-16 h-1 rounded-full mx-auto mb-12" style={{ backgroundColor: '#0891b2' }} />
           </Reveal>
-          <div className="grid md:grid-cols-3 gap-10">
-            {[
-              { num: '01', title: 'We Talk', desc: 'Tell us about your practice, your patients, and what makes your care special. Free consultation — no pressure at all.' },
-              { num: '02', title: 'We Build', desc: 'We design and develop your site in about two weeks. You review, we refine. It will feel exactly right.' },
-              { num: '03', title: 'You Grow', desc: 'Launch, get found on Google, and watch new patient bookings roll in. Your practice, elevated online.' },
-            ].map((step, i) => (
-              <Reveal key={step.num} delay={i * 0.15}>
-                <div className="text-center">
-                  <div
-                    className="inline-flex items-center justify-center w-16 h-16 rounded-full text-white text-xl font-bold mb-6 mx-auto"
-                    style={{ backgroundColor: '#0891b2', boxShadow: '0 4px 16px rgba(8,145,178,0.3)' }}
-                  >
-                    {step.num}
-                  </div>
-                  <h3 className="text-xl font-bold mb-3" style={{ color: '#1e293b' }}>{step.title}</h3>
-                  <p className="text-sm leading-relaxed" style={{ color: '#64748b' }}>{step.desc}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
+
+          <Reveal delay={0.1}>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
+              <TreatmentIcon icon="🦷" label="Cleaning" detail="Professional polish and tartar removal. Includes full exam with Dr. Patel." price="From $180" />
+              <TreatmentIcon icon="✨" label="Whitening" detail="In-office or take-home whitening trays. Visible results in 1–2 visits." price="From $350" />
+              <TreatmentIcon icon="👑" label="Crowns" detail="Same-day digital crowns. No messy impressions, no second appointment." price="From $1,200" />
+              <TreatmentIcon icon="🔩" label="Implants" detail="Permanent tooth replacement. Natural look and feel, lasts decades." price="From $2,400" />
+              <TreatmentIcon icon="🧸" label="Kids" detail="Child-friendly checkups from age 1. We make it fun, not scary." price="From $120" />
+              <TreatmentIcon icon="🚨" label="Emergency" detail="Same-day emergency appointments when possible. Call us first." price="Call us" />
+            </div>
+          </Reveal>
         </div>
       </section>
 
-      {/* ═══════════ 6. GALLERY / SHOWCASE ═══════════ */}
-      <section id="gallery" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#ffffff' }}>
-        <div className="max-w-6xl mx-auto">
+      {/* ═══════════ 6. MEET DR. PATEL ═══════════ */}
+      <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#ffffff' }}>
+        <div className="max-w-5xl mx-auto">
           <Reveal>
-            <h2 className="text-3xl md:text-5xl font-bold text-center mb-12" style={{ color: '#1e293b' }}>
-              Our Practice
+            <h2 className="text-3xl md:text-5xl font-bold text-center mb-4" style={{ color: '#1e293b' }}>
+              Meet Dr. Patel
             </h2>
+            <div className="w-16 h-1 rounded-full mx-auto mb-12" style={{ backgroundColor: '#0891b2' }} />
           </Reveal>
           <Reveal delay={0.1}>
-            <div className="flex justify-center mb-10">
-              <div className="overflow-hidden w-full max-w-3xl rounded-2xl" style={{ boxShadow: '0 4px 24px rgba(8,145,178,0.1)' }}>
-                <Image
-                  src="/images/demos/medical-dental-showcase.webp"
-                  alt="Kootenay Family Dental — modern treatment room"
-                  width={800}
-                  height={450}
-                  className="w-full h-auto block"
-                  style={{ objectFit: 'cover' }}
-                />
+            <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-center md:items-start">
+              {/* Photo placeholder */}
+              <div className="flex-shrink-0 w-48 h-48 md:w-56 md:h-56 rounded-full overflow-hidden"
+                style={{ border: '4px solid rgba(8,145,178,0.2)', backgroundColor: '#f0f7ff' }}>
+                <div className="w-full h-full flex items-center justify-center text-6xl">
+                  👨‍⚕️
+                </div>
+              </div>
+              {/* Bio */}
+              <div className="flex-1 text-center md:text-left">
+                <h3 className="text-2xl font-bold mb-2" style={{ color: '#0891b2' }}>Dr. Raj Patel, DDS</h3>
+                <p className="text-sm font-semibold uppercase tracking-wider mb-4" style={{ color: '#94a3b8' }}>
+                  Doctor of Dental Surgery · 15+ Years Experience
+                </p>
+                <p className="text-base leading-relaxed mb-5" style={{ color: '#475569' }}>
+                  Dr. Patel grew up in the Kootenays and came back after completing his DDS at UBC because, as he puts it, &ldquo;you can&rsquo;t replace a community like this.&rdquo; He bought the practice in 2021 and has been focused on one thing ever since: making sure patients of all ages feel heard, comfortable, and confident about their dental health.
+                </p>
+                <p className="text-base leading-relaxed mb-6" style={{ color: '#475569' }}>
+                  His philosophy: explain everything, rush nothing, and always ask &ldquo;how are you doing?&rdquo; before you pick up an instrument.
+                </p>
+                {/* Credentials */}
+                <div className="flex flex-wrap gap-2 justify-center md:justify-start">
+                  {['DDS — UBC Faculty of Dentistry', 'Fellow, Canadian Dental Association', 'Invisalign Certified', 'Sedation Trained'].map((cred) => (
+                    <span key={cred} className="px-3 py-1.5 text-xs font-semibold rounded-full"
+                      style={{ backgroundColor: '#f0f7ff', color: '#0891b2', border: '1px solid rgba(8,145,178,0.2)' }}>
+                      {cred}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
           </Reveal>
-          <div className="grid grid-cols-3 gap-4 md:gap-6">
-            {['Treatment Rooms', 'Waiting Area', 'Our Team'].map((label, i) => (
-              <Reveal key={label} delay={0.15 + i * 0.1}>
-                <div className='relative aspect-[4/3] rounded-xl overflow-hidden'>
-                  <Image src={`/images/demos/gallery/md-${i + 1}.webp`} alt={label} fill className='object-cover' />
-                  <div className='absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-3'>
-                    <span className='text-white text-sm font-medium'>{label}</span>
-                  </div>
-                </div>
-              </Reveal>
-            ))}
-          </div>
         </div>
       </section>
 
-      {/* ═══════════ 7. THE TRANSFORMATION ═══════════ */}
+      {/* ═══════════ 7. INSURANCE & PAYMENT ═══════════ */}
+      <section className="py-10 px-6" style={{ backgroundColor: '#0891b2' }}>
+        <div className="max-w-5xl mx-auto">
+          <Reveal>
+            <p className="text-xs font-bold uppercase tracking-[0.3em] text-center mb-5" style={{ color: 'rgba(255,255,255,0.6)' }}>
+              Insurance &amp; Payment
+            </p>
+            <div className="flex flex-wrap justify-center items-center gap-4 md:gap-6">
+              {[
+                { label: 'Pacific Blue Cross' },
+                { label: 'Sun Life Financial' },
+                { label: 'Manulife' },
+                { label: 'Great-West Life' },
+                { label: 'Direct Billing Available', highlight: true },
+                { label: 'Payment Plans Available', highlight: true },
+              ].map((item) => (
+                <div key={item.label}
+                  className="flex items-center gap-2 px-4 py-2.5 rounded-xl"
+                  style={{
+                    backgroundColor: item.highlight ? 'rgba(255,255,255,0.2)' : 'rgba(255,255,255,0.1)',
+                    border: `1px solid rgba(255,255,255,${item.highlight ? '0.4' : '0.15'})`,
+                  }}>
+                  <span className="text-sm font-semibold" style={{ color: '#fff' }}>{item.label}</span>
+                </div>
+              ))}
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ═══════════ 8. SMILE GALLERY — Before/After ═══════════ */}
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#f0f7ff' }}>
+        <div className="max-w-5xl mx-auto">
+          <Reveal>
+            <h2 className="text-3xl md:text-5xl font-bold text-center mb-4" style={{ color: '#1e293b' }}>
+              Smile Gallery
+            </h2>
+            <p className="text-center mb-12" style={{ color: '#64748b' }}>
+              Real transformations — the most compelling proof we can offer
+            </p>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <div className="grid md:grid-cols-3 gap-6">
+              {[
+                { treatment: 'Teeth Whitening', before: '🟡', after: '⚪', desc: '2 in-office sessions' },
+                { treatment: 'Composite Veneers', before: '🔶', after: '⬜', desc: 'Single appointment' },
+                { treatment: 'Invisalign', before: '📐', after: '✅', desc: '14 months treatment' },
+              ].map((item) => (
+                <div key={item.treatment} className="rounded-2xl overflow-hidden"
+                  style={{ backgroundColor: '#fff', border: '1px solid rgba(8,145,178,0.15)', boxShadow: '0 2px 12px rgba(8,145,178,0.06)' }}>
+                  <div className="flex">
+                    {/* Before */}
+                    <div className="flex-1 p-6 text-center" style={{ borderRight: '2px solid rgba(8,145,178,0.1)' }}>
+                      <p className="text-xs font-bold uppercase tracking-wider mb-3" style={{ color: '#94a3b8' }}>Before</p>
+                      <div className="h-20 flex items-center justify-center rounded-xl mb-2"
+                        style={{ backgroundColor: '#f8fafc' }}>
+                        <span className="text-4xl">{item.before}</span>
+                      </div>
+                    </div>
+                    {/* After */}
+                    <div className="flex-1 p-6 text-center">
+                      <p className="text-xs font-bold uppercase tracking-wider mb-3" style={{ color: '#0891b2' }}>After</p>
+                      <div className="h-20 flex items-center justify-center rounded-xl mb-2"
+                        style={{ backgroundColor: '#f0f7ff' }}>
+                        <span className="text-4xl">{item.after}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="px-6 pb-5 text-center">
+                    <p className="font-bold text-sm mb-1" style={{ color: '#0891b2' }}>{item.treatment}</p>
+                    <p className="text-xs" style={{ color: '#94a3b8' }}>{item.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <p className="text-center mt-5 text-xs" style={{ color: '#94a3b8' }}>
+              (Illustrative placeholders — actual patient photos with consent go here)
+            </p>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ═══════════ 9. THE TRANSFORMATION ═══════════ */}
+      <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#ffffff' }}>
         <div className="max-w-5xl mx-auto">
           <Reveal>
             <h2 className={`${font.className} text-3xl md:text-5xl font-bold text-center mb-4`} style={{ color: '#1e293b' }}>
@@ -565,40 +721,37 @@ export default function MedicalDentalDemo() {
         </div>
       </section>
 
-      {/* ═══════════ 8. TESTIMONIALS (3) ═══════════ */}
-      <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#ffffff' }}>
+      {/* ═══════════ 10. PATIENT STORIES (Testimonials) ═══════════ */}
+      <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#f0f7ff' }}>
         <div className="max-w-6xl mx-auto">
           <Reveal>
             <h2 className="text-3xl md:text-5xl font-bold text-center mb-4" style={{ color: '#1e293b' }}>
-              What Practices Are Saying
+              Patient Stories
             </h2>
-            <p className="text-center mb-16" style={{ color: '#64748b' }}>Real results from real Kootenay clinics</p>
+            <p className="text-center mb-16" style={{ color: '#64748b' }}>The most honest words come from people who were nervous before their first visit</p>
           </Reveal>
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
-                quote: "New patient bookings went up 40% in the first two months after our new website launched. Patients actually comment on how professional it looks. Worth every penny.",
-                name: 'Dr. Sarah K.',
-                business: 'Nakusp Family Dental',
-                location: 'Nakusp, BC',
+                quote: "I hadn't been to a dentist in 8 years. Pure anxiety. Dr. Patel talked me through every single step. I cried a little on the way home — not from pain, from relief that it wasn't as bad as I'd built it up to be.",
+                name: 'Melissa R.',
+                treatment: 'First visit after 8-year gap',
               },
               {
-                quote: "Our old site was costing us patients — they were choosing the clinic with online booking. Kootenay Made set us up right. The phone doesn't stop ringing now.",
-                name: 'Dr. Marcus T.',
-                business: 'Castlegar Medical Clinic',
-                location: 'Castlegar, BC',
+                quote: "My kids actually ask when their next appointment is. That's never happened anywhere else. The team makes it feel like a visit to a friend's house.",
+                name: 'Jamie & Kevin T.',
+                treatment: 'Family — 3 kids',
               },
               {
-                quote: "They understood how important trust is for a dental practice. The website feels calm, warm, and credible. Exactly what nervous patients need to see before booking.",
-                name: 'Dr. Priya M.',
-                business: 'Trail Dental Group',
-                location: 'Trail, BC',
+                quote: "Online booking changed everything for me. I work shifts — I can book at 11pm without playing phone tag. The forms online saved 20 minutes in the waiting room.",
+                name: 'Derek S.',
+                treatment: 'Regular checkup patient',
               },
             ].map((t, i) => (
               <Reveal key={i} delay={i * 0.15}>
                 <div
                   className="p-8 rounded-2xl transition-all"
-                  style={{ backgroundColor: '#f0f7ff', boxShadow: '0 2px 12px rgba(8,145,178,0.06)' }}
+                  style={{ backgroundColor: '#ffffff', boxShadow: '0 2px 12px rgba(8,145,178,0.06)', border: '1px solid rgba(8,145,178,0.08)' }}
                   onMouseEnter={(e) => (e.currentTarget.style.boxShadow = '0 8px 32px rgba(8,145,178,0.12)')}
                   onMouseLeave={(e) => (e.currentTarget.style.boxShadow = '0 2px 12px rgba(8,145,178,0.06)')}
                 >
@@ -608,7 +761,7 @@ export default function MedicalDentalDemo() {
                   </blockquote>
                   <div>
                     <p className="font-bold text-sm" style={{ color: '#0891b2' }}>{t.name}</p>
-                    <p className="text-xs" style={{ color: '#64748b' }}>{t.business} &mdash; {t.location}</p>
+                    <p className="text-xs" style={{ color: '#94a3b8' }}>{t.treatment}</p>
                   </div>
                 </div>
               </Reveal>
@@ -620,8 +773,8 @@ export default function MedicalDentalDemo() {
         </div>
       </section>
 
-      {/* ═══════════ 9. FAQ ═══════════ */}
-      <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#f0f7ff' }}>
+      {/* ═══════════ 11. FAQ ═══════════ */}
+      <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#ffffff' }}>
         <div className="max-w-3xl mx-auto">
           <Reveal>
             <h2 className="text-3xl md:text-5xl font-bold text-center mb-4" style={{ color: '#1e293b' }}>
@@ -648,8 +801,8 @@ export default function MedicalDentalDemo() {
         </div>
       </section>
 
-      {/* ═══════════ 10. ABOUT ═══════════ */}
-      <section id="about" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#ffffff' }}>
+      {/* ═══════════ 12. ABOUT ═══════════ */}
+      <section id="about" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#f0f7ff' }}>
         <div className="max-w-3xl mx-auto text-center">
           <Reveal>
             <h2 className="text-3xl md:text-5xl font-bold mb-4" style={{ color: '#1e293b' }}>
@@ -667,8 +820,8 @@ export default function MedicalDentalDemo() {
         </div>
       </section>
 
-      {/* ═══════════ 11. CONTACT ═══════════ */}
-      <section id="book-now" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#f0f7ff' }}>
+      {/* ═══════════ 13. CONTACT / BOOK — Online CTA + Map + Running Late option ═══════════ */}
+      <section id="book-now" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#ffffff' }}>
         <div className="max-w-6xl mx-auto">
           <Reveal>
             <h2 className="text-3xl md:text-5xl font-bold text-center mb-4" style={{ color: '#1e293b' }}>
@@ -695,7 +848,25 @@ export default function MedicalDentalDemo() {
                 </div>
                 <div>
                   <h3 className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#0891b2' }}>Location</h3>
-                  <p style={{ color: '#475569' }}>Trail, BC</p>
+                  <p style={{ color: '#475569' }}>123 Sample St, Trail, BC</p>
+                </div>
+                {/* Map placeholder */}
+                <div className="rounded-2xl overflow-hidden h-40 flex items-center justify-center"
+                  style={{ backgroundColor: '#f0f7ff', border: '1px solid rgba(8,145,178,0.15)' }}>
+                  <div className="text-center">
+                    <span className="text-3xl mb-2 block">📍</span>
+                    <p className="text-sm font-medium" style={{ color: '#0891b2' }}>123 Sample St, Trail, BC</p>
+                    <p className="text-xs mt-1" style={{ color: '#94a3b8' }}>Google Maps would be embedded here</p>
+                  </div>
+                </div>
+                {/* Running late option */}
+                <div className="p-4 rounded-xl flex items-center gap-3"
+                  style={{ backgroundColor: '#fff7ed', border: '1px solid rgba(249,115,22,0.2)' }}>
+                  <span className="text-2xl">🏃</span>
+                  <div>
+                    <p className="text-sm font-bold" style={{ color: '#c2410c' }}>Running late?</p>
+                    <p className="text-xs" style={{ color: '#9a3412' }}>Text us at (250) 555-0188 and we&rsquo;ll hold your spot.</p>
+                  </div>
                 </div>
                 <a
                   href="tel:2505550188"
@@ -708,7 +879,7 @@ export default function MedicalDentalDemo() {
                   onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#0e7490')}
                   onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#0891b2')}
                 >
-                  Book an Appointment
+                  Book by Phone
                 </a>
               </div>
             </Reveal>
@@ -723,6 +894,15 @@ export default function MedicalDentalDemo() {
                   <input type="email" placeholder="you@example.com" className="w-full px-4 py-3 text-sm outline-none transition-all rounded-xl" style={{ backgroundColor: '#f0f7ff', border: '1px solid #e2e8f0', color: '#1e293b' }} onFocus={(e) => (e.currentTarget.style.borderColor = '#0891b2')} onBlur={(e) => (e.currentTarget.style.borderColor = '#e2e8f0')} />
                 </div>
                 <div>
+                  <label className="block text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#0891b2' }}>New or returning patient?</label>
+                  <select className="w-full px-4 py-3 text-sm outline-none rounded-xl" style={{ backgroundColor: '#f0f7ff', border: '1px solid #e2e8f0', color: '#1e293b' }}>
+                    <option>New Patient</option>
+                    <option>Returning Patient</option>
+                    <option>Bringing a child</option>
+                    <option>Emergency — I need to come in soon</option>
+                  </select>
+                </div>
+                <div>
                   <label className="block text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#0891b2' }}>Message</label>
                   <textarea rows={4} placeholder="Preferred date, time, or any questions..." className="w-full px-4 py-3 text-sm outline-none transition-all resize-none rounded-xl" style={{ backgroundColor: '#f0f7ff', border: '1px solid #e2e8f0', color: '#1e293b' }} onFocus={(e) => (e.currentTarget.style.borderColor = '#0891b2')} onBlur={(e) => (e.currentTarget.style.borderColor = '#e2e8f0')} />
                 </div>
@@ -735,7 +915,7 @@ export default function MedicalDentalDemo() {
         </div>
       </section>
 
-      {/* ═══════════ 12. FOOTER ═══════════ */}
+      {/* ═══════════ 14. FOOTER ═══════════ */}
       <footer className="py-14 px-6" style={{ backgroundColor: '#1e293b' }}>
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-3 gap-10 mb-10">
@@ -746,15 +926,15 @@ export default function MedicalDentalDemo() {
             <div>
               <h4 className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: '#0891b2' }}>Quick Links</h4>
               <div className="flex flex-col gap-2">
-                {['Services', 'About', 'Gallery', 'Book Now'].map((link) => (
-                  <a key={link} href={`#${link.toLowerCase().replace(' ', '-')}`} className="text-sm transition-colors" style={{ color: 'rgba(255,255,255,0.4)' }} onMouseEnter={(e) => (e.currentTarget.style.color = '#0891b2')} onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.4)')}>{link}</a>
+                {[['Services', '#services'], ['First Visit', '#first-visit'], ['About', '#about'], ['Book Now', '#book-now']].map(([label, href]) => (
+                  <a key={label} href={href} className="text-sm transition-colors" style={{ color: 'rgba(255,255,255,0.4)' }} onMouseEnter={(e) => (e.currentTarget.style.color = '#0891b2')} onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.4)')}>{label}</a>
                 ))}
               </div>
             </div>
             <div>
               <h4 className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: '#0891b2' }}>Info</h4>
               <p className="text-sm mb-1" style={{ color: 'rgba(255,255,255,0.4)' }}>Mon&ndash;Fri 8:00 AM &ndash; 5:00 PM</p>
-              <p className="text-sm mb-1" style={{ color: 'rgba(255,255,255,0.4)' }}>Trail, BC</p>
+              <p className="text-sm mb-1" style={{ color: 'rgba(255,255,255,0.4)' }}>123 Sample St, Trail, BC</p>
               <p className="text-sm" style={{ color: 'rgba(255,255,255,0.4)' }}>(250) 555-0188</p>
             </div>
           </div>
@@ -776,7 +956,7 @@ export default function MedicalDentalDemo() {
       >
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
           <span className="text-sm text-center sm:text-left" style={{ color: '#64748b' }}>
-            Sample design by <strong style={{ color: '#1e293b' }}>Kootenay Made Digital</strong> &mdash; <span className="text-xs" style={{ color: '#94a3b8' }}>Get a let's talk for your practice</span>
+            Sample design by <strong style={{ color: '#1e293b' }}>Kootenay Made Digital</strong>
           </span>
           <Link
             href="/contact?style=medical-dental"

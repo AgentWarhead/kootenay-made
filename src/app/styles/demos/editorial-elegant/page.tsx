@@ -302,6 +302,57 @@ export default function EditorialElegantDemo() {
     },
   ]
 
+  const properties = [
+    {
+      label: 'Lakefront Retreat',
+      location: 'Kaslo, BC',
+      price: '$895,000',
+      beds: 4,
+      baths: 3,
+      sqft: '2,840',
+      status: 'Just Listed',
+      statusColor: '#b8860b',
+      img: '/images/demos/editorial-elegant-showcase.webp',
+      large: true,
+    },
+    {
+      label: 'Nelson Heritage Home',
+      location: 'Nelson, BC',
+      price: '$687,000',
+      beds: 3,
+      baths: 2,
+      sqft: '1,950',
+      status: 'Sold',
+      statusColor: '#2a6b2a',
+      img: '/images/demos/gallery/ee-1.webp',
+      large: true,
+    },
+    {
+      label: 'Mountain Chalet',
+      location: 'Whitewater, BC',
+      price: '$1,150,000',
+      beds: 5,
+      baths: 4,
+      sqft: '3,400',
+      status: 'Under Contract',
+      statusColor: '#8b4513',
+      img: '/images/demos/gallery/ee-2.webp',
+      large: false,
+    },
+    {
+      label: 'Downtown Nelson Condo',
+      location: 'Nelson, BC',
+      price: '$449,000',
+      beds: 2,
+      baths: 2,
+      sqft: '1,100',
+      status: 'Sold',
+      statusColor: '#2a6b2a',
+      img: '/images/demos/gallery/ee-3.webp',
+      large: false,
+    },
+  ]
+
   return (
     <div className={body.className} style={{ fontFamily: 'Source Sans 3, sans-serif', backgroundColor: '#faf9f7', color: '#1a1a1a' }}>
 
@@ -330,7 +381,7 @@ export default function EditorialElegantDemo() {
             Pinnacle Real Estate
           </span>
           <div className="hidden md:flex items-center gap-8">
-            {['Properties', 'About', 'Gallery', 'Contact'].map((link) => (
+            {['Properties', 'About', 'Process', 'Contact'].map((link) => (
               <a
                 key={link}
                 href={`#${link.toLowerCase()}`}
@@ -374,13 +425,32 @@ export default function EditorialElegantDemo() {
             animate={prefersReduced ? {} : { opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            Pinnacle<br />Real Estate
+            Your Home<br />Has a Story.
           </motion.h1>
+          <motion.p
+            className={`${body.className} text-lg md:text-xl mb-10 max-w-2xl mx-auto`}
+            style={{ color: 'rgba(250,249,247,0.65)', lineHeight: 1.7 }}
+            initial={prefersReduced ? {} : { opacity: 0, y: 20 }}
+            animate={prefersReduced ? {} : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+          >
+            Amanda Chen &mdash; West Kootenay&rsquo;s most trusted luxury real estate agent
+          </motion.p>
           <motion.div
             initial={prefersReduced ? {} : { opacity: 0, y: 20 }}
             animate={prefersReduced ? {} : { opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.7 }}
+            className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
+            <a
+              href="#properties"
+              className="inline-block px-10 py-4 text-sm font-bold uppercase tracking-widest transition-all"
+              style={{ backgroundColor: '#b8860b', color: '#faf9f7' }}
+              onMouseEnter={(e) => { e.currentTarget.style.opacity = '0.88' }}
+              onMouseLeave={(e) => { e.currentTarget.style.opacity = '1' }}
+            >
+              View Properties
+            </a>
             <a
               href="#contact"
               className="inline-block px-10 py-4 text-sm font-bold uppercase tracking-widest transition-all"
@@ -394,93 +464,33 @@ export default function EditorialElegantDemo() {
         </div>
       </section>
 
-      {/* ═══════════ 3. TRUST BAR ═══════════ */}
-      <div className="py-5 px-6" style={{ backgroundColor: '#faf9f7', borderBottom: '1px solid #e8e6e1' }}>
-        <div className="max-w-5xl mx-auto flex flex-wrap justify-center items-center gap-6 md:gap-10 text-sm" style={{ color: '#1a1a1a' }}>
-          <span className="flex items-center gap-2">
-            <span style={{ color: '#b8860b' }}>&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-            <span className="font-bold">4.9 Rating</span>
-          </span>
-          <span style={{ color: '#ccc' }}>&#183;</span>
-          <span>200+ Properties Sold</span>
-          <span style={{ color: '#ccc' }} className="hidden md:inline">&#183;</span>
-          <span className="hidden md:inline">Local Expert</span>
-          <span style={{ color: '#ccc' }} className="hidden md:inline">&#183;</span>
-          <span className="hidden md:inline">Free Market Analysis</span>
-        </div>
-      </div>
-
-      {/* ═══════════ 4. SERVICES ═══════════ */}
-      <section id="properties" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#faf9f7' }}>
-        <div className="max-w-6xl mx-auto">
-          {/* PAS intro */}
-          <Reveal>
-            <div className="max-w-3xl mx-auto text-center mb-14 px-6 py-8" style={{ borderLeft: '3px solid #b8860b', backgroundColor: '#ffffff', boxShadow: '0 2px 12px rgba(0,0,0,0.04)' }}>
-              <p className="text-lg md:text-xl leading-relaxed" style={{ color: '#1a1a1a', fontStyle: 'italic' }}>
-                <strong style={{ fontStyle: 'normal' }}>Your listings look amateur next to the realtor who invested in their brand.</strong> Not because their properties are better &mdash; because their online presence is. In a market where buyers decide in seconds, presentation is everything. Let&rsquo;s make yours unforgettable.
-              </p>
+      {/* ═══════════ 3. MARKET PULSE ═══════════ */}
+      <section style={{ backgroundColor: '#1a1a1a', borderBottom: `2px solid ${EE.gold}` }}>
+        <div className="max-w-6xl mx-auto px-6 py-6">
+          <div className="flex flex-wrap items-center justify-between gap-6">
+            <span className={`${body.className} text-xs uppercase tracking-[0.25em] font-semibold`} style={{ color: '#b8860b', whiteSpace: 'nowrap' }}>
+              Market Pulse &mdash; Q1 2025
+            </span>
+            <div className="flex flex-wrap gap-6 md:gap-10 text-sm">
+              {[
+                { label: 'Avg. Sale Price', value: '$687,000' },
+                { label: 'Days on Market', value: '18' },
+                { label: 'List-to-Sale Ratio', value: '98.7%' },
+                { label: 'Active Listings', value: '42' },
+              ].map((stat) => (
+                <div key={stat.label} className="text-center">
+                  <div className={`${heading.className} text-lg md:text-xl`} style={{ color: '#b8860b', fontWeight: 600 }}>{stat.value}</div>
+                  <div className={`${body.className} text-xs uppercase tracking-wider`} style={{ color: 'rgba(250,249,247,0.45)' }}>{stat.label}</div>
+                </div>
+              ))}
             </div>
-          </Reveal>
-
-          <Reveal>
-            <EditorialTitle subtitle="Digital services tailored for real estate and lifestyle brands">
-              What We Can Do For You
-            </EditorialTitle>
-          </Reveal>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              { title: 'Custom Website', desc: 'An elegant, magazine-quality website that presents your listings with the sophistication they deserve.', pricing: 'From $1,500' },
-              { title: 'Full Brand Build', desc: 'Logo, colours, typography — the complete identity. Look as established and refined as your market position.', pricing: 'From $4,000' },
-              { title: 'Email Marketing', desc: 'Stay in touch with buyers and sellers automatically. Market updates, new listings, curated content — done.', pricing: 'From $750' },
-            ].map((card, i) => (
-              <Reveal key={card.title} delay={i * 0.15}>
-                <div
-                  className="p-8 text-center transition-all duration-300 cursor-default"
-                  style={{ backgroundColor: '#ffffff', border: '1px solid #e8e6e1', boxShadow: '0 2px 10px rgba(0,0,0,0.04)' }}
-                  onMouseEnter={(e) => { e.currentTarget.style.boxShadow = '0 8px 30px rgba(184,134,11,0.12)'; e.currentTarget.style.borderColor = '#b8860b' }}
-                  onMouseLeave={(e) => { e.currentTarget.style.boxShadow = '0 2px 10px rgba(0,0,0,0.04)'; e.currentTarget.style.borderColor = '#e8e6e1' }}
-                >
-                  <div className="w-8 h-px mx-auto mb-6" style={{ backgroundColor: '#b8860b' }} />
-                  <h3 className={`${heading.className} text-xl mb-4`} style={{ color: '#1a1a1a', fontWeight: 600 }}>{card.title}</h3>
-                  <p className="leading-relaxed text-sm mb-5" style={{ color: '#6b6b6b' }}>{card.desc}</p>
-                  <span className="text-xs font-bold uppercase tracking-wider" style={{ color: '#b8860b' }}>{card.pricing}</span>
-                </div>
-              </Reveal>
-            ))}
+            <span className={`${body.className} text-xs`} style={{ color: 'rgba(250,249,247,0.3)' }}>West Kootenay Region</span>
           </div>
         </div>
       </section>
 
-      {/* ═══════════ 5. HOW IT WORKS ═══════════ */}
-      <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#ffffff' }}>
-        <div className="max-w-6xl mx-auto">
-          <Reveal>
-            <EditorialTitle subtitle="A refined, effortless process from first conversation to launch">
-              How It Works
-            </EditorialTitle>
-          </Reveal>
-          <div className="grid md:grid-cols-3 gap-12">
-            {[
-              { num: 'I', title: 'We Meet', desc: 'Tell us your vision, your clients, the properties you represent. A free, unhurried conversation about what your brand deserves.' },
-              { num: 'II', title: 'We Create', desc: 'We design and build your bespoke website in approximately two weeks. Every detail considered. You approve, we refine.' },
-              { num: 'III', title: 'You Flourish', desc: 'Launch with confidence. Get found by the right clients. Watch your brand become the one everyone in the region recognises.' },
-            ].map((step, i) => (
-              <Reveal key={step.num} delay={i * 0.2}>
-                <div className="text-center">
-                  <div className={`${heading.className} text-4xl mb-6`} style={{ color: '#b8860b', fontWeight: 400 }}>{step.num}</div>
-                  <div className="w-8 h-px mx-auto mb-6" style={{ backgroundColor: '#b8860b' }} />
-                  <h3 className={`${heading.className} text-xl mb-4`} style={{ color: '#1a1a1a', fontWeight: 600 }}>{step.title}</h3>
-                  <p className="text-sm leading-relaxed" style={{ color: '#6b6b6b' }}>{step.desc}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════ 6. GALLERY — Asymmetric Magazine Grid ═══════════ */}
-      <section id="gallery" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#faf9f7' }}>
+      {/* ═══════════ 4. FEATURED PROPERTIES — Magazine Grid ═══════════ */}
+      <section id="properties" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#faf9f7' }}>
         <div className="max-w-6xl mx-auto">
           <Reveal>
             <EditorialTitle subtitle="Exceptional properties in the Kootenay region">
@@ -488,28 +498,149 @@ export default function EditorialElegantDemo() {
             </EditorialTitle>
           </Reveal>
 
-          <div className="grid md:grid-cols-5 gap-4 md:gap-6">
-            <Reveal className="md:col-span-3">
-              <div className="overflow-hidden h-full" style={{ border: '1px solid #e8e6e1', minHeight: '320px' }}>
-                <div style={{ animation: prefersReduced ? 'none' : 'kenBurns 8s ease-in-out infinite alternate', overflow: 'hidden', height: '100%' }}>
-                  <Image
-                    src="/images/demos/editorial-elegant-showcase.webp"
-                    alt="Pinnacle Real Estate — featured lakefront property"
-                    width={700}
-                    height={500}
-                    className="w-full h-full object-cover block"
-                  />
-                </div>
-              </div>
-            </Reveal>
-            <div className="md:col-span-2 flex flex-col gap-4 md:gap-6">
-              {['Lakefront Retreat', 'Mountain Chalet', 'Downtown Nelson'].map((label, i) => (
-                <Reveal key={label} delay={0.1 + i * 0.1}>
-                  <div className='relative aspect-[4/3] rounded-xl overflow-hidden'>
-                    <Image src={`/images/demos/gallery/ee-${i + 1}.webp`} alt={label} fill className='object-cover' />
-                    <div className='absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-3'>
-                      <span className='text-white text-sm font-medium'>{label}</span>
+          {/* Magazine layout: 2 large top, 2 small bottom */}
+          <div className="grid md:grid-cols-2 gap-5 mb-5">
+            {properties.filter(p => p.large).map((prop, i) => (
+              <Reveal key={prop.label} delay={i * 0.12}>
+                <div
+                  className="relative overflow-hidden group cursor-pointer"
+                  style={{ border: '1px solid #e8e6e1' }}
+                  onMouseEnter={(e) => { e.currentTarget.style.boxShadow = `0 12px 40px rgba(184,134,11,0.15)` }}
+                  onMouseLeave={(e) => { e.currentTarget.style.boxShadow = 'none' }}
+                >
+                  <div className="relative overflow-hidden" style={{ height: '280px' }}>
+                    <Image
+                      src={prop.img}
+                      alt={prop.label}
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, transparent 40%, rgba(26,26,26,0.8) 100%)' }} />
+                    {/* Status badge */}
+                    <div
+                      className="absolute top-4 left-4 px-3 py-1 text-xs font-bold uppercase tracking-widest"
+                      style={{ backgroundColor: prop.statusColor, color: '#fff' }}
+                    >
+                      {prop.status}
                     </div>
+                  </div>
+                  <div className="p-6" style={{ backgroundColor: '#ffffff' }}>
+                    <div className="flex items-start justify-between mb-2">
+                      <div>
+                        <h3 className={`${heading.className} text-xl mb-1`} style={{ color: '#1a1a1a', fontWeight: 600 }}>{prop.label}</h3>
+                        <p className="text-sm" style={{ color: '#6b6b6b' }}>{prop.location}</p>
+                      </div>
+                      <div className={`${heading.className} text-xl font-semibold`} style={{ color: '#b8860b' }}>{prop.price}</div>
+                    </div>
+                    <div className="flex items-center gap-5 mt-4 pt-4" style={{ borderTop: '1px solid #e8e6e1' }}>
+                      {[
+                        { label: `${prop.beds} Beds`, icon: '🛏' },
+                        { label: `${prop.baths} Baths`, icon: '🚿' },
+                        { label: `${prop.sqft} sqft`, icon: '📐' },
+                      ].map((detail) => (
+                        <span key={detail.label} className="text-xs" style={{ color: '#6b6b6b' }}>
+                          {detail.icon} {detail.label}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+          <div className="grid md:grid-cols-2 gap-5">
+            {properties.filter(p => !p.large).map((prop, i) => (
+              <Reveal key={prop.label} delay={0.2 + i * 0.12}>
+                <div
+                  className="flex overflow-hidden group cursor-pointer"
+                  style={{ border: '1px solid #e8e6e1', backgroundColor: '#ffffff' }}
+                  onMouseEnter={(e) => { e.currentTarget.style.boxShadow = `0 8px 24px rgba(184,134,11,0.12)` }}
+                  onMouseLeave={(e) => { e.currentTarget.style.boxShadow = 'none' }}
+                >
+                  <div className="relative overflow-hidden flex-shrink-0" style={{ width: '160px', minHeight: '140px' }}>
+                    <Image src={prop.img} alt={prop.label} fill className="object-cover transition-transform duration-500 group-hover:scale-105" />
+                    <div
+                      className="absolute top-3 left-3 px-2 py-0.5 text-xs font-bold uppercase tracking-wider"
+                      style={{ backgroundColor: prop.statusColor, color: '#fff' }}
+                    >
+                      {prop.status}
+                    </div>
+                  </div>
+                  <div className="p-5 flex flex-col justify-between">
+                    <div>
+                      <h3 className={`${heading.className} text-base mb-1`} style={{ color: '#1a1a1a', fontWeight: 600 }}>{prop.label}</h3>
+                      <p className="text-xs mb-2" style={{ color: '#6b6b6b' }}>{prop.location}</p>
+                      <div className={`${heading.className} text-base font-semibold`} style={{ color: '#b8860b' }}>{prop.price}</div>
+                    </div>
+                    <div className="flex items-center gap-3 mt-3 pt-3" style={{ borderTop: '1px solid #e8e6e1' }}>
+                      <span className="text-xs" style={{ color: '#6b6b6b' }}>🛏 {prop.beds}</span>
+                      <span className="text-xs" style={{ color: '#6b6b6b' }}>🚿 {prop.baths}</span>
+                      <span className="text-xs" style={{ color: '#6b6b6b' }}>📐 {prop.sqft}</span>
+                    </div>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+
+          <Reveal delay={0.3}>
+            <p className="text-center mt-8 text-xs" style={{ color: '#aaa' }}>
+              (Sample listings &mdash; your real properties go here)
+            </p>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ═══════════ 5. THE PINNACLE PROCESS ═══════════ */}
+      <section id="process" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#ffffff' }}>
+        <div className="max-w-6xl mx-auto">
+          <Reveal>
+            <EditorialTitle subtitle="A refined, strategic approach that consistently delivers results above asking price">
+              The Pinnacle Process
+            </EditorialTitle>
+          </Reveal>
+
+          {/* Horizontal step timeline */}
+          <div className="relative">
+            {/* Connector line — desktop only */}
+            <div className="hidden md:block absolute top-10 left-0 right-0 h-px" style={{ backgroundColor: '#e8e6e1', zIndex: 0 }} />
+
+            <div className="grid md:grid-cols-4 gap-10 md:gap-6 relative z-10">
+              {[
+                {
+                  num: '01',
+                  title: 'Consultation',
+                  desc: 'A private meeting to understand your goals, timeline, and the unique story behind your property. Strategy before everything.',
+                },
+                {
+                  num: '02',
+                  title: 'Staging & Photography',
+                  desc: 'Professional staging, drone shots, and editorial-quality photography. Your home presented at its absolute finest.',
+                },
+                {
+                  num: '03',
+                  title: 'Strategic Marketing',
+                  desc: 'Targeted digital campaigns, lifestyle storytelling, and outreach to qualified buyers in the Kootenays and beyond.',
+                },
+                {
+                  num: '04',
+                  title: 'Successful Close',
+                  desc: 'Skilled negotiation, seamless paperwork, and a result that reflects the true value of what you have.',
+                },
+              ].map((step, i) => (
+                <Reveal key={step.num} delay={i * 0.15}>
+                  <div className="text-center md:text-left">
+                    {/* Step circle */}
+                    <div className="flex md:justify-start justify-center mb-6">
+                      <div
+                        className={`${heading.className} w-20 h-20 flex items-center justify-center text-xl font-semibold`}
+                        style={{ border: '1px solid #b8860b', color: '#b8860b', backgroundColor: '#faf9f7' }}
+                      >
+                        {step.num}
+                      </div>
+                    </div>
+                    <h3 className={`${heading.className} text-xl mb-3`} style={{ color: '#1a1a1a', fontWeight: 600 }}>{step.title}</h3>
+                    <p className="text-sm leading-relaxed" style={{ color: '#6b6b6b' }}>{step.desc}</p>
                   </div>
                 </Reveal>
               ))}
@@ -518,7 +649,189 @@ export default function EditorialElegantDemo() {
         </div>
       </section>
 
-      {/* ═══════════ 7. THE TRANSFORMATION ═══════════ */}
+      {/* ═══════════ 6. AGENT PROFILE ═══════════ */}
+      <section id="about" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#faf9f7' }}>
+        <div className="max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-14 md:gap-20 items-center">
+            <Reveal>
+              {/* Profile image placeholder */}
+              <div className="relative mx-auto md:mx-0" style={{ maxWidth: '420px' }}>
+                <div
+                  className="w-full aspect-[4/5] overflow-hidden"
+                  style={{ border: '1px solid #e8e6e1' }}
+                >
+                  <Image
+                    src="/images/demos/editorial-elegant-showcase.webp"
+                    alt="Amanda Chen — Pinnacle Real Estate"
+                    width={420}
+                    height={525}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                {/* Stat overlay card */}
+                <div
+                  className="absolute -bottom-6 -right-6 p-6 text-center hidden md:block"
+                  style={{ backgroundColor: '#1a1a1a', minWidth: '160px' }}
+                >
+                  <div className={`${heading.className} text-2xl font-semibold mb-1`} style={{ color: '#b8860b' }}>$50M+</div>
+                  <div className={`${body.className} text-xs uppercase tracking-widest`} style={{ color: 'rgba(250,249,247,0.6)' }}>Total Volume Sold</div>
+                </div>
+              </div>
+            </Reveal>
+
+            <Reveal delay={0.15}>
+              <div>
+                <p className={`${body.className} text-xs uppercase tracking-[0.25em] font-semibold mb-4`} style={{ color: '#b8860b' }}>
+                  Meet Your Agent
+                </p>
+                <h2 className={`${heading.className} text-3xl md:text-4xl mb-2`} style={{ color: '#1a1a1a', fontWeight: 400 }}>Amanda Chen</h2>
+                <p className={`${body.className} text-sm mb-6`} style={{ color: '#6b6b6b' }}>REALTOR® &mdash; Luxury & Residential Specialist</p>
+
+                <div className="w-8 h-px mb-8" style={{ backgroundColor: '#b8860b' }} />
+
+                <p className="text-base leading-relaxed mb-6" style={{ color: '#6b6b6b' }}>
+                  Born and raised in the Kootenays, Amanda has spent 15 years helping families and investors find their place in one of Canada&rsquo;s most sought-after regions. Her editorial approach to listing &mdash; treating each property as a story worth telling &mdash; consistently yields results well above asking price.
+                </p>
+                <p className="text-base leading-relaxed mb-8" style={{ color: '#6b6b6b' }}>
+                  Specialising in lakefront retreats, heritage homes, and mountain estates in Nelson, Kaslo, and the surrounding area.
+                </p>
+
+                {/* Quick stats */}
+                <div className="grid grid-cols-3 gap-4 mb-8">
+                  {[
+                    { value: '200+', label: 'Properties Sold' },
+                    { value: '15', label: 'Years Active' },
+                    { value: '98.7%', label: 'List-to-Sale' },
+                  ].map((stat) => (
+                    <div key={stat.label} className="text-center p-4" style={{ border: '1px solid #e8e6e1', backgroundColor: '#ffffff' }}>
+                      <div className={`${heading.className} text-xl font-semibold mb-1`} style={{ color: '#b8860b' }}>{stat.value}</div>
+                      <div className="text-xs uppercase tracking-wider" style={{ color: '#6b6b6b' }}>{stat.label}</div>
+                    </div>
+                  ))}
+                </div>
+
+                <a
+                  href="#contact"
+                  className="inline-block px-8 py-3.5 text-sm font-bold uppercase tracking-widest transition-all"
+                  style={{ backgroundColor: '#b8860b', color: '#ffffff' }}
+                  onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.85')}
+                  onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
+                >
+                  Book a Private Consultation
+                </a>
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════ 7. AS FEATURED IN ═══════════ */}
+      <section style={{ backgroundColor: '#ffffff', borderTop: '1px solid #e8e6e1', borderBottom: '1px solid #e8e6e1' }}>
+        <div className="max-w-5xl mx-auto px-6 py-10">
+          <Reveal>
+            <div className="flex flex-wrap items-center justify-center gap-2 md:gap-4 mb-6">
+              <div className="h-px flex-1 max-w-12" style={{ backgroundColor: '#e8e6e1' }} />
+              <p className={`${body.className} text-xs uppercase tracking-[0.25em] font-semibold`} style={{ color: '#aaa' }}>As Featured In &amp; Associated With</p>
+              <div className="h-px flex-1 max-w-12" style={{ backgroundColor: '#e8e6e1' }} />
+            </div>
+            <div className="flex flex-wrap items-center justify-center gap-8 md:gap-14">
+              {[
+                { name: 'Kootenay Business', sub: 'Magazine' },
+                { name: 'BC CPA', sub: 'Association' },
+                { name: 'Nelson Star', sub: 'Featured' },
+                { name: 'REMAX', sub: 'Top Producer' },
+                { name: 'Chamber of Commerce', sub: 'Member' },
+              ].map((item) => (
+                <div key={item.name} className="text-center">
+                  <div
+                    className={`${heading.className} text-sm font-semibold`}
+                    style={{ color: '#aaa', letterSpacing: '0.06em' }}
+                  >
+                    {item.name}
+                  </div>
+                  <div className={`${body.className} text-xs uppercase tracking-wider`} style={{ color: '#ccc' }}>{item.sub}</div>
+                </div>
+              ))}
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ═══════════ 8. TESTIMONIALS — Editorial Pull-Quotes ═══════════ */}
+      <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#faf9f7' }}>
+        <div className="max-w-6xl mx-auto">
+          <Reveal>
+            <EditorialTitle subtitle="From buyers and sellers across the Kootenay region">
+              Client Stories
+            </EditorialTitle>
+          </Reveal>
+          <div className="space-y-8">
+            {[
+              {
+                quote: "Amanda sold our Nelson lakefront in 6 days — $40,000 over asking. She knew exactly which buyers to call before the listing even went live. Genuinely remarkable.",
+                name: 'David & Elaine T.',
+                detail: 'Lakefront sale — Kaslo, BC · Sold $40K over ask',
+                stars: 5,
+              },
+              {
+                quote: "I had a complicated estate property that three other agents said would be difficult. Amanda had it under contract in 11 days. Her marketing strategy was unlike anything I'd seen.",
+                name: 'Robert F.',
+                detail: 'Heritage estate — Nelson, BC · 11 days to contract',
+                stars: 5,
+              },
+              {
+                quote: "We relocated from Vancouver and had never bought in the Kootenays before. Amanda found us a mountain property we didn't even know to look for. We've never been happier.",
+                name: 'The Marchetti Family',
+                detail: 'Buyer representation — Whitewater, BC',
+                stars: 5,
+              },
+            ].map((t, i) => (
+              <Reveal key={i} delay={i * 0.15}>
+                <div
+                  className="relative p-8 md:p-12"
+                  style={{ backgroundColor: '#ffffff', border: '1px solid #e8e6e1', borderLeft: `4px solid #b8860b` }}
+                >
+                  {/* Large quotemark */}
+                  <div
+                    className={`${heading.className} absolute top-4 left-8 text-7xl leading-none pointer-events-none select-none`}
+                    style={{ color: '#b8860b', opacity: 0.15, fontWeight: 700 }}
+                    aria-hidden="true"
+                  >
+                    &ldquo;
+                  </div>
+                  <div className="flex items-start justify-between flex-wrap gap-4">
+                    <blockquote
+                      className={`${heading.className} text-xl md:text-2xl leading-relaxed italic flex-1`}
+                      style={{ color: '#1a1a1a', fontWeight: 400, maxWidth: '720px' }}
+                    >
+                      &ldquo;{t.quote}&rdquo;
+                    </blockquote>
+                    <div className="flex gap-1 flex-shrink-0">
+                      {Array.from({ length: t.stars }).map((_, j) => (
+                        <span key={j} style={{ color: '#b8860b' }}>★</span>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3 mt-6 pt-5" style={{ borderTop: '1px solid #e8e6e1' }}>
+                    <div className="w-8 h-8 flex items-center justify-center text-xs font-bold" style={{ backgroundColor: '#b8860b', color: '#fff' }}>
+                      {t.name.charAt(0)}
+                    </div>
+                    <div>
+                      <p className="font-bold text-sm uppercase tracking-wider" style={{ color: '#1a1a1a' }}>{t.name}</p>
+                      <p className="text-xs" style={{ color: '#6b6b6b' }}>{t.detail}</p>
+                    </div>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+          <p className="text-center mt-8 text-xs" style={{ color: '#aaa' }}>
+            (Sample reviews &mdash; your real reviews go here)
+          </p>
+        </div>
+      </section>
+
+      {/* ═══════════ 9. THE TRANSFORMATION ═══════════ */}
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#ffffff' }}>
         <div className="max-w-5xl mx-auto">
           <Reveal>
@@ -532,62 +845,8 @@ export default function EditorialElegantDemo() {
         </div>
       </section>
 
-      {/* ═══════════ 8. TESTIMONIALS (3) ═══════════ */}
+      {/* ═══════════ 10. FAQ ═══════════ */}
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#faf9f7' }}>
-        <div className="max-w-6xl mx-auto">
-          <Reveal>
-            <EditorialTitle subtitle="From realtors, salons, and boutiques across the Kootenays">
-              Words From Our Clients
-            </EditorialTitle>
-          </Reveal>
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                quote: "My listings started getting more serious inquiries within a month of launching. The website carries the weight of the properties — it looks exactly as curated as my brand should.",
-                name: 'Catherine R.',
-                business: 'Pinnacle Real Estate',
-                location: 'Nelson, BC',
-              },
-              {
-                quote: "Clients walk in already in love with our salon. They found us online, saw how beautiful the site was, and booked before they even called. Our bookings doubled.",
-                name: 'Monique L.',
-                business: 'Atelier Hair & Beauty',
-                location: 'Fernie, BC',
-              },
-              {
-                quote: "As a boutique owner I was skeptical about the ROI. Then our website started getting found on Google and we had people driving from Creston just because of what they saw online.",
-                name: 'Isabelle V.',
-                business: 'Maison Boutique',
-                location: 'Invermere, BC',
-              },
-            ].map((t, i) => (
-              <Reveal key={i} delay={i * 0.2}>
-                <div className="p-8" style={{ backgroundColor: '#ffffff', border: '1px solid #e8e6e1' }}>
-                  <div className="mb-6 text-lg" style={{ color: '#b8860b' }}>&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                  <div className="flex items-center gap-4 mb-6">
-                    <div className="h-px flex-1" style={{ backgroundColor: '#b8860b', opacity: 0.4 }} />
-                    <div className="w-1.5 h-1.5 rotate-45" style={{ backgroundColor: '#b8860b', flexShrink: 0 }} />
-                    <div className="h-px flex-1" style={{ backgroundColor: '#b8860b', opacity: 0.4 }} />
-                  </div>
-                  <blockquote className={`${heading.className} text-lg leading-relaxed mb-6 italic`} style={{ color: '#1a1a1a', fontWeight: 400 }}>
-                    &ldquo;{t.quote}&rdquo;
-                  </blockquote>
-                  <div>
-                    <p className="font-bold text-sm uppercase tracking-wider" style={{ color: '#1a1a1a' }}>{t.name}</p>
-                    <p className="text-xs" style={{ color: '#6b6b6b' }}>{t.business} &mdash; {t.location}</p>
-                  </div>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-          <p className="text-center mt-8 text-xs" style={{ color: '#aaa' }}>
-            (Sample reviews &mdash; your real reviews go here)
-          </p>
-        </div>
-      </section>
-
-      {/* ═══════════ 9. FAQ ═══════════ */}
-      <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#ffffff' }}>
         <div className="max-w-3xl mx-auto">
           <Reveal>
             <EditorialTitle subtitle="Everything you need to know before we begin">
@@ -611,20 +870,6 @@ export default function EditorialElegantDemo() {
         </div>
       </section>
 
-      {/* ═══════════ 10. ABOUT ═══════════ */}
-      <section id="about" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#faf9f7' }}>
-        <div className="max-w-3xl mx-auto text-center">
-          <Reveal>
-            <EditorialTitle>About Pinnacle</EditorialTitle>
-          </Reveal>
-          <Reveal delay={0.15}>
-            <p className="text-lg leading-relaxed" style={{ color: '#6b6b6b' }}>
-              Pinnacle Real Estate is a boutique agency rooted in the Kootenay region. With over 200 properties sold, we bring deep local knowledge and a curated approach to every transaction. Whether you are searching for a lakefront retreat, a mountain chalet, or the perfect downtown home, our team guides you through every step with expertise and care. We believe that finding a home is not just a transaction &mdash; it is the beginning of a new chapter. At Pinnacle, we make that chapter extraordinary.
-            </p>
-          </Reveal>
-        </div>
-      </section>
-
       {/* ═══════════ 11. CONTACT ═══════════ */}
       <section id="contact" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#ffffff' }}>
         <div className="max-w-6xl mx-auto">
@@ -645,12 +890,12 @@ export default function EditorialElegantDemo() {
                   <p style={{ color: '#6b6b6b' }}>hello@pinnaclerealestate.ca</p>
                 </div>
                 <div>
-                  <h3 className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#b8860b' }}>Hours</h3>
-                  <p style={{ color: '#6b6b6b' }}>Mon&ndash;Sat 9:00 AM &ndash; 6:00 PM</p>
+                  <h3 className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#b8860b' }}>Office</h3>
+                  <p style={{ color: '#6b6b6b' }}>123 Sample St, Nelson, BC</p>
                 </div>
                 <div>
-                  <h3 className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#b8860b' }}>Location</h3>
-                  <p style={{ color: '#6b6b6b' }}>Nelson, BC</p>
+                  <h3 className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#b8860b' }}>Hours</h3>
+                  <p style={{ color: '#6b6b6b' }}>Mon&ndash;Sat 9:00 AM &ndash; 6:00 PM</p>
                 </div>
               </div>
             </Reveal>
@@ -688,7 +933,7 @@ export default function EditorialElegantDemo() {
             <div>
               <h4 className="text-xs font-bold uppercase tracking-widest text-white mb-3">Quick Links</h4>
               <div className="flex flex-col gap-2">
-                {['Properties', 'About', 'Gallery', 'Contact'].map((link) => (
+                {['Properties', 'About', 'Process', 'Contact'].map((link) => (
                   <a key={link} href={`#${link.toLowerCase()}`} className="text-sm text-white/40 hover:text-white transition-colors">{link}</a>
                 ))}
               </div>
@@ -696,7 +941,7 @@ export default function EditorialElegantDemo() {
             <div>
               <h4 className="text-xs font-bold uppercase tracking-widest text-white mb-3">Info</h4>
               <p className="text-sm text-white/40 mb-1">Mon&ndash;Sat 9:00 AM &ndash; 6:00 PM</p>
-              <p className="text-sm text-white/40 mb-1">Nelson, BC</p>
+              <p className="text-sm text-white/40 mb-1">123 Sample St, Nelson, BC</p>
               <p className="text-sm text-white/40">(250) 555-0178</p>
             </div>
           </div>
@@ -727,7 +972,7 @@ export default function EditorialElegantDemo() {
             onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.85')}
             onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
           >
-            Like What You See? Let's Talk &rarr;
+            Like What You See? Let&rsquo;s Talk &rarr;
           </Link>
         </div>
       </div>
