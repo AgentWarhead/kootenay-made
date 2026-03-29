@@ -206,7 +206,7 @@ function LiveRedesign() {
 {/* Elegant nav */}
               <div className="flex items-center justify-between px-6 sm:px-10 py-4" style={{ borderBottom: `1px solid ${CP.navy}12`, backgroundColor: CP.white }}>
                 <motion.span
-                  style={{ color: CP.navy, letterSpacing: '0.02em', fontFamily: "'Supreme', sans-serif", fontSize: '1rem', fontWeight: 700 }}
+                  style={{ color: '#fff', letterSpacing: '0.02em', fontFamily: "'Supreme', sans-serif", fontSize: '1rem', fontWeight: 700 }}
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: dur * 0.6, delay: stagger }}
@@ -215,7 +215,7 @@ function LiveRedesign() {
                 </motion.span>
                 <motion.div className="hidden sm:flex items-center gap-6" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
                   {['Services', 'About', 'Portfolio', 'Contact'].map((link) => (
-                    <span key={link} style={{ color: CP.slate, fontWeight: 500, fontFamily: "'Supreme', sans-serif", fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.12em' }}>{link}</span>
+                    <span key={link} style={{ color: 'rgba(255,255,255,0.7)', fontWeight: 500, fontFamily: "'Supreme', sans-serif", fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.12em' }}>{link}</span>
                   ))}
                 </motion.div>
                 <motion.div className="sm:hidden flex flex-col gap-[5px]" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur * 0.6, delay: stagger }}>
@@ -243,19 +243,19 @@ function LiveRedesign() {
 
                 <div className="relative z-10 text-center sm:text-left" style={{ textShadow: "0 2px 12px rgba(0,0,0,0.9), 0 1px 3px rgba(0,0,0,0.7)" }}>
                   <motion.div className="flex justify-center sm:justify-start mb-3 sm:mb-6" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
-                    <span style={{ backgroundColor: `${CP.navy}10`, color: CP.navy, border: `1px solid ${CP.navy}20`, fontFamily: "'Supreme', sans-serif", fontSize: '0.7rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.2em', padding: '0.4rem 1.25rem', borderRadius: '999px' }}>
+                    <span style={{ backgroundColor: 'rgba(255,255,255,0.15)', color: '#fff', border: `1px solid ${CP.navy}20`, fontFamily: "'Supreme', sans-serif", fontSize: '0.7rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.2em', padding: '0.4rem 1.25rem', borderRadius: '999px' }}>
                       Est. 2009 &mdash; West Kootenay
                     </span>
                   </motion.div>
 
-                  <motion.h2 className="heading-font text-2xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.15] mb-4 sm:mb-6 sm:max-w-xl font-bold" style={{ color: CP.navy }} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
+                  <motion.h2 className="heading-font text-2xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.15] mb-4 sm:mb-6 sm:max-w-xl font-bold" style={{ color: '#fff' }} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
                     Your Money Deserves a Plan. Not a{' '}
                     <span style={{ color: CP.blue }}>
                       Guessing Game.
                     </span>
                   </motion.h2>
 
-                  <motion.p style={{ color: CP.slate, lineHeight: 1.7, fontFamily: "'Supreme', sans-serif", fontSize: '0.95rem', maxWidth: '28rem', marginBottom: '1.75rem' }} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 4 }}>
+                  <motion.p style={{ color: 'rgba(255,255,255,0.7)', lineHeight: 1.7, fontFamily: "'Supreme', sans-serif", fontSize: '0.95rem', maxWidth: '28rem', marginBottom: '1.75rem' }} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 4 }}>
                     Retirement, tax, and estate planning — personalized for your life and your goals.
                   </motion.p>
 
@@ -268,7 +268,7 @@ function LiveRedesign() {
 
                   <motion.div className="flex items-center justify-center sm:justify-start gap-4 sm:gap-6 mt-6 flex-wrap" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur, delay: stagger * 6 }}>
                     {['CPA Certified', '15+ Years', '200+ Clients'].map((badge) => (
-                      <span key={badge} style={{ color: CP.navy, opacity: 0.6, letterSpacing: '0.05em', fontFamily: "'Supreme', sans-serif", fontSize: '0.75rem', fontWeight: 600 }}>{badge}</span>
+                      <span key={badge} style={{ color: '#fff', opacity: 0.6, letterSpacing: '0.05em', fontFamily: "'Supreme', sans-serif", fontSize: '0.75rem', fontWeight: 600 }}>{badge}</span>
                     ))}
                   </motion.div>
                 </div>

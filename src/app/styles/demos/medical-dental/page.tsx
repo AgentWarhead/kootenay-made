@@ -188,14 +188,14 @@ function LiveRedesign() {
                     </span>
                   </motion.div>
 
-                  <motion.h2 className="heading-font text-2xl sm:text-4xl md:text-5xl lg:text-5xl leading-[1.15] mb-4 sm:mb-6 sm:max-w-xl font-bold" style={{ color: MD.dark }} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
+                  <motion.h2 className="heading-font text-2xl sm:text-4xl md:text-5xl lg:text-5xl leading-[1.15] mb-4 sm:mb-6 sm:max-w-xl font-bold" style={{ color: '#fff' }} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
                     Nervous About the Dentist? We Get It. That&apos;s Why{' '}
                     <span style={{ color: MD.teal }}>
                       We&apos;re Different.
                     </span>
                   </motion.h2>
 
-                  <motion.p style={{ color: MD.slate, lineHeight: 1.7, fontFamily: "'Ranade', sans-serif", fontSize: '0.95rem', maxWidth: '28rem', marginBottom: '1.75rem' }} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 4 }}>
+                  <motion.p style={{ color: 'rgba(255,255,255,0.7)', lineHeight: 1.7, fontFamily: "'Ranade', sans-serif", fontSize: '0.95rem', maxWidth: '28rem', marginBottom: '1.75rem' }} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 4 }}>
                     Gentle care for every smile — new patients always welcome, no phone call needed to book.
                   </motion.p>
 

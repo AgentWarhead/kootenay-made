@@ -241,7 +241,7 @@ function FAQAccordion({ items, hc }: { items: { q: string; a: string }[]; hc: bo
             </svg>
           </button>
           {open === i && (
-            <div className="px-6 pb-5 text-base leading-relaxed" style={{ color: '#475569' }}>{item.a}</div>
+            <div className="px-6 pb-5 text-base leading-relaxed" style={{ color: 'rgba(255,255,255,0.7)' }}>{item.a}</div>
           )}
         </div>
       ))}
@@ -296,7 +296,7 @@ export default function GovernmentMunicipalPage() {
   const topoBg = `url("data:image/svg+xml,${encodeURIComponent(topoPattern)}")`
 
   return (
-    <div className={sourceSans.className} style={{ backgroundColor: C.pageBg, color: C.navy, minHeight: '100vh' }}>
+    <div className={sourceSans.className} style={{ backgroundColor: C.pageBg, color: '#fff', minHeight: '100vh' }}>
       <style>{`
         @keyframes shimmer-border { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
         @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; } }
@@ -422,13 +422,13 @@ export default function GovernmentMunicipalPage() {
         <div className="py-5 px-6"
           style={{ backgroundColor: hc ? '#f0f0f0' : '#ffffff', borderBottom: hc ? '2px solid #000000' : '1px solid #e2e8f0' }}>
           <div className="max-w-5xl mx-auto flex flex-wrap justify-center items-center gap-4 md:gap-8 text-sm font-semibold">
-            <span style={{ color: C.navy }}>Serving the Kootenays Since 1980</span>
+            <span style={{ color: '#fff' }}>Serving the Kootenays Since 1980</span>
             <span style={{ color: C.slateLight }}>·</span>
-            <span style={{ color: C.navy }}>45+ Parks &amp; Trails</span>
+            <span style={{ color: '#fff' }}>45+ Parks &amp; Trails</span>
             <span style={{ color: C.slateLight }}>·</span>
-            <span style={{ color: C.navy }}>WCAG AA Compliant</span>
+            <span style={{ color: '#fff' }}>WCAG AA Compliant</span>
             <span style={{ color: C.slateLight }}>·</span>
-            <span style={{ color: C.navy }}>Open 7 Days</span>
+            <span style={{ color: '#fff' }}>Open 7 Days</span>
           </div>
         </div>
 
@@ -437,7 +437,7 @@ export default function GovernmentMunicipalPage() {
           <div className="max-w-6xl mx-auto">
             <Reveal className="text-center mb-10">
               <p className="text-sm font-bold uppercase tracking-widest mb-3" style={{ color: C.blue, letterSpacing: '0.15em' }}>Our Parks</p>
-              <h2 id="parks-heading" className="text-3xl md:text-4xl font-bold" style={{ color: C.navy }}>Parks Directory</h2>
+              <h2 id="parks-heading" className="text-3xl md:text-4xl font-bold" style={{ color: '#fff' }}>Parks Directory</h2>
               <p className="mt-3 max-w-xl mx-auto text-base" style={{ color: C.slateLight }}>80% of visitors come here first. Find a park near you.</p>
             </Reveal>
             {/* Filter by amenity */}
@@ -464,10 +464,10 @@ export default function GovernmentMunicipalPage() {
                 <Reveal key={park.name} delay={i * 0.07}>
                   <div className="park-card rounded-lg p-6"
                     style={{ backgroundColor: C.white, border: hc ? '2px solid #000000' : '1px solid #e2e8f0', boxShadow: hc ? 'none' : '0 2px 8px rgba(0,0,0,0.05)' }}>
-                    <h3 className="text-lg font-bold mb-3" style={{ color: C.navy }}>{park.name}</h3>
+                    <h3 className="text-lg font-bold mb-3" style={{ color: '#fff' }}>{park.name}</h3>
                     <div className="flex flex-wrap gap-2 mb-4">
                       {park.amenities.map((amenity) => (
-                        <span key={amenity} className="text-xs px-2 py-1 rounded-full" style={{ backgroundColor: hc ? '#e0e0e0' : '#eff6ff', color: C.navy, border: hc ? '1px solid #000' : 'none' }}>{amenity}</span>
+                        <span key={amenity} className="text-xs px-2 py-1 rounded-full" style={{ backgroundColor: hc ? '#e0e0e0' : '#eff6ff', color: '#fff', border: hc ? '1px solid #000' : 'none' }}>{amenity}</span>
                       ))}
                     </div>
                     <a href="#contact" className="gov-focusable text-sm font-bold transition-colors" style={{ color: C.blue, textDecoration: hc ? 'underline' : 'none' }}
@@ -487,7 +487,7 @@ export default function GovernmentMunicipalPage() {
           <div className="max-w-6xl mx-auto">
             <Reveal className="text-center mb-14">
               <p className="text-sm font-bold uppercase tracking-widest mb-3" style={{ color: C.blue, letterSpacing: '0.15em' }}>Self-Service</p>
-              <h2 id="services-heading" className="text-3xl md:text-4xl font-bold" style={{ color: C.navy }}>Quick Services</h2>
+              <h2 id="services-heading" className="text-3xl md:text-4xl font-bold" style={{ color: '#fff' }}>Quick Services</h2>
               <p className="mt-3 max-w-xl mx-auto text-base" style={{ color: C.slateLight }}>Handle it online. No hold music. No wait times.</p>
             </Reveal>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
@@ -510,7 +510,7 @@ export default function GovernmentMunicipalPage() {
                   onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = hc ? '#e0e0e0' : '#eff6ff')}
                   onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = hc ? '#f0f0f0' : '#f8fafc')}>
                   <span className="text-3xl">{tile.icon}</span>
-                  <span className="text-xs font-bold leading-tight" style={{ color: C.navy }}>{tile.label}</span>
+                  <span className="text-xs font-bold leading-tight" style={{ color: '#fff' }}>{tile.label}</span>
                 </a>
               ))}
             </div>
@@ -522,7 +522,7 @@ export default function GovernmentMunicipalPage() {
           <div className="max-w-5xl mx-auto">
             <Reveal className="text-center mb-14">
               <p className="text-sm font-bold uppercase tracking-widest mb-3" style={{ color: C.blue, letterSpacing: '0.15em' }}>Keep Informed</p>
-              <h2 id="news-heading" className="text-3xl md:text-4xl font-bold" style={{ color: C.navy }}>News &amp; Announcements</h2>
+              <h2 id="news-heading" className="text-3xl md:text-4xl font-bold" style={{ color: '#fff' }}>News &amp; Announcements</h2>
             </Reveal>
             <div className="flex flex-col gap-5">
               {[
@@ -539,7 +539,7 @@ export default function GovernmentMunicipalPage() {
                     </div>
                     <div className="w-px self-stretch" style={{ backgroundColor: hc ? '#000000' : '#e2e8f0' }} />
                     <div>
-                      <p className="text-base font-semibold leading-snug" style={{ color: C.navy }}>{item.headline}</p>
+                      <p className="text-base font-semibold leading-snug" style={{ color: '#fff' }}>{item.headline}</p>
                       <a href="#contact" className="gov-focusable text-sm font-semibold mt-2 inline-block transition-colors" style={{ color: C.blue, textDecoration: hc ? 'underline' : 'none' }}>
                         Read More &rarr;
                       </a>
@@ -555,7 +555,7 @@ export default function GovernmentMunicipalPage() {
         <section className="py-20 md:py-28 px-6" style={{ backgroundColor: C.white }} aria-labelledby="gallery-heading">
           <div className="max-w-6xl mx-auto">
             <Reveal className="text-center mb-12">
-              <h2 id="gallery-heading" className="text-3xl md:text-4xl font-bold" style={{ color: C.navy }}>Our Parks &amp; Facilities</h2>
+              <h2 id="gallery-heading" className="text-3xl md:text-4xl font-bold" style={{ color: '#fff' }}>Our Parks &amp; Facilities</h2>
               <p className="mt-4 max-w-xl mx-auto text-base" style={{ color: C.slateLight }}>From trail networks to indoor recreation centres — something for everyone.</p>
             </Reveal>
             <Reveal delay={0.1} className="mb-10">
@@ -585,10 +585,10 @@ export default function GovernmentMunicipalPage() {
           <div className="max-w-6xl mx-auto">
             <Reveal className="text-center mb-10">
               <p className="text-sm font-bold uppercase tracking-widest mb-3" style={{ color: C.blue, letterSpacing: '0.15em' }}>Better Serving Residents</p>
-              <h2 id="digital-heading" className="text-3xl md:text-4xl font-bold" style={{ color: C.navy }}>Digital Services</h2>
+              <h2 id="digital-heading" className="text-3xl md:text-4xl font-bold" style={{ color: '#fff' }}>Digital Services</h2>
             </Reveal>
             <Reveal delay={0.05} className="text-center mb-14">
-              <p className="text-base md:text-lg leading-relaxed max-w-2xl mx-auto" style={{ color: C.slate }}>
+              <p className="text-base md:text-lg leading-relaxed max-w-2xl mx-auto" style={{ color: 'rgba(255,255,255,0.7)' }}>
                 Residents call the office for basic information — program hours, pool schedules, trail closures. Your website should answer those questions before they pick up the phone.{' '}
                 <span style={{ color: C.blue, fontWeight: 700 }}>The municipality down the highway cut call volume by 40%. Yours can too.</span>
               </p>
@@ -603,8 +603,8 @@ export default function GovernmentMunicipalPage() {
                   <div className="p-8 rounded-lg transition-shadow"
                     style={{ backgroundColor: C.white, borderLeft: C.cardBorder, boxShadow: hc ? 'none' : '0 2px 12px rgba(0,0,0,0.06)', border: hc ? '2px solid #000000' : undefined }}>
                     <div className="w-12 h-12 rounded-lg flex items-center justify-center mb-5" style={{ backgroundColor: hc ? '#e0e0e0' : '#eff6ff' }} aria-hidden="true">{card.icon}</div>
-                    <h3 className="text-xl font-bold mb-3" style={{ color: C.navy }}>{card.title}</h3>
-                    <p className="text-base leading-relaxed" style={{ color: C.slate }}>{card.desc}</p>
+                    <h3 className="text-xl font-bold mb-3" style={{ color: '#fff' }}>{card.title}</h3>
+                    <p className="text-base leading-relaxed" style={{ color: 'rgba(255,255,255,0.7)' }}>{card.desc}</p>
                   </div>
                 </Reveal>
               ))}
@@ -617,7 +617,7 @@ export default function GovernmentMunicipalPage() {
           <div className="max-w-5xl mx-auto">
             <Reveal className="text-center mb-14">
               <p className="text-sm font-bold uppercase tracking-widest mb-3" style={{ color: C.blue, letterSpacing: '0.15em' }}>The Process</p>
-              <h2 id="hiw-heading" className="text-3xl md:text-4xl font-bold" style={{ color: C.navy }}>How It Works</h2>
+              <h2 id="hiw-heading" className="text-3xl md:text-4xl font-bold" style={{ color: '#fff' }}>How It Works</h2>
             </Reveal>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
               {[
@@ -630,8 +630,8 @@ export default function GovernmentMunicipalPage() {
                     <div className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 font-bold text-xl text-white"
                       style={{ backgroundColor: C.blue, border: hc ? '2px solid #000000' : 'none', minWidth: '48px' }}>{step.num}</div>
                     <div>
-                      <h3 className="text-xl font-bold mb-2" style={{ color: C.navy }}>{step.title}</h3>
-                      <p className="text-base leading-relaxed" style={{ color: C.slate }}>{step.desc}</p>
+                      <h3 className="text-xl font-bold mb-2" style={{ color: '#fff' }}>{step.title}</h3>
+                      <p className="text-base leading-relaxed" style={{ color: 'rgba(255,255,255,0.7)' }}>{step.desc}</p>
                     </div>
                   </div>
                 </Reveal>
@@ -645,7 +645,7 @@ export default function GovernmentMunicipalPage() {
           <div className="max-w-5xl mx-auto">
             <Reveal className="text-center mb-12">
               <p className="text-sm font-bold uppercase tracking-widest mb-3" style={{ color: C.blue, letterSpacing: '0.15em' }}>The Transformation</p>
-              <h2 id="transform-heading" className={`${sourceSans.className} text-3xl md:text-4xl font-bold`} style={{ color: C.navy }}>Watch Your Website Transform</h2>
+              <h2 id="transform-heading" className={`${sourceSans.className} text-3xl md:text-4xl font-bold`} style={{ color: '#fff' }}>Watch Your Website Transform</h2>
               <p className="mt-4 max-w-xl mx-auto text-base" style={{ color: C.slateLight }}>From dated to designed — in real time</p>
             </Reveal>
             <LiveRedesign />
@@ -657,7 +657,7 @@ export default function GovernmentMunicipalPage() {
           <div className="max-w-6xl mx-auto">
             <Reveal className="text-center mb-14">
               <p className="text-sm font-bold uppercase tracking-widest mb-3" style={{ color: C.blue, letterSpacing: '0.15em' }}>Community Feedback</p>
-              <h2 id="testimonials-heading" className="text-3xl md:text-4xl font-bold" style={{ color: C.navy }}>What Residents Say</h2>
+              <h2 id="testimonials-heading" className="text-3xl md:text-4xl font-bold" style={{ color: '#fff' }}>What Residents Say</h2>
             </Reveal>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {[
@@ -672,7 +672,7 @@ export default function GovernmentMunicipalPage() {
                       {[...Array(5)].map((_, j) => <span key={j} style={{ color: hc ? '#000000' : '#f59e0b', fontSize: '1.25rem' }} aria-hidden="true">★</span>)}
                     </div>
                     <blockquote>
-                      <p className="text-base font-semibold leading-relaxed mb-5 italic" style={{ color: C.navy }}>&ldquo;{t.quote}&rdquo;</p>
+                      <p className="text-base font-semibold leading-relaxed mb-5 italic" style={{ color: '#fff' }}>&ldquo;{t.quote}&rdquo;</p>
                       <footer>
                         <cite className="text-sm font-bold not-italic" style={{ color: C.blue }}>— {t.name}</cite>
                         <p className="text-xs mt-1" style={{ color: C.slateLight }}>{t.org} &middot; {t.town}</p>
@@ -693,7 +693,7 @@ export default function GovernmentMunicipalPage() {
           <div className="max-w-3xl mx-auto">
             <Reveal className="text-center mb-14">
               <p className="text-sm font-bold uppercase tracking-widest mb-3" style={{ color: C.blue, letterSpacing: '0.15em' }}>Questions &amp; Answers</p>
-              <h2 id="faq-heading" className="text-3xl md:text-4xl font-bold" style={{ color: C.navy }}>Common Questions</h2>
+              <h2 id="faq-heading" className="text-3xl md:text-4xl font-bold" style={{ color: '#fff' }}>Common Questions</h2>
             </Reveal>
             <Reveal delay={0.1}>
               <FAQAccordion hc={hc} items={[
@@ -714,11 +714,11 @@ export default function GovernmentMunicipalPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-14 items-center">
               <Reveal>
                 <p className="text-sm font-bold uppercase tracking-widest mb-4" style={{ color: C.blue, letterSpacing: '0.15em' }}>About Us</p>
-                <h2 id="about-heading" className="text-3xl md:text-4xl font-bold mb-6" style={{ color: C.navy }}>Committed to Our Communities Since 1980</h2>
-                <p className="text-base leading-relaxed mb-5" style={{ color: C.slate }}>
+                <h2 id="about-heading" className="text-3xl md:text-4xl font-bold mb-6" style={{ color: '#fff' }}>Committed to Our Communities Since 1980</h2>
+                <p className="text-base leading-relaxed mb-5" style={{ color: 'rgba(255,255,255,0.7)' }}>
                   West Kootenay Parks &amp; Recreation has been enriching lives across the region for over four decades. From Nelson to Castlegar, Trail to Rossland, our team manages parks, trails, sports facilities, aquatic centres, and hundreds of recreation programs for all ages and abilities.
                 </p>
-                <p className="text-base leading-relaxed mb-8" style={{ color: C.slate }}>
+                <p className="text-base leading-relaxed mb-8" style={{ color: 'rgba(255,255,255,0.7)' }}>
                   We believe that access to recreation is a right, not a privilege. Our programs are designed with accessibility in mind — adaptive programming, seniors&rsquo; fitness, youth leadership, and everything in between.
                 </p>
                 <a href="#contact" className="gov-focusable inline-block px-8 font-bold text-base transition-colors rounded-lg"
@@ -748,7 +748,7 @@ export default function GovernmentMunicipalPage() {
           <div className="max-w-6xl mx-auto">
             <Reveal className="text-center mb-14">
               <p className="text-sm font-bold uppercase tracking-widest mb-3" style={{ color: C.blue, letterSpacing: '0.15em' }}>Get in Touch</p>
-              <h2 id="contact-heading" className="text-3xl md:text-4xl font-bold" style={{ color: C.navy }}>Contact West Kootenay Parks &amp; Rec</h2>
+              <h2 id="contact-heading" className="text-3xl md:text-4xl font-bold" style={{ color: '#fff' }}>Contact West Kootenay Parks &amp; Rec</h2>
             </Reveal>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
               <Reveal>
@@ -763,9 +763,9 @@ export default function GovernmentMunicipalPage() {
                       <div>
                         <div className="text-xs font-bold uppercase tracking-wider mb-0.5" style={{ color: C.slateLight }}>{item.label}</div>
                         {item.href ? (
-                          <a href={item.href} className="gov-focusable font-semibold text-base" style={{ color: C.navy, textDecoration: hc ? 'underline' : 'none' }}>{item.value}</a>
+                          <a href={item.href} className="gov-focusable font-semibold text-base" style={{ color: '#fff', textDecoration: hc ? 'underline' : 'none' }}>{item.value}</a>
                         ) : (
-                          <span className="font-semibold text-base" style={{ color: C.navy }}>{item.value}</span>
+                          <span className="font-semibold text-base" style={{ color: '#fff' }}>{item.value}</span>
                         )}
                       </div>
                     </div>
@@ -778,19 +778,19 @@ export default function GovernmentMunicipalPage() {
                   <div className="flex flex-col gap-5">
                     {[{ id: 'contact-name', label: 'Your Name', type: 'text', placeholder: 'Jane Smith', auto: 'name' }, { id: 'contact-email', label: 'Email Address', type: 'email', placeholder: 'jane@example.com', auto: 'email' }, { id: 'contact-subject', label: 'Subject', type: 'text', placeholder: 'Program inquiry, issue report, etc.', auto: 'off' }].map((f) => (
                       <div key={f.id}>
-                        <label htmlFor={f.id} className="block font-semibold mb-2 text-base" style={{ color: C.navy }}>{f.label}</label>
+                        <label htmlFor={f.id} className="block font-semibold mb-2 text-base" style={{ color: '#fff' }}>{f.label}</label>
                         <input id={f.id} type={f.type} placeholder={f.placeholder} autoComplete={f.auto}
                           className="gov-focusable w-full px-4 py-3 text-base rounded-lg outline-none transition-colors"
-                          style={{ border: C.inputBorder, backgroundColor: C.white, color: C.navy, minHeight: '48px' }}
+                          style={{ border: C.inputBorder, backgroundColor: C.white, color: '#fff', minHeight: '48px' }}
                           onFocus={(e) => (e.currentTarget.style.borderColor = hc ? '#000000' : '#2563eb')}
                           onBlur={(e) => (e.currentTarget.style.borderColor = hc ? '#000000' : '#cbd5e1')} />
                       </div>
                     ))}
                     <div>
-                      <label htmlFor="contact-message" className="block font-semibold mb-2 text-base" style={{ color: C.navy }}>Message</label>
+                      <label htmlFor="contact-message" className="block font-semibold mb-2 text-base" style={{ color: '#fff' }}>Message</label>
                       <textarea id="contact-message" rows={4} placeholder="How can we help you?"
                         className="gov-focusable w-full px-4 py-3 text-base rounded-lg outline-none transition-colors resize-none"
-                        style={{ border: C.inputBorder, backgroundColor: C.white, color: C.navy, fontFamily: 'inherit' }}
+                        style={{ border: C.inputBorder, backgroundColor: C.white, color: '#fff', fontFamily: 'inherit' }}
                         onFocus={(e) => (e.currentTarget.style.borderColor = hc ? '#000000' : '#2563eb')}
                         onBlur={(e) => (e.currentTarget.style.borderColor = hc ? '#000000' : '#cbd5e1')} />
                     </div>
