@@ -188,24 +188,24 @@ function LiveRedesign() {
               <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.78) 50%, rgba(0,0,0,0.9) 100%)' }} />
             </div>
 {/* Nav — light blue-tinted, KCLC in General Sans bold, blue text */}
-              <div className="flex items-center justify-between px-6 sm:px-10 py-4" style={{ borderBottom: `1px solid ${EN.blue}15`, backgroundColor: 'rgba(0,0,0,0.3)' }}>
-                <motion.span style={{ color: EN.blue, fontFamily: "'General Sans', sans-serif", fontSize: '1.05rem', fontWeight: 700, letterSpacing: '0.04em' }} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: dur * 0.6, delay: stagger }}>
+              <div className="flex items-center justify-between px-6 sm:px-10 py-4" style={{ borderBottom: '1px solid rgba(255,255,255,0.1)', backgroundColor: 'rgba(0,0,0,0.3)' }}>
+                <motion.span style={{ color: '#93bbfc', fontFamily: "'General Sans', sans-serif", fontSize: '1.05rem', fontWeight: 700, letterSpacing: '0.04em' }} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: dur * 0.6, delay: stagger }}>
                   KCLC
                 </motion.span>
                 <motion.div className="hidden sm:flex items-center gap-6" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
                   {['Programs', 'Community', 'About', 'Contact'].map((link) => (
-                    <span key={link} style={{ color: EN.blue, fontWeight: 600, fontFamily: "'General Sans', sans-serif", fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.12em' }}>{link}</span>
+                    <span key={link} style={{ color: 'rgba(255,255,255,0.7)', fontWeight: 600, fontFamily: "'General Sans', sans-serif", fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.12em' }}>{link}</span>
                   ))}
                 </motion.div>
                 <motion.div className="sm:hidden flex flex-col gap-[5px]" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur * 0.6, delay: stagger }}>
-                  <span className="block w-5 h-[2px] rounded-full" style={{ backgroundColor: EN.blue }} />
-                  <span className="block w-4 h-[2px] rounded-full" style={{ backgroundColor: EN.blue }} />
-                  <span className="block w-5 h-[2px] rounded-full" style={{ backgroundColor: EN.blue }} />
+                  <span className="block w-5 h-[2px] rounded-full" style={{ backgroundColor: 'rgba(255,255,255,0.7)' }} />
+                  <span className="block w-4 h-[2px] rounded-full" style={{ backgroundColor: 'rgba(255,255,255,0.7)' }} />
+                  <span className="block w-5 h-[2px] rounded-full" style={{ backgroundColor: 'rgba(255,255,255,0.7)' }} />
                 </motion.div>
               </div>
 
               {/* Hero — light blue-tinted white bg */}
-              <div className="relative px-5 sm:px-10 md:px-16 py-8 sm:py-12 flex-1 flex flex-col justify-center" style={{ background: 'linear-gradient(145deg, #e8f4ff 0%, #f5f9ff 60%, #ffffff 100%)' }}>
+              <div className="relative px-5 sm:px-10 md:px-16 py-8 sm:py-12 flex-1 flex flex-col justify-center" >
                 {/* Warm community shapes — circles/hands/hearts geometric */}
                 <motion.div className="absolute top-0 right-0 pointer-events-none" initial={{ opacity: 0 }} animate={{ opacity: 0.18 }} transition={{ duration: dur, delay: stagger * 3 }}>
                   <svg width="200" height="200" viewBox="0 0 160 160" fill="none">
@@ -221,19 +221,19 @@ function LiveRedesign() {
 
                 <div className="relative z-10 text-center sm:text-left" style={{ textShadow: "0 2px 12px rgba(0,0,0,0.9), 0 1px 3px rgba(0,0,0,0.7)" }}>
                   <motion.div className="flex justify-center sm:justify-start mb-3 sm:mb-6" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
-                    <span style={{ backgroundColor: `${EN.blue}12`, color: EN.blue, border: `1px solid ${EN.blue}22`, fontFamily: "'General Sans', sans-serif", fontSize: '0.7rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.2em', padding: '0.4rem 1.25rem', borderRadius: '999px' }}>
+                    <span style={{ backgroundColor: 'rgba(59,130,246,0.2)', color: '#93bbfc', border: '1px solid rgba(59,130,246,0.3)', fontFamily: "'General Sans', sans-serif", fontSize: '0.7rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.2em', padding: '0.4rem 1.25rem', borderRadius: '999px' }}>
                       Est. 2005 &mdash; West Kootenay
                     </span>
                   </motion.div>
 
-                  <motion.h2 style={{ fontFamily: "'General Sans', sans-serif", fontWeight: 700, color: EN.navy, lineHeight: 1.15, marginBottom: '1rem' }} className="text-2xl sm:text-4xl md:text-5xl lg:text-5xl sm:max-w-xl" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
+                  <motion.h2 style={{ fontFamily: "'General Sans', sans-serif", fontWeight: 700, color: '#fff', lineHeight: 1.15, marginBottom: '1rem' }} className="text-2xl sm:text-4xl md:text-5xl lg:text-5xl sm:max-w-xl" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
                     127 Families Fed Last Month.<br />Yours Could Be Next &mdash;{' '}
                     <span style={{ color: EN.blue }}>
                       To Help.
                     </span>
                   </motion.h2>
 
-                  <motion.p style={{ color: EN.slate, lineHeight: 1.7, fontFamily: "'General Sans', sans-serif", fontSize: '0.95rem', maxWidth: '28rem', marginBottom: '1.75rem' }} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 4 }}>
+                  <motion.p style={{ color: 'rgba(255,255,255,0.7)', lineHeight: 1.7, fontFamily: "'General Sans', sans-serif", fontSize: '0.95rem', maxWidth: '28rem', marginBottom: '1.75rem' }} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 4 }}>
                     Community programs, adult education, and literacy support — many free. All local.
                   </motion.p>
 
@@ -246,7 +246,7 @@ function LiveRedesign() {
 
                   <motion.div className="flex items-center justify-center sm:justify-start gap-4 sm:gap-6 mt-6 flex-wrap" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur, delay: stagger * 6 }}>
                     {['Registered Charity', '2000+ Served', '100% Local'].map((badge) => (
-                      <span key={badge} style={{ color: EN.blue, opacity: 0.7, letterSpacing: '0.05em', fontFamily: "'General Sans', sans-serif", fontSize: '0.75rem', fontWeight: 600 }}>{badge}</span>
+                      <span key={badge} style={{ color: 'rgba(255,255,255,0.5)', letterSpacing: '0.05em', fontFamily: "'General Sans', sans-serif", fontSize: '0.75rem', fontWeight: 600 }}>{badge}</span>
                     ))}
                   </motion.div>
                 </div>
