@@ -1,15 +1,12 @@
 'use client'
 
-import { Poppins } from 'next/font/google'
+// General Sans loaded via Fontshare CDN in style block below
 import Link from 'next/link'
 import Image from 'next/image'
 import { useRef, useState, useEffect } from 'react'
 import { motion, useInView, useReducedMotion, AnimatePresence } from 'framer-motion'
 
-const poppins = Poppins({
-  subsets: ['latin'],
-  weight: ['400', '600', '700'],
-})
+const generalSansFont = "'General Sans', sans-serif"
 
 /* ── Scroll reveal wrapper ── */
 function Reveal({ children, className = '', delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
@@ -114,7 +111,7 @@ function LiveRedesign() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 8 }}
             transition={{ duration: 0.3 }}
-            className={`${poppins.className} text-sm font-bold uppercase tracking-[0.25em]`}
+            className={`${"font-heading"} text-sm font-bold uppercase tracking-[0.25em]`}
             style={{ color: transformed ? EN.blue : '#888' }}
           >
             {transformed ? '✨ After' : 'Before'}
@@ -186,12 +183,12 @@ function LiveRedesign() {
             >
               {/* Elegant nav */}
               <div className="flex items-center justify-between px-6 sm:px-10 py-4" style={{ borderBottom: `1px solid ${EN.blue}15`, backgroundColor: EN.lightBg }}>
-                <motion.span className={`${poppins.className} text-base sm:text-lg font-bold`} style={{ color: EN.navy }} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: dur * 0.6, delay: stagger }}>
+                <motion.span className={`${"font-heading"} text-base sm:text-lg font-bold`} style={{ color: EN.navy }} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: dur * 0.6, delay: stagger }}>
                   Kootenay Community <span style={{ color: EN.amber }}>Learning</span>
                 </motion.span>
                 <motion.div className="hidden sm:flex items-center gap-6" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
                   {['Programs', 'Community', 'About', 'Contact'].map((link) => (
-                    <span key={link} className={`${poppins.className} text-xs uppercase tracking-widest font-semibold`} style={{ color: EN.blue }}>{link}</span>
+                    <span key={link} className={`${"font-heading"} text-xs uppercase tracking-widest font-semibold`} style={{ color: EN.blue }}>{link}</span>
                   ))}
                 </motion.div>
                 <motion.div className="sm:hidden flex flex-col gap-[5px]" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur * 0.6, delay: stagger }}>
@@ -218,12 +215,12 @@ function LiveRedesign() {
 
                 <div className="relative z-10 text-center sm:text-left">
                   <motion.div className="flex justify-center sm:justify-start mb-3 sm:mb-6" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
-                    <span className={`${poppins.className} text-xs font-semibold uppercase tracking-[0.2em] px-5 py-2 rounded-full`} style={{ backgroundColor: `${EN.blue}15`, color: EN.blue, border: `1px solid ${EN.blue}25` }}>
+                    <span className={`${"font-heading"} text-xs font-semibold uppercase tracking-[0.2em] px-5 py-2 rounded-full`} style={{ backgroundColor: `${EN.blue}15`, color: EN.blue, border: `1px solid ${EN.blue}25` }}>
                       Est. 2005 &mdash; West Kootenay
                     </span>
                   </motion.div>
 
-                  <motion.h2 className={`${poppins.className} text-2xl sm:text-4xl md:text-5xl lg:text-5xl leading-[1.15] mb-4 sm:mb-6 sm:max-w-xl font-bold`} style={{ color: EN.navy }} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
+                  <motion.h2 className={`${"font-heading"} text-2xl sm:text-4xl md:text-5xl lg:text-5xl leading-[1.15] mb-4 sm:mb-6 sm:max-w-xl font-bold`} style={{ color: EN.navy }} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
                     127 Families Fed Last Month.<br />Yours Could Be Next &mdash;{' '}
                     <span className="relative inline-block" style={{ color: EN.blue }}>
                       To Help.
@@ -233,21 +230,21 @@ function LiveRedesign() {
                     </span>
                   </motion.h2>
 
-                  <motion.p className={`${poppins.className} text-sm sm:text-lg max-w-md sm:mx-0 mx-auto mb-6 sm:mb-8`} style={{ color: EN.slate, lineHeight: 1.7 }} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 4 }}>
+                  <motion.p className={`${"font-heading"} text-sm sm:text-lg max-w-md sm:mx-0 mx-auto mb-6 sm:mb-8`} style={{ color: EN.slate, lineHeight: 1.7 }} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 4 }}>
                     Community programs, adult education, and literacy support — many free. All local.
                   </motion.p>
 
                   <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 5 }} className="flex flex-col sm:flex-row items-center sm:items-start justify-center sm:justify-start gap-4">
-                    <a href="#contact" className={`${poppins.className} inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 text-sm sm:text-base rounded-full transition-all duration-300 hover:scale-[1.03] active:scale-[0.97] font-semibold`} style={{ backgroundColor: EN.blue, color: EN.white, boxShadow: `0 4px 20px ${EN.blue}35` }}>
+                    <a href="#contact" className={`${"font-heading"} inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 text-sm sm:text-base rounded-full transition-all duration-300 hover:scale-[1.03] active:scale-[0.97] font-semibold`} style={{ backgroundColor: EN.blue, color: EN.white, boxShadow: `0 4px 20px ${EN.blue}35` }}>
                       Volunteer This Weekend
                       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
                     </a>
-                    <span className={`${poppins.className} text-sm`} style={{ color: '#999' }}>No commitment required</span>
+                    <span className={`${"font-heading"} text-sm`} style={{ color: '#999' }}>No commitment required</span>
                   </motion.div>
 
                   <motion.div className="flex items-center justify-center sm:justify-start gap-4 sm:gap-6 mt-6 flex-wrap" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur, delay: stagger * 6 }}>
                     {['Registered Charity', '2000+ Served', '100% Local'].map((badge) => (
-                      <span key={badge} className={`${poppins.className} text-xs`} style={{ color: EN.blue, opacity: 0.7, letterSpacing: '0.05em' }}>{badge}</span>
+                      <span key={badge} className={`${"font-heading"} text-xs`} style={{ color: EN.blue, opacity: 0.7, letterSpacing: '0.05em' }}>{badge}</span>
                     ))}
                   </motion.div>
                 </div>
@@ -264,7 +261,7 @@ function LiveRedesign() {
       <div className="flex justify-center mt-8">
         <button
           onClick={() => setTransformed(!transformed)}
-          className={`${poppins.className} text-sm font-semibold px-6 py-3 rounded-full transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]`}
+          className={`${"font-heading"} text-sm font-semibold px-6 py-3 rounded-full transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]`}
           style={{ backgroundColor: transformed ? `${EN.blue}15` : EN.white, color: transformed ? EN.navy : '#666', border: `1.5px solid ${transformed ? `${EN.blue}30` : '#ddd'}`, boxShadow: transformed ? `0 2px 12px ${EN.blue}10` : '0 1px 4px rgba(0,0,0,0.06)' }}
         >
           {transformed ? '← See the Before' : '✨ Watch the Transformation'}
@@ -343,8 +340,10 @@ export default function EducationNonprofitPage() {
   ]
 
   return (
-    <div className={`${poppins.className} min-h-screen`} style={{ background: '#ffffff', color: '#1e3a5f' }}>
+    <div className={`${"font-heading"} min-h-screen`} style={{ background: '#ffffff', color: '#1e3a5f' }}>
       <style>{`
+        @import url('https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap');
+        .font-heading { font-family: 'General Sans', sans-serif; }
         @media (prefers-reduced-motion: reduce) {
           * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
         }
@@ -862,8 +861,8 @@ export default function EducationNonprofitPage() {
         <Blob size={180} color="#3b82f6" opacity={0.08} bottom={-50} left="8%" />
         <div className="relative z-10 max-w-5xl mx-auto">
           <Reveal className="text-center mb-12">
-            <h2 className={`${poppins.className} text-3xl md:text-4xl font-bold`} style={{ color: '#1e3a5f' }}>Watch Your Website Transform</h2>
-            <p className={`${poppins.className} text-base mt-4`} style={{ color: '#64748b' }}>From dated to designed — in real time</p>
+            <h2 className={`${"font-heading"} text-3xl md:text-4xl font-bold`} style={{ color: '#1e3a5f' }}>Watch Your Website Transform</h2>
+            <p className={`${"font-heading"} text-base mt-4`} style={{ color: '#64748b' }}>From dated to designed — in real time</p>
           </Reveal>
           <Reveal delay={0.1}>
             <LiveRedesign />
