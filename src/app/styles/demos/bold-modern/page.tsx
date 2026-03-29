@@ -179,7 +179,7 @@ function LiveRedesign() {
                     <line x1="120" y1="80" x2="160" y2="80" stroke="#ff6b00" strokeWidth="0.5" />
                   </svg>
                 </motion.div>
-                <div className="relative z-10 text-center sm:text-left">
+                <div className="relative z-10 text-center sm:text-left" style={{ textShadow: "0 2px 12px rgba(0,0,0,0.9), 0 1px 3px rgba(0,0,0,0.7)" }}>
                   <motion.div initial={{ opacity: 0, scaleX: 0, transformOrigin: 'left' }} animate={{ opacity: 1, scaleX: 1 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
                     <div className="w-16 h-1 mb-4 mx-auto sm:mx-0" style={{ backgroundColor: '#ff6b00' }} />
                   </motion.div>

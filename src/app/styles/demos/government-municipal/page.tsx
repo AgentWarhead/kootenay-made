@@ -155,7 +155,7 @@ function LiveRedesign() {
                   <span className="block w-5 h-[2px] rounded-full" style={{ backgroundColor: blue }} />
                 </motion.div>
               </div>
-              <div className="relative px-5 sm:px-10 md:px-14 py-8 sm:py-10 flex-1 flex flex-col justify-center">
+              <div className="relative px-5 sm:px-10 md:px-14 py-8 sm:py-10 flex-1 flex flex-col justify-center" style={{ textShadow: "0 2px 12px rgba(0,0,0,0.9), 0 1px 3px rgba(0,0,0,0.7)" }}>
                 <motion.div className="absolute top-4 right-4 pointer-events-none" initial={{ opacity: 0 }} animate={{ opacity: 0.12 }} transition={{ duration: dur, delay: stagger * 3 }}>
                   {/* Clean geometric shapes — accessible, structured */}
                   <svg width="200" height="200" viewBox="0 0 180 180" fill="none">

@@ -189,7 +189,7 @@ function LiveRedesign() {
                   </svg>
                 </motion.div>
 
-                <div className="relative z-10 text-center sm:text-left">
+                <div className="relative z-10 text-center sm:text-left" style={{ textShadow: "0 2px 12px rgba(0,0,0,0.9), 0 1px 3px rgba(0,0,0,0.7)" }}>
                   <motion.div className="flex justify-center sm:justify-start mb-3 sm:mb-6" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
                     <span style={{ backgroundColor: `${EE.gold}18`, color: EE.gold, border: `1px solid ${EE.gold}35`, fontFamily: "'Zodiak', serif", fontSize: '0.68rem', fontWeight: 400, textTransform: 'uppercase', letterSpacing: '0.22em', padding: '0.38rem 1.25rem', borderRadius: '2px' }}>
                       Est. 1998 &mdash; West Kootenay

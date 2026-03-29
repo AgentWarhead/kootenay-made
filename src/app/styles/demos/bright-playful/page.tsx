@@ -260,7 +260,7 @@ function LiveRedesign() {
                     <circle cx="105" cy="110" r="8" fill={CORAL} opacity="0.4" />
                   </svg>
                 </motion.div>
-                <div className="relative z-10 text-center sm:text-left">
+                <div className="relative z-10 text-center sm:text-left" style={{ textShadow: "0 2px 12px rgba(0,0,0,0.9), 0 1px 3px rgba(0,0,0,0.7)" }}>
                   <motion.div className="flex justify-center sm:justify-start mb-4" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
                     <span className={`${nunito.className} text-xs font-extrabold uppercase tracking-[0.2em] px-4 py-1.5 rounded-full`} style={{ backgroundColor: `${TEAL}15`, color: '#7eeee4', border: `2px solid ${TEAL}25` }}>
                       Est. 2016 &mdash; Castlegar, BC

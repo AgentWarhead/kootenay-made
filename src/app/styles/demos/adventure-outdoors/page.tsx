@@ -182,7 +182,7 @@ function LiveRedesign() {
                     <circle cx="150" cy="40" r="3" fill={orange} opacity="0.5" />
                   </svg>
                 </motion.div>
-                <div className="relative z-10 text-center sm:text-left">
+                <div className="relative z-10 text-center sm:text-left" style={{ textShadow: "0 2px 12px rgba(0,0,0,0.9), 0 1px 3px rgba(0,0,0,0.7)" }}>
                   <motion.div className="flex justify-center sm:justify-start mb-3 sm:mb-6" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
                     <span className={`${body.className} text-xs font-semibold uppercase tracking-[0.2em] px-5 py-2 rounded-full`}
                       style={{ backgroundColor: `${orange}18`, color: orange, border: `1px solid ${orange}30` }}>
