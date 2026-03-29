@@ -142,7 +142,7 @@ function LiveRedesign() {
               animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
               transition={{ duration: dur * 0.8, ease: 'easeOut' }}
               className="absolute inset-0 w-full overflow-hidden flex flex-col"
-              style={{ backgroundColor: EE.dark, border: `2px solid ${EE.gold}40`, borderRadius: '16px', boxShadow: `0 8px 40px ${EE.gold}20, 0 2px 8px rgba(0,0,0,0.3)` }}
+              style={{ border: `2px solid ${EE.gold}40`, borderRadius: '16px', boxShadow: `0 8px 40px ${EE.gold}20, 0 2px 8px rgba(0,0,0,0.3)` }}
             >
               
             {/* Background image overlay */}
@@ -151,7 +151,7 @@ function LiveRedesign() {
               <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.78) 50%, rgba(0,0,0,0.9) 100%)' }} />
             </div>
 {/* Nav — dark bg, Pinnacle Real Estate in Zodiak italic, gold text */}
-              <div className="flex items-center justify-between px-6 sm:px-10 py-4" style={{ borderBottom: `1px solid ${EE.gold}25`, backgroundColor: '#111111' }}>
+              <div className="flex items-center justify-between px-6 sm:px-10 py-4" style={{ borderBottom: `1px solid ${EE.gold}25`, backgroundColor: 'rgba(17,17,17,0.6)' }}>
                 <motion.span style={{ color: EE.gold, fontFamily: "'Zodiak', serif", fontSize: '1.05rem', fontWeight: 400, fontStyle: 'italic', letterSpacing: '0.04em' }} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: dur * 0.6, delay: stagger }}>
                   Pinnacle Real Estate
                 </motion.span>
