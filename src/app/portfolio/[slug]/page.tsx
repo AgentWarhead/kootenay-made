@@ -28,3 +28,4 @@ export default function CaseStudyPage({ params }: { params: { slug: string } }) 
   if (!study) notFound();
   return <CaseStudyClient study={study} />;
 }
+// Build: 20260329222108
