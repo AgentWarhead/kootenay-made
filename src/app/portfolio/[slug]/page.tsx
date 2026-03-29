@@ -2,6 +2,8 @@ import { notFound } from 'next/navigation';
 import { caseStudies } from '../data';
 import CaseStudyClient from './CaseStudyClient';
 
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return caseStudies.map((s) => ({ slug: s.slug }));
 }
