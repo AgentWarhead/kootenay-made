@@ -166,7 +166,7 @@ function LiveRedesign() {
             {/* Background image overlay */}
             <div className="absolute inset-0 z-0">
               <img src="/images/demos/warm-natural-showcase.webp" alt="" className="w-full h-full object-cover" />
-              <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.8) 100%)' }} />
+              <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.75) 50%, rgba(0,0,0,0.88) 100%)' }} />
             </div>
               {/* Grain texture */}
               <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E")`, opacity: 0.4 }} />
@@ -208,7 +208,7 @@ function LiveRedesign() {
                     </span>
                   </motion.div>
                   <motion.h2 className="heading-font text-2xl sm:text-4xl md:text-5xl leading-[1.2] mb-5 sm:mb-6 sm:max-w-lg"
-                    style={{ color: '#8b7355', fontFamily: "'Erode', serif" }}
+                    style={{ color: 'rgba(255,255,255,0.5)', fontFamily: "'Erode', serif" }}
                     initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
                     You Carry Enough.<br />Put It Down{' '}
@@ -217,14 +217,14 @@ function LiveRedesign() {
                     </span>
                   </motion.h2>
                   <motion.p className={`${nunito.className} text-sm sm:text-base max-w-sm sm:mx-0 mx-auto mb-8 sm:mb-10`}
-                    style={{ color: '#8b7355', opacity: 0.65, lineHeight: 1.8 }}
+                    style={{ color: 'rgba(255,255,255,0.5)', opacity: 0.65, lineHeight: 1.8 }}
                     initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 4 }}>
                     Yoga, massage, reiki &mdash; a sanctuary designed to quiet the noise.
                   </motion.p>
                   <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 5 }}
                     className="flex flex-col sm:flex-row items-center sm:items-start justify-center sm:justify-start gap-4">
                     <a href="#contact" className="heading-font inline-flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-4 text-sm sm:text-base rounded-full transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]"
-                      style={{ backgroundColor: sage, color: '#fff', boxShadow: `0 4px 24px ${sage}35`, letterSpacing: '0.02em', fontFamily: "'Erode', serif" }}>
+                      style={{ backgroundColor: sage, color: '#ffffff', boxShadow: `0 4px 24px ${sage}35`, letterSpacing: '0.02em', fontFamily: "'Erode', serif" }}>
                       Book Your Escape →
                     </a>
                   </motion.div>
@@ -266,12 +266,12 @@ function FAQAccordion({ items }: { items: { q: string; a: string }[] }) {
             aria-expanded={open === i}>
             <span className={`heading-font text-base font-bold`} style={{ color: open === i ? '#7d9a6b' : '#8b7355' }}>{item.q}</span>
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-              style={{ color: '#7d9a6b', flexShrink: 0, transform: open === i ? 'rotate(180deg)' : 'rotate(0deg)', transition: prefersReduced ? 'none' : 'transform 0.3s ease' }}>
+              style={{ color: '#a8d49a', flexShrink: 0, transform: open === i ? 'rotate(180deg)' : 'rotate(0deg)', transition: prefersReduced ? 'none' : 'transform 0.3s ease' }}>
               <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </button>
           {open === i && (
-            <div className="px-6 pb-5 text-sm leading-relaxed" style={{ color: '#8b7355', opacity: 0.8 }}>{item.a}</div>
+            <div className="px-6 pb-5 text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.5)', opacity: 0.8 }}>{item.a}</div>
           )}
         </div>
       ))}
@@ -289,7 +289,7 @@ export default function WarmNaturalDemo() {
     {
       day: 'MON',
       classes: [
-        { name: 'Morning Flow', time: '7:00 AM', instructor: 'Priya', level: 'All Levels', color: '#7d9a6b' },
+        { name: 'Morning Flow', time: '7:00 AM', instructor: 'Priya', level: 'All Levels', color: '#a8d49a' },
         { name: 'Restorative Yoga', time: '6:00 PM', instructor: 'Mei', level: 'Restorative', color: '#d4a574' },
       ],
     },
@@ -303,7 +303,7 @@ export default function WarmNaturalDemo() {
     {
       day: 'WED',
       classes: [
-        { name: 'Gentle Yoga', time: '10:00 AM', instructor: 'Sasha', level: 'All Levels', color: '#7d9a6b' },
+        { name: 'Gentle Yoga', time: '10:00 AM', instructor: 'Sasha', level: 'All Levels', color: '#a8d49a' },
         { name: 'Power Flow', time: '5:30 PM', instructor: 'Priya', level: 'Intermediate', color: '#a8c09a' },
       ],
     },
@@ -317,14 +317,14 @@ export default function WarmNaturalDemo() {
     {
       day: 'FRI',
       classes: [
-        { name: 'Flow & Restore', time: '9:00 AM', instructor: 'Priya', level: 'All Levels', color: '#7d9a6b' },
+        { name: 'Flow & Restore', time: '9:00 AM', instructor: 'Priya', level: 'All Levels', color: '#a8d49a' },
         { name: 'Candlelight Yoga', time: '7:00 PM', instructor: 'Mei', level: 'Restorative', color: '#d4a574' },
       ],
     },
     {
       day: 'SAT',
       classes: [
-        { name: 'Weekend Flow', time: '8:30 AM', instructor: 'Priya', level: 'All Levels', color: '#7d9a6b' },
+        { name: 'Weekend Flow', time: '8:30 AM', instructor: 'Priya', level: 'All Levels', color: '#a8d49a' },
         { name: 'Sound Bath', time: '4:00 PM', instructor: 'Sasha', level: 'All Levels', color: '#d4a574' },
       ],
     },
@@ -343,7 +343,7 @@ export default function WarmNaturalDemo() {
   }
 
   return (
-    <div className={nunito.className} style={{ fontFamily: 'Nunito, sans-serif', color: '#8b7355' }}>
+    <div className={nunito.className} style={{ fontFamily: 'Nunito, sans-serif', color: 'rgba(255,255,255,0.5)' }}>
       <style>{`@import url('https://api.fontshare.com/v2/css?f[]=erode@400,500,700&display=swap'); .heading-font { font-family: 'Erode', serif; }`}</style>
       <style dangerouslySetInnerHTML={{ __html: botanicalKeyframes }} />
 
@@ -367,14 +367,14 @@ export default function WarmNaturalDemo() {
         {/* ── NAV ── */}
         <nav className="px-6 py-4" style={{ backgroundColor: 'rgba(250,246,240,0.92)', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)' }}>
           <div className="max-w-6xl mx-auto flex items-center justify-between">
-            <span className={`heading-font text-xl md:text-2xl font-bold`} style={{ color: '#8b7355', fontStyle: 'italic', letterSpacing: '0.03em' }}>Mountain Flow Wellness</span>
+            <span className={`heading-font text-xl md:text-2xl font-bold`} style={{ color: 'rgba(255,255,255,0.5)', fontStyle: 'italic', letterSpacing: '0.03em' }}>Mountain Flow Wellness</span>
             <div className="hidden md:flex items-center gap-8">
               {['Schedule', 'Classes', 'About', 'Contact'].map((label) => (
-                <a key={label} href={`#${label.toLowerCase().replace(/\s+/g, '-')}`} className="text-sm transition-colors" style={{ color: '#8b7355' }}
+                <a key={label} href={`#${label.toLowerCase().replace(/\s+/g, '-')}`} className="text-sm transition-colors" style={{ color: 'rgba(255,255,255,0.5)' }}
                   onMouseEnter={(e) => (e.currentTarget.style.color = '#7d9a6b')}
                   onMouseLeave={(e) => (e.currentTarget.style.color = '#8b7355')}>{label}</a>
               ))}
-              <span className="text-sm font-semibold" style={{ color: '#7d9a6b' }}>(250) 555-0165</span>
+              <span className="text-sm font-semibold" style={{ color: '#a8d49a' }}>(250) 555-0165</span>
             </div>
           </div>
         </nav>
@@ -388,8 +388,8 @@ export default function WarmNaturalDemo() {
             initial={prefersReduced ? {} : { opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: 'easeOut' }}>
-            <h1 className={`heading-font text-5xl md:text-7xl font-bold leading-tight mb-6`} style={{ color: '#8b7355' }}>You Carry Enough.<br /><span style={{ color: '#7d9a6b', fontStyle: 'italic' }}>Put It Down.</span></h1>
-            <p className="text-lg md:text-xl mb-10 max-w-xl mx-auto leading-relaxed" style={{ color: '#8b7355', opacity: 0.75 }}>
+            <h1 className={`heading-font text-5xl md:text-7xl font-bold leading-tight mb-6`} style={{ color: 'rgba(255,255,255,0.5)' }}>You Carry Enough.<br /><span style={{ color: '#a8d49a', fontStyle: 'italic' }}>Put It Down.</span></h1>
+            <p className="text-lg md:text-xl mb-10 max-w-xl mx-auto leading-relaxed" style={{ color: 'rgba(255,255,255,0.5)', opacity: 0.75 }}>
               A holistic wellness sanctuary in the heart of Nelson — yoga, massage, and mindful healing. All levels welcome.
             </p>
             <a href="#schedule" className="inline-block px-10 py-4 text-white font-semibold text-sm rounded-full transition-all hover:shadow-lg"
@@ -419,16 +419,16 @@ export default function WarmNaturalDemo() {
         <section id="schedule" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#faf6f0' }}>
           <div className="max-w-6xl mx-auto">
             <Reveal className="text-center mb-4">
-              <h2 className={`heading-font text-3xl md:text-4xl font-bold`} style={{ color: '#8b7355' }}>This Week&rsquo;s Classes</h2>
+              <h2 className={`heading-font text-3xl md:text-4xl font-bold`} style={{ color: 'rgba(255,255,255,0.5)' }}>This Week&rsquo;s Classes</h2>
             </Reveal>
             <Reveal delay={0.05} className="text-center mb-12">
-              <p className="text-sm max-w-md mx-auto" style={{ color: '#8b7355', opacity: 0.6 }}>
+              <p className="text-sm max-w-md mx-auto" style={{ color: 'rgba(255,255,255,0.5)', opacity: 0.6 }}>
                 All classes held at 123 Sample St, Nelson · Drop-ins always welcome
               </p>
               {/* Legend */}
               <div className="flex items-center justify-center gap-6 mt-6 flex-wrap">
                 {Object.entries(levelColors).map(([level, color]) => (
-                  <span key={level} className="flex items-center gap-2 text-xs font-semibold" style={{ color: '#8b7355' }}>
+                  <span key={level} className="flex items-center gap-2 text-xs font-semibold" style={{ color: 'rgba(255,255,255,0.5)' }}>
                     <span className="w-3 h-3 rounded-full inline-block" style={{ backgroundColor: color }} />
                     {level}
                   </span>
@@ -440,16 +440,16 @@ export default function WarmNaturalDemo() {
                 <Reveal key={day.day} delay={di * 0.06}>
                   <div className="flex flex-col gap-2">
                     <div className="text-center py-2 rounded-full text-xs font-bold uppercase tracking-wider mb-1"
-                      style={{ backgroundColor: '#7d9a6b', color: '#fff' }}>
+                      style={{ backgroundColor: '#7d9a6b', color: '#ffffff', textShadow: '0 2px 20px rgba(0,0,0,0.8)' }}>
                       {day.day}
                     </div>
                     {day.classes.map((cls, ci) => (
                       <div key={ci} className="p-3 rounded-2xl text-center"
                         style={{ backgroundColor: '#fffcf7', border: `1px solid ${cls.color}25`, boxShadow: '0 2px 8px rgba(139,115,85,0.06)' }}>
                         <div className="w-2.5 h-2.5 rounded-full mx-auto mb-2" style={{ backgroundColor: levelColors[cls.level] }} />
-                        <p className={`heading-font text-xs font-bold mb-1`} style={{ color: '#8b7355' }}>{cls.name}</p>
-                        <p className="text-xs" style={{ color: '#8b7355', opacity: 0.6 }}>{cls.time}</p>
-                        <p className="text-xs mt-1" style={{ color: '#7d9a6b', opacity: 0.8 }}>{cls.instructor}</p>
+                        <p className={`heading-font text-xs font-bold mb-1`} style={{ color: 'rgba(255,255,255,0.5)' }}>{cls.name}</p>
+                        <p className="text-xs" style={{ color: 'rgba(255,255,255,0.5)', opacity: 0.6 }}>{cls.time}</p>
+                        <p className="text-xs mt-1" style={{ color: '#a8d49a', opacity: 0.8 }}>{cls.instructor}</p>
                       </div>
                     ))}
                   </div>
@@ -470,10 +470,10 @@ export default function WarmNaturalDemo() {
         <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#f5f0e8' }}>
           <div className="max-w-4xl mx-auto">
             <Reveal className="text-center mb-4">
-              <h2 className={`heading-font text-3xl md:text-4xl font-bold`} style={{ color: '#8b7355' }}>Your First Visit</h2>
+              <h2 className={`heading-font text-3xl md:text-4xl font-bold`} style={{ color: 'rgba(255,255,255,0.5)' }}>Your First Visit</h2>
             </Reveal>
             <Reveal delay={0.05} className="text-center mb-14">
-              <p className="text-sm max-w-md mx-auto" style={{ color: '#8b7355', opacity: 0.6 }}>
+              <p className="text-sm max-w-md mx-auto" style={{ color: 'rgba(255,255,255,0.5)', opacity: 0.6 }}>
                 Never been to a yoga studio? We&rsquo;ve made it easy. No experience necessary.
               </p>
             </Reveal>
@@ -490,8 +490,8 @@ export default function WarmNaturalDemo() {
                     <div className="w-7 h-7 rounded-full flex items-center justify-center mx-auto mb-3" style={{ backgroundColor: '#7d9a6b' }}>
                       <span className={`heading-font text-sm font-bold text-white`}>{step.num}</span>
                     </div>
-                    <h3 className={`heading-font text-base font-bold mb-2`} style={{ color: '#8b7355' }}>{step.title}</h3>
-                    <p className="text-xs leading-relaxed" style={{ color: '#8b7355', opacity: 0.7 }}>{step.desc}</p>
+                    <h3 className={`heading-font text-base font-bold mb-2`} style={{ color: 'rgba(255,255,255,0.5)' }}>{step.title}</h3>
+                    <p className="text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.5)', opacity: 0.7 }}>{step.desc}</p>
                   </div>
                 </Reveal>
               ))}
@@ -504,10 +504,10 @@ export default function WarmNaturalDemo() {
         <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#faf6f0' }}>
           <div className="max-w-5xl mx-auto">
             <Reveal className="text-center mb-4">
-              <h2 className={`heading-font text-3xl md:text-4xl font-bold`} style={{ color: '#8b7355' }}>Choose Your Practice</h2>
+              <h2 className={`heading-font text-3xl md:text-4xl font-bold`} style={{ color: 'rgba(255,255,255,0.5)' }}>Choose Your Practice</h2>
             </Reveal>
             <Reveal delay={0.05} className="text-center mb-14">
-              <p className="text-sm max-w-md mx-auto" style={{ color: '#8b7355', opacity: 0.6 }}>Flexible options so you can show up whenever you need it most.</p>
+              <p className="text-sm max-w-md mx-auto" style={{ color: 'rgba(255,255,255,0.5)', opacity: 0.6 }}>Flexible options so you can show up whenever you need it most.</p>
             </Reveal>
             <motion.div className="grid sm:grid-cols-2 md:grid-cols-4 gap-6"
               initial={prefersReduced ? 'visible' : 'hidden'}
@@ -530,7 +530,7 @@ export default function WarmNaturalDemo() {
                   }}>
                   {pack.badge && (
                     <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-xs font-bold"
-                      style={{ backgroundColor: '#d4a574', color: '#fff' }}>
+                      style={{ backgroundColor: '#d4a574', color: '#ffffff', textShadow: '0 2px 20px rgba(0,0,0,0.8)' }}>
                       {pack.badge}
                     </div>
                   )}
@@ -554,8 +554,8 @@ export default function WarmNaturalDemo() {
         <div style={{ height: '60px', background: 'linear-gradient(to bottom, #faf6f0, #f5f0e8)' }} />
         <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#f5f0e8' }}>
           <div className="max-w-4xl mx-auto">
-            <h2 className={`heading-font text-3xl md:text-4xl font-bold text-center mb-4`} style={{ color: '#8b7355' }}>How It Works</h2>
-            <p className="text-center mb-16 max-w-md mx-auto text-sm" style={{ color: '#8b7355', opacity: 0.6 }}>Simple, gentle, no pressure. Just like your practice.</p>
+            <h2 className={`heading-font text-3xl md:text-4xl font-bold text-center mb-4`} style={{ color: 'rgba(255,255,255,0.5)' }}>How It Works</h2>
+            <p className="text-center mb-16 max-w-md mx-auto text-sm" style={{ color: 'rgba(255,255,255,0.5)', opacity: 0.6 }}>Simple, gentle, no pressure. Just like your practice.</p>
             <div className="grid md:grid-cols-3 gap-10">
               {[
                 { num: '1', title: 'We Talk', desc: 'Free consultation — you share your vision for your practice and what your clients need to feel before they even book.' },
@@ -567,8 +567,8 @@ export default function WarmNaturalDemo() {
                     <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-5" style={{ backgroundColor: '#7d9a6b', boxShadow: '0 4px 20px rgba(125,154,107,0.25)' }}>
                       <span className={`heading-font text-2xl font-bold text-white`}>{step.num}</span>
                     </div>
-                    <h3 className={`heading-font text-xl font-bold mb-3`} style={{ color: '#8b7355' }}>{step.title}</h3>
-                    <p className="text-sm leading-relaxed" style={{ color: '#8b7355', opacity: 0.7 }}>{step.desc}</p>
+                    <h3 className={`heading-font text-xl font-bold mb-3`} style={{ color: 'rgba(255,255,255,0.5)' }}>{step.title}</h3>
+                    <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.5)', opacity: 0.7 }}>{step.desc}</p>
                   </div>
                 </Reveal>
               ))}
@@ -581,10 +581,10 @@ export default function WarmNaturalDemo() {
         <section id="about" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#faf6f0' }}>
           <div className="max-w-5xl mx-auto">
             <Reveal className="text-center mb-4">
-              <h2 className={`heading-font text-3xl md:text-4xl font-bold`} style={{ color: '#8b7355' }}>Meet Your Teachers</h2>
+              <h2 className={`heading-font text-3xl md:text-4xl font-bold`} style={{ color: 'rgba(255,255,255,0.5)' }}>Meet Your Teachers</h2>
             </Reveal>
             <Reveal delay={0.05} className="text-center mb-14">
-              <p className="text-sm max-w-md mx-auto" style={{ color: '#8b7355', opacity: 0.6 }}>
+              <p className="text-sm max-w-md mx-auto" style={{ color: 'rgba(255,255,255,0.5)', opacity: 0.6 }}>
                 People choose a studio based on the teacher. Here&rsquo;s who&rsquo;ll be guiding your practice.
               </p>
             </Reveal>
@@ -600,10 +600,10 @@ export default function WarmNaturalDemo() {
                       style={{ border: '3px solid rgba(125,154,107,0.3)' }}>
                       <Image src={teacher.img} alt={teacher.name} fill className="object-cover" />
                     </div>
-                    <h3 className={`heading-font text-xl font-bold mb-1`} style={{ color: '#8b7355' }}>{teacher.name}</h3>
-                    <p className="text-xs font-semibold mb-1" style={{ color: '#7d9a6b' }}>{teacher.creds}</p>
-                    <p className="text-xs mb-4" style={{ color: '#8b7355', opacity: 0.6 }}>{teacher.specialty}</p>
-                    <p className="text-xs italic leading-relaxed px-2" style={{ color: '#8b7355', opacity: 0.75 }}>{teacher.quote}</p>
+                    <h3 className={`heading-font text-xl font-bold mb-1`} style={{ color: 'rgba(255,255,255,0.5)' }}>{teacher.name}</h3>
+                    <p className="text-xs font-semibold mb-1" style={{ color: '#a8d49a' }}>{teacher.creds}</p>
+                    <p className="text-xs mb-4" style={{ color: 'rgba(255,255,255,0.5)', opacity: 0.6 }}>{teacher.specialty}</p>
+                    <p className="text-xs italic leading-relaxed px-2" style={{ color: 'rgba(255,255,255,0.5)', opacity: 0.75 }}>{teacher.quote}</p>
                   </div>
                 </Reveal>
               ))}
@@ -623,10 +623,10 @@ export default function WarmNaturalDemo() {
             <blockquote className={`heading-font text-2xl md:text-3xl leading-relaxed mb-8`} style={{ color: '#6b5a44', fontStyle: 'italic' }}>
               &ldquo;Bookings doubled in the first month. Clients tell me they booked because the website made them feel calm and safe before they even met me.&rdquo;
             </blockquote>
-            <p className={`heading-font font-bold`} style={{ color: '#8b7355' }}>— Sarah L.</p>
-            <p className="text-sm mt-1" style={{ color: '#8b7355', opacity: 0.55 }}>Roots &amp; Restore Yoga &middot; Nelson</p>
+            <p className={`heading-font font-bold`} style={{ color: 'rgba(255,255,255,0.5)' }}>— Sarah L.</p>
+            <p className="text-sm mt-1" style={{ color: 'rgba(255,255,255,0.5)', opacity: 0.55 }}>Roots &amp; Restore Yoga &middot; Nelson</p>
             <Reveal delay={0.3} className="mt-6">
-              <p className="text-xs italic" style={{ color: '#8b7355', opacity: 0.35 }}>(Sample review — your real reviews go here)</p>
+              <p className="text-xs italic" style={{ color: 'rgba(255,255,255,0.5)', opacity: 0.35 }}>(Sample review — your real reviews go here)</p>
             </Reveal>
           </Reveal>
         </section>
@@ -636,8 +636,8 @@ export default function WarmNaturalDemo() {
         <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#faf6f0' }}>
           <div className="max-w-5xl mx-auto">
             <Reveal>
-              <h2 className={`heading-font text-3xl md:text-4xl font-bold text-center mb-4`} style={{ color: '#8b7355' }}>Watch Your Website Transform</h2>
-              <p className="text-center mb-12 text-sm" style={{ color: '#8b7355', opacity: 0.6 }}>From dated to designed — in real time</p>
+              <h2 className={`heading-font text-3xl md:text-4xl font-bold text-center mb-4`} style={{ color: 'rgba(255,255,255,0.5)' }}>Watch Your Website Transform</h2>
+              <p className="text-center mb-12 text-sm" style={{ color: 'rgba(255,255,255,0.5)', opacity: 0.6 }}>From dated to designed — in real time</p>
             </Reveal>
             <LiveRedesign />
           </div>
@@ -647,8 +647,8 @@ export default function WarmNaturalDemo() {
         <div style={{ height: '60px', background: 'linear-gradient(to bottom, #faf6f0, #f5f0e8)' }} />
         <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#f5f0e8' }}>
           <div className="max-w-2xl mx-auto">
-            <h2 className={`heading-font text-3xl md:text-4xl font-bold text-center mb-4`} style={{ color: '#8b7355' }}>Questions &amp; Answers</h2>
-            <p className="text-center mb-12 text-sm" style={{ color: '#8b7355', opacity: 0.6 }}>Everything you need to know before your first class.</p>
+            <h2 className={`heading-font text-3xl md:text-4xl font-bold text-center mb-4`} style={{ color: 'rgba(255,255,255,0.5)' }}>Questions &amp; Answers</h2>
+            <p className="text-center mb-12 text-sm" style={{ color: 'rgba(255,255,255,0.5)', opacity: 0.6 }}>Everything you need to know before your first class.</p>
             <FAQAccordion items={[
               { q: 'Do I need to book in advance?', a: 'We recommend booking online to guarantee your spot — popular classes fill up. Drop-ins are also welcome if space is available.' },
               { q: 'What should I bring to my first class?', a: 'Just yourself in comfortable clothes. We provide mats, blocks, blankets, and all props. Water bottle welcome.' },
@@ -664,11 +664,11 @@ export default function WarmNaturalDemo() {
         <div style={{ height: '60px', background: 'linear-gradient(to bottom, #f5f0e8, #faf6f0)' }} />
         <section id="contact" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#faf6f0' }}>
           <div className="max-w-5xl mx-auto">
-            <h2 className={`heading-font text-3xl md:text-4xl font-bold text-center mb-16`} style={{ color: '#8b7355' }}>Get In Touch</h2>
+            <h2 className={`heading-font text-3xl md:text-4xl font-bold text-center mb-16`} style={{ color: 'rgba(255,255,255,0.5)' }}>Get In Touch</h2>
             <div className="grid md:grid-cols-2 gap-12 md:gap-16">
               <div>
-                <h3 className={`heading-font text-xl font-bold mb-6`} style={{ color: '#8b7355' }}>Contact Details</h3>
-                <div className="space-y-4 text-sm" style={{ color: '#8b7355', opacity: 0.85 }}>
+                <h3 className={`heading-font text-xl font-bold mb-6`} style={{ color: 'rgba(255,255,255,0.5)' }}>Contact Details</h3>
+                <div className="space-y-4 text-sm" style={{ color: 'rgba(255,255,255,0.5)', opacity: 0.85 }}>
                   <p><span className="font-semibold" style={{ opacity: 1 }}>Phone:</span> (250) 555-0165</p>
                   <p><span className="font-semibold" style={{ opacity: 1 }}>Email:</span> hello@mountainflow.ca</p>
                   <p><span className="font-semibold" style={{ opacity: 1 }}>Hours:</span> Mon&ndash;Sat 7:00 AM &ndash; 8:00 PM</p>
@@ -676,11 +676,11 @@ export default function WarmNaturalDemo() {
                 </div>
               </div>
               <div>
-                <h3 className={`heading-font text-xl font-bold mb-6`} style={{ color: '#8b7355' }}>Book a Class</h3>
+                <h3 className={`heading-font text-xl font-bold mb-6`} style={{ color: 'rgba(255,255,255,0.5)' }}>Book a Class</h3>
                 <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
-                  <input type="text" placeholder="Name" className="w-full px-4 py-3 text-sm outline-none transition-shadow focus:shadow-md" style={{ backgroundColor: '#fffcf7', border: '1px solid rgba(125,154,107,0.25)', borderRadius: '30px 20px 25px 35px / 25px 35px 20px 30px', color: '#8b7355' }} />
-                  <input type="email" placeholder="Email" className="w-full px-4 py-3 text-sm outline-none transition-shadow focus:shadow-md" style={{ backgroundColor: '#fffcf7', border: '1px solid rgba(125,154,107,0.25)', borderRadius: '25px 35px 30px 20px / 30px 20px 35px 25px', color: '#8b7355' }} />
-                  <select className="w-full px-4 py-3 text-sm outline-none transition-shadow focus:shadow-md" style={{ backgroundColor: '#fffcf7', border: '1px solid rgba(125,154,107,0.25)', borderRadius: '20px 30px 35px 25px / 35px 25px 30px 20px', color: '#8b7355' }} defaultValue="">
+                  <input type="text" placeholder="Name" className="w-full px-4 py-3 text-sm outline-none transition-shadow focus:shadow-md" style={{ backgroundColor: '#fffcf7', border: '1px solid rgba(125,154,107,0.25)', borderRadius: '30px 20px 25px 35px / 25px 35px 20px 30px', color: 'rgba(255,255,255,0.5)' }} />
+                  <input type="email" placeholder="Email" className="w-full px-4 py-3 text-sm outline-none transition-shadow focus:shadow-md" style={{ backgroundColor: '#fffcf7', border: '1px solid rgba(125,154,107,0.25)', borderRadius: '25px 35px 30px 20px / 30px 20px 35px 25px', color: 'rgba(255,255,255,0.5)' }} />
+                  <select className="w-full px-4 py-3 text-sm outline-none transition-shadow focus:shadow-md" style={{ backgroundColor: '#fffcf7', border: '1px solid rgba(125,154,107,0.25)', borderRadius: '20px 30px 35px 25px / 35px 25px 30px 20px', color: 'rgba(255,255,255,0.5)' }} defaultValue="">
                     <option value="" disabled>Select a Class Type</option>
                     <option>Morning Flow</option>
                     <option>Vinyasa Flow</option>
@@ -688,7 +688,7 @@ export default function WarmNaturalDemo() {
                     <option>Massage Therapy</option>
                     <option>Private Session</option>
                   </select>
-                  <textarea placeholder="Any questions or notes for us?" rows={4} className="w-full px-4 py-3 text-sm outline-none transition-shadow focus:shadow-md resize-none" style={{ backgroundColor: '#fffcf7', border: '1px solid rgba(125,154,107,0.25)', borderRadius: '25px 30px 20px 35px / 20px 35px 25px 30px', color: '#8b7355' }} />
+                  <textarea placeholder="Any questions or notes for us?" rows={4} className="w-full px-4 py-3 text-sm outline-none transition-shadow focus:shadow-md resize-none" style={{ backgroundColor: '#fffcf7', border: '1px solid rgba(125,154,107,0.25)', borderRadius: '25px 30px 20px 35px / 20px 35px 25px 30px', color: 'rgba(255,255,255,0.5)' }} />
                   <button type="submit" className="w-full px-8 py-3.5 text-white font-semibold text-sm transition-all hover:shadow-lg" style={{ backgroundColor: '#7d9a6b', borderRadius: '35px 25px 30px 20px / 25px 30px 20px 35px', boxShadow: '0 4px 16px rgba(125,154,107,0.25)' }}
                     onMouseEnter={(e) => (e.currentTarget.style.transform = 'translateY(-1px)')}
                     onMouseLeave={(e) => (e.currentTarget.style.transform = 'translateY(0)')}>
@@ -743,7 +743,7 @@ export default function WarmNaturalDemo() {
           </div>
           <Link href="/contact?style=warm-natural"
             className="inline-block px-6 py-2.5 text-sm font-bold rounded-full transition-all hover:opacity-90 whitespace-nowrap"
-            style={{ backgroundColor: '#faf6f0', color: '#7d9a6b' }}>
+            style={{ backgroundColor: '#faf6f0', color: '#a8d49a' }}>
             Like What You See? Let&rsquo;s Talk &rarr;
           </Link>
         </div>
