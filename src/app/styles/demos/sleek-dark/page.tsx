@@ -194,7 +194,7 @@ function LiveRedesign() {
                     <line x1="120" y1="0" x2="0" y2="120" stroke="#c9a96e" strokeWidth="0.5" />
                   </svg>
                 </motion.div>
-                <div className="relative z-10 text-center sm:text-left" style={{ textShadow: "0 2px 12px rgba(0,0,0,0.9), 0 1px 3px rgba(0,0,0,0.7)" }}>
+                <div className="relative z-10 text-center sm:text-left">
                   <motion.div className="flex justify-center sm:justify-start mb-4" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
                     <span className={`${body.className} text-xs font-semibold uppercase tracking-[0.2em] px-4 py-1.5 rounded-full`} style={{ backgroundColor: 'rgba(201,169,110,0.12)', color: '#c9a96e', border: '1px solid rgba(201,169,110,0.2)' }}>
                       Est. 2019 &mdash; Nelson, BC

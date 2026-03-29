@@ -241,7 +241,7 @@ function LiveRedesign() {
                   </svg>
                 </motion.div>
 
-                <div className="relative z-10 text-center sm:text-left" style={{ textShadow: "0 2px 12px rgba(0,0,0,0.9), 0 1px 3px rgba(0,0,0,0.7)" }}>
+                <div className="relative z-10 text-center sm:text-left">
                   <motion.div className="flex justify-center sm:justify-start mb-3 sm:mb-6" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
                     <span style={{ backgroundColor: 'rgba(255,255,255,0.15)', color: '#fff', border: `1px solid ${CP.navy}20`, fontFamily: "'Supreme', sans-serif", fontSize: '0.7rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.2em', padding: '0.4rem 1.25rem', borderRadius: '999px' }}>
                       Est. 2009 &mdash; West Kootenay

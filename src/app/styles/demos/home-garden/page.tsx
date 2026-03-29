@@ -380,7 +380,7 @@ function LiveRedesign() {
                 </svg>
               </motion.div>
 
-              <div className="relative z-10 text-center sm:text-left" style={{ textShadow: "0 2px 12px rgba(0,0,0,0.9), 0 1px 3px rgba(0,0,0,0.7)" }}>
+              <div className="relative z-10 text-center sm:text-left">
                 {/* Business name chip */}
                 <motion.div
                   className="flex justify-center sm:justify-start mb-3 sm:mb-6"

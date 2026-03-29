@@ -236,7 +236,7 @@ function LiveRedesign() {
                     <circle cx="80" cy="40" r="4" fill={AMBER} opacity="0.5" />
                   </svg>
                 </motion.div>
-                <div className="relative z-10 text-center sm:text-left" style={{ textShadow: "0 2px 12px rgba(0,0,0,0.9), 0 1px 3px rgba(0,0,0,0.7)" }}>
+                <div className="relative z-10 text-center sm:text-left">
                   <motion.div className="flex justify-center sm:justify-start mb-4" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
                     <span className={`${lato.className} text-xs font-bold uppercase tracking-[0.2em] px-4 py-1.5 rounded-sm`} style={{ backgroundColor: `${AMBER}18`, color: AMBER, border: `1px solid ${AMBER}40` }}>
                       Est. 2018 &mdash; West Kootenay
