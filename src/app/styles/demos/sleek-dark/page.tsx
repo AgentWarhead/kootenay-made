@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import { Cormorant_Garamond, DM_Sans } from 'next/font/google'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -48,6 +49,44 @@ function GoldReveal({ children, className = '' }: { children: React.ReactNode; c
   )
 }
 
+/* ── FAQ Accordion ── */
+function FAQItem({ question, answer }: { question: string; answer: string }) {
+  const [open, setOpen] = useState(false)
+  const prefersReduced = useReducedMotion()
+  return (
+    <div style={{ borderBottom: '1px solid rgba(201,169,110,0.15)' }}>
+      <button
+        className="w-full text-left py-5 flex items-center justify-between gap-4"
+        onClick={() => setOpen(!open)}
+        aria-expanded={open}
+      >
+        <span className="text-sm font-medium" style={{ color: '#f5f0e8' }}>{question}</span>
+        <span
+          className="flex-shrink-0 w-6 h-6 flex items-center justify-center transition-transform"
+          style={{
+            color: '#c9a96e',
+            transform: open ? 'rotate(45deg)' : 'rotate(0deg)',
+            transition: prefersReduced ? 'none' : 'transform 0.3s ease',
+          }}
+        >
+          ✕
+        </span>
+      </button>
+      <div
+        style={{
+          maxHeight: open ? '400px' : '0',
+          overflow: 'hidden',
+          transition: prefersReduced ? 'none' : 'max-height 0.4s ease',
+        }}
+      >
+        <p className="pb-5 text-sm leading-relaxed" style={{ color: 'rgba(245,240,232,0.6)' }}>
+          {answer}
+        </p>
+      </div>
+    </div>
+  )
+}
+
 /* ══════════════════════════════════════════════════════════════
    EMBER KITCHEN & BAR — Sleek & Dark Demo
    ══════════════════════════════════════════════════════════════ */
@@ -61,6 +100,29 @@ export default function SleekDarkDemo() {
     offset: ['start start', 'end start'],
   })
   const heroY = useTransform(scrollYProgress, [0, 1], ['0%', '30%'])
+
+  const faqItems = [
+    {
+      question: 'How long does a website take to build?',
+      answer: 'Most restaurant and bar websites are ready in 2–3 weeks. We move fast without cutting corners — you\'ll have something you\'re proud to share.',
+    },
+    {
+      question: 'Can I update my menu myself?',
+      answer: 'Absolutely. We build on platforms you can manage — no developer required. Update your menu, daily specials, and hours any time from your phone or computer.',
+    },
+    {
+      question: 'Can you add online reservations or booking links?',
+      answer: 'Yes. We can integrate OpenTable, Resy, or a simple booking form directly into your site so guests can reserve a table without picking up the phone.',
+    },
+    {
+      question: 'What if I already have a website?',
+      answer: 'We\'ll assess what you have and either rebuild it from scratch or redesign it to match your brand. Either way, you end up with something that actually works.',
+    },
+    {
+      question: 'What does it cost?',
+      answer: 'A custom website starts from $1,500. Google Domination (SEO + local listings) starts from $500. We\'ll give you a clear quote after a free consultation — no surprises.',
+    },
+  ]
 
   return (
     <div className={body.className} style={{ fontFamily: 'DM Sans, sans-serif', backgroundColor: '#0a0a0a', color: '#f5f0e8' }}>
@@ -115,7 +177,6 @@ export default function SleekDarkDemo() {
 
       {/* ═══════════ 2. HERO — Parallax ═══════════ */}
       <section ref={heroRef} className="relative overflow-hidden" style={{ minHeight: '100vh', display: 'flex', alignItems: 'center' }}>
-        {/* Parallax background image */}
         <motion.div
           className="absolute inset-0"
           style={{ y: prefersReduced ? 0 : heroY }}
@@ -129,7 +190,6 @@ export default function SleekDarkDemo() {
             sizes="100vw"
           />
         </motion.div>
-        {/* Dark overlay */}
         <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(10,10,10,0.7), rgba(10,10,10,0.85))' }} />
 
         <div className="relative max-w-4xl mx-auto text-center px-6 py-32 md:py-44 w-full">
@@ -191,28 +251,39 @@ export default function SleekDarkDemo() {
         </div>
       </div>
 
-      {/* ═══════════ 4. SERVICES — Menu-style layout ═══════════ */}
+      {/* ═══════════ 4. SERVICES — with PAS intro ═══════════ */}
       <section id="menu" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#0a0a0a' }}>
         <div className="max-w-5xl mx-auto">
           <Reveal>
             <h2 className={`${heading.className} text-3xl md:text-5xl text-center mb-4`} style={{ color: '#f5f0e8', fontWeight: 300 }}>
               What We Can Do For You
             </h2>
-            <div className="w-16 h-px mx-auto mb-16" style={{ backgroundColor: '#c9a96e' }} />
+            <div className="w-16 h-px mx-auto mb-8" style={{ backgroundColor: '#c9a96e' }} />
+          </Reveal>
+
+          {/* PAS copy */}
+          <Reveal delay={0.1}>
+            <p className="text-center text-base md:text-lg leading-relaxed mb-16 max-w-2xl mx-auto italic" style={{ color: 'rgba(245,240,232,0.55)' }}>
+              The restaurant across town has a website that makes people hungry — yours doesn&rsquo;t even show your menu.
+              They&rsquo;re not a better restaurant. They just show up online first. Let&rsquo;s change that.
+            </p>
           </Reveal>
 
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
                 title: 'Custom Website',
+                price: 'From $1,500',
                 desc: 'A stunning, atmospheric website that captures the essence of your dining experience.',
               },
               {
                 title: 'Google Visibility',
+                price: 'From $500',
                 desc: 'Show up when people search for fine dining in the Kootenays.',
               },
               {
                 title: 'Social Media',
+                price: 'From $750',
                 desc: 'Show off your plates, your space, and your story. Build a following that books.',
               },
             ].map((card, i) => (
@@ -224,7 +295,6 @@ export default function SleekDarkDemo() {
                     border: '1px solid rgba(201,169,110,0.15)',
                   }}
                 >
-                  {/* Candlelight glow */}
                   <div
                     className="absolute inset-0 pointer-events-none"
                     style={{
@@ -233,9 +303,12 @@ export default function SleekDarkDemo() {
                     }}
                   />
                   <div className="relative">
-                    <h3 className={`${heading.className} text-xl md:text-2xl mb-4`} style={{ color: '#c9a96e', fontWeight: 400 }}>
+                    <h3 className={`${heading.className} text-xl md:text-2xl mb-2`} style={{ color: '#c9a96e', fontWeight: 400 }}>
                       {card.title}
                     </h3>
+                    <p className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: 'rgba(201,169,110,0.5)' }}>
+                      {card.price}
+                    </p>
                     <p className="leading-relaxed text-sm" style={{ color: 'rgba(245,240,232,0.6)' }}>
                       {card.desc}
                     </p>
@@ -247,8 +320,67 @@ export default function SleekDarkDemo() {
         </div>
       </section>
 
-      {/* ═══════════ 5. GALLERY — From Our Kitchen ═══════════ */}
-      <section id="gallery" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#1a1a1a' }}>
+      {/* ═══════════ 5. HOW IT WORKS ═══════════ */}
+      <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#1a1a1a' }}>
+        <div className="max-w-4xl mx-auto">
+          <Reveal>
+            <h2 className={`${heading.className} text-3xl md:text-5xl text-center mb-4`} style={{ color: '#f5f0e8', fontWeight: 300 }}>
+              How It Works
+            </h2>
+            <div className="w-16 h-px mx-auto mb-16" style={{ backgroundColor: '#c9a96e' }} />
+          </Reveal>
+
+          <div className="grid md:grid-cols-3 gap-8 md:gap-12 relative">
+            {/* Connector line (desktop) */}
+            <div
+              className="hidden md:block absolute top-10 left-[calc(16.66%+2rem)] right-[calc(16.66%+2rem)] h-px"
+              style={{ backgroundColor: 'rgba(201,169,110,0.2)' }}
+            />
+            {[
+              {
+                step: '01',
+                title: 'We Talk',
+                desc: 'A free, no-pressure consultation. You tell us about your restaurant, your vibe, and what you need.',
+              },
+              {
+                step: '02',
+                title: 'We Build',
+                desc: 'We design and develop your site in about 2 weeks — all crafted to match the atmosphere you\'ve worked hard to create.',
+              },
+              {
+                step: '03',
+                title: 'You Fill Tables',
+                desc: 'Launch, get found on Google, and start converting searches into reservations.',
+              },
+            ].map((item, i) => (
+              <Reveal key={item.step} delay={i * 0.15}>
+                <div className="flex flex-col items-center text-center">
+                  <div
+                    className="w-20 h-20 rounded-full flex items-center justify-center mb-6 relative z-10"
+                    style={{
+                      backgroundColor: '#0a0a0a',
+                      border: '1px solid rgba(201,169,110,0.3)',
+                    }}
+                  >
+                    <span className={`${heading.className} text-2xl`} style={{ color: '#c9a96e', fontWeight: 300 }}>
+                      {item.step}
+                    </span>
+                  </div>
+                  <h3 className={`${heading.className} text-xl md:text-2xl mb-3`} style={{ color: '#f5f0e8', fontWeight: 400 }}>
+                    {item.title}
+                  </h3>
+                  <p className="text-sm leading-relaxed" style={{ color: 'rgba(245,240,232,0.5)' }}>
+                    {item.desc}
+                  </p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════ 6. GALLERY — From Our Kitchen ═══════════ */}
+      <section id="gallery" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#0a0a0a' }}>
         <div className="max-w-6xl mx-auto">
           <Reveal>
             <h2 className={`${heading.className} text-3xl md:text-5xl text-center mb-4`} style={{ color: '#f5f0e8', fontWeight: 300 }}>
@@ -287,28 +419,180 @@ export default function SleekDarkDemo() {
         </div>
       </section>
 
-      {/* ═══════════ 6. TESTIMONIAL ═══════════ */}
-      <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#0a0a0a' }}>
-        <div className="max-w-3xl mx-auto text-center">
+      {/* ═══════════ 7. BEFORE / AFTER ═══════════ */}
+      <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#1a1a1a' }}>
+        <div className="max-w-5xl mx-auto">
           <Reveal>
-            <div className="mb-6 text-2xl" style={{ color: '#c9a96e' }}>
-              &#9733;&#9733;&#9733;&#9733;&#9733;
-            </div>
-            <blockquote className={`${heading.className} text-xl md:text-3xl leading-relaxed mb-6 italic`} style={{ color: '#f5f0e8', fontWeight: 300 }}>
-              &ldquo;Ember is the finest dining in the Kootenays. The atmosphere is electric and the food is unforgettable.&rdquo;
-            </blockquote>
-            <p className="text-sm uppercase tracking-widest" style={{ color: '#c9a96e' }}>
-              &mdash; Victoria H., Nelson
+            <h2 className={`${heading.className} text-3xl md:text-5xl text-center mb-4`} style={{ color: '#f5f0e8', fontWeight: 300 }}>
+              The Ember Difference
+            </h2>
+            <div className="w-16 h-px mx-auto mb-4" style={{ backgroundColor: '#c9a96e' }} />
+            <p className="text-center text-sm mb-12" style={{ color: 'rgba(201,169,110,0.6)' }}>
+              This is the difference between being forgettable and being fully booked
             </p>
-            <p className="mt-4 text-xs" style={{ color: 'rgba(245,240,232,0.3)' }}>
-              (Sample review &mdash; your real reviews go here)
+          </Reveal>
+
+          <Reveal delay={0.1}>
+            <div className="flex flex-col md:flex-row rounded-sm overflow-hidden" style={{ border: '1px solid rgba(201,169,110,0.15)', minHeight: 280 }}>
+              {/* Before */}
+              <div className="flex-1 flex flex-col items-center justify-center py-14 px-8 relative" style={{ backgroundColor: '#111' }}>
+                <span
+                  className="absolute top-4 left-5 text-xs font-bold uppercase tracking-widest px-3 py-1"
+                  style={{ backgroundColor: 'rgba(255,255,255,0.06)', color: '#666' }}
+                >
+                  Before
+                </span>
+                <div
+                  className="w-full max-w-xs flex items-center justify-center rounded-sm"
+                  style={{
+                    height: 140,
+                    background: 'repeating-linear-gradient(135deg, #222 0px, #222 1px, transparent 1px, transparent 14px)',
+                    border: '1px dashed #333',
+                  }}
+                >
+                  <div className="text-center px-4">
+                    <p className="text-xs uppercase tracking-widest mb-2" style={{ color: '#444' }}>Nelson Italian Kitchen</p>
+                    <p className="text-xs" style={{ color: '#555' }}>No menu. No photos. No reservations.</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Divider */}
+              <div className="relative flex-shrink-0 flex items-center justify-center z-10 md:w-0">
+                <div className="hidden md:block absolute inset-y-0 left-1/2 -translate-x-1/2 w-px" style={{ backgroundColor: 'rgba(201,169,110,0.2)' }} />
+                <div className="md:hidden w-full h-px" style={{ backgroundColor: 'rgba(201,169,110,0.2)' }} />
+                <div
+                  className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold shadow-lg z-20 absolute"
+                  style={{ backgroundColor: '#0a0a0a', border: '1px solid rgba(201,169,110,0.4)', color: '#c9a96e' }}
+                >
+                  ↔
+                </div>
+              </div>
+
+              {/* After */}
+              <div
+                className="flex-1 flex flex-col items-center justify-center py-14 px-8 relative"
+                style={{ background: 'linear-gradient(135deg, #1a1a1a 0%, #1f1810 100%)' }}
+              >
+                <span
+                  className="absolute top-4 right-5 text-xs font-bold uppercase tracking-widest px-3 py-1"
+                  style={{ backgroundColor: 'rgba(201,169,110,0.12)', color: '#c9a96e' }}
+                >
+                  After
+                </span>
+                <div
+                  className="w-full max-w-xs flex items-center justify-center rounded-sm"
+                  style={{
+                    height: 140,
+                    background: 'linear-gradient(135deg, rgba(201,169,110,0.1) 0%, rgba(201,169,110,0.04) 100%)',
+                    border: '1px solid rgba(201,169,110,0.25)',
+                  }}
+                >
+                  <div className="text-center px-4">
+                    <p className="text-xs uppercase tracking-widest mb-2" style={{ color: '#c9a96e' }}>Ember Kitchen &amp; Bar</p>
+                    <p className="text-xs italic" style={{ color: 'rgba(245,240,232,0.5)' }}>Atmospheric. Inviting. Fully booked.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p className="text-center text-xs mt-4 italic" style={{ color: 'rgba(201,169,110,0.4)' }}>
+              Interactive demo — your site will reflect your unique brand and atmosphere
             </p>
           </Reveal>
         </div>
       </section>
 
-      {/* ═══════════ 7. ABOUT ═══════════ */}
-      <section id="about" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#1a1a1a' }}>
+      {/* ═══════════ 8. TESTIMONIALS (3) ═══════════ */}
+      <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#0a0a0a' }}>
+        <div className="max-w-5xl mx-auto">
+          <Reveal>
+            <h2 className={`${heading.className} text-3xl md:text-5xl text-center mb-4`} style={{ color: '#f5f0e8', fontWeight: 300 }}>
+              What Our Clients Say
+            </h2>
+            <div className="w-16 h-px mx-auto mb-16" style={{ backgroundColor: '#c9a96e' }} />
+          </Reveal>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                quote: 'Our bookings doubled within a month of the new site going live. People started calling just because they found us on Google.',
+                author: 'Marcus D.',
+                business: 'The Anchor Pub & Grill',
+                town: 'Nelson',
+              },
+              {
+                quote: 'We finally have a website that looks as good as our food tastes. Our Instagram traffic tripled and the reservation form is full every weekend.',
+                author: 'Priya T.',
+                business: 'Saffron Kitchen',
+                town: 'Trail',
+              },
+              {
+                quote: 'We used to get three phone reservations a week. Now we get fifteen. The online menu and booking link changed everything.',
+                author: 'Liam R.',
+                business: 'The Red Chair',
+                town: 'Rossland',
+              },
+            ].map((t, i) => (
+              <Reveal key={t.author} delay={i * 0.15}>
+                <div
+                  className="relative p-8 h-full overflow-hidden"
+                  style={{
+                    backgroundColor: '#1a1a1a',
+                    border: '1px solid rgba(201,169,110,0.15)',
+                  }}
+                >
+                  <div
+                    className="absolute inset-0 pointer-events-none"
+                    style={{ background: 'radial-gradient(circle at 50% 0%, rgba(201,169,110,0.06) 0%, transparent 70%)' }}
+                  />
+                  <div className="relative">
+                    <div className="flex gap-1 mb-5">
+                      {Array.from({ length: 5 }).map((_, j) => (
+                        <span key={j} style={{ color: '#c9a96e' }}>&#9733;</span>
+                      ))}
+                    </div>
+                    <blockquote className="text-sm leading-relaxed mb-6 italic" style={{ color: 'rgba(245,240,232,0.7)' }}>
+                      &ldquo;{t.quote}&rdquo;
+                    </blockquote>
+                    <p className="text-xs font-bold uppercase tracking-widest" style={{ color: '#c9a96e' }}>
+                      &mdash; {t.author}, {t.town}
+                    </p>
+                    <p className="text-xs mt-1" style={{ color: 'rgba(245,240,232,0.3)' }}>{t.business}</p>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+          <Reveal delay={0.3}>
+            <p className="text-center text-xs mt-8 italic" style={{ color: 'rgba(245,240,232,0.25)' }}>
+              (Sample reviews &mdash; your real reviews go here)
+            </p>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ═══════════ 9. FAQ ═══════════ */}
+      <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#1a1a1a' }}>
+        <div className="max-w-3xl mx-auto">
+          <Reveal>
+            <h2 className={`${heading.className} text-3xl md:text-5xl text-center mb-4`} style={{ color: '#f5f0e8', fontWeight: 300 }}>
+              Common Questions
+            </h2>
+            <div className="w-16 h-px mx-auto mb-16" style={{ backgroundColor: '#c9a96e' }} />
+          </Reveal>
+
+          <Reveal delay={0.1}>
+            <div style={{ borderTop: '1px solid rgba(201,169,110,0.15)' }}>
+              {faqItems.map((item) => (
+                <FAQItem key={item.question} question={item.question} answer={item.answer} />
+              ))}
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ═══════════ 10. ABOUT ═══════════ */}
+      <section id="about" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#0a0a0a' }}>
         <div className="max-w-3xl mx-auto text-center">
           <Reveal>
             <h2 className={`${heading.className} text-3xl md:text-5xl mb-4`} style={{ color: '#f5f0e8', fontWeight: 300 }}>
@@ -324,8 +608,8 @@ export default function SleekDarkDemo() {
         </div>
       </section>
 
-      {/* ═══════════ 8. CONTACT ═══════════ */}
-      <section id="reservations" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#0a0a0a' }}>
+      {/* ═══════════ 11. CONTACT ═══════════ */}
+      <section id="reservations" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#1a1a1a' }}>
         <div className="max-w-6xl mx-auto">
           <Reveal>
             <h2 className={`${heading.className} text-3xl md:text-5xl text-center mb-4`} style={{ color: '#f5f0e8', fontWeight: 300 }}>
@@ -335,7 +619,6 @@ export default function SleekDarkDemo() {
           </Reveal>
 
           <div className="grid md:grid-cols-2 gap-12 md:gap-16">
-            {/* Contact info */}
             <Reveal>
               <div className="space-y-6">
                 <div>
@@ -352,7 +635,7 @@ export default function SleekDarkDemo() {
                 </div>
                 <div>
                   <h3 className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#c9a96e' }}>Location</h3>
-                  <p style={{ color: 'rgba(245,240,232,0.7)' }}>312 Baker Street, Nelson, BC</p>
+                  <p style={{ color: 'rgba(245,240,232,0.7)' }}>123 Sample St, Nelson, BC</p>
                 </div>
                 <a
                   href="tel:2505550195"
@@ -367,12 +650,11 @@ export default function SleekDarkDemo() {
                     e.currentTarget.style.color = '#c9a96e'
                   }}
                 >
-                  Make a Reservation
+                  Call to Reserve
                 </a>
               </div>
             </Reveal>
 
-            {/* Contact form */}
             <Reveal delay={0.15}>
               <form onSubmit={(e) => e.preventDefault()} className="space-y-5">
                 <div>
@@ -381,7 +663,7 @@ export default function SleekDarkDemo() {
                     type="text"
                     placeholder="Your name"
                     className="w-full px-4 py-3 text-sm outline-none transition-all"
-                    style={{ backgroundColor: '#1a1a1a', border: '1px solid rgba(201,169,110,0.2)', color: '#f5f0e8' }}
+                    style={{ backgroundColor: '#0a0a0a', border: '1px solid rgba(201,169,110,0.2)', color: '#f5f0e8' }}
                     onFocus={(e) => (e.currentTarget.style.borderColor = '#c9a96e')}
                     onBlur={(e) => (e.currentTarget.style.borderColor = 'rgba(201,169,110,0.2)')}
                   />
@@ -392,7 +674,7 @@ export default function SleekDarkDemo() {
                     type="email"
                     placeholder="you@example.com"
                     className="w-full px-4 py-3 text-sm outline-none transition-all"
-                    style={{ backgroundColor: '#1a1a1a', border: '1px solid rgba(201,169,110,0.2)', color: '#f5f0e8' }}
+                    style={{ backgroundColor: '#0a0a0a', border: '1px solid rgba(201,169,110,0.2)', color: '#f5f0e8' }}
                     onFocus={(e) => (e.currentTarget.style.borderColor = '#c9a96e')}
                     onBlur={(e) => (e.currentTarget.style.borderColor = 'rgba(201,169,110,0.2)')}
                   />
@@ -403,7 +685,7 @@ export default function SleekDarkDemo() {
                     rows={4}
                     placeholder="Party size, date, special requests..."
                     className="w-full px-4 py-3 text-sm outline-none transition-all resize-none"
-                    style={{ backgroundColor: '#1a1a1a', border: '1px solid rgba(201,169,110,0.2)', color: '#f5f0e8' }}
+                    style={{ backgroundColor: '#0a0a0a', border: '1px solid rgba(201,169,110,0.2)', color: '#f5f0e8' }}
                     onFocus={(e) => (e.currentTarget.style.borderColor = '#c9a96e')}
                     onBlur={(e) => (e.currentTarget.style.borderColor = 'rgba(201,169,110,0.2)')}
                   />
@@ -423,8 +705,8 @@ export default function SleekDarkDemo() {
         </div>
       </section>
 
-      {/* ═══════════ 9. FOOTER ═══════════ */}
-      <footer className="py-14 px-6" style={{ backgroundColor: '#1a1a1a', borderTop: '1px solid rgba(201,169,110,0.1)' }}>
+      {/* ═══════════ 12. FOOTER ═══════════ */}
+      <footer className="py-14 px-6" style={{ backgroundColor: '#0a0a0a', borderTop: '1px solid rgba(201,169,110,0.1)' }}>
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-3 gap-10 mb-10">
             <div>
@@ -455,7 +737,7 @@ export default function SleekDarkDemo() {
             <div>
               <h4 className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: '#c9a96e' }}>Info</h4>
               <p className="text-sm mb-1" style={{ color: 'rgba(245,240,232,0.4)' }}>Wed&ndash;Sun 5:00 PM &ndash; Close</p>
-              <p className="text-sm mb-1" style={{ color: 'rgba(245,240,232,0.4)' }}>312 Baker Street, Nelson, BC</p>
+              <p className="text-sm mb-1" style={{ color: 'rgba(245,240,232,0.4)' }}>123 Sample St, Nelson, BC</p>
               <p className="text-sm" style={{ color: 'rgba(245,240,232,0.4)' }}>(250) 555-0195</p>
             </div>
           </div>
@@ -471,16 +753,21 @@ export default function SleekDarkDemo() {
       <div
         className="fixed bottom-0 left-0 right-0 z-50 px-4 py-3"
         style={{
-          backgroundColor: 'rgba(10,10,10,0.92)',
+          backgroundColor: 'rgba(10,10,10,0.95)',
           backdropFilter: 'blur(12px)',
           WebkitBackdropFilter: 'blur(12px)',
-          borderTop: '1px solid rgba(201,169,110,0.2)',
+          borderTop: '1px solid rgba(201,169,110,0.25)',
         }}
       >
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
-          <span className="text-sm text-center sm:text-left" style={{ color: 'rgba(245,240,232,0.7)' }}>
-            This is a sample design by <strong style={{ color: '#f5f0e8' }}>Kootenay Made Digital</strong>
-          </span>
+          <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
+            <span className="text-sm text-center sm:text-left" style={{ color: 'rgba(245,240,232,0.7)' }}>
+              This is a sample design by <strong style={{ color: '#f5f0e8' }}>Kootenay Made Digital</strong>
+            </span>
+            <a href="tel:2505550000" className="text-sm font-bold hidden sm:inline" style={{ color: '#c9a96e' }}>
+              (250) 555-0000
+            </a>
+          </div>
           <Link
             href="/contact?style=sleek-dark"
             className="inline-block px-6 py-2.5 text-sm font-bold uppercase tracking-wider transition-all whitespace-nowrap"
@@ -488,7 +775,7 @@ export default function SleekDarkDemo() {
             onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.85')}
             onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
           >
-            Get This Style &rarr;
+            Get Your Free Mockup &rarr;
           </Link>
         </div>
       </div>

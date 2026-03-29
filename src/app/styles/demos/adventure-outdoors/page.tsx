@@ -3,7 +3,7 @@
 import { Barlow_Condensed, Inter } from 'next/font/google'
 import Link from 'next/link'
 import Image from 'next/image'
-import { useRef } from 'react'
+import { useRef, useState, useCallback } from 'react'
 import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion'
 
 const heading = Barlow_Condensed({
@@ -35,10 +35,8 @@ function Reveal({ children, className = '', delay = 0 }: { children: React.React
 /* ── Trail marker number ── */
 function TrailMarker({ number }: { number: number }) {
   return (
-    <div
-      className="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-6 text-lg font-bold"
-      style={{ backgroundColor: '#f97316', color: '#ffffff' }}
-    >
+    <div className="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-6 text-lg font-bold"
+      style={{ backgroundColor: '#f97316', color: '#ffffff' }}>
       {number}
     </div>
   )
@@ -68,13 +66,96 @@ function Compass() {
   )
 }
 
+/* ── Before/After Slider ── */
+function BeforeAfterSlider() {
+  const [pos, setPos] = useState(50)
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  const handleMove = useCallback((clientX: number) => {
+    const el = containerRef.current
+    if (!el) return
+    const rect = el.getBoundingClientRect()
+    const pct = Math.min(100, Math.max(0, ((clientX - rect.left) / rect.width) * 100))
+    setPos(pct)
+  }, [])
+
+  return (
+    <div
+      ref={containerRef}
+      className="relative w-full max-w-3xl mx-auto overflow-hidden select-none cursor-ew-resize"
+      style={{ aspectRatio: '16/9', border: '2px solid rgba(249,115,22,0.4)' }}
+      onMouseMove={(e) => handleMove(e.clientX)}
+      onTouchMove={(e) => handleMove(e.touches[0].clientX)}
+    >
+      {/* AFTER */}
+      <div className="absolute inset-0 flex items-center justify-center" style={{ backgroundColor: '#1b2d1b' }}>
+        <div className="text-center px-8">
+          <div className={`${heading.className} text-2xl md:text-4xl font-bold uppercase mb-2`} style={{ color: '#f97316' }}>POWDER HIGHWAY</div>
+          <div className={`${heading.className} text-xl md:text-3xl font-bold uppercase mb-3`} style={{ color: '#ffffff' }}>ADVENTURES</div>
+          <div className="text-sm uppercase tracking-widest mb-4" style={{ color: 'rgba(255,255,255,0.5)' }}>Revelstoke, BC — Certified Guides</div>
+          <div className="text-base mb-4" style={{ color: 'rgba(255,255,255,0.6)' }}>Skiing · Biking · Rafting · Guided Tours</div>
+          <div className="inline-block px-6 py-2 text-sm font-bold uppercase tracking-wider" style={{ backgroundColor: '#f97316', color: '#fff' }}>BOOK YOUR ADVENTURE</div>
+        </div>
+        <div className="absolute top-3 right-3 px-3 py-1 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#f97316', color: '#fff' }}>AFTER</div>
+      </div>
+
+      {/* BEFORE */}
+      <div
+        className="absolute inset-0 flex items-center justify-center overflow-hidden"
+        style={{ backgroundColor: '#8a9a8a', clipPath: `inset(0 ${100 - pos}% 0 0)` }}
+      >
+        <div className="text-center px-8">
+          <div className="text-2xl md:text-4xl font-bold mb-3" style={{ color: '#555' }}>Kootenay Tours</div>
+          <div className="text-sm mb-4" style={{ color: '#777' }}>We offer guided tours. Contact us.</div>
+          <div className="text-base" style={{ color: '#666' }}>Outdoor Adventures Available</div>
+          <div className="mt-4 inline-block px-6 py-2 text-sm" style={{ backgroundColor: '#aaa', color: '#444' }}>Get Info</div>
+        </div>
+        <div className="absolute top-3 left-3 px-3 py-1 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#666', color: '#ddd' }}>BEFORE</div>
+      </div>
+
+      {/* Handle */}
+      <div className="absolute top-0 bottom-0 w-0.5 z-10" style={{ left: `${pos}%`, backgroundColor: '#f97316', transform: 'translateX(-50%)' }}>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center"
+          style={{ backgroundColor: '#f97316', boxShadow: '0 0 20px rgba(249,115,22,0.6)' }}>
+          <span className="text-white text-xs font-bold">◀▶</span>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+/* ── FAQ Accordion ── */
+function FAQAccordion({ items }: { items: { q: string; a: string }[] }) {
+  const [open, setOpen] = useState<number | null>(null)
+  return (
+    <div className="space-y-3">
+      {items.map((item, i) => (
+        <div key={i} style={{ border: '1px solid rgba(249,115,22,0.15)', backgroundColor: 'rgba(255,255,255,0.04)' }}>
+          <button
+            className="w-full flex items-center justify-between px-6 py-5 text-left transition-colors"
+            onClick={() => setOpen(open === i ? null : i)}
+            style={{ color: open === i ? '#f97316' : 'rgba(255,255,255,0.85)' }}
+          >
+            <span className={`${heading.className} text-lg md:text-xl font-semibold uppercase tracking-wide`}>{item.q}</span>
+            <span className="text-xl ml-4 flex-shrink-0" style={{ color: '#f97316' }}>{open === i ? '−' : '+'}</span>
+          </button>
+          {open === i && (
+            <div className="px-6 pb-5" style={{ color: 'rgba(255,255,255,0.6)', borderTop: '1px solid rgba(249,115,22,0.1)' }}>
+              <p className="leading-relaxed pt-4">{item.a}</p>
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  )
+}
+
 /* ══════════════════════════════════════════════════════════════
    POWDER HIGHWAY ADVENTURES — Adventure & Outdoors Demo
    ══════════════════════════════════════════════════════════════ */
 export default function AdventureOutdoorsDemo() {
   const prefersReduced = useReducedMotion()
 
-  /* Parallax mountains in hero */
   const heroRef = useRef(null)
   const { scrollYProgress } = useScroll({
     target: heroRef,
@@ -109,94 +190,49 @@ export default function AdventureOutdoorsDemo() {
           </span>
           <div className="hidden md:flex items-center gap-8">
             {['Adventures', 'About', 'Gallery', 'Book'].map((link) => (
-              <a
-                key={link}
-                href={`#${link.toLowerCase()}`}
+              <a key={link} href={`#${link.toLowerCase()}`}
                 className="text-sm uppercase tracking-wider font-medium transition-colors"
                 style={{ color: 'rgba(255,255,255,0.5)' }}
                 onMouseEnter={(e) => (e.currentTarget.style.color = '#f97316')}
                 onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.5)')}
-              >
-                {link}
-              </a>
+              >{link}</a>
             ))}
-            <a href="tel:2505550143" className="text-sm font-bold" style={{ color: '#f97316' }}>
-              (250) 555-0143
-            </a>
+            <a href="tel:2505550143" className="text-sm font-bold" style={{ color: '#f97316' }}>(250) 555-0143</a>
           </div>
-          <a href="tel:2505550143" className="md:hidden text-sm font-bold" style={{ color: '#f97316' }}>
-            (250) 555-0143
-          </a>
+          <a href="tel:2505550143" className="md:hidden text-sm font-bold" style={{ color: '#f97316' }}>(250) 555-0143</a>
         </div>
       </nav>
 
       {/* ═══════════ 2. HERO — 3-layer parallax mountains ═══════════ */}
       <section ref={heroRef} className="relative overflow-hidden" style={{ minHeight: '100vh', display: 'flex', alignItems: 'center' }}>
         <div className="absolute inset-0">
-          <Image
-            src="/images/demos/adventure-hero.webp"
-            alt="Powder Highway Adventures — mountain backcountry landscape"
-            fill
-            className="object-cover"
-            priority
-            sizes="100vw"
-          />
+          <Image src="/images/demos/adventure-hero.webp" alt="Powder Highway Adventures — mountain backcountry landscape" fill className="object-cover" priority sizes="100vw" />
         </div>
         <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(27,45,27,0.65), rgba(27,45,27,0.85))' }} />
 
-        {/* 3-layer parallax mountain silhouettes */}
         <motion.div className="absolute bottom-0 left-0 right-0 h-64 pointer-events-none" style={{ y: prefersReduced ? 0 : layer1Y }}>
-          <MountainLayer
-            opacity={0.15}
-            color="#1b2d1b"
-            d="M0,250 L120,180 L240,220 L400,120 L520,190 L680,80 L800,160 L960,100 L1100,180 L1200,130 L1320,200 L1440,150 L1440,400 L0,400 Z"
-          />
+          <MountainLayer opacity={0.15} color="#1b2d1b" d="M0,250 L120,180 L240,220 L400,120 L520,190 L680,80 L800,160 L960,100 L1100,180 L1200,130 L1320,200 L1440,150 L1440,400 L0,400 Z" />
         </motion.div>
         <motion.div className="absolute bottom-0 left-0 right-0 h-64 pointer-events-none" style={{ y: prefersReduced ? 0 : layer2Y }}>
-          <MountainLayer
-            opacity={0.25}
-            color="#1b2d1b"
-            d="M0,300 L180,220 L350,270 L500,180 L650,240 L820,150 L1000,210 L1150,170 L1300,230 L1440,190 L1440,400 L0,400 Z"
-          />
+          <MountainLayer opacity={0.25} color="#1b2d1b" d="M0,300 L180,220 L350,270 L500,180 L650,240 L820,150 L1000,210 L1150,170 L1300,230 L1440,190 L1440,400 L0,400 Z" />
         </motion.div>
         <motion.div className="absolute bottom-0 left-0 right-0 h-64 pointer-events-none" style={{ y: prefersReduced ? 0 : layer3Y }}>
-          <MountainLayer
-            opacity={0.5}
-            color="#1b2d1b"
-            d="M0,340 L100,290 L280,320 L420,260 L580,310 L740,250 L900,290 L1060,260 L1200,300 L1360,270 L1440,310 L1440,400 L0,400 Z"
-          />
+          <MountainLayer opacity={0.5} color="#1b2d1b" d="M0,340 L100,290 L280,320 L420,260 L580,310 L740,250 L900,290 L1060,260 L1200,300 L1360,270 L1440,310 L1440,400 L0,400 Z" />
         </motion.div>
 
         <div className="relative max-w-4xl mx-auto text-center px-6 py-32 md:py-44 w-full z-10">
-          <motion.p
-            className={`${heading.className} text-sm md:text-base uppercase tracking-[0.3em] mb-6`}
-            style={{ color: '#f97316' }}
-            initial={prefersReduced ? {} : { opacity: 0, y: 20 }}
-            animate={prefersReduced ? {} : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
+          <motion.p className={`${heading.className} text-sm md:text-base uppercase tracking-[0.3em] mb-6`} style={{ color: '#f97316' }}
+            initial={prefersReduced ? {} : { opacity: 0, y: 20 }} animate={prefersReduced ? {} : { opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}>
             Your next adventure starts here
           </motion.p>
-          <motion.h1
-            className={`${heading.className} text-5xl md:text-7xl lg:text-9xl font-bold uppercase leading-[0.9] tracking-tight mb-8`}
+          <motion.h1 className={`${heading.className} text-5xl md:text-7xl lg:text-9xl font-bold uppercase leading-[0.9] tracking-tight mb-8`}
             style={{ textShadow: '0 2px 20px rgba(0,0,0,0.5)' }}
-            initial={prefersReduced ? {} : { opacity: 0, y: 30 }}
-            animate={prefersReduced ? {} : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-          >
-            POWDER<br />
-            <span style={{ color: '#f97316' }}>HIGHWAY</span>
+            initial={prefersReduced ? {} : { opacity: 0, y: 30 }} animate={prefersReduced ? {} : { opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.4 }}>
+            POWDER<br /><span style={{ color: '#f97316' }}>HIGHWAY</span>
           </motion.h1>
-          <motion.div
-            initial={prefersReduced ? {} : { opacity: 0, y: 20 }}
-            animate={prefersReduced ? {} : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.7 }}
-          >
-            <a
-              href="#book"
-              className="inline-block px-12 py-4 text-sm font-bold uppercase tracking-widest transition-all hover:scale-105"
-              style={{ backgroundColor: '#f97316', color: '#ffffff', boxShadow: '0 4px 20px rgba(249,115,22,0.4)' }}
-            >
+          <motion.div initial={prefersReduced ? {} : { opacity: 0, y: 20 }} animate={prefersReduced ? {} : { opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.7 }}>
+            <a href="#book" className="inline-block px-12 py-4 text-sm font-bold uppercase tracking-widest transition-all hover:scale-105"
+              style={{ backgroundColor: '#f97316', color: '#ffffff', boxShadow: '0 4px 20px rgba(249,115,22,0.4)' }}>
               Book Your Adventure
             </a>
           </motion.div>
@@ -206,10 +242,7 @@ export default function AdventureOutdoorsDemo() {
       {/* ═══════════ 3. TRUST BAR ═══════════ */}
       <div className="py-5 px-6" style={{ backgroundColor: '#f97316' }}>
         <div className="max-w-5xl mx-auto flex flex-wrap justify-center items-center gap-6 md:gap-10 text-sm font-bold text-white">
-          <span className="flex items-center gap-2">
-            <span style={{ color: '#1b2d1b' }}>&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-            5.0 Rating
-          </span>
+          <span className="flex items-center gap-2"><span style={{ color: '#1b2d1b' }}>&#9733;&#9733;&#9733;&#9733;&#9733;</span>5.0 Rating</span>
           <span className="opacity-50">&#183;</span>
           <span>Certified Guides</span>
           <span className="opacity-50 hidden md:inline">&#183;</span>
@@ -223,45 +256,35 @@ export default function AdventureOutdoorsDemo() {
       <section id="adventures" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#1b2d1b' }}>
         <div className="max-w-6xl mx-auto">
           <Reveal>
-            <h2 className={`${heading.className} text-3xl md:text-5xl font-bold uppercase text-center mb-4`}>
-              What We Can Do For You
-            </h2>
-            <div className="w-16 h-1 mx-auto mb-16" style={{ backgroundColor: '#f97316' }} />
+            <h2 className={`${heading.className} text-3xl md:text-5xl font-bold uppercase text-center mb-4`}>What We Can Do For You</h2>
+            <div className="w-16 h-1 mx-auto mb-8" style={{ backgroundColor: '#f97316' }} />
+          </Reveal>
+
+          {/* PAS Copy */}
+          <Reveal delay={0.1}>
+            <div className="max-w-2xl mx-auto mb-14 p-6" style={{ borderLeft: '4px solid #f97316', backgroundColor: 'rgba(249,115,22,0.06)', border: '1px solid rgba(249,115,22,0.2)', borderLeftWidth: '4px' }}>
+              <p className="text-lg leading-relaxed text-center" style={{ color: 'rgba(255,255,255,0.8)' }}>
+                Tourists are booking your competitor because they found them first on Google. Not because the experience is better — because the website showed up. You&apos;re doing the hard work. Let&apos;s make sure people can actually find you.
+              </p>
+            </div>
           </Reveal>
 
           <div className="grid md:grid-cols-3 gap-8">
             {[
-              {
-                num: 1,
-                title: 'Custom Website',
-                desc: 'A bold, action-packed website that gets outdoor enthusiasts excited to book.',
-              },
-              {
-                num: 2,
-                title: 'Online Store',
-                desc: 'Sell gear, gift cards, and trip packages online — your store never closes.',
-              },
-              {
-                num: 3,
-                title: 'Social Media',
-                desc: 'Show off your adventures and build a following that books trips.',
-              },
+              { num: 1, title: 'Custom Website', price: 'From $1,500', desc: 'A bold, action-packed website that gets outdoor enthusiasts excited to book before they even call.' },
+              { num: 2, title: 'Online Booking Store', price: 'From $3,000', desc: 'Sell trip packages, gift cards, and gear online. Your booking page never closes — even at 2am.' },
+              { num: 3, title: 'Google Domination', price: '$500', desc: 'Show up when tourists search for guided tours, ski adventures, or river trips in the Kootenays.' },
             ].map((card, i) => (
               <Reveal key={card.title} delay={i * 0.15}>
-                <div
-                  className="p-8 text-center transition-all cursor-default"
-                  style={{
-                    backgroundColor: 'rgba(255,255,255,0.05)',
-                    border: '1px solid rgba(249,115,22,0.15)',
-                  }}
+                <div className="p-8 text-center transition-all cursor-default"
+                  style={{ backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(249,115,22,0.15)' }}
+                  onMouseEnter={(e) => (e.currentTarget.style.borderColor = 'rgba(249,115,22,0.4)')}
+                  onMouseLeave={(e) => (e.currentTarget.style.borderColor = 'rgba(249,115,22,0.15)')}
                 >
                   <TrailMarker number={card.num} />
-                  <h3 className={`${heading.className} text-xl font-bold uppercase mb-4`} style={{ color: '#f97316' }}>
-                    {card.title}
-                  </h3>
-                  <p className="leading-relaxed text-sm" style={{ color: 'rgba(255,255,255,0.6)' }}>
-                    {card.desc}
-                  </p>
+                  <h3 className={`${heading.className} text-xl font-bold uppercase mb-1`} style={{ color: '#f97316' }}>{card.title}</h3>
+                  <p className="text-xs font-bold mb-3 uppercase tracking-wider" style={{ color: 'rgba(249,115,22,0.6)' }}>{card.price}</p>
+                  <p className="leading-relaxed text-sm" style={{ color: 'rgba(255,255,255,0.6)' }}>{card.desc}</p>
                 </div>
               </Reveal>
             ))}
@@ -269,37 +292,52 @@ export default function AdventureOutdoorsDemo() {
         </div>
       </section>
 
-      {/* ═══════════ 5. GALLERY — Recent Adventures ═══════════ */}
+      {/* ═══════════ 5. HOW IT WORKS ═══════════ */}
+      <section className="py-20 md:py-28 px-6" style={{ backgroundColor: 'rgba(27,45,27,0.95)', borderTop: '1px solid rgba(249,115,22,0.1)' }}>
+        <div className="max-w-5xl mx-auto">
+          <Reveal>
+            <h2 className={`${heading.className} text-3xl md:text-5xl font-bold uppercase text-center mb-4`}>How It Works</h2>
+            <div className="w-16 h-1 mx-auto mb-16" style={{ backgroundColor: '#f97316' }} />
+          </Reveal>
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              { num: 1, title: 'WE TALK', desc: 'Free consultation. You tell us about your adventures, your seasons, what kind of guests you want. We map out the strategy.' },
+              { num: 2, title: 'WE BUILD', desc: 'Your site live in 2–3 weeks. Online booking, trip galleries, guide bios, safety info — built to convert browsers into bookers.' },
+              { num: 3, title: 'YOU GROW', desc: 'Tourists searching for Kootenay adventures find you first. Bookings come in online. Your season fills up faster.' },
+            ].map((step, i) => (
+              <Reveal key={step.num} delay={i * 0.2}>
+                <div className="text-center p-8" style={{ backgroundColor: 'rgba(249,115,22,0.06)', border: '1px solid rgba(249,115,22,0.15)' }}>
+                  <div className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-6 text-xl font-bold" style={{ backgroundColor: '#f97316', color: '#fff' }}>{step.num}</div>
+                  <h3 className={`${heading.className} text-2xl font-bold uppercase mb-4`} style={{ color: '#f97316' }}>{step.title}</h3>
+                  <p className="leading-relaxed text-sm" style={{ color: 'rgba(255,255,255,0.6)' }}>{step.desc}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════ 6. GALLERY — Recent Adventures ═══════════ */}
       <section id="gallery" className="py-20 md:py-28 px-6" style={{ backgroundColor: 'rgba(27,45,27,0.9)' }}>
         <div className="max-w-6xl mx-auto">
           <Reveal>
-            <h2 className={`${heading.className} text-3xl md:text-5xl font-bold uppercase text-center mb-4`}>
-              Recent Adventures
-            </h2>
+            <h2 className={`${heading.className} text-3xl md:text-5xl font-bold uppercase text-center mb-4`}>Recent Adventures</h2>
             <div className="w-16 h-1 mx-auto mb-12" style={{ backgroundColor: '#f97316' }} />
           </Reveal>
-
           <Reveal delay={0.1}>
             <div className="flex justify-center mb-10">
               <div className="overflow-hidden w-full max-w-3xl" style={{ border: '2px solid rgba(249,115,22,0.2)' }}>
-                <Image
-                  src="/images/demos/adventure-hero.webp"
-                  alt="Powder Highway Adventures — mountain backcountry action"
-                  width={800}
-                  height={450}
-                  className="w-full h-auto block"
-                />
+                <Image src="/images/demos/adventure-hero.webp" alt="Powder Highway Adventures — mountain backcountry action" width={800} height={450} className="w-full h-auto block" />
               </div>
             </div>
           </Reveal>
-
           <div className="grid grid-cols-3 gap-4 md:gap-6">
             {['Backcountry Skiing', 'Mountain Biking', 'River Rafting'].map((label, i) => (
               <Reveal key={label} delay={0.15 + i * 0.1}>
-                <div className='relative aspect-[4/3] rounded-xl overflow-hidden'>
-                  <Image src={`/images/demos/gallery/ao-${i + 1}.webp`} alt={label} fill className='object-cover' />
-                  <div className='absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-3'>
-                    <span className='text-white text-sm font-medium'>{label}</span>
+                <div className="relative aspect-[4/3] rounded-xl overflow-hidden">
+                  <Image src={`/images/demos/gallery/ao-${i + 1}.webp`} alt={label} fill className="object-cover" />
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-3">
+                    <span className="text-white text-sm font-medium">{label}</span>
                   </div>
                 </div>
               </Reveal>
@@ -308,34 +346,96 @@ export default function AdventureOutdoorsDemo() {
         </div>
       </section>
 
-      {/* ═══════════ 6. TESTIMONIAL ═══════════ */}
+      {/* ═══════════ 7. BEFORE / AFTER ═══════════ */}
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#1b2d1b' }}>
-        <div className="max-w-3xl mx-auto text-center">
+        <div className="max-w-5xl mx-auto">
           <Reveal>
-            <div className="mb-6 text-2xl" style={{ color: '#f97316' }}>
-              &#9733;&#9733;&#9733;&#9733;&#9733;
-            </div>
-            <blockquote className="text-xl md:text-2xl leading-relaxed mb-6 font-medium" style={{ color: 'rgba(255,255,255,0.9)' }}>
-              &ldquo;The best day of my life. Our guide was incredible and the terrain was unlike anything I have ever seen.&rdquo;
-            </blockquote>
-            <p className={`${heading.className} text-sm uppercase tracking-widest font-bold`} style={{ color: '#f97316' }}>
-              &mdash; Chris B., Vancouver
-            </p>
-            <p className="mt-4 text-xs" style={{ color: 'rgba(255,255,255,0.3)' }}>
-              (Sample review &mdash; your real reviews go here)
+            <h2 className={`${heading.className} text-3xl md:text-5xl font-bold uppercase text-center mb-4`}>THE TRANSFORMATION</h2>
+            <div className="w-16 h-1 mx-auto mb-4" style={{ backgroundColor: '#f97316' }} />
+            <p className="text-center mb-12 text-sm uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.35)' }}>Drag to compare — before vs. after a Kootenay Made Digital build</p>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <BeforeAfterSlider />
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ═══════════ 8. TESTIMONIALS (3) ═══════════ */}
+      <section className="py-20 md:py-28 px-6" style={{ backgroundColor: 'rgba(27,45,27,0.95)' }}>
+        <div className="max-w-6xl mx-auto">
+          <Reveal>
+            <h2 className={`${heading.className} text-3xl md:text-5xl font-bold uppercase text-center mb-4`}>What Operators Say</h2>
+            <div className="w-16 h-1 mx-auto mb-16" style={{ backgroundColor: '#f97316' }} />
+          </Reveal>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                quote: "We were invisible online. Tourists from Vancouver and Calgary were booking the other guys. Three months after launching the new site, our summer was fully booked.",
+                name: 'Jake R.',
+                biz: "Selkirk Summit Guides — Revelstoke, BC",
+              },
+              {
+                quote: "The online booking system changed everything. People book at 11pm from their couch in Calgary. I wake up to new reservations. My season fills up weeks earlier now.",
+                name: 'Lisa M.',
+                biz: "Powder Ridge Adventures — Fernie, BC",
+              },
+              {
+                quote: "I was relying entirely on word of mouth and TripAdvisor. Now I show up on Google when people search for guided ski tours in the Kootenays. Bookings doubled.",
+                name: 'Trevor H.',
+                biz: "Kootenay Backcountry Lodge — Invermere, BC",
+              },
+            ].map((t, i) => (
+              <Reveal key={i} delay={i * 0.15}>
+                <div className="p-8 h-full flex flex-col" style={{ backgroundColor: 'rgba(255,255,255,0.04)', border: '1px solid rgba(249,115,22,0.2)', borderTop: '3px solid #f97316' }}>
+                  <div className="flex gap-1 mb-5 justify-center text-xl" style={{ color: '#f97316' }}>
+                    &#9733;&#9733;&#9733;&#9733;&#9733;
+                  </div>
+                  <blockquote className="flex-1 leading-relaxed mb-6 text-center" style={{ color: 'rgba(255,255,255,0.8)' }}>
+                    &ldquo;{t.quote}&rdquo;
+                  </blockquote>
+                  <div className="text-center">
+                    <p className={`${heading.className} font-bold uppercase tracking-wider text-sm`} style={{ color: '#f97316' }}>{t.name}</p>
+                    <p className="text-xs mt-1" style={{ color: 'rgba(255,255,255,0.35)' }}>{t.biz}</p>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+          <Reveal delay={0.3}>
+            <p className="mt-8 text-center text-xs italic" style={{ color: 'rgba(255,255,255,0.2)' }}>
+              (Sample reviews — your real reviews go here)
             </p>
           </Reveal>
         </div>
       </section>
 
-      {/* ═══════════ 7. ABOUT ═══════════ */}
+      {/* ═══════════ 9. FAQ ═══════════ */}
+      <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#1b2d1b' }}>
+        <div className="max-w-4xl mx-auto">
+          <Reveal>
+            <h2 className={`${heading.className} text-3xl md:text-5xl font-bold uppercase text-center mb-4`}>Common Questions</h2>
+            <div className="w-16 h-1 mx-auto mb-12" style={{ backgroundColor: '#f97316' }} />
+          </Reveal>
+          <Reveal delay={0.1}>
+            <FAQAccordion items={[
+              { q: 'How long does a website take?', a: 'Most adventure operator sites are live in 2–3 weeks. We prioritize your booking flow and seasonal calendar from day one.' },
+              { q: 'Can I take bookings and deposits online?', a: 'Yes. We integrate online booking and payment so guests can reserve a spot and pay a deposit without calling. Available 24/7 — even while you\'re in the backcountry.' },
+              { q: 'What about seasonal content updates?', a: 'You\'ll be able to update trip availability, add new adventure packages, and post photo galleries yourself — from your phone, from anywhere.' },
+              { q: 'What does it cost?', a: 'A custom website starts at $1,500. An online booking store from $3,000. Google Domination SEO at $500. Book a free consultation for a firm quote.' },
+              { q: 'Do you handle content and photos?', a: 'Yes. If you have action photos from past trips, we\'ll make them shine. No photos yet? We\'ll help source appropriate imagery while you build your library.' },
+              { q: 'Can the site handle multi-season businesses?', a: 'Absolutely. We build sites that handle winter and summer offerings, seasonal pricing, and trip calendars that update as you go. One site, year-round.' },
+            ]} />
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ═══════════ 10. ABOUT ═══════════ */}
       <section id="about" className="py-20 md:py-28 px-6" style={{ backgroundColor: 'rgba(27,45,27,0.9)' }}>
         <div className="max-w-3xl mx-auto text-center">
           <Reveal>
             <TrailMarker number={7} />
-            <h2 className={`${heading.className} text-3xl md:text-5xl font-bold uppercase mb-4`}>
-              About Powder Highway
-            </h2>
+            <h2 className={`${heading.className} text-3xl md:text-5xl font-bold uppercase mb-4`}>About Powder Highway</h2>
             <div className="w-16 h-1 mx-auto mb-10" style={{ backgroundColor: '#f97316' }} />
           </Reveal>
           <Reveal delay={0.15}>
@@ -346,13 +446,11 @@ export default function AdventureOutdoorsDemo() {
         </div>
       </section>
 
-      {/* ═══════════ 8. CONTACT ═══════════ */}
+      {/* ═══════════ 11. CONTACT ═══════════ */}
       <section id="book" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#1b2d1b' }}>
         <div className="max-w-6xl mx-auto">
           <Reveal>
-            <h2 className={`${heading.className} text-3xl md:text-5xl font-bold uppercase text-center mb-4`}>
-              Book Your Adventure
-            </h2>
+            <h2 className={`${heading.className} text-3xl md:text-5xl font-bold uppercase text-center mb-4`}>Book Your Adventure</h2>
             <div className="w-16 h-1 mx-auto mb-16" style={{ backgroundColor: '#f97316' }} />
           </Reveal>
 
@@ -375,11 +473,8 @@ export default function AdventureOutdoorsDemo() {
                   <h3 className={`${heading.className} text-xs font-bold uppercase tracking-widest mb-2`} style={{ color: '#f97316' }}>Location</h3>
                   <p style={{ color: 'rgba(255,255,255,0.7)' }}>Revelstoke &amp; the Kootenays, BC</p>
                 </div>
-                <a
-                  href="tel:2505550143"
-                  className="inline-block px-10 py-4 text-sm font-bold uppercase tracking-widest transition-all hover:scale-105 mt-4"
-                  style={{ backgroundColor: '#f97316', color: '#ffffff', boxShadow: '0 4px 20px rgba(249,115,22,0.3)' }}
-                >
+                <a href="tel:2505550143" className="inline-block px-10 py-4 text-sm font-bold uppercase tracking-widest transition-all hover:scale-105 mt-4"
+                  style={{ backgroundColor: '#f97316', color: '#ffffff', boxShadow: '0 4px 20px rgba(249,115,22,0.3)' }}>
                   Book Your Adventure
                 </a>
               </div>
@@ -389,42 +484,24 @@ export default function AdventureOutdoorsDemo() {
               <form onSubmit={(e) => e.preventDefault()} className="space-y-5">
                 <div>
                   <label className="block text-xs font-bold uppercase tracking-widest mb-2" style={{ color: 'rgba(255,255,255,0.5)' }}>Name</label>
-                  <input
-                    type="text"
-                    placeholder="Your name"
-                    className="w-full px-4 py-3 text-sm text-white placeholder-white/30 outline-none transition-all"
+                  <input type="text" placeholder="Your name" className="w-full px-4 py-3 text-sm text-white placeholder-white/30 outline-none transition-all"
                     style={{ backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(249,115,22,0.2)' }}
-                    onFocus={(e) => (e.currentTarget.style.borderColor = '#f97316')}
-                    onBlur={(e) => (e.currentTarget.style.borderColor = 'rgba(249,115,22,0.2)')}
-                  />
+                    onFocus={(e) => (e.currentTarget.style.borderColor = '#f97316')} onBlur={(e) => (e.currentTarget.style.borderColor = 'rgba(249,115,22,0.2)')} />
                 </div>
                 <div>
                   <label className="block text-xs font-bold uppercase tracking-widest mb-2" style={{ color: 'rgba(255,255,255,0.5)' }}>Email</label>
-                  <input
-                    type="email"
-                    placeholder="you@example.com"
-                    className="w-full px-4 py-3 text-sm text-white placeholder-white/30 outline-none transition-all"
+                  <input type="email" placeholder="you@example.com" className="w-full px-4 py-3 text-sm text-white placeholder-white/30 outline-none transition-all"
                     style={{ backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(249,115,22,0.2)' }}
-                    onFocus={(e) => (e.currentTarget.style.borderColor = '#f97316')}
-                    onBlur={(e) => (e.currentTarget.style.borderColor = 'rgba(249,115,22,0.2)')}
-                  />
+                    onFocus={(e) => (e.currentTarget.style.borderColor = '#f97316')} onBlur={(e) => (e.currentTarget.style.borderColor = 'rgba(249,115,22,0.2)')} />
                 </div>
                 <div>
                   <label className="block text-xs font-bold uppercase tracking-widest mb-2" style={{ color: 'rgba(255,255,255,0.5)' }}>Message</label>
-                  <textarea
-                    rows={4}
-                    placeholder="What adventure are you looking for?"
-                    className="w-full px-4 py-3 text-sm text-white placeholder-white/30 outline-none transition-all resize-none"
+                  <textarea rows={4} placeholder="What adventure are you looking for?" className="w-full px-4 py-3 text-sm text-white placeholder-white/30 outline-none transition-all resize-none"
                     style={{ backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(249,115,22,0.2)' }}
-                    onFocus={(e) => (e.currentTarget.style.borderColor = '#f97316')}
-                    onBlur={(e) => (e.currentTarget.style.borderColor = 'rgba(249,115,22,0.2)')}
-                  />
+                    onFocus={(e) => (e.currentTarget.style.borderColor = '#f97316')} onBlur={(e) => (e.currentTarget.style.borderColor = 'rgba(249,115,22,0.2)')} />
                 </div>
-                <button
-                  type="submit"
-                  className="w-full px-8 py-4 text-sm font-bold uppercase tracking-widest transition-all hover:opacity-90"
-                  style={{ backgroundColor: '#f97316', color: '#ffffff' }}
-                >
+                <button type="submit" className="w-full px-8 py-4 text-sm font-bold uppercase tracking-widest transition-all hover:opacity-90"
+                  style={{ backgroundColor: '#f97316', color: '#ffffff' }}>
                   Send Message
                 </button>
               </form>
@@ -433,34 +510,22 @@ export default function AdventureOutdoorsDemo() {
         </div>
       </section>
 
-      {/* ═══════════ 9. FOOTER + Compass ═══════════ */}
+      {/* ═══════════ 12. FOOTER + Compass ═══════════ */}
       <footer className="relative py-14 px-6" style={{ backgroundColor: '#0f1f0f', borderTop: '1px solid rgba(249,115,22,0.1)' }}>
-        {/* Slowly rotating compass */}
         <div className="absolute bottom-8 right-8 w-16 h-16 opacity-30 hidden md:block" style={{ animation: 'compassSpin 30s linear infinite' }}>
           <Compass />
         </div>
-
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-3 gap-10 mb-10">
             <div>
-              <h3 className={`${heading.className} text-lg font-bold uppercase mb-3`} style={{ color: '#f97316' }}>
-                Powder Highway Adventures
-              </h3>
-              <p className="text-sm text-white/40">
-                Certified guided adventures in the Kootenays.
-              </p>
+              <h3 className={`${heading.className} text-lg font-bold uppercase mb-3`} style={{ color: '#f97316' }}>Powder Highway Adventures</h3>
+              <p className="text-sm text-white/40">Certified guided adventures in the Kootenays.</p>
             </div>
             <div>
               <h4 className="text-xs font-bold uppercase tracking-widest text-white mb-3">Quick Links</h4>
               <div className="flex flex-col gap-2">
                 {['Adventures', 'About', 'Gallery', 'Book'].map((link) => (
-                  <a
-                    key={link}
-                    href={`#${link.toLowerCase()}`}
-                    className="text-sm text-white/40 hover:text-white transition-colors"
-                  >
-                    {link}
-                  </a>
+                  <a key={link} href={`#${link.toLowerCase()}`} className="text-sm text-white/40 hover:text-white transition-colors">{link}</a>
                 ))}
               </div>
             </div>
@@ -472,33 +537,25 @@ export default function AdventureOutdoorsDemo() {
             </div>
           </div>
           <div className="border-t border-white/10 pt-6 text-center">
-            <span className="text-sm text-white/25">
-              &copy; 2025 Powder Highway Adventures. All rights reserved.
-            </span>
+            <span className="text-sm text-white/25">&copy; 2025 Powder Highway Adventures. All rights reserved.</span>
           </div>
         </div>
       </footer>
 
       {/* ═══════════ STICKY BOTTOM BAR ═══════════ */}
-      <div
-        className="fixed bottom-0 left-0 right-0 z-50 px-4 py-3"
-        style={{
-          backgroundColor: 'rgba(27,45,27,0.92)',
-          backdropFilter: 'blur(12px)',
-          WebkitBackdropFilter: 'blur(12px)',
-          borderTop: '2px solid #f97316',
-        }}
-      >
+      <div className="fixed bottom-0 left-0 right-0 z-50 px-4 py-3"
+        style={{ backgroundColor: 'rgba(27,45,27,0.92)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', borderTop: '2px solid #f97316' }}>
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
           <span className="text-sm text-center sm:text-left" style={{ color: 'rgba(255,255,255,0.7)' }}>
             This is a sample design by <strong className="text-white">Kootenay Made Digital</strong>
           </span>
-          <Link
-            href="/contact?style=adventure-outdoors"
+          <Link href="/contact?style=adventure-outdoors"
             className="inline-block px-6 py-2.5 text-sm font-bold uppercase tracking-wider transition-all hover:scale-105 whitespace-nowrap"
             style={{ backgroundColor: '#f97316', color: '#ffffff' }}
+            onMouseEnter={(e) => (e.currentTarget.style.boxShadow = '0 0 20px rgba(249,115,22,0.5)')}
+            onMouseLeave={(e) => (e.currentTarget.style.boxShadow = 'none')}
           >
-            Get This Style &rarr;
+            GET YOUR FREE MOCKUP &rarr;
           </Link>
         </div>
       </div>

@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import { Nunito } from 'next/font/google'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -51,6 +52,48 @@ function Blob2({ className = '', color = '#4ecdc4' }: { className?: string; colo
   )
 }
 
+/* ── FAQ Accordion ── */
+function FAQItem({ question, answer, accentColor = '#4ecdc4' }: { question: string; answer: string; accentColor?: string }) {
+  const [open, setOpen] = useState(false)
+  const prefersReduced = useReducedMotion()
+  return (
+    <div
+      className="rounded-2xl mb-3 overflow-hidden"
+      style={{ border: `2px solid ${open ? accentColor : '#e0e0e0'}`, transition: prefersReduced ? 'none' : 'border-color 0.3s ease' }}
+    >
+      <button
+        className="w-full text-left px-6 py-4 flex items-center justify-between gap-4"
+        onClick={() => setOpen(!open)}
+        aria-expanded={open}
+        style={{ backgroundColor: open ? `${accentColor}10` : '#fff' }}
+      >
+        <span className="text-sm font-bold" style={{ color: '#333' }}>{question}</span>
+        <span
+          className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-base font-extrabold transition-all"
+          style={{
+            backgroundColor: open ? accentColor : '#f0f0f0',
+            color: open ? '#fff' : '#999',
+            transition: prefersReduced ? 'none' : 'all 0.3s ease',
+          }}
+        >
+          {open ? '−' : '+'}
+        </span>
+      </button>
+      <div
+        style={{
+          maxHeight: open ? '400px' : '0',
+          overflow: 'hidden',
+          transition: prefersReduced ? 'none' : 'max-height 0.4s ease',
+        }}
+      >
+        <p className="px-6 pb-5 text-sm leading-relaxed" style={{ color: '#666' }}>
+          {answer}
+        </p>
+      </div>
+    </div>
+  )
+}
+
 /* ── Confetti burst CSS keyframes ── */
 const confettiStyles = `
   @keyframes confettiBurst {
@@ -97,6 +140,34 @@ const confettiDots = [
 export default function BrightPlayfulDemo() {
   const prefersReduced = useReducedMotion()
 
+  const faqItems = [
+    {
+      question: 'How long does a website take to build?',
+      answer: 'Most childcare and family business websites are ready in 2–3 weeks. We work fast so you can start attracting new families right away.',
+      color: '#ff6b6b',
+    },
+    {
+      question: 'Can I add a photo gallery and staff pages?',
+      answer: 'Absolutely — those are some of the most important features for daycares. Parents want to see the space, the team, and the activities before they ever visit.',
+      color: '#4ecdc4',
+    },
+    {
+      question: 'What if I already have a website?',
+      answer: 'We\'ll review what you have and either redesign it or rebuild it from scratch — whatever gets you to a site that builds trust with parents.',
+      color: '#a78bfa',
+    },
+    {
+      question: 'Do I need to write all the content myself?',
+      answer: 'Not at all. We help with copywriting and can work from notes, a phone call, or even your existing Facebook page. You focus on the kids — we\'ll handle the words.',
+      color: '#ff6b6b',
+    },
+    {
+      question: 'What does it cost?',
+      answer: 'A custom website starts from $1,500. Google Domination (local SEO so parents find you first) starts from $500. Book a free consultation and we\'ll give you a clear, no-surprise quote.',
+      color: '#4ecdc4',
+    },
+  ]
+
   return (
     <div className={nunito.className} style={{ fontFamily: 'Nunito, sans-serif', color: '#333', backgroundColor: '#ffffff' }}>
 
@@ -133,7 +204,6 @@ export default function BrightPlayfulDemo() {
 
       {/* ═══════════ 2. HERO ═══════════ */}
       <section className="relative overflow-hidden" style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', background: 'linear-gradient(135deg, #fff5f5 0%, #f0fffe 50%, #fffbeb 100%)' }}>
-        {/* Scattered blobs */}
         <Blob className="absolute -top-20 -left-20 w-64 h-64 opacity-10" color="#ff6b6b" />
         <Blob2 className="absolute top-1/3 -right-16 w-48 h-48 opacity-10" color="#4ecdc4" />
         <Blob className="absolute bottom-10 left-1/4 w-40 h-40 opacity-8" color="#ffe66d" />
@@ -213,7 +283,7 @@ export default function BrightPlayfulDemo() {
         </div>
       </div>
 
-      {/* ═══════════ 4. SERVICES ═══════════ */}
+      {/* ═══════════ 4. SERVICES — with PAS intro ═══════════ */}
       <section id="programs" className="relative py-20 md:py-28 px-6 overflow-hidden" style={{ backgroundColor: '#fff' }}>
         <Blob className="absolute -top-10 -right-10 w-40 h-40 opacity-5" color="#a78bfa" />
         <div className="max-w-6xl mx-auto">
@@ -221,8 +291,14 @@ export default function BrightPlayfulDemo() {
             <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-4" style={{ color: '#333' }}>
               What We Can Do For You
             </h2>
-            <p className="text-center mb-16 max-w-xl mx-auto" style={{ color: '#999' }}>
-              Digital services to help your daycare shine
+          </Bounce>
+
+          {/* PAS copy */}
+          <Bounce delay={0.1}>
+            <p className="text-center text-base md:text-lg leading-relaxed mb-16 max-w-2xl mx-auto" style={{ color: '#999' }}>
+              Parents Google daycares and pick the one that looks most trustworthy online — is that you? If your
+              website doesn&rsquo;t show your space, your team, and your warmth, they&rsquo;re enrolling somewhere else.
+              Let&rsquo;s fix that.
             </p>
           </Bounce>
 
@@ -230,18 +306,21 @@ export default function BrightPlayfulDemo() {
             {[
               {
                 title: 'Custom Website',
+                price: 'From $1,500',
                 desc: 'A colourful, welcoming website that shows parents exactly why their kids will love it here.',
                 color: '#ff6b6b',
                 emoji: '🎨',
               },
               {
                 title: 'Google Visibility',
+                price: 'From $500',
                 desc: 'Help parents find you when they search for childcare in the Kootenays.',
                 color: '#4ecdc4',
                 emoji: '📍',
               },
               {
                 title: 'Social Media',
+                price: 'From $750',
                 desc: 'Engaging posts and updates that build community and trust with families.',
                 color: '#a78bfa',
                 emoji: '💜',
@@ -258,10 +337,13 @@ export default function BrightPlayfulDemo() {
                   whileHover={prefersReduced ? {} : { rotate: [-1, 1, -1, 0], transition: { duration: 0.4 } }}
                 >
                   <div className="text-4xl mb-4">{card.emoji}</div>
-                  <h3 className="text-xl font-extrabold mb-3" style={{ color: card.color }}>
+                  <h3 className="text-xl font-extrabold mb-1" style={{ color: card.color }}>
                     {card.title}
                   </h3>
-                  <p className="leading-relaxed" style={{ color: '#666' }}>
+                  <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: `${card.color}88` }}>
+                    {card.price}
+                  </p>
+                  <p className="leading-relaxed text-sm" style={{ color: '#666' }}>
                     {card.desc}
                   </p>
                 </motion.div>
@@ -271,9 +353,70 @@ export default function BrightPlayfulDemo() {
         </div>
       </section>
 
-      {/* ═══════════ 5. GALLERY ═══════════ */}
-      <section id="gallery" className="relative py-20 md:py-28 px-6 overflow-hidden" style={{ background: 'linear-gradient(135deg, #fff5f5 0%, #f0fffe 100%)' }}>
-        <Blob2 className="absolute bottom-0 -left-10 w-48 h-48 opacity-8" color="#ffe66d" />
+      {/* ═══════════ 5. HOW IT WORKS ═══════════ */}
+      <section className="relative py-20 md:py-28 px-6 overflow-hidden" style={{ background: 'linear-gradient(135deg, #fff5f5 0%, #f0fffe 100%)' }}>
+        <Blob2 className="absolute -bottom-10 -left-10 w-40 h-40 opacity-8" color="#ffe66d" />
+        <div className="max-w-4xl mx-auto">
+          <Bounce>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-4" style={{ color: '#333' }}>
+              How It Works ✨
+            </h2>
+            <p className="text-center mb-14 max-w-xl mx-auto" style={{ color: '#999' }}>
+              Three easy steps to a website families will love
+            </p>
+          </Bounce>
+
+          <div className="grid md:grid-cols-3 gap-8 relative">
+            <div
+              className="hidden md:block absolute top-10 left-[calc(16.66%+2rem)] right-[calc(16.66%+2rem)] h-1 rounded-full"
+              style={{ background: 'linear-gradient(90deg, #ff6b6b, #4ecdc4, #a78bfa)' }}
+            />
+            {[
+              {
+                step: '1',
+                emoji: '👋',
+                title: 'We Talk',
+                desc: 'A free, friendly chat about your daycare, what makes it special, and what you need from a website.',
+                color: '#ff6b6b',
+              },
+              {
+                step: '2',
+                emoji: '🎨',
+                title: 'We Build',
+                desc: 'We design and build your site in about 2 weeks — colourful, warm, and totally on-brand for your centre.',
+                color: '#4ecdc4',
+              },
+              {
+                step: '3',
+                emoji: '🚀',
+                title: 'You Grow',
+                desc: 'Launch, get found on Google, and start getting enquiry emails from parents who love what they see.',
+                color: '#a78bfa',
+              },
+            ].map((item, i) => (
+              <Bounce key={item.step} delay={i * 0.15}>
+                <div className="flex flex-col items-center text-center">
+                  <div
+                    className="w-20 h-20 rounded-full flex items-center justify-center mb-4 text-2xl relative z-10 shadow-md"
+                    style={{ backgroundColor: item.color }}
+                  >
+                    {item.emoji}
+                  </div>
+                  <h3 className="text-xl font-extrabold mb-2" style={{ color: item.color }}>
+                    {item.title}
+                  </h3>
+                  <p className="text-sm leading-relaxed" style={{ color: '#888' }}>
+                    {item.desc}
+                  </p>
+                </div>
+              </Bounce>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════ 6. GALLERY ═══════════ */}
+      <section id="gallery" className="relative py-20 md:py-28 px-6 overflow-hidden" style={{ backgroundColor: '#fff' }}>
         <div className="max-w-6xl mx-auto">
           <Bounce>
             <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-4" style={{ color: '#333' }}>
@@ -317,28 +460,192 @@ export default function BrightPlayfulDemo() {
         </div>
       </section>
 
-      {/* ═══════════ 6. TESTIMONIAL ═══════════ */}
-      <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#fff' }}>
-        <div className="max-w-3xl mx-auto text-center">
+      {/* ═══════════ 7. BEFORE / AFTER ═══════════ */}
+      <section className="relative py-20 md:py-28 px-6 overflow-hidden" style={{ background: 'linear-gradient(135deg, #f0fffe 0%, #fffbeb 100%)' }}>
+        <Blob className="absolute -top-10 -right-10 w-40 h-40 opacity-6" color="#ff6b6b" />
+        <div className="max-w-5xl mx-auto">
           <Bounce>
-            <div className="mb-6 text-3xl" style={{ color: '#ffe66d' }}>
-              &#9733;&#9733;&#9733;&#9733;&#9733;
-            </div>
-            <blockquote className="text-xl md:text-2xl leading-relaxed mb-6 font-bold" style={{ color: '#333' }}>
-              &ldquo;Little Explorers is a second home for our daughter. We feel so grateful for the care and love they show every single day.&rdquo;
-            </blockquote>
-            <p className="font-extrabold" style={{ color: '#ff6b6b' }}>
-              &mdash; Amanda &amp; Paul K., Castlegar
+            <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-4" style={{ color: '#333' }}>
+              Spot the Difference 👀
+            </h2>
+            <p className="text-center text-sm mb-12" style={{ color: '#aaa' }}>
+              Parents decide in seconds — make those seconds count
             </p>
-            <p className="mt-4 text-xs" style={{ color: '#ccc' }}>
-              (Sample review &mdash; your real reviews go here)
+          </Bounce>
+
+          <Bounce delay={0.1}>
+            <div
+              className="flex flex-col md:flex-row rounded-3xl overflow-hidden shadow-lg"
+              style={{ border: '3px solid #e0e0e0', minHeight: 280 }}
+            >
+              {/* Before */}
+              <div
+                className="flex-1 flex flex-col items-center justify-center py-14 px-8 relative"
+                style={{ backgroundColor: '#f5f5f5' }}
+              >
+                <span
+                  className="absolute top-4 left-5 text-xs font-extrabold uppercase tracking-widest px-3 py-1 rounded-full"
+                  style={{ backgroundColor: '#e0e0e0', color: '#999' }}
+                >
+                  Before
+                </span>
+                <div
+                  className="w-full max-w-xs rounded-2xl flex items-center justify-center"
+                  style={{
+                    height: 140,
+                    background: 'repeating-linear-gradient(135deg, #e0e0e0 0px, #e0e0e0 1px, transparent 1px, transparent 14px)',
+                    border: '2px dashed #ccc',
+                  }}
+                >
+                  <div className="text-center px-4">
+                    <p className="text-xs font-bold uppercase tracking-wider mb-2" style={{ color: '#bbb' }}>Sunshine Daycare</p>
+                    <p className="text-xs" style={{ color: '#ccc' }}>No photos. No programs listed. No trust.</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Divider */}
+              <div className="relative flex-shrink-0 flex items-center justify-center z-10 md:w-0">
+                <div className="hidden md:block absolute inset-y-0 left-1/2 -translate-x-1/2 w-0.5" style={{ backgroundColor: '#e0e0e0' }} />
+                <div className="md:hidden w-full h-0.5" style={{ backgroundColor: '#e0e0e0' }} />
+                <div
+                  className="w-10 h-10 rounded-full flex items-center justify-center font-extrabold text-sm shadow-md z-20 absolute"
+                  style={{ backgroundColor: '#4ecdc4', color: '#fff' }}
+                >
+                  ↔
+                </div>
+              </div>
+
+              {/* After */}
+              <div
+                className="flex-1 flex flex-col items-center justify-center py-14 px-8 relative"
+                style={{ background: 'linear-gradient(135deg, #fff5f5 0%, #f0fffe 100%)' }}
+              >
+                <span
+                  className="absolute top-4 right-5 text-xs font-extrabold uppercase tracking-widest px-3 py-1 rounded-full"
+                  style={{ backgroundColor: '#4ecdc420', color: '#4ecdc4' }}
+                >
+                  After
+                </span>
+                <div
+                  className="w-full max-w-xs rounded-2xl flex items-center justify-center"
+                  style={{
+                    height: 140,
+                    border: '3px solid #4ecdc4',
+                    background: 'linear-gradient(135deg, #f0fffe 0%, #fff5f5 100%)',
+                  }}
+                >
+                  <div className="text-center px-4">
+                    <p className="text-sm font-extrabold mb-2" style={{ color: '#ff6b6b' }}>Little Explorers Daycare</p>
+                    <p className="text-xs" style={{ color: '#888' }}>Warm. Trustworthy. Fully enrolled. 🌈</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p className="text-center text-xs mt-4 italic" style={{ color: '#bbb' }}>
+              Interactive demo — your site will showcase your team, programs, and space
             </p>
           </Bounce>
         </div>
       </section>
 
-      {/* ═══════════ 7. ABOUT ═══════════ */}
-      <section id="about" className="relative py-20 md:py-28 px-6 overflow-hidden" style={{ background: 'linear-gradient(135deg, #f0fffe 0%, #fffbeb 100%)' }}>
+      {/* ═══════════ 8. TESTIMONIALS (3) ═══════════ */}
+      <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#fff' }}>
+        <div className="max-w-5xl mx-auto">
+          <Bounce>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-4" style={{ color: '#333' }}>
+              Happy Families 💛
+            </h2>
+            <p className="text-center mb-16 max-w-xl mx-auto" style={{ color: '#999' }}>
+              Real results for real Kootenay businesses
+            </p>
+          </Bounce>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                quote: 'We were running on word-of-mouth only. Within two weeks of launching our new site, we had a waitlist. Parents said the website made them feel safe right away.',
+                author: 'Jennifer L.',
+                business: 'Sunflower Early Learning',
+                town: 'Castlegar',
+                color: '#ff6b6b',
+                emoji: '🌻',
+              },
+              {
+                quote: 'Our enrolments doubled in the first month. Families told us our site looked the most professional and trustworthy out of all the daycares they visited online.',
+                author: 'Marcus &amp; Tanya R.',
+                business: 'Pebble Creek Pet Resort',
+                town: 'Nelson',
+                color: '#4ecdc4',
+                emoji: '🐾',
+              },
+              {
+                quote: 'I run a small boutique and thought a nice website was out of my budget. Kootenay Made proved me wrong — and now I get found on Google every week.',
+                author: 'Carla W.',
+                business: 'Bloom &amp; Co. Boutique',
+                town: 'Revelstoke',
+                color: '#a78bfa',
+                emoji: '🛍️',
+              },
+            ].map((t, i) => (
+              <Bounce key={t.author} delay={i * 0.12}>
+                <div
+                  className="p-8 rounded-3xl h-full"
+                  style={{
+                    border: `3px solid ${t.color}`,
+                    boxShadow: `0 4px 20px ${t.color}18`,
+                  }}
+                >
+                  <div className="text-3xl mb-4">{t.emoji}</div>
+                  <div className="flex gap-1 mb-4">
+                    {Array.from({ length: 5 }).map((_, j) => (
+                      <span key={j} style={{ color: '#ffe66d' }}>★</span>
+                    ))}
+                  </div>
+                  <blockquote className="text-sm leading-relaxed mb-5" style={{ color: '#555' }}>
+                    &ldquo;{t.quote}&rdquo;
+                  </blockquote>
+                  <p className="font-extrabold text-sm" style={{ color: t.color }}>
+                    &mdash; <span dangerouslySetInnerHTML={{ __html: t.author }} />, {t.town}
+                  </p>
+                  <p className="text-xs mt-1" style={{ color: '#ccc' }}>{t.business}</p>
+                </div>
+              </Bounce>
+            ))}
+          </div>
+          <Bounce delay={0.3}>
+            <p className="text-center text-xs mt-8" style={{ color: '#ccc' }}>
+              (Sample reviews &mdash; your real reviews go here)
+            </p>
+          </Bounce>
+        </div>
+      </section>
+
+      {/* ═══════════ 9. FAQ ═══════════ */}
+      <section className="relative py-20 md:py-28 px-6 overflow-hidden" style={{ background: 'linear-gradient(135deg, #fff5f5 0%, #f0fffe 100%)' }}>
+        <Blob2 className="absolute -bottom-10 -right-10 w-48 h-48 opacity-8" color="#a78bfa" />
+        <div className="max-w-3xl mx-auto">
+          <Bounce>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-4" style={{ color: '#333' }}>
+              Got Questions? 🙋
+            </h2>
+            <p className="text-center mb-12" style={{ color: '#999' }}>
+              Here are the ones we hear most often
+            </p>
+          </Bounce>
+
+          <Bounce delay={0.1}>
+            <div>
+              {faqItems.map((item) => (
+                <FAQItem key={item.question} question={item.question} answer={item.answer} accentColor={item.color} />
+              ))}
+            </div>
+          </Bounce>
+        </div>
+      </section>
+
+      {/* ═══════════ 10. ABOUT ═══════════ */}
+      <section id="about" className="relative py-20 md:py-28 px-6 overflow-hidden" style={{ backgroundColor: '#fff' }}>
         <Blob className="absolute -bottom-16 -right-16 w-48 h-48 opacity-8" color="#ff6b6b" />
         <div className="max-w-3xl mx-auto text-center">
           <Bounce>
@@ -354,8 +661,8 @@ export default function BrightPlayfulDemo() {
         </div>
       </section>
 
-      {/* ═══════════ 8. CONTACT ═══════════ */}
-      <section id="contact" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#fff' }}>
+      {/* ═══════════ 11. CONTACT ═══════════ */}
+      <section id="contact" className="py-20 md:py-28 px-6" style={{ background: 'linear-gradient(135deg, #fffbeb 0%, #f0fffe 100%)' }}>
         <div className="max-w-6xl mx-auto">
           <Bounce>
             <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-12" style={{ color: '#333' }}>
@@ -376,7 +683,7 @@ export default function BrightPlayfulDemo() {
                 </div>
                 <div>
                   <h3 className="font-extrabold mb-1" style={{ color: '#a78bfa' }}>Location</h3>
-                  <p style={{ color: '#666' }}>456 Pine Avenue, Castlegar, BC</p>
+                  <p style={{ color: '#666' }}>123 Sample Ave, Castlegar, BC</p>
                 </div>
                 <div className="confetti-parent">
                   {confettiDots.map((dot, i) => (
@@ -450,7 +757,7 @@ export default function BrightPlayfulDemo() {
         </div>
       </section>
 
-      {/* ═══════════ 9. FOOTER ═══════════ */}
+      {/* ═══════════ 12. FOOTER ═══════════ */}
       <footer className="py-14 px-6" style={{ backgroundColor: '#333' }}>
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-3 gap-10 mb-10">
@@ -479,7 +786,7 @@ export default function BrightPlayfulDemo() {
             <div>
               <h4 className="text-sm font-extrabold text-white mb-3">Info</h4>
               <p className="text-sm text-white/50 mb-1">Mon&ndash;Fri 7:30 AM &ndash; 5:30 PM</p>
-              <p className="text-sm text-white/50 mb-1">456 Pine Avenue, Castlegar, BC</p>
+              <p className="text-sm text-white/50 mb-1">123 Sample Ave, Castlegar, BC</p>
               <p className="text-sm text-white/50">(250) 555-0162</p>
             </div>
           </div>
@@ -495,22 +802,27 @@ export default function BrightPlayfulDemo() {
       <div
         className="fixed bottom-0 left-0 right-0 z-50 px-4 py-3"
         style={{
-          backgroundColor: 'rgba(255,255,255,0.92)',
+          backgroundColor: 'rgba(255,255,255,0.95)',
           backdropFilter: 'blur(12px)',
           WebkitBackdropFilter: 'blur(12px)',
           borderTop: '3px solid #4ecdc4',
         }}
       >
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
-          <span className="text-sm text-center sm:text-left" style={{ color: '#666' }}>
-            This is a sample design by <strong style={{ color: '#333' }}>Kootenay Made Digital</strong>
-          </span>
+          <div className="flex items-center gap-4">
+            <span className="text-sm text-center sm:text-left" style={{ color: '#666' }}>
+              This is a sample design by <strong style={{ color: '#333' }}>Kootenay Made Digital</strong>
+            </span>
+            <a href="tel:2505550000" className="hidden sm:inline text-sm font-extrabold" style={{ color: '#ff6b6b' }}>
+              (250) 555-0000
+            </a>
+          </div>
           <Link
             href="/contact?style=bright-playful"
             className="inline-block px-6 py-2.5 text-sm font-extrabold rounded-3xl transition-all hover:scale-105 whitespace-nowrap text-white"
             style={{ backgroundColor: '#ff6b6b' }}
           >
-            Get This Style &rarr;
+            Get Your Free Mockup &rarr;
           </Link>
         </div>
       </div>

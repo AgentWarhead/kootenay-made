@@ -3,7 +3,7 @@
 import { Caveat, Lato } from 'next/font/google'
 import Link from 'next/link'
 import Image from 'next/image'
-import { useRef } from 'react'
+import { useRef, useState, useCallback } from 'react'
 import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion'
 
 const accent = Caveat({
@@ -36,13 +36,7 @@ function Reveal({ children, className = '', delay = 0 }: { children: React.React
 function WavyUnderline({ color = '#4a7c59' }: { color?: string }) {
   return (
     <svg className="w-full h-3 mt-1" viewBox="0 0 200 8" preserveAspectRatio="none">
-      <path
-        d="M0 4 Q10 0 20 4 Q30 8 40 4 Q50 0 60 4 Q70 8 80 4 Q90 0 100 4 Q110 8 120 4 Q130 0 140 4 Q150 8 160 4 Q170 0 180 4 Q190 8 200 4"
-        fill="none"
-        stroke={color}
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
+      <path d="M0 4 Q10 0 20 4 Q30 8 40 4 Q50 0 60 4 Q70 8 80 4 Q90 0 100 4 Q110 8 120 4 Q130 0 140 4 Q150 8 160 4 Q170 0 180 4 Q190 8 200 4" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" />
     </svg>
   )
 }
@@ -50,27 +44,93 @@ function WavyUnderline({ color = '#4a7c59' }: { color?: string }) {
 /* ── Leaf corner decoration ── */
 function LeafCorner({ className = '', flip = false }: { className?: string; flip?: boolean }) {
   return (
-    <svg
-      className={className}
-      width="60"
-      height="60"
-      viewBox="0 0 60 60"
-      fill="none"
-      style={{ transform: flip ? 'scaleX(-1)' : undefined }}
-    >
-      <path
-        d="M5 55 C5 30, 15 10, 55 5 C40 15, 25 30, 20 55"
-        fill="rgba(74,124,89,0.08)"
-        stroke="rgba(74,124,89,0.2)"
-        strokeWidth="1"
-      />
-      <path
-        d="M10 50 C10 35, 18 20, 45 12"
-        fill="none"
-        stroke="rgba(74,124,89,0.15)"
-        strokeWidth="0.8"
-      />
+    <svg className={className} width="60" height="60" viewBox="0 0 60 60" fill="none" style={{ transform: flip ? 'scaleX(-1)' : undefined }}>
+      <path d="M5 55 C5 30, 15 10, 55 5 C40 15, 25 30, 20 55" fill="rgba(74,124,89,0.08)" stroke="rgba(74,124,89,0.2)" strokeWidth="1" />
+      <path d="M10 50 C10 35, 18 20, 45 12" fill="none" stroke="rgba(74,124,89,0.15)" strokeWidth="0.8" />
     </svg>
+  )
+}
+
+/* ── Before/After Slider ── */
+function BeforeAfterSlider() {
+  const [pos, setPos] = useState(50)
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  const handleMove = useCallback((clientX: number) => {
+    const el = containerRef.current
+    if (!el) return
+    const rect = el.getBoundingClientRect()
+    const pct = Math.min(100, Math.max(0, ((clientX - rect.left) / rect.width) * 100))
+    setPos(pct)
+  }, [])
+
+  return (
+    <div
+      ref={containerRef}
+      className="relative w-full max-w-3xl mx-auto overflow-hidden select-none cursor-ew-resize rounded-lg"
+      style={{ aspectRatio: '16/9', border: '2px solid rgba(74,124,89,0.4)' }}
+      onMouseMove={(e) => handleMove(e.clientX)}
+      onTouchMove={(e) => handleMove(e.touches[0].clientX)}
+    >
+      {/* AFTER */}
+      <div className="absolute inset-0 flex items-center justify-center" style={{ backgroundColor: '#fefcf3' }}>
+        <div className="text-center px-8">
+          <div className={`${accent.className} text-3xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>Valley Roots Farm</div>
+          <div className="text-sm uppercase tracking-widest mb-3" style={{ color: '#6b4226', opacity: 0.7 }}>Castlegar, BC — Certified Organic</div>
+          <div className="text-base mb-4" style={{ color: '#6b4226' }}>CSA Boxes · Fresh Produce · Online Orders · Farm Stand</div>
+          <div className="inline-block px-6 py-2 text-sm font-bold uppercase tracking-wider rounded-full" style={{ backgroundColor: '#4a7c59', color: '#fefcf3' }}>Shop the Harvest</div>
+        </div>
+        <div className="absolute top-3 right-3 px-3 py-1 text-xs font-bold uppercase tracking-widest rounded-full" style={{ backgroundColor: '#4a7c59', color: '#fefcf3' }}>AFTER</div>
+      </div>
+
+      {/* BEFORE */}
+      <div
+        className="absolute inset-0 flex items-center justify-center overflow-hidden"
+        style={{ backgroundColor: '#d5d0c4', clipPath: `inset(0 ${100 - pos}% 0 0)` }}
+      >
+        <div className="text-center px-8">
+          <div className="text-2xl md:text-4xl font-bold mb-3" style={{ color: '#888' }}>Smith Family Farm</div>
+          <div className="text-sm mb-4" style={{ color: '#999' }}>Open weekends. Call ahead.</div>
+          <div className="text-base" style={{ color: '#aaa' }}>Vegetables & Fruit Available</div>
+          <div className="mt-4 inline-block px-6 py-2 text-sm rounded-full" style={{ backgroundColor: '#bbb', color: '#666' }}>Find Us</div>
+        </div>
+        <div className="absolute top-3 left-3 px-3 py-1 text-xs font-bold uppercase tracking-widest rounded-full" style={{ backgroundColor: '#aaa', color: '#555' }}>BEFORE</div>
+      </div>
+
+      {/* Handle */}
+      <div className="absolute top-0 bottom-0 w-0.5 z-10" style={{ left: `${pos}%`, backgroundColor: '#4a7c59', transform: 'translateX(-50%)' }}>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center"
+          style={{ backgroundColor: '#4a7c59', boxShadow: '0 0 16px rgba(74,124,89,0.5)' }}>
+          <span className="text-white text-xs font-bold">◀▶</span>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+/* ── FAQ Accordion ── */
+function FAQAccordion({ items }: { items: { q: string; a: string }[] }) {
+  const [open, setOpen] = useState<number | null>(null)
+  return (
+    <div className="space-y-3">
+      {items.map((item, i) => (
+        <div key={i} className="rounded-lg overflow-hidden" style={{ border: '1px solid rgba(74,124,89,0.2)', backgroundColor: '#ffffff' }}>
+          <button
+            className="w-full flex items-center justify-between px-6 py-5 text-left transition-colors"
+            onClick={() => setOpen(open === i ? null : i)}
+            style={{ color: open === i ? '#4a7c59' : '#3d2e1f' }}
+          >
+            <span className={`${accent.className} text-xl md:text-2xl`}>{item.q}</span>
+            <span className="text-xl ml-4 flex-shrink-0" style={{ color: '#4a7c59' }}>{open === i ? '−' : '+'}</span>
+          </button>
+          {open === i && (
+            <div className="px-6 pb-5" style={{ color: '#6b4226', borderTop: '1px solid rgba(74,124,89,0.15)' }}>
+              <p className="leading-relaxed pt-4">{item.a}</p>
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
   )
 }
 
@@ -80,7 +140,6 @@ function LeafCorner({ className = '', flip = false }: { className?: string; flip
 export default function FarmHarvestDemo() {
   const prefersReduced = useReducedMotion()
 
-  /* Growing vine scroll animation */
   const vineRef = useRef(null)
   const { scrollYProgress } = useScroll({
     target: vineRef,
@@ -91,7 +150,6 @@ export default function FarmHarvestDemo() {
   return (
     <div className={body.className} style={{ fontFamily: 'Lato, sans-serif', backgroundColor: '#fefcf3', color: '#3d2e1f' }}>
 
-      {/* ── prefers-reduced-motion ── */}
       <style>{`
         @media (prefers-reduced-motion: reduce) {
           *, *::before, *::after {
@@ -105,125 +163,52 @@ export default function FarmHarvestDemo() {
       {/* ═══════════ 1. NAV ═══════════ */}
       <nav style={{ backgroundColor: '#fefcf3', borderBottom: '1px solid rgba(74,124,89,0.2)' }} className="px-6 py-5 sticky top-0 z-40">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <span className={`${accent.className} text-2xl md:text-3xl`} style={{ color: '#4a7c59' }}>
-            Valley Roots Farm
-          </span>
+          <span className={`${accent.className} text-2xl md:text-3xl`} style={{ color: '#4a7c59' }}>Valley Roots Farm</span>
           <div className="hidden md:flex items-center gap-8">
             {['Shop', 'Our Farm', 'Gallery', 'Contact'].map((link) => (
-              <a
-                key={link}
-                href={`#${link.toLowerCase().replace(' ', '-')}`}
+              <a key={link} href={`#${link.toLowerCase().replace(' ', '-')}`}
                 className="text-sm tracking-wide transition-colors"
                 style={{ color: '#6b4226' }}
                 onMouseEnter={(e) => (e.currentTarget.style.color = '#4a7c59')}
                 onMouseLeave={(e) => (e.currentTarget.style.color = '#6b4226')}
-              >
-                {link}
-              </a>
+              >{link}</a>
             ))}
-            <a
-              href="tel:2505550167"
-              className="text-sm font-bold"
-              style={{ color: '#4a7c59' }}
-            >
-              (250) 555-0167
-            </a>
+            <a href="tel:2505550167" className="text-sm font-bold" style={{ color: '#4a7c59' }}>(250) 555-0167</a>
           </div>
-          <a href="tel:2505550167" className="md:hidden text-sm font-bold" style={{ color: '#4a7c59' }}>
-            (250) 555-0167
-          </a>
+          <a href="tel:2505550167" className="md:hidden text-sm font-bold" style={{ color: '#4a7c59' }}>(250) 555-0167</a>
         </div>
       </nav>
 
-      {/* ── Growing vine border (left side) ── */}
+      {/* ── Growing vine border ── */}
       <div ref={vineRef} className="relative">
-        <motion.svg
-          className="fixed left-0 top-0 h-screen w-8 z-30 hidden lg:block pointer-events-none"
-          viewBox="0 0 30 800"
-          preserveAspectRatio="none"
-          fill="none"
-        >
-          <motion.path
-            d="M15 0 C20 50, 8 100, 15 150 C22 200, 5 250, 15 300 C25 350, 8 400, 15 450 C22 500, 5 550, 15 600 C25 650, 8 700, 15 800"
-            stroke="#4a7c59"
-            strokeWidth="2"
-            fill="none"
-            strokeLinecap="round"
-            style={{ pathLength: prefersReduced ? 1 : vineLength, opacity: 0.25 }}
-          />
-          {/* Leaves along the vine */}
-          <motion.path
-            d="M15 120 C20 110, 28 115, 25 125 C22 135, 15 130, 15 120Z"
-            fill="rgba(74,124,89,0.2)"
-            style={{ opacity: prefersReduced ? 1 : vineLength }}
-          />
-          <motion.path
-            d="M15 300 C10 290, 2 295, 5 305 C8 315, 15 310, 15 300Z"
-            fill="rgba(74,124,89,0.2)"
-            style={{ opacity: prefersReduced ? 1 : vineLength }}
-          />
-          <motion.path
-            d="M15 500 C20 490, 28 495, 25 505 C22 515, 15 510, 15 500Z"
-            fill="rgba(74,124,89,0.2)"
-            style={{ opacity: prefersReduced ? 1 : vineLength }}
-          />
-          <motion.path
-            d="M15 680 C10 670, 2 675, 5 685 C8 695, 15 690, 15 680Z"
-            fill="rgba(74,124,89,0.2)"
-            style={{ opacity: prefersReduced ? 1 : vineLength }}
-          />
+        <motion.svg className="fixed left-0 top-0 h-screen w-8 z-30 hidden lg:block pointer-events-none" viewBox="0 0 30 800" preserveAspectRatio="none" fill="none">
+          <motion.path d="M15 0 C20 50, 8 100, 15 150 C22 200, 5 250, 15 300 C25 350, 8 400, 15 450 C22 500, 5 550, 15 600 C25 650, 8 700, 15 800" stroke="#4a7c59" strokeWidth="2" fill="none" strokeLinecap="round" style={{ pathLength: prefersReduced ? 1 : vineLength, opacity: 0.25 }} />
+          <motion.path d="M15 120 C20 110, 28 115, 25 125 C22 135, 15 130, 15 120Z" fill="rgba(74,124,89,0.2)" style={{ opacity: prefersReduced ? 1 : vineLength }} />
+          <motion.path d="M15 300 C10 290, 2 295, 5 305 C8 315, 15 310, 15 300Z" fill="rgba(74,124,89,0.2)" style={{ opacity: prefersReduced ? 1 : vineLength }} />
+          <motion.path d="M15 500 C20 490, 28 495, 25 505 C22 515, 15 510, 15 500Z" fill="rgba(74,124,89,0.2)" style={{ opacity: prefersReduced ? 1 : vineLength }} />
+          <motion.path d="M15 680 C10 670, 2 675, 5 685 C8 695, 15 690, 15 680Z" fill="rgba(74,124,89,0.2)" style={{ opacity: prefersReduced ? 1 : vineLength }} />
         </motion.svg>
 
       {/* ═══════════ 2. HERO ═══════════ */}
       <section className="relative overflow-hidden min-h-screen flex items-center">
-        {/* Background image */}
         <div className="absolute inset-0">
-          <Image
-            src="/images/demos/farm-hero.webp"
-            alt="Valley Roots Farm — fields and harvest in the Kootenays"
-            fill
-            className="object-cover"
-            priority
-            sizes="100vw"
-          />
+          <Image src="/images/demos/farm-hero.webp" alt="Valley Roots Farm — fields and harvest in the Kootenays" fill className="object-cover" priority sizes="100vw" />
         </div>
-        {/* Light overlay */}
         <div className="absolute inset-0 bg-black/45" />
-
         <div className="relative max-w-4xl mx-auto text-center px-6 py-32 md:py-44 w-full">
-          <motion.p
-            className="text-sm uppercase tracking-[0.3em] mb-6"
-            style={{ color: 'rgba(255,255,255,0.8)' }}
-            initial={prefersReduced ? {} : { opacity: 0, y: 20 }}
-            animate={prefersReduced ? {} : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-          >
+          <motion.p className="text-sm uppercase tracking-[0.3em] mb-6" style={{ color: 'rgba(255,255,255,0.8)' }}
+            initial={prefersReduced ? {} : { opacity: 0, y: 20 }} animate={prefersReduced ? {} : { opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}>
             Grown with love in the Kootenays
           </motion.p>
-          <motion.h1
-            className={`${accent.className} text-5xl md:text-7xl lg:text-8xl leading-tight mb-8`}
-            style={{ color: '#ffffff', textShadow: '0 2px 20px rgba(0,0,0,0.5)' }}
-            initial={prefersReduced ? {} : { opacity: 0, y: 30 }}
-            animate={prefersReduced ? {} : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-          >
+          <motion.h1 className={`${accent.className} text-5xl md:text-7xl lg:text-8xl leading-tight mb-8`} style={{ color: '#ffffff', textShadow: '0 2px 20px rgba(0,0,0,0.5)' }}
+            initial={prefersReduced ? {} : { opacity: 0, y: 30 }} animate={prefersReduced ? {} : { opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.3 }}>
             Valley Roots Farm
           </motion.h1>
-          <motion.div
-            initial={prefersReduced ? {} : { opacity: 0, y: 20 }}
-            animate={prefersReduced ? {} : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-          >
-            <a
-              href="#shop"
-              className="inline-block px-10 py-4 text-sm font-bold uppercase tracking-widest transition-all rounded-full"
-              style={{
-                backgroundColor: '#4a7c59',
-                color: '#fefcf3',
-              }}
+          <motion.div initial={prefersReduced ? {} : { opacity: 0, y: 20 }} animate={prefersReduced ? {} : { opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.6 }}>
+            <a href="#shop" className="inline-block px-10 py-4 text-sm font-bold uppercase tracking-widest transition-all rounded-full"
+              style={{ backgroundColor: '#4a7c59', color: '#fefcf3' }}
               onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#3d6a4b')}
-              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#4a7c59')}
-            >
+              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#4a7c59')}>
               Shop the Harvest
             </a>
           </motion.div>
@@ -233,10 +218,7 @@ export default function FarmHarvestDemo() {
       {/* ═══════════ 3. TRUST BAR ═══════════ */}
       <div style={{ backgroundColor: '#4a7c59' }} className="py-5 px-6">
         <div className="max-w-5xl mx-auto flex flex-wrap justify-center items-center gap-6 md:gap-10 text-sm" style={{ color: '#fefcf3' }}>
-          <span className="flex items-center gap-2">
-            <span style={{ color: '#e8a838' }}>&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-            <span className="font-bold">4.9 Rating</span>
-          </span>
+          <span className="flex items-center gap-2"><span style={{ color: '#e8a838' }}>&#9733;&#9733;&#9733;&#9733;&#9733;</span><span className="font-bold">4.9 Rating</span></span>
           <span style={{ color: 'rgba(254,252,243,0.3)' }}>&#183;</span>
           <span>Certified Organic</span>
           <span style={{ color: 'rgba(254,252,243,0.3)' }} className="hidden md:inline">&#183;</span>
@@ -250,51 +232,38 @@ export default function FarmHarvestDemo() {
       <section id="shop" className="relative py-20 md:py-28 px-6" style={{ backgroundColor: '#fefcf3' }}>
         <LeafCorner className="absolute top-4 left-4 opacity-60" />
         <LeafCorner className="absolute top-4 right-4 opacity-60" flip />
-
         <div className="max-w-5xl mx-auto">
           <Reveal>
-            <div className="text-center mb-16">
-              <h2 className={`${accent.className} text-3xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>
-                What We Can Do For You
-              </h2>
-              <div className="max-w-xs mx-auto">
-                <WavyUnderline color="#4a7c59" />
-              </div>
+            <div className="text-center mb-8">
+              <h2 className={`${accent.className} text-3xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>What We Can Do For You</h2>
+              <div className="max-w-xs mx-auto"><WavyUnderline color="#4a7c59" /></div>
+            </div>
+          </Reveal>
+
+          {/* PAS Copy */}
+          <Reveal delay={0.1}>
+            <div className="max-w-2xl mx-auto mb-14 p-6 rounded-lg" style={{ backgroundColor: '#f5f0e3', border: '2px solid rgba(74,124,89,0.2)', borderLeft: '4px solid #4a7c59' }}>
+              <p className="text-lg leading-relaxed text-center" style={{ color: '#6b4226' }}>
+                The farm stand down the highway has an online store. Yours runs on word of mouth. They&apos;re selling CSA boxes while you&apos;re still posting signs at the road. Let&apos;s get your harvest in front of the people looking to buy it.
+              </p>
             </div>
           </Reveal>
 
           <div className="grid md:grid-cols-3 gap-8">
             {[
-              {
-                title: 'Online Store',
-                desc: 'Sell your harvest. CSA boxes, fresh produce, local delivery.',
-              },
-              {
-                title: 'Email Marketing',
-                desc: "Keep regulars updated on what's in season.",
-              },
-              {
-                title: 'Social Media',
-                desc: 'Share your fields, your family, your story.',
-              },
+              { title: 'Online Store', price: 'From $3,000', desc: 'Sell your harvest online. CSA boxes, fresh produce, gift packs, local delivery — your store never closes.' },
+              { title: 'Email Marketing', price: 'From $750', desc: "Keep your regulars updated on what's in season, what's coming to the stand, and what's on special." },
+              { title: 'Website & Brand', price: 'From $1,500', desc: 'Tell your family story. Show your farm. Make customers feel connected before they even visit.' },
             ].map((card, i) => (
               <Reveal key={card.title} delay={i * 0.15}>
-                <div
-                  className="p-8 text-center transition-all cursor-default rounded-lg"
-                  style={{
-                    backgroundColor: '#ffffff',
-                    border: '1px solid rgba(74,124,89,0.15)',
-                    boxShadow: '0 2px 16px rgba(74,124,89,0.06)',
-                  }}
+                <div className="p-8 text-center transition-all cursor-default rounded-lg"
+                  style={{ backgroundColor: '#ffffff', border: '1px solid rgba(74,124,89,0.15)', boxShadow: '0 2px 16px rgba(74,124,89,0.06)' }}
                   onMouseEnter={(e) => (e.currentTarget.style.boxShadow = '0 8px 32px rgba(74,124,89,0.12)')}
                   onMouseLeave={(e) => (e.currentTarget.style.boxShadow = '0 2px 16px rgba(74,124,89,0.06)')}
                 >
-                  <h3 className={`${accent.className} text-2xl md:text-3xl mb-3`} style={{ color: '#4a7c59' }}>
-                    {card.title}
-                  </h3>
-                  <p className="leading-relaxed" style={{ color: '#6b4226' }}>
-                    {card.desc}
-                  </p>
+                  <h3 className={`${accent.className} text-2xl md:text-3xl mb-1`} style={{ color: '#4a7c59' }}>{card.title}</h3>
+                  <p className="text-sm font-bold mb-3 uppercase tracking-wider" style={{ color: 'rgba(74,124,89,0.7)' }}>{card.price}</p>
+                  <p className="leading-relaxed" style={{ color: '#6b4226' }}>{card.desc}</p>
                 </div>
               </Reveal>
             ))}
@@ -302,44 +271,59 @@ export default function FarmHarvestDemo() {
         </div>
       </section>
 
-      {/* ═══════════ 5. GALLERY / SHOWCASE ═══════════ */}
-      <section id="gallery" className="relative py-20 md:py-28 px-6" style={{ backgroundColor: '#f5f0e3' }}>
-        <LeafCorner className="absolute bottom-4 right-4 opacity-60 rotate-180" />
+      {/* ═══════════ 5. HOW IT WORKS ═══════════ */}
+      <section className="relative py-20 md:py-28 px-6" style={{ backgroundColor: '#f5f0e3' }}>
+        <LeafCorner className="absolute bottom-4 left-4 opacity-40 rotate-180" />
+        <div className="max-w-5xl mx-auto">
+          <Reveal>
+            <div className="text-center mb-16">
+              <h2 className={`${accent.className} text-3xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>How It Works</h2>
+              <div className="max-w-xs mx-auto"><WavyUnderline color="#4a7c59" /></div>
+            </div>
+          </Reveal>
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              { num: '01', title: 'We Talk', desc: 'Free consultation over the phone or at the farm. You tell us your story, your customers, your seasons. We listen.' },
+              { num: '02', title: 'We Build', desc: 'Your website or online store built in 2–3 weeks. CSA sign-up, product listings, your farm story — all of it.' },
+              { num: '03', title: 'You Grow', desc: 'Customers find you online, join your CSA, place orders from home. You focus on farming. We handle the digital.' },
+            ].map((step, i) => (
+              <Reveal key={step.num} delay={i * 0.2}>
+                <div className="text-center p-8 rounded-lg" style={{ backgroundColor: '#ffffff', border: '1px solid rgba(74,124,89,0.15)' }}>
+                  <div className={`${accent.className} text-5xl mb-4`} style={{ color: '#4a7c59' }}>{step.num}</div>
+                  <div className="w-12 h-0.5 mx-auto mb-5" style={{ backgroundColor: '#4a7c59', opacity: 0.4 }} />
+                  <h3 className={`${accent.className} text-2xl mb-3`} style={{ color: '#3d2e1f' }}>{step.title}</h3>
+                  <p className="leading-relaxed text-sm" style={{ color: '#6b4226' }}>{step.desc}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
 
+      {/* ═══════════ 6. GALLERY / SHOWCASE ═══════════ */}
+      <section id="gallery" className="relative py-20 md:py-28 px-6" style={{ backgroundColor: '#fefcf3' }}>
+        <LeafCorner className="absolute bottom-4 right-4 opacity-60 rotate-180" />
         <div className="max-w-6xl mx-auto">
           <Reveal>
             <div className="text-center mb-12">
-              <h2 className={`${accent.className} text-3xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>
-                From Our Farm
-              </h2>
-              <div className="max-w-xs mx-auto">
-                <WavyUnderline color="#4a7c59" />
-              </div>
+              <h2 className={`${accent.className} text-3xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>From Our Farm</h2>
+              <div className="max-w-xs mx-auto"><WavyUnderline color="#4a7c59" /></div>
             </div>
           </Reveal>
-
           <Reveal delay={0.1}>
             <div className="flex justify-center mb-10">
               <div className="overflow-hidden w-full max-w-3xl rounded-lg" style={{ border: '2px solid rgba(74,124,89,0.2)' }}>
-                <Image
-                  src="/images/demos/farm-harvest-showcase.webp"
-                  alt="Valley Roots Farm — fresh harvest showcase"
-                  width={800}
-                  height={450}
-                  className="w-full h-auto block"
-                  style={{ objectFit: 'cover' }}
-                />
+                <Image src="/images/demos/farm-harvest-showcase.webp" alt="Valley Roots Farm — fresh harvest showcase" width={800} height={450} className="w-full h-auto block" style={{ objectFit: 'cover' }} />
               </div>
             </div>
           </Reveal>
-
           <div className="grid grid-cols-3 gap-4 md:gap-6">
             {['Summer Harvest', 'Berry Season', 'Farm Stand'].map((label, i) => (
               <Reveal key={label} delay={0.15 + i * 0.1}>
-                <div className='relative aspect-[4/3] rounded-xl overflow-hidden'>
-                  <Image src={`/images/demos/gallery/fh-${i + 1}.webp`} alt={label} fill className='object-cover' />
-                  <div className='absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-3'>
-                    <span className='text-white text-sm font-medium'>{label}</span>
+                <div className="relative aspect-[4/3] rounded-xl overflow-hidden">
+                  <Image src={`/images/demos/gallery/fh-${i + 1}.webp`} alt={label} fill className="object-cover" />
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-3">
+                    <span className="text-white text-sm font-medium">{label}</span>
                   </div>
                 </div>
               </Reveal>
@@ -348,36 +332,102 @@ export default function FarmHarvestDemo() {
         </div>
       </section>
 
-      {/* ═══════════ 6. TESTIMONIAL ═══════════ */}
-      <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#fefcf3' }}>
-        <div className="max-w-3xl mx-auto text-center">
+      {/* ═══════════ 7. BEFORE / AFTER ═══════════ */}
+      <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#f5f0e3' }}>
+        <div className="max-w-5xl mx-auto">
           <Reveal>
-            <div className="mb-6 text-2xl" style={{ color: '#e8a838' }}>
-              &#9733;&#9733;&#9733;&#9733;&#9733;
+            <div className="text-center mb-4">
+              <h2 className={`${accent.className} text-3xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>The Transformation</h2>
+              <div className="max-w-xs mx-auto"><WavyUnderline color="#4a7c59" /></div>
             </div>
-            <blockquote className={`${accent.className} text-2xl md:text-4xl leading-relaxed mb-6`} style={{ color: '#3d2e1f' }}>
-              &ldquo;Valley Roots delivers the freshest produce every week. Supporting them feels like supporting family.&rdquo;
-            </blockquote>
-            <p className="text-sm uppercase tracking-widest font-bold" style={{ color: '#4a7c59' }}>
-              &mdash; Karen L., Castlegar
-            </p>
-            <p className="mt-4 text-xs" style={{ color: 'rgba(61,46,31,0.4)' }}>
-              (Sample review &mdash; your real reviews go here)
+            <p className="text-center mb-12 text-sm uppercase tracking-widest" style={{ color: 'rgba(61,46,31,0.5)' }}>Drag to compare — before vs. after a Kootenay Made Digital build</p>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <BeforeAfterSlider />
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ═══════════ 8. TESTIMONIALS (3) ═══════════ */}
+      <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#fefcf3' }}>
+        <div className="max-w-6xl mx-auto">
+          <Reveal>
+            <div className="text-center mb-16">
+              <h2 className={`${accent.className} text-3xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>What Farmers Say</h2>
+              <div className="max-w-xs mx-auto"><WavyUnderline color="#4a7c59" /></div>
+            </div>
+          </Reveal>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                quote: "We launched our online CSA sign-up in March. By April we had more members than the entire previous season. Word of mouth is great but a website is better.",
+                name: 'Claire D.',
+                biz: "Driftwood Organics — Creston, BC",
+              },
+              {
+                quote: "People used to drive past us to the farm stand they found on Google. Now we're the one they find first. Our berry season pre-orders sold out in a week.",
+                name: 'Tom & Mary F.',
+                biz: "Kootenay Berry Farm — Nakusp, BC",
+              },
+              {
+                quote: "The online store paid for itself in two weekends. I can take orders while I'm in the field. My kids think I'm a genius. They don't need to know it was Kootenay Made.",
+                name: 'Paul O.',
+                biz: "Orchard Lane Farm — Kaslo, BC",
+              },
+            ].map((t, i) => (
+              <Reveal key={i} delay={i * 0.15}>
+                <div className="p-8 h-full flex flex-col rounded-lg" style={{ backgroundColor: '#ffffff', border: '1px solid rgba(74,124,89,0.15)', boxShadow: '0 2px 16px rgba(74,124,89,0.06)' }}>
+                  <div className="flex gap-1 mb-5 justify-center text-xl" style={{ color: '#e8a838' }}>
+                    &#9733;&#9733;&#9733;&#9733;&#9733;
+                  </div>
+                  <blockquote className={`${accent.className} flex-1 text-xl md:text-2xl leading-relaxed mb-6 text-center`} style={{ color: '#3d2e1f' }}>
+                    &ldquo;{t.quote}&rdquo;
+                  </blockquote>
+                  <div className="text-center">
+                    <p className="font-bold text-sm uppercase tracking-widest" style={{ color: '#4a7c59' }}>{t.name}</p>
+                    <p className="text-xs mt-1" style={{ color: 'rgba(61,46,31,0.5)' }}>{t.biz}</p>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+          <Reveal delay={0.3}>
+            <p className="mt-8 text-center text-xs italic" style={{ color: 'rgba(61,46,31,0.35)' }}>
+              (Sample reviews — your real reviews go here)
             </p>
           </Reveal>
         </div>
       </section>
 
-      {/* ═══════════ 7. ABOUT ═══════════ */}
-      <section id="our-farm" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#f5f0e3' }}>
+      {/* ═══════════ 9. FAQ ═══════════ */}
+      <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#f5f0e3' }}>
+        <div className="max-w-4xl mx-auto">
+          <Reveal>
+            <div className="text-center mb-12">
+              <h2 className={`${accent.className} text-3xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>Common Questions</h2>
+              <div className="max-w-xs mx-auto"><WavyUnderline color="#4a7c59" /></div>
+            </div>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <FAQAccordion items={[
+              { q: 'How long does a website take?', a: 'Most farm sites are live in 2–3 weeks. We have templates built for farm stands, CSA operations, and orchard stores that we can customize fast.' },
+              { q: 'What if my inventory changes every week?', a: 'We build on platforms you can update yourself in minutes — add a new product, mark something sold out, post a harvest update. No technical skills needed.' },
+              { q: 'Can I take online orders and CSA sign-ups?', a: 'Yes. A Shopify store starts at $3,000 and handles CSA subscriptions, one-time orders, local pickup, and delivery. Your farm stand runs 24/7 online.' },
+              { q: 'What does it cost?', a: 'A simple farm website starts at $1,500. An online store from $3,000. Email marketing from $750. Book a free consultation for a firm quote.' },
+              { q: 'Do I need to provide photos and copy?', a: 'We help with both. If you have photos of your farm and fields, great — we\'ll use them. If not, we can help with stock imagery that tells your story authentically.' },
+              { q: 'Can I update seasonal hours and what\'s available?', a: 'Absolutely. You\'ll be able to update hours, add seasonal products, and post harvest news any time — from your phone, from the field.' },
+            ]} />
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ═══════════ 10. ABOUT ═══════════ */}
+      <section id="our-farm" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#fefcf3' }}>
         <div className="max-w-3xl mx-auto text-center">
           <Reveal>
-            <h2 className={`${accent.className} text-3xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>
-              Our Story
-            </h2>
-            <div className="max-w-xs mx-auto mb-10">
-              <WavyUnderline color="#4a7c59" />
-            </div>
+            <h2 className={`${accent.className} text-3xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>Our Story</h2>
+            <div className="max-w-xs mx-auto mb-10"><WavyUnderline color="#4a7c59" /></div>
           </Reveal>
           <Reveal delay={0.15}>
             <p className="text-lg leading-relaxed" style={{ color: '#6b4226' }}>
@@ -387,97 +437,56 @@ export default function FarmHarvestDemo() {
         </div>
       </section>
 
-      {/* ═══════════ 8. CONTACT ═══════════ */}
-      <section id="contact" className="relative py-20 md:py-28 px-6" style={{ backgroundColor: '#fefcf3' }}>
+      {/* ═══════════ 11. CONTACT ═══════════ */}
+      <section id="contact" className="relative py-20 md:py-28 px-6" style={{ backgroundColor: '#f5f0e3' }}>
         <LeafCorner className="absolute top-4 right-4 opacity-60" flip />
-
         <div className="max-w-6xl mx-auto">
           <Reveal>
             <div className="text-center mb-16">
-              <h2 className={`${accent.className} text-3xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>
-                Get In Touch
-              </h2>
-              <div className="max-w-xs mx-auto">
-                <WavyUnderline color="#4a7c59" />
-              </div>
+              <h2 className={`${accent.className} text-3xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>Get In Touch</h2>
+              <div className="max-w-xs mx-auto"><WavyUnderline color="#4a7c59" /></div>
             </div>
           </Reveal>
 
           <div className="grid md:grid-cols-2 gap-12 md:gap-16">
-            {/* Contact info */}
             <Reveal>
               <div className="space-y-6">
-                <div>
-                  <h3 className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#4a7c59' }}>Phone</h3>
-                  <p style={{ color: '#6b4226' }}>(250) 555-0167</p>
-                </div>
-                <div>
-                  <h3 className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#4a7c59' }}>Email</h3>
-                  <p style={{ color: '#6b4226' }}>hello@valleyrootsfarm.ca</p>
-                </div>
-                <div>
-                  <h3 className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#4a7c59' }}>Farm Stand Hours</h3>
-                  <p style={{ color: '#6b4226' }}>Saturdays 9:00 AM &ndash; 1:00 PM</p>
-                </div>
-                <div>
-                  <h3 className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#4a7c59' }}>Location</h3>
-                  <p style={{ color: '#6b4226' }}>Castlegar, BC</p>
-                </div>
-                <a
-                  href="tel:2505550167"
-                  className="inline-block px-8 py-3.5 text-sm font-bold uppercase tracking-widest transition-all mt-4 rounded-full"
+                <div><h3 className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#4a7c59' }}>Phone</h3><p style={{ color: '#6b4226' }}>(250) 555-0167</p></div>
+                <div><h3 className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#4a7c59' }}>Email</h3><p style={{ color: '#6b4226' }}>hello@valleyrootsfarm.ca</p></div>
+                <div><h3 className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#4a7c59' }}>Farm Stand Hours</h3><p style={{ color: '#6b4226' }}>Saturdays 9:00 AM &ndash; 1:00 PM</p></div>
+                <div><h3 className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#4a7c59' }}>Location</h3><p style={{ color: '#6b4226' }}>Castlegar, BC</p></div>
+                <a href="tel:2505550167" className="inline-block px-8 py-3.5 text-sm font-bold uppercase tracking-widest transition-all mt-4 rounded-full"
                   style={{ backgroundColor: '#4a7c59', color: '#fefcf3' }}
                   onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#3d6a4b')}
-                  onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#4a7c59')}
-                >
+                  onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#4a7c59')}>
                   Call Us
                 </a>
               </div>
             </Reveal>
-
-            {/* Contact form */}
             <Reveal delay={0.15}>
               <form onSubmit={(e) => e.preventDefault()} className="space-y-5">
                 <div>
                   <label className="block text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#4a7c59' }}>Name</label>
-                  <input
-                    type="text"
-                    placeholder="Your name"
-                    className="w-full px-4 py-3 text-sm outline-none transition-all rounded-lg"
+                  <input type="text" placeholder="Your name" className="w-full px-4 py-3 text-sm outline-none transition-all rounded-lg"
                     style={{ backgroundColor: '#ffffff', border: '1px solid rgba(74,124,89,0.2)', color: '#3d2e1f' }}
-                    onFocus={(e) => (e.currentTarget.style.borderColor = '#4a7c59')}
-                    onBlur={(e) => (e.currentTarget.style.borderColor = 'rgba(74,124,89,0.2)')}
-                  />
+                    onFocus={(e) => (e.currentTarget.style.borderColor = '#4a7c59')} onBlur={(e) => (e.currentTarget.style.borderColor = 'rgba(74,124,89,0.2)')} />
                 </div>
                 <div>
                   <label className="block text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#4a7c59' }}>Email</label>
-                  <input
-                    type="email"
-                    placeholder="you@example.com"
-                    className="w-full px-4 py-3 text-sm outline-none transition-all rounded-lg"
+                  <input type="email" placeholder="you@example.com" className="w-full px-4 py-3 text-sm outline-none transition-all rounded-lg"
                     style={{ backgroundColor: '#ffffff', border: '1px solid rgba(74,124,89,0.2)', color: '#3d2e1f' }}
-                    onFocus={(e) => (e.currentTarget.style.borderColor = '#4a7c59')}
-                    onBlur={(e) => (e.currentTarget.style.borderColor = 'rgba(74,124,89,0.2)')}
-                  />
+                    onFocus={(e) => (e.currentTarget.style.borderColor = '#4a7c59')} onBlur={(e) => (e.currentTarget.style.borderColor = 'rgba(74,124,89,0.2)')} />
                 </div>
                 <div>
                   <label className="block text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#4a7c59' }}>Message</label>
-                  <textarea
-                    rows={4}
-                    placeholder="CSA sign-up, bulk orders, farm visits..."
-                    className="w-full px-4 py-3 text-sm outline-none transition-all resize-none rounded-lg"
+                  <textarea rows={4} placeholder="CSA sign-up, bulk orders, farm visits..." className="w-full px-4 py-3 text-sm outline-none transition-all resize-none rounded-lg"
                     style={{ backgroundColor: '#ffffff', border: '1px solid rgba(74,124,89,0.2)', color: '#3d2e1f' }}
-                    onFocus={(e) => (e.currentTarget.style.borderColor = '#4a7c59')}
-                    onBlur={(e) => (e.currentTarget.style.borderColor = 'rgba(74,124,89,0.2)')}
-                  />
+                    onFocus={(e) => (e.currentTarget.style.borderColor = '#4a7c59')} onBlur={(e) => (e.currentTarget.style.borderColor = 'rgba(74,124,89,0.2)')} />
                 </div>
-                <button
-                  type="submit"
-                  className="w-full px-8 py-3.5 text-sm font-bold uppercase tracking-widest transition-all rounded-full"
+                <button type="submit" className="w-full px-8 py-3.5 text-sm font-bold uppercase tracking-widest transition-all rounded-full"
                   style={{ backgroundColor: '#4a7c59', color: '#fefcf3' }}
                   onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#3d6a4b')}
-                  onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#4a7c59')}
-                >
+                  onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#4a7c59')}>
                   Send Message
                 </button>
               </form>
@@ -486,32 +495,20 @@ export default function FarmHarvestDemo() {
         </div>
       </section>
 
-      {/* ═══════════ 9. FOOTER ═══════════ */}
+      {/* ═══════════ 12. FOOTER ═══════════ */}
       <footer className="py-14 px-6" style={{ backgroundColor: '#4a7c59' }}>
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-3 gap-10 mb-10">
             <div>
-              <h3 className={`${accent.className} text-2xl mb-3`} style={{ color: '#fefcf3' }}>
-                Valley Roots Farm
-              </h3>
-              <p className="text-sm" style={{ color: 'rgba(254,252,243,0.6)' }}>
-                Grown with love in the Kootenays since 1994.
-              </p>
+              <h3 className={`${accent.className} text-2xl mb-3`} style={{ color: '#fefcf3' }}>Valley Roots Farm</h3>
+              <p className="text-sm" style={{ color: 'rgba(254,252,243,0.6)' }}>Grown with love in the Kootenays since 1994.</p>
             </div>
             <div>
               <h4 className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: '#e8a838' }}>Quick Links</h4>
               <div className="flex flex-col gap-2">
                 {['Shop', 'Our Farm', 'Gallery', 'Contact'].map((link) => (
-                  <a
-                    key={link}
-                    href={`#${link.toLowerCase().replace(' ', '-')}`}
-                    className="text-sm transition-colors"
-                    style={{ color: 'rgba(254,252,243,0.6)' }}
-                    onMouseEnter={(e) => (e.currentTarget.style.color = '#fefcf3')}
-                    onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(254,252,243,0.6)')}
-                  >
-                    {link}
-                  </a>
+                  <a key={link} href={`#${link.toLowerCase().replace(' ', '-')}`} className="text-sm transition-colors" style={{ color: 'rgba(254,252,243,0.6)' }}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = '#fefcf3')} onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(254,252,243,0.6)')}>{link}</a>
                 ))}
               </div>
             </div>
@@ -523,40 +520,28 @@ export default function FarmHarvestDemo() {
             </div>
           </div>
           <div style={{ borderTop: '1px solid rgba(254,252,243,0.15)' }} className="pt-6 text-center">
-            <span className="text-sm" style={{ color: 'rgba(254,252,243,0.4)' }}>
-              &copy; 2025 Valley Roots Farm. All rights reserved.
-            </span>
+            <span className="text-sm" style={{ color: 'rgba(254,252,243,0.4)' }}>&copy; 2025 Valley Roots Farm. All rights reserved.</span>
           </div>
         </div>
       </footer>
 
       {/* ═══════════ STICKY BOTTOM BAR ═══════════ */}
-      <div
-        className="fixed bottom-0 left-0 right-0 z-50 px-4 py-3"
-        style={{
-          backgroundColor: 'rgba(254,252,243,0.92)',
-          backdropFilter: 'blur(12px)',
-          WebkitBackdropFilter: 'blur(12px)',
-          borderTop: '2px solid #4a7c59',
-        }}
-      >
+      <div className="fixed bottom-0 left-0 right-0 z-50 px-4 py-3"
+        style={{ backgroundColor: 'rgba(254,252,243,0.92)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', borderTop: '2px solid #4a7c59' }}>
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
           <span className="text-sm text-center sm:text-left" style={{ color: '#6b4226' }}>
             This is a sample design by <strong style={{ color: '#3d2e1f' }}>Kootenay Made Digital</strong>
           </span>
-          <Link
-            href="/contact?style=farm-harvest"
+          <Link href="/contact?style=farm-harvest"
             className="inline-block px-6 py-2.5 text-sm font-bold uppercase tracking-wider transition-all whitespace-nowrap rounded-full"
             style={{ backgroundColor: '#4a7c59', color: '#fefcf3' }}
             onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#3d6a4b')}
-            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#4a7c59')}
-          >
-            Get This Style &rarr;
+            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#4a7c59')}>
+            GET YOUR FREE MOCKUP &rarr;
           </Link>
         </div>
       </div>
 
-      {/* Bottom spacer */}
       <div className="h-16" />
 
       </div>{/* end vine ref wrapper */}

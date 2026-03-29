@@ -1,7 +1,9 @@
 'use client'
 
+import { useState } from 'react'
 import { Bitter, Lato } from 'next/font/google'
 import Image from 'next/image'
+import Link from 'next/link'
 import { motion, useReducedMotion } from 'framer-motion'
 
 const bitter = Bitter({
@@ -120,15 +122,82 @@ function FadeUp({
   )
 }
 
+/* ── FAQ Accordion ───────────────────────────────────────────── */
+function FAQItem({ question, answer }: { question: string; answer: string }) {
+  const [open, setOpen] = useState(false)
+  const prefersReduced = useReducedMotion()
+  return (
+    <div
+      className="relative overflow-hidden"
+      style={{
+        borderBottom: `1px solid ${DARK_BROWN}22`,
+        backgroundColor: PARCHMENT,
+      }}
+    >
+      <button
+        className="w-full text-left py-5 px-6 flex items-center justify-between gap-4"
+        onClick={() => setOpen(!open)}
+        aria-expanded={open}
+      >
+        <span className="text-sm font-bold" style={{ color: DARK_BROWN }}>{question}</span>
+        <span
+          className="flex-shrink-0 w-7 h-7 flex items-center justify-center font-bold text-base rounded-full flex-shrink-0"
+          style={{
+            backgroundColor: open ? AMBER : `${AMBER}22`,
+            color: open ? DARK_BROWN : AMBER,
+            transition: prefersReduced ? 'none' : 'all 0.3s ease',
+          }}
+        >
+          {open ? '−' : '+'}
+        </span>
+      </button>
+      <div
+        style={{
+          maxHeight: open ? '400px' : '0',
+          overflow: 'hidden',
+          transition: prefersReduced ? 'none' : 'max-height 0.4s ease',
+        }}
+      >
+        <p className="pb-5 px-6 text-sm leading-relaxed" style={{ color: `${DARK_BROWN}bb` }}>
+          {answer}
+        </p>
+      </div>
+    </div>
+  )
+}
+
 /* ═══════════════════════════════════════════════════════════════ */
 /*  MAIN PAGE                                                     */
 /* ═══════════════════════════════════════════════════════════════ */
 export default function RusticCraftDemo() {
+  const faqItems = [
+    {
+      question: 'How long does a website take to build?',
+      answer: 'Most craft brewery and artisan business websites are done in 2–3 weeks. We\'ll keep you in the loop at every step.',
+    },
+    {
+      question: 'Can I sell online or list a seasonal menu?',
+      answer: 'Absolutely. We can set up an online store (Shopify starts from $3,000) or a dynamic menu you update yourself — great for rotating taps or seasonal offerings.',
+    },
+    {
+      question: 'What if I already have a website?',
+      answer: 'We\'ll review what you have and offer a redesign or a full rebuild — whatever makes sense. You won\'t be charged for what you don\'t need.',
+    },
+    {
+      question: 'Do I need to provide photos or content?',
+      answer: 'We help with both. If you have photos, great — we\'ll work with them. If not, we can guide you on what to shoot or write the copy ourselves.',
+    },
+    {
+      question: 'What does it cost?',
+      answer: 'A custom website starts from $1,500, a full brand build from $4,000, and a Shopify store from $3,000. Book a free consultation and we\'ll give you a clear quote.',
+    },
+  ]
+
   return (
     <div className={lato.className}>
       {/* ── 1. NAV ────────────────────────────────────────────── */}
       <nav
-        className="relative px-6 py-4"
+        className="relative px-6 py-4 sticky top-0 z-40"
         style={{ backgroundColor: DARK_BROWN }}
       >
         <GrainOverlay />
@@ -172,7 +241,6 @@ export default function RusticCraftDemo() {
       >
         <GrainOverlay />
 
-        {/* Decorative radial glow */}
         <div
           className="absolute inset-0 opacity-30"
           style={{
@@ -233,7 +301,7 @@ export default function RusticCraftDemo() {
         </div>
       </section>
 
-      {/* ── 4. SERVICES ───────────────────────────────────────── */}
+      {/* ── 4. SERVICES — with PAS intro ──────────────────────── */}
       <section
         id="our-beers"
         className="relative py-20 md:py-28 px-6 overflow-hidden"
@@ -241,7 +309,7 @@ export default function RusticCraftDemo() {
       >
         <GrainOverlay />
         <div className="relative z-10 max-w-6xl mx-auto">
-          <StampIn className="text-center mb-16">
+          <StampIn className="text-center mb-8">
             <h2
               className={`${bitter.className} text-3xl md:text-5xl font-bold mb-2`}
               style={{ color: DARK_BROWN }}
@@ -251,19 +319,34 @@ export default function RusticCraftDemo() {
             <WavyUnderline />
           </StampIn>
 
+          {/* PAS copy */}
+          <FadeUp delay={0.1} className="mb-16">
+            <p
+              className="text-center text-base md:text-lg leading-relaxed max-w-2xl mx-auto italic"
+              style={{ color: `${DARK_BROWN}99` }}
+            >
+              Your craft is exceptional — but nobody finds you online. They find the brewery with the
+              Instagram-worthy website and the Google listing. You&rsquo;re one good website away from being
+              the one they find first.
+            </p>
+          </FadeUp>
+
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
                 title: 'Custom Website',
-                desc: 'A rugged, handcrafted website that captures your brewery\u2019s character and story.',
+                price: 'From $1,500',
+                desc: 'A rugged, handcrafted website that captures your brewery\'s character and story.',
               },
               {
-                title: 'Brand Identity',
+                title: 'Full Brand Build',
+                price: 'From $4,000',
                 desc: 'Logo, colours, the works. Look as established as your oldest barrel.',
               },
               {
-                title: 'Social Media',
-                desc: 'Show off your taproom, your brews, and your vibe. Build a following that visits.',
+                title: 'Shopify Store',
+                price: 'From $3,000',
+                desc: 'Sell merch, growlers, and gift cards online. Your taproom, open 24/7.',
               },
             ].map((card, i) => (
               <FadeUp key={card.title} delay={i * 0.15}>
@@ -275,7 +358,6 @@ export default function RusticCraftDemo() {
                     boxShadow: `inset 0 0 0 1px ${AMBER}55, inset 2px 2px 8px rgba(0,0,0,0.3)`,
                   }}
                 >
-                  {/* Woodgrain texture */}
                   <div
                     className="absolute inset-0 pointer-events-none opacity-40"
                     aria-hidden="true"
@@ -283,11 +365,14 @@ export default function RusticCraftDemo() {
                   />
                   <div className="relative z-10">
                     <h3
-                      className={`${bitter.className} text-xl font-bold mb-4`}
+                      className={`${bitter.className} text-xl font-bold mb-1`}
                       style={{ color: AMBER }}
                     >
                       {card.title}
                     </h3>
+                    <p className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: `${AMBER}77` }}>
+                      {card.price}
+                    </p>
                     <p
                       className="leading-relaxed text-sm"
                       style={{ color: `${PARCHMENT}cc` }}
@@ -302,7 +387,75 @@ export default function RusticCraftDemo() {
         </div>
       </section>
 
-      {/* ── 5. GALLERY / ON TAP ───────────────────────────────── */}
+      {/* ── 5. HOW IT WORKS ───────────────────────────────────── */}
+      <section
+        className="relative py-20 md:py-28 px-6 overflow-hidden"
+        style={{ backgroundColor: DARK_BROWN }}
+      >
+        <GrainOverlay />
+        <div className="relative z-10 max-w-4xl mx-auto">
+          <StampIn className="text-center mb-16">
+            <h2
+              className={`${bitter.className} text-3xl md:text-5xl font-bold`}
+              style={{ color: PARCHMENT }}
+            >
+              How It Works
+            </h2>
+            <WavyUnderline />
+          </StampIn>
+
+          <div className="grid md:grid-cols-3 gap-10 md:gap-8 relative">
+            <div
+              className="hidden md:block absolute top-10 left-[calc(16.66%+2rem)] right-[calc(16.66%+2rem)] h-px"
+              style={{ backgroundColor: `${AMBER}33` }}
+            />
+            {[
+              {
+                step: '01',
+                title: 'We Talk',
+                desc: 'A free consultation over a pint or a call. Tell us about your brewery, your vibe, and your goals.',
+              },
+              {
+                step: '02',
+                title: 'We Build',
+                desc: 'We design and build your site in about 2 weeks — handcrafted to match the character of your brand.',
+              },
+              {
+                step: '03',
+                title: 'You Grow',
+                desc: 'Launch, get found on Google, and start turning searches into tap room visits and online orders.',
+              },
+            ].map((item, i) => (
+              <FadeUp key={item.step} delay={i * 0.15}>
+                <div className="flex flex-col items-center text-center">
+                  <div
+                    className="w-20 h-20 rounded-full flex items-center justify-center mb-6 relative z-10"
+                    style={{
+                      backgroundColor: DARK_BROWN,
+                      border: `3px solid ${AMBER}`,
+                    }}
+                  >
+                    <span className={`${bitter.className} text-xl font-bold`} style={{ color: AMBER }}>
+                      {item.step}
+                    </span>
+                  </div>
+                  <h3
+                    className={`${bitter.className} text-xl font-bold mb-3`}
+                    style={{ color: PARCHMENT }}
+                  >
+                    {item.title}
+                  </h3>
+                  <p className="text-sm leading-relaxed" style={{ color: `${PARCHMENT}88` }}>
+                    {item.desc}
+                  </p>
+                </div>
+              </FadeUp>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── 6. GALLERY / ON TAP ───────────────────────────────── */}
       <section
         className="relative py-20 md:py-28 px-6 overflow-hidden"
         style={{ backgroundColor: DARK_BROWN }}
@@ -319,7 +472,6 @@ export default function RusticCraftDemo() {
             <WavyUnderline />
           </StampIn>
 
-          {/* Showcase image */}
           <FadeUp className="mb-14">
             <div
               className="relative mx-auto max-w-3xl rounded-sm overflow-hidden"
@@ -336,7 +488,6 @@ export default function RusticCraftDemo() {
             </div>
           </FadeUp>
 
-          {/* Beer label placeholders */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {[
               'Kootenay Pale Ale',
@@ -357,51 +508,217 @@ export default function RusticCraftDemo() {
         </div>
       </section>
 
-      {/* ── 6. TESTIMONIAL ────────────────────────────────────── */}
+      {/* ── 7. BEFORE / AFTER ─────────────────────────────────── */}
       <section
         className="relative py-20 md:py-28 px-6 overflow-hidden"
         style={{ backgroundColor: PARCHMENT }}
       >
         <GrainOverlay />
-        <div className="relative z-10 max-w-3xl mx-auto text-center">
-          <StampIn>
-            {/* Quote marks */}
-            <div
-              className={`${bitter.className} text-7xl md:text-8xl leading-none mb-4 select-none`}
-              style={{ color: AMBER }}
-              aria-hidden="true"
-            >
-              &ldquo;
-            </div>
-
-            <blockquote
-              className="text-xl md:text-2xl leading-relaxed mb-6 italic"
+        <div className="relative z-10 max-w-5xl mx-auto">
+          <StampIn className="text-center mb-4">
+            <h2
+              className={`${bitter.className} text-3xl md:text-5xl font-bold`}
               style={{ color: DARK_BROWN }}
             >
-              Best brewery in the Kootenays. The atmosphere is incredible
-              and the beer speaks for itself. A must-visit.
-            </blockquote>
-
-            {/* Stars */}
-            <div className="text-xl mb-4" style={{ color: AMBER }} aria-label="5 out of 5 stars">
-              ★★★★★
-            </div>
-
-            <cite
-              className="not-italic font-bold text-sm block mb-4"
-              style={{ color: DARK_BROWN }}
-            >
-              — James &amp; Amy S., Rossland
-            </cite>
-
-            <p className="text-xs italic" style={{ color: `${DARK_BROWN}88` }}>
-              (Sample review — your real reviews go here)
-            </p>
+              The Difference a Website Makes
+            </h2>
+            <WavyUnderline />
           </StampIn>
+          <FadeUp className="mb-12" delay={0.1}>
+            <p className="text-center text-sm italic" style={{ color: `${DARK_BROWN}88` }}>
+              First impressions happen online — make yours count
+            </p>
+          </FadeUp>
+
+          <FadeUp delay={0.15}>
+            <div
+              className="flex flex-col md:flex-row rounded-sm overflow-hidden"
+              style={{ border: `3px solid ${AMBER}`, minHeight: 280 }}
+            >
+              {/* Before */}
+              <div
+                className="flex-1 flex flex-col items-center justify-center py-14 px-8 relative"
+                style={{ backgroundColor: '#d9ccbb' }}
+              >
+                <span
+                  className="absolute top-4 left-5 text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-sm"
+                  style={{ backgroundColor: 'rgba(0,0,0,0.12)', color: '#888' }}
+                >
+                  Before
+                </span>
+                <div
+                  className="w-full max-w-xs rounded-sm flex items-center justify-center"
+                  style={{
+                    height: 140,
+                    background: 'repeating-linear-gradient(135deg, #c8b89a 0px, #c8b89a 1px, transparent 1px, transparent 14px)',
+                    border: '1px dashed #bbb',
+                  }}
+                >
+                  <div className="text-center px-4">
+                    <p className="text-xs uppercase tracking-widest font-bold mb-2" style={{ color: '#999' }}>Mountain Craft Brewery</p>
+                    <p className="text-xs" style={{ color: '#aaa' }}>No photos. No tap list. Just a phone number.</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Divider */}
+              <div className="relative flex-shrink-0 flex items-center justify-center z-10 md:w-0">
+                <div className="hidden md:block absolute inset-y-0 left-1/2 -translate-x-1/2 w-0.5" style={{ backgroundColor: AMBER }} />
+                <div className="md:hidden w-full h-0.5" style={{ backgroundColor: AMBER }} />
+                <div
+                  className="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm shadow-md z-20 absolute"
+                  style={{ backgroundColor: DARK_BROWN, border: `2.5px solid ${AMBER}`, color: AMBER }}
+                >
+                  ↔
+                </div>
+              </div>
+
+              {/* After */}
+              <div
+                className="flex-1 flex flex-col items-center justify-center py-14 px-8 relative"
+                style={{ backgroundColor: DARK_BROWN }}
+              >
+                <span
+                  className="absolute top-4 right-5 text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-sm"
+                  style={{ backgroundColor: `${AMBER}33`, color: AMBER }}
+                >
+                  After
+                </span>
+                <div
+                  className="w-full max-w-xs rounded-sm flex items-center justify-center relative overflow-hidden"
+                  style={{
+                    height: 140,
+                    border: `2px solid ${AMBER}`,
+                  }}
+                >
+                  <div
+                    className="absolute inset-0 pointer-events-none opacity-40"
+                    style={{ backgroundImage: WOODGRAIN }}
+                  />
+                  <div className="relative z-10 text-center px-4">
+                    <p className={`${bitter.className} text-sm font-bold mb-2`} style={{ color: AMBER }}>Kootenay Brewing Collective</p>
+                    <p className="text-xs italic" style={{ color: `${PARCHMENT}99` }}>Craft, character, and a tap list they can&rsquo;t resist.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p className="text-center text-xs mt-4 italic" style={{ color: `${DARK_BROWN}77` }}>
+              Interactive demo — your site will showcase your unique brews and story
+            </p>
+          </FadeUp>
         </div>
       </section>
 
-      {/* ── 7. ABOUT ──────────────────────────────────────────── */}
+      {/* ── 8. TESTIMONIALS (3) ───────────────────────────────── */}
+      <section
+        className="relative py-20 md:py-28 px-6 overflow-hidden"
+        style={{ backgroundColor: DARK_BROWN }}
+      >
+        <GrainOverlay />
+        <div className="relative z-10 max-w-5xl mx-auto">
+          <StampIn className="text-center mb-16">
+            <h2
+              className={`${bitter.className} text-3xl md:text-5xl font-bold`}
+              style={{ color: PARCHMENT }}
+            >
+              What Clients Say
+            </h2>
+            <WavyUnderline />
+          </StampIn>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                quote: 'Our taproom visits went up 40% after the new site. People said they found us on Google and loved what they saw before they even walked in.',
+                author: 'Shane M.',
+                business: 'Fernie Ridge Brewing',
+                town: 'Fernie',
+              },
+              {
+                quote: 'We finally have a site that looks as good as our bread tastes. Orders started coming through the contact form the first week.',
+                author: 'Lena K.',
+                business: 'Summit Sourdough',
+                town: 'Golden',
+              },
+              {
+                quote: 'The online store paid for itself in three months. Locals love ordering our sauces and jams for gifts. Couldn\'t believe how easy it was.',
+                author: 'Darcy &amp; Paul H.',
+                business: 'Nakusp Provisions',
+                town: 'Nakusp',
+              },
+            ].map((t, i) => (
+              <FadeUp key={t.author} delay={i * 0.15}>
+                <div
+                  className="relative rounded-sm p-8 h-full overflow-hidden"
+                  style={{
+                    backgroundColor: `${DARK_BROWN}cc`,
+                    border: `2px solid ${AMBER}44`,
+                  }}
+                >
+                  <div
+                    className="absolute inset-0 pointer-events-none opacity-30"
+                    style={{ backgroundImage: WOODGRAIN }}
+                  />
+                  <div className="relative z-10">
+                    <div className="text-xl mb-4" style={{ color: AMBER }} aria-label="5 out of 5 stars">★★★★★</div>
+                    <div
+                      className={`${bitter.className} text-4xl leading-none mb-3 select-none`}
+                      style={{ color: AMBER, opacity: 0.5 }}
+                      aria-hidden="true"
+                    >
+                      &ldquo;
+                    </div>
+                    <blockquote className="text-sm leading-relaxed mb-5 italic" style={{ color: `${PARCHMENT}cc` }}>
+                      {t.quote}
+                    </blockquote>
+                    <cite className="not-italic font-bold text-xs block" style={{ color: AMBER }}>
+                      — {t.author}, {t.town}
+                    </cite>
+                    <p className="text-xs mt-1" style={{ color: `${PARCHMENT}55` }}>{t.business}</p>
+                  </div>
+                </div>
+              </FadeUp>
+            ))}
+          </div>
+          <FadeUp delay={0.3}>
+            <p className="text-center text-xs mt-8 italic" style={{ color: `${PARCHMENT}44` }}>
+              (Sample reviews — your real reviews go here)
+            </p>
+          </FadeUp>
+        </div>
+      </section>
+
+      {/* ── 9. FAQ ────────────────────────────────────────────── */}
+      <section
+        className="relative py-20 md:py-28 px-6 overflow-hidden"
+        style={{ backgroundColor: PARCHMENT }}
+      >
+        <GrainOverlay />
+        <div className="relative z-10 max-w-3xl mx-auto">
+          <StampIn className="text-center mb-16">
+            <h2
+              className={`${bitter.className} text-3xl md:text-5xl font-bold`}
+              style={{ color: DARK_BROWN }}
+            >
+              Common Questions
+            </h2>
+            <WavyUnderline />
+          </StampIn>
+
+          <FadeUp delay={0.1}>
+            <div
+              className="rounded-sm overflow-hidden"
+              style={{ border: `2px solid ${DARK_BROWN}22` }}
+            >
+              {faqItems.map((item) => (
+                <FAQItem key={item.question} question={item.question} answer={item.answer} />
+              ))}
+            </div>
+          </FadeUp>
+        </div>
+      </section>
+
+      {/* ── 10. ABOUT ─────────────────────────────────────────── */}
       <section
         id="about"
         className="relative py-20 md:py-28 px-6 overflow-hidden"
@@ -444,7 +761,7 @@ export default function RusticCraftDemo() {
         </div>
       </section>
 
-      {/* ── 8. CONTACT ────────────────────────────────────────── */}
+      {/* ── 11. CONTACT ───────────────────────────────────────── */}
       <section
         id="taproom"
         className="relative py-20 md:py-28 px-6 overflow-hidden"
@@ -463,54 +780,28 @@ export default function RusticCraftDemo() {
           </StampIn>
 
           <div className="grid md:grid-cols-2 gap-12">
-            {/* Left — Info & Map */}
             <FadeUp>
               <div className="space-y-6">
                 <div>
-                  <h3
-                    className={`${bitter.className} font-bold text-lg mb-2`}
-                    style={{ color: DARK_BROWN }}
-                  >
-                    Phone
-                  </h3>
+                  <h3 className={`${bitter.className} font-bold text-lg mb-2`} style={{ color: DARK_BROWN }}>Phone</h3>
                   <p style={{ color: DARK_BROWN }}>
                     <a href="tel:2505550195" className="hover:underline">(250) 555-0195</a>
                   </p>
                 </div>
                 <div>
-                  <h3
-                    className={`${bitter.className} font-bold text-lg mb-2`}
-                    style={{ color: DARK_BROWN }}
-                  >
-                    Address
-                  </h3>
-                  <p style={{ color: DARK_BROWN }}>789 Riverside Dr, Trail, BC</p>
+                  <h3 className={`${bitter.className} font-bold text-lg mb-2`} style={{ color: DARK_BROWN }}>Address</h3>
+                  <p style={{ color: DARK_BROWN }}>123 Sample Dr, Trail, BC</p>
                 </div>
                 <div>
-                  <h3
-                    className={`${bitter.className} font-bold text-lg mb-2`}
-                    style={{ color: DARK_BROWN }}
-                  >
-                    Hours
-                  </h3>
-                  <p style={{ color: DARK_BROWN }}>
-                    Sun–Thu: 12–9 PM<br />
-                    Fri–Sat: 12–11 PM
-                  </p>
+                  <h3 className={`${bitter.className} font-bold text-lg mb-2`} style={{ color: DARK_BROWN }}>Hours</h3>
+                  <p style={{ color: DARK_BROWN }}>Sun–Thu: 12–9 PM<br />Fri–Sat: 12–11 PM</p>
                 </div>
 
-                {/* Map placeholder */}
                 <div
                   className="rounded-sm h-48 flex items-center justify-center"
-                  style={{
-                    backgroundColor: `${DARK_BROWN}11`,
-                    border: `2px dashed ${DARK_BROWN}33`,
-                  }}
+                  style={{ backgroundColor: `${DARK_BROWN}11`, border: `2px dashed ${DARK_BROWN}33` }}
                 >
-                  <span
-                    className="text-sm font-bold uppercase tracking-widest"
-                    style={{ color: `${DARK_BROWN}66` }}
-                  >
+                  <span className="text-sm font-bold uppercase tracking-widest" style={{ color: `${DARK_BROWN}66` }}>
                     Taproom Map
                   </span>
                 </div>
@@ -520,103 +811,57 @@ export default function RusticCraftDemo() {
                   className="inline-block px-8 py-3.5 font-bold text-sm uppercase tracking-widest transition-all hover:brightness-110"
                   style={{ backgroundColor: AMBER, color: DARK_BROWN, borderRadius: '2px' }}
                 >
-                  Visit the Taproom
+                  Get Your Free Mockup
                 </a>
               </div>
             </FadeUp>
 
-            {/* Right — Contact Form */}
             <FadeUp delay={0.15}>
               <form
                 id="contact"
                 className="rounded-sm p-8 space-y-5"
-                style={{
-                  backgroundColor: `${PARCHMENT}`,
-                  border: `2px solid ${DARK_BROWN}33`,
-                  boxShadow: `inset 0 2px 6px rgba(61,43,31,0.08)`,
-                }}
+                style={{ backgroundColor: PARCHMENT, border: `2px solid ${DARK_BROWN}33`, boxShadow: `inset 0 2px 6px rgba(61,43,31,0.08)` }}
                 onSubmit={(e) => e.preventDefault()}
               >
-                <h3
-                  className={`${bitter.className} text-xl font-bold mb-2`}
-                  style={{ color: DARK_BROWN }}
-                >
+                <h3 className={`${bitter.className} text-xl font-bold mb-2`} style={{ color: DARK_BROWN }}>
                   Send Us a Message
                 </h3>
-
                 <div>
-                  <label
-                    className="block text-sm font-bold mb-1"
-                    style={{ color: DARK_BROWN }}
-                    htmlFor="rc-name"
-                  >
-                    Name
-                  </label>
+                  <label className="block text-sm font-bold mb-1" style={{ color: DARK_BROWN }} htmlFor="rc-name">Name</label>
                   <input
                     id="rc-name"
                     type="text"
-                    className="w-full px-4 py-2.5 rounded-sm text-sm outline-none transition-colors focus:ring-2"
-                    style={{
-                      backgroundColor: '#fff',
-                      border: `1.5px solid ${DARK_BROWN}44`,
-                      color: DARK_BROWN,
-                    }}
+                    className="w-full px-4 py-2.5 rounded-sm text-sm outline-none transition-colors"
+                    style={{ backgroundColor: '#fff', border: `1.5px solid ${DARK_BROWN}44`, color: DARK_BROWN }}
                     onFocus={(e) => (e.currentTarget.style.borderColor = AMBER)}
                     onBlur={(e) => (e.currentTarget.style.borderColor = `${DARK_BROWN}44`)}
                     placeholder="Your name"
                   />
                 </div>
-
                 <div>
-                  <label
-                    className="block text-sm font-bold mb-1"
-                    style={{ color: DARK_BROWN }}
-                    htmlFor="rc-email"
-                  >
-                    Email
-                  </label>
+                  <label className="block text-sm font-bold mb-1" style={{ color: DARK_BROWN }} htmlFor="rc-email">Email</label>
                   <input
                     id="rc-email"
                     type="email"
-                    className="w-full px-4 py-2.5 rounded-sm text-sm outline-none transition-colors focus:ring-2"
-                    style={{
-                      backgroundColor: '#fff',
-                      border: `1.5px solid ${DARK_BROWN}44`,
-                      color: DARK_BROWN,
-                    }}
+                    className="w-full px-4 py-2.5 rounded-sm text-sm outline-none transition-colors"
+                    style={{ backgroundColor: '#fff', border: `1.5px solid ${DARK_BROWN}44`, color: DARK_BROWN }}
                     placeholder="your@email.com"
                   />
                 </div>
-
                 <div>
-                  <label
-                    className="block text-sm font-bold mb-1"
-                    style={{ color: DARK_BROWN }}
-                    htmlFor="rc-message"
-                  >
-                    Message
-                  </label>
+                  <label className="block text-sm font-bold mb-1" style={{ color: DARK_BROWN }} htmlFor="rc-message">Message</label>
                   <textarea
                     id="rc-message"
                     rows={4}
-                    className="w-full px-4 py-2.5 rounded-sm text-sm outline-none resize-none transition-colors focus:ring-2"
-                    style={{
-                      backgroundColor: '#fff',
-                      border: `1.5px solid ${DARK_BROWN}44`,
-                      color: DARK_BROWN,
-                    }}
+                    className="w-full px-4 py-2.5 rounded-sm text-sm outline-none resize-none transition-colors"
+                    style={{ backgroundColor: '#fff', border: `1.5px solid ${DARK_BROWN}44`, color: DARK_BROWN }}
                     placeholder="Tell us what you're looking for..."
                   />
                 </div>
-
                 <button
                   type="submit"
                   className="w-full py-3 font-bold text-sm uppercase tracking-widest transition-all hover:brightness-110"
-                  style={{
-                    backgroundColor: AMBER,
-                    color: DARK_BROWN,
-                    borderRadius: '2px',
-                  }}
+                  style={{ backgroundColor: AMBER, color: DARK_BROWN, borderRadius: '2px' }}
                 >
                   Send Message
                 </button>
@@ -626,7 +871,7 @@ export default function RusticCraftDemo() {
         </div>
       </section>
 
-      {/* ── 9. FOOTER ─────────────────────────────────────────── */}
+      {/* ── 12. FOOTER ────────────────────────────────────────── */}
       <footer
         className="relative py-16 px-6 overflow-hidden"
         style={{ backgroundColor: DARK_BROWN }}
@@ -634,28 +879,16 @@ export default function RusticCraftDemo() {
         <GrainOverlay />
         <div className="relative z-10 max-w-6xl mx-auto">
           <div className="grid md:grid-cols-3 gap-10 mb-12">
-            {/* Col 1 — Brand */}
             <div>
-              <span
-                className={`${bitter.className} text-xl font-bold block mb-3`}
-                style={{ color: PARCHMENT }}
-              >
+              <span className={`${bitter.className} text-xl font-bold block mb-3`} style={{ color: PARCHMENT }}>
                 Kootenay Brewing Collective
               </span>
               <p className="text-sm leading-relaxed" style={{ color: `${PARCHMENT}99` }}>
-                Small batch. Big flavour.<br />
-                Drink Local.
+                Small batch. Big flavour.<br />Drink Local.
               </p>
             </div>
-
-            {/* Col 2 — Links */}
             <div>
-              <h4
-                className={`${bitter.className} font-bold text-sm uppercase tracking-widest mb-4`}
-                style={{ color: AMBER }}
-              >
-                Links
-              </h4>
+              <h4 className={`${bitter.className} font-bold text-sm uppercase tracking-widest mb-4`} style={{ color: AMBER }}>Links</h4>
               <ul className="space-y-2">
                 {['Our Beers', 'About', 'Taproom', 'Contact'].map((link) => (
                   <li key={link}>
@@ -672,29 +905,13 @@ export default function RusticCraftDemo() {
                 ))}
               </ul>
             </div>
-
-            {/* Col 3 — Hours & Address */}
             <div>
-              <h4
-                className={`${bitter.className} font-bold text-sm uppercase tracking-widest mb-4`}
-                style={{ color: AMBER }}
-              >
-                Visit Us
-              </h4>
-              <p className="text-sm leading-relaxed mb-3" style={{ color: `${PARCHMENT}99` }}>
-                789 Riverside Dr, Trail, BC
-              </p>
-              <p className="text-sm leading-relaxed" style={{ color: `${PARCHMENT}99` }}>
-                Sun–Thu: 12–9 PM<br />
-                Fri–Sat: 12–11 PM
-              </p>
+              <h4 className={`${bitter.className} font-bold text-sm uppercase tracking-widest mb-4`} style={{ color: AMBER }}>Visit Us</h4>
+              <p className="text-sm leading-relaxed mb-3" style={{ color: `${PARCHMENT}99` }}>123 Sample Dr, Trail, BC</p>
+              <p className="text-sm leading-relaxed" style={{ color: `${PARCHMENT}99` }}>Sun–Thu: 12–9 PM<br />Fri–Sat: 12–11 PM</p>
             </div>
           </div>
-
-          <div
-            className="border-t pt-8 text-center"
-            style={{ borderColor: `${PARCHMENT}22` }}
-          >
+          <div className="border-t pt-8 text-center" style={{ borderColor: `${PARCHMENT}22` }}>
             <p className="text-xs" style={{ color: `${PARCHMENT}66` }}>
               &copy; 2025 Kootenay Brewing Collective. All rights reserved.
             </p>
@@ -705,29 +922,35 @@ export default function RusticCraftDemo() {
       {/* ── BOTTOM SPACER for sticky bar ──────────────────────── */}
       <div className="h-16" aria-hidden="true" />
 
-      {/* ── 10. STICKY BOTTOM BAR ─────────────────────────────── */}
+      {/* ── 13. STICKY BOTTOM BAR ─────────────────────────────── */}
       <div
         className="fixed bottom-0 inset-x-0 z-50 px-6 py-3"
         style={{
-          backgroundColor: `${DARK_BROWN}dd`,
+          backgroundColor: `${DARK_BROWN}ee`,
           backdropFilter: 'blur(10px)',
           WebkitBackdropFilter: 'blur(10px)',
+          borderTop: `2px solid ${AMBER}55`,
         }}
       >
-        <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <span className="text-xs md:text-sm" style={{ color: `${PARCHMENT}aa` }}>
-            This is a sample design by{' '}
-            <span className="font-bold" style={{ color: PARCHMENT }}>
-              Kootenay Made Digital
+        <div className="max-w-6xl mx-auto flex items-center justify-between gap-3">
+          <div className="flex items-center gap-4">
+            <span className="text-xs md:text-sm" style={{ color: `${PARCHMENT}aa` }}>
+              This is a sample design by{' '}
+              <span className="font-bold" style={{ color: PARCHMENT }}>
+                Kootenay Made Digital
+              </span>
             </span>
-          </span>
-          <a
+            <a href="tel:2505550000" className="hidden sm:inline text-xs font-bold" style={{ color: AMBER }}>
+              (250) 555-0000
+            </a>
+          </div>
+          <Link
             href="/contact?style=rustic-craft"
-            className="text-xs md:text-sm font-bold transition-colors hover:underline"
-            style={{ color: AMBER }}
+            className="text-xs md:text-sm font-bold uppercase tracking-wider transition-all whitespace-nowrap px-5 py-2.5 rounded-sm"
+            style={{ backgroundColor: AMBER, color: DARK_BROWN }}
           >
-            Get This Style &rarr;
-          </a>
+            Get Your Free Mockup &rarr;
+          </Link>
         </div>
       </div>
     </div>
