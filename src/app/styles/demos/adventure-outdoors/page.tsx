@@ -187,12 +187,9 @@ function LiveRedesign() {
                     style={{ color: '#fff' }}
                     initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
                     THE KOOTENAYS DON&rsquo;T WAIT.{' '}
-                    <span className="relative inline-block" style={{ color: orange }}>
+                    <span  style={{ color: orange }}>
                       NEITHER SHOULD YOU.
-                      <motion.svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 12" fill="none">
-                        <motion.path d="M4 8 L30 4 L60 8 L90 3 L120 7 L150 3 L180 7 L196 5" stroke={orange} strokeWidth="2" strokeLinecap="round" fill="none"
-                          initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: dur * 1.5, delay: stagger * 5, ease: 'easeOut' }} />
-                      </motion.svg>
+
                     </span>
                   </motion.h2>
                   <motion.p className={`${body.className} text-sm sm:text-lg max-w-md sm:mx-0 mx-auto mb-6`} style={{ color: 'rgba(255,255,255,0.55)', lineHeight: 1.7 }}

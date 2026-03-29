@@ -174,12 +174,8 @@ function LiveRedesign() {
                     style={{ color: '#3d2e1f' }}
                     initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
                     Farm-Fresh. Delivered to{' '}
-                    <span className="relative inline-block" style={{ color: darkGreen }}>
+                    <span style={{ color: darkGreen }}>
                       Your Door.
-                      <motion.svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 12" fill="none">
-                        <motion.path d="M4 8 Q40 2 80 6 Q120 10 160 5 Q180 3 196 7" stroke={green} strokeWidth="2" strokeLinecap="round" fill="none"
-                          initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: dur * 1.5, delay: stagger * 5, ease: 'easeOut' }} />
-                      </motion.svg>
                     </span>
                   </motion.h2>
                   <motion.p className={`${body.className} text-sm sm:text-lg max-w-md sm:mx-0 mx-auto mb-6`} style={{ color: warmBrown, lineHeight: 1.7 }}

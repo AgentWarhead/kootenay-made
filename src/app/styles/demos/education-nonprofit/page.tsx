@@ -222,11 +222,8 @@ function LiveRedesign() {
 
                   <motion.h2 style={{ fontFamily: "'General Sans', sans-serif", fontWeight: 700, color: EN.navy, lineHeight: 1.15, marginBottom: '1rem' }} className="text-2xl sm:text-4xl md:text-5xl lg:text-5xl sm:max-w-xl" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
                     127 Families Fed Last Month.<br />Yours Could Be Next &mdash;{' '}
-                    <span className="relative inline-block" style={{ color: EN.blue }}>
+                    <span style={{ color: EN.blue }}>
                       To Help.
-                      <motion.svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 100 12" fill="none">
-                        <motion.path d="M2 8 C25 2, 55 3, 80 7 C88 8, 95 5, 98 6" stroke={EN.blue} strokeWidth="2" strokeLinecap="round" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: dur * 1.5, delay: stagger * 5, ease: 'easeOut' }} />
-                      </motion.svg>
                     </span>
                   </motion.h2>
 

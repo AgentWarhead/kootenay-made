@@ -206,12 +206,8 @@ function LiveRedesign() {
                     initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
                     You Carry Enough.<br />Put It Down{' '}
-                    <span className="relative inline-block" style={{ color: sage, fontStyle: 'italic' }}>
+                    <span style={{ color: sage, fontStyle: 'italic' }}>
                       for an Hour.
-                      <motion.svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 12" fill="none">
-                        <motion.path d="M4 8 C50 2, 100 6, 150 4 C165 3.5, 182 6, 196 5" stroke={sage} strokeWidth="1.8" strokeLinecap="round" fill="none"
-                          initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: dur * 1.5, delay: stagger * 5, ease: 'easeOut' }} />
-                      </motion.svg>
                     </span>
                   </motion.h2>
                   <motion.p className={`${nunito.className} text-sm sm:text-base max-w-sm sm:mx-0 mx-auto mb-8 sm:mb-10`}

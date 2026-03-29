@@ -166,12 +166,8 @@ function LiveRedesign() {
                     initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
                     Saturday Sold Out.{' '}
-                    <span className="relative inline-block" style={{ color: pink, textShadow: `0 0 14px ${pink}, 0 0 32px ${pink}80` }}>
+                    <span style={{ color: pink, textShadow: `0 0 14px ${pink}, 0 0 32px ${pink}80` }}>
                       Going Fast.
-                      <motion.svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 10" fill="none">
-                        <motion.path d="M2 5 L198 5" stroke={pink} strokeWidth="2" strokeLinecap="square" fill="none"
-                          initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: dur * 1.2, delay: stagger * 5, ease: 'easeOut' }} />
-                      </motion.svg>
                     </span>
                   </motion.h2>
                   <motion.p className={`${dmSans.className} text-sm sm:text-base max-w-md sm:mx-0 mx-auto mb-6 sm:mb-8`}

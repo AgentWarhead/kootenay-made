@@ -185,12 +185,8 @@ function LiveRedesign() {
                   <motion.h2 className={`heading-font text-2xl sm:text-4xl md:text-5xl font-bold uppercase leading-[1.1] mb-4 sm:max-w-xl`} style={{ color: '#ffffff', fontFamily: "'Clash Display', sans-serif" }}
                     initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
                     Your Competitor Launched Last Month. What Are You{' '}
-                    <span className="relative inline-block" style={{ color: '#ff6b00' }}>
+                    <span style={{ color: '#ff6b00' }}>
                       Waiting For?
-                      <motion.svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 12" fill="none">
-                        <motion.path d="M4 8 C40 2, 80 2, 120 6 C140 8, 170 4, 196 6" stroke="#ff6b00" strokeWidth="2" strokeLinecap="round" fill="none"
-                          initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: dur * 1.5, delay: stagger * 5, ease: 'easeOut' }} />
-                      </motion.svg>
                     </span>
                   </motion.h2>
                   <motion.p className={`${spaceGrotesk.className} text-sm sm:text-base max-w-sm mx-auto sm:mx-0 mb-6`} style={{ color: 'rgba(255,255,255,0.45)', lineHeight: 1.7 }}

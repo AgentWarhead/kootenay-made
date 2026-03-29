@@ -202,12 +202,8 @@ function LiveRedesign() {
                     transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}
                   >
                     Thursday&rsquo;s Special Sells Out by 7pm.{' '}
-                    <span className="relative inline-block" style={{ color: '#c9a96e', fontStyle: 'italic' }}>
+                    <span style={{ color: '#c9a96e', fontStyle: 'italic' }}>
                       Just Saying.
-                      <motion.svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 12" fill="none">
-                        <motion.path d="M4 8 C40 2, 80 2, 120 6 C140 8, 170 4, 196 6" stroke="#c9a96e" strokeWidth="1.5" strokeLinecap="round" fill="none"
-                          initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: dur * 1.5, delay: stagger * 5, ease: 'easeOut' }} />
-                      </motion.svg>
                     </span>
                   </motion.h2>
                   <motion.p className={`${body.className} text-sm sm:text-base max-w-sm mx-auto sm:mx-0 mb-6`} style={{ color: 'rgba(245,240,232,0.5)', lineHeight: 1.7 }}

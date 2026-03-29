@@ -192,11 +192,8 @@ function LiveRedesign() {
 
                   <motion.h2 className="heading-font text-2xl sm:text-4xl md:text-5xl lg:text-5xl leading-[1.15] mb-4 sm:mb-6 sm:max-w-xl" style={{ color: EE.cream, fontWeight: 400 }} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
                     Your Home Has a Story.<br />Let&rsquo;s Make Sure Buyers{' '}
-                    <span className="relative inline-block" style={{ color: EE.gold, fontStyle: 'italic' }}>
+                    <span style={{ color: EE.gold, fontStyle: 'italic' }}>
                       Hear It.
-                      <motion.svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 100 12" fill="none">
-                        <motion.path d="M2 8 C20 2, 50 2, 80 6 C88 8, 95 5, 98 6" stroke={EE.gold} strokeWidth="1.5" strokeLinecap="round" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: dur * 1.5, delay: stagger * 5, ease: 'easeOut' }} />
-                      </motion.svg>
                     </span>
                   </motion.h2>
 

@@ -239,12 +239,8 @@ function LiveRedesign() {
                   <motion.h2 className={`heading-font text-2xl sm:text-4xl md:text-5xl leading-[1.15] mb-4 sm:max-w-xl font-bold`} style={{ color: PARCHMENT, fontFamily: "'Gambetta', serif" }}
                     initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
                     Brewed 12 Minutes From Where{' '}
-                    <span className="relative inline-block" style={{ color: AMBER, fontStyle: 'italic' }}>
+                    <span style={{ color: AMBER, fontStyle: 'italic' }}>
                       You&rsquo;re Sitting.
-                      <motion.svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 12" fill="none">
-                        <motion.path d="M4 8 C40 2, 80 2, 120 6 C140 8, 170 4, 196 6" stroke={AMBER} strokeWidth="2" strokeLinecap="round" fill="none"
-                          initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: dur * 1.5, delay: stagger * 5, ease: 'easeOut' }} />
-                      </motion.svg>
                     </span>
                   </motion.h2>
                   <motion.p className={`${lato.className} text-sm sm:text-base max-w-sm mx-auto sm:mx-0 mb-6`} style={{ color: `${PARCHMENT}99`, lineHeight: 1.7 }}

@@ -163,12 +163,8 @@ function LiveRedesign() {
                     style={{ color: '#fff' }}
                     initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
                     YOUR PIPES BURST AT 2AM.{' '}
-                    <span className="relative inline-block" style={{ color: orange }}>
+                    <span style={{ color: orange }}>
                       WE ANSWER.
-                      <motion.svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 12" fill="none">
-                        <motion.path d="M4 8 C50 2, 100 4, 150 6 C170 8, 185 4, 196 6" stroke={orange} strokeWidth="2.5" strokeLinecap="round" fill="none"
-                          initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: dur * 1.5, delay: stagger * 5, ease: 'easeOut' }} />
-                      </motion.svg>
                     </span>
                   </motion.h2>
                   <motion.p className={`${body.className} text-sm sm:text-lg max-w-md sm:mx-0 mx-auto mb-6`} style={{ color: 'rgba(255,255,255,0.55)', lineHeight: 1.7 }}
