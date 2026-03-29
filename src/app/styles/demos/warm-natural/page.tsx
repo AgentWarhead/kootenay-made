@@ -486,7 +486,7 @@ export default function WarmNaturalDemo() {
         style={{ backgroundColor: 'rgba(125,154,107,0.92)', backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)' }}>
         <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 text-center sm:text-left">
-            <span className="text-white/90 text-sm">Like what you see? This could be yours. Design by <strong>Kootenay Made Digital</strong></span>
+            <span className="text-white/90 text-sm">Sample design by <strong>Kootenay Made Digital</strong></span>
             <span className="hidden sm:inline text-white/40 text-xs">·</span>
             <span className="text-white/80 text-xs font-semibold">(250) 555-0165</span>
           </div>

@@ -506,7 +506,7 @@ export default function BoldModernDemo() {
       <div className="fixed bottom-0 left-0 right-0 z-50 px-4 py-3" style={{ backgroundColor: 'rgba(17,17,17,0.95)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', borderTop: '2px solid #ff6b00' }}>
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 text-center sm:text-left">
-            <span className="text-sm" style={{ color: 'rgba(255,255,255,0.7)' }}>Like what you see? This could be yours. Design by <strong className="text-white">Kootenay Made Digital</strong></span>
+            <span className="text-sm" style={{ color: 'rgba(255,255,255,0.7)' }}>Sample design by <strong className="text-white">Kootenay Made Digital</strong></span>
             <span className="hidden sm:inline text-xs" style={{ color: 'rgba(255,107,0,0.5)' }}>·</span>
             <span className="text-xs font-bold" style={{ color: '#ff6b00' }}>(250) 555-0180</span>
           </div>

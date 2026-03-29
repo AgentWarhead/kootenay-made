@@ -601,7 +601,7 @@ export default function GovernmentMunicipalPage() {
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 text-center sm:text-left">
             <span className="text-sm" style={{ color: hc ? '#000000' : '#475569' }}>
-              Like what you see? This could be yours. Design by <strong style={{ color: hc ? '#000000' : '#1e3a5f' }}>Kootenay Made Digital</strong>
+              Sample design by <strong style={{ color: hc ? '#000000' : '#1e3a5f' }}>Kootenay Made Digital</strong>
             </span>
             <span className="hidden sm:inline text-xs" style={{ color: hc ? '#000000' : '#2563eb', opacity: 0.5 }}>·</span>
             <span className="text-xs font-700" style={{ color: hc ? '#000000' : '#2563eb' }}>(250) 555-0116</span>

@@ -547,7 +547,7 @@ export default function AdventureOutdoorsDemo() {
         style={{ backgroundColor: 'rgba(27,45,27,0.92)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', borderTop: '2px solid #f97316' }}>
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
           <span className="text-sm text-center sm:text-left" style={{ color: 'rgba(255,255,255,0.7)' }}>
-            Like what you see? This could be yours. A sample by <strong className="text-white">Kootenay Made Digital</strong>
+            Sample design by <strong className="text-white">Kootenay Made Digital</strong>
           </span>
           <Link href="/contact?style=adventure-outdoors"
             className="inline-block px-6 py-2.5 text-sm font-bold uppercase tracking-wider transition-all hover:scale-105 whitespace-nowrap"

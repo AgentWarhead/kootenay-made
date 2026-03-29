@@ -935,7 +935,7 @@ export default function RusticCraftDemo() {
         <div className="max-w-6xl mx-auto flex items-center justify-between gap-3">
           <div className="flex items-center gap-4">
             <span className="text-xs md:text-sm" style={{ color: `${PARCHMENT}aa` }}>
-              Like what you see? This could be yours. A sample by{' '}
+              Sample design by{' '}
               <span className="font-bold" style={{ color: PARCHMENT }}>
                 Kootenay Made Digital
               </span>

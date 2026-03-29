@@ -601,7 +601,7 @@ export default function EditorialElegantDemo() {
       >
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
           <span className="text-sm text-center sm:text-left" style={{ color: '#6b6b6b' }}>
-            Like what you see? This could be yours. A sample by <strong style={{ color: '#1a1a1a' }}>Kootenay Made Digital</strong> &mdash; <span className="text-xs" style={{ color: '#aaa' }}>Elevate your brand today</span>
+            Sample design by <strong style={{ color: '#1a1a1a' }}>Kootenay Made Digital</strong> &mdash; <span className="text-xs" style={{ color: '#aaa' }}>Elevate your brand today</span>
           </span>
           <Link
             href="/contact?style=editorial-elegant"

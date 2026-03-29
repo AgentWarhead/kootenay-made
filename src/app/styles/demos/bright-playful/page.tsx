@@ -811,7 +811,7 @@ export default function BrightPlayfulDemo() {
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="flex items-center gap-4">
             <span className="text-sm text-center sm:text-left" style={{ color: '#666' }}>
-              Like what you see? This could be yours. A sample by <strong style={{ color: '#333' }}>Kootenay Made Digital</strong>
+              Sample design by <strong style={{ color: '#333' }}>Kootenay Made Digital</strong>
             </span>
             <a href="tel:2505550000" className="hidden sm:inline text-sm font-extrabold" style={{ color: '#ff6b6b' }}>
               (250) 555-0000
