@@ -188,7 +188,7 @@ function LiveRedesign() {
                   className="text-sm sm:text-base font-bold"
                   style={{ fontFamily: 'Georgia, serif', color: '#fff', letterSpacing: '-0.02em' }}
                 >
-                  Green Thumb Landscaping
+                  Cedarview Landscaping
                 </span>
               </div>
               <div className="hidden sm:flex gap-4">
@@ -230,7 +230,7 @@ function LiveRedesign() {
                     textShadow: '0 1px 0 rgba(255,255,255,0.5)',
                   }}
                 >
-                  Green Thumb Landscaping
+                  Cedarview Landscaping
                 </h2>
                 <p
                   className="text-sm sm:text-lg mb-1 sm:mb-2"
