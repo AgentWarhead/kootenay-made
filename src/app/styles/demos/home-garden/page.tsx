@@ -351,10 +351,10 @@ function LiveRedesign() {
               <motion.div
                 className="absolute top-0 right-0 pointer-events-none"
                 initial={{ opacity: 0 }}
-                animate={{ opacity: 0.12 }}
+                animate={{ opacity: 0.22 }}
                 transition={{ duration: dur, delay: stagger * 3 }}
               >
-                <svg width="180" height="180" viewBox="0 0 180 180" fill="none">
+                <svg width="240" height="240" viewBox="0 0 180 180" fill="none">
                   <path d="M168 12 C138 12 96 38 74 75 C52 112 58 148 32 164" stroke={C.green} strokeWidth="1.5" fill="none" strokeLinecap="round" />
                   <ellipse cx="118" cy="45" rx="12" ry="6" stroke={C.green} strokeWidth="1" fill="none" transform="rotate(-55 118 45)" />
                   <ellipse cx="88" cy="82" rx="10" ry="5" stroke={C.green} strokeWidth="1" fill="none" transform="rotate(-20 88 82)" />
@@ -366,19 +366,19 @@ function LiveRedesign() {
               <motion.div
                 className="absolute bottom-0 left-0 pointer-events-none"
                 initial={{ opacity: 0 }}
-                animate={{ opacity: 0.08 }}
+                animate={{ opacity: 0.18 }}
                 transition={{ duration: dur, delay: stagger * 4 }}
               >
-                <svg width="140" height="140" viewBox="0 0 140 140" fill="none">
+                <svg width="200" height="200" viewBox="0 0 140 140" fill="none">
                   <path d="M12 12 C32 32 48 68 58 98 C68 128 42 138 22 128" stroke={C.terracotta} strokeWidth="1" fill="none" strokeLinecap="round" strokeDasharray="3 5" />
                   <ellipse cx="38" cy="58" rx="8" ry="4" stroke={C.terracotta} strokeWidth="0.8" fill="none" transform="rotate(40 38 58)" />
                 </svg>
               </motion.div>
 
-              <div className="relative z-10 text-center">
+              <div className="relative z-10 text-center sm:text-left">
                 {/* Business name chip */}
                 <motion.div
-                  className="flex justify-center mb-3 sm:mb-6"
+                  className="flex justify-center sm:justify-start mb-3 sm:mb-6"
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: dur * 0.6, delay: stagger * 2 }}
@@ -393,7 +393,7 @@ function LiveRedesign() {
 
                 {/* The headline */}
                 <motion.h2
-                  className={`${heading.className} text-2xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.15] mb-4 sm:mb-6`}
+                  className={`${heading.className} text-2xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.15] mb-4 sm:mb-6 sm:max-w-xl`}
                   style={{ color: C.darkGreen }}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -428,7 +428,7 @@ function LiveRedesign() {
 
                 {/* Subline */}
                 <motion.p
-                  className={`${body.className} text-sm sm:text-lg md:text-xl max-w-lg mx-auto mb-6 sm:mb-10`}
+                  className={`${body.className} text-sm sm:text-lg md:text-xl max-w-md sm:mx-0 mx-auto mb-6 sm:mb-10`}
                   style={{ color: '#5a6e5a', lineHeight: 1.7 }}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -442,7 +442,7 @@ function LiveRedesign() {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: dur * 0.8, delay: stagger * 5 }}
-                  className="flex flex-col sm:flex-row items-center justify-center gap-4"
+                  className="flex flex-col sm:flex-row items-center sm:items-start justify-center sm:justify-start gap-4"
                 >
                   <a
                     href="#contact"
@@ -466,7 +466,7 @@ function LiveRedesign() {
 
                 {/* Trust signals — elegant */}
                 <motion.div
-                  className="flex items-center justify-center gap-4 sm:gap-6 mt-6 sm:mt-10 flex-wrap"
+                  className="flex items-center justify-center sm:justify-start gap-4 sm:gap-6 mt-6 sm:mt-10 flex-wrap"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: dur, delay: stagger * 6 }}
@@ -629,6 +629,10 @@ export default function HomeGardenDemo() {
         @keyframes slowZoom {
           from { transform: scale(1.0); }
           to   { transform: scale(1.06); }
+        }
+        @keyframes shimmer-border {
+          0%, 100% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
         }
       `}</style>
 
