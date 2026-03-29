@@ -508,6 +508,28 @@ export default function AdventureOutdoorsDemo() {
               delay={0.2}
             />
             <TripCard
+              image="/images/demos/gallery/ao-4.webp"
+              title="Whitewater Rafting"
+              difficulty="🟡 Moderate"
+              difficultyColor="rgba(234,179,8,0.85)"
+              duration="Half Day"
+              season="May – Sep"
+              price="$129"
+              description="Heart-pumping whitewater on Kootenay rivers. Expert guides, full safety gear, and unforgettable scenery."
+              delay={0.3}
+            />
+            <TripCard
+              image="/images/demos/gallery/ao-5.webp"
+              title="Backcountry Ski Tours"
+              difficulty="🔴 Expert"
+              difficultyColor="rgba(220,38,38,0.85)"
+              duration="Full Day"
+              season="Jan – Mar"
+              price="$349"
+              description="Remote powder stashes in the Selkirks. Certified avalanche guides, touring gear provided, epic vertical."
+              delay={0.35}
+            />
+            <TripCard
               image="/images/demos/adventure-hero.webp"
               title="Multi-Day Hiking"
               difficulty="🟡 Moderate"

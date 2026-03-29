@@ -603,6 +603,7 @@ export default function WarmNaturalDemo() {
                 { name: 'Sasha Okafor', creds: 'RYT-300 · 5 Years', specialty: 'Gentle, Deep Stretch', quote: '"Every body is a yoga body. No exceptions."', img: '/images/demos/gallery/wn-2.webp' },
                 { name: 'River Nakamura', creds: 'RYT-200 · Breathwork Certified', specialty: 'Pranayama, Meditation', quote: '"Breath is the bridge between body and mind."', img: '/images/demos/gallery/wn-3.webp' },
                 { name: 'Dana Wolfe', creds: 'RYT-300 · Trauma-Informed', specialty: 'Therapeutic, Adaptive Yoga', quote: '"Every session is an act of self-care. Show up as you are."', img: '/images/demos/gallery/wn-4.webp' },
+                { name: 'Soleil Bergeron', creds: 'RYT-200 · Prenatal Certified', specialty: 'Hatha, Prenatal, Postnatal', quote: '"Yoga meets you exactly where you are today."', img: '/images/demos/gallery/wn-5.webp' },
               ].map((teacher, i) => (
                 <Reveal key={teacher.name} delay={i * 0.12}>
                   <div className="text-center p-6 rounded-2xl" style={{ backgroundColor: '#fffcf7', border: '1px solid rgba(125,154,107,0.15)', boxShadow: '0 4px 20px rgba(139,115,85,0.08)' }}>

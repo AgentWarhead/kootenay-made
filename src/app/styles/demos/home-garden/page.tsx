@@ -594,6 +594,14 @@ export default function HomeGardenDemo() {
         tagColor: '#7a9e4a',
         location: 'Balfour, BC',
       },
+      {
+        title: 'Slocan Valley Spring Refresh',
+        desc: 'Spring garden restoration with tulip and allium bulb beds, fresh topsoil, and new ornamental edging.',
+        img: '/images/demos/gallery/hg-5.webp',
+        tag: 'Residential',
+        tagColor: C.green,
+        location: 'Slocan, BC',
+      },
     ],
     Summer: [
       {
@@ -620,6 +628,14 @@ export default function HomeGardenDemo() {
         tagColor: '#5a8e4a',
         location: 'Nakusp, BC',
       },
+      {
+        title: 'Waterfront Patio Design',
+        desc: 'Custom summer patio with built-in planters, shade pergola, and low-maintenance drought-tolerant beds.',
+        img: '/images/demos/gallery/hg-6.webp',
+        tag: 'Hardscaping',
+        tagColor: C.terracotta,
+        location: 'Nelson, BC',
+      },
     ],
     Fall: [
       {
@@ -645,6 +661,14 @@ export default function HomeGardenDemo() {
         tag: 'Commercial',
         tagColor: C.terracotta,
         location: 'Fruitvale, BC',
+      },
+      {
+        title: 'Heritage Home Autumn Garden',
+        desc: 'Fall transformation with ornamental grasses, late-season perennials, and a warm colour palette for curb appeal.',
+        img: '/images/demos/gallery/hg-4.webp',
+        tag: 'Residential',
+        tagColor: '#b8860b',
+        location: 'Rossland, BC',
       },
     ],
   }

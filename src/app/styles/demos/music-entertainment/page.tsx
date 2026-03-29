@@ -428,6 +428,9 @@ export default function MusicEntertainmentPage() {
                 { img: '/images/demos/gallery/me-1.webp', label: 'Main Stage', date: 'MAR 2025', rotate: '-2deg', zIndex: 3 },
                 { img: '/images/demos/gallery/me-2.webp', label: 'Intimate Sets', date: 'FEB 2025', rotate: '1.5deg', zIndex: 2 },
                 { img: '/images/demos/gallery/me-3.webp', label: 'Private Events', date: 'JAN 2025', rotate: '-1deg', zIndex: 4 },
+                { img: '/images/demos/gallery/me-4.webp', label: 'Crowd Energy', date: 'DEC 2024', rotate: '2deg', zIndex: 1 },
+                { img: '/images/demos/gallery/me-5.webp', label: 'Live Performance', date: 'NOV 2024', rotate: '-1.5deg', zIndex: 5 },
+                { img: '/images/demos/gallery/me-6.webp', label: 'Stage Lights', date: 'OCT 2024', rotate: '1deg', zIndex: 2 },
               ].map((photo, i) => (
                 <div key={photo.label}
                   className="relative overflow-hidden rounded transition-transform hover:scale-105"

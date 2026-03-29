@@ -590,6 +590,7 @@ export default function BrightPlayfulDemo() {
               { src: '/images/demos/gallery/bp-1.webp', alt: 'Art class activities at Sunshine Daycare' },
               { src: '/images/demos/gallery/bp-2.webp', alt: 'Children learning and playing' },
               { src: '/images/demos/gallery/bp-3.webp', alt: 'Creative classroom environment' },
+              { src: '/images/demos/gallery/bp-4.webp', alt: 'Children playing on outdoor playground equipment' },
             ].map((img, i) => (
               <Bounce key={img.src} delay={0.3 + i * 0.1}>
                 <div className="overflow-hidden rounded-2xl">

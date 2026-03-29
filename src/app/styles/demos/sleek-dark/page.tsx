@@ -749,7 +749,7 @@ export default function SleekDarkDemo() {
           <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
             <Reveal>
               <div className="relative aspect-[3/4] rounded-lg overflow-hidden" style={{ border: '1px solid rgba(201,169,110,0.2)' }}>
-                <Image src="/images/demos/sleek-dark-hero.webp" alt="Chef Marco — The Copper Table" fill className="object-cover" />
+                <Image src="/images/demos/gallery/sd-4.webp" alt="Chef Marco in the kitchen — The Copper Table" fill className="object-cover" />
                 <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(10,10,10,0.6) 0%, transparent 50%)' }} />
                 <div className="absolute bottom-6 left-6">
                   <p className={`heading-font text-xl`} style={{ color: '#c9a96e', fontWeight: 400 }}>Chef Marco</p>

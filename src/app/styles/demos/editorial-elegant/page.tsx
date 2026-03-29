@@ -351,6 +351,18 @@ export default function EditorialElegantDemo() {
       img: '/images/demos/gallery/ee-3.webp',
       large: false,
     },
+    {
+      label: 'Luxury Lakefront Estate',
+      location: 'Kootenay Lake, BC',
+      price: '$2,100,000',
+      beds: 6,
+      baths: 5,
+      sqft: '5,200',
+      status: 'Active',
+      statusColor: '#1a5276',
+      img: '/images/demos/gallery/ee-4.webp',
+      large: false,
+    },
   ]
 
   return (

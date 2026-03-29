@@ -723,11 +723,16 @@ export default function FarmHarvestDemo() {
               </div>
             </div>
           </Reveal>
-          <div className="grid grid-cols-3 gap-4 md:gap-6">
-            {['Summer Harvest', 'Berry Season', 'Farm Stand'].map((label, i) => (
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+            {[
+              { label: 'Summer Harvest', src: '/images/demos/gallery/fh-1.webp' },
+              { label: 'Berry Season', src: '/images/demos/gallery/fh-2.webp' },
+              { label: 'Farm Stand', src: '/images/demos/gallery/fh-3.webp' },
+              { label: "Farmers' Market Display", src: '/images/demos/gallery/fh-4.webp' },
+            ].map(({ label, src }, i) => (
               <Reveal key={label} delay={0.15 + i * 0.1}>
                 <div className="relative aspect-[4/3] rounded-xl overflow-hidden">
-                  <Image src={`/images/demos/gallery/fh-${i + 1}.webp`} alt={label} fill className="object-cover" />
+                  <Image src={src} alt={label} fill className="object-cover" />
                   <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-3">
                     <span className="text-white text-sm font-medium">{label}</span>
                   </div>

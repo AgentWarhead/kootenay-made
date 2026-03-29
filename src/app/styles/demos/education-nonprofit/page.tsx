@@ -610,6 +610,12 @@ export default function EducationNonprofitPage() {
                 quote: 'When my husband lost his job, we didn\'t know how we\'d feed the kids. The food bank kept us going for four months without any shame attached.',
                 img: '/images/demos/gallery/en-2.webp',
               },
+              {
+                name: 'Food Bank Volunteers',
+                program: 'Community Volunteers',
+                quote: 'Every Saturday our volunteers give hundreds of hours to keep this community fed. The dedication here is humbling.',
+                img: '/images/demos/gallery/en-4.webp',
+              },
             ].map((story, i) => (
               <Reveal key={story.name} delay={i * 0.1}>
                 <div
@@ -852,6 +858,9 @@ export default function EducationNonprofitPage() {
               </Reveal>
             ))}
           </div>
+          <Reveal delay={0.3} className="mt-10">
+            <Image src="/images/demos/gallery/en-5.webp" alt="Community festival bringing neighbours together" width={600} height={400} className="w-full h-auto object-cover rounded-xl" />
+          </Reveal>
         </div>
       </section>
 

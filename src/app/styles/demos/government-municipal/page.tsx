@@ -479,6 +479,9 @@ export default function GovernmentMunicipalPage() {
                 </Reveal>
               ))}
             </div>
+            <Reveal delay={0.3} className="mt-10">
+              <Image src="/images/demos/gallery/gm-4.webp" alt="Nature trail boardwalk through wetlands in West Kootenay park" width={600} height={400} className="w-full h-auto object-cover rounded-xl" />
+            </Reveal>
           </div>
         </section>
 
