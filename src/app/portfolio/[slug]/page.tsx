@@ -8,8 +8,9 @@ export function generateStaticParams() {
   return caseStudies.map((s) => ({ slug: s.slug }));
 }
 
-export function generateMetadata({ params }: { params: { slug: string } }) {
-  const study = caseStudies.find((s) => s.slug === params.slug);
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const study = caseStudies.find((s) => s.slug === slug);
   if (!study) return {};
   return {
     title: `${study.name} — Portfolio | Kootenay Made Digital`,
@@ -23,9 +24,9 @@ export function generateMetadata({ params }: { params: { slug: string } }) {
   };
 }
 
-export default function CaseStudyPage({ params }: { params: { slug: string } }) {
-  const study = caseStudies.find((s) => s.slug === params.slug);
+export default async function CaseStudyPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const study = caseStudies.find((s) => s.slug === slug);
   if (!study) notFound();
   return <CaseStudyClient study={study} />;
 }
-// Build: 20260329222108
