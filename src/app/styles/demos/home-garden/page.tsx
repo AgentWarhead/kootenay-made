@@ -305,11 +305,11 @@ function LiveRedesign() {
             {/* Elegant nav bar */}
             <div
               className="flex items-center justify-between px-6 sm:px-10 py-4"
-              style={{ borderBottom: `1px solid ${C.green}15` }}
+              style={{ borderBottom: '1px solid rgba(107,154,91,0.2)' }}
             >
               <motion.span
                 className={`${heading.className} text-base sm:text-lg`}
-                style={{ color: C.darkGreen, fontStyle: 'italic' }}
+                style={{ color: C.cream, fontStyle: 'italic' }}
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: dur * 0.6, delay: stagger }}
@@ -326,7 +326,7 @@ function LiveRedesign() {
                   <span
                     key={link}
                     className={`${body.className} text-xs uppercase tracking-widest`}
-                    style={{ color: C.green, fontWeight: 500 }}
+                    style={{ color: 'rgba(248,244,240,0.6)', fontWeight: 500 }}
                   >
                     {link}
                   </span>
@@ -339,9 +339,9 @@ function LiveRedesign() {
                 animate={{ opacity: 1 }}
                 transition={{ duration: dur * 0.6, delay: stagger }}
               >
-                <span className="block w-5 h-[2px] rounded-full" style={{ backgroundColor: C.green }} />
-                <span className="block w-4 h-[2px] rounded-full" style={{ backgroundColor: C.green }} />
-                <span className="block w-5 h-[2px] rounded-full" style={{ backgroundColor: C.green }} />
+                <span className="block w-5 h-[2px] rounded-full" style={{ backgroundColor: C.cream }} />
+                <span className="block w-4 h-[2px] rounded-full" style={{ backgroundColor: C.cream }} />
+                <span className="block w-5 h-[2px] rounded-full" style={{ backgroundColor: C.cream }} />
               </motion.div>
             </div>
 
@@ -351,16 +351,16 @@ function LiveRedesign() {
               <motion.div
                 className="absolute top-0 right-0 pointer-events-none"
                 initial={{ opacity: 0 }}
-                animate={{ opacity: 0.22 }}
+                animate={{ opacity: 0.15 }}
                 transition={{ duration: dur, delay: stagger * 3 }}
               >
                 <svg width="240" height="240" viewBox="0 0 180 180" fill="none">
-                  <path d="M168 12 C138 12 96 38 74 75 C52 112 58 148 32 164" stroke={C.green} strokeWidth="1.5" fill="none" strokeLinecap="round" />
-                  <ellipse cx="118" cy="45" rx="12" ry="6" stroke={C.green} strokeWidth="1" fill="none" transform="rotate(-55 118 45)" />
-                  <ellipse cx="88" cy="82" rx="10" ry="5" stroke={C.green} strokeWidth="1" fill="none" transform="rotate(-20 88 82)" />
-                  <ellipse cx="62" cy="118" rx="8" ry="4" stroke={C.green} strokeWidth="1" fill="none" transform="rotate(15 62 118)" />
-                  <circle cx="145" cy="28" r="3" fill={C.green} opacity="0.3" />
-                  <circle cx="48" cy="142" r="2" fill={C.green} opacity="0.2" />
+                  <path d="M168 12 C138 12 96 38 74 75 C52 112 58 148 32 164" stroke="#8ab87a" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+                  <ellipse cx="118" cy="45" rx="12" ry="6" stroke="#8ab87a" strokeWidth="1" fill="none" transform="rotate(-55 118 45)" />
+                  <ellipse cx="88" cy="82" rx="10" ry="5" stroke="#8ab87a" strokeWidth="1" fill="none" transform="rotate(-20 88 82)" />
+                  <ellipse cx="62" cy="118" rx="8" ry="4" stroke="#8ab87a" strokeWidth="1" fill="none" transform="rotate(15 62 118)" />
+                  <circle cx="145" cy="28" r="3" fill="#8ab87a" opacity="0.3" />
+                  <circle cx="48" cy="142" r="2" fill="#8ab87a" opacity="0.2" />
                 </svg>
               </motion.div>
               <motion.div
@@ -370,8 +370,8 @@ function LiveRedesign() {
                 transition={{ duration: dur, delay: stagger * 4 }}
               >
                 <svg width="200" height="200" viewBox="0 0 140 140" fill="none">
-                  <path d="M12 12 C32 32 48 68 58 98 C68 128 42 138 22 128" stroke={C.terracotta} strokeWidth="1" fill="none" strokeLinecap="round" strokeDasharray="3 5" />
-                  <ellipse cx="38" cy="58" rx="8" ry="4" stroke={C.terracotta} strokeWidth="0.8" fill="none" transform="rotate(40 38 58)" />
+                  <path d="M12 12 C32 32 48 68 58 98 C68 128 42 138 22 128" stroke="#d4956a" strokeWidth="1" fill="none" strokeLinecap="round" strokeDasharray="3 5" />
+                  <ellipse cx="38" cy="58" rx="8" ry="4" stroke="#d4956a" strokeWidth="0.8" fill="none" transform="rotate(40 38 58)" />
                 </svg>
               </motion.div>
 
@@ -385,7 +385,7 @@ function LiveRedesign() {
                 >
                   <span
                     className={`${body.className} text-xs font-semibold uppercase tracking-[0.2em] px-5 py-2 rounded-full`}
-                    style={{ backgroundColor: `${C.green}12`, color: C.green, border: `1px solid ${C.green}20` }}
+                    style={{ backgroundColor: 'rgba(107,154,91,0.15)', color: '#8ab87a', border: '1px solid rgba(107,154,91,0.25)' }}
                   >
                     Est. 2003 &mdash; West Kootenay
                   </span>
@@ -394,7 +394,7 @@ function LiveRedesign() {
                 {/* The headline */}
                 <motion.h2
                   className={`${heading.className} text-2xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.15] mb-4 sm:mb-6 sm:max-w-xl`}
-                  style={{ color: C.darkGreen }}
+                  style={{ color: C.cream }}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}
@@ -403,7 +403,7 @@ function LiveRedesign() {
                   Will Ask Who Did{' '}
                   <span
                     className="relative inline-block"
-                    style={{ color: C.terracotta, fontStyle: 'italic' }}
+                    style={{ color: '#e8a06a', fontStyle: 'italic' }}
                   >
                     Your Yard.
                     {/* Underline flourish */}
@@ -414,7 +414,7 @@ function LiveRedesign() {
                     >
                       <motion.path
                         d="M4 8 C40 2, 80 2, 120 6 C140 8, 170 4, 196 6"
-                        stroke={C.terracotta}
+                        stroke="#e8a06a"
                         strokeWidth="2"
                         strokeLinecap="round"
                         fill="none"
@@ -429,7 +429,7 @@ function LiveRedesign() {
                 {/* Subline */}
                 <motion.p
                   className={`${body.className} text-sm sm:text-lg md:text-xl max-w-md sm:mx-0 mx-auto mb-6 sm:mb-10`}
-                  style={{ color: '#5a6e5a', lineHeight: 1.7 }}
+                  style={{ color: 'rgba(248,244,240,0.65)', lineHeight: 1.7 }}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: dur * 0.8, delay: stagger * 4 }}
@@ -446,11 +446,11 @@ function LiveRedesign() {
                 >
                   <a
                     href="#contact"
-                    className={`${heading.className} inline-flex items-center gap-2 px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base rounded-xl transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]`}
+                    className={`${heading.className} inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 text-sm sm:text-base rounded-xl transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]`}
                     style={{
-                      backgroundColor: C.green,
-                      color: C.white,
-                      boxShadow: `0 4px 20px ${C.green}35`,
+                      backgroundColor: '#7cb342',
+                      color: '#fff',
+                      boxShadow: '0 4px 24px rgba(124,179,66,0.4)',
                       letterSpacing: '0.02em',
                     }}
                   >
@@ -459,7 +459,7 @@ function LiveRedesign() {
                       <path d="M5 12h14M12 5l7 7-7 7" />
                     </svg>
                   </a>
-                  <span className={`${body.className} text-sm`} style={{ color: '#999' }}>
+                  <span className={`${body.className} text-sm`} style={{ color: 'rgba(248,244,240,0.4)' }}>
                     No commitment required
                   </span>
                 </motion.div>
@@ -475,7 +475,7 @@ function LiveRedesign() {
                     <span
                       key={badge}
                       className={`${body.className} text-xs`}
-                      style={{ color: C.green, opacity: 0.7, letterSpacing: '0.05em' }}
+                      style={{ color: 'rgba(138,184,122,0.7)', letterSpacing: '0.05em' }}
                     >
                       {badge}
                     </span>
