@@ -119,182 +119,359 @@ function VineCornerTR({ color = C.green, opacity = 0.14 }: { color?: string; opa
 function LiveRedesign() {
   const prefersReduced = useReducedMotion()
   const ref = useRef<HTMLDivElement>(null)
-  const isInView = useInView(ref, { once: true, amount: 0.3 })
   const [transformed, setTransformed] = useState(false)
-  const [hasTriggered, setHasTriggered] = useState(false)
 
-  // Auto-trigger transformation 1.2s after scrolling into view
-  useEffect(() => {
-    if (isInView && !hasTriggered) {
-      const timer = setTimeout(() => {
-        setTransformed(true)
-        setHasTriggered(true)
-      }, prefersReduced ? 100 : 1200)
-      return () => clearTimeout(timer)
-    }
-  }, [isInView, hasTriggered, prefersReduced])
-
-  const dur = prefersReduced ? 0.01 : 0.8
-  const stagger = prefersReduced ? 0 : 0.15
+  const dur = prefersReduced ? 0.01 : 0.9
+  const stagger = prefersReduced ? 0 : 0.18
 
   return (
     <div ref={ref} className="w-full">
-      {/* The container */}
-      <motion.div
-        className="relative w-full rounded-2xl overflow-hidden px-6 sm:px-10 md:px-16 py-12 sm:py-16 md:py-20"
-        animate={{
-          backgroundColor: transformed ? C.cream : '#e8e8e8',
-          borderColor: transformed ? `${C.green}44` : '#d0d0d0',
-        }}
-        transition={{ duration: dur * 1.2, ease: 'easeInOut' }}
-        style={{ border: '2px solid #d0d0d0' }}
-      >
-        {/* Decorative leaf — fades in on transform */}
-        <motion.div
-          className="absolute top-0 right-0 pointer-events-none"
-          animate={{ opacity: transformed ? 0.15 : 0 }}
-          transition={{ duration: dur, delay: stagger * 4 }}
-        >
-          <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
-            <path d="M108 12 C88 12 66 28 54 55 C42 82 48 98 32 104" stroke={C.green} strokeWidth="1.5" fill="none" strokeLinecap="round" />
-            <ellipse cx="78" cy="35" rx="8" ry="4" stroke={C.green} strokeWidth="1" fill="none" transform="rotate(-62 78 35)" />
-            <ellipse cx="58" cy="62" rx="7" ry="3.5" stroke={C.green} strokeWidth="1" fill="none" transform="rotate(-22 58 62)" />
-          </svg>
-        </motion.div>
-
-        {/* Small label chip */}
-        <motion.div
-          className="flex justify-center mb-6"
-          animate={{ opacity: transformed ? 1 : 0, y: transformed ? 0 : 10 }}
-          transition={{ duration: dur * 0.6, delay: stagger * 3 }}
-        >
-          <span
-            className="text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full"
-            style={{ backgroundColor: `${C.green}20`, color: C.darkGreen }}
-          >
-            Cedarview Landscaping
-          </span>
-        </motion.div>
-
-        {/* The headline — the star of the show */}
-        <div className="text-center mb-6 sm:mb-8 relative overflow-hidden" style={{ minHeight: '100px' }}>
-          {/* Before headline */}
-          <motion.p
-            className="text-2xl sm:text-3xl md:text-5xl leading-tight text-center"
-            style={{ fontFamily: 'Georgia, serif', color: '#555', fontWeight: 400 }}
-            animate={{
-              opacity: transformed ? 0 : 1,
-              scale: transformed ? 0.92 : 1,
-              filter: transformed ? 'blur(8px)' : 'blur(0px)',
-            }}
-            transition={{ duration: dur * 0.7 }}
-          >
-            Green Thumb Landscaping.
-            <br />
-            <span className="text-lg sm:text-xl md:text-2xl" style={{ color: '#888' }}>
-              Mowing, Trimming, and More! Free Estimates!
-            </span>
-          </motion.p>
-
-          {/* After headline */}
-          <motion.p
-            className={`${heading.className} text-2xl sm:text-3xl md:text-5xl leading-tight text-center absolute inset-0 flex items-center justify-center`}
-            style={{ color: C.darkGreen }}
-            animate={{
-              opacity: transformed ? 1 : 0,
-              scale: transformed ? 1 : 1.08,
-              filter: transformed ? 'blur(0px)' : 'blur(8px)',
-            }}
-            transition={{ duration: dur, delay: stagger }}
-          >
-            <span>Your Neighbours Will Ask<br />Who Did{" "}
-            <span style={{ color: C.terracotta, fontStyle: 'italic' }}>Your Yard.</span></span>
-          </motion.p>
-        </div>
-
-        {/* Subline */}
-        <div className="text-center mb-8 relative overflow-hidden" style={{ minHeight: '28px' }}>
-          <motion.p
-            className="text-sm sm:text-base"
-            style={{ fontFamily: 'Georgia, serif', color: '#999' }}
-            animate={{ opacity: transformed ? 0 : 1 }}
-            transition={{ duration: dur * 0.5 }}
-          >
-            Serving the area since 2003. Call or email for a quote.
-          </motion.p>
-          <motion.p
-            className={`${body.className} text-sm sm:text-base md:text-lg absolute inset-0 flex items-center justify-center`}
-            style={{ color: '#5a6e5a' }}
-            animate={{ opacity: transformed ? 1 : 0 }}
-            transition={{ duration: dur, delay: stagger * 2 }}
-          >
-            Design, build, and maintain — from the first sketch to the finished garden.
-          </motion.p>
-        </div>
-
-        {/* CTA Button — morphs from gray blob to styled button */}
-        <div className="flex justify-center">
+      {/* Toggle states with AnimatePresence */}
+      <AnimatePresence mode="wait">
+        {!transformed ? (
+          /* ── BEFORE STATE — Realistic WordPress small-town site ── */
           <motion.div
-            className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base font-bold text-center cursor-pointer"
-            animate={{
-              backgroundColor: transformed ? C.green : '#999',
-              color: transformed ? C.white : '#eee',
-              borderRadius: transformed ? '12px' : '4px',
-              boxShadow: transformed
-                ? `0 4px 20px ${C.green}40`
-                : '0 1px 3px rgba(0,0,0,0.1)',
+            key="before"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.97, filter: 'blur(6px)', transition: { duration: 0.5 } }}
+            className="relative w-full overflow-hidden"
+            style={{
+              backgroundColor: '#f2f0ed',
+              border: '1px solid #d8d4cf',
+              borderRadius: '8px',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
             }}
-            transition={{ duration: dur, delay: stagger * 2.5, ease: 'easeOut' }}
           >
-            <AnimatePresence mode="wait">
-              {!transformed ? (
-                <motion.span
-                  key="before-cta"
-                  initial={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                  style={{ fontFamily: 'Georgia, serif' }}
+            {/* Fake WordPress-style nav bar */}
+            <div
+              className="flex items-center justify-between px-4 sm:px-6 py-3"
+              style={{
+                backgroundColor: '#3a5a2e',
+                borderBottom: '3px solid #2d4a22',
+              }}
+            >
+              <div className="flex items-center gap-2">
+                <div className="w-6 h-6 rounded-full" style={{ backgroundColor: '#7cb342' }} />
+                <span
+                  className="text-sm sm:text-base font-bold"
+                  style={{ fontFamily: 'Georgia, serif', color: '#fff', letterSpacing: '-0.02em' }}
                 >
-                  Click Here
-                </motion.span>
-              ) : (
-                <motion.span
-                  key="after-cta"
-                  className={heading.className}
-                  initial={{ opacity: 0, y: 5 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: 0.1 }}
-                  style={{ letterSpacing: '0.02em' }}
+                  Green Thumb Landscaping
+                </span>
+              </div>
+              <div className="hidden sm:flex gap-4">
+                {['Home', 'Services', 'Gallery', 'Contact'].map((link) => (
+                  <span
+                    key={link}
+                    className="text-xs"
+                    style={{ fontFamily: 'Arial, sans-serif', color: 'rgba(255,255,255,0.7)', textDecoration: 'underline' }}
+                  >
+                    {link}
+                  </span>
+                ))}
+              </div>
+              <span className="sm:hidden text-xs" style={{ color: 'rgba(255,255,255,0.5)', fontFamily: 'Arial, sans-serif' }}>&#9776; Menu</span>
+            </div>
+
+            {/* Hero area */}
+            <div className="relative px-6 sm:px-10 py-12 sm:py-16 md:py-20 text-center">
+              {/* Fake stock gradient background */}
+              <div
+                className="absolute inset-0 opacity-[0.12]"
+                style={{
+                  background: 'linear-gradient(135deg, #4a7c59 0%, #8bc34a 50%, #f0e68c 100%)',
+                }}
+              />
+              <div className="relative z-10">
+                <p
+                  className="text-xs uppercase tracking-wide mb-4"
+                  style={{ fontFamily: 'Arial, sans-serif', color: '#666', letterSpacing: '0.15em' }}
                 >
-                  Get Your Free Design Sketch &rarr;
-                </motion.span>
-              )}
-            </AnimatePresence>
+                  &#9733; Welcome to Our Website &#9733;
+                </p>
+                <h2
+                  className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-tight mb-3"
+                  style={{
+                    fontFamily: 'Georgia, serif',
+                    color: '#3a3a3a',
+                    fontWeight: 700,
+                    textShadow: '0 1px 0 rgba(255,255,255,0.5)',
+                  }}
+                >
+                  Green Thumb Landscaping
+                </h2>
+                <p
+                  className="text-base sm:text-lg mb-2"
+                  style={{ fontFamily: 'Georgia, serif', color: '#666', fontStyle: 'italic' }}
+                >
+                  &ldquo;Your #1 Choice for Lawn Care Since 2003!&rdquo;
+                </p>
+                <p
+                  className="text-sm mb-6"
+                  style={{ fontFamily: 'Arial, sans-serif', color: '#888' }}
+                >
+                  Mowing &bull; Trimming &bull; Leaf Removal &bull; Snow Plowing &bull; And More!
+                </p>
+
+                {/* Ugly stock badges row */}
+                <div className="flex justify-center gap-3 mb-6 flex-wrap">
+                  <span className="px-3 py-1 text-xs rounded" style={{ backgroundColor: '#3a5a2e', color: '#fff', fontFamily: 'Arial, sans-serif' }}>
+                    &#10003; Licensed
+                  </span>
+                  <span className="px-3 py-1 text-xs rounded" style={{ backgroundColor: '#3a5a2e', color: '#fff', fontFamily: 'Arial, sans-serif' }}>
+                    &#10003; Insured
+                  </span>
+                  <span className="px-3 py-1 text-xs rounded" style={{ backgroundColor: '#3a5a2e', color: '#fff', fontFamily: 'Arial, sans-serif' }}>
+                    &#10003; Free Estimates
+                  </span>
+                </div>
+
+                {/* Phone number floating awkwardly */}
+                <p className="text-lg font-bold mb-4" style={{ fontFamily: 'Arial, sans-serif', color: '#3a5a2e' }}>
+                  &#128222; Call Us Today: (250) 555-0115
+                </p>
+
+                {/* Dead-looking button — NOT a link, just a span */}
+                <span
+                  className="inline-block px-6 py-2.5 text-sm"
+                  style={{
+                    backgroundColor: '#4a7c59',
+                    color: '#fff',
+                    fontFamily: 'Arial, sans-serif',
+                    borderRadius: '3px',
+                    border: '1px solid #3a5a2e',
+                    cursor: 'default',
+                  }}
+                >
+                  Request a Free Estimate
+                </span>
+
+                {/* Fake "powered by" footer */}
+                <p className="mt-6 text-xs" style={{ color: '#bbb', fontFamily: 'Arial, sans-serif' }}>
+                  Powered by WordPress | Theme: flavor flavor flavor flavor flavor flavor flavor flavor flavor flavor flavor Twenty Twenty-Three
+                </p>
+              </div>
+            </div>
+
+            {/* BEFORE label */}
+            <div
+              className="absolute top-14 sm:top-16 right-3 px-3 py-1 text-xs font-bold uppercase tracking-widest rounded-full z-20"
+              style={{ backgroundColor: 'rgba(0,0,0,0.08)', color: '#999' }}
+            >
+              Before
+            </div>
           </motion.div>
-        </div>
+        ) : (
+          /* ── AFTER STATE — Premium, botanical, elevated ── */
+          <motion.div
+            key="after"
+            initial={{ opacity: 0, scale: 1.02, filter: 'blur(6px)' }}
+            animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+            transition={{ duration: dur * 0.8, ease: 'easeOut' }}
+            className="relative w-full overflow-hidden"
+            style={{
+              backgroundColor: C.cream,
+              border: `1px solid ${C.green}30`,
+              borderRadius: '16px',
+              boxShadow: `0 8px 40px ${C.green}15, 0 2px 8px rgba(0,0,0,0.04)`,
+            }}
+          >
+            {/* Elegant nav bar */}
+            <div
+              className="flex items-center justify-between px-6 sm:px-10 py-4"
+              style={{ borderBottom: `1px solid ${C.green}15` }}
+            >
+              <motion.span
+                className={`${heading.className} text-base sm:text-lg`}
+                style={{ color: C.darkGreen, fontStyle: 'italic' }}
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: dur * 0.6, delay: stagger }}
+              >
+                Cedarview Landscaping
+              </motion.span>
+              <motion.div
+                className="hidden sm:flex items-center gap-6"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: dur * 0.6, delay: stagger * 2 }}
+              >
+                {['Portfolio', 'Services', 'About', 'Contact'].map((link) => (
+                  <span
+                    key={link}
+                    className={`${body.className} text-xs uppercase tracking-widest`}
+                    style={{ color: C.green, fontWeight: 500 }}
+                  >
+                    {link}
+                  </span>
+                ))}
+              </motion.div>
+            </div>
 
-        {/* Bottom accent line — grows on transform */}
-        <motion.div
-          className="mx-auto mt-8 sm:mt-10 rounded-full"
-          style={{ height: '3px' }}
-          animate={{
-            width: transformed ? 120 : 40,
-            backgroundColor: transformed ? C.terracotta : '#ccc',
-            opacity: transformed ? 1 : 0.5,
-          }}
-          transition={{ duration: dur, delay: stagger * 3 }}
-        />
-      </motion.div>
+            {/* Hero area — lush and premium */}
+            <div className="relative px-6 sm:px-10 md:px-16 py-14 sm:py-20 md:py-24">
+              {/* Decorative botanical elements */}
+              <motion.div
+                className="absolute top-0 right-0 pointer-events-none"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 0.12 }}
+                transition={{ duration: dur, delay: stagger * 3 }}
+              >
+                <svg width="180" height="180" viewBox="0 0 180 180" fill="none">
+                  <path d="M168 12 C138 12 96 38 74 75 C52 112 58 148 32 164" stroke={C.green} strokeWidth="1.5" fill="none" strokeLinecap="round" />
+                  <ellipse cx="118" cy="45" rx="12" ry="6" stroke={C.green} strokeWidth="1" fill="none" transform="rotate(-55 118 45)" />
+                  <ellipse cx="88" cy="82" rx="10" ry="5" stroke={C.green} strokeWidth="1" fill="none" transform="rotate(-20 88 82)" />
+                  <ellipse cx="62" cy="118" rx="8" ry="4" stroke={C.green} strokeWidth="1" fill="none" transform="rotate(15 62 118)" />
+                  <circle cx="145" cy="28" r="3" fill={C.green} opacity="0.3" />
+                  <circle cx="48" cy="142" r="2" fill={C.green} opacity="0.2" />
+                </svg>
+              </motion.div>
+              <motion.div
+                className="absolute bottom-0 left-0 pointer-events-none"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 0.08 }}
+                transition={{ duration: dur, delay: stagger * 4 }}
+              >
+                <svg width="140" height="140" viewBox="0 0 140 140" fill="none">
+                  <path d="M12 12 C32 32 48 68 58 98 C68 128 42 138 22 128" stroke={C.terracotta} strokeWidth="1" fill="none" strokeLinecap="round" strokeDasharray="3 5" />
+                  <ellipse cx="38" cy="58" rx="8" ry="4" stroke={C.terracotta} strokeWidth="0.8" fill="none" transform="rotate(40 38 58)" />
+                </svg>
+              </motion.div>
 
-      {/* Replay / toggle button */}
-      <div className="flex justify-center mt-6 gap-3">
+              <div className="relative z-10 text-center">
+                {/* Business name chip */}
+                <motion.div
+                  className="flex justify-center mb-6"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: dur * 0.6, delay: stagger * 2 }}
+                >
+                  <span
+                    className={`${body.className} text-xs font-semibold uppercase tracking-[0.2em] px-5 py-2 rounded-full`}
+                    style={{ backgroundColor: `${C.green}12`, color: C.green, border: `1px solid ${C.green}20` }}
+                  >
+                    Est. 2003 &mdash; West Kootenay
+                  </span>
+                </motion.div>
+
+                {/* The headline */}
+                <motion.h2
+                  className={`${heading.className} text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.15] mb-6`}
+                  style={{ color: C.darkGreen }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  Your Neighbours<br />
+                  Will Ask Who Did{' '}
+                  <span
+                    className="relative inline-block"
+                    style={{ color: C.terracotta, fontStyle: 'italic' }}
+                  >
+                    Your Yard.
+                    {/* Underline flourish */}
+                    <motion.svg
+                      className="absolute -bottom-2 left-0 w-full"
+                      viewBox="0 0 200 12"
+                      fill="none"
+                    >
+                      <motion.path
+                        d="M4 8 C40 2, 80 2, 120 6 C140 8, 170 4, 196 6"
+                        stroke={C.terracotta}
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        fill="none"
+                        initial={{ pathLength: 0 }}
+                        animate={{ pathLength: 1 }}
+                        transition={{ duration: dur * 1.5, delay: stagger * 5, ease: 'easeOut' }}
+                      />
+                    </motion.svg>
+                  </span>
+                </motion.h2>
+
+                {/* Subline */}
+                <motion.p
+                  className={`${body.className} text-base sm:text-lg md:text-xl max-w-lg mx-auto mb-10`}
+                  style={{ color: '#5a6e5a', lineHeight: 1.7 }}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: dur * 0.8, delay: stagger * 4 }}
+                >
+                  Design, build, and maintain &mdash; from the first sketch to the finished garden.
+                </motion.p>
+
+                {/* Premium CTA */}
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: dur * 0.8, delay: stagger * 5 }}
+                  className="flex flex-col sm:flex-row items-center justify-center gap-4"
+                >
+                  <a
+                    href="#contact"
+                    className={`${heading.className} inline-flex items-center gap-2 px-8 py-4 text-sm sm:text-base rounded-xl transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]`}
+                    style={{
+                      backgroundColor: C.green,
+                      color: C.white,
+                      boxShadow: `0 4px 20px ${C.green}35`,
+                      letterSpacing: '0.02em',
+                    }}
+                  >
+                    Get Your Free Design Sketch
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                  </a>
+                  <span className={`${body.className} text-sm`} style={{ color: '#999' }}>
+                    No commitment required
+                  </span>
+                </motion.div>
+
+                {/* Trust signals — elegant */}
+                <motion.div
+                  className="flex items-center justify-center gap-6 mt-10 flex-wrap"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: dur, delay: stagger * 6 }}
+                >
+                  {['5\u2605 Google Reviews', '200+ Projects', 'Family Owned'].map((badge) => (
+                    <span
+                      key={badge}
+                      className={`${body.className} text-xs`}
+                      style={{ color: C.green, opacity: 0.7, letterSpacing: '0.05em' }}
+                    >
+                      {badge}
+                    </span>
+                  ))}
+                </motion.div>
+              </div>
+            </div>
+
+            {/* AFTER label */}
+            <motion.div
+              className="absolute top-16 right-3 px-3 py-1 text-xs font-bold uppercase tracking-widest rounded-full z-20"
+              style={{ backgroundColor: `${C.green}20`, color: C.darkGreen }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: stagger * 2 }}
+            >
+              After
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Toggle button */}
+      <div className="flex justify-center mt-8">
         <button
           onClick={() => setTransformed(!transformed)}
-          className={`${body.className} text-sm font-medium px-5 py-2.5 rounded-full transition-all duration-200 hover:scale-[1.03] active:scale-[0.97]`}
+          className={`${body.className} text-sm font-medium px-6 py-3 rounded-full transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]`}
           style={{
-            backgroundColor: transformed ? `${C.green}15` : '#f0f0f0',
+            backgroundColor: transformed ? `${C.green}15` : C.white,
             color: transformed ? C.darkGreen : '#666',
-            border: `1px solid ${transformed ? `${C.green}30` : '#ddd'}`,
+            border: `1.5px solid ${transformed ? `${C.green}30` : '#ddd'}`,
+            boxShadow: transformed ? `0 2px 12px ${C.green}10` : '0 1px 4px rgba(0,0,0,0.06)',
           }}
         >
           {transformed ? '\u2190 See the Before' : '\u2728 Watch the Transformation'}
