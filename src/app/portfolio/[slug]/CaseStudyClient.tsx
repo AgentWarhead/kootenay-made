@@ -1,131 +1,241 @@
 'use client';
 
 import Link from 'next/link';
-import { ArrowLeft, ArrowRight, MapPin, CheckCircle, Quote } from 'lucide-react';
+import Image from 'next/image';
+import { ArrowLeft, ArrowRight, ExternalLink, CheckCircle, Sparkles } from 'lucide-react';
+import { motion } from 'framer-motion';
 import ScrollReveal from '@/components/ScrollReveal';
 import Breadcrumb from '@/components/Breadcrumb';
-import { CaseStudy } from '../data';
+import MountainDivider from '@/components/MountainDivider';
+import AmbientOrbs from '@/components/AmbientOrbs';
+import { CaseStudy, caseStudies } from '../data';
+
+function getAdjacentStudies(slug: string) {
+  const idx = caseStudies.findIndex((s) => s.slug === slug);
+  return {
+    prev: idx > 0 ? caseStudies[idx - 1] : null,
+    next: idx < caseStudies.length - 1 ? caseStudies[idx + 1] : null,
+  };
+}
 
 export default function CaseStudyClient({ study }: { study: CaseStudy }) {
+  const { prev, next } = getAdjacentStudies(study.slug);
+
   return (
-    <>
+    <div className="overflow-x-hidden">
       {/* Header */}
-      <section className="bg-slate grain pt-32 pb-20">
+      <section className="aurora-bg grain pt-32 pb-20 relative">
+        <AmbientOrbs />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
           <Breadcrumb items={[{ label: 'Portfolio', href: '/portfolio' }, { label: study.name }]} dark />
           <ScrollReveal>
-            <div className="flex items-center gap-3 mb-4">
-              <span className="text-xs font-medium px-3 py-1 rounded-full" style={{ background: `${study.styleColor}30`, color: study.styleColor }}>
-                {study.style}
+            <div className="flex items-center gap-3 mb-4 flex-wrap">
+              <span
+                className="text-xs font-medium px-3 py-1 rounded-full"
+                style={{ background: `${study.terrainColor}30`, color: study.terrainColor }}
+              >
+                {study.terrain}
               </span>
-              <span className="flex items-center gap-1 text-sm text-dark-text-muted">
-                <MapPin size={14} />
-                {study.location}
-              </span>
+              <span className="text-sm text-dark-text-muted">{study.type}</span>
             </div>
             <h1 className="font-[family-name:var(--font-satoshi)] text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-cream leading-tight max-w-3xl">
               {study.name}
             </h1>
-            <p className="mt-4 text-dark-text-muted text-lg">{study.type}</p>
+            <p className="mt-4 text-dark-text-muted text-lg max-w-2xl">{study.description}</p>
           </ScrollReveal>
         </div>
       </section>
 
-      {/* Before State */}
+      <MountainDivider variant={1} fillColor="#F8F4F0" bgColor="#1A1D20" />
+
+      {/* Hero Screenshot in Browser Mockup */}
       <section className="bg-cream py-16 sm:py-20">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6">
           <ScrollReveal>
-            <p className="text-copper font-medium text-sm tracking-wider uppercase mb-3">Before</p>
-            <h2 className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl font-bold text-slate mb-4">Where they started</h2>
-            <p className="text-text-secondary text-lg leading-relaxed">{study.beforeState}</p>
-          </ScrollReveal>
-        </div>
-      </section>
-
-      {/* The Challenge */}
-      <section className="bg-slate grain py-16 sm:py-20">
-        <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6">
-          <ScrollReveal>
-            <p className="text-copper-light font-medium text-sm tracking-wider uppercase mb-3">The Challenge</p>
-            <h2 className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl font-bold text-cream mb-4">What they needed</h2>
-            <p className="text-dark-text-muted text-lg leading-relaxed">{study.challenge}</p>
-          </ScrollReveal>
-        </div>
-      </section>
-
-      {/* Our Approach */}
-      <section className="bg-cream py-16 sm:py-20">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6">
-          <ScrollReveal>
-            <p className="text-copper font-medium text-sm tracking-wider uppercase mb-3">Our Approach</p>
-            <h2 className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl font-bold text-slate mb-4">How we built it</h2>
-            <p className="text-text-secondary text-lg leading-relaxed mb-8">{study.approach}</p>
-          </ScrollReveal>
-          
-          <ScrollReveal delay={0.1}>
-            <h3 className="font-[family-name:var(--font-satoshi)] text-xl font-bold text-slate mb-4">Key Features</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {study.features.map((f, i) => (
-                <div key={i} className="flex items-start gap-2">
-                  <CheckCircle size={18} className="text-forest mt-0.5 shrink-0" />
-                  <span className="text-text-secondary text-sm">{f}</span>
+            <motion.div
+              initial={{ y: 30, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, ease: 'easeOut' }}
+              className="rounded-xl overflow-hidden shadow-2xl border border-slate/10"
+            >
+              {/* Browser chrome */}
+              <div className="bg-slate/95 px-4 py-3 flex items-center gap-2">
+                <div className="flex gap-1.5">
+                  <div className="w-3 h-3 rounded-full bg-red-400/80" />
+                  <div className="w-3 h-3 rounded-full bg-yellow-400/80" />
+                  <div className="w-3 h-3 rounded-full bg-green-400/80" />
                 </div>
-              ))}
-            </div>
+                <div className="flex-1 mx-3">
+                  <div className="bg-white/10 rounded-md px-3 py-1 text-xs text-white/50 font-mono truncate">
+                    {study.liveUrl.replace('https://', '')}
+                  </div>
+                </div>
+              </div>
+              {/* Screenshot */}
+              <div className="relative aspect-[16/10] bg-slate/5">
+                <Image
+                  src={study.heroImage}
+                  alt={`${study.name} screenshot`}
+                  fill
+                  className="object-cover"
+                  priority
+                />
+              </div>
+            </motion.div>
           </ScrollReveal>
         </div>
       </section>
 
-      {/* The Result */}
-      <section className="bg-slate grain py-16 sm:py-20">
+      {/* Overview */}
+      <section className="bg-cream pb-16 sm:pb-20">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6">
+          <ScrollReveal>
+            <p className="text-copper font-medium text-sm tracking-wider uppercase mb-3">Overview</p>
+            <h2 className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl font-bold text-slate mb-4">
+              The Project
+            </h2>
+            <p className="text-text-secondary text-lg leading-relaxed">{study.overview}</p>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      <MountainDivider variant={2} fillColor="#1A1D20" bgColor="#F8F4F0" />
+
+      {/* What We Built */}
+      <section className="bg-slate grain py-16 sm:py-20 relative">
+        <AmbientOrbs />
         <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6">
           <ScrollReveal>
-            <p className="text-copper-light font-medium text-sm tracking-wider uppercase mb-3">The Result</p>
-            <h2 className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl font-bold text-cream mb-4">What happened next</h2>
-            <p className="text-dark-text-muted text-lg leading-relaxed">{study.result}</p>
+            <p className="text-copper-light font-medium text-sm tracking-wider uppercase mb-3">What We Built</p>
+            <h2 className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl font-bold text-cream mb-6">
+              The Build
+            </h2>
+            <p className="text-dark-text-muted text-lg leading-relaxed">{study.whatWeBuilt}</p>
           </ScrollReveal>
         </div>
       </section>
 
-      {/* Testimonial */}
+      <MountainDivider variant={1} fillColor="#F8F4F0" bgColor="#1A1D20" />
+
+      {/* Key Highlight */}
       <section className="bg-cream py-16 sm:py-20">
         <div className="max-w-3xl mx-auto px-4 sm:px-6">
           <ScrollReveal>
-            <div className="bg-white rounded-2xl border border-cream-border p-5 sm:p-8 lg:p-10">
-              <Quote size={32} className="text-copper/30 mb-4" />
-              <blockquote className="font-[family-name:var(--font-satoshi)] text-xl sm:text-2xl font-medium text-slate leading-relaxed mb-6">
-                &ldquo;{study.testimonial.quote}&rdquo;
-              </blockquote>
-              <div>
-                <p className="font-[family-name:var(--font-satoshi)] font-bold text-slate">{study.testimonial.author}</p>
-                <p className="text-text-tertiary text-sm">{study.testimonial.role}</p>
+            <div className="bg-white rounded-2xl border border-slate/10 p-6 sm:p-8 lg:p-10">
+              <div className="flex items-center gap-2 mb-4">
+                <Sparkles size={20} className="text-copper" />
+                <p className="text-copper font-medium text-sm tracking-wider uppercase">Key Highlight</p>
               </div>
+              <p className="text-text-secondary text-lg leading-relaxed">{study.keyHighlight}</p>
             </div>
           </ScrollReveal>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="bg-slate grain py-16">
+      {/* Tech Stack + Features */}
+      <section className="bg-cream pb-16 sm:pb-20">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+            {/* Tech Stack */}
+            <ScrollReveal>
+              <p className="text-copper font-medium text-sm tracking-wider uppercase mb-4">Tech Stack</p>
+              <div className="flex flex-wrap gap-2">
+                {study.techStack.map((tech) => (
+                  <span
+                    key={tech}
+                    className="text-sm font-medium px-3 py-1.5 rounded-lg bg-slate/5 text-slate border border-slate/10"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </ScrollReveal>
+
+            {/* Features */}
+            <ScrollReveal delay={0.1}>
+              <p className="text-copper font-medium text-sm tracking-wider uppercase mb-4">Features</p>
+              <div className="space-y-2.5">
+                {study.features.map((f, i) => (
+                  <div key={i} className="flex items-start gap-2">
+                    <CheckCircle size={18} className="text-forest mt-0.5 shrink-0" />
+                    <span className="text-text-secondary text-sm">{f}</span>
+                  </div>
+                ))}
+              </div>
+            </ScrollReveal>
+          </div>
+        </div>
+      </section>
+
+      <MountainDivider variant={2} fillColor="#1A1D20" bgColor="#F8F4F0" />
+
+      {/* Explore Live CTA */}
+      <section className="bg-slate grain py-16 sm:py-20 relative">
+        <AmbientOrbs />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-16 text-center">
           <ScrollReveal>
             <h2 className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl font-bold text-cream mb-4">
-              Want results like these?
+              See it in action
             </h2>
             <p className="text-dark-text-muted mb-8 max-w-lg mx-auto">
-              Every project starts with a conversation. Let&apos;s talk about what we can build for your business.
+              Experience {study.name} for yourself.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/portfolio" className="inline-flex items-center gap-2 border border-cream/20 text-cream hover:bg-cream/10 font-medium px-6 py-3 rounded-lg transition-all">
-                <ArrowLeft size={16} /> All Projects
-              </Link>
-              <Link href="/contact" className="inline-flex items-center gap-2 bg-copper hover:bg-copper-light text-white font-medium px-8 py-3 rounded-lg transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]">
-                Start Your Project <ArrowRight size={18} />
-              </Link>
-            </div>
+            <a
+              href={study.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-copper hover:bg-copper-light text-white font-medium px-8 py-4 rounded-lg transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
+            >
+              Explore Live <ExternalLink size={18} />
+            </a>
           </ScrollReveal>
         </div>
       </section>
-    </>
+
+      {/* Next on the Trail — Prev/Next Navigation */}
+      {(prev || next) && (
+        <section className="bg-cream py-12 sm:py-16 border-t border-slate/10">
+          <div className="max-w-3xl mx-auto px-4 sm:px-6">
+            <p className="text-copper font-medium text-sm tracking-wider uppercase mb-6 text-center">
+              Next on the Trail
+            </p>
+            <div className="flex flex-col sm:flex-row items-stretch gap-4">
+              {prev ? (
+                <Link
+                  href={`/portfolio/${prev.slug}`}
+                  className="flex-1 group flex items-center gap-3 p-4 rounded-xl border border-slate/10 hover:border-copper/30 hover:bg-copper/5 transition-all"
+                >
+                  <ArrowLeft size={18} className="text-text-tertiary group-hover:text-copper transition-colors shrink-0" />
+                  <div className="min-w-0">
+                    <p className="text-xs text-text-tertiary">Previous</p>
+                    <p className="font-[family-name:var(--font-satoshi)] font-bold text-slate truncate">{prev.name}</p>
+                    <p className="text-xs text-text-tertiary">{prev.terrain}</p>
+                  </div>
+                </Link>
+              ) : (
+                <div className="flex-1" />
+              )}
+
+              {next ? (
+                <Link
+                  href={`/portfolio/${next.slug}`}
+                  className="flex-1 group flex items-center justify-end gap-3 p-4 rounded-xl border border-slate/10 hover:border-copper/30 hover:bg-copper/5 transition-all text-right"
+                >
+                  <div className="min-w-0">
+                    <p className="text-xs text-text-tertiary">Next</p>
+                    <p className="font-[family-name:var(--font-satoshi)] font-bold text-slate truncate">{next.name}</p>
+                    <p className="text-xs text-text-tertiary">{next.terrain}</p>
+                  </div>
+                  <ArrowRight size={18} className="text-text-tertiary group-hover:text-copper transition-colors shrink-0" />
+                </Link>
+              ) : (
+                <div className="flex-1" />
+              )}
+            </div>
+          </div>
+        </section>
+      )}
+    </div>
   );
 }

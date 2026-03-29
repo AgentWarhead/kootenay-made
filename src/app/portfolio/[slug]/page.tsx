@@ -1,6 +1,4 @@
 import { notFound } from 'next/navigation';
-import Link from 'next/link';
-import { ArrowLeft, ArrowRight, MapPin, CheckCircle, Quote } from 'lucide-react';
 import { caseStudies } from '../data';
 import CaseStudyClient from './CaseStudyClient';
 

@@ -3,76 +3,97 @@ export interface CaseStudy {
   name: string;
   type: string;
   location: string;
-  style: string;
-  styleColor: string;
+  terrain: string;
+  terrainColor: string;
   description: string;
-  challenge: string;
-  approach: string;
-  result: string;
-  testimonial: { quote: string; author: string; role: string };
+  overview: string;
+  whatWeBuilt: string;
+  keyHighlight: string;
   features: string[];
-  beforeState: string;
+  techStack: string[];
+  liveUrl: string;
+  heroImage: string;
 }
 
 export const caseStudies: CaseStudy[] = [
   {
-    slug: 'summit-plumbing',
-    name: 'Summit Plumbing & Heating',
-    type: 'Trades',
-    location: 'Trail, BC',
-    style: 'Bold & Modern',
-    styleColor: '#C17817',
-    description: 'A complete digital overhaul for Trail\'s most trusted plumbing company — from a dated DIY site to a lead-generating machine.',
-    challenge: 'Summit Plumbing had been Trail\'s go-to for 15 years, but their website told a different story. Built on a free website builder in 2016, it was slow, not mobile-friendly, and buried on page 3 of Google. They were losing emergency calls to competitors with better online presence — despite doing superior work. Owner Dave Kowalski knew he needed a change but didn\'t know where to start.',
-    approach: 'We chose the Bold & Modern style — strong colors, confident typography, and a dark background that makes Summit\'s copper brand color pop. The site was built mobile-first (78% of their traffic comes from phones — people searching "emergency plumber near me" at 2am). We added a prominent click-to-call button, online booking integration, and a service area map covering Trail, Rossland, and Warfield. Every page was optimized for local SEO with structured data markup.',
-    result: 'Within 6 weeks of launch, Summit saw a 340% increase in website contact form submissions. Their Google Business Profile views doubled after we connected the new site with proper local SEO. The emergency call button alone generates 15-20 calls per month. Dave\'s exact words: "I\'ve gotten more leads in two months than I did all last year."',
-    testimonial: { quote: 'I put off updating my website for years because I thought it would be a nightmare. Kootenay Made made it painless. The new site looks incredible and it\'s actually bringing in work. Best investment I\'ve made for the business.', author: 'Dave Kowalski', role: 'Owner, Summit Plumbing & Heating' },
-    features: ['Mobile-first responsive design', 'Click-to-call emergency button', 'Online booking integration', 'Service area map', 'Google Business Profile optimization', 'Before/after project gallery'],
-    beforeState: 'Outdated free website builder site from 2016. No mobile optimization, slow load times (8+ seconds), no contact form, buried on page 3 of Google. Zero online leads.'
+    slug: 'lapphund-designs',
+    name: 'Lapphund Designs',
+    type: 'E-Commerce (Shopify)',
+    location: 'Kootenay Made',
+    terrain: 'River Valley',
+    terrainColor: '#4A90A4',
+    description: 'Full Shopify e-commerce store for Finnish Lapphund themed products. Print-on-demand, ships worldwide. Biggest store in the Finnish Lapphund niche.',
+    overview: 'Lapphund Designs is the world\'s largest online store dedicated to Finnish Lapphund themed products. From apparel to home goods, every item celebrates this beloved Arctic breed with original designs that ship worldwide via print-on-demand.',
+    whatWeBuilt: 'We built a complete Shopify storefront with a custom theme tailored to the Finnish Lapphund community. The store features SEO-optimized product pages designed to rank for niche breed-specific keywords, automated email marketing through Klaviyo with welcome sequences and abandoned checkout recovery flows, and a mobile-responsive design that converts browsers into buyers. We also built a fun interactive quiz — "Which Lappy Are You?" — that drives engagement and email signups.',
+    keyHighlight: 'The "Which Lappy Are You?" personality quiz became the store\'s top traffic driver. It matches visitors with a Finnish Lapphund archetype based on their personality, then recommends products tailored to their result. The quiz generates email signups at 3x the rate of traditional popups and has become a viral sharing tool within the Finnish Lapphund community.',
+    features: ['Shopify storefront with custom theme', 'Automated email marketing (Klaviyo)', 'Welcome + abandoned checkout flows', 'SEO-optimized product pages', 'Mobile-responsive design', '"Which Lappy Are You?" personality quiz'],
+    techStack: ['Shopify', 'Klaviyo', 'Custom Theme'],
+    liveUrl: 'https://lapphunddesigns.com',
+    heroImage: '/images/portfolio/lapphund-designs.jpg',
   },
   {
-    slug: 'mountain-flow-yoga',
-    name: 'Mountain Flow Yoga',
-    type: 'Wellness Studio',
-    location: 'Nelson, BC',
-    style: 'Warm & Natural',
-    styleColor: '#2D6A4F',
-    description: 'A calming, nature-inspired digital home for Nelson\'s beloved community yoga studio.',
-    challenge: 'Mountain Flow Yoga had built a loyal community through word-of-mouth, but owner Sarah Chen was turning away potential students because her class schedule lived on a printed flyer taped to the studio door. She had an Instagram page but no website — and was managing bookings through text messages and a paper sign-up sheet. She needed a digital presence that felt as peaceful as her studio.',
-    approach: 'The Warm & Natural style was a perfect fit — earth tones, organic shapes, soft gradients, and calming whitespace that mirrors the feeling of walking into the studio. We built an integrated class schedule with real-time availability, online booking with automatic confirmation emails, and a teacher profiles section. The design uses sage green, warm cream, and natural textures. We also set up a simple email list to announce workshops and retreats.',
-    result: 'Online bookings replaced the paper sign-up sheet within the first week. Class attendance increased 28% as new students discovered Mountain Flow through Google. Sarah now fills her weekend workshops 3 weeks in advance through the website. The email list grew to 400+ subscribers in 3 months — all local Nelson residents.',
-    testimonial: { quote: 'The website feels exactly like my studio — warm, welcoming, and grounded. My students love being able to book online, and I\'ve stopped losing track of who\'s coming to which class. It\'s given me my evenings back.', author: 'Sarah Chen', role: 'Owner & Lead Instructor, Mountain Flow Yoga' },
-    features: ['Online class booking system', 'Real-time schedule with availability', 'Teacher profiles & bios', 'Workshop event pages', 'Email list integration', 'Responsive mobile design'],
-    beforeState: 'No website at all — only an Instagram page and paper sign-up sheets. Class schedule was a printed flyer. Booking managed via text messages. No way for new students to discover or book classes online.'
+    slug: 'disclosure',
+    name: 'Disclosure',
+    type: 'Mobile App Landing Page',
+    location: 'Kootenay Made',
+    terrain: 'Night Sky',
+    terrainColor: '#22C55E',
+    description: 'Landing page for Disclosure — humanity\'s unofficial first contact manual. A mobile app preparing citizens for contact scenarios through 4 unique archetypes.',
+    overview: 'Disclosure is humanity\'s unofficial first contact manual — a mobile app that prepares citizens for contact scenarios through four unique archetypes. The landing page needed to capture the cinematic, otherworldly tone of the app itself.',
+    whatWeBuilt: 'We designed and built a landing page with a CRT terminal aesthetic that immerses visitors in the Disclosure universe from the first scroll. The cinematic scroll experience reveals the four contact archetypes through atmospheric animations and dark immersive design. The page was built mobile-first to mirror the React Native app experience, with Supabase powering the backend and RevenueCat handling subscriptions. Every interaction feels like you\'re interfacing with classified technology.',
+    keyHighlight: 'The CRT terminal aesthetic sets this project apart. Custom scan-line overlays, phosphor text glow effects, and a retro-futuristic UI create the feeling of accessing a classified government terminal. The design language carries through from the landing page to the app itself, creating a seamless narrative experience that makes users feel like they\'re part of something bigger than a typical mobile app.',
+    features: ['CRT terminal aesthetic', 'Archetype personality system', 'Cinematic scroll experience', 'Mobile-first React Native app', 'Dark immersive design'],
+    techStack: ['React Native (Expo)', 'Supabase', 'RevenueCat', 'Next.js'],
+    liveUrl: 'https://getdisclosure.app',
+    heroImage: '/images/portfolio/disclosure.jpg',
   },
   {
-    slug: 'kootenay-kitchen',
-    name: 'Kootenay Kitchen',
-    type: 'Farm-to-Table Restaurant',
-    location: 'Castlegar, BC',
-    style: 'Rustic Craft',
-    styleColor: '#9E6012',
-    description: 'A handcrafted digital experience for a restaurant that takes the same care with its food as we do with design.',
-    challenge: 'Kootenay Kitchen had earned a reputation for incredible farm-to-table dining, but their online presence was a basic Facebook page with outdated hours and a PDF menu that hadn\'t been updated in 6 months. They were losing tourist traffic to restaurants with better websites and online reservation systems. Chef and co-owner Maria Santos wanted something that communicated the craft and care behind every dish.',
-    approach: 'We went with Rustic Craft — textured backgrounds, warm earth tones, and handwritten accent fonts that echo the restaurant\'s chalkboard menu aesthetic. The site features a seasonal menu that Maria can update herself through a simple admin panel, online reservations through a clean booking widget, and a "Farm Partners" page highlighting their local suppliers (which tourists love). Professional food photography was styled to feel natural, not corporate.',
-    result: 'Online reservations now account for 60% of all bookings — up from zero. The "Farm Partners" page became unexpectedly popular, earning links from BC food blogs and a feature in a Kootenay tourism guide. Weekend reservations are now consistently full 4-5 days in advance. Google searches for "best restaurant Castlegar" now surface Kootenay Kitchen in the top 3.',
-    testimonial: { quote: 'Our food tells a story, and now our website does too. The design captures exactly what we\'re about — local, crafted, and genuine. We\'ve had customers tell us they drove from Kelowna specifically because of the website.', author: 'Maria Santos', role: 'Chef & Co-Owner, Kootenay Kitchen' },
-    features: ['Easy-update seasonal menu', 'Online reservation system', 'Farm Partners showcase page', 'Professional food photography styling', 'Google Maps integration', 'Event & private dining pages'],
-    beforeState: 'Only a Facebook page with incorrect hours. PDF menu 6 months out of date. No reservation system — phone only. Losing tourist traffic to competitors with proper websites.'
+    slug: 'generateideas',
+    name: 'GenerateIdeas',
+    type: 'SaaS Web Application',
+    location: 'Kootenay Made',
+    terrain: 'Alpine Meadow',
+    terrainColor: '#F59E0B',
+    description: 'AI-powered idea generation platform. The only dedicated idea generator on the market — web app with companion mobile app (SparkQuest).',
+    overview: 'GenerateIdeas is the only dedicated AI-powered idea generation platform on the market. It helps entrepreneurs, creators, and teams go from blank page to validated concept with intelligent idea generation, refinement tools, and market validation features.',
+    whatWeBuilt: 'We built a full-stack SaaS platform with an AI idea generation engine at its core. The web app features idea refinement tools that help users evolve raw concepts into actionable plans, market validation features that assess viability, and browser extensions that let users capture inspiration anywhere. We also developed SparkQuest, a companion React Native mobile app that delivers daily idea prompts and lets users build their idea portfolio on the go. The entire platform runs on Next.js with AI/ML powering the generation engine.',
+    keyHighlight: 'The AI idea generation engine doesn\'t just spit out random suggestions — it understands context, industry trends, and user preferences to generate genuinely novel concepts. Users can feed in a problem space and receive structured ideas complete with target audience, revenue model suggestions, and competitive landscape notes. The refinement pipeline lets users iterate on ideas through multiple rounds of AI-assisted development.',
+    features: ['AI idea generation engine', 'Idea refinement tools', 'Market validation features', 'Browser extensions', 'Companion mobile app (SparkQuest)'],
+    techStack: ['Next.js', 'AI/ML', 'React Native'],
+    liveUrl: 'https://generateideas.app',
+    heroImage: '/images/portfolio/generateideas.jpg',
   },
   {
-    slug: 'powder-highway-adventures',
-    name: 'Powder Highway Adventures',
-    type: 'Tourism & Ski Guiding',
-    location: 'Rossland, BC',
-    style: 'Adventure & Outdoors',
-    styleColor: '#4A90A4',
-    description: 'A bold, adventure-ready website for the Powder Highway\'s premier backcountry ski guiding company.',
-    challenge: 'Powder Highway Adventures had been running backcountry ski tours for 8 years with nothing but a Craigslist ad and word-of-mouth referrals. Owner and lead guide Jake Morrison was leaving money on the table — international ski tourists were booking competitors who showed up first on Google. He needed a site that conveyed professionalism and safety while capturing the raw thrill of backcountry skiing in the Rossland range.',
-    approach: 'Adventure & Outdoors was the obvious choice — big hero imagery, dynamic layouts, bold condensed typography, and a color palette inspired by mountain skies and snow. The site features detailed tour packages with pricing, difficulty ratings, and what\'s-included breakdowns. We built a guide profiles section highlighting certifications and experience (critical for trust in adventure tourism), a conditions/weather widget, and integrated a booking system with deposit payment. SEO was targeted at high-intent keywords like "backcountry skiing Rossland" and "Powder Highway guided tours."',
-    result: 'Bookings from the website exceeded all other channels combined within the first ski season. International visitors (US, Australia, Europe) now account for 35% of bookings — up from near zero. The site ranks #1 for "backcountry ski guide Rossland" and top 3 for "Powder Highway tours." Revenue increased 180% year-over-year. Jake had to hire two additional guides to meet demand.',
-    testimonial: { quote: 'I went from a Craigslist ad to the top of Google. The website pays for itself every single week during ski season. I had clients from Switzerland tell me they booked because the site looked professional and trustworthy. That\'s everything in this business.', author: 'Jake Morrison', role: 'Owner & Lead Guide, Powder Highway Adventures' },
-    features: ['Detailed tour packages with booking', 'Guide profiles with certifications', 'Conditions & weather widget', 'Online deposit payments', 'Photo & video gallery', 'International SEO optimization'],
-    beforeState: 'No website — only a Craigslist ad and word-of-mouth. No way for international tourists to discover or book tours. Zero online presence despite operating for 8 years.'
-  }
+    slug: 'cleartoenter',
+    name: 'Clear to Enter',
+    type: 'Immigration Resource Platform',
+    location: 'Kootenay Made',
+    terrain: 'Trailhead',
+    terrainColor: '#6366F1',
+    description: 'Comprehensive Canadian immigration information platform. Express Entry draw tracker, program guides, and tools helping newcomers navigate the immigration system.',
+    overview: 'Clear to Enter is a comprehensive Canadian immigration information platform that demystifies the Express Entry system. It provides real-time draw tracking, program comparison tools, and detailed guides to help newcomers navigate one of the world\'s most complex immigration systems.',
+    whatWeBuilt: 'We built a data-rich Next.js platform deployed on Vercel with an automated data pipeline that pulls the latest Express Entry draw results as they\'re published. The platform features program comparison tools that help users understand which immigration pathway suits their profile, CRS score insights that break down how the scoring system works, and comprehensive guides covering everything from document preparation to post-landing steps. Every page is designed for clarity — turning dense government policy into accessible, actionable information.',
+    keyHighlight: 'The real-time Express Entry draw tracker is the platform\'s cornerstone feature. An automated data pipeline monitors IRCC publications and updates draw results within hours of release. Users can view historical trends, filter by program category, and see how their CRS score stacks up against recent draws. The visualization tools turn raw government data into clear, interactive charts that help applicants make informed decisions about their immigration journey.',
+    features: ['Real-time Express Entry draw tracking', 'Program comparison tools', 'CRS score insights', 'Comprehensive immigration guides', 'Automatic data updates'],
+    techStack: ['Next.js', 'Vercel', 'Automated Data Pipeline'],
+    liveUrl: 'https://cleartoenter.ca',
+    heroImage: '/images/portfolio/cleartoenter.jpg',
+  },
+  {
+    slug: 'kootenay-made',
+    name: 'Kootenay Made Digital',
+    type: 'Agency Portfolio (This Site)',
+    location: 'Kootenay Made',
+    terrain: 'The Summit',
+    terrainColor: '#C17817',
+    description: 'The site you\'re looking at right now. Our own portfolio — 16 industry-specific demo templates, interactive style explorer, Kootenay wilderness theme, and mountain-crafted design.',
+    overview: 'This is the site you\'re on right now. Kootenay Made Digital is our own portfolio and agency platform — a showcase of what we can build, featuring 16 industry-specific demo templates, an interactive live redesign tool, and a design system inspired by the Kootenay wilderness.',
+    whatWeBuilt: 'We built our own platform on Next.js 14 with Tailwind CSS and Framer Motion, creating a Kootenay wilderness design system with parallax mountain transitions, ambient forest orbs, fog effects, and cedar textures. The site features 16 industry demo templates that let potential clients see exactly what their site could look like, an interactive style explorer for live previewing design directions, and performance-optimized animations that keep everything smooth even on mobile. Every pixel reflects the mountains, forests, and rivers of the Kootenay region.',
+    keyHighlight: 'The interactive live redesign tool lets visitors switch between design styles in real-time and see how their industry\'s template transforms. Rather than static mockups, potential clients get a hands-on experience — toggling between Bold & Modern, Warm & Natural, and other styles while watching colors, typography, layouts, and imagery shift instantly. It\'s the closest thing to a test drive for web design.',
+    features: ['16 industry demo templates', 'Interactive live redesign tool', 'Kootenay wilderness design system', 'Parallax mountain transitions', 'Performance-optimized animations'],
+    techStack: ['Next.js 14', 'Tailwind CSS', 'Framer Motion'],
+    liveUrl: 'https://kootenaymade.ca',
+    heroImage: '/images/portfolio/kootenay-made.jpg',
+  },
 ];

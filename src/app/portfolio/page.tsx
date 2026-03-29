@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowRight, MapPin } from 'lucide-react';
+import { ArrowRight, MapPin, ExternalLink } from 'lucide-react';
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import ScrollReveal from '@/components/ScrollReveal';
@@ -11,18 +11,63 @@ import MountainDivider from '@/components/MountainDivider';
 import AmbientOrbs from '@/components/AmbientOrbs';
 import { caseStudies } from './data';
 
-const imageMap: Record<string, string> = {
-  'summit-plumbing': '/images/portfolio/summit-plumbing.png',
-  'mountain-flow-yoga': '/images/portfolio/mountain-flow-yoga.png',
-  'kootenay-kitchen': '/images/portfolio/kootenay-kitchen.png',
-  'powder-highway-adventures': '/images/portfolio/powder-highway.png',
-};
+/* ── Terrain-specific SVG background patterns ── */
+function TerrainPattern({ terrain, slug }: { terrain: string; slug: string }) {
+  const patterns: Record<string, React.ReactNode> = {
+    'River Valley': (
+      <pattern id={`terrain-${slug}`} patternUnits="userSpaceOnUse" width="160" height="80">
+        <path d="M0 40 Q40 20, 80 40 T160 40" fill="none" stroke="#4A90A4" strokeWidth="0.8" opacity="0.5" />
+        <path d="M0 60 Q40 40, 80 60 T160 60" fill="none" stroke="#4A90A4" strokeWidth="0.5" opacity="0.3" />
+        <path d="M0 20 Q40 0, 80 20 T160 20" fill="none" stroke="#4A90A4" strokeWidth="0.5" opacity="0.3" />
+      </pattern>
+    ),
+    'Night Sky': (
+      <pattern id={`terrain-${slug}`} patternUnits="userSpaceOnUse" width="100" height="100">
+        <circle cx="20" cy="30" r="1" fill="#22C55E" opacity="0.4" />
+        <circle cx="70" cy="15" r="0.8" fill="#22C55E" opacity="0.3" />
+        <circle cx="50" cy="70" r="1.2" fill="#22C55E" opacity="0.35" />
+        <circle cx="85" cy="55" r="0.6" fill="#22C55E" opacity="0.25" />
+        <circle cx="10" cy="80" r="0.9" fill="#22C55E" opacity="0.3" />
+      </pattern>
+    ),
+    'Alpine Meadow': (
+      <pattern id={`terrain-${slug}`} patternUnits="userSpaceOnUse" width="120" height="60">
+        <path d="M0 30 Q15 15, 30 30 T60 30" fill="none" stroke="#F59E0B" strokeWidth="0.6" opacity="0.4" />
+        <path d="M60 30 Q75 15, 90 30 T120 30" fill="none" stroke="#F59E0B" strokeWidth="0.6" opacity="0.4" />
+        <path d="M30 50 Q45 35, 60 50 T90 50" fill="none" stroke="#F59E0B" strokeWidth="0.4" opacity="0.25" />
+      </pattern>
+    ),
+    'Trailhead': (
+      <pattern id={`terrain-${slug}`} patternUnits="userSpaceOnUse" width="80" height="80">
+        <path d="M40 0 L40 80" fill="none" stroke="#6366F1" strokeWidth="0.5" strokeDasharray="4 8" opacity="0.3" />
+        <path d="M0 40 L80 40" fill="none" stroke="#6366F1" strokeWidth="0.5" strokeDasharray="4 8" opacity="0.3" />
+        <circle cx="40" cy="40" r="2" fill="none" stroke="#6366F1" strokeWidth="0.5" opacity="0.3" />
+      </pattern>
+    ),
+    'The Summit': (
+      <pattern id={`terrain-${slug}`} patternUnits="userSpaceOnUse" width="120" height="120">
+        <path d="M60 10 L20 110 L100 110 Z" fill="none" stroke="#C17817" strokeWidth="0.6" opacity="0.3" />
+        <path d="M60 40 L35 110 L85 110 Z" fill="none" stroke="#C17817" strokeWidth="0.4" opacity="0.2" />
+      </pattern>
+    ),
+  };
+
+  return (
+    <div className="absolute inset-0 opacity-[0.06] pointer-events-none">
+      <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+        <defs>{patterns[terrain]}</defs>
+        <rect width="100%" height="100%" fill={`url(#terrain-${slug})`} />
+      </svg>
+    </div>
+  );
+}
 
 /* ── Trail waypoint ── */
-function TrailWaypoint({ study, index, total }: { study: typeof caseStudies[0]; index: number; total: number }) {
+function TrailWaypoint({ study, index }: { study: typeof caseStudies[0]; index: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: '-60px' });
   const isLeft = index % 2 === 0;
+  const isLast = study.slug === 'kootenay-made';
 
   return (
     <div ref={ref} className="relative">
@@ -32,7 +77,7 @@ function TrailWaypoint({ study, index, total }: { study: typeof caseStudies[0]; 
           initial={{ scale: 0 }}
           animate={inView ? { scale: 1 } : {}}
           transition={{ delay: 0.2, type: 'spring', stiffness: 300, damping: 20 }}
-          className="w-5 h-5 rounded-full bg-copper border-4 border-cream shadow-lg"
+          className={`w-5 h-5 rounded-full border-4 border-cream shadow-lg ${isLast ? 'bg-copper ring-2 ring-copper/30 ring-offset-2 ring-offset-cream' : 'bg-copper'}`}
         />
         <motion.span
           initial={{ opacity: 0, y: -10 }}
@@ -52,23 +97,26 @@ function TrailWaypoint({ study, index, total }: { study: typeof caseStudies[0]; 
             animate={inView ? { opacity: 1, x: 0, rotate: 0 } : {}}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
           >
-            <Link href={`/portfolio/${study.slug}`} className="group block">
-              <div className="glass-card-light rounded-2xl overflow-hidden relative">
-                {/* Topo contour hover pattern */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-[0.04] transition-opacity duration-500 pointer-events-none z-10">
-                  <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                      <pattern id={`topo-${study.slug}`} patternUnits="userSpaceOnUse" width="120" height="120">
-                        <path d="M0 60 Q30 40, 60 60 T120 60" fill="none" stroke="#C17817" strokeWidth="1" />
-                        <path d="M0 30 Q30 10, 60 30 T120 30" fill="none" stroke="#C17817" strokeWidth="0.5" />
-                        <path d="M0 90 Q30 70, 60 90 T120 90" fill="none" stroke="#C17817" strokeWidth="0.5" />
-                      </pattern>
-                    </defs>
-                    <rect width="100%" height="100%" fill={`url(#topo-${study.slug})`} />
-                  </svg>
-                </div>
+            <div className="glass-card-light rounded-2xl overflow-hidden relative group">
+              {/* Terrain-specific SVG pattern */}
+              <TerrainPattern terrain={study.terrain} slug={study.slug} />
 
-                {/* Image with clip-path reveal + rotation */}
+              {/* Topo contour hover pattern */}
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-[0.04] transition-opacity duration-500 pointer-events-none z-10">
+                <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <pattern id={`topo-${study.slug}`} patternUnits="userSpaceOnUse" width="120" height="120">
+                      <path d="M0 60 Q30 40, 60 60 T120 60" fill="none" stroke="#C17817" strokeWidth="1" />
+                      <path d="M0 30 Q30 10, 60 30 T120 30" fill="none" stroke="#C17817" strokeWidth="0.5" />
+                      <path d="M0 90 Q30 70, 60 90 T120 90" fill="none" stroke="#C17817" strokeWidth="0.5" />
+                    </pattern>
+                  </defs>
+                  <rect width="100%" height="100%" fill={`url(#topo-${study.slug})`} />
+                </svg>
+              </div>
+
+              {/* Image */}
+              <Link href={`/portfolio/${study.slug}`} className="block">
                 <div className="relative h-56 sm:h-64 overflow-hidden">
                   <motion.div
                     initial={{ clipPath: 'inset(0 100% 0 0)', rotate: 1 }}
@@ -78,40 +126,80 @@ function TrailWaypoint({ study, index, total }: { study: typeof caseStudies[0]; 
                     className="absolute inset-0"
                   >
                     <Image
-                      src={imageMap[study.slug]}
+                      src={study.heroImage}
                       alt={study.name}
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-700"
                     />
                   </motion.div>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+
+                  {/* You Are Here badge for kootenay-made */}
+                  {isLast && (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true }}
+                      className="absolute top-3 right-3 z-20"
+                    >
+                      <span className="inline-flex items-center gap-1.5 bg-copper text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg">
+                        <MapPin size={12} />
+                        You Are Here
+                      </span>
+                    </motion.div>
+                  )}
+                </div>
+              </Link>
+
+              <div className="p-4 sm:p-6 md:p-8 relative z-10">
+                <div className="flex items-center gap-2 mb-3 flex-wrap">
+                  <span
+                    className="text-xs font-medium px-2.5 py-1 rounded-full"
+                    style={{ background: `${study.terrainColor}15`, color: study.terrainColor }}
+                  >
+                    {study.terrain}
+                  </span>
+                  <span className="text-xs text-text-tertiary">{study.type}</span>
                 </div>
 
-                <div className="p-4 sm:p-6 md:p-8">
-                  <div className="flex items-center gap-2 mb-3">
-                    <span className="text-xs font-medium px-2.5 py-1 rounded-full" style={{ background: `${study.styleColor}15`, color: study.styleColor }}>
-                      {study.style}
-                    </span>
-                    <span className="flex items-center gap-1 text-xs text-text-tertiary">
-                      <MapPin size={12} />
-                      {study.location}
-                    </span>
-                  </div>
+                <h2 className="font-[family-name:var(--font-satoshi)] text-xl font-bold text-slate mb-2">
+                  {study.name}
+                </h2>
+                <p className="text-text-secondary text-sm leading-relaxed mb-4">
+                  {study.description}
+                </p>
 
-                  <h2 className="font-[family-name:var(--font-satoshi)] text-xl font-bold text-slate mb-1">
-                    {study.name}
-                  </h2>
-                  <p className="text-sm text-text-tertiary mb-3">{study.type}</p>
-                  <p className="text-text-secondary text-sm leading-relaxed mb-4">
-                    {study.description}
-                  </p>
+                {/* Tech stack pills */}
+                <div className="flex flex-wrap gap-1.5 mb-5">
+                  {study.techStack.map((tech) => (
+                    <span
+                      key={tech}
+                      className="text-[11px] font-medium px-2 py-0.5 rounded bg-slate/5 text-text-tertiary border border-slate/10"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
 
-                  <span className="inline-flex items-center gap-1 text-copper font-medium text-sm group-hover:gap-2 transition-all">
+                {/* Action links */}
+                <div className="flex items-center gap-4">
+                  <Link
+                    href={`/portfolio/${study.slug}`}
+                    className="inline-flex items-center gap-1 text-copper font-medium text-sm hover:gap-2 transition-all"
+                  >
                     View Case Study <ArrowRight size={16} />
-                  </span>
+                  </Link>
+                  <a
+                    href={study.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-text-tertiary hover:text-forest font-medium text-sm transition-colors"
+                  >
+                    View Live <ExternalLink size={14} />
+                  </a>
                 </div>
               </div>
-            </Link>
+            </div>
           </motion.div>
         </div>
       </div>
@@ -124,7 +212,6 @@ function TrailPath({ count }: { count: number }) {
   const ref = useRef<SVGSVGElement>(null);
   const inView = useInView(ref, { once: true, margin: '-100px' });
 
-  // Each waypoint is roughly 500px apart
   const height = count * 500;
   const points: string[] = [];
   for (let i = 0; i < count; i++) {
@@ -172,10 +259,10 @@ export default function PortfolioPage() {
           <ScrollReveal>
             <p className="text-copper font-[family-name:var(--font-satoshi)] font-semibold text-sm tracking-[0.2em] uppercase mb-3">The Trail</p>
             <h1 className="font-[family-name:var(--font-satoshi)] text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-cream leading-tight max-w-3xl">
-              Built for the Kootenays.
+              Five Projects. One Trail.
             </h1>
             <p className="mt-6 text-dark-text-muted text-lg max-w-2xl leading-relaxed">
-              Real results for real businesses. See how we&apos;ve helped Kootenay businesses transform their online presence.
+              Real projects we&apos;ve built — from e-commerce stores to AI platforms. Follow the trail from River Valley to Summit.
             </p>
           </ScrollReveal>
         </div>
@@ -186,12 +273,11 @@ export default function PortfolioPage() {
       {/* Trail layout with case studies */}
       <section className="bg-cream py-20 sm:py-24 cedar-texture relative overflow-x-hidden">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-16 relative">
-          {/* Trail path */}
           <TrailPath count={caseStudies.length} />
 
           <div className="space-y-12 sm:space-y-16 md:space-y-24 relative">
             {caseStudies.map((study, i) => (
-              <TrailWaypoint key={study.slug} study={study} index={i} total={caseStudies.length} />
+              <TrailWaypoint key={study.slug} study={study} index={i} />
             ))}
           </div>
         </div>
