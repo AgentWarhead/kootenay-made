@@ -128,7 +128,7 @@ function LiveRedesign() {
               animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
               transition={{ duration: dur * 0.8, ease: 'easeOut' }}
               className="absolute inset-0 w-full overflow-hidden flex flex-col"
-              style={{ backgroundColor: cream, border: `1px solid ${green}30`, borderRadius: '16px', boxShadow: `0 8px 40px ${green}15, 0 2px 8px rgba(0,0,0,0.04)` }}
+              style={{ border: `1px solid ${green}30`, borderRadius: '16px', boxShadow: `0 8px 40px ${green}15, 0 2px 8px rgba(0,0,0,0.04)` }}
             >
 
             {/* Background image overlay */}

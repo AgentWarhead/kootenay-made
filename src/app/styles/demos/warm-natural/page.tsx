@@ -160,7 +160,7 @@ function LiveRedesign() {
               animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
               transition={{ duration: dur * 0.8, ease: 'easeOut' }}
               className="absolute inset-0 w-full overflow-hidden flex flex-col"
-              style={{ backgroundColor: cream, border: `1px solid ${sage}30`, borderRadius: '16px', boxShadow: `0 8px 40px ${sage}15, 0 2px 8px rgba(0,0,0,0.04)` }}
+              style={{ border: `1px solid ${sage}30`, borderRadius: '16px', boxShadow: `0 8px 40px ${sage}15, 0 2px 8px rgba(0,0,0,0.04)` }}
             >
 
             {/* Background image overlay */}
@@ -171,7 +171,7 @@ function LiveRedesign() {
               {/* Grain texture */}
               <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E")`, opacity: 0.4 }} />
               {/* Linen nav */}
-              <div className="flex items-center justify-between px-6 sm:px-10 py-5" style={{ borderBottom: `1px solid ${sage}18`, backgroundColor: cream }}>
+              <div className="flex items-center justify-between px-6 sm:px-10 py-5" style={{ borderBottom: `1px solid ${sage}18`, backgroundColor: 'rgba(0,0,0,0.3)' }}>
                 <motion.span className="heading-font text-base sm:text-lg" style={{ color: sage, fontStyle: 'italic', fontFamily: "'Erode', serif" }}
                   initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: dur * 0.6, delay: stagger }}>
                   Mountain Flow Wellness

@@ -130,7 +130,7 @@ function LiveRedesign() {
               animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
               transition={{ duration: dur * 0.8, ease: 'easeOut' }}
               className="absolute inset-0 w-full overflow-hidden flex flex-col"
-              style={{ backgroundColor: white, border: `2px solid ${blue}`, borderRadius: '12px', boxShadow: `0 4px 24px ${blue}20, 0 2px 8px rgba(0,0,0,0.06)` }}
+              style={{ border: `2px solid ${blue}`, borderRadius: '12px', boxShadow: `0 4px 24px ${blue}20, 0 2px 8px rgba(0,0,0,0.06)` }}
             >
 
             {/* Background image overlay */}
@@ -139,7 +139,7 @@ function LiveRedesign() {
               <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.78) 50%, rgba(0,0,0,0.9) 100%)' }} />
             </div>
               {/* White nav — accessible, high contrast */}
-              <div className="flex items-center justify-between px-5 sm:px-8 py-3" style={{ borderBottom: `2px solid ${blue}`, backgroundColor: white }}>
+              <div className="flex items-center justify-between px-5 sm:px-8 py-3" style={{ borderBottom: `2px solid ${blue}`, backgroundColor: 'rgba(0,0,0,0.3)' }}>
                 <motion.span className={`${sourceSans.className} text-xs sm:text-sm font-bold`} style={{ color: '#fff', letterSpacing: '0.01em' }}
                   initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: dur * 0.6, delay: stagger }}>
                   West Kootenay Regional Parks

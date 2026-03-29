@@ -179,7 +179,7 @@ function LiveRedesign() {
               animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
               transition={{ duration: dur * 0.8, ease: 'easeOut' }}
               className="absolute inset-0 w-full overflow-hidden flex flex-col"
-              style={{ backgroundColor: EN.white, border: `1px solid ${EN.blue}30`, borderRadius: '16px', boxShadow: `0 8px 40px ${EN.blue}15, 0 2px 8px rgba(0,0,0,0.04)` }}
+              style={{ border: `1px solid ${EN.blue}30`, borderRadius: '16px', boxShadow: `0 8px 40px ${EN.blue}15, 0 2px 8px rgba(0,0,0,0.04)` }}
             >
               
             {/* Background image overlay */}
@@ -188,7 +188,7 @@ function LiveRedesign() {
               <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.78) 50%, rgba(0,0,0,0.9) 100%)' }} />
             </div>
 {/* Nav — light blue-tinted, KCLC in General Sans bold, blue text */}
-              <div className="flex items-center justify-between px-6 sm:px-10 py-4" style={{ borderBottom: `1px solid ${EN.blue}15`, backgroundColor: '#f0f7ff' }}>
+              <div className="flex items-center justify-between px-6 sm:px-10 py-4" style={{ borderBottom: `1px solid ${EN.blue}15`, backgroundColor: 'rgba(0,0,0,0.3)' }}>
                 <motion.span style={{ color: EN.blue, fontFamily: "'General Sans', sans-serif", fontSize: '1.05rem', fontWeight: 700, letterSpacing: '0.04em' }} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: dur * 0.6, delay: stagger }}>
                   KCLC
                 </motion.span>

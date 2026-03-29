@@ -296,7 +296,6 @@ function LiveRedesign() {
             transition={{ duration: dur * 0.8, ease: 'easeOut' }}
             className="relative w-full overflow-hidden"
             style={{
-              backgroundColor: C.cream,
               border: `1px solid ${C.green}30`,
               borderRadius: '16px',
               boxShadow: `0 8px 40px ${C.green}15, 0 2px 8px rgba(0,0,0,0.04)`,
