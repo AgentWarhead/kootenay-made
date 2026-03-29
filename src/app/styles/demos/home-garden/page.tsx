@@ -175,7 +175,7 @@ function LiveRedesign() {
             </div>
 
             {/* Hero area */}
-            <div className="relative px-6 sm:px-10 py-12 sm:py-16 md:py-20 text-center">
+            <div className="relative px-5 sm:px-10 py-8 sm:py-14 md:py-20 text-center">
               {/* Fake stock gradient background */}
               <div
                 className="absolute inset-0 opacity-[0.12]"
@@ -185,13 +185,13 @@ function LiveRedesign() {
               />
               <div className="relative z-10">
                 <p
-                  className="text-xs uppercase tracking-wide mb-4"
+                  className="text-xs uppercase tracking-wide mb-2 sm:mb-4"
                   style={{ fontFamily: 'Arial, sans-serif', color: '#666', letterSpacing: '0.15em' }}
                 >
                   &#9733; Welcome to Our Website &#9733;
                 </p>
                 <h2
-                  className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-tight mb-3"
+                  className="text-xl sm:text-3xl md:text-4xl lg:text-5xl leading-tight mb-2 sm:mb-3"
                   style={{
                     fontFamily: 'Georgia, serif',
                     color: '#3a3a3a',
@@ -202,20 +202,20 @@ function LiveRedesign() {
                   Green Thumb Landscaping
                 </h2>
                 <p
-                  className="text-base sm:text-lg mb-2"
+                  className="text-sm sm:text-lg mb-1 sm:mb-2"
                   style={{ fontFamily: 'Georgia, serif', color: '#666', fontStyle: 'italic' }}
                 >
                   &ldquo;Your #1 Choice for Lawn Care Since 2003!&rdquo;
                 </p>
                 <p
-                  className="text-sm mb-6"
+                  className="text-xs sm:text-sm mb-4 sm:mb-6"
                   style={{ fontFamily: 'Arial, sans-serif', color: '#888' }}
                 >
                   Mowing &bull; Trimming &bull; Leaf Removal &bull; Snow Plowing &bull; And More!
                 </p>
 
                 {/* Ugly stock badges row */}
-                <div className="flex justify-center gap-3 mb-6 flex-wrap">
+                <div className="flex justify-center gap-2 sm:gap-3 mb-4 sm:mb-6 flex-wrap">
                   <span className="px-3 py-1 text-xs rounded" style={{ backgroundColor: '#3a5a2e', color: '#fff', fontFamily: 'Arial, sans-serif' }}>
                     &#10003; Licensed
                   </span>
@@ -228,7 +228,7 @@ function LiveRedesign() {
                 </div>
 
                 {/* Phone number floating awkwardly */}
-                <p className="text-lg font-bold mb-4" style={{ fontFamily: 'Arial, sans-serif', color: '#3a5a2e' }}>
+                <p className="text-sm sm:text-lg font-bold mb-3 sm:mb-4" style={{ fontFamily: 'Arial, sans-serif', color: '#3a5a2e' }}>
                   &#128222; Call Us Today: (250) 555-0115
                 </p>
 
@@ -248,7 +248,7 @@ function LiveRedesign() {
                 </span>
 
                 {/* Fake "powered by" footer */}
-                <p className="mt-6 text-xs" style={{ color: '#bbb', fontFamily: 'Arial, sans-serif' }}>
+                <p className="mt-4 sm:mt-6 text-xs" style={{ color: '#bbb', fontFamily: 'Arial, sans-serif' }}>
                   Powered by WordPress | Theme: flavor flavor flavor flavor flavor flavor flavor flavor flavor flavor flavor Twenty Twenty-Three
                 </p>
               </div>
