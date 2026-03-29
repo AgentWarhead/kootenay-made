@@ -180,15 +180,21 @@ function TrailWaypoint({ study, index }: { study: typeof caseStudies[0]; index: 
                   ))}
                 </div>
 
-                {/* Action link */}
-                <div className="flex items-center">
+                {/* Action links */}
+                <div className="flex items-center gap-4">
+                  <Link
+                    href={`/portfolio/${study.slug}`}
+                    className="inline-flex items-center gap-1 text-copper font-medium text-sm hover:gap-2 transition-all"
+                  >
+                    View Details <ArrowRight size={16} />
+                  </Link>
                   <a
                     href={study.liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-copper font-medium text-sm hover:gap-2.5 transition-all"
+                    className="inline-flex items-center gap-1 text-text-tertiary hover:text-forest font-medium text-sm transition-colors"
                   >
-                    View Live <ExternalLink size={15} />
+                    View Live <ExternalLink size={14} />
                   </a>
                 </div>
               </div>
