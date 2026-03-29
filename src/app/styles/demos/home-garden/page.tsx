@@ -131,19 +131,25 @@ function BeforeAfterSlider() {
     <div
       ref={containerRef}
       className="relative w-full max-w-3xl mx-auto overflow-hidden select-none cursor-ew-resize"
-      style={{ aspectRatio: '16/9', border: `1px solid ${C.green}44`, borderRadius: '1rem' }}
+      style={{ aspectRatio: '3/2', border: `1px solid ${C.green}44`, borderRadius: '1rem' }}
       onMouseMove={(e) => handleMove(e.clientX)}
       onTouchMove={(e) => handleMove(e.touches[0].clientX)}
     >
       {/* AFTER layer */}
       <div
-        className="absolute inset-0 flex items-center justify-center"
+        className="absolute inset-0 flex flex-col items-center justify-center px-8 py-10"
         style={{ backgroundColor: C.greenLight }}
       >
-        <div className="text-center px-8">
-          <p className="text-sm font-bold mb-2" style={{ color: C.darkGreen }}>Cedarview Landscaping</p>
-          <p className="text-xs" style={{ color: '#5a6e5a' }}>Portfolio live. Google ranking. Phone ringing. 🌿</p>
-        </div>
+        <p className={`${heading.className} text-2xl md:text-4xl text-center font-bold leading-tight mb-4`} style={{ color: C.darkGreen }}>
+          Your Neighbours Will Ask<br />Who Did<br /><span style={{ color: C.terracotta }}>Your Yard.</span>
+        </p>
+        <a
+          href="#contact"
+          className={`${heading.className} inline-block px-6 py-3 text-sm font-bold mt-2 rounded-lg`}
+          style={{ backgroundColor: C.green, color: C.white }}
+        >
+          Get Your Free Design Sketch →
+        </a>
         <span
           className="absolute top-3 right-3 text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full"
           style={{ backgroundColor: `${C.green}28`, color: C.darkGreen }}
@@ -154,13 +160,19 @@ function BeforeAfterSlider() {
 
       {/* BEFORE layer */}
       <div
-        className="absolute inset-0 flex items-center justify-center overflow-hidden"
-        style={{ backgroundColor: C.muted, clipPath: `inset(0 ${100 - pos}% 0 0)` }}
+        className="absolute inset-0 flex flex-col items-center justify-center px-8 py-10 overflow-hidden"
+        style={{ backgroundColor: '#e8e8e8', clipPath: `inset(0 ${100 - pos}% 0 0)` }}
       >
-        <div className="text-center px-8">
-          <p className="text-xs uppercase tracking-widest font-bold mb-2" style={{ color: '#999' }}>Valley Green Landscaping</p>
-          <p className="text-xs" style={{ color: '#bbb' }}>Facebook page only. No portfolio. No calls.</p>
-        </div>
+        <p className="text-2xl md:text-4xl text-center leading-snug mb-2" style={{ fontFamily: 'Georgia, serif', color: '#555', fontWeight: 400 }}>
+          Green Thumb Landscaping.<br />Mowing, Trimming, and More!<br />Free Estimates!
+        </p>
+        <p className="text-sm mb-4" style={{ fontFamily: 'Georgia, serif', color: '#777' }}>Call or Email.</p>
+        <button
+          className="px-5 py-2 text-sm"
+          style={{ backgroundColor: '#999', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'default', fontFamily: 'Georgia, serif' }}
+        >
+          Click Here
+        </button>
         <span
           className="absolute top-3 left-3 text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full"
           style={{ backgroundColor: 'rgba(0,0,0,0.1)', color: '#888' }}

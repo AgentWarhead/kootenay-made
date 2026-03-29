@@ -59,7 +59,7 @@ function BeforeAfterSlider() {
   return (
     <div
       ref={containerRef}
-      style={{ position: 'relative', height: 340, cursor: 'ew-resize', userSelect: 'none', overflow: 'hidden', borderRadius: 16, boxShadow: '0 4px 24px rgba(8,145,178,0.1)' }}
+      style={{ position: 'relative', aspectRatio: '3/2', cursor: 'ew-resize', userSelect: 'none', overflow: 'hidden', borderRadius: 16, boxShadow: '0 4px 24px rgba(8,145,178,0.1)' }}
       onMouseDown={() => { dragging.current = true }}
       onMouseUp={() => { dragging.current = false }}
       onMouseLeave={() => { dragging.current = false }}
@@ -68,44 +68,25 @@ function BeforeAfterSlider() {
       onClick={(e) => move(e.clientX)}
     >
       {/* BEFORE */}
-      <div style={{ position: 'absolute', inset: 0, backgroundColor: '#f1f5f9', display: 'flex', flexDirection: 'column', padding: '2rem' }}>
-        <div style={{ color: '#94a3b8', fontSize: '0.7rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: '1rem' }}>BEFORE — Generic Template</div>
-        <div style={{ color: '#64748b', fontSize: '1.1rem', fontWeight: 400, marginBottom: '0.5rem' }}>Dr. Smith Family Dental</div>
-        <div style={{ backgroundColor: '#cbd5e1', height: 14, width: '65%', borderRadius: 4, marginBottom: '0.5rem' }} />
-        <div style={{ backgroundColor: '#cbd5e1', height: 14, width: '50%', borderRadius: 4, marginBottom: '1rem' }} />
-        <div style={{ height: 90, backgroundColor: '#dde2e8', borderRadius: 4, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem' }}>
-          <span style={{ color: '#94a3b8', fontSize: '0.8rem' }}>Stock Photo Here</span>
+      <div style={{ position: 'absolute', inset: 0, backgroundColor: '#e8e8e8', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem', fontFamily: 'Georgia, serif', textAlign: 'center', gap: '1rem' }}>
+        <div style={{ color: '#999', fontSize: '0.65rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', border: '1px solid #bbb', padding: '2px 8px' }}>BEFORE</div>
+        <div style={{ color: '#555', fontSize: 'clamp(1.2rem, 3.5vw, 2rem)', fontWeight: 400, lineHeight: 1.35 }}>
+          Welcome to Our Dental Clinic!<br />
+          <span style={{ fontStyle: 'italic', fontSize: '0.85em' }}>Accepting New Patients.</span>
         </div>
-        <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem' }}>
-          {['Services', 'Team', 'Book'].map(s => (
-            <div key={s} style={{ flex: 1, height: 56, backgroundColor: '#cbd5e1', borderRadius: 4, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <span style={{ color: '#94a3b8', fontSize: '0.65rem' }}>{s}</span>
-            </div>
-          ))}
-        </div>
-        <div style={{ backgroundColor: '#94a3b8', height: 34, borderRadius: 4, display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 'auto' }}>
-          <span style={{ color: '#ffffff', fontSize: '0.75rem', fontWeight: 600 }}>Call Now</span>
-        </div>
+        <div style={{ color: '#777', fontSize: 'clamp(0.8rem, 2vw, 1rem)' }}>Please Call to Schedule an Appointment</div>
+        <div style={{ backgroundColor: '#999', color: '#fff', padding: '0.5rem 1.25rem', fontSize: '0.85rem', fontFamily: 'Georgia, serif', cursor: 'pointer' }}>Learn More</div>
       </div>
 
       {/* AFTER */}
-      <div style={{ position: 'absolute', inset: 0, clipPath: `inset(0 ${100 - pos}% 0 0)`, backgroundColor: '#0891b2', display: 'flex', flexDirection: 'column', padding: '2rem' }}>
-        <div style={{ color: '#a5f3fc', fontSize: '0.7rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: '1rem' }}>AFTER — Kootenay Made Design</div>
-        <div style={{ color: '#ffffff', fontSize: '1.3rem', fontWeight: 700, marginBottom: '0.25rem' }}>Kootenay Family Dental</div>
-        <div style={{ color: 'rgba(255,255,255,0.75)', fontSize: '0.85rem', marginBottom: '1rem' }}>Gentle care for every smile ✦ Now accepting new patients</div>
-        <div style={{ height: 90, background: 'linear-gradient(135deg, #0e7490 0%, #0891b2 100%)', borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem', border: '1px solid rgba(255,255,255,0.2)' }}>
-          <span style={{ color: '#ffffff', fontSize: '0.8rem', fontWeight: 600 }}>Clean · Calm · Professional</span>
+      <div style={{ position: 'absolute', inset: 0, clipPath: `inset(0 ${100 - pos}% 0 0)`, backgroundColor: '#0891b2', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem', textAlign: 'center', gap: '1.25rem', fontFamily: font.style.fontFamily }}>
+        <div style={{ color: '#a5f3fc', fontSize: '0.65rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', backgroundColor: 'rgba(255,255,255,0.15)', padding: '3px 10px', borderRadius: 20 }}>AFTER</div>
+        <div style={{ color: '#ffffff', fontSize: 'clamp(1.4rem, 4vw, 2.25rem)', fontWeight: 700, lineHeight: 1.2 }}>
+          Nervous About the Dentist?<br />We Get It. That&apos;s Why We&apos;re Different.
         </div>
-        <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem' }}>
-          {['Cleanings', 'Whitening', 'Orthodontics'].map(s => (
-            <div key={s} style={{ flex: 1, height: 56, backgroundColor: 'rgba(255,255,255,0.15)', borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <span style={{ color: 'rgba(255,255,255,0.9)', fontSize: '0.6rem', fontWeight: 600 }}>{s}</span>
-            </div>
-          ))}
-        </div>
-        <div style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.72rem', marginBottom: '0.5rem' }}>★★★★★ 4.9 · Direct Billing · Accepting New Patients</div>
-        <div style={{ backgroundColor: '#ffffff', height: 34, borderRadius: 20, display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 'auto' }}>
-          <span style={{ color: '#0891b2', fontSize: '0.75rem', fontWeight: 700 }}>Book an Appointment →</span>
+        <div style={{ color: 'rgba(255,255,255,0.75)', fontSize: 'clamp(0.85rem, 2vw, 1rem)' }}>Gentle · Calm · Accepting New Patients</div>
+        <div style={{ backgroundColor: '#ffffff', color: '#0891b2', padding: '0.65rem 1.75rem', borderRadius: 20, fontSize: 'clamp(0.8rem, 2vw, 1rem)', fontWeight: 700 }}>
+          Book Online — No Phone Call Needed →
         </div>
       </div>
 

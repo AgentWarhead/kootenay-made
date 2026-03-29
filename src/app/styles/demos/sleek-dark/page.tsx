@@ -65,22 +65,28 @@ function BeforeAfterSlider() {
     <div
       ref={containerRef}
       className="relative w-full max-w-3xl mx-auto overflow-hidden select-none cursor-ew-resize"
-      style={{ aspectRatio: '16/9', border: '1px solid rgba(201,169,110,0.2)' }}
+      style={{ aspectRatio: '3/2', border: '1px solid rgba(201,169,110,0.2)' }}
       onMouseMove={(e) => handleMove(e.clientX)}
       onTouchMove={(e) => handleMove(e.touches[0].clientX)}
     >
       {/* AFTER layer */}
       <div
-        className="absolute inset-0 flex items-center justify-center"
+        className="absolute inset-0 flex flex-col items-center justify-center px-8 py-10"
         style={{ background: 'linear-gradient(135deg, #1a1a1a 0%, #1f1810 100%)' }}
       >
-        <div className="text-center px-8">
-          <p className="text-xs uppercase tracking-widest mb-2" style={{ color: '#c9a96e' }}>Ember Kitchen &amp; Bar</p>
-          <p className="text-xs italic" style={{ color: 'rgba(245,240,232,0.5)' }}>Atmospheric. Inviting. Fully booked.</p>
-        </div>
+        <p className={`${heading.className} text-2xl md:text-4xl text-center leading-tight mb-4`} style={{ color: '#f5f0e8', fontWeight: 300 }}>
+          Thursday&apos;s Special<br />Sells Out by 7pm.<br /><span style={{ color: '#c9a96e' }}>Just Saying.</span>
+        </p>
+        <a
+          href="#reserve"
+          className="inline-block px-6 py-3 text-sm font-bold tracking-widest uppercase mt-2"
+          style={{ border: '1px solid #c9a96e', color: '#0a0a0a', backgroundColor: '#c9a96e', letterSpacing: '0.1em' }}
+        >
+          Reserve Your Table →
+        </a>
         <span
           className="absolute top-3 right-3 text-xs font-bold uppercase tracking-widest px-3 py-1"
-          style={{ backgroundColor: 'rgba(201,169,110,0.12)', color: '#c9a96e' }}
+          style={{ backgroundColor: 'rgba(201,169,110,0.18)', color: '#c9a96e' }}
         >
           AFTER
         </span>
@@ -88,16 +94,22 @@ function BeforeAfterSlider() {
 
       {/* BEFORE layer */}
       <div
-        className="absolute inset-0 flex items-center justify-center overflow-hidden"
-        style={{ backgroundColor: '#111', clipPath: `inset(0 ${100 - pos}% 0 0)` }}
+        className="absolute inset-0 flex flex-col items-center justify-center px-8 py-10 overflow-hidden"
+        style={{ backgroundColor: '#e8e8e8', clipPath: `inset(0 ${100 - pos}% 0 0)` }}
       >
-        <div className="text-center px-8">
-          <p className="text-xs uppercase tracking-widest mb-2" style={{ color: '#444' }}>Nelson Italian Kitchen</p>
-          <p className="text-xs" style={{ color: '#555' }}>No menu. No photos. No reservations.</p>
-        </div>
+        <p className="text-2xl md:text-4xl text-center leading-snug mb-4" style={{ fontFamily: 'Georgia, serif', color: '#555', fontWeight: 400 }}>
+          Welcome to Our Restaurant!<br />Check Out Our Menu!<br />Open Tuesday to Sunday.
+        </p>
+        <p className="text-sm mb-4" style={{ fontFamily: 'Georgia, serif', color: '#777' }}>Call for Reservations.</p>
+        <button
+          className="px-5 py-2 text-sm"
+          style={{ backgroundColor: '#999', color: '#fff', border: 'none', borderRadius: '2px', cursor: 'default' }}
+        >
+          Click Here
+        </button>
         <span
           className="absolute top-3 left-3 text-xs font-bold uppercase tracking-widest px-3 py-1"
-          style={{ backgroundColor: 'rgba(255,255,255,0.06)', color: '#666' }}
+          style={{ backgroundColor: 'rgba(0,0,0,0.08)', color: '#888' }}
         >
           BEFORE
         </span>

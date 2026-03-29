@@ -83,18 +83,15 @@ function BeforeAfterSlider() {
     <div
       ref={containerRef}
       className="relative w-full max-w-3xl mx-auto overflow-hidden select-none cursor-ew-resize"
-      style={{ aspectRatio: '16/9', border: '2px solid rgba(249,115,22,0.4)' }}
+      style={{ aspectRatio: '3/2', border: '2px solid rgba(249,115,22,0.4)' }}
       onMouseMove={(e) => handleMove(e.clientX)}
       onTouchMove={(e) => handleMove(e.touches[0].clientX)}
     >
       {/* AFTER */}
       <div className="absolute inset-0 flex items-center justify-center" style={{ backgroundColor: '#1b2d1b' }}>
-        <div className="text-center px-8">
-          <div className={`${heading.className} text-2xl md:text-4xl font-bold uppercase mb-2`} style={{ color: '#f97316' }}>POWDER HIGHWAY</div>
-          <div className={`${heading.className} text-xl md:text-3xl font-bold uppercase mb-3`} style={{ color: '#ffffff' }}>ADVENTURES</div>
-          <div className="text-sm uppercase tracking-widest mb-4" style={{ color: 'rgba(255,255,255,0.5)' }}>Revelstoke, BC — Certified Guides</div>
-          <div className="text-base mb-4" style={{ color: 'rgba(255,255,255,0.6)' }}>Skiing · Biking · Rafting · Guided Tours</div>
-          <div className="inline-block px-6 py-2 text-sm font-bold uppercase tracking-wider" style={{ backgroundColor: '#f97316', color: '#fff' }}>BOOK YOUR ADVENTURE</div>
+        <div className="text-center px-8 max-w-lg">
+          <div className={`${heading.className} text-2xl md:text-4xl font-bold uppercase leading-tight mb-4`} style={{ color: '#ffffff' }}>The Kootenays Don&rsquo;t Wait. Neither Should You.</div>
+          <div className="mt-6 inline-block px-8 py-3 text-sm font-bold uppercase tracking-wider" style={{ backgroundColor: '#f97316', color: '#fff' }}>Book Your Next Adventure →</div>
         </div>
         <div className="absolute top-3 right-3 px-3 py-1 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#f97316', color: '#fff' }}>AFTER</div>
       </div>
@@ -102,15 +99,13 @@ function BeforeAfterSlider() {
       {/* BEFORE */}
       <div
         className="absolute inset-0 flex items-center justify-center overflow-hidden"
-        style={{ backgroundColor: '#8a9a8a', clipPath: `inset(0 ${100 - pos}% 0 0)` }}
+        style={{ backgroundColor: '#e8e8e8', clipPath: `inset(0 ${100 - pos}% 0 0)` }}
       >
-        <div className="text-center px-8">
-          <div className="text-2xl md:text-4xl font-bold mb-3" style={{ color: '#555' }}>Kootenay Tours</div>
-          <div className="text-sm mb-4" style={{ color: '#777' }}>We offer guided tours. Contact us.</div>
-          <div className="text-base" style={{ color: '#666' }}>Outdoor Adventures Available</div>
-          <div className="mt-4 inline-block px-6 py-2 text-sm" style={{ backgroundColor: '#aaa', color: '#444' }}>Get Info</div>
+        <div className="text-center px-6 max-w-lg" style={{ fontFamily: 'Georgia, serif' }}>
+          <div className="text-2xl md:text-4xl font-bold mb-3 leading-snug" style={{ color: '#555', fontFamily: 'Georgia, serif' }}>Welcome to Mountain Adventures! We Offer Hiking, Rafting, and More! Book Now!</div>
+          <div className="inline-block px-6 py-2 text-sm mt-4" style={{ backgroundColor: '#999', color: '#fff', fontFamily: 'Georgia, serif' }}>Click Here</div>
         </div>
-        <div className="absolute top-3 left-3 px-3 py-1 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#666', color: '#ddd' }}>BEFORE</div>
+        <div className="absolute top-3 left-3 px-3 py-1 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#999', color: '#eee' }}>BEFORE</div>
       </div>
 
       {/* Handle */}

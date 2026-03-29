@@ -151,19 +151,25 @@ function BeforeAfterSlider() {
     <div
       ref={containerRef}
       className="relative w-full max-w-3xl mx-auto overflow-hidden select-none cursor-ew-resize"
-      style={{ aspectRatio: '16/9', border: '3px solid #4ecdc4', borderRadius: '1.5rem' }}
+      style={{ aspectRatio: '3/2', border: '3px solid #4ecdc4', borderRadius: '1.5rem' }}
       onMouseMove={(e) => handleMove(e.clientX)}
       onTouchMove={(e) => handleMove(e.touches[0].clientX)}
     >
       {/* AFTER layer */}
       <div
-        className="absolute inset-0 flex items-center justify-center"
+        className="absolute inset-0 flex flex-col items-center justify-center px-8 py-10"
         style={{ background: 'linear-gradient(135deg, #fff5f5 0%, #f0fffe 100%)' }}
       >
-        <div className="text-center px-8">
-          <p className="text-base font-extrabold mb-2" style={{ color: '#ff6b6b' }}>Little Explorers Daycare</p>
-          <p className="text-sm" style={{ color: '#888' }}>Warm. Trustworthy. Fully enrolled. 🌈</p>
-        </div>
+        <p className={`${nunito.className} text-2xl md:text-4xl text-center font-extrabold leading-tight mb-4`} style={{ color: '#333' }}>
+          You&rsquo;ll Never Wonder<br />If They&rsquo;re Okay.<br /><span style={{ color: '#ff6b6b' }}>Here&rsquo;s Why.</span>
+        </p>
+        <a
+          href="#tour"
+          className={`${nunito.className} inline-block px-6 py-3 text-sm font-extrabold mt-2 rounded-full`}
+          style={{ backgroundColor: '#ff6b6b', color: '#fff' }}
+        >
+          Book a Tour — See For Yourself →
+        </a>
         <span
           className="absolute top-3 right-3 text-xs font-extrabold uppercase tracking-widest px-3 py-1 rounded-full"
           style={{ backgroundColor: '#4ecdc420', color: '#4ecdc4' }}
@@ -174,18 +180,20 @@ function BeforeAfterSlider() {
 
       {/* BEFORE layer */}
       <div
-        className="absolute inset-0 flex items-center justify-center overflow-hidden"
-        style={{
-          backgroundColor: '#f5f5f5',
-          clipPath: `inset(0 ${100 - pos}% 0 0)`,
-        }}
+        className="absolute inset-0 flex flex-col items-center justify-center px-8 py-10 overflow-hidden"
+        style={{ backgroundColor: '#e8e8e8', clipPath: `inset(0 ${100 - pos}% 0 0)` }}
       >
-        <div className="text-center px-8">
-          <p className="text-sm font-bold uppercase tracking-wider mb-2" style={{ color: '#bbb' }}>Sunshine Daycare</p>
-          <p className="text-xs" style={{ color: '#ccc' }}>No photos. No programs listed. No trust.</p>
-        </div>
+        <p className="text-2xl md:text-4xl text-center leading-snug mb-4" style={{ fontFamily: "'Comic Sans MS', cursive, sans-serif", color: '#555', fontWeight: 400 }}>
+          Welcome to Happy Days Daycare! 🌈<br />A Safe and Fun Place<br />for Your Children!
+        </p>
+        <button
+          className="px-5 py-2 text-sm"
+          style={{ backgroundColor: '#999', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'default', fontFamily: "'Comic Sans MS', cursive, sans-serif" }}
+        >
+          Enroll Today
+        </button>
         <span
-          className="absolute top-3 left-3 text-xs font-extrabold uppercase tracking-widest px-3 py-1 rounded-full"
+          className="absolute top-3 left-3 text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full"
           style={{ backgroundColor: '#e0e0e0', color: '#999' }}
         >
           BEFORE

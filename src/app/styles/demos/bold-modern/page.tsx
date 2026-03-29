@@ -61,28 +61,27 @@ function DiamondDeco({ className = '' }: { className?: string }) {
 function BeforeAfterSlider() {
   const [pos, setPos] = useState(50)
   return (
-    <div className="relative overflow-hidden rounded-lg select-none" style={{ height: '340px', border: '1px solid #222' }}>
+    <div className="relative overflow-hidden rounded-lg select-none max-w-3xl mx-auto" style={{ aspectRatio: '3/2', border: '1px solid #222' }}>
       {/* AFTER side */}
       <div className="absolute inset-0 flex flex-col items-center justify-center px-8 text-center" style={{ backgroundColor: '#111111' }}>
-        <div className="w-16 h-1 mb-4" style={{ backgroundColor: '#ff6b00' }} />
-        <div className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: '#ff6b00' }}>AFTER — VOLT ELECTRIC CO.</div>
-        <div className="text-2xl md:text-3xl font-bold uppercase mb-3" style={{ color: '#ffffff' }}>POWERING THE KOOTENAYS</div>
-        <div className="text-sm mb-4" style={{ color: 'rgba(255,255,255,0.5)' }}>Bold headline · Clear services · Strong CTA · Designed to convert</div>
-        <div className="inline-block px-6 py-2 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#ff6b00', color: '#111111' }}>GET A FREE QUOTE</div>
+        <div className="w-16 h-1 mb-6" style={{ backgroundColor: '#ff6b00' }} />
+        <div className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: '#ff6b00' }}>AFTER</div>
+        <div className="text-2xl md:text-4xl font-bold uppercase mb-5 leading-tight" style={{ color: '#ffffff' }}>Your Competitor Launched Last Month.<br />What Are You Waiting For?</div>
+        <div className="inline-block px-8 py-3 text-sm font-bold uppercase tracking-widest" style={{ backgroundColor: '#ff6b00', color: '#111111' }}>Let&rsquo;s Build It &rarr;</div>
         <div className="absolute top-3 right-4 text-xs font-bold uppercase tracking-wider px-2 py-1" style={{ backgroundColor: '#ff6b00', color: '#111111' }}>AFTER</div>
       </div>
       {/* BEFORE side — clipped */}
       <div
         className="absolute inset-0 flex flex-col items-center justify-center px-8 text-center"
         style={{
-          backgroundColor: '#d1d5db',
+          backgroundColor: '#f0f0f0',
           clipPath: `inset(0 ${100 - pos}% 0 0)`,
+          fontFamily: 'Georgia, serif',
         }}
       >
-        <div className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: '#6b7280' }}>VOLT ELECTRIC</div>
-        <div className="text-2xl md:text-3xl font-bold mb-3" style={{ color: '#374151' }}>Welcome to Our Website</div>
-        <div className="text-sm mb-4" style={{ color: '#6b7280' }}>We do electrical stuff. Call us maybe. Copyright 2009.</div>
-        <div className="inline-block px-6 py-2 text-xs font-bold border border-gray-400" style={{ color: '#374151' }}>Contact Us</div>
+        <div className="text-xs uppercase tracking-widest mb-4" style={{ color: '#999' }}>EST. 1998</div>
+        <div className="text-2xl md:text-4xl font-bold mb-5 leading-tight" style={{ color: '#555', fontFamily: 'Georgia, serif' }}>Welcome! We Are a Leading Technology Solutions Provider.<br />Innovative. Scalable. Dynamic.</div>
+        <div className="inline-block px-6 py-2 text-sm font-bold" style={{ backgroundColor: '#999', color: '#fff', fontFamily: 'Georgia, serif' }}>Click Here</div>
         <div className="absolute top-3 left-4 text-xs font-bold uppercase tracking-wider px-2 py-1" style={{ backgroundColor: '#9ca3af', color: '#ffffff' }}>BEFORE</div>
       </div>
       {/* Drag handle */}

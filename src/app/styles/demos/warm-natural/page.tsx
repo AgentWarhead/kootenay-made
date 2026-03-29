@@ -95,22 +95,20 @@ function Star() {
 function BeforeAfterSlider() {
   const [pos, setPos] = useState(50)
   return (
-    <div className="relative overflow-hidden select-none" style={{ height: '320px', borderRadius: '55% 45% 50% 50% / 45% 50% 50% 55%', boxShadow: '0 8px 40px rgba(139, 115, 85, 0.15)' }}>
+    <div className="relative overflow-hidden select-none max-w-3xl mx-auto" style={{ aspectRatio: '3/2', borderRadius: '16px', boxShadow: '0 8px 40px rgba(139, 115, 85, 0.15)' }}>
       {/* AFTER */}
       <div className="absolute inset-0 flex flex-col items-center justify-center px-8 text-center" style={{ backgroundColor: '#faf6f0' }}>
-        <div className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: '#7d9a6b' }}>AFTER — MOUNTAIN FLOW WELLNESS</div>
-        <div className={`${lora.className} text-2xl font-bold italic mb-3`} style={{ color: '#8b7355' }}>Find Your Balance</div>
-        <div className="text-sm mb-4" style={{ color: '#8b7355', opacity: 0.7 }}>Warm, professional, bookings-ready. Clients feel at ease before they walk in the door.</div>
-        <div className="inline-block px-6 py-2 text-sm font-semibold text-white" style={{ backgroundColor: '#7d9a6b', borderRadius: '30px' }}>Book Your Session</div>
+        <div className="text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: '#7d9a6b' }}>AFTER</div>
+        <div className={`${lora.className} text-2xl md:text-4xl font-bold italic mb-5 leading-tight`} style={{ color: '#8b7355' }}>You Carry Enough.<br />Put It Down for an Hour.</div>
+        <div className="inline-block px-8 py-3 text-sm font-semibold text-white" style={{ backgroundColor: '#7d9a6b', borderRadius: '30px' }}>Book Your Escape &rarr;</div>
         <div className="absolute top-4 right-5 text-xs font-semibold px-2 py-1 text-white" style={{ backgroundColor: '#7d9a6b', borderRadius: '20px' }}>AFTER</div>
       </div>
       {/* BEFORE */}
       <div className="absolute inset-0 flex flex-col items-center justify-center px-8 text-center"
-        style={{ backgroundColor: '#e5e7eb', clipPath: `inset(0 ${100 - pos}% 0 0)` }}>
-        <div className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: '#9ca3af' }}>HARMONY WELLNESS</div>
-        <div className="text-2xl font-bold mb-3" style={{ color: '#374151' }}>Welcome To Our Site</div>
-        <div className="text-sm mb-4" style={{ color: '#6b7280' }}>We offer yoga and massage. Please call to book. Site last updated: 2017.</div>
-        <div className="inline-block px-6 py-2 text-sm font-bold border border-gray-400" style={{ color: '#374151' }}>Call Us</div>
+        style={{ backgroundColor: '#e8e8e8', clipPath: `inset(0 ${100 - pos}% 0 0)`, fontFamily: 'Georgia, serif' }}>
+        <div className="text-xs uppercase tracking-widest mb-4" style={{ color: '#999', fontFamily: 'Georgia, serif' }}>🧘 NAMASTE 🧘</div>
+        <div className="text-2xl md:text-4xl font-bold mb-5 leading-tight" style={{ color: '#666', fontFamily: 'Georgia, serif' }}>Welcome to Our Wellness Centre 🧘<br />Yoga, Massage, and Holistic Healing. Book Now.</div>
+        <div className="inline-block px-6 py-2 text-sm font-bold" style={{ backgroundColor: '#999', color: '#fff', fontFamily: 'Georgia, serif' }}>Learn More</div>
         <div className="absolute top-4 left-5 text-xs font-semibold px-2 py-1 text-white" style={{ backgroundColor: '#9ca3af', borderRadius: '20px' }}>BEFORE</div>
       </div>
       {/* Handle */}

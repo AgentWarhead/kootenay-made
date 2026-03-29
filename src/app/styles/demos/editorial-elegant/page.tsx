@@ -64,7 +64,7 @@ function BeforeAfterSlider() {
   return (
     <div
       ref={containerRef}
-      style={{ position: 'relative', height: 340, cursor: 'ew-resize', userSelect: 'none', overflow: 'hidden', border: '1px solid #e8e6e1' }}
+      style={{ position: 'relative', aspectRatio: '3/2', cursor: 'ew-resize', userSelect: 'none', overflow: 'hidden', border: '1px solid #e8e6e1' }}
       onMouseDown={() => { dragging.current = true }}
       onMouseUp={() => { dragging.current = false }}
       onMouseLeave={() => { dragging.current = false }}
@@ -73,44 +73,25 @@ function BeforeAfterSlider() {
       onClick={(e) => move(e.clientX)}
     >
       {/* BEFORE */}
-      <div style={{ position: 'absolute', inset: 0, backgroundColor: '#f1f0ee', display: 'flex', flexDirection: 'column', padding: '2rem' }}>
-        <div style={{ color: '#aaa', fontSize: '0.7rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: '1rem' }}>BEFORE — Generic Template</div>
-        <div style={{ color: '#888', fontSize: '1.1rem', marginBottom: '0.5rem' }}>Realty Pro — Kootenays</div>
-        <div style={{ backgroundColor: '#d4d0cb', height: 13, width: '70%', marginBottom: '0.5rem' }} />
-        <div style={{ backgroundColor: '#d4d0cb', height: 13, width: '52%', marginBottom: '1rem' }} />
-        <div style={{ height: 90, backgroundColor: '#ddd9d3', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem' }}>
-          <span style={{ color: '#aaa', fontSize: '0.8rem' }}>Property Photo</span>
+      <div style={{ position: 'absolute', inset: 0, backgroundColor: '#f0f0f0', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem', fontFamily: "'Times New Roman', serif", textAlign: 'center', gap: '1rem' }}>
+        <div style={{ color: '#999', fontSize: '0.65rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', border: '1px solid #bbb', padding: '2px 8px' }}>BEFORE</div>
+        <div style={{ color: '#555', fontSize: 'clamp(1.1rem, 3.5vw, 1.9rem)', fontWeight: 400, lineHeight: 1.3 }}>
+          ★ TOP REALTOR ★ Your Dream Home Awaits!<br />
+          <span style={{ fontSize: '0.85em', fontStyle: 'italic' }}>#1 in Sales! Call Today for a FREE Home Evaluation!!!</span>
         </div>
-        <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem' }}>
-          {['Listings', 'About', 'Contact'].map(s => (
-            <div key={s} style={{ flex: 1, height: 52, backgroundColor: '#d4d0cb', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <span style={{ color: '#aaa', fontSize: '0.65rem' }}>{s}</span>
-            </div>
-          ))}
-        </div>
-        <div style={{ backgroundColor: '#aaa', height: 34, display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 'auto' }}>
-          <span style={{ color: '#fff', fontSize: '0.75rem', fontWeight: 600 }}>Contact Agent</span>
-        </div>
+        <div style={{ color: '#777', fontSize: 'clamp(0.75rem, 2vw, 0.95rem)' }}>📞 Call or email for details. Since 1998.</div>
+        <div style={{ backgroundColor: '#999', color: '#fff', padding: '0.5rem 1.25rem', fontSize: '0.85rem', fontFamily: "'Times New Roman', serif", cursor: 'pointer' }}>Click Here</div>
       </div>
 
       {/* AFTER */}
-      <div style={{ position: 'absolute', inset: 0, clipPath: `inset(0 ${100 - pos}% 0 0)`, backgroundColor: '#1a1a1a', display: 'flex', flexDirection: 'column', padding: '2rem', borderLeft: '3px solid #b8860b' }}>
-        <div style={{ color: '#b8860b', fontSize: '0.7rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.16em', marginBottom: '1rem' }}>AFTER — Kootenay Made Design</div>
-        <div style={{ color: '#faf9f7', fontSize: '1.2rem', fontStyle: 'italic', fontFamily: 'serif', marginBottom: '0.25rem' }}>Pinnacle Real Estate</div>
-        <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.8rem', marginBottom: '1rem', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Curated Living in the Kootenays</div>
-        <div style={{ height: 90, background: 'linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem', border: '1px solid rgba(184,134,11,0.3)' }}>
-          <span style={{ color: '#b8860b', fontSize: '0.8rem', fontStyle: 'italic' }}>Lakefront Retreat &mdash; Nelson, BC</span>
+      <div style={{ position: 'absolute', inset: 0, clipPath: `inset(0 ${100 - pos}% 0 0)`, backgroundColor: '#1a1a1a', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem', borderLeft: '3px solid #b8860b', textAlign: 'center', gap: '1.25rem', fontFamily: heading.style.fontFamily }}>
+        <div style={{ color: '#b8860b', fontSize: '0.65rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.16em', border: '1px solid rgba(184,134,11,0.4)', padding: '3px 10px' }}>AFTER</div>
+        <div style={{ color: '#faf9f7', fontSize: 'clamp(1.4rem, 4vw, 2.25rem)', fontWeight: 400, fontStyle: 'italic', lineHeight: 1.25 }}>
+          Your Home Has a Story.<br />Let&apos;s Make Sure Buyers Hear It.
         </div>
-        <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem' }}>
-          {['Listings', 'Portfolio', 'Contact'].map(s => (
-            <div key={s} style={{ flex: 1, height: 52, border: '1px solid rgba(184,134,11,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <span style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.65rem', letterSpacing: '0.1em' }}>{s}</span>
-            </div>
-          ))}
-        </div>
-        <div style={{ color: 'rgba(255,255,255,0.35)', fontSize: '0.72rem', marginBottom: '0.5rem' }}>★★★★★  ·  200+ Properties Sold  ·  Free Market Analysis</div>
-        <div style={{ border: '1px solid #b8860b', height: 34, display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 'auto' }}>
-          <span style={{ color: '#b8860b', fontSize: '0.75rem', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase' }}>Request a Showing →</span>
+        <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: 'clamp(0.8rem, 2vw, 1rem)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>Curated Real Estate · The Kootenays</div>
+        <div style={{ border: '1px solid #b8860b', color: '#b8860b', padding: '0.65rem 1.75rem', fontSize: 'clamp(0.8rem, 2vw, 0.95rem)', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', cursor: 'pointer' }}>
+          Get Your Property Valuation →
         </div>
       </div>
 

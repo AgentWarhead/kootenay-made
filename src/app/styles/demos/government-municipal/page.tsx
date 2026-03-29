@@ -61,24 +61,22 @@ function BeforeAfterSlider({ hc }: { hc: boolean }) {
   const navy = hc ? '#000000' : '#1e3a5f'
   const blue = hc ? '#000000' : '#2563eb'
   return (
-    <div className="relative overflow-hidden select-none rounded-lg"
-      style={{ height: '320px', border: hc ? '2px solid #000000' : '1px solid #e2e8f0', boxShadow: hc ? 'none' : '0 4px 20px rgba(0,0,0,0.06)' }}>
+    <div className="relative overflow-hidden select-none rounded-lg max-w-3xl mx-auto"
+      style={{ aspectRatio: '3/2', border: hc ? '2px solid #000000' : '1px solid #e2e8f0', boxShadow: hc ? 'none' : '0 4px 20px rgba(0,0,0,0.06)' }}>
       {/* AFTER */}
       <div className="absolute inset-0 flex flex-col items-center justify-center px-8 text-center"
         style={{ backgroundColor: hc ? '#f0f0f0' : '#f8fafc' }}>
-        <div className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: blue }}>AFTER — WEST KOOTENAY PARKS &amp; REC</div>
-        <div className="text-2xl md:text-3xl font-bold mb-3" style={{ color: navy }}>Your Community. Your Parks.</div>
-        <div className="text-sm mb-5" style={{ color: '#475569' }}>Program search · Hours · Online registration · Accessible design · Residents actually find what they need</div>
-        <div className="inline-block px-6 py-2.5 text-sm font-bold text-white rounded-lg" style={{ backgroundColor: blue }}>View All Programs</div>
+        <div className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: blue }}>AFTER</div>
+        <div className="text-2xl md:text-4xl font-bold mb-5 leading-tight" style={{ color: navy }}>Report It. We&rsquo;ll Handle It.<br />No Hold Music Required.</div>
+        <div className="inline-block px-8 py-3 text-sm font-bold text-white rounded-lg" style={{ backgroundColor: blue }}>Submit a Service Request &rarr;</div>
         <div className="absolute top-3 right-4 text-xs font-bold uppercase px-2 py-1 text-white rounded" style={{ backgroundColor: blue }}>AFTER</div>
       </div>
       {/* BEFORE */}
       <div className="absolute inset-0 flex flex-col items-center justify-center px-8 text-center"
-        style={{ backgroundColor: '#d1d5db', clipPath: `inset(0 ${100 - pos}% 0 0)` }}>
-        <div className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: '#6b7280' }}>PARKS DEPARTMENT</div>
-        <div className="text-2xl font-bold mb-3" style={{ color: '#374151' }}>Welcome to Our Department</div>
-        <div className="text-sm mb-5" style={{ color: '#6b7280' }}>Site last updated: 2014. PDF schedule available. Please call the office for hours. Not mobile friendly.</div>
-        <div className="inline-block px-6 py-2.5 text-sm font-bold border border-gray-400 rounded" style={{ color: '#374151' }}>Download PDF</div>
+        style={{ backgroundColor: '#f0f0f0', clipPath: `inset(0 ${100 - pos}% 0 0)`, fontFamily: 'Times New Roman, serif' }}>
+        <div className="text-xs uppercase tracking-widest mb-4" style={{ color: '#999', fontFamily: 'Times New Roman, serif' }}>DISTRICT OF WEST KOOTENAY</div>
+        <div className="text-2xl md:text-4xl font-bold mb-5 leading-tight" style={{ color: '#555', fontFamily: 'Times New Roman, serif' }}>Welcome to the District Website.<br />For Information Please Navigate the Menu Above.<br />Office Hours: Mon-Fri 8:30-4:30.</div>
+        <div className="inline-block px-6 py-2 text-sm font-bold rounded" style={{ backgroundColor: '#999', color: '#fff', fontFamily: 'Times New Roman, serif' }}>Learn More</div>
         <div className="absolute top-3 left-4 text-xs font-bold uppercase px-2 py-1 text-white rounded" style={{ backgroundColor: '#9ca3af' }}>BEFORE</div>
       </div>
       {/* Handle */}

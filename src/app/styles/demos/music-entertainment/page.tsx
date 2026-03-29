@@ -51,23 +51,21 @@ function AudioVisualizer() {
 function BeforeAfterSlider() {
   const [pos, setPos] = useState(50)
   return (
-    <div className="relative overflow-hidden select-none rounded-lg" style={{ height: '340px', border: '1px solid rgba(233,30,138,0.25)' }}>
+    <div className="relative overflow-hidden select-none rounded-lg max-w-3xl mx-auto" style={{ aspectRatio: '3/2', border: '1px solid rgba(233,30,138,0.25)' }}>
       {/* AFTER */}
       <div className="absolute inset-0 flex flex-col items-center justify-center px-8 text-center" style={{ backgroundColor: '#111111' }}>
-        <div className="text-xs font-bold uppercase tracking-[0.25em] mb-3 neon-heading-sm" style={{ color: '#e91e8a' }}>AFTER — NEON PINES</div>
-        <div className={`${bebas.className} text-3xl md:text-4xl neon-heading-sm mb-3`} style={{ color: '#ffffff', letterSpacing: '0.04em' }}>WHERE THE MOUNTAINS ROCK</div>
-        <div className="text-sm mb-5" style={{ color: 'rgba(255,255,255,0.5)' }}>Upcoming shows · Ticket sales · Fan following · Press kit</div>
-        <div className="inline-block px-6 py-2 text-sm font-bold uppercase tracking-widest" style={{ backgroundColor: '#e91e8a', color: '#ffffff' }}>See Upcoming Shows</div>
+        <div className="text-xs font-bold uppercase tracking-[0.25em] mb-4 neon-heading-sm" style={{ color: '#e91e8a' }}>AFTER</div>
+        <div className={`${bebas.className} text-3xl md:text-5xl neon-heading-sm mb-5 leading-tight`} style={{ color: '#ffffff', letterSpacing: '0.04em' }}>Saturday Sold Out.<br />Friday&rsquo;s Going Fast.</div>
+        <div className="inline-block px-8 py-3 text-sm font-bold uppercase tracking-widest" style={{ backgroundColor: '#e91e8a', color: '#ffffff' }}>Grab Tickets Before They&rsquo;re Gone &rarr;</div>
         <div className="absolute top-3 right-4 text-xs font-bold uppercase px-2 py-1" style={{ backgroundColor: '#e91e8a', color: '#ffffff' }}>AFTER</div>
       </div>
       {/* BEFORE */}
       <div className="absolute inset-0 flex flex-col items-center justify-center px-8 text-center"
-        style={{ backgroundColor: '#2a2a2a', clipPath: `inset(0 ${100 - pos}% 0 0)` }}>
-        <div className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: '#6b7280' }}>PINE RIDGE BAR & GRILL</div>
-        <div className="text-2xl font-bold mb-3" style={{ color: '#9ca3af' }}>Live Music Sometimes</div>
-        <div className="text-sm mb-5" style={{ color: '#6b7280' }}>Check Facebook for show dates maybe. No tickets online. Just show up.</div>
-        <div className="inline-block px-6 py-2 text-sm font-bold border border-gray-600" style={{ color: '#9ca3af' }}>Find Us on Facebook</div>
-        <div className="absolute top-3 left-4 text-xs font-bold uppercase px-2 py-1" style={{ backgroundColor: '#4b5563', color: '#ffffff' }}>BEFORE</div>
+        style={{ backgroundColor: '#e8e8e8', clipPath: `inset(0 ${100 - pos}% 0 0)`, fontFamily: 'Times New Roman, serif' }}>
+        <div className="text-xs uppercase tracking-widest mb-4" style={{ color: '#999', fontFamily: 'Times New Roman, serif' }}>★ WELCOME ★</div>
+        <div className="text-2xl md:text-4xl font-bold mb-5 leading-tight" style={{ color: '#555', fontFamily: 'Times New Roman, serif' }}>WELCOME TO THE VENUE!<br />Live Music Every Weekend!<br />Check Our Facebook for Details!</div>
+        <div className="inline-block px-6 py-2 text-sm font-bold" style={{ backgroundColor: '#999', color: '#fff', fontFamily: 'Times New Roman, serif' }}>Click Here</div>
+        <div className="absolute top-3 left-4 text-xs font-bold uppercase px-2 py-1" style={{ backgroundColor: '#9ca3af', color: '#ffffff' }}>BEFORE</div>
       </div>
       {/* Handle */}
       <div className="absolute top-0 bottom-0 z-10 flex items-center justify-center" style={{ left: `${pos}%`, transform: 'translateX(-50%)', width: '3px', backgroundColor: '#e91e8a', pointerEvents: 'none' }}>

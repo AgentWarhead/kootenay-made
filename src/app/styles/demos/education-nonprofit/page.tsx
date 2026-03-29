@@ -112,7 +112,7 @@ function BeforeAfterSlider() {
   return (
     <div
       ref={containerRef}
-      style={{ position: 'relative', height: 340, cursor: 'ew-resize', userSelect: 'none', overflow: 'hidden', borderRadius: 20, boxShadow: '0 8px 40px rgba(59,130,246,0.12)' }}
+      style={{ position: 'relative', aspectRatio: '3/2', cursor: 'ew-resize', userSelect: 'none', overflow: 'hidden', borderRadius: 20, boxShadow: '0 8px 40px rgba(59,130,246,0.12)' }}
       onMouseDown={() => { dragging.current = true }}
       onMouseUp={() => { dragging.current = false }}
       onMouseLeave={() => { dragging.current = false }}
@@ -121,44 +121,25 @@ function BeforeAfterSlider() {
       onClick={(e) => move(e.clientX)}
     >
       {/* BEFORE */}
-      <div style={{ position: 'absolute', inset: 0, backgroundColor: '#f1f5f9', display: 'flex', flexDirection: 'column', padding: '2rem' }}>
-        <div style={{ color: '#94a3b8', fontSize: '0.7rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: '1rem' }}>BEFORE — Generic Template</div>
-        <div style={{ color: '#64748b', fontSize: '1.1rem', fontWeight: 400, marginBottom: '0.5rem' }}>Kootenay Learning Centre</div>
-        <div style={{ backgroundColor: '#cbd5e1', height: 13, width: '68%', borderRadius: 4, marginBottom: '0.5rem' }} />
-        <div style={{ backgroundColor: '#cbd5e1', height: 13, width: '50%', borderRadius: 4, marginBottom: '1rem' }} />
-        <div style={{ height: 90, backgroundColor: '#dde4ef', borderRadius: 4, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem' }}>
-          <span style={{ color: '#94a3b8', fontSize: '0.8rem' }}>Clip Art Graphic</span>
+      <div style={{ position: 'absolute', inset: 0, backgroundColor: '#e8e8e8', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem', fontFamily: 'Georgia, serif', textAlign: 'center', gap: '1rem' }}>
+        <div style={{ color: '#999', fontSize: '0.65rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', border: '1px solid #bbb', borderRadius: 4, padding: '2px 8px' }}>BEFORE</div>
+        <div style={{ color: '#555', fontSize: 'clamp(1.2rem, 3.5vw, 2rem)', fontWeight: 400, lineHeight: 1.35 }}>
+          Welcome to Our Organization!<br />
+          <span style={{ fontStyle: 'italic', fontSize: '0.85em' }}>Making a Difference Since 2005.</span>
         </div>
-        <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem' }}>
-          {['Programs', 'About', 'Donate'].map(s => (
-            <div key={s} style={{ flex: 1, height: 52, backgroundColor: '#cbd5e1', borderRadius: 4, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <span style={{ color: '#94a3b8', fontSize: '0.65rem' }}>{s}</span>
-            </div>
-          ))}
-        </div>
-        <div style={{ backgroundColor: '#94a3b8', height: 34, borderRadius: 4, display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 'auto' }}>
-          <span style={{ color: '#fff', fontSize: '0.75rem', fontWeight: 600 }}>Contact Us</span>
-        </div>
+        <div style={{ color: '#777', fontSize: 'clamp(0.8rem, 2vw, 1rem)' }}>Your support helps our community.</div>
+        <div style={{ backgroundColor: '#999', color: '#fff', padding: '0.5rem 1.25rem', fontSize: '0.85rem', fontFamily: 'Georgia, serif', borderRadius: 4, cursor: 'pointer' }}>Click Here to Donate</div>
       </div>
 
       {/* AFTER */}
-      <div style={{ position: 'absolute', inset: 0, clipPath: `inset(0 ${100 - pos}% 0 0)`, background: 'linear-gradient(145deg, #eff6ff 0%, #dbeafe 100%)', display: 'flex', flexDirection: 'column', padding: '2rem' }}>
-        <div style={{ color: '#3b82f6', fontSize: '0.7rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: '1rem' }}>AFTER — Kootenay Made Design</div>
-        <div style={{ color: '#1e3a5f', fontSize: '1.2rem', fontWeight: 700, marginBottom: '0.15rem' }}>Kootenay Community <span style={{ color: '#f59e0b' }}>Learning</span> Centre</div>
-        <div style={{ color: '#3b82f6', fontSize: '0.8rem', fontWeight: 600, marginBottom: '1rem' }}>Learning for Life ♥</div>
-        <div style={{ height: 90, background: 'rgba(59,130,246,0.12)', borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem', border: '1px solid rgba(59,130,246,0.2)' }}>
-          <span style={{ color: '#1e3a5f', fontSize: '0.8rem', fontWeight: 600 }}>Welcoming · Warm · Community-driven</span>
+      <div style={{ position: 'absolute', inset: 0, clipPath: `inset(0 ${100 - pos}% 0 0)`, background: 'linear-gradient(145deg, #eff6ff 0%, #dbeafe 100%)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem', textAlign: 'center', gap: '1.25rem', fontFamily: poppins.style.fontFamily }}>
+        <div style={{ color: '#3b82f6', fontSize: '0.65rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', backgroundColor: 'rgba(59,130,246,0.1)', padding: '3px 10px', borderRadius: 20 }}>AFTER</div>
+        <div style={{ color: '#1e3a5f', fontSize: 'clamp(1.4rem, 4vw, 2.25rem)', fontWeight: 700, lineHeight: 1.2 }}>
+          127 Families Fed Last Month.<br />Yours Could Be Next — To Help.
         </div>
-        <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem' }}>
-          {['Adult Ed', 'Youth', 'Donate'].map(s => (
-            <div key={s} style={{ flex: 1, height: 52, backgroundColor: '#ffffff', borderRadius: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', borderTop: `3px solid ${s === 'Donate' ? '#f59e0b' : '#3b82f6'}` }}>
-              <span style={{ color: '#1e3a5f', fontSize: '0.65rem', fontWeight: 600 }}>{s}</span>
-            </div>
-          ))}
-        </div>
-        <div style={{ color: '#64748b', fontSize: '0.72rem', marginBottom: '0.5rem' }}>★★★★★  ·  500+ Students  ·  Free Programs Available</div>
-        <div style={{ backgroundColor: '#3b82f6', height: 34, borderRadius: 20, display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 'auto', boxShadow: '0 4px 14px rgba(59,130,246,0.35)' }}>
-          <span style={{ color: '#ffffff', fontSize: '0.75rem', fontWeight: 700 }}>Explore Programs →</span>
+        <div style={{ color: '#3b82f6', fontSize: 'clamp(0.85rem, 2vw, 1rem)', fontWeight: 600 }}>Community · Purpose · Impact</div>
+        <div style={{ backgroundColor: '#3b82f6', color: '#ffffff', padding: '0.65rem 1.75rem', borderRadius: 20, fontSize: 'clamp(0.8rem, 2vw, 1rem)', fontWeight: 700, boxShadow: '0 4px 14px rgba(59,130,246,0.35)' }}>
+          Volunteer This Weekend →
         </div>
       </div>
 

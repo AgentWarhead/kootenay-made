@@ -68,17 +68,15 @@ function BeforeAfterSlider() {
     <div
       ref={containerRef}
       className="relative w-full max-w-3xl mx-auto overflow-hidden select-none cursor-ew-resize rounded-lg"
-      style={{ aspectRatio: '16/9', border: '2px solid rgba(74,124,89,0.4)' }}
+      style={{ aspectRatio: '3/2', border: '2px solid rgba(74,124,89,0.4)' }}
       onMouseMove={(e) => handleMove(e.clientX)}
       onTouchMove={(e) => handleMove(e.touches[0].clientX)}
     >
       {/* AFTER */}
       <div className="absolute inset-0 flex items-center justify-center" style={{ backgroundColor: '#fefcf3' }}>
-        <div className="text-center px-8">
-          <div className={`${accent.className} text-3xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>Valley Roots Farm</div>
-          <div className="text-sm uppercase tracking-widest mb-3" style={{ color: '#6b4226', opacity: 0.7 }}>Castlegar, BC — Certified Organic</div>
-          <div className="text-base mb-4" style={{ color: '#6b4226' }}>CSA Boxes · Fresh Produce · Online Orders · Farm Stand</div>
-          <div className="inline-block px-6 py-2 text-sm font-bold uppercase tracking-wider rounded-full" style={{ backgroundColor: '#4a7c59', color: '#fefcf3' }}>Shop the Harvest</div>
+        <div className="text-center px-8 max-w-lg">
+          <div className={`${accent.className} text-2xl md:text-4xl leading-tight mb-4`} style={{ color: '#3d2e1f' }}>Farm-Fresh. Delivered to Your Door.</div>
+          <div className="mt-6 inline-block px-8 py-3 text-sm font-bold uppercase tracking-wider rounded-full" style={{ backgroundColor: '#4a7c59', color: '#fefcf3' }}>Shop This Week&rsquo;s Harvest →</div>
         </div>
         <div className="absolute top-3 right-3 px-3 py-1 text-xs font-bold uppercase tracking-widest rounded-full" style={{ backgroundColor: '#4a7c59', color: '#fefcf3' }}>AFTER</div>
       </div>
@@ -86,15 +84,13 @@ function BeforeAfterSlider() {
       {/* BEFORE */}
       <div
         className="absolute inset-0 flex items-center justify-center overflow-hidden"
-        style={{ backgroundColor: '#d5d0c4', clipPath: `inset(0 ${100 - pos}% 0 0)` }}
+        style={{ backgroundColor: '#f0f0f0', clipPath: `inset(0 ${100 - pos}% 0 0)` }}
       >
-        <div className="text-center px-8">
-          <div className="text-2xl md:text-4xl font-bold mb-3" style={{ color: '#888' }}>Smith Family Farm</div>
-          <div className="text-sm mb-4" style={{ color: '#999' }}>Open weekends. Call ahead.</div>
-          <div className="text-base" style={{ color: '#aaa' }}>Vegetables & Fruit Available</div>
-          <div className="mt-4 inline-block px-6 py-2 text-sm rounded-full" style={{ backgroundColor: '#bbb', color: '#666' }}>Find Us</div>
+        <div className="text-center px-6 max-w-lg" style={{ fontFamily: 'Georgia, serif' }}>
+          <div className="text-2xl md:text-4xl font-bold mb-3 leading-snug" style={{ color: '#666', fontFamily: 'Georgia, serif' }}>Welcome to Our Farm! 🌽🍅 We Grow Fresh Produce. Come Visit Us at the Market!</div>
+          <div className="inline-block px-6 py-2 text-sm mt-4 rounded-full" style={{ backgroundColor: '#999', color: '#fff', fontFamily: 'Georgia, serif' }}>Learn More</div>
         </div>
-        <div className="absolute top-3 left-3 px-3 py-1 text-xs font-bold uppercase tracking-widest rounded-full" style={{ backgroundColor: '#aaa', color: '#555' }}>BEFORE</div>
+        <div className="absolute top-3 left-3 px-3 py-1 text-xs font-bold uppercase tracking-widest rounded-full" style={{ backgroundColor: '#999', color: '#eee' }}>BEFORE</div>
       </div>
 
       {/* Handle */}

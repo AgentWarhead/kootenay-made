@@ -139,19 +139,25 @@ function BeforeAfterSlider() {
     <div
       ref={containerRef}
       className="relative w-full max-w-3xl mx-auto overflow-hidden select-none cursor-ew-resize"
-      style={{ aspectRatio: '16/9', border: `3px solid ${AMBER}`, borderRadius: '2px' }}
+      style={{ aspectRatio: '3/2', border: `3px solid ${AMBER}`, borderRadius: '2px' }}
       onMouseMove={(e) => handleMove(e.clientX)}
       onTouchMove={(e) => handleMove(e.touches[0].clientX)}
     >
       {/* AFTER layer */}
       <div
-        className="absolute inset-0 flex items-center justify-center"
+        className="absolute inset-0 flex flex-col items-center justify-center px-8 py-10"
         style={{ backgroundColor: DARK_BROWN }}
       >
-        <div className="relative z-10 text-center px-8">
-          <p className="text-sm font-bold mb-2" style={{ color: AMBER }}>Kootenay Brewing Collective</p>
-          <p className="text-xs italic" style={{ color: `${PARCHMENT}99` }}>Craft, character, and a tap list they can&rsquo;t resist.</p>
-        </div>
+        <p className={`${bitter.className} text-2xl md:text-4xl text-center leading-tight mb-4`} style={{ color: PARCHMENT, fontWeight: 700 }}>
+          Brewed 12 Minutes<br />From Where<br /><span style={{ color: AMBER }}>You&rsquo;re Sitting.</span>
+        </p>
+        <a
+          href="#tap"
+          className={`${bitter.className} inline-block px-6 py-3 text-sm font-bold tracking-wide mt-2`}
+          style={{ backgroundColor: AMBER, color: DARK_BROWN, borderRadius: '2px' }}
+        >
+          See What&rsquo;s on Tap →
+        </a>
         <span
           className="absolute top-3 right-3 text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-sm"
           style={{ backgroundColor: `${AMBER}33`, color: AMBER }}
@@ -162,16 +168,21 @@ function BeforeAfterSlider() {
 
       {/* BEFORE layer */}
       <div
-        className="absolute inset-0 flex items-center justify-center overflow-hidden"
-        style={{ backgroundColor: '#d9ccbb', clipPath: `inset(0 ${100 - pos}% 0 0)` }}
+        className="absolute inset-0 flex flex-col items-center justify-center px-8 py-10 overflow-hidden"
+        style={{ backgroundColor: '#f0f0f0', clipPath: `inset(0 ${100 - pos}% 0 0)` }}
       >
-        <div className="text-center px-8">
-          <p className="text-xs uppercase tracking-widest font-bold mb-2" style={{ color: '#999' }}>Mountain Craft Brewery</p>
-          <p className="text-xs" style={{ color: '#aaa' }}>No photos. No tap list. Just a phone number.</p>
-        </div>
+        <p className="text-2xl md:text-4xl text-center leading-snug mb-4" style={{ fontFamily: 'Georgia, serif', color: '#555', fontWeight: 400 }}>
+          Welcome to the Brewery! 🍺<br />Great Beer, Great Times!<br />Come Check Us Out!
+        </p>
+        <button
+          className="px-5 py-2 text-sm"
+          style={{ backgroundColor: '#999', color: '#fff', border: 'none', borderRadius: '2px', cursor: 'default', fontFamily: 'Georgia, serif' }}
+        >
+          Learn More
+        </button>
         <span
           className="absolute top-3 left-3 text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-sm"
-          style={{ backgroundColor: 'rgba(0,0,0,0.12)', color: '#888' }}
+          style={{ backgroundColor: 'rgba(0,0,0,0.1)', color: '#888' }}
         >
           BEFORE
         </span>

@@ -96,7 +96,7 @@ function BeforeAfterSlider() {
   return (
     <div
       ref={containerRef}
-      style={{ position: 'relative', height: 340, cursor: 'ew-resize', userSelect: 'none', overflow: 'hidden', borderRadius: 10, border: '1px solid #e2e8f0', boxShadow: '0 4px 20px rgba(0,0,0,0.08)' }}
+      style={{ position: 'relative', aspectRatio: '3/2', cursor: 'ew-resize', userSelect: 'none', overflow: 'hidden', borderRadius: 10, border: '1px solid #e2e8f0', boxShadow: '0 4px 20px rgba(0,0,0,0.08)' }}
       onMouseDown={() => { dragging.current = true }}
       onMouseUp={() => { dragging.current = false }}
       onMouseLeave={() => { dragging.current = false }}
@@ -105,44 +105,25 @@ function BeforeAfterSlider() {
       onClick={(e) => move(e.clientX)}
     >
       {/* BEFORE — right side background */}
-      <div style={{ position: 'absolute', inset: 0, backgroundColor: '#e2e8f0', display: 'flex', flexDirection: 'column', padding: '2rem' }}>
-        <div style={{ color: '#94a3b8', fontSize: '0.7rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: '1rem' }}>BEFORE — Generic Template</div>
-        <div style={{ color: '#64748b', fontSize: '1.1rem', fontWeight: 400, marginBottom: '0.5rem' }}>Ridgeline Financial</div>
-        <div style={{ backgroundColor: '#cbd5e1', height: 14, width: '70%', borderRadius: 4, marginBottom: '0.5rem' }} />
-        <div style={{ backgroundColor: '#cbd5e1', height: 14, width: '55%', borderRadius: 4, marginBottom: '1rem' }} />
-        <div style={{ height: 90, backgroundColor: '#d1d5db', borderRadius: 4, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem' }}>
-          <span style={{ color: '#94a3b8', fontSize: '0.8rem' }}>Stock Photo Here</span>
+      <div style={{ position: 'absolute', inset: 0, backgroundColor: '#f0f0f0', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem', fontFamily: 'Georgia, serif', textAlign: 'center', gap: '1rem' }}>
+        <div style={{ color: '#999', fontSize: '0.65rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', border: '1px solid #bbb', padding: '2px 8px' }}>BEFORE</div>
+        <div style={{ color: '#555', fontSize: 'clamp(1.2rem, 3.5vw, 2rem)', fontWeight: 400, lineHeight: 1.35 }}>
+          Smith &amp; Associates Professional Services.<br />
+          <span style={{ fontStyle: 'italic' }}>Trusted. Reliable. Experienced.</span>
         </div>
-        <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem' }}>
-          {['Services', 'About', 'Contact'].map(s => (
-            <div key={s} style={{ flex: 1, height: 56, backgroundColor: '#cbd5e1', borderRadius: 4, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <span style={{ color: '#94a3b8', fontSize: '0.65rem' }}>{s}</span>
-            </div>
-          ))}
-        </div>
-        <div style={{ backgroundColor: '#94a3b8', height: 34, borderRadius: 4, display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 'auto' }}>
-          <span style={{ color: '#ffffff', fontSize: '0.75rem', fontWeight: 600 }}>Contact Us</span>
-        </div>
+        <div style={{ color: '#777', fontSize: 'clamp(0.8rem, 2vw, 1rem)' }}>Contact Us Today for More Information</div>
+        <div style={{ backgroundColor: '#999', color: '#fff', padding: '0.5rem 1.25rem', fontSize: '0.85rem', fontFamily: 'Georgia, serif', cursor: 'pointer' }}>Contact Us</div>
       </div>
 
       {/* AFTER — clipped to show left pos% */}
-      <div style={{ position: 'absolute', inset: 0, clipPath: `inset(0 ${100 - pos}% 0 0)`, backgroundColor: '#1a365d', display: 'flex', flexDirection: 'column', padding: '2rem' }}>
-        <div style={{ color: '#60a5fa', fontSize: '0.7rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: '1rem' }}>AFTER — Kootenay Made Design</div>
-        <div style={{ color: '#ffffff', fontSize: '1.3rem', fontWeight: 700, marginBottom: '0.25rem' }}>Ridgeline Financial Group</div>
-        <div style={{ color: 'rgba(255,255,255,0.65)', fontSize: '0.85rem', marginBottom: '1rem' }}>Financial Planning You Can Trust</div>
-        <div style={{ height: 90, background: 'linear-gradient(135deg, #1e40af 0%, #2563eb 100%)', borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem' }}>
-          <span style={{ color: '#ffffff', fontSize: '0.8rem', fontWeight: 600 }}>Professional · Modern · Trusted</span>
+      <div style={{ position: 'absolute', inset: 0, clipPath: `inset(0 ${100 - pos}% 0 0)`, backgroundColor: '#1a365d', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem', textAlign: 'center', gap: '1.25rem', fontFamily: inter.style.fontFamily }}>
+        <div style={{ color: '#60a5fa', fontSize: '0.65rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', backgroundColor: 'rgba(37,99,235,0.3)', padding: '3px 10px', borderRadius: 4 }}>AFTER</div>
+        <div style={{ color: '#ffffff', fontSize: 'clamp(1.4rem, 4vw, 2.25rem)', fontWeight: 700, lineHeight: 1.2 }}>
+          Your Money Deserves<br />a Plan. Not a Guessing Game.
         </div>
-        <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem' }}>
-          {['Retirement', 'Tax', 'Estate'].map(s => (
-            <div key={s} style={{ flex: 1, height: 56, backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: 6, display: 'flex', alignItems: 'center', justifyContent: 'center', borderTop: '2px solid #2563eb' }}>
-              <span style={{ color: 'rgba(255,255,255,0.8)', fontSize: '0.65rem', fontWeight: 600 }}>{s}</span>
-            </div>
-          ))}
-        </div>
-        <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.72rem', marginBottom: '0.5rem' }}>★★★★★ 4.9 Rating · 15+ Years</div>
-        <div style={{ backgroundColor: '#2563eb', height: 34, borderRadius: 4, display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 'auto', boxShadow: '0 4px 14px rgba(37,99,235,0.4)' }}>
-          <span style={{ color: '#ffffff', fontSize: '0.75rem', fontWeight: 700 }}>Book a Free Consultation →</span>
+        <div style={{ color: 'rgba(255,255,255,0.7)', fontSize: 'clamp(0.85rem, 2vw, 1rem)' }}>Retirement · Tax · Estate Planning</div>
+        <div style={{ backgroundColor: '#2563eb', color: '#ffffff', padding: '0.65rem 1.75rem', borderRadius: 6, fontSize: 'clamp(0.8rem, 2vw, 1rem)', fontWeight: 700, boxShadow: '0 4px 14px rgba(37,99,235,0.5)' }}>
+          Book a Free Consultation →
         </div>
       </div>
 
