@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
 import { ArrowRight, MapPin, ExternalLink } from 'lucide-react';
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
@@ -116,7 +115,7 @@ function TrailWaypoint({ study, index }: { study: typeof caseStudies[0]; index: 
               </div>
 
               {/* Image */}
-              <Link href={`/portfolio/${study.slug}`} className="block">
+              <a href={study.liveUrl} target="_blank" rel="noopener noreferrer" className="block">
                 <div className="relative h-56 sm:h-64 overflow-hidden">
                   <motion.div
                     initial={{ clipPath: 'inset(0 100% 0 0)', rotate: 1 }}
@@ -125,12 +124,11 @@ function TrailWaypoint({ study, index }: { study: typeof caseStudies[0]; index: 
                     transition={{ duration: 0.8, ease: 'easeOut', delay: index * 0.1 }}
                     className="absolute inset-0"
                   >
-                    <Image
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
                       src={study.heroImage}
                       alt={study.name}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                      className="object-cover group-hover:scale-105 transition-transform duration-700"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                     />
                   </motion.div>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
@@ -150,7 +148,7 @@ function TrailWaypoint({ study, index }: { study: typeof caseStudies[0]; index: 
                     </motion.div>
                   )}
                 </div>
-              </Link>
+              </a>
 
               <div className="p-4 sm:p-6 md:p-8 relative z-10">
                 <div className="flex items-center gap-2 mb-3 flex-wrap">
@@ -182,21 +180,15 @@ function TrailWaypoint({ study, index }: { study: typeof caseStudies[0]; index: 
                   ))}
                 </div>
 
-                {/* Action links */}
-                <div className="flex items-center gap-4">
-                  <Link
-                    href={`/portfolio/${study.slug}`}
-                    className="inline-flex items-center gap-1 text-copper font-medium text-sm hover:gap-2 transition-all"
-                  >
-                    View Case Study <ArrowRight size={16} />
-                  </Link>
+                {/* Action link */}
+                <div className="flex items-center">
                   <a
                     href={study.liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-text-tertiary hover:text-forest font-medium text-sm transition-colors"
+                    className="inline-flex items-center gap-1.5 text-copper font-medium text-sm hover:gap-2.5 transition-all"
                   >
-                    View Live <ExternalLink size={14} />
+                    View Live <ExternalLink size={15} />
                   </a>
                 </div>
               </div>
