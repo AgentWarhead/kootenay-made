@@ -224,7 +224,7 @@ export default function AuditPage() {
   }
 
   return (
-    <>
+    <div className="overflow-x-hidden">
       {/* Hero with spotlight sweep */}
       <section className="aurora-bg grain pt-32 pb-20 relative overflow-hidden">
         {/* Spotlight effect */}
@@ -347,6 +347,6 @@ export default function AuditPage() {
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 }

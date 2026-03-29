@@ -147,7 +147,7 @@ const storyParagraphs = [
 
 export default function AboutPage() {
   return (
-    <>
+    <div className="overflow-x-hidden">
       {/* Header with topo lines */}
       <section className="aurora-bg grain pt-32 pb-20 relative overflow-hidden">
         {/* Subtle topographic line pattern */}
@@ -288,6 +288,6 @@ export default function AboutPage() {
           </ScrollReveal>
         </div>
       </section>
-    </>
+    </div>
   );
 }

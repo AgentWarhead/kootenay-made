@@ -209,7 +209,7 @@ export default function ContactPage() {
   }
 
   return (
-    <>
+    <div className="overflow-x-hidden">
       {/* Header with parallax mountain */}
       <section className="aurora-bg grain pt-32 pb-20 relative overflow-hidden">
         <AmbientOrbs />
@@ -343,6 +343,6 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 }
