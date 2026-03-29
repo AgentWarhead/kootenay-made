@@ -8,6 +8,7 @@ import ScrollReveal from '@/components/ScrollReveal';
 import Breadcrumb from '@/components/Breadcrumb';
 import AmbientOrbs from '@/components/AmbientOrbs';
 import { ArrowRight } from 'lucide-react';
+import MountainDivider from '@/components/MountainDivider';
 
 const styles = [
   { slug: 'clean-professional', name: 'Clean & Professional', tags: 'Law, Accounting, Finance', category: 'professional', vibe: 'Trust, authority, clean confidence', color: '#2563EB', popular: false },
@@ -45,9 +46,9 @@ export default function StylesPage() {
     : styles.filter((s) => s.category === activeCategory);
 
   return (
-    <div className="pt-0">
+    <div className="pt-0 bg-slate">
       {/* Hero */}
-      <section className="aurora-bg grain py-20 sm:py-28 relative">
+      <section className="aurora-bg grain pt-32 pb-20 relative">
         <AmbientOrbs />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-16 text-center">
           <Breadcrumb items={[{ label: 'Styles' }]} dark />
@@ -88,6 +89,8 @@ export default function StylesPage() {
           </ScrollReveal>
         </div>
       </section>
+
+      <MountainDivider variant={2} fillColor="#1A1D20" />
 
       {/* Sticky category filter tabs */}
       <div className="sticky top-16 z-30 bg-slate/95 backdrop-blur-md border-b border-white/5 grain">

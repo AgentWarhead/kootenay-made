@@ -163,7 +163,7 @@ export default function BlogPage() {
 
   return (
     <div className="pt-0">
-      <section className="aurora-bg grain py-20 sm:py-24 relative overflow-hidden">
+      <section className="aurora-bg grain pt-32 pb-20 relative overflow-hidden">
         <AmbientOrbs />
         {/* Topographic pattern in hero background */}
         <div className="absolute inset-0 opacity-[0.04] pointer-events-none">
