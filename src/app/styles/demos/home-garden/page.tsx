@@ -126,16 +126,44 @@ function LiveRedesign() {
 
   return (
     <div ref={ref} className="w-full">
-      {/* Toggle states with AnimatePresence */}
-      <AnimatePresence mode="wait">
-        {!transformed ? (
-          /* ── BEFORE STATE — Realistic WordPress small-town site ── */
-          <motion.div
-            key="before"
-            initial={{ opacity: 0, y: 20 }}
+      {/* Bold label above the card */}
+      <div className="flex items-center justify-center gap-3 mb-4">
+        <motion.div
+          className="h-[1px] flex-1 max-w-[60px]"
+          style={{ backgroundColor: transformed ? C.green : '#ccc' }}
+          layout
+        />
+        <AnimatePresence mode="wait">
+          <motion.span
+            key={transformed ? 'after-label' : 'before-label'}
+            initial={{ opacity: 0, y: -5 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.97, filter: 'blur(6px)', transition: { duration: 0.5 } }}
-            className="relative w-full overflow-hidden"
+            exit={{ opacity: 0, y: 5 }}
+            transition={{ duration: 0.3 }}
+            className={`${body.className} text-xs font-bold uppercase tracking-[0.25em]`}
+            style={{ color: transformed ? C.darkGreen : '#999' }}
+          >
+            {transformed ? '\u2728 After' : 'Before'}
+          </motion.span>
+        </AnimatePresence>
+        <motion.div
+          className="h-[1px] flex-1 max-w-[60px]"
+          style={{ backgroundColor: transformed ? C.green : '#ccc' }}
+          layout
+        />
+      </div>
+
+      {/* Fixed-height container so both states match */}
+      <div className="relative w-full" style={{ minHeight: '420px' }}>
+        <AnimatePresence mode="wait">
+          {!transformed ? (
+            /* ── BEFORE STATE — Realistic WordPress small-town site ── */
+            <motion.div
+              key="before"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.97, filter: 'blur(6px)', transition: { duration: 0.5 } }}
+              className="relative w-full overflow-hidden"
             style={{
               backgroundColor: '#f2f0ed',
               border: '1px solid #d8d4cf',
@@ -254,13 +282,7 @@ function LiveRedesign() {
               </div>
             </div>
 
-            {/* BEFORE label */}
-            <div
-              className="absolute top-14 sm:top-16 right-3 px-3 py-1 text-xs font-bold uppercase tracking-widest rounded-full z-20"
-              style={{ backgroundColor: 'rgba(0,0,0,0.08)', color: '#999' }}
-            >
-              Before
-            </div>
+
           </motion.div>
         ) : (
           /* ── AFTER STATE — Premium, botanical, elevated ── */
@@ -459,19 +481,11 @@ function LiveRedesign() {
               </div>
             </div>
 
-            {/* AFTER label */}
-            <motion.div
-              className="absolute top-16 right-3 px-3 py-1 text-xs font-bold uppercase tracking-widest rounded-full z-20"
-              style={{ backgroundColor: `${C.green}20`, color: C.darkGreen }}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: stagger * 2 }}
-            >
-              After
-            </motion.div>
+
           </motion.div>
         )}
-      </AnimatePresence>
+        </AnimatePresence>
+      </div>
 
       {/* Toggle button */}
       <div className="flex justify-center mt-8">
