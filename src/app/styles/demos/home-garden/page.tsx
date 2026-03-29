@@ -310,7 +310,7 @@ function LiveRedesign() {
             </div>
 
             {/* Hero area — lush and premium */}
-            <div className="relative px-6 sm:px-10 md:px-16 py-14 sm:py-20 md:py-24">
+            <div className="relative px-5 sm:px-10 md:px-16 py-8 sm:py-14 md:py-20">
               {/* Decorative botanical elements */}
               <motion.div
                 className="absolute top-0 right-0 pointer-events-none"
@@ -342,7 +342,7 @@ function LiveRedesign() {
               <div className="relative z-10 text-center">
                 {/* Business name chip */}
                 <motion.div
-                  className="flex justify-center mb-6"
+                  className="flex justify-center mb-3 sm:mb-6"
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: dur * 0.6, delay: stagger * 2 }}
@@ -357,7 +357,7 @@ function LiveRedesign() {
 
                 {/* The headline */}
                 <motion.h2
-                  className={`${heading.className} text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.15] mb-6`}
+                  className={`${heading.className} text-2xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.15] mb-4 sm:mb-6`}
                   style={{ color: C.darkGreen }}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -392,7 +392,7 @@ function LiveRedesign() {
 
                 {/* Subline */}
                 <motion.p
-                  className={`${body.className} text-base sm:text-lg md:text-xl max-w-lg mx-auto mb-10`}
+                  className={`${body.className} text-sm sm:text-lg md:text-xl max-w-lg mx-auto mb-6 sm:mb-10`}
                   style={{ color: '#5a6e5a', lineHeight: 1.7 }}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -410,7 +410,7 @@ function LiveRedesign() {
                 >
                   <a
                     href="#contact"
-                    className={`${heading.className} inline-flex items-center gap-2 px-8 py-4 text-sm sm:text-base rounded-xl transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]`}
+                    className={`${heading.className} inline-flex items-center gap-2 px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base rounded-xl transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]`}
                     style={{
                       backgroundColor: C.green,
                       color: C.white,
@@ -430,7 +430,7 @@ function LiveRedesign() {
 
                 {/* Trust signals — elegant */}
                 <motion.div
-                  className="flex items-center justify-center gap-6 mt-10 flex-wrap"
+                  className="flex items-center justify-center gap-4 sm:gap-6 mt-6 sm:mt-10 flex-wrap"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: dur, delay: stagger * 6 }}
