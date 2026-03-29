@@ -3,8 +3,8 @@
 import { Rajdhani, Inter } from 'next/font/google'
 import Link from 'next/link'
 import Image from 'next/image'
-import { useRef, useState, useCallback } from 'react'
-import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion'
+import { useRef, useState } from 'react'
+import { motion, AnimatePresence, useInView, useScroll, useTransform, useReducedMotion } from 'framer-motion'
 
 const heading = Rajdhani({
   subsets: ['latin'],
@@ -43,54 +43,174 @@ function AngularDivider({ topColor = '#2d2d2d', bottomColor = '#1a1a1a' }: { top
   )
 }
 
-/* ── Before/After Slider ── */
-function BeforeAfterSlider() {
-  const [pos, setPos] = useState(50)
-  const containerRef = useRef<HTMLDivElement>(null)
+/* ── Live Redesign ── */
+function LiveRedesign() {
+  const prefersReduced = useReducedMotion()
+  const ref = useRef<HTMLDivElement>(null)
+  const [transformed, setTransformed] = useState(false)
 
-  const handleMove = useCallback((clientX: number) => {
-    const el = containerRef.current
-    if (!el) return
-    const rect = el.getBoundingClientRect()
-    const pct = Math.min(100, Math.max(0, ((clientX - rect.left) / rect.width) * 100))
-    setPos(pct)
-  }, [])
+  const dur = prefersReduced ? 0.01 : 0.9
+  const stagger = prefersReduced ? 0 : 0.18
+
+  const orange = '#ff6a00'
+  const darkBg = '#1a1a1a'
+  const medBg = '#2d2d2d'
 
   return (
-    <div
-      ref={containerRef}
-      className="relative w-full max-w-3xl mx-auto overflow-hidden select-none cursor-ew-resize"
-      style={{ aspectRatio: '3/2', border: '2px solid #ff6a00' }}
-      onMouseMove={(e) => handleMove(e.clientX)}
-      onTouchMove={(e) => handleMove(e.touches[0].clientX)}
-    >
-      {/* AFTER */}
-      <div className="absolute inset-0 flex items-center justify-center" style={{ backgroundColor: '#1a1a1a' }}>
-        <div className="text-center px-8 max-w-lg">
-          <div className={`${heading.className} text-2xl md:text-4xl font-bold uppercase leading-tight mb-4`} style={{ color: '#ffffff' }}>Your Pipes Burst at 2AM. We Answer.</div>
-          <div className="mt-6 inline-block px-8 py-3 text-sm font-bold uppercase tracking-wider" style={{ backgroundColor: '#ff6a00', color: '#fff' }}>Emergency Service — Call Now →</div>
-        </div>
-        <div className="absolute top-3 right-3 px-3 py-1 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#ff6a00', color: '#fff' }}>AFTER</div>
+    <div ref={ref} className="w-full">
+      {/* Bold label */}
+      <div className="flex items-center justify-center gap-3 mb-5">
+        <motion.div className="h-[1px] flex-1 max-w-[80px]" style={{ backgroundColor: transformed ? orange : '#444' }} layout transition={{ duration: 0.4 }} />
+        <AnimatePresence mode="wait">
+          <motion.span key={transformed ? 'after-label' : 'before-label'}
+            initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 8 }} transition={{ duration: 0.3 }}
+            className={`${body.className} text-sm font-bold uppercase tracking-[0.25em]`}
+            style={{ color: transformed ? orange : '#666' }}>
+            {transformed ? '✨ After' : 'Before'}
+          </motion.span>
+        </AnimatePresence>
+        <motion.div className="h-[1px] flex-1 max-w-[80px]" style={{ backgroundColor: transformed ? orange : '#444' }} layout transition={{ duration: 0.4 }} />
       </div>
 
-      {/* BEFORE */}
-      <div
-        className="absolute inset-0 flex items-center justify-center overflow-hidden"
-        style={{ backgroundColor: '#e8e8e8', clipPath: `inset(0 ${100 - pos}% 0 0)` }}
-      >
-        <div className="text-center px-6 max-w-lg" style={{ fontFamily: 'Georgia, serif' }}>
-          <div className="text-2xl md:text-4xl font-bold mb-3 leading-snug" style={{ color: '#555', fontFamily: 'Georgia, serif' }}>Bob&rsquo;s Plumbing &amp; Heating. Serving the Area for Over 20 Years! Call Us Today!</div>
-          <div className="inline-block px-6 py-2 text-sm mt-4" style={{ backgroundColor: '#999', color: '#fff', fontFamily: 'Georgia, serif' }}>Learn More</div>
-        </div>
-        <div className="absolute top-3 left-3 px-3 py-1 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#999', color: '#eee' }}>BEFORE</div>
+      {/* Fixed-height container */}
+      <div className="relative w-full" style={{ height: '480px' }}>
+        <AnimatePresence mode="wait">
+          {!transformed ? (
+            <motion.div key="before"
+              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.97, filter: 'blur(6px)', transition: { duration: 0.5 } }}
+              className="absolute inset-0 w-full overflow-hidden flex flex-col"
+              style={{ backgroundColor: '#f2f0ed', border: '1px solid #d8d4cf', borderRadius: '8px', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}
+            >
+              {/* Fake WordPress nav */}
+              <div className="flex items-center justify-between px-4 sm:px-6 py-3" style={{ backgroundColor: '#2a4a6a', borderBottom: '3px solid #1a3a5a' }}>
+                <div className="flex items-center gap-2">
+                  <div className="w-6 h-6 rounded-full" style={{ backgroundColor: '#5a8aaa' }} />
+                  <span className="text-sm sm:text-base font-bold" style={{ fontFamily: 'Georgia, serif', color: '#fff' }}>Kootenay Pro Plumbing</span>
+                </div>
+                <div className="hidden sm:flex gap-4">
+                  {['Home', 'Services', 'About', 'Contact'].map((link) => (
+                    <span key={link} className="text-xs" style={{ fontFamily: 'Arial, sans-serif', color: 'rgba(255,255,255,0.7)', textDecoration: 'underline' }}>{link}</span>
+                  ))}
+                </div>
+                <span className="sm:hidden text-xs" style={{ color: 'rgba(255,255,255,0.5)', fontFamily: 'Arial, sans-serif' }}>☰ Menu</span>
+              </div>
+              {/* Hero */}
+              <div className="relative px-5 sm:px-10 py-8 sm:py-14 text-center flex-1 flex flex-col justify-center">
+                <div className="absolute inset-0 opacity-[0.12]" style={{ background: 'linear-gradient(135deg, #5a8aaa 0%, #aaa 50%, #eee 100%)' }} />
+                <div className="relative z-10">
+                  <p className="text-xs uppercase tracking-wide mb-2" style={{ fontFamily: 'Arial, sans-serif', color: '#666' }}>★ Welcome to Our Website ★</p>
+                  <h2 className="text-xl sm:text-3xl md:text-4xl leading-tight mb-2" style={{ fontFamily: 'Georgia, serif', color: '#3a3a3a', fontWeight: 700 }}>Kootenay Pro Plumbing</h2>
+                  <p className="text-sm sm:text-lg mb-1" style={{ fontFamily: 'Georgia, serif', color: '#666', fontStyle: 'italic' }}>&ldquo;Serving the Area for Over 20 Years!&rdquo;</p>
+                  <p className="text-xs sm:text-sm mb-4" style={{ fontFamily: 'Arial, sans-serif', color: '#888' }}>Plumbing &bull; Heating &bull; Gas Fitting &bull; Drain Cleaning &bull; And More!</p>
+                  <div className="flex justify-center gap-2 mb-4 flex-wrap">
+                    {['✓ Licensed', '✓ Bonded', '✓ 24/7 Emergency'].map((b) => (
+                      <span key={b} className="px-3 py-1 text-xs rounded" style={{ backgroundColor: '#2a4a6a', color: '#fff', fontFamily: 'Arial, sans-serif' }}>{b}</span>
+                    ))}
+                  </div>
+                  <p className="text-sm sm:text-lg font-bold mb-3" style={{ fontFamily: 'Arial, sans-serif', color: '#2a4a6a' }}>📞 Call Us Today: (250) 555-0142</p>
+                  <span className="inline-block px-6 py-2.5 text-sm cursor-default" style={{ backgroundColor: '#5a8aaa', color: '#fff', fontFamily: 'Arial, sans-serif', borderRadius: '3px', border: '1px solid #2a4a6a' }}>
+                    Request a Free Estimate
+                  </span>
+                  <p className="mt-4 text-xs" style={{ color: '#bbb', fontFamily: 'Arial, sans-serif' }}>Powered by WordPress | Theme: Twenty Twenty-Three</p>
+                </div>
+              </div>
+            </motion.div>
+          ) : (
+            <motion.div key="after"
+              initial={{ opacity: 0, scale: 1.02, filter: 'blur(6px)' }}
+              animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+              transition={{ duration: dur * 0.8, ease: 'easeOut' }}
+              className="absolute inset-0 w-full overflow-hidden flex flex-col"
+              style={{ backgroundColor: darkBg, border: `1px solid ${orange}30`, borderRadius: '16px', boxShadow: `0 8px 40px ${orange}15, 0 2px 8px rgba(0,0,0,0.3)` }}
+            >
+              {/* Elegant nav */}
+              <div className="flex items-center justify-between px-6 sm:px-10 py-4" style={{ borderBottom: `1px solid ${orange}20` }}>
+                <motion.span className={`${heading.className} text-base sm:text-xl font-bold uppercase`} style={{ color: '#fff' }}
+                  initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: dur * 0.6, delay: stagger }}>
+                  KOOTENAY PRO <span style={{ color: orange }}>PLUMBING</span>
+                </motion.span>
+                <motion.div className="hidden sm:flex items-center gap-6" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
+                  {['Services', 'Projects', 'About', 'Contact'].map((link) => (
+                    <span key={link} className={`${body.className} text-xs uppercase tracking-widest`} style={{ color: 'rgba(255,255,255,0.5)', fontWeight: 500 }}>{link}</span>
+                  ))}
+                </motion.div>
+                <motion.div className="sm:hidden flex flex-col gap-[5px]" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur * 0.6, delay: stagger }}>
+                  <span className="block w-5 h-[2px] rounded-full" style={{ backgroundColor: orange }} />
+                  <span className="block w-4 h-[2px] rounded-full" style={{ backgroundColor: orange }} />
+                  <span className="block w-5 h-[2px] rounded-full" style={{ backgroundColor: orange }} />
+                </motion.div>
+              </div>
+              {/* Hero */}
+              <div className="relative px-5 sm:px-10 md:px-16 py-8 sm:py-14 flex-1 flex flex-col justify-center">
+                {/* Industrial/angular SVG motif */}
+                <motion.div className="absolute top-0 right-0 pointer-events-none" initial={{ opacity: 0 }} animate={{ opacity: 0.12 }} transition={{ duration: dur, delay: stagger * 3 }}>
+                  <svg width="240" height="240" viewBox="0 0 200 200" fill="none">
+                    <path d="M160 20 L180 20 L180 80 L160 80 L160 60 L140 60 L140 80 L120 80 L120 20 L140 20 L140 40 L160 40 Z" stroke={orange} strokeWidth="1.5" fill="none" />
+                    <path d="M60 100 L200 100" stroke={orange} strokeWidth="1" strokeDasharray="4 4" />
+                    <path d="M60 120 L60 180 L80 180 L80 140 L100 140 L100 180 L120 180 L120 120 Z" stroke={orange} strokeWidth="1.5" fill="none" />
+                    <circle cx="40" cy="160" r="12" stroke={orange} strokeWidth="1" fill="none" />
+                    <circle cx="40" cy="160" r="5" fill={orange} opacity="0.3" />
+                  </svg>
+                </motion.div>
+                <div className="relative z-10 text-center sm:text-left">
+                  <motion.div className="flex justify-center sm:justify-start mb-3 sm:mb-6" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
+                    <span className={`${body.className} text-xs font-semibold uppercase tracking-[0.2em] px-5 py-2 rounded-full`}
+                      style={{ backgroundColor: `${orange}18`, color: orange, border: `1px solid ${orange}30` }}>
+                      Est. 2003 &mdash; West Kootenay
+                    </span>
+                  </motion.div>
+                  <motion.h2 className={`${heading.className} text-2xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.1] mb-4 sm:mb-6 font-bold uppercase`}
+                    style={{ color: '#fff' }}
+                    initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
+                    YOUR PIPES BURST AT 2AM.{' '}
+                    <span className="relative inline-block" style={{ color: orange }}>
+                      WE ANSWER.
+                      <motion.svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 12" fill="none">
+                        <motion.path d="M4 8 C50 2, 100 4, 150 6 C170 8, 185 4, 196 6" stroke={orange} strokeWidth="2.5" strokeLinecap="round" fill="none"
+                          initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: dur * 1.5, delay: stagger * 5, ease: 'easeOut' }} />
+                      </motion.svg>
+                    </span>
+                  </motion.h2>
+                  <motion.p className={`${body.className} text-sm sm:text-lg max-w-md sm:mx-0 mx-auto mb-6`} style={{ color: 'rgba(255,255,255,0.55)', lineHeight: 1.7 }}
+                    initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 4 }}>
+                    Licensed plumbing, heating &amp; gas fitting. Available when you need us most.
+                  </motion.p>
+                  <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 5 }}
+                    className="flex flex-col sm:flex-row items-center sm:items-start justify-center sm:justify-start gap-4">
+                    <a href="#contact" className={`${heading.className} inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 text-sm sm:text-base rounded-xl transition-all duration-300 hover:scale-[1.03] active:scale-[0.97] font-bold uppercase tracking-wider`}
+                      style={{ backgroundColor: orange, color: '#fff', boxShadow: `0 4px 20px ${orange}40` }}>
+                      Emergency Service — Call Now
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                    </a>
+                    <span className={`${body.className} text-sm`} style={{ color: '#666' }}>No commitment required</span>
+                  </motion.div>
+                  <motion.div className="flex items-center justify-center sm:justify-start gap-4 sm:gap-6 mt-6 flex-wrap" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur, delay: stagger * 6 }}>
+                    {['24/7 Response', 'Licensed & Bonded', '500+ Jobs'].map((badge) => (
+                      <span key={badge} className={`${body.className} text-xs`} style={{ color: orange, opacity: 0.7, letterSpacing: '0.05em' }}>{badge}</span>
+                    ))}
+                  </motion.div>
+                </div>
+              </div>
+              {/* Shimmer border */}
+              <div className="absolute bottom-0 left-0 right-0 h-[2px] rounded-b-[16px]" style={{ background: `linear-gradient(90deg, transparent, ${orange}, #ffaa00, ${orange}, transparent)`, animation: 'shimmer-border 3s linear infinite', backgroundSize: '200% 100%' }} />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
-      {/* Handle */}
-      <div className="absolute top-0 bottom-0 w-0.5 z-10" style={{ left: `${pos}%`, backgroundColor: '#ff6a00', transform: 'translateX(-50%)' }}>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center"
-          style={{ backgroundColor: '#ff6a00', boxShadow: '0 0 20px rgba(255,106,0,0.6)' }}>
-          <span className="text-white text-xs font-bold">◀▶</span>
-        </div>
+      {/* Toggle button */}
+      <div className="flex justify-center mt-8">
+        <button onClick={() => setTransformed(!transformed)}
+          className={`${body.className} text-sm font-medium px-6 py-3 rounded-full transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]`}
+          style={{
+            backgroundColor: transformed ? `${orange}15` : darkBg,
+            color: transformed ? orange : '#999',
+            border: `1.5px solid ${transformed ? `${orange}40` : '#333'}`,
+            boxShadow: transformed ? `0 2px 12px ${orange}15` : '0 1px 4px rgba(0,0,0,0.3)',
+          }}>
+          {transformed ? '← See the Before' : '✨ Watch the Transformation'}
+        </button>
       </div>
     </div>
   )
@@ -149,6 +269,10 @@ export default function TradesIndustrialDemo() {
         @keyframes emergencyPulse {
           0%, 100% { box-shadow: 0 0 8px rgba(255,106,0,0.4); background-color: #ff6a00; }
           50% { box-shadow: 0 0 24px rgba(255,40,0,0.8); background-color: #ff3300; }
+        }
+        @keyframes shimmer-border {
+          0% { background-position: 200% center; }
+          100% { background-position: -200% center; }
         }
       `}</style>
 
@@ -356,16 +480,16 @@ export default function TradesIndustrialDemo() {
 
       <AngularDivider topColor="#2d2d2d" bottomColor="#1a1a1a" />
 
-      {/* ═══════════ 7. BEFORE / AFTER ═══════════ */}
+      {/* ═══════════ 7. THE TRANSFORMATION ═══════════ */}
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#1a1a1a' }}>
         <div className="max-w-5xl mx-auto">
           <Reveal>
-            <h2 className={`${heading.className} text-3xl md:text-5xl font-bold uppercase mb-4`}>THE TRANSFORMATION</h2>
+            <h2 className={`${heading.className} text-3xl md:text-5xl font-bold uppercase mb-4`}>Watch Your Website Transform</h2>
             <div className="w-20 h-1.5 mb-4" style={{ backgroundColor: '#ff6a00' }} />
-            <p className="mb-12 text-sm uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.4)' }}>Drag to compare — before vs. after a Kootenay Made Digital build</p>
+            <p className="mb-12 text-sm uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.4)' }}>From dated to designed — in real time</p>
           </Reveal>
           <Reveal delay={0.1}>
-            <BeforeAfterSlider />
+            <LiveRedesign />
           </Reveal>
         </div>
       </section>

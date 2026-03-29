@@ -1,10 +1,10 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { Lora, Nunito } from 'next/font/google'
 import Image from 'next/image'
 import Link from 'next/link'
-import { motion, useReducedMotion, type Variants } from 'framer-motion'
+import { motion, useReducedMotion, useInView, AnimatePresence, type Variants } from 'framer-motion'
 
 const lora = Lora({ subsets: ['latin'], weight: ['400', '700'] })
 const nunito = Nunito({ subsets: ['latin'], weight: ['400', '600'] })
@@ -80,6 +80,7 @@ const botanicalKeyframes = `
 @keyframes floatB { 0%,100% { transform:translateY(0px) rotate(0deg); } 50% { transform:translateY(-14px) rotate(-5deg); } }
 @keyframes floatC { 0%,100% { transform:translateY(0px) rotate(0deg); } 50% { transform:translateY(-22px) rotate(8deg); } }
 @keyframes floatD { 0%,100% { transform:translateY(0px) rotate(0deg); } 50% { transform:translateY(-10px) rotate(-4deg); } }
+@keyframes shimmer-border { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
 @media (prefers-reduced-motion: reduce) { .botanical-float { animation: none !important; } }
 `
 
@@ -91,35 +92,184 @@ function Star() {
   )
 }
 
-/* ── Before/After Slider (warm style) ─────────────────────── */
-function BeforeAfterSlider() {
-  const [pos, setPos] = useState(50)
+/* ── Live Redesign (warm-natural) ─────────────────────── */
+function LiveRedesign() {
+  const prefersReduced = useReducedMotion()
+  const ref = useRef<HTMLDivElement>(null)
+  const [transformed, setTransformed] = useState(false)
+
+  const dur = prefersReduced ? 0.01 : 0.9
+  const stagger = prefersReduced ? 0 : 0.18
+
+  const sage = '#7d9a6b'
+  const darkSage = '#4f6e40'
+  const warm = '#d4a574'
+  const cream = '#faf6f0'
+
   return (
-    <div className="relative overflow-hidden select-none max-w-3xl mx-auto" style={{ aspectRatio: '3/2', borderRadius: '16px', boxShadow: '0 8px 40px rgba(139, 115, 85, 0.15)' }}>
-      {/* AFTER */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center px-8 text-center" style={{ backgroundColor: '#faf6f0' }}>
-        <div className="text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: '#7d9a6b' }}>AFTER</div>
-        <div className={`${lora.className} text-2xl md:text-4xl font-bold italic mb-5 leading-tight`} style={{ color: '#8b7355' }}>You Carry Enough.<br />Put It Down for an Hour.</div>
-        <div className="inline-block px-8 py-3 text-sm font-semibold text-white" style={{ backgroundColor: '#7d9a6b', borderRadius: '30px' }}>Book Your Escape &rarr;</div>
-        <div className="absolute top-4 right-5 text-xs font-semibold px-2 py-1 text-white" style={{ backgroundColor: '#7d9a6b', borderRadius: '20px' }}>AFTER</div>
+    <div ref={ref} className="w-full">
+      {/* Bold label */}
+      <div className="flex items-center justify-center gap-3 mb-5">
+        <motion.div className="h-[1px] flex-1 max-w-[80px]" style={{ backgroundColor: transformed ? sage : '#ccc' }} layout transition={{ duration: 0.4 }} />
+        <AnimatePresence mode="wait">
+          <motion.span
+            key={transformed ? 'after-label' : 'before-label'}
+            initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 8 }}
+            transition={{ duration: 0.3 }}
+            className={`${nunito.className} text-sm font-bold uppercase tracking-[0.25em]`}
+            style={{ color: transformed ? sage : '#888' }}
+          >{transformed ? '✨ After' : 'Before'}</motion.span>
+        </AnimatePresence>
+        <motion.div className="h-[1px] flex-1 max-w-[80px]" style={{ backgroundColor: transformed ? sage : '#ccc' }} layout transition={{ duration: 0.4 }} />
       </div>
-      {/* BEFORE */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center px-8 text-center"
-        style={{ backgroundColor: '#e8e8e8', clipPath: `inset(0 ${100 - pos}% 0 0)`, fontFamily: 'Georgia, serif' }}>
-        <div className="text-xs uppercase tracking-widest mb-4" style={{ color: '#999', fontFamily: 'Georgia, serif' }}>🧘 NAMASTE 🧘</div>
-        <div className="text-2xl md:text-4xl font-bold mb-5 leading-tight" style={{ color: '#666', fontFamily: 'Georgia, serif' }}>Welcome to Our Wellness Centre 🧘<br />Yoga, Massage, and Holistic Healing. Book Now.</div>
-        <div className="inline-block px-6 py-2 text-sm font-bold" style={{ backgroundColor: '#999', color: '#fff', fontFamily: 'Georgia, serif' }}>Learn More</div>
-        <div className="absolute top-4 left-5 text-xs font-semibold px-2 py-1 text-white" style={{ backgroundColor: '#9ca3af', borderRadius: '20px' }}>BEFORE</div>
+
+      {/* Fixed-height container */}
+      <div className="relative w-full" style={{ height: '480px' }}>
+        <AnimatePresence mode="wait">
+          {!transformed ? (
+            <motion.div
+              key="before"
+              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.97, filter: 'blur(6px)', transition: { duration: 0.5 } }}
+              className="absolute inset-0 w-full overflow-hidden flex flex-col"
+              style={{ backgroundColor: '#f2f0ed', border: '1px solid #d8d4cf', borderRadius: '8px', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}
+            >
+              {/* Fake WordPress nav */}
+              <div className="flex items-center justify-between px-4 sm:px-6 py-3" style={{ backgroundColor: '#5c4a32', borderBottom: '3px solid #3d3022' }}>
+                <div className="flex items-center gap-2">
+                  <div className="w-6 h-6 rounded-full" style={{ backgroundColor: '#8b7355' }} />
+                  <span className="text-sm sm:text-base font-bold" style={{ fontFamily: 'Georgia, serif', color: '#fff' }}>Mountain Flow Wellness</span>
+                </div>
+                <div className="hidden sm:flex gap-4">
+                  {['Home', 'Classes', 'Services', 'Contact'].map((link) => (
+                    <span key={link} className="text-xs" style={{ fontFamily: 'Arial, sans-serif', color: 'rgba(255,255,255,0.7)', textDecoration: 'underline' }}>{link}</span>
+                  ))}
+                </div>
+                <span className="sm:hidden text-xs" style={{ color: 'rgba(255,255,255,0.5)', fontFamily: 'Arial, sans-serif' }}>&#9776; Menu</span>
+              </div>
+              {/* Hero area */}
+              <div className="relative px-5 sm:px-10 py-8 sm:py-14 md:py-16 text-center flex-1 flex flex-col justify-center">
+                <div className="absolute inset-0 opacity-[0.12]" style={{ background: 'linear-gradient(135deg, #7d9a6b 0%, #d4a574 50%, #f0e0c0 100%)' }} />
+                <div className="relative z-10">
+                  <p className="text-xs uppercase tracking-wide mb-2 sm:mb-4" style={{ fontFamily: 'Arial, sans-serif', color: '#666', letterSpacing: '0.15em' }}>&#9733; Welcome to Our Website &#9733;</p>
+                  <h2 className="text-xl sm:text-3xl md:text-4xl leading-tight mb-2 sm:mb-3" style={{ fontFamily: 'Georgia, serif', color: '#3a3a3a', fontWeight: 700, textShadow: '0 1px 0 rgba(255,255,255,0.5)' }}>Mountain Flow Wellness</h2>
+                  <p className="text-sm sm:text-lg mb-1 sm:mb-2" style={{ fontFamily: 'Georgia, serif', color: '#666', fontStyle: 'italic' }}>&ldquo;Yoga, Massage, and Holistic Healing. Namaste!&rdquo;</p>
+                  <p className="text-xs sm:text-sm mb-4 sm:mb-6" style={{ fontFamily: 'Arial, sans-serif', color: '#888' }}>Yoga &bull; Massage &bull; Reiki &bull; Meditation &bull; Sound Healing</p>
+                  <div className="flex justify-center gap-2 sm:gap-3 mb-4 sm:mb-6 flex-wrap">
+                    {['✓ Certified Instructors', '✓ All Levels', '✓ Gift Cards'].map((b) => (
+                      <span key={b} className="px-3 py-1 text-xs rounded" style={{ backgroundColor: '#5c4a32', color: '#fff', fontFamily: 'Arial, sans-serif' }}>{b}</span>
+                    ))}
+                  </div>
+                  <p className="text-sm sm:text-lg font-bold mb-3 sm:mb-4" style={{ fontFamily: 'Arial, sans-serif', color: '#5c4a32' }}>&#128222; Call Us Today: (250) 555-0165</p>
+                  <span className="inline-block px-6 py-2.5 text-sm" style={{ backgroundColor: '#7d9a6b', color: '#fff', fontFamily: 'Arial, sans-serif', borderRadius: '3px', border: '1px solid #5c4a32', cursor: 'default' }}>Book a Free Consultation</span>
+                  <p className="mt-4 sm:mt-6 text-xs" style={{ color: '#bbb', fontFamily: 'Arial, sans-serif' }}>Powered by WordPress | Theme: Twenty Twenty-Three</p>
+                </div>
+              </div>
+            </motion.div>
+          ) : (
+            <motion.div
+              key="after"
+              initial={{ opacity: 0, scale: 1.02, filter: 'blur(6px)' }}
+              animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+              transition={{ duration: dur * 0.8, ease: 'easeOut' }}
+              className="absolute inset-0 w-full overflow-hidden flex flex-col"
+              style={{ backgroundColor: cream, border: `1px solid ${sage}30`, borderRadius: '16px', boxShadow: `0 8px 40px ${sage}15, 0 2px 8px rgba(0,0,0,0.04)` }}
+            >
+              {/* Grain texture */}
+              <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E")`, opacity: 0.4 }} />
+              {/* Elegant nav */}
+              <div className="flex items-center justify-between px-6 sm:px-10 py-4" style={{ borderBottom: `1px solid ${sage}15` }}>
+                <motion.span className={`${lora.className} text-base sm:text-lg`} style={{ color: '#8b7355', fontStyle: 'italic' }}
+                  initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: dur * 0.6, delay: stagger }}>
+                  Mountain Flow Wellness
+                </motion.span>
+                <motion.div className="hidden sm:flex items-center gap-6" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
+                  {['Classes', 'Services', 'About', 'Contact'].map((link) => (
+                    <span key={link} className={`${nunito.className} text-xs uppercase tracking-widest`} style={{ color: sage, fontWeight: 500 }}>{link}</span>
+                  ))}
+                </motion.div>
+                <motion.div className="sm:hidden flex flex-col gap-[5px]" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur * 0.6, delay: stagger }}>
+                  <span className="block w-5 h-[2px] rounded-full" style={{ backgroundColor: sage }} />
+                  <span className="block w-4 h-[2px] rounded-full" style={{ backgroundColor: sage }} />
+                  <span className="block w-5 h-[2px] rounded-full" style={{ backgroundColor: sage }} />
+                </motion.div>
+              </div>
+              {/* Hero */}
+              <div className="relative px-5 sm:px-10 md:px-16 py-8 sm:py-10 flex-1 flex flex-col justify-center">
+                {/* Decorative SVG waves */}
+                <motion.div className="absolute top-0 right-0 pointer-events-none" initial={{ opacity: 0 }} animate={{ opacity: 0.18 }} transition={{ duration: dur, delay: stagger * 3 }}>
+                  <svg width="240" height="240" viewBox="0 0 180 180" fill="none">
+                    <path d="M180 20 C140 30, 100 10, 60 40 C20 70, 10 120, 30 160" stroke={sage} strokeWidth="1.5" fill="none" strokeLinecap="round" />
+                    <path d="M160 0 C130 20, 110 60, 130 100 C150 140, 170 150, 160 180" stroke={warm} strokeWidth="1" fill="none" strokeLinecap="round" strokeDasharray="4 6" />
+                    <ellipse cx="100" cy="50" rx="12" ry="6" stroke={sage} strokeWidth="1" fill="none" transform="rotate(-30 100 50)" />
+                    <ellipse cx="70" cy="90" rx="9" ry="5" stroke={sage} strokeWidth="1" fill="none" transform="rotate(10 70 90)" />
+                    <circle cx="140" cy="30" r="3" fill={warm} opacity="0.4" />
+                    <circle cx="55" cy="130" r="2" fill={sage} opacity="0.3" />
+                  </svg>
+                </motion.div>
+                <div className="relative z-10 text-center sm:text-left">
+                  {/* Business chip */}
+                  <motion.div className="flex justify-center sm:justify-start mb-3 sm:mb-5" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
+                    <span className={`${nunito.className} text-xs font-semibold uppercase tracking-[0.2em] px-5 py-2 rounded-full`} style={{ backgroundColor: `${sage}18`, color: sage, border: `1px solid ${sage}25` }}>
+                      Est. 2014 &mdash; West Kootenay
+                    </span>
+                  </motion.div>
+                  {/* Headline */}
+                  <motion.h2 className={`${lora.className} text-2xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.15] mb-4 sm:mb-5 sm:max-w-xl`}
+                    style={{ color: '#8b7355' }}
+                    initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
+                    You Carry Enough.<br />Put It Down{' '}
+                    <span className="relative inline-block" style={{ color: sage, fontStyle: 'italic' }}>
+                      for an Hour.
+                      <motion.svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 12" fill="none">
+                        <motion.path d="M4 8 C40 2, 80 4, 120 7 C150 9, 172 5, 196 7" stroke={sage} strokeWidth="2" strokeLinecap="round" fill="none"
+                          initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: dur * 1.5, delay: stagger * 5, ease: 'easeOut' }} />
+                      </motion.svg>
+                    </span>
+                  </motion.h2>
+                  {/* Subline */}
+                  <motion.p className={`${nunito.className} text-sm sm:text-lg max-w-md sm:mx-0 mx-auto mb-6 sm:mb-8`}
+                    style={{ color: '#8b7355', opacity: 0.7, lineHeight: 1.7 }}
+                    initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 4 }}>
+                    Yoga, massage, reiki &mdash; a sanctuary designed to quiet the noise and restore your balance.
+                  </motion.p>
+                  {/* CTA */}
+                  <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 5 }}
+                    className="flex flex-col sm:flex-row items-center sm:items-start justify-center sm:justify-start gap-4">
+                    <a href="#contact" className={`${lora.className} inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 text-sm sm:text-base rounded-xl transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]`}
+                      style={{ backgroundColor: sage, color: '#fff', boxShadow: `0 4px 20px ${sage}35`, letterSpacing: '0.02em' }}>
+                      Book Your Escape
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                    </a>
+                    <span className={`${nunito.className} text-sm`} style={{ color: '#999' }}>No commitment required</span>
+                  </motion.div>
+                  {/* Trust signals */}
+                  <motion.div className="flex items-center justify-center sm:justify-start gap-4 sm:gap-6 mt-5 sm:mt-8 flex-wrap"
+                    initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur, delay: stagger * 6 }}>
+                    {['Certified RYT-500', '10+ Classes Weekly', 'All Levels'].map((badge) => (
+                      <span key={badge} className={`${nunito.className} text-xs`} style={{ color: sage, opacity: 0.7, letterSpacing: '0.05em' }}>{badge}</span>
+                    ))}
+                  </motion.div>
+                </div>
+              </div>
+              {/* Shimmer border */}
+              <div className="h-[3px] w-full" style={{ background: `linear-gradient(90deg, ${sage}, ${warm}, ${sage})`, backgroundSize: '200% 100%', animation: 'shimmer-border 3s linear infinite' }} />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
-      {/* Handle */}
-      <div className="absolute top-0 bottom-0 z-10 flex items-center justify-center" style={{ left: `${pos}%`, transform: 'translateX(-50%)', width: '3px', backgroundColor: '#7d9a6b', pointerEvents: 'none' }}>
-        <div className="w-8 h-8 rounded-full flex items-center justify-center" style={{ backgroundColor: '#7d9a6b', boxShadow: '0 0 16px rgba(125,154,107,0.5)' }}>
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M5 3L2 8l3 5M11 3l3 5-3 5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-        </div>
+
+      {/* Toggle button */}
+      <div className="flex justify-center mt-8">
+        <button
+          onClick={() => setTransformed(!transformed)}
+          className={`${nunito.className} text-sm font-medium px-6 py-3 rounded-full transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]`}
+          style={{ backgroundColor: transformed ? `${sage}15` : '#fff', color: transformed ? darkSage : '#666', border: `1.5px solid ${transformed ? `${sage}30` : '#ddd'}`, boxShadow: transformed ? `0 2px 12px ${sage}10` : '0 1px 4px rgba(0,0,0,0.06)' }}
+        >
+          {transformed ? '← See the Before' : '✨ Watch the Transformation'}
+        </button>
       </div>
-      <input type="range" min={0} max={100} value={pos} onChange={(e) => setPos(Number(e.target.value))}
-        className="absolute inset-0 w-full h-full opacity-0 cursor-ew-resize z-20"
-        aria-label="Before/After comparison slider" style={{ margin: 0 }} />
     </div>
   )
 }
@@ -339,13 +489,15 @@ export default function WarmNaturalDemo() {
           </div>
         </Section>
 
-        {/* ── BEFORE/AFTER ── */}
+        {/* ═══════════ 7. THE TRANSFORMATION ═══════════ */}
         <div style={{ height: '60px', background: 'linear-gradient(to bottom, #f7f2ea, #faf6f0)' }} />
         <Section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#faf6f0' }}>
-          <div className="max-w-3xl mx-auto">
-            <h2 className={`${lora.className} text-3xl md:text-4xl font-bold text-center mb-4`} style={{ color: '#8b7355' }}>The Difference</h2>
-            <p className="text-center mb-12 text-sm" style={{ color: '#8b7355', opacity: 0.6 }}>Drag the slider. This is what we do for wellness practices like yours.</p>
-            <BeforeAfterSlider />
+          <div className="max-w-5xl mx-auto">
+            <Reveal>
+              <h2 className={`${lora.className} text-3xl md:text-4xl font-bold text-center mb-4`} style={{ color: '#8b7355' }}>Watch Your Website Transform</h2>
+              <p className="text-center mb-12 text-sm" style={{ color: '#8b7355', opacity: 0.6 }}>From dated to designed — in real time</p>
+            </Reveal>
+            <LiveRedesign />
           </div>
         </Section>
 

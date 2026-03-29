@@ -1,10 +1,10 @@
 'use client'
 
-import { useState, useRef, useCallback } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { Nunito } from 'next/font/google'
 import Link from 'next/link'
 import Image from 'next/image'
-import { motion, useReducedMotion } from 'framer-motion'
+import { motion, useReducedMotion, AnimatePresence, useInView } from 'framer-motion'
 
 const nunito = Nunito({
   subsets: ['latin'],
@@ -121,6 +121,10 @@ const confettiStyles = `
       transition-duration: 0.01ms !important;
     }
   }
+  @keyframes shimmer-border {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
 `
 
 const confettiDots = [
@@ -134,83 +138,171 @@ const confettiDots = [
   { color: '#a78bfa', tx: '20px', ty: '50px' },
 ]
 
-/* ── Before/After Slider ── */
-function BeforeAfterSlider() {
-  const [pos, setPos] = useState(50)
-  const containerRef = useRef<HTMLDivElement>(null)
+/* ── Live Redesign Component ── */
+function LiveRedesign() {
+  const prefersReduced = useReducedMotion()
+  const ref = useRef<HTMLDivElement>(null)
+  const [transformed, setTransformed] = useState(false)
 
-  const handleMove = useCallback((clientX: number) => {
-    const el = containerRef.current
-    if (!el) return
-    const rect = el.getBoundingClientRect()
-    const pct = Math.min(100, Math.max(0, ((clientX - rect.left) / rect.width) * 100))
-    setPos(pct)
-  }, [])
+  const dur = prefersReduced ? 0.01 : 0.9
+  const stagger = prefersReduced ? 0 : 0.18
 
   return (
-    <div
-      ref={containerRef}
-      className="relative w-full max-w-3xl mx-auto overflow-hidden select-none cursor-ew-resize"
-      style={{ aspectRatio: '3/2', border: '3px solid #4ecdc4', borderRadius: '1.5rem' }}
-      onMouseMove={(e) => handleMove(e.clientX)}
-      onTouchMove={(e) => handleMove(e.touches[0].clientX)}
-    >
-      {/* AFTER layer */}
-      <div
-        className="absolute inset-0 flex flex-col items-center justify-center px-8 py-10"
-        style={{ background: 'linear-gradient(135deg, #fff5f5 0%, #f0fffe 100%)' }}
-      >
-        <p className={`${nunito.className} text-2xl md:text-4xl text-center font-extrabold leading-tight mb-4`} style={{ color: '#333' }}>
-          You&rsquo;ll Never Wonder<br />If They&rsquo;re Okay.<br /><span style={{ color: '#ff6b6b' }}>Here&rsquo;s Why.</span>
-        </p>
-        <a
-          href="#tour"
-          className={`${nunito.className} inline-block px-6 py-3 text-sm font-extrabold mt-2 rounded-full`}
-          style={{ backgroundColor: '#ff6b6b', color: '#fff' }}
-        >
-          Book a Tour — See For Yourself →
-        </a>
-        <span
-          className="absolute top-3 right-3 text-xs font-extrabold uppercase tracking-widest px-3 py-1 rounded-full"
-          style={{ backgroundColor: '#4ecdc420', color: '#4ecdc4' }}
-        >
-          AFTER
-        </span>
+    <div ref={ref} className="w-full">
+      {/* Bold label */}
+      <div className="flex items-center justify-center gap-3 mb-5">
+        <motion.div className="h-[2px] flex-1 max-w-[80px] rounded-full" style={{ backgroundColor: transformed ? '#4ecdc4' : '#e0e0e0' }} layout transition={{ duration: 0.4 }} />
+        <AnimatePresence mode="wait">
+          <motion.span key={transformed ? 'after-label' : 'before-label'}
+            initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 8 }} transition={{ duration: 0.3 }}
+            className={`${nunito.className} text-sm font-extrabold uppercase tracking-[0.25em]`}
+            style={{ color: transformed ? '#4ecdc4' : '#aaa' }}>
+            {transformed ? '✨ After' : 'Before'}
+          </motion.span>
+        </AnimatePresence>
+        <motion.div className="h-[2px] flex-1 max-w-[80px] rounded-full" style={{ backgroundColor: transformed ? '#4ecdc4' : '#e0e0e0' }} layout transition={{ duration: 0.4 }} />
       </div>
 
-      {/* BEFORE layer */}
-      <div
-        className="absolute inset-0 flex flex-col items-center justify-center px-8 py-10 overflow-hidden"
-        style={{ backgroundColor: '#e8e8e8', clipPath: `inset(0 ${100 - pos}% 0 0)` }}
-      >
-        <p className="text-2xl md:text-4xl text-center leading-snug mb-4" style={{ fontFamily: "'Comic Sans MS', cursive, sans-serif", color: '#555', fontWeight: 400 }}>
-          Welcome to Happy Days Daycare! 🌈<br />A Safe and Fun Place<br />for Your Children!
-        </p>
-        <button
-          className="px-5 py-2 text-sm"
-          style={{ backgroundColor: '#999', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'default', fontFamily: "'Comic Sans MS', cursive, sans-serif" }}
-        >
-          Enroll Today
+      {/* Fixed-height container */}
+      <div className="relative w-full" style={{ height: '480px' }}>
+        <AnimatePresence mode="wait">
+          {!transformed ? (
+            <motion.div key="before"
+              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.97, filter: 'blur(6px)', transition: { duration: 0.5 } }}
+              className="absolute inset-0 w-full overflow-hidden flex flex-col"
+              style={{ backgroundColor: '#f2f0ed', border: '1px solid #d8d4cf', borderRadius: '8px', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
+              {/* WordPress nav — dull blue-green for a "dated" daycare look */}
+              <div className="flex items-center justify-between px-4 sm:px-6 py-3" style={{ backgroundColor: '#4a7a8a', borderBottom: '3px solid #366070' }}>
+                <div className="flex items-center gap-2">
+                  <div className="w-6 h-6 rounded-full" style={{ backgroundColor: '#ffd700' }} />
+                  <span className="text-sm sm:text-base font-bold" style={{ fontFamily: "'Comic Sans MS', cursive, sans-serif", color: '#fff' }}>
+                    Sunshine Daycare
+                  </span>
+                </div>
+                <div className="hidden sm:flex gap-4">
+                  {['Home', 'Programs', 'About', 'Contact'].map((link) => (
+                    <span key={link} className="text-xs" style={{ fontFamily: "'Comic Sans MS', cursive, sans-serif", color: 'rgba(255,255,255,0.7)', textDecoration: 'underline' }}>{link}</span>
+                  ))}
+                </div>
+                <span className="sm:hidden text-xs" style={{ color: 'rgba(255,255,255,0.5)', fontFamily: 'Arial, sans-serif' }}>&#9776; Menu</span>
+              </div>
+              {/* Hero */}
+              <div className="relative px-5 sm:px-10 py-8 sm:py-14 text-center flex-1 flex flex-col justify-center">
+                <div className="absolute inset-0 opacity-[0.12]" style={{ background: 'linear-gradient(135deg, #4ecdc4 0%, #ffe66d 50%, #ff6b6b 100%)' }} />
+                <div className="relative z-10">
+                  <p className="text-xs uppercase tracking-wide mb-2" style={{ fontFamily: "'Comic Sans MS', cursive, sans-serif", color: '#666' }}>★ Welcome to Our Website ★</p>
+                  <h2 className="text-xl sm:text-3xl md:text-4xl leading-tight mb-2" style={{ fontFamily: "'Comic Sans MS', cursive, sans-serif", color: '#3a3a3a', fontWeight: 700, textShadow: '0 1px 0 rgba(255,255,255,0.5)' }}>
+                    Sunshine Daycare
+                  </h2>
+                  <p className="text-sm sm:text-lg mb-1" style={{ fontFamily: "'Comic Sans MS', cursive, sans-serif", color: '#666', fontStyle: 'italic' }}>
+                    &ldquo;A Safe and Fun Place for Your Children!&rdquo;
+                  </p>
+                  <p className="text-xs sm:text-sm mb-4" style={{ fontFamily: "'Comic Sans MS', cursive, sans-serif", color: '#888' }}>
+                    Infant Care &bull; Toddler Programs &bull; Preschool &bull; After School
+                  </p>
+                  <div className="flex justify-center gap-2 mb-4 flex-wrap">
+                    {['✓ Licensed', '✓ First Aid Certified', '✓ Subsidy Accepted'].map((b) => (
+                      <span key={b} className="px-3 py-1 text-xs rounded" style={{ backgroundColor: '#4a7a8a', color: '#fff', fontFamily: "'Comic Sans MS', cursive, sans-serif" }}>{b}</span>
+                    ))}
+                  </div>
+                  <p className="text-sm font-bold mb-3" style={{ fontFamily: "'Comic Sans MS', cursive, sans-serif", color: '#4a7a8a' }}>📞 Call Us: (250) 555-0162</p>
+                  <span className="inline-block px-6 py-2.5 text-sm" style={{ backgroundColor: '#4a7a8a', color: '#fff', fontFamily: "'Comic Sans MS', cursive, sans-serif", borderRadius: '4px', cursor: 'default' }}>
+                    Enroll Today
+                  </span>
+                  <p className="mt-4 text-xs" style={{ color: '#bbb', fontFamily: 'Arial, sans-serif' }}>Powered by WordPress | Theme: Twenty Twenty-Three</p>
+                </div>
+              </div>
+            </motion.div>
+          ) : (
+            <motion.div key="after"
+              initial={{ opacity: 0, scale: 1.02, filter: 'blur(6px)' }}
+              animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+              transition={{ duration: dur * 0.8, ease: 'easeOut' }}
+              className="absolute inset-0 w-full overflow-hidden flex flex-col"
+              style={{ backgroundColor: '#fff', border: '2px solid rgba(78,205,196,0.3)', borderRadius: '24px', boxShadow: '0 8px 40px rgba(78,205,196,0.15), 0 2px 8px rgba(0,0,0,0.04)' }}>
+              {/* Colorful nav */}
+              <div className="flex items-center justify-between px-6 sm:px-10 py-4" style={{ borderBottom: '2px solid rgba(78,205,196,0.15)' }}>
+                <motion.span className={`${nunito.className} text-base sm:text-lg font-extrabold`} style={{ color: '#ff6b6b' }}
+                  initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: dur * 0.6, delay: stagger }}>
+                  Sunshine <span style={{ color: '#4ecdc4' }}>Daycare</span>
+                </motion.span>
+                <motion.div className="hidden sm:flex items-center gap-6" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
+                  {['Programs', 'About', 'Gallery', 'Contact'].map((link, i) => (
+                    <span key={link} className={`${nunito.className} text-xs font-bold uppercase tracking-widest`} style={{ color: ['#ff6b6b','#4ecdc4','#a78bfa','#ffe66d'][i % 4] }}>{link}</span>
+                  ))}
+                </motion.div>
+                <motion.div className="sm:hidden flex flex-col gap-[5px]" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur * 0.6, delay: stagger }}>
+                  <span className="block w-5 h-[2px] rounded-full" style={{ backgroundColor: '#ff6b6b' }} />
+                  <span className="block w-4 h-[2px] rounded-full" style={{ backgroundColor: '#4ecdc4' }} />
+                  <span className="block w-5 h-[2px] rounded-full" style={{ backgroundColor: '#a78bfa' }} />
+                </motion.div>
+              </div>
+              {/* Hero */}
+              <div className="relative px-5 sm:px-10 md:px-16 py-8 sm:py-12 flex-1 flex flex-col justify-center overflow-hidden">
+                {/* Playful bubble motif */}
+                <motion.div className="absolute top-2 right-4 pointer-events-none" initial={{ opacity: 0 }} animate={{ opacity: 0.2 }} transition={{ duration: dur, delay: stagger * 3 }}>
+                  <svg width="200" height="200" viewBox="0 0 200 200" fill="none">
+                    <circle cx="140" cy="40" r="30" fill="#ff6b6b" />
+                    <circle cx="170" cy="80" r="18" fill="#4ecdc4" />
+                    <circle cx="120" cy="70" r="12" fill="#ffe66d" />
+                    <circle cx="155" cy="120" r="22" fill="#a78bfa" opacity="0.6" />
+                    <circle cx="105" cy="110" r="8" fill="#ff6b6b" opacity="0.4" />
+                  </svg>
+                </motion.div>
+                <div className="relative z-10 text-center sm:text-left">
+                  <motion.div className="flex justify-center sm:justify-start mb-4" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
+                    <span className={`${nunito.className} text-xs font-extrabold uppercase tracking-[0.2em] px-4 py-1.5 rounded-full`} style={{ backgroundColor: 'rgba(78,205,196,0.12)', color: '#4ecdc4', border: '2px solid rgba(78,205,196,0.25)' }}>
+                      Est. 2016 &mdash; Castlegar, BC
+                    </span>
+                  </motion.div>
+                  <motion.h2 className={`${nunito.className} text-2xl sm:text-4xl md:text-5xl font-extrabold leading-[1.15] mb-4 sm:max-w-xl`} style={{ color: '#333' }}
+                    initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
+                    You&rsquo;ll Never Wonder If They&rsquo;re Okay.{' '}
+                    <span className="relative inline-block" style={{ color: '#ff6b6b' }}>
+                      Here&rsquo;s Why.
+                      <motion.svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 12" fill="none">
+                        <motion.path d="M4 8 C40 2, 80 2, 120 6 C140 8, 170 4, 196 6" stroke="#ff6b6b" strokeWidth="2.5" strokeLinecap="round" fill="none"
+                          initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: dur * 1.5, delay: stagger * 5, ease: 'easeOut' }} />
+                      </motion.svg>
+                    </span>
+                  </motion.h2>
+                  <motion.p className={`${nunito.className} text-sm sm:text-base max-w-sm mx-auto sm:mx-0 mb-6`} style={{ color: '#888', lineHeight: 1.7 }}
+                    initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 4 }}>
+                    A nurturing space where little ones learn, laugh, and grow every day.
+                  </motion.p>
+                  <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 5 }}
+                    className="flex flex-col sm:flex-row items-center sm:items-start justify-center sm:justify-start gap-4">
+                    <a href="#contact" className={`${nunito.className} inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 sm:px-8 py-3.5 text-sm rounded-3xl transition-all hover:scale-[1.03] active:scale-[0.97]`}
+                      style={{ backgroundColor: '#ff6b6b', color: '#fff', boxShadow: '0 4px 20px rgba(255,107,107,0.35)', fontWeight: 800 }}>
+                      Book a Tour — See For Yourself
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                    <span className={`${nunito.className} text-sm`} style={{ color: '#ccc' }}>No commitment required</span>
+                  </motion.div>
+                  <motion.div className="flex items-center justify-center sm:justify-start gap-4 sm:gap-6 mt-6 flex-wrap"
+                    initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur, delay: stagger * 6 }}>
+                    {['Licensed', 'First Aid Certified', '15:1 Ratio'].map((badge) => (
+                      <span key={badge} className={`${nunito.className} text-xs font-bold`} style={{ color: '#4ecdc4', letterSpacing: '0.05em' }}>{badge}</span>
+                    ))}
+                  </motion.div>
+                </div>
+              </div>
+              {/* Shimmer border */}
+              <motion.div className="h-[3px] w-full rounded-b-3xl" style={{ background: 'linear-gradient(90deg, transparent, #ff6b6b, #4ecdc4, #a78bfa, #ffe66d, transparent)', backgroundSize: '200% 100%' }}
+                animate={{ backgroundPosition: ['200% 0', '-200% 0'] }} transition={{ duration: 3, repeat: Infinity, ease: 'linear' }} />
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+
+      {/* Toggle button */}
+      <div className="flex justify-center mt-8">
+        <button onClick={() => setTransformed(!transformed)}
+          className={`${nunito.className} text-sm font-extrabold px-6 py-3 rounded-full transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]`}
+          style={{ backgroundColor: transformed ? 'rgba(78,205,196,0.12)' : '#fff', color: transformed ? '#4ecdc4' : '#aaa', border: `2px solid ${transformed ? 'rgba(78,205,196,0.3)' : '#e0e0e0'}` }}>
+          {transformed ? '← See the Before' : '✨ Watch the Transformation'}
         </button>
-        <span
-          className="absolute top-3 left-3 text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full"
-          style={{ backgroundColor: '#e0e0e0', color: '#999' }}
-        >
-          BEFORE
-        </span>
-      </div>
-
-      {/* Drag handle */}
-      <div
-        className="absolute top-0 bottom-0 w-0.5 z-10"
-        style={{ left: `${pos}%`, backgroundColor: '#4ecdc4' }}
-      >
-        <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center shadow-md"
-          style={{ backgroundColor: '#4ecdc4', color: '#fff', fontWeight: 800, fontSize: '0.8rem' }}
-        >
-          ◀▶
-        </div>
       </div>
     </div>
   )
@@ -542,24 +634,21 @@ export default function BrightPlayfulDemo() {
         </div>
       </section>
 
-      {/* ═══════════ 7. BEFORE / AFTER ═══════════ */}
+      {/* ═══════════ 7. THE TRANSFORMATION ═══════════ */}
       <section className="relative py-20 md:py-28 px-6 overflow-hidden" style={{ background: 'linear-gradient(135deg, #f0fffe 0%, #fffbeb 100%)' }}>
         <Blob className="absolute -top-10 -right-10 w-40 h-40 opacity-6" color="#ff6b6b" />
         <div className="max-w-5xl mx-auto">
           <Bounce>
             <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-4" style={{ color: '#333' }}>
-              Spot the Difference 👀
+              Watch Your Website Transform ✨
             </h2>
             <p className="text-center text-sm mb-12" style={{ color: '#aaa' }}>
-              Parents decide in seconds — make those seconds count
+              From dated to designed — in real time
             </p>
           </Bounce>
 
           <Bounce delay={0.1}>
-            <BeforeAfterSlider />
-            <p className="text-center text-xs mt-4 italic" style={{ color: '#bbb' }}>
-              Drag to compare — your site will showcase your team, programs, and space
-            </p>
+            <LiveRedesign />
           </Bounce>
         </div>
       </section>

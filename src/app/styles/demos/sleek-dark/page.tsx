@@ -1,10 +1,10 @@
 'use client'
 
-import { useState, useRef, useCallback } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { Cormorant_Garamond, DM_Sans } from 'next/font/google'
 import Link from 'next/link'
 import Image from 'next/image'
-import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion'
+import { motion, useScroll, useTransform, useReducedMotion, AnimatePresence, useInView } from 'framer-motion'
 
 const heading = Cormorant_Garamond({
   subsets: ['latin'],
@@ -48,84 +48,215 @@ function GoldReveal({ children, className = '' }: { children: React.ReactNode; c
   )
 }
 
-/* ── Before/After Slider ── */
-function BeforeAfterSlider() {
-  const [pos, setPos] = useState(50)
-  const containerRef = useRef<HTMLDivElement>(null)
+/* ── Live Redesign Component ── */
+function LiveRedesign() {
+  const prefersReduced = useReducedMotion()
+  const ref = useRef<HTMLDivElement>(null)
+  const [transformed, setTransformed] = useState(false)
 
-  const handleMove = useCallback((clientX: number) => {
-    const el = containerRef.current
-    if (!el) return
-    const rect = el.getBoundingClientRect()
-    const pct = Math.min(100, Math.max(0, ((clientX - rect.left) / rect.width) * 100))
-    setPos(pct)
-  }, [])
+  const dur = prefersReduced ? 0.01 : 0.9
+  const stagger = prefersReduced ? 0 : 0.18
 
   return (
-    <div
-      ref={containerRef}
-      className="relative w-full max-w-3xl mx-auto overflow-hidden select-none cursor-ew-resize"
-      style={{ aspectRatio: '3/2', border: '1px solid rgba(201,169,110,0.2)' }}
-      onMouseMove={(e) => handleMove(e.clientX)}
-      onTouchMove={(e) => handleMove(e.touches[0].clientX)}
-    >
-      {/* AFTER layer */}
-      <div
-        className="absolute inset-0 flex flex-col items-center justify-center px-8 py-10"
-        style={{ background: 'linear-gradient(135deg, #1a1a1a 0%, #1f1810 100%)' }}
-      >
-        <p className={`${heading.className} text-2xl md:text-4xl text-center leading-tight mb-4`} style={{ color: '#f5f0e8', fontWeight: 300 }}>
-          Thursday&apos;s Special<br />Sells Out by 7pm.<br /><span style={{ color: '#c9a96e' }}>Just Saying.</span>
-        </p>
-        <a
-          href="#reserve"
-          className="inline-block px-6 py-3 text-sm font-bold tracking-widest uppercase mt-2"
-          style={{ border: '1px solid #c9a96e', color: '#0a0a0a', backgroundColor: '#c9a96e', letterSpacing: '0.1em' }}
-        >
-          Reserve Your Table →
-        </a>
-        <span
-          className="absolute top-3 right-3 text-xs font-bold uppercase tracking-widest px-3 py-1"
-          style={{ backgroundColor: 'rgba(201,169,110,0.18)', color: '#c9a96e' }}
-        >
-          AFTER
-        </span>
+    <div ref={ref} className="w-full">
+      {/* Bold label above the card */}
+      <div className="flex items-center justify-center gap-3 mb-5">
+        <motion.div
+          className="h-[1px] flex-1 max-w-[80px]"
+          style={{ backgroundColor: transformed ? '#c9a96e' : 'rgba(201,169,110,0.3)' }}
+          layout
+          transition={{ duration: 0.4 }}
+        />
+        <AnimatePresence mode="wait">
+          <motion.span
+            key={transformed ? 'after-label' : 'before-label'}
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 8 }}
+            transition={{ duration: 0.3 }}
+            className={`${body.className} text-sm font-bold uppercase tracking-[0.25em]`}
+            style={{ color: transformed ? '#c9a96e' : 'rgba(201,169,110,0.5)' }}
+          >
+            {transformed ? '✨ After' : 'Before'}
+          </motion.span>
+        </AnimatePresence>
+        <motion.div
+          className="h-[1px] flex-1 max-w-[80px]"
+          style={{ backgroundColor: transformed ? '#c9a96e' : 'rgba(201,169,110,0.3)' }}
+          layout
+          transition={{ duration: 0.4 }}
+        />
       </div>
 
-      {/* BEFORE layer */}
-      <div
-        className="absolute inset-0 flex flex-col items-center justify-center px-8 py-10 overflow-hidden"
-        style={{ backgroundColor: '#e8e8e8', clipPath: `inset(0 ${100 - pos}% 0 0)` }}
-      >
-        <p className="text-2xl md:text-4xl text-center leading-snug mb-4" style={{ fontFamily: 'Georgia, serif', color: '#555', fontWeight: 400 }}>
-          Welcome to Our Restaurant!<br />Check Out Our Menu!<br />Open Tuesday to Sunday.
-        </p>
-        <p className="text-sm mb-4" style={{ fontFamily: 'Georgia, serif', color: '#777' }}>Call for Reservations.</p>
+      {/* Fixed-height container */}
+      <div className="relative w-full" style={{ height: '480px' }}>
+        <AnimatePresence mode="wait">
+          {!transformed ? (
+            <motion.div
+              key="before"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.97, filter: 'blur(6px)', transition: { duration: 0.5 } }}
+              className="absolute inset-0 w-full overflow-hidden flex flex-col"
+              style={{
+                backgroundColor: '#f2f0ed',
+                border: '1px solid #d8d4cf',
+                borderRadius: '8px',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
+              }}
+            >
+              {/* WordPress-style nav */}
+              <div className="flex items-center justify-between px-4 sm:px-6 py-3" style={{ backgroundColor: '#1a1a1a', borderBottom: '3px solid #111' }}>
+                <div className="flex items-center gap-2">
+                  <div className="w-6 h-6 rounded-sm" style={{ backgroundColor: '#888' }} />
+                  <span className="text-sm sm:text-base font-bold" style={{ fontFamily: 'Georgia, serif', color: '#fff' }}>
+                    The Copper Table
+                  </span>
+                </div>
+                <div className="hidden sm:flex gap-4">
+                  {['Home', 'Menu', 'Reservations', 'Contact'].map((link) => (
+                    <span key={link} className="text-xs" style={{ fontFamily: 'Arial, sans-serif', color: 'rgba(255,255,255,0.7)', textDecoration: 'underline' }}>{link}</span>
+                  ))}
+                </div>
+                <span className="sm:hidden text-xs" style={{ color: 'rgba(255,255,255,0.5)', fontFamily: 'Arial, sans-serif' }}>&#9776; Menu</span>
+              </div>
+              {/* Hero area */}
+              <div className="relative px-5 sm:px-10 py-8 sm:py-14 text-center flex-1 flex flex-col justify-center">
+                <div className="absolute inset-0 opacity-[0.12]" style={{ background: 'linear-gradient(135deg, #555 0%, #888 50%, #ccc 100%)' }} />
+                <div className="relative z-10">
+                  <p className="text-xs uppercase tracking-wide mb-2" style={{ fontFamily: 'Arial, sans-serif', color: '#666' }}>★ Welcome to Our Website ★</p>
+                  <h2 className="text-xl sm:text-3xl md:text-4xl leading-tight mb-2" style={{ fontFamily: 'Georgia, serif', color: '#3a3a3a', fontWeight: 700, textShadow: '0 1px 0 rgba(255,255,255,0.5)' }}>
+                    The Copper Table
+                  </h2>
+                  <p className="text-sm sm:text-lg mb-1" style={{ fontFamily: 'Georgia, serif', color: '#666', fontStyle: 'italic' }}>
+                    &ldquo;Fine Dining in the Heart of Nelson!&rdquo;
+                  </p>
+                  <p className="text-xs sm:text-sm mb-4" style={{ fontFamily: 'Arial, sans-serif', color: '#888' }}>
+                    Dinner &bull; Cocktails &bull; Private Events &bull; Catering
+                  </p>
+                  <div className="flex justify-center gap-2 mb-4 flex-wrap">
+                    {['✓ Reservations', '✓ Private Dining', '✓ Local Ingredients'].map((b) => (
+                      <span key={b} className="px-3 py-1 text-xs rounded" style={{ backgroundColor: '#1a1a1a', color: '#fff', fontFamily: 'Arial, sans-serif' }}>{b}</span>
+                    ))}
+                  </div>
+                  <p className="text-sm font-bold mb-3" style={{ fontFamily: 'Arial, sans-serif', color: '#555' }}>📞 Call Us: (250) 555-0195</p>
+                  <span className="inline-block px-6 py-2.5 text-sm" style={{ backgroundColor: '#555', color: '#fff', fontFamily: 'Arial, sans-serif', borderRadius: '3px', cursor: 'default' }}>
+                    Make a Reservation
+                  </span>
+                  <p className="mt-4 text-xs" style={{ color: '#bbb', fontFamily: 'Arial, sans-serif' }}>Powered by WordPress | Theme: Twenty Twenty-Three</p>
+                </div>
+              </div>
+            </motion.div>
+          ) : (
+            <motion.div
+              key="after"
+              initial={{ opacity: 0, scale: 1.02, filter: 'blur(6px)' }}
+              animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+              transition={{ duration: dur * 0.8, ease: 'easeOut' }}
+              className="absolute inset-0 w-full overflow-hidden flex flex-col"
+              style={{
+                backgroundColor: '#0a0a0a',
+                border: '1px solid rgba(201,169,110,0.3)',
+                borderRadius: '16px',
+                boxShadow: '0 8px 40px rgba(201,169,110,0.12), 0 2px 8px rgba(0,0,0,0.3)',
+              }}
+            >
+              {/* Elegant nav */}
+              <div className="flex items-center justify-between px-6 sm:px-10 py-4" style={{ borderBottom: '1px solid rgba(201,169,110,0.12)' }}>
+                <motion.span
+                  className={`${heading.className} text-base sm:text-lg`}
+                  style={{ color: '#c9a96e', fontWeight: 300, letterSpacing: '0.05em' }}
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: dur * 0.6, delay: stagger }}
+                >
+                  The Copper Table
+                </motion.span>
+                <motion.div className="hidden sm:flex items-center gap-6" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
+                  {['Menu', 'Events', 'About', 'Reserve'].map((link) => (
+                    <span key={link} className={`${body.className} text-xs uppercase tracking-widest`} style={{ color: 'rgba(201,169,110,0.6)', fontWeight: 500 }}>{link}</span>
+                  ))}
+                </motion.div>
+                <motion.div className="sm:hidden flex flex-col gap-[5px]" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur * 0.6, delay: stagger }}>
+                  <span className="block w-5 h-[2px] rounded-full" style={{ backgroundColor: '#c9a96e' }} />
+                  <span className="block w-4 h-[2px] rounded-full" style={{ backgroundColor: '#c9a96e' }} />
+                  <span className="block w-5 h-[2px] rounded-full" style={{ backgroundColor: '#c9a96e' }} />
+                </motion.div>
+              </div>
+              {/* Hero */}
+              <div className="relative px-5 sm:px-10 md:px-16 py-8 sm:py-12 flex-1 flex flex-col justify-center">
+                {/* Decorative elegant lines */}
+                <motion.div className="absolute top-0 right-0 pointer-events-none" initial={{ opacity: 0 }} animate={{ opacity: 0.18 }} transition={{ duration: dur, delay: stagger * 3 }}>
+                  <svg width="200" height="200" viewBox="0 0 160 160" fill="none">
+                    <line x1="160" y1="0" x2="0" y2="160" stroke="#c9a96e" strokeWidth="0.5" />
+                    <line x1="140" y1="0" x2="0" y2="140" stroke="#c9a96e" strokeWidth="0.5" />
+                    <line x1="120" y1="0" x2="0" y2="120" stroke="#c9a96e" strokeWidth="0.5" />
+                  </svg>
+                </motion.div>
+                <div className="relative z-10 text-center sm:text-left">
+                  <motion.div className="flex justify-center sm:justify-start mb-4" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
+                    <span className={`${body.className} text-xs font-semibold uppercase tracking-[0.2em] px-4 py-1.5 rounded-full`} style={{ backgroundColor: 'rgba(201,169,110,0.12)', color: '#c9a96e', border: '1px solid rgba(201,169,110,0.2)' }}>
+                      Est. 2019 &mdash; Nelson, BC
+                    </span>
+                  </motion.div>
+                  <motion.h2
+                    className={`${heading.className} text-2xl sm:text-4xl md:text-5xl leading-[1.15] mb-4 sm:max-w-xl`}
+                    style={{ color: '#f5f0e8', fontWeight: 300 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}
+                  >
+                    Thursday&rsquo;s Special Sells Out by 7pm.{' '}
+                    <span className="relative inline-block" style={{ color: '#c9a96e', fontStyle: 'italic' }}>
+                      Just Saying.
+                      <motion.svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 12" fill="none">
+                        <motion.path d="M4 8 C40 2, 80 2, 120 6 C140 8, 170 4, 196 6" stroke="#c9a96e" strokeWidth="1.5" strokeLinecap="round" fill="none"
+                          initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: dur * 1.5, delay: stagger * 5, ease: 'easeOut' }} />
+                      </motion.svg>
+                    </span>
+                  </motion.h2>
+                  <motion.p className={`${body.className} text-sm sm:text-base max-w-sm mx-auto sm:mx-0 mb-6`} style={{ color: 'rgba(245,240,232,0.5)', lineHeight: 1.7 }}
+                    initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 4 }}>
+                    Intimate dining, local ingredients, and a table worth booking.
+                  </motion.p>
+                  <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 5 }}
+                    className="flex flex-col sm:flex-row items-center sm:items-start justify-center sm:justify-start gap-4">
+                    <a href="#reserve" className={`${heading.className} inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 sm:px-8 py-3.5 text-sm rounded-xl transition-all hover:scale-[1.03] active:scale-[0.97]`}
+                      style={{ backgroundColor: '#c9a96e', color: '#0a0a0a', boxShadow: '0 4px 20px rgba(201,169,110,0.3)', letterSpacing: '0.02em', fontWeight: 600 }}>
+                      Reserve Your Table
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                    <span className={`${body.className} text-sm`} style={{ color: 'rgba(201,169,110,0.4)' }}>No commitment required</span>
+                  </motion.div>
+                  <motion.div className="flex items-center justify-center sm:justify-start gap-4 sm:gap-6 mt-6 flex-wrap"
+                    initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur, delay: stagger * 6 }}>
+                    {['4.8★ Google', "Chef's Table", 'Local Sourced'].map((badge) => (
+                      <span key={badge} className={`${body.className} text-xs`} style={{ color: 'rgba(201,169,110,0.5)', letterSpacing: '0.05em' }}>{badge}</span>
+                    ))}
+                  </motion.div>
+                </div>
+              </div>
+              {/* Shimmer border */}
+              <motion.div className="h-[2px] w-full" style={{ background: 'linear-gradient(90deg, transparent, #c9a96e, #f5f0e8, #c9a96e, transparent)', backgroundSize: '200% 100%' }}
+                animate={{ backgroundPosition: ['200% 0', '-200% 0'] }} transition={{ duration: 3, repeat: Infinity, ease: 'linear' }} />
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+
+      {/* Toggle button */}
+      <div className="flex justify-center mt-8">
         <button
-          className="px-5 py-2 text-sm"
-          style={{ backgroundColor: '#999', color: '#fff', border: 'none', borderRadius: '2px', cursor: 'default' }}
+          onClick={() => setTransformed(!transformed)}
+          className={`${body.className} text-sm font-medium px-6 py-3 rounded-full transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]`}
+          style={{
+            backgroundColor: transformed ? 'rgba(201,169,110,0.1)' : 'transparent',
+            color: transformed ? '#c9a96e' : 'rgba(245,240,232,0.4)',
+            border: `1.5px solid ${transformed ? 'rgba(201,169,110,0.3)' : 'rgba(201,169,110,0.15)'}`,
+          }}
         >
-          Click Here
+          {transformed ? '← See the Before' : '✨ Watch the Transformation'}
         </button>
-        <span
-          className="absolute top-3 left-3 text-xs font-bold uppercase tracking-widest px-3 py-1"
-          style={{ backgroundColor: 'rgba(0,0,0,0.08)', color: '#888' }}
-        >
-          BEFORE
-        </span>
-      </div>
-
-      {/* Drag handle */}
-      <div
-        className="absolute top-0 bottom-0 w-px z-10"
-        style={{ left: `${pos}%`, backgroundColor: 'rgba(201,169,110,0.6)' }}
-      >
-        <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center shadow-lg"
-          style={{ backgroundColor: '#0a0a0a', border: '1px solid rgba(201,169,110,0.4)', color: '#c9a96e', fontSize: '0.8rem', fontWeight: 800 }}
-        >
-          ◀▶
-        </div>
       </div>
     </div>
   )
@@ -221,6 +352,10 @@ export default function SleekDarkDemo() {
         @keyframes candleGlow {
           0%, 100% { opacity: 0.4; transform: scale(1); }
           50% { opacity: 0.7; transform: scale(1.05); }
+        }
+        @keyframes shimmer-border {
+          0% { background-position: 200% 0; }
+          100% { background-position: -200% 0; }
         }
       `}</style>
 
@@ -501,24 +636,21 @@ export default function SleekDarkDemo() {
         </div>
       </section>
 
-      {/* ═══════════ 7. BEFORE / AFTER ═══════════ */}
+      {/* ═══════════ 7. THE TRANSFORMATION ═══════════ */}
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#1a1a1a' }}>
         <div className="max-w-5xl mx-auto">
           <Reveal>
             <h2 className={`${heading.className} text-3xl md:text-5xl text-center mb-4`} style={{ color: '#f5f0e8', fontWeight: 300 }}>
-              The Ember Difference
+              Watch Your Website Transform
             </h2>
             <div className="w-16 h-px mx-auto mb-4" style={{ backgroundColor: '#c9a96e' }} />
             <p className="text-center text-sm mb-12" style={{ color: 'rgba(201,169,110,0.6)' }}>
-              This is the difference between being forgettable and being fully booked
+              From dated to designed — in real time
             </p>
           </Reveal>
 
           <Reveal delay={0.1}>
-            <BeforeAfterSlider />
-            <p className="text-center text-xs mt-4 italic" style={{ color: 'rgba(201,169,110,0.4)' }}>
-              Drag to compare — your site will reflect your unique brand and atmosphere
-            </p>
+            <LiveRedesign />
           </Reveal>
         </div>
       </section>

@@ -1,10 +1,10 @@
 'use client'
 
-import { useState, useRef, useCallback } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { Bitter, Lato } from 'next/font/google'
 import Image from 'next/image'
 import Link from 'next/link'
-import { motion, useReducedMotion } from 'framer-motion'
+import { motion, useReducedMotion, AnimatePresence, useInView } from 'framer-motion'
 
 const bitter = Bitter({
   subsets: ['latin'],
@@ -122,83 +122,169 @@ function FadeUp({
   )
 }
 
-/* ── Before/After Slider ──────────────────────────────────────── */
-function BeforeAfterSlider() {
-  const [pos, setPos] = useState(50)
-  const containerRef = useRef<HTMLDivElement>(null)
+/* ── Live Redesign Component ──────────────────────────────────── */
+function LiveRedesign() {
+  const prefersReduced = useReducedMotion()
+  const ref = useRef<HTMLDivElement>(null)
+  const [transformed, setTransformed] = useState(false)
 
-  const handleMove = useCallback((clientX: number) => {
-    const el = containerRef.current
-    if (!el) return
-    const rect = el.getBoundingClientRect()
-    const pct = Math.min(100, Math.max(0, ((clientX - rect.left) / rect.width) * 100))
-    setPos(pct)
-  }, [])
+  const dur = prefersReduced ? 0.01 : 0.9
+  const stagger = prefersReduced ? 0 : 0.18
 
   return (
-    <div
-      ref={containerRef}
-      className="relative w-full max-w-3xl mx-auto overflow-hidden select-none cursor-ew-resize"
-      style={{ aspectRatio: '3/2', border: `3px solid ${AMBER}`, borderRadius: '2px' }}
-      onMouseMove={(e) => handleMove(e.clientX)}
-      onTouchMove={(e) => handleMove(e.touches[0].clientX)}
-    >
-      {/* AFTER layer */}
-      <div
-        className="absolute inset-0 flex flex-col items-center justify-center px-8 py-10"
-        style={{ backgroundColor: DARK_BROWN }}
-      >
-        <p className={`${bitter.className} text-2xl md:text-4xl text-center leading-tight mb-4`} style={{ color: PARCHMENT, fontWeight: 700 }}>
-          Brewed 12 Minutes<br />From Where<br /><span style={{ color: AMBER }}>You&rsquo;re Sitting.</span>
-        </p>
-        <a
-          href="#tap"
-          className={`${bitter.className} inline-block px-6 py-3 text-sm font-bold tracking-wide mt-2`}
-          style={{ backgroundColor: AMBER, color: DARK_BROWN, borderRadius: '2px' }}
-        >
-          See What&rsquo;s on Tap →
-        </a>
-        <span
-          className="absolute top-3 right-3 text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-sm"
-          style={{ backgroundColor: `${AMBER}33`, color: AMBER }}
-        >
-          AFTER
-        </span>
+    <div ref={ref} className="w-full">
+      {/* Bold label */}
+      <div className="flex items-center justify-center gap-3 mb-5">
+        <motion.div className="h-[2px] flex-1 max-w-[80px]" style={{ backgroundColor: transformed ? AMBER : `${DARK_BROWN}33` }} layout transition={{ duration: 0.4 }} />
+        <AnimatePresence mode="wait">
+          <motion.span key={transformed ? 'after-label' : 'before-label'}
+            initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 8 }} transition={{ duration: 0.3 }}
+            className={`${lato.className} text-sm font-bold uppercase tracking-[0.25em]`}
+            style={{ color: transformed ? AMBER : `${DARK_BROWN}88` }}>
+            {transformed ? '✨ After' : 'Before'}
+          </motion.span>
+        </AnimatePresence>
+        <motion.div className="h-[2px] flex-1 max-w-[80px]" style={{ backgroundColor: transformed ? AMBER : `${DARK_BROWN}33` }} layout transition={{ duration: 0.4 }} />
       </div>
 
-      {/* BEFORE layer */}
-      <div
-        className="absolute inset-0 flex flex-col items-center justify-center px-8 py-10 overflow-hidden"
-        style={{ backgroundColor: '#f0f0f0', clipPath: `inset(0 ${100 - pos}% 0 0)` }}
-      >
-        <p className="text-2xl md:text-4xl text-center leading-snug mb-4" style={{ fontFamily: 'Georgia, serif', color: '#555', fontWeight: 400 }}>
-          Welcome to the Brewery! 🍺<br />Great Beer, Great Times!<br />Come Check Us Out!
-        </p>
-        <button
-          className="px-5 py-2 text-sm"
-          style={{ backgroundColor: '#999', color: '#fff', border: 'none', borderRadius: '2px', cursor: 'default', fontFamily: 'Georgia, serif' }}
-        >
-          Learn More
+      {/* Fixed-height container */}
+      <div className="relative w-full" style={{ height: '480px' }}>
+        <AnimatePresence mode="wait">
+          {!transformed ? (
+            <motion.div key="before"
+              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.97, filter: 'blur(6px)', transition: { duration: 0.5 } }}
+              className="absolute inset-0 w-full overflow-hidden flex flex-col"
+              style={{ backgroundColor: '#f2f0ed', border: '1px solid #d8d4cf', borderRadius: '8px', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
+              {/* WordPress nav */}
+              <div className="flex items-center justify-between px-4 sm:px-6 py-3" style={{ backgroundColor: '#2d4a2d', borderBottom: '3px solid #1e3320' }}>
+                <div className="flex items-center gap-2">
+                  <div className="w-6 h-6 rounded-sm" style={{ backgroundColor: '#6a8f3a' }} />
+                  <span className="text-sm sm:text-base font-bold" style={{ fontFamily: 'Georgia, serif', color: '#fff' }}>Kootenay Brewing Co.</span>
+                </div>
+                <div className="hidden sm:flex gap-4">
+                  {['Home', 'Beers', 'Taproom', 'Contact'].map((link) => (
+                    <span key={link} className="text-xs" style={{ fontFamily: 'Arial, sans-serif', color: 'rgba(255,255,255,0.7)', textDecoration: 'underline' }}>{link}</span>
+                  ))}
+                </div>
+                <span className="sm:hidden text-xs" style={{ color: 'rgba(255,255,255,0.5)', fontFamily: 'Arial, sans-serif' }}>&#9776; Menu</span>
+              </div>
+              {/* Hero */}
+              <div className="relative px-5 sm:px-10 py-8 sm:py-14 text-center flex-1 flex flex-col justify-center">
+                <div className="absolute inset-0 opacity-[0.12]" style={{ background: 'linear-gradient(135deg, #6a8f3a 0%, #d4942a 50%, #f5e6c8 100%)' }} />
+                <div className="relative z-10">
+                  <p className="text-xs uppercase tracking-wide mb-2" style={{ fontFamily: 'Arial, sans-serif', color: '#666' }}>★ Welcome to Our Website ★</p>
+                  <h2 className="text-xl sm:text-3xl md:text-4xl leading-tight mb-2" style={{ fontFamily: 'Georgia, serif', color: '#3d2b1f', fontWeight: 700, textShadow: '0 1px 0 rgba(255,255,255,0.5)' }}>
+                    Kootenay Brewing Co.
+                  </h2>
+                  <p className="text-sm sm:text-lg mb-1" style={{ fontFamily: 'Georgia, serif', color: '#666', fontStyle: 'italic' }}>
+                    &ldquo;Great Beer, Great Times!&rdquo;
+                  </p>
+                  <p className="text-xs sm:text-sm mb-4" style={{ fontFamily: 'Arial, sans-serif', color: '#888' }}>
+                    Craft Beer &bull; Taproom &bull; Growler Fills &bull; Events &bull; Merch
+                  </p>
+                  <div className="flex justify-center gap-2 mb-4 flex-wrap">
+                    {['✓ Locally Brewed', '✓ Dog Friendly', '✓ Live Music'].map((b) => (
+                      <span key={b} className="px-3 py-1 text-xs rounded-sm" style={{ backgroundColor: '#2d4a2d', color: '#fff', fontFamily: 'Arial, sans-serif' }}>{b}</span>
+                    ))}
+                  </div>
+                  <p className="text-sm font-bold mb-3" style={{ fontFamily: 'Arial, sans-serif', color: '#3d2b1f' }}>📞 Call Us: (250) 555-0195</p>
+                  <span className="inline-block px-6 py-2.5 text-sm" style={{ backgroundColor: '#3d2b1f', color: '#f5e6c8', fontFamily: 'Arial, sans-serif', borderRadius: '2px', cursor: 'default' }}>
+                    Visit the Taproom
+                  </span>
+                  <p className="mt-4 text-xs" style={{ color: '#bbb', fontFamily: 'Arial, sans-serif' }}>Powered by WordPress | Theme: Twenty Twenty-Three</p>
+                </div>
+              </div>
+            </motion.div>
+          ) : (
+            <motion.div key="after"
+              initial={{ opacity: 0, scale: 1.02, filter: 'blur(6px)' }}
+              animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+              transition={{ duration: dur * 0.8, ease: 'easeOut' }}
+              className="absolute inset-0 w-full overflow-hidden flex flex-col"
+              style={{ backgroundColor: PARCHMENT, border: `1px solid ${AMBER}40`, borderRadius: '16px', boxShadow: `0 8px 40px ${AMBER}18, 0 2px 8px rgba(0,0,0,0.06)` }}>
+              {/* Elegant nav */}
+              <div className="flex items-center justify-between px-6 sm:px-10 py-4" style={{ borderBottom: `1px solid ${DARK_BROWN}18` }}>
+                <motion.span className={`${bitter.className} text-base sm:text-lg font-bold`} style={{ color: DARK_BROWN }}
+                  initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: dur * 0.6, delay: stagger }}>
+                  Kootenay Brewing Co.
+                </motion.span>
+                <motion.div className="hidden sm:flex items-center gap-6" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
+                  {['Our Beers', 'Taproom', 'About', 'Contact'].map((link) => (
+                    <span key={link} className={`${lato.className} text-xs uppercase tracking-widest`} style={{ color: AMBER, fontWeight: 700 }}>{link}</span>
+                  ))}
+                </motion.div>
+                <motion.div className="sm:hidden flex flex-col gap-[5px]" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur * 0.6, delay: stagger }}>
+                  <span className="block w-5 h-[2px] rounded-full" style={{ backgroundColor: AMBER }} />
+                  <span className="block w-4 h-[2px] rounded-full" style={{ backgroundColor: AMBER }} />
+                  <span className="block w-5 h-[2px] rounded-full" style={{ backgroundColor: AMBER }} />
+                </motion.div>
+              </div>
+              {/* Hero */}
+              <div className="relative px-5 sm:px-10 md:px-16 py-8 sm:py-12 flex-1 flex flex-col justify-center">
+                {/* Decorative hop/grain motif */}
+                <motion.div className="absolute top-0 right-0 pointer-events-none" initial={{ opacity: 0 }} animate={{ opacity: 0.18 }} transition={{ duration: dur, delay: stagger * 3 }}>
+                  <svg width="200" height="200" viewBox="0 0 160 160" fill="none">
+                    <circle cx="80" cy="40" r="20" stroke={AMBER} strokeWidth="1" fill="none" />
+                    <circle cx="80" cy="40" r="12" stroke={AMBER} strokeWidth="0.5" fill="none" />
+                    <path d="M80 20 C100 30 110 60 80 80 C50 60 60 30 80 20Z" stroke={DARK_BROWN} strokeWidth="1" fill={`${AMBER}20`} />
+                    <path d="M40 100 C60 90 80 110 60 130" stroke={AMBER} strokeWidth="1.5" strokeLinecap="round" fill="none" />
+                    <path d="M50 95 C70 85 90 105 70 125" stroke={AMBER} strokeWidth="1" strokeLinecap="round" fill="none" strokeDasharray="3 4" />
+                  </svg>
+                </motion.div>
+                <div className="relative z-10 text-center sm:text-left">
+                  <motion.div className="flex justify-center sm:justify-start mb-4" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
+                    <span className={`${lato.className} text-xs font-bold uppercase tracking-[0.2em] px-4 py-1.5 rounded-sm`} style={{ backgroundColor: `${AMBER}20`, color: AMBER, border: `1px solid ${AMBER}40` }}>
+                      Est. 2018 &mdash; West Kootenay
+                    </span>
+                  </motion.div>
+                  <motion.h2 className={`${bitter.className} text-2xl sm:text-4xl md:text-5xl leading-[1.15] mb-4 sm:max-w-xl font-bold`} style={{ color: DARK_BROWN }}
+                    initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
+                    Brewed 12 Minutes From Where{' '}
+                    <span className="relative inline-block" style={{ color: AMBER }}>
+                      You&rsquo;re Sitting.
+                      <motion.svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 12" fill="none">
+                        <motion.path d="M4 8 C40 2, 80 2, 120 6 C140 8, 170 4, 196 6" stroke={AMBER} strokeWidth="2" strokeLinecap="round" fill="none"
+                          initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: dur * 1.5, delay: stagger * 5, ease: 'easeOut' }} />
+                      </motion.svg>
+                    </span>
+                  </motion.h2>
+                  <motion.p className={`${lato.className} text-sm sm:text-base max-w-sm mx-auto sm:mx-0 mb-6`} style={{ color: `${DARK_BROWN}bb`, lineHeight: 1.7 }}
+                    initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 4 }}>
+                    Small batch, big flavour — crafted with Kootenay mountain water.
+                  </motion.p>
+                  <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 5 }}
+                    className="flex flex-col sm:flex-row items-center sm:items-start justify-center sm:justify-start gap-4">
+                    <a href="#tap" className={`${bitter.className} inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 sm:px-8 py-3.5 text-sm rounded-sm transition-all hover:scale-[1.03] active:scale-[0.97]`}
+                      style={{ backgroundColor: AMBER, color: DARK_BROWN, boxShadow: `0 4px 20px ${AMBER}35`, fontWeight: 700 }}>
+                      See What&rsquo;s on Tap
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                    <span className={`${lato.className} text-sm`} style={{ color: `${DARK_BROWN}66` }}>No commitment required</span>
+                  </motion.div>
+                  <motion.div className="flex items-center justify-center sm:justify-start gap-4 sm:gap-6 mt-6 flex-wrap"
+                    initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur, delay: stagger * 6 }}>
+                    {['12 Beers on Tap', 'Dog Friendly', 'Open 7 Days'].map((badge) => (
+                      <span key={badge} className={`${lato.className} text-xs`} style={{ color: AMBER, opacity: 0.8, letterSpacing: '0.05em' }}>{badge}</span>
+                    ))}
+                  </motion.div>
+                </div>
+              </div>
+              {/* Shimmer border */}
+              <motion.div className="h-[3px] w-full" style={{ background: `linear-gradient(90deg, transparent, ${AMBER}, ${PARCHMENT}, ${AMBER}, transparent)`, backgroundSize: '200% 100%' }}
+                animate={{ backgroundPosition: ['200% 0', '-200% 0'] }} transition={{ duration: 3, repeat: Infinity, ease: 'linear' }} />
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+
+      {/* Toggle button */}
+      <div className="flex justify-center mt-8">
+        <button onClick={() => setTransformed(!transformed)}
+          className={`${lato.className} text-sm font-bold px-6 py-3 rounded-sm transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]`}
+          style={{ backgroundColor: transformed ? `${AMBER}18` : PARCHMENT, color: transformed ? DARK_BROWN : `${DARK_BROWN}88`, border: `2px solid ${transformed ? `${AMBER}40` : `${DARK_BROWN}22`}` }}>
+          {transformed ? '← See the Before' : '✨ Watch the Transformation'}
         </button>
-        <span
-          className="absolute top-3 left-3 text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-sm"
-          style={{ backgroundColor: 'rgba(0,0,0,0.1)', color: '#888' }}
-        >
-          BEFORE
-        </span>
-      </div>
-
-      {/* Drag handle */}
-      <div
-        className="absolute top-0 bottom-0 w-0.5 z-10"
-        style={{ left: `${pos}%`, backgroundColor: AMBER }}
-      >
-        <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center shadow-md"
-          style={{ backgroundColor: DARK_BROWN, border: `2.5px solid ${AMBER}`, color: AMBER, fontSize: '0.8rem', fontWeight: 800 }}
-        >
-          ◀▶
-        </div>
       </div>
     </div>
   )
@@ -277,6 +363,15 @@ export default function RusticCraftDemo() {
 
   return (
     <div className={lato.className}>
+      <style>{`
+        @media (prefers-reduced-motion: reduce) {
+          *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+        }
+        @keyframes shimmer-border {
+          0% { background-position: 200% 0; }
+          100% { background-position: -200% 0; }
+        }
+      `}</style>
       {/* ── 1. NAV ────────────────────────────────────────────── */}
       <nav
         className="relative px-6 py-4 sticky top-0 z-40"
@@ -590,7 +685,7 @@ export default function RusticCraftDemo() {
         </div>
       </section>
 
-      {/* ── 7. BEFORE / AFTER ─────────────────────────────────── */}
+      {/* ── 7. THE TRANSFORMATION ─────────────────────────────── */}
       <section
         className="relative py-20 md:py-28 px-6 overflow-hidden"
         style={{ backgroundColor: PARCHMENT }}
@@ -602,21 +697,18 @@ export default function RusticCraftDemo() {
               className={`${bitter.className} text-3xl md:text-5xl font-bold`}
               style={{ color: DARK_BROWN }}
             >
-              The Difference a Website Makes
+              Watch Your Website Transform
             </h2>
             <WavyUnderline />
           </StampIn>
           <FadeUp className="mb-12" delay={0.1}>
             <p className="text-center text-sm italic" style={{ color: `${DARK_BROWN}88` }}>
-              First impressions happen online — make yours count
+              From dated to designed — in real time
             </p>
           </FadeUp>
 
           <FadeUp delay={0.15}>
-            <BeforeAfterSlider />
-            <p className="text-center text-xs mt-4 italic" style={{ color: `${DARK_BROWN}77` }}>
-              Drag to compare — your site will showcase your unique brews and story
-            </p>
+            <LiveRedesign />
           </FadeUp>
         </div>
       </section>

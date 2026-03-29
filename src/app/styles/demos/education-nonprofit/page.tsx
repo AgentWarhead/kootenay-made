@@ -3,8 +3,8 @@
 import { Poppins } from 'next/font/google'
 import Link from 'next/link'
 import Image from 'next/image'
-import { useRef, useState, useEffect, useCallback } from 'react'
-import { motion, useInView, useReducedMotion } from 'framer-motion'
+import { useRef, useState, useEffect } from 'react'
+import { motion, useInView, useReducedMotion, AnimatePresence } from 'framer-motion'
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -97,59 +97,194 @@ function Blob({ size, color, opacity, top, left, right, bottom }: { size: number
   )
 }
 
-/* ── Before/After Slider ── */
-function BeforeAfterSlider() {
-  const [pos, setPos] = useState(50)
-  const containerRef = useRef<HTMLDivElement>(null)
-  const dragging = useRef(false)
+/* ── Live Redesign ── */
+const EN = {
+  blue: '#3b82f6',
+  darkBlue: '#2563eb',
+  navy: '#1e3a5f',
+  lightBg: '#eff6ff',
+  slate: '#475569',
+  white: '#ffffff',
+  amber: '#facc15',
+  orange: '#fb923c',
+}
 
-  const move = useCallback((clientX: number) => {
-    if (!containerRef.current) return
-    const rect = containerRef.current.getBoundingClientRect()
-    setPos(Math.max(5, Math.min(95, ((clientX - rect.left) / rect.width) * 100)))
-  }, [])
+function LiveRedesign() {
+  const prefersReduced = useReducedMotion()
+  const ref = useRef<HTMLDivElement>(null)
+  const [transformed, setTransformed] = useState(false)
+
+  const dur = prefersReduced ? 0.01 : 0.9
+  const stagger = prefersReduced ? 0 : 0.18
 
   return (
-    <div
-      ref={containerRef}
-      style={{ position: 'relative', aspectRatio: '3/2', cursor: 'ew-resize', userSelect: 'none', overflow: 'hidden', borderRadius: 20, boxShadow: '0 8px 40px rgba(59,130,246,0.12)' }}
-      onMouseDown={() => { dragging.current = true }}
-      onMouseUp={() => { dragging.current = false }}
-      onMouseLeave={() => { dragging.current = false }}
-      onMouseMove={(e) => { if (dragging.current) move(e.clientX) }}
-      onTouchMove={(e) => move(e.touches[0].clientX)}
-      onClick={(e) => move(e.clientX)}
-    >
-      {/* BEFORE */}
-      <div style={{ position: 'absolute', inset: 0, backgroundColor: '#e8e8e8', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem', fontFamily: 'Georgia, serif', textAlign: 'center', gap: '1rem' }}>
-        <div style={{ color: '#999', fontSize: '0.65rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', border: '1px solid #bbb', borderRadius: 4, padding: '2px 8px' }}>BEFORE</div>
-        <div style={{ color: '#555', fontSize: 'clamp(1.2rem, 3.5vw, 2rem)', fontWeight: 400, lineHeight: 1.35 }}>
-          Welcome to Our Organization!<br />
-          <span style={{ fontStyle: 'italic', fontSize: '0.85em' }}>Making a Difference Since 2005.</span>
-        </div>
-        <div style={{ color: '#777', fontSize: 'clamp(0.8rem, 2vw, 1rem)' }}>Your support helps our community.</div>
-        <div style={{ backgroundColor: '#999', color: '#fff', padding: '0.5rem 1.25rem', fontSize: '0.85rem', fontFamily: 'Georgia, serif', borderRadius: 4, cursor: 'pointer' }}>Click Here to Donate</div>
+    <div ref={ref} className="w-full">
+      {/* Bold label */}
+      <div className="flex items-center justify-center gap-3 mb-5">
+        <motion.div className="h-[1px] flex-1 max-w-[80px]" style={{ backgroundColor: transformed ? EN.blue : '#ccc' }} layout transition={{ duration: 0.4 }} />
+        <AnimatePresence mode="wait">
+          <motion.span
+            key={transformed ? 'after-label' : 'before-label'}
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 8 }}
+            transition={{ duration: 0.3 }}
+            className={`${poppins.className} text-sm font-bold uppercase tracking-[0.25em]`}
+            style={{ color: transformed ? EN.blue : '#888' }}
+          >
+            {transformed ? '✨ After' : 'Before'}
+          </motion.span>
+        </AnimatePresence>
+        <motion.div className="h-[1px] flex-1 max-w-[80px]" style={{ backgroundColor: transformed ? EN.blue : '#ccc' }} layout transition={{ duration: 0.4 }} />
       </div>
 
-      {/* AFTER */}
-      <div style={{ position: 'absolute', inset: 0, clipPath: `inset(0 ${100 - pos}% 0 0)`, background: 'linear-gradient(145deg, #eff6ff 0%, #dbeafe 100%)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem', textAlign: 'center', gap: '1.25rem', fontFamily: poppins.style.fontFamily }}>
-        <div style={{ color: '#3b82f6', fontSize: '0.65rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', backgroundColor: 'rgba(59,130,246,0.1)', padding: '3px 10px', borderRadius: 20 }}>AFTER</div>
-        <div style={{ color: '#1e3a5f', fontSize: 'clamp(1.4rem, 4vw, 2.25rem)', fontWeight: 700, lineHeight: 1.2 }}>
-          127 Families Fed Last Month.<br />Yours Could Be Next — To Help.
-        </div>
-        <div style={{ color: '#3b82f6', fontSize: 'clamp(0.85rem, 2vw, 1rem)', fontWeight: 600 }}>Community · Purpose · Impact</div>
-        <div style={{ backgroundColor: '#3b82f6', color: '#ffffff', padding: '0.65rem 1.75rem', borderRadius: 20, fontSize: 'clamp(0.8rem, 2vw, 1rem)', fontWeight: 700, boxShadow: '0 4px 14px rgba(59,130,246,0.35)' }}>
-          Volunteer This Weekend →
-        </div>
+      {/* Fixed-height container */}
+      <div className="relative w-full" style={{ height: '480px' }}>
+        <AnimatePresence mode="wait">
+          {!transformed ? (
+            <motion.div
+              key="before"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.97, filter: 'blur(6px)', transition: { duration: 0.5 } }}
+              className="absolute inset-0 w-full overflow-hidden flex flex-col"
+              style={{ backgroundColor: '#f2f0ed', border: '1px solid #d8d4cf', borderRadius: '8px', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}
+            >
+              {/* WordPress nav */}
+              <div className="flex items-center justify-between px-4 sm:px-6 py-3" style={{ backgroundColor: '#334e6e', borderBottom: '3px solid #1e3a5f' }}>
+                <div className="flex items-center gap-2">
+                  <div className="w-6 h-6 rounded-full" style={{ backgroundColor: '#facc15' }} />
+                  <span className="text-sm sm:text-base font-bold" style={{ fontFamily: 'Georgia, serif', color: '#fff' }}>Kootenay Community Learning</span>
+                </div>
+                <div className="hidden sm:flex gap-4">
+                  {['Home', 'Programs', 'About', 'Contact'].map((link) => (
+                    <span key={link} className="text-xs" style={{ fontFamily: 'Arial, sans-serif', color: 'rgba(255,255,255,0.7)', textDecoration: 'underline' }}>{link}</span>
+                  ))}
+                </div>
+                <span className="sm:hidden text-xs" style={{ color: 'rgba(255,255,255,0.5)', fontFamily: 'Arial, sans-serif' }}>&#9776; Menu</span>
+              </div>
+              {/* Hero */}
+              <div className="relative px-5 sm:px-10 py-8 sm:py-14 text-center flex-1 flex flex-col justify-center">
+                <div className="absolute inset-0 opacity-[0.12]" style={{ background: 'linear-gradient(135deg, #334e6e 0%, #facc15 50%, #eff6ff 100%)' }} />
+                <div className="relative z-10">
+                  <p className="text-xs uppercase tracking-wide mb-2" style={{ fontFamily: 'Arial, sans-serif', color: '#666', letterSpacing: '0.15em' }}>&#9733; Welcome to Our Website &#9733;</p>
+                  <h2 className="text-xl sm:text-3xl md:text-4xl leading-tight mb-2" style={{ fontFamily: 'Georgia, serif', color: '#3a3a3a', fontWeight: 700 }}>
+                    Kootenay Community Learning Centre
+                  </h2>
+                  <p className="text-sm sm:text-lg mb-1 sm:mb-2" style={{ fontFamily: 'Georgia, serif', color: '#666', fontStyle: 'italic' }}>
+                    &ldquo;Making a Difference Since 2005!&rdquo;
+                  </p>
+                  <p className="text-xs sm:text-sm mb-4" style={{ fontFamily: 'Arial, sans-serif', color: '#888' }}>
+                    Tutoring &bull; Adult Ed &bull; Community Programs &bull; Workshops
+                  </p>
+                  <div className="flex justify-center gap-2 sm:gap-3 mb-4 flex-wrap">
+                    {['✓ Registered Charity', '✓ Tax Receipts', '✓ Volunteer Run'].map((b) => (
+                      <span key={b} className="px-3 py-1 text-xs rounded" style={{ backgroundColor: '#334e6e', color: '#fff', fontFamily: 'Arial, sans-serif' }}>{b}</span>
+                    ))}
+                  </div>
+                  <p className="text-sm sm:text-lg font-bold mb-3" style={{ fontFamily: 'Arial, sans-serif', color: '#334e6e' }}>&#128222; Call Us Today: (250) 555-0113</p>
+                  <span className="inline-block px-6 py-2.5 text-sm" style={{ backgroundColor: '#334e6e', color: '#fff', fontFamily: 'Arial, sans-serif', borderRadius: '3px', cursor: 'default' }}>
+                    Click Here to Donate
+                  </span>
+                  <p className="mt-4 text-xs" style={{ color: '#bbb', fontFamily: 'Arial, sans-serif' }}>Powered by WordPress | Theme: Twenty Twenty-Three</p>
+                </div>
+              </div>
+            </motion.div>
+          ) : (
+            <motion.div
+              key="after"
+              initial={{ opacity: 0, scale: 1.02, filter: 'blur(6px)' }}
+              animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+              transition={{ duration: dur * 0.8, ease: 'easeOut' }}
+              className="absolute inset-0 w-full overflow-hidden flex flex-col"
+              style={{ backgroundColor: EN.white, border: `1px solid ${EN.blue}30`, borderRadius: '16px', boxShadow: `0 8px 40px ${EN.blue}15, 0 2px 8px rgba(0,0,0,0.04)` }}
+            >
+              {/* Elegant nav */}
+              <div className="flex items-center justify-between px-6 sm:px-10 py-4" style={{ borderBottom: `1px solid ${EN.blue}15`, backgroundColor: EN.lightBg }}>
+                <motion.span className={`${poppins.className} text-base sm:text-lg font-bold`} style={{ color: EN.navy }} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: dur * 0.6, delay: stagger }}>
+                  Kootenay Community <span style={{ color: EN.amber }}>Learning</span>
+                </motion.span>
+                <motion.div className="hidden sm:flex items-center gap-6" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
+                  {['Programs', 'Community', 'About', 'Contact'].map((link) => (
+                    <span key={link} className={`${poppins.className} text-xs uppercase tracking-widest font-semibold`} style={{ color: EN.blue }}>{link}</span>
+                  ))}
+                </motion.div>
+                <motion.div className="sm:hidden flex flex-col gap-[5px]" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur * 0.6, delay: stagger }}>
+                  <span className="block w-5 h-[2px] rounded-full" style={{ backgroundColor: EN.blue }} />
+                  <span className="block w-4 h-[2px] rounded-full" style={{ backgroundColor: EN.blue }} />
+                  <span className="block w-5 h-[2px] rounded-full" style={{ backgroundColor: EN.blue }} />
+                </motion.div>
+              </div>
+
+              {/* Hero */}
+              <div className="relative px-5 sm:px-10 md:px-16 py-8 sm:py-12 flex-1 flex flex-col justify-center" style={{ background: 'linear-gradient(145deg, #eff6ff 0%, #ffffff 100%)' }}>
+                {/* Community/hands SVG motif */}
+                <motion.div className="absolute top-0 right-0 pointer-events-none" initial={{ opacity: 0 }} animate={{ opacity: 0.18 }} transition={{ duration: dur, delay: stagger * 3 }}>
+                  <svg width="200" height="200" viewBox="0 0 160 160" fill="none">
+                    <circle cx="80" cy="55" r="22" stroke={EN.blue} strokeWidth="1.5" fill="none" />
+                    <circle cx="130" cy="75" r="16" stroke={EN.amber} strokeWidth="1.2" fill="none" opacity="0.7" />
+                    <circle cx="50" cy="90" r="14" stroke={EN.orange} strokeWidth="1" fill="none" opacity="0.6" />
+                    <path d="M80 77 C80 95, 60 110, 45 120" stroke={EN.blue} strokeWidth="1" fill="none" strokeLinecap="round" />
+                    <path d="M80 77 C80 95, 100 108, 115 118" stroke={EN.blue} strokeWidth="1" fill="none" strokeLinecap="round" />
+                    <circle cx="80" cy="130" r="5" fill={EN.blue} opacity="0.25" />
+                    <circle cx="140" cy="40" r="4" fill={EN.amber} opacity="0.35" />
+                  </svg>
+                </motion.div>
+
+                <div className="relative z-10 text-center sm:text-left">
+                  <motion.div className="flex justify-center sm:justify-start mb-3 sm:mb-6" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
+                    <span className={`${poppins.className} text-xs font-semibold uppercase tracking-[0.2em] px-5 py-2 rounded-full`} style={{ backgroundColor: `${EN.blue}15`, color: EN.blue, border: `1px solid ${EN.blue}25` }}>
+                      Est. 2005 &mdash; West Kootenay
+                    </span>
+                  </motion.div>
+
+                  <motion.h2 className={`${poppins.className} text-2xl sm:text-4xl md:text-5xl lg:text-5xl leading-[1.15] mb-4 sm:mb-6 sm:max-w-xl font-bold`} style={{ color: EN.navy }} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
+                    127 Families Fed Last Month.<br />Yours Could Be Next &mdash;{' '}
+                    <span className="relative inline-block" style={{ color: EN.blue }}>
+                      To Help.
+                      <motion.svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 100 12" fill="none">
+                        <motion.path d="M2 8 C25 2, 55 3, 80 7 C88 8, 95 5, 98 6" stroke={EN.blue} strokeWidth="2" strokeLinecap="round" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: dur * 1.5, delay: stagger * 5, ease: 'easeOut' }} />
+                      </motion.svg>
+                    </span>
+                  </motion.h2>
+
+                  <motion.p className={`${poppins.className} text-sm sm:text-lg max-w-md sm:mx-0 mx-auto mb-6 sm:mb-8`} style={{ color: EN.slate, lineHeight: 1.7 }} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 4 }}>
+                    Community programs, adult education, and literacy support — many free. All local.
+                  </motion.p>
+
+                  <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 5 }} className="flex flex-col sm:flex-row items-center sm:items-start justify-center sm:justify-start gap-4">
+                    <a href="#contact" className={`${poppins.className} inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 text-sm sm:text-base rounded-full transition-all duration-300 hover:scale-[1.03] active:scale-[0.97] font-semibold`} style={{ backgroundColor: EN.blue, color: EN.white, boxShadow: `0 4px 20px ${EN.blue}35` }}>
+                      Volunteer This Weekend
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                    </a>
+                    <span className={`${poppins.className} text-sm`} style={{ color: '#999' }}>No commitment required</span>
+                  </motion.div>
+
+                  <motion.div className="flex items-center justify-center sm:justify-start gap-4 sm:gap-6 mt-6 flex-wrap" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur, delay: stagger * 6 }}>
+                    {['Registered Charity', '2000+ Served', '100% Local'].map((badge) => (
+                      <span key={badge} className={`${poppins.className} text-xs`} style={{ color: EN.blue, opacity: 0.7, letterSpacing: '0.05em' }}>{badge}</span>
+                    ))}
+                  </motion.div>
+                </div>
+              </div>
+
+              {/* Shimmer border */}
+              <div className="h-[3px] w-full" style={{ background: `linear-gradient(90deg, ${EN.navy}, ${EN.blue}, ${EN.amber}, ${EN.blue}, ${EN.navy})`, backgroundSize: '200% 100%', animation: 'shimmer-border 3s linear infinite' }} />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
-      {/* Divider */}
-      <div style={{ position: 'absolute', top: 0, bottom: 0, left: `${pos}%`, width: 3, backgroundColor: '#3b82f6', transform: 'translateX(-50%)', zIndex: 10, pointerEvents: 'none' }}>
-        <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', width: 38, height: 38, borderRadius: '50%', backgroundColor: '#3b82f6', border: '3px solid #ffffff', boxShadow: '0 2px 12px rgba(59,130,246,0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#ffffff', fontSize: '0.8rem', fontWeight: 700 }}>⟺</div>
+      {/* Toggle button */}
+      <div className="flex justify-center mt-8">
+        <button
+          onClick={() => setTransformed(!transformed)}
+          className={`${poppins.className} text-sm font-semibold px-6 py-3 rounded-full transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]`}
+          style={{ backgroundColor: transformed ? `${EN.blue}15` : EN.white, color: transformed ? EN.navy : '#666', border: `1.5px solid ${transformed ? `${EN.blue}30` : '#ddd'}`, boxShadow: transformed ? `0 2px 12px ${EN.blue}10` : '0 1px 4px rgba(0,0,0,0.06)' }}
+        >
+          {transformed ? '← See the Before' : '✨ Watch the Transformation'}
+        </button>
       </div>
-      <div style={{ position: 'absolute', bottom: 12, left: 12, fontSize: '0.68rem', fontWeight: 700, color: '#ffffff', backgroundColor: 'rgba(59,130,246,0.9)', padding: '3px 8px', borderRadius: 20, pointerEvents: 'none', zIndex: 5 }}>After ✨</div>
-      <div style={{ position: 'absolute', bottom: 12, right: 12, fontSize: '0.68rem', fontWeight: 700, color: '#64748b', backgroundColor: 'rgba(255,255,255,0.85)', padding: '3px 8px', borderRadius: 20, pointerEvents: 'none', zIndex: 5 }}>Before</div>
-      <div style={{ position: 'absolute', top: 12, left: '50%', transform: 'translateX(-50%)', fontSize: '0.68rem', color: '#94a3b8', backgroundColor: 'rgba(255,255,255,0.85)', padding: '3px 10px', borderRadius: 20, pointerEvents: 'none', zIndex: 5, whiteSpace: 'nowrap' }}>← drag to compare →</div>
     </div>
   )
 }
@@ -222,6 +357,10 @@ export default function EducationNonprofitPage() {
       <style>{`
         @media (prefers-reduced-motion: reduce) {
           * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+        }
+        @keyframes shimmer-border {
+          0% { background-position: 200% 0; }
+          100% { background-position: -200% 0; }
         }
         .edu-card {
           background: #ffffff;
@@ -548,23 +687,19 @@ export default function EducationNonprofitPage() {
       </section>
 
       {/* ═══════════════════════════════════
-          8. BEFORE / AFTER
+          8. THE TRANSFORMATION
       ═══════════════════════════════════ */}
       <section className="relative overflow-hidden px-6 md:px-10 py-20 md:py-28" style={{ background: '#eff6ff' }}>
         <Blob size={260} color="#facc15" opacity={0.10} top={-60} right="5%" />
         <Blob size={180} color="#3b82f6" opacity={0.08} bottom={-50} left="8%" />
-        <div className="relative z-10 max-w-4xl mx-auto">
+        <div className="relative z-10 max-w-5xl mx-auto">
           <Reveal className="text-center mb-12">
-            <span className="inline-block text-sm font-semibold uppercase tracking-widest mb-3" style={{ color: '#3b82f6' }}>Side by Side</span>
-            <h2 className="text-3xl md:text-4xl font-bold" style={{ color: '#1e3a5f' }}>The Transformation</h2>
-            <p className="text-base mt-4" style={{ color: '#64748b' }}>Drag to compare a generic template with a Kootenay Made design</p>
+            <h2 className={`${poppins.className} text-3xl md:text-4xl font-bold`} style={{ color: '#1e3a5f' }}>Watch Your Website Transform</h2>
+            <p className={`${poppins.className} text-base mt-4`} style={{ color: '#64748b' }}>From dated to designed — in real time</p>
           </Reveal>
           <Reveal delay={0.1}>
-            <BeforeAfterSlider />
+            <LiveRedesign />
           </Reveal>
-          <p className="text-center mt-6 text-sm font-semibold" style={{ color: '#3b82f6' }}>
-            Which organisation would a donor trust with their contribution?
-          </p>
         </div>
       </section>
 

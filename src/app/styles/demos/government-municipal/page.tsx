@@ -1,10 +1,10 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { Source_Sans_3 } from 'next/font/google'
 import Link from 'next/link'
 import Image from 'next/image'
-import { motion, useReducedMotion } from 'framer-motion'
+import { motion, useReducedMotion, useInView, AnimatePresence } from 'framer-motion'
 
 const sourceSans = Source_Sans_3({
   subsets: ['latin'],
@@ -55,40 +55,184 @@ function OfficialSeal({ hc }: { hc: boolean }) {
   )
 }
 
-/* ── Before/After Slider (gov style) ──────────────────────── */
-function BeforeAfterSlider({ hc }: { hc: boolean }) {
-  const [pos, setPos] = useState(50)
-  const navy = hc ? '#000000' : '#1e3a5f'
-  const blue = hc ? '#000000' : '#2563eb'
+/* ── Live Redesign (government-municipal) ─────────────────────── */
+function LiveRedesign() {
+  const prefersReduced = useReducedMotion()
+  const ref = useRef<HTMLDivElement>(null)
+  const [transformed, setTransformed] = useState(false)
+
+  const dur = prefersReduced ? 0.01 : 0.9
+  const stagger = prefersReduced ? 0 : 0.18
+
+  const blue = '#2563eb'
+  const navy = '#1e3a5f'
+  const lightBlue = '#93c5fd'
+  const white = '#ffffff'
+  const lightGrey = '#f8fafc'
+
   return (
-    <div className="relative overflow-hidden select-none rounded-lg max-w-3xl mx-auto"
-      style={{ aspectRatio: '3/2', border: hc ? '2px solid #000000' : '1px solid #e2e8f0', boxShadow: hc ? 'none' : '0 4px 20px rgba(0,0,0,0.06)' }}>
-      {/* AFTER */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center px-8 text-center"
-        style={{ backgroundColor: hc ? '#f0f0f0' : '#f8fafc' }}>
-        <div className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: blue }}>AFTER</div>
-        <div className="text-2xl md:text-4xl font-bold mb-5 leading-tight" style={{ color: navy }}>Report It. We&rsquo;ll Handle It.<br />No Hold Music Required.</div>
-        <div className="inline-block px-8 py-3 text-sm font-bold text-white rounded-lg" style={{ backgroundColor: blue }}>Submit a Service Request &rarr;</div>
-        <div className="absolute top-3 right-4 text-xs font-bold uppercase px-2 py-1 text-white rounded" style={{ backgroundColor: blue }}>AFTER</div>
+    <div ref={ref} className="w-full">
+      {/* Bold label */}
+      <div className="flex items-center justify-center gap-3 mb-5">
+        <motion.div className="h-[1px] flex-1 max-w-[80px]" style={{ backgroundColor: transformed ? blue : '#ccc' }} layout transition={{ duration: 0.4 }} />
+        <AnimatePresence mode="wait">
+          <motion.span
+            key={transformed ? 'after-label' : 'before-label'}
+            initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 8 }}
+            transition={{ duration: 0.3 }}
+            className={`${sourceSans.className} text-sm font-bold uppercase tracking-[0.25em]`}
+            style={{ color: transformed ? blue : '#888' }}
+          >{transformed ? '✨ After' : 'Before'}</motion.span>
+        </AnimatePresence>
+        <motion.div className="h-[1px] flex-1 max-w-[80px]" style={{ backgroundColor: transformed ? blue : '#ccc' }} layout transition={{ duration: 0.4 }} />
       </div>
-      {/* BEFORE */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center px-8 text-center"
-        style={{ backgroundColor: '#f0f0f0', clipPath: `inset(0 ${100 - pos}% 0 0)`, fontFamily: 'Times New Roman, serif' }}>
-        <div className="text-xs uppercase tracking-widest mb-4" style={{ color: '#999', fontFamily: 'Times New Roman, serif' }}>DISTRICT OF WEST KOOTENAY</div>
-        <div className="text-2xl md:text-4xl font-bold mb-5 leading-tight" style={{ color: '#555', fontFamily: 'Times New Roman, serif' }}>Welcome to the District Website.<br />For Information Please Navigate the Menu Above.<br />Office Hours: Mon-Fri 8:30-4:30.</div>
-        <div className="inline-block px-6 py-2 text-sm font-bold rounded" style={{ backgroundColor: '#999', color: '#fff', fontFamily: 'Times New Roman, serif' }}>Learn More</div>
-        <div className="absolute top-3 left-4 text-xs font-bold uppercase px-2 py-1 text-white rounded" style={{ backgroundColor: '#9ca3af' }}>BEFORE</div>
+
+      {/* Fixed-height container */}
+      <div className="relative w-full" style={{ height: '480px' }}>
+        <AnimatePresence mode="wait">
+          {!transformed ? (
+            <motion.div
+              key="before"
+              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.97, filter: 'blur(6px)', transition: { duration: 0.5 } }}
+              className="absolute inset-0 w-full overflow-hidden flex flex-col"
+              style={{ backgroundColor: '#f2f0ed', border: '1px solid #d8d4cf', borderRadius: '8px', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}
+            >
+              {/* Fake WordPress nav */}
+              <div className="flex items-center justify-between px-4 sm:px-6 py-3" style={{ backgroundColor: '#2c4a6e', borderBottom: '3px solid #1a3050' }}>
+                <div className="flex items-center gap-2">
+                  <div className="w-6 h-6 rounded-full" style={{ backgroundColor: '#93c5fd' }} />
+                  <span className="text-sm sm:text-base font-bold" style={{ fontFamily: 'Georgia, serif', color: '#fff' }}>West Kootenay Regional Parks</span>
+                </div>
+                <div className="hidden sm:flex gap-4">
+                  {['Home', 'Parks', 'Bylaws', 'Contact'].map((link) => (
+                    <span key={link} className="text-xs" style={{ fontFamily: 'Arial, sans-serif', color: 'rgba(255,255,255,0.7)', textDecoration: 'underline' }}>{link}</span>
+                  ))}
+                </div>
+                <span className="sm:hidden text-xs" style={{ color: 'rgba(255,255,255,0.5)', fontFamily: 'Arial, sans-serif' }}>&#9776; Menu</span>
+              </div>
+              {/* Hero area */}
+              <div className="relative px-5 sm:px-10 py-8 sm:py-14 md:py-16 text-center flex-1 flex flex-col justify-center">
+                <div className="absolute inset-0 opacity-[0.12]" style={{ background: 'linear-gradient(135deg, #1e3a5f 0%, #2563eb 50%, #93c5fd 100%)' }} />
+                <div className="relative z-10">
+                  <p className="text-xs uppercase tracking-wide mb-2 sm:mb-4" style={{ fontFamily: 'Arial, sans-serif', color: '#666', letterSpacing: '0.15em' }}>&#9733; Welcome to Our Website &#9733;</p>
+                  <h2 className="text-xl sm:text-3xl md:text-4xl leading-tight mb-2 sm:mb-3" style={{ fontFamily: 'Georgia, serif', color: '#3a3a3a', fontWeight: 700 }}>West Kootenay Regional Parks</h2>
+                  <p className="text-sm sm:text-lg mb-1 sm:mb-2" style={{ fontFamily: 'Georgia, serif', color: '#666', fontStyle: 'italic' }}>&ldquo;Welcome to the District Website.&rdquo;</p>
+                  <p className="text-xs sm:text-sm mb-4 sm:mb-6" style={{ fontFamily: 'Arial, sans-serif', color: '#888' }}>Parks &bull; Recreation &bull; Permits &bull; Bylaws &bull; Council</p>
+                  <div className="flex justify-center gap-2 sm:gap-3 mb-4 sm:mb-6 flex-wrap">
+                    {['✓ Office Hours Mon-Fri', '✓ Online Forms', '✓ Community Events'].map((b) => (
+                      <span key={b} className="px-3 py-1 text-xs rounded" style={{ backgroundColor: '#2c4a6e', color: '#fff', fontFamily: 'Arial, sans-serif' }}>{b}</span>
+                    ))}
+                  </div>
+                  <p className="text-sm sm:text-lg font-bold mb-3 sm:mb-4" style={{ fontFamily: 'Arial, sans-serif', color: '#2c4a6e' }}>&#128222; Call Us Today: (250) 555-0116</p>
+                  <span className="inline-block px-6 py-2.5 text-sm" style={{ backgroundColor: '#2563eb', color: '#fff', fontFamily: 'Arial, sans-serif', borderRadius: '3px', border: '1px solid #1e3a5f', cursor: 'default' }}>Learn More</span>
+                  <p className="mt-4 sm:mt-6 text-xs" style={{ color: '#bbb', fontFamily: 'Arial, sans-serif' }}>Powered by WordPress | Theme: Twenty Twenty-Three</p>
+                </div>
+              </div>
+            </motion.div>
+          ) : (
+            <motion.div
+              key="after"
+              initial={{ opacity: 0, scale: 1.02, filter: 'blur(6px)' }}
+              animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+              transition={{ duration: dur * 0.8, ease: 'easeOut' }}
+              className="absolute inset-0 w-full overflow-hidden flex flex-col"
+              style={{ backgroundColor: white, border: `1px solid ${blue}30`, borderRadius: '16px', boxShadow: `0 8px 40px ${blue}15, 0 2px 8px rgba(0,0,0,0.04)` }}
+            >
+              {/* Elegant nav */}
+              <div className="flex items-center justify-between px-6 sm:px-10 py-4" style={{ borderBottom: `1px solid ${blue}15`, backgroundColor: navy }}>
+                <motion.span className={`${sourceSans.className} text-sm sm:text-base font-bold`} style={{ color: white, letterSpacing: '0.02em' }}
+                  initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: dur * 0.6, delay: stagger }}>
+                  West Kootenay Parks &amp; Rec
+                </motion.span>
+                <motion.div className="hidden sm:flex items-center gap-6" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
+                  {['Programs', 'Facilities', 'About', 'Contact'].map((link) => (
+                    <span key={link} className={`${sourceSans.className} text-xs uppercase tracking-widest`} style={{ color: 'rgba(255,255,255,0.75)', fontWeight: 600 }}>{link}</span>
+                  ))}
+                </motion.div>
+                <motion.div className="sm:hidden flex flex-col gap-[5px]" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur * 0.6, delay: stagger }}>
+                  <span className="block w-5 h-[2px] rounded-full" style={{ backgroundColor: lightBlue }} />
+                  <span className="block w-4 h-[2px] rounded-full" style={{ backgroundColor: lightBlue }} />
+                  <span className="block w-5 h-[2px] rounded-full" style={{ backgroundColor: lightBlue }} />
+                </motion.div>
+              </div>
+              {/* Hero */}
+              <div className="relative px-5 sm:px-10 md:px-16 py-8 sm:py-10 flex-1 flex flex-col justify-center">
+                {/* Decorative accessible geometric shapes SVG */}
+                <motion.div className="absolute top-0 right-0 pointer-events-none" initial={{ opacity: 0 }} animate={{ opacity: 0.15 }} transition={{ duration: dur, delay: stagger * 3 }}>
+                  <svg width="240" height="240" viewBox="0 0 180 180" fill="none">
+                    <rect x="100" y="10" width="60" height="60" stroke={blue} strokeWidth="1.5" fill="none" rx="4" />
+                    <rect x="115" y="25" width="30" height="30" stroke={lightBlue} strokeWidth="1" fill="none" rx="2" />
+                    <circle cx="80" cy="120" r="30" stroke={blue} strokeWidth="1" fill="none" />
+                    <circle cx="80" cy="120" r="20" stroke={lightBlue} strokeWidth="0.8" fill="none" />
+                    <line x1="40" y1="40" x2="100" y2="40" stroke={blue} strokeWidth="1" />
+                    <line x1="40" y1="50" x2="85" y2="50" stroke={blue} strokeWidth="0.7" opacity="0.6" />
+                    <line x1="40" y1="60" x2="70" y2="60" stroke={blue} strokeWidth="0.7" opacity="0.4" />
+                  </svg>
+                </motion.div>
+                <div className="relative z-10 text-center sm:text-left">
+                  {/* Business chip */}
+                  <motion.div className="flex justify-center sm:justify-start mb-3 sm:mb-5" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
+                    <span className={`${sourceSans.className} text-xs font-semibold uppercase tracking-[0.2em] px-5 py-2 rounded-full`} style={{ backgroundColor: `${blue}15`, color: blue, border: `1px solid ${blue}25` }}>
+                      Est. 1980 &mdash; West Kootenay
+                    </span>
+                  </motion.div>
+                  {/* Headline */}
+                  <motion.h2 className={`${sourceSans.className} text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.15] mb-4 sm:mb-5 sm:max-w-xl`}
+                    style={{ color: navy }}
+                    initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
+                    Report It. We&rsquo;ll Handle It.{' '}
+                    <span className="relative inline-block" style={{ color: blue }}>
+                      No Hold Music Required.
+                      <motion.svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 300 12" fill="none">
+                        <motion.path d="M4 8 C80 2, 150 4, 220 7 C260 9, 286 5, 296 7" stroke={blue} strokeWidth="2" strokeLinecap="round" fill="none"
+                          initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: dur * 1.5, delay: stagger * 5, ease: 'easeOut' }} />
+                      </motion.svg>
+                    </span>
+                  </motion.h2>
+                  {/* Subline */}
+                  <motion.p className={`${sourceSans.className} text-sm sm:text-lg max-w-md sm:mx-0 mx-auto mb-6 sm:mb-8`}
+                    style={{ color: '#475569', lineHeight: 1.7 }}
+                    initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 4 }}>
+                    Submit requests, find programs, and access services online — 24 hours a day.
+                  </motion.p>
+                  {/* CTA */}
+                  <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 5 }}
+                    className="flex flex-col sm:flex-row items-center sm:items-start justify-center sm:justify-start gap-4">
+                    <a href="#contact" className={`${sourceSans.className} inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 text-sm sm:text-base font-bold rounded-lg transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]`}
+                      style={{ backgroundColor: blue, color: white, boxShadow: `0 4px 20px ${blue}35` }}>
+                      Submit a Service Request
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                    </a>
+                    <span className={`${sourceSans.className} text-sm`} style={{ color: '#999' }}>No commitment required</span>
+                  </motion.div>
+                  {/* Trust signals */}
+                  <motion.div className="flex items-center justify-center sm:justify-start gap-4 sm:gap-6 mt-5 sm:mt-8 flex-wrap"
+                    initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur, delay: stagger * 6 }}>
+                    {['Online 24/7', '12 Parks', '8 Programs'].map((badge) => (
+                      <span key={badge} className={`${sourceSans.className} text-xs`} style={{ color: blue, opacity: 0.7, letterSpacing: '0.05em' }}>{badge}</span>
+                    ))}
+                  </motion.div>
+                </div>
+              </div>
+              {/* Shimmer border */}
+              <div className="h-[3px] w-full" style={{ background: `linear-gradient(90deg, ${blue}, ${lightBlue}, ${blue})`, backgroundSize: '200% 100%', animation: 'shimmer-border 3s linear infinite' }} />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
-      {/* Handle */}
-      <div className="absolute top-0 bottom-0 z-10 flex items-center justify-center"
-        style={{ left: `${pos}%`, transform: 'translateX(-50%)', width: '3px', backgroundColor: blue, pointerEvents: 'none' }}>
-        <div className="w-8 h-8 rounded-full flex items-center justify-center" style={{ backgroundColor: blue, boxShadow: `0 0 16px ${blue}66` }}>
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M5 3L2 8l3 5M11 3l3 5-3 5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-        </div>
+
+      {/* Toggle button */}
+      <div className="flex justify-center mt-8">
+        <button
+          onClick={() => setTransformed(!transformed)}
+          className={`${sourceSans.className} text-sm font-medium px-6 py-3 rounded-lg transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]`}
+          style={{ backgroundColor: transformed ? `${blue}15` : white, color: transformed ? navy : '#666', border: `1.5px solid ${transformed ? `${blue}30` : '#ddd'}`, boxShadow: transformed ? `0 2px 12px ${blue}10` : '0 1px 4px rgba(0,0,0,0.06)' }}
+        >
+          {transformed ? '← See the Before' : '✨ Watch the Transformation'}
+        </button>
       </div>
-      <input type="range" min={0} max={100} value={pos} onChange={(e) => setPos(Number(e.target.value))}
-        className="absolute inset-0 w-full h-full opacity-0 cursor-ew-resize z-20"
-        aria-label="Before/After comparison slider" style={{ margin: 0 }} />
     </div>
   )
 }
@@ -157,6 +301,7 @@ export default function GovernmentMunicipalPage() {
   return (
     <div className={sourceSans.className} style={{ backgroundColor: C.pageBg, color: C.navy, minHeight: '100vh' }}>
       <style>{`
+        @keyframes shimmer-border { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
         @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; } }
         .gov-focusable:focus-visible { outline: 3px solid #2563eb; outline-offset: 3px; border-radius: 4px; }
         .gov-hc-focusable:focus-visible { outline: 3px solid #000000; outline-offset: 3px; border-radius: 4px; }
@@ -381,15 +526,15 @@ export default function GovernmentMunicipalPage() {
           </div>
         </section>
 
-        {/* ═══ BEFORE/AFTER ═══ */}
-        <section className="py-20 md:py-28 px-6" style={{ backgroundColor: C.white }} aria-labelledby="ba-heading">
-          <div className="max-w-4xl mx-auto">
+        {/* ═══ 7. THE TRANSFORMATION ═══ */}
+        <section className="py-20 md:py-28 px-6" style={{ backgroundColor: C.white }} aria-labelledby="transform-heading">
+          <div className="max-w-5xl mx-auto">
             <Reveal className="text-center mb-12">
-              <p className="text-sm font-700 uppercase tracking-widest mb-3" style={{ color: C.blue, letterSpacing: '0.15em' }}>The Difference</p>
-              <h2 id="ba-heading" className="text-3xl md:text-4xl font-700" style={{ color: C.navy }}>Before &amp; After</h2>
-              <p className="mt-4 max-w-xl mx-auto text-base" style={{ color: C.slateLight }}>Drag the slider. This is what we do for municipalities and recreation departments.</p>
+              <p className="text-sm font-700 uppercase tracking-widest mb-3" style={{ color: C.blue, letterSpacing: '0.15em' }}>The Transformation</p>
+              <h2 id="transform-heading" className={`${sourceSans.className} text-3xl md:text-4xl font-bold`} style={{ color: C.navy }}>Watch Your Website Transform</h2>
+              <p className="mt-4 max-w-xl mx-auto text-base" style={{ color: C.slateLight }}>From dated to designed — in real time</p>
             </Reveal>
-            <Reveal delay={0.1}><BeforeAfterSlider hc={hc} /></Reveal>
+            <LiveRedesign />
           </div>
         </section>
 

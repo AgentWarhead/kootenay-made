@@ -3,8 +3,8 @@
 import { Bebas_Neue, Inter } from 'next/font/google'
 import Link from 'next/link'
 import Image from 'next/image'
-import { useRef, useState, useCallback } from 'react'
-import { motion, useInView, useReducedMotion } from 'framer-motion'
+import { useRef, useState } from 'react'
+import { motion, AnimatePresence, useInView, useReducedMotion } from 'framer-motion'
 
 const heading = Bebas_Neue({
   subsets: ['latin'],
@@ -93,58 +93,188 @@ function SpeedoStat({ value, label, delay = 0 }: { value: string; label: string;
   )
 }
 
-/* ── Before/After Slider ── */
-function BeforeAfterSlider() {
-  const [pos, setPos] = useState(50)
-  const containerRef = useRef<HTMLDivElement>(null)
+/* ── Live Redesign ── */
+function LiveRedesign() {
+  const prefersReduced = useReducedMotion()
+  const ref = useRef<HTMLDivElement>(null)
+  const [transformed, setTransformed] = useState(false)
 
-  const handleMove = useCallback((clientX: number) => {
-    const el = containerRef.current
-    if (!el) return
-    const rect = el.getBoundingClientRect()
-    const pct = Math.min(100, Math.max(0, ((clientX - rect.left) / rect.width) * 100))
-    setPos(pct)
-  }, [])
+  const dur = prefersReduced ? 0.01 : 0.9
+  const stagger = prefersReduced ? 0 : 0.18
+
+  // Colors
+  const red = '#dc2626'
+  const darkRed = '#991b1b'
+  const chrome = '#c0c0c0'
+  const black = '#111111'
+  const nearBlack = '#0a0a0a'
 
   return (
-    <div
-      ref={containerRef}
-      className="relative w-full max-w-3xl mx-auto overflow-hidden select-none cursor-ew-resize"
-      style={{ aspectRatio: '3/2', border: '2px solid #dc2626' }}
-      onMouseMove={(e) => handleMove(e.clientX)}
-      onTouchMove={(e) => handleMove(e.touches[0].clientX)}
-    >
-      {/* AFTER (right — polished) */}
-      <div className="absolute inset-0 flex items-center justify-center" style={{ backgroundColor: '#111' }}>
-        <div className="text-center px-8 max-w-lg">
-          <div className={`${heading.className} text-2xl md:text-4xl tracking-wider leading-tight mb-4`} style={{ color: '#ffffff' }}>Your Engine Light&rsquo;s On. We&rsquo;ll Tell You Why &mdash; Not Sell You What You Don&rsquo;t Need.</div>
-          <div className="mt-6 inline-block px-8 py-3 text-sm uppercase tracking-wider font-bold" style={{ backgroundColor: '#dc2626', color: '#fff' }}>Book Your Diagnostic →</div>
-        </div>
-        <div className="absolute top-3 right-3 px-3 py-1 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#dc2626', color: '#fff' }}>AFTER</div>
+    <div ref={ref} className="w-full">
+      {/* Bold label */}
+      <div className="flex items-center justify-center gap-3 mb-5">
+        <motion.div className="h-[1px] flex-1 max-w-[80px]" style={{ backgroundColor: transformed ? red : '#444' }} layout transition={{ duration: 0.4 }} />
+        <AnimatePresence mode="wait">
+          <motion.span
+            key={transformed ? 'after-label' : 'before-label'}
+            initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 8 }} transition={{ duration: 0.3 }}
+            className={`${body.className} text-sm font-bold uppercase tracking-[0.25em]`}
+            style={{ color: transformed ? red : '#666' }}
+          >
+            {transformed ? '✨ After' : 'Before'}
+          </motion.span>
+        </AnimatePresence>
+        <motion.div className="h-[1px] flex-1 max-w-[80px]" style={{ backgroundColor: transformed ? red : '#444' }} layout transition={{ duration: 0.4 }} />
       </div>
 
-      {/* BEFORE (left — generic) */}
-      <div
-        className="absolute inset-0 flex items-center justify-center overflow-hidden"
-        style={{ backgroundColor: '#e8e8e8', clipPath: `inset(0 ${100 - pos}% 0 0)` }}
-      >
-        <div className="text-center px-6 max-w-lg" style={{ fontFamily: 'Georgia, serif' }}>
-          <div className="text-2xl md:text-4xl font-bold mb-3 leading-snug" style={{ color: '#555', fontFamily: 'Georgia, serif' }}>Welcome to Joe&rsquo;s Auto Repair! Your #1 Choice for Car Repairs Since 1998.</div>
-          <div className="text-sm mb-4" style={{ color: '#777' }}>Click Here to Learn More</div>
-          <div className="inline-block px-6 py-2 text-sm" style={{ backgroundColor: '#999', color: '#fff', fontFamily: 'Georgia, serif' }}>Click Here</div>
-        </div>
-        <div className="absolute top-3 left-3 px-3 py-1 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#999', color: '#eee' }}>BEFORE</div>
+      {/* Fixed-height container */}
+      <div className="relative w-full" style={{ height: '480px' }}>
+        <AnimatePresence mode="wait">
+          {!transformed ? (
+            <motion.div
+              key="before"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.97, filter: 'blur(6px)', transition: { duration: 0.5 } }}
+              className="absolute inset-0 w-full overflow-hidden flex flex-col"
+              style={{ backgroundColor: '#f2f0ed', border: '1px solid #d8d4cf', borderRadius: '8px', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}
+            >
+              {/* Fake WordPress nav */}
+              <div className="flex items-center justify-between px-4 sm:px-6 py-3" style={{ backgroundColor: '#1a1a1a', borderBottom: '3px solid #555' }}>
+                <div className="flex items-center gap-2">
+                  <div className="w-6 h-6 rounded-full" style={{ backgroundColor: '#888' }} />
+                  <span className="text-sm sm:text-base font-bold" style={{ fontFamily: 'Georgia, serif', color: '#fff' }}>Iron Horse Garage</span>
+                </div>
+                <div className="hidden sm:flex gap-4">
+                  {['Home', 'Services', 'About', 'Contact'].map((link) => (
+                    <span key={link} className="text-xs" style={{ fontFamily: 'Arial, sans-serif', color: 'rgba(255,255,255,0.7)', textDecoration: 'underline' }}>{link}</span>
+                  ))}
+                </div>
+                <span className="sm:hidden text-xs" style={{ color: 'rgba(255,255,255,0.5)', fontFamily: 'Arial, sans-serif' }}>☰ Menu</span>
+              </div>
+              {/* Hero */}
+              <div className="relative px-5 sm:px-10 py-8 sm:py-14 md:py-20 text-center flex-1 flex flex-col justify-center">
+                <div className="absolute inset-0 opacity-[0.12]" style={{ background: 'linear-gradient(135deg, #888 0%, #ccc 50%, #eee 100%)' }} />
+                <div className="relative z-10">
+                  <p className="text-xs uppercase tracking-wide mb-2" style={{ fontFamily: 'Arial, sans-serif', color: '#666', letterSpacing: '0.15em' }}>★ Welcome to Our Website ★</p>
+                  <h2 className="text-xl sm:text-3xl md:text-4xl leading-tight mb-2" style={{ fontFamily: 'Georgia, serif', color: '#3a3a3a', fontWeight: 700 }}>Iron Horse Garage</h2>
+                  <p className="text-sm sm:text-lg mb-1" style={{ fontFamily: 'Georgia, serif', color: '#666', fontStyle: 'italic' }}>&ldquo;Your #1 Choice for Car Repairs Since 1998!&rdquo;</p>
+                  <p className="text-xs sm:text-sm mb-4" style={{ fontFamily: 'Arial, sans-serif', color: '#888' }}>Oil Changes &bull; Brake Jobs &bull; Tire Rotations &bull; Inspections &bull; And More!</p>
+                  <div className="flex justify-center gap-2 mb-4 flex-wrap">
+                    {['✓ ASE Certified', '✓ All Makes & Models', '✓ Free Estimates'].map((b) => (
+                      <span key={b} className="px-3 py-1 text-xs rounded" style={{ backgroundColor: '#555', color: '#fff', fontFamily: 'Arial, sans-serif' }}>{b}</span>
+                    ))}
+                  </div>
+                  <p className="text-sm sm:text-lg font-bold mb-3" style={{ fontFamily: 'Arial, sans-serif', color: '#555' }}>📞 Call Us Today: (250) 555-0199</p>
+                  <span className="inline-block px-6 py-2.5 text-sm cursor-default" style={{ backgroundColor: '#888', color: '#fff', fontFamily: 'Arial, sans-serif', borderRadius: '3px', border: '1px solid #666' }}>
+                    Book Your Appointment
+                  </span>
+                  <p className="mt-4 text-xs" style={{ color: '#bbb', fontFamily: 'Arial, sans-serif' }}>Powered by WordPress | Theme: Twenty Twenty-Three</p>
+                </div>
+              </div>
+            </motion.div>
+          ) : (
+            <motion.div
+              key="after"
+              initial={{ opacity: 0, scale: 1.02, filter: 'blur(6px)' }}
+              animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+              transition={{ duration: dur * 0.8, ease: 'easeOut' }}
+              className="absolute inset-0 w-full overflow-hidden flex flex-col"
+              style={{
+                backgroundColor: '#111',
+                border: `1px solid ${red}30`,
+                borderRadius: '16px',
+                boxShadow: `0 8px 40px ${red}18, 0 2px 8px rgba(0,0,0,0.3)`,
+              }}
+            >
+              {/* Elegant nav */}
+              <div className="flex items-center justify-between px-6 sm:px-10 py-4" style={{ borderBottom: `1px solid ${red}20` }}>
+                <motion.span className={`${heading.className} text-base sm:text-lg tracking-wider`} style={{ ...chromeGradient }}
+                  initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: dur * 0.6, delay: stagger }}>
+                  IRON HORSE GARAGE
+                </motion.span>
+                <motion.div className="hidden sm:flex items-center gap-6" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
+                  {['Services', 'Work', 'About', 'Contact'].map((link) => (
+                    <span key={link} className={`${body.className} text-xs uppercase tracking-widest`} style={{ color: chrome, fontWeight: 500 }}>{link}</span>
+                  ))}
+                </motion.div>
+                <motion.div className="sm:hidden flex flex-col gap-[5px]" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur * 0.6, delay: stagger }}>
+                  <span className="block w-5 h-[2px] rounded-full" style={{ backgroundColor: red }} />
+                  <span className="block w-4 h-[2px] rounded-full" style={{ backgroundColor: red }} />
+                  <span className="block w-5 h-[2px] rounded-full" style={{ backgroundColor: red }} />
+                </motion.div>
+              </div>
+              {/* Hero */}
+              <div className="relative px-5 sm:px-10 md:px-16 py-8 sm:py-14 flex-1 flex flex-col justify-center">
+                {/* Gear/angular SVG motif */}
+                <motion.div className="absolute top-0 right-0 pointer-events-none" initial={{ opacity: 0 }} animate={{ opacity: 0.12 }} transition={{ duration: dur, delay: stagger * 3 }}>
+                  <svg width="240" height="240" viewBox="0 0 200 200" fill="none">
+                    <circle cx="100" cy="100" r="60" stroke={red} strokeWidth="1.5" fill="none" />
+                    <circle cx="100" cy="100" r="40" stroke={red} strokeWidth="1" fill="none" />
+                    {[0,30,60,90,120,150,180,210,240,270,300,330].map((deg) => (
+                      <line key={deg} x1={100 + 60*Math.cos(deg*Math.PI/180)} y1={100 + 60*Math.sin(deg*Math.PI/180)} x2={100 + 72*Math.cos(deg*Math.PI/180)} y2={100 + 72*Math.sin(deg*Math.PI/180)} stroke={red} strokeWidth="3" strokeLinecap="round" />
+                    ))}
+                    <circle cx="100" cy="100" r="8" fill={red} opacity="0.4" />
+                  </svg>
+                </motion.div>
+                <div className="relative z-10 text-center sm:text-left">
+                  <motion.div className="flex justify-center sm:justify-start mb-3 sm:mb-6" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
+                    <span className={`${body.className} text-xs font-semibold uppercase tracking-[0.2em] px-5 py-2 rounded-full`}
+                      style={{ backgroundColor: `${red}18`, color: red, border: `1px solid ${red}30` }}>
+                      Est. 1998 &mdash; West Kootenay
+                    </span>
+                  </motion.div>
+                  <motion.h2 className={`${heading.className} text-2xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.0] mb-4 sm:mb-6 tracking-wider`}
+                    style={{ color: '#fff' }}
+                    initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
+                    YOUR ENGINE LIGHT&rsquo;S ON.<br />WE&rsquo;LL TELL YOU WHY &mdash; NOT SELL YOU WHAT YOU{' '}
+                    <span className="relative inline-block" style={{ color: red }}>
+                      DON&rsquo;T NEED.
+                      <motion.svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 12" fill="none">
+                        <motion.path d="M4 8 C50 2, 100 2, 150 6 C170 8, 185 4, 196 6" stroke={red} strokeWidth="2" strokeLinecap="round" fill="none"
+                          initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: dur * 1.5, delay: stagger * 5, ease: 'easeOut' }} />
+                      </motion.svg>
+                    </span>
+                  </motion.h2>
+                  <motion.p className={`${body.className} text-sm sm:text-lg max-w-md sm:mx-0 mx-auto mb-6`} style={{ color: 'rgba(255,255,255,0.5)', lineHeight: 1.7 }}
+                    initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 4 }}>
+                    Honest diagnostics. Fair pricing. ASE-certified technicians who tell you the truth.
+                  </motion.p>
+                  <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 5 }}
+                    className="flex flex-col sm:flex-row items-center sm:items-start justify-center sm:justify-start gap-4">
+                    <a href="#contact" className={`${heading.className} inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 text-sm sm:text-base rounded-xl transition-all duration-300 hover:scale-[1.03] active:scale-[0.97] tracking-wider`}
+                      style={{ backgroundColor: red, color: '#fff', boxShadow: `0 4px 20px ${red}40` }}>
+                      Book Your Diagnostic
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                    </a>
+                    <span className={`${body.className} text-sm`} style={{ color: '#666' }}>No commitment required</span>
+                  </motion.div>
+                  <motion.div className="flex items-center justify-center sm:justify-start gap-4 sm:gap-6 mt-6 flex-wrap" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur, delay: stagger * 6 }}>
+                    {['ASE Certified', '25+ Years', '4.9★ Google'].map((badge) => (
+                      <span key={badge} className={`${body.className} text-xs`} style={{ color: red, opacity: 0.7, letterSpacing: '0.05em' }}>{badge}</span>
+                    ))}
+                  </motion.div>
+                </div>
+              </div>
+              {/* Shimmer border */}
+              <div className="absolute bottom-0 left-0 right-0 h-[2px] rounded-b-[16px]" style={{ background: `linear-gradient(90deg, transparent, ${red}, #ff6666, ${red}, transparent)`, animation: 'shimmer-border 3s linear infinite', backgroundSize: '200% 100%' }} />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
-      {/* Drag handle */}
-      <div
-        className="absolute top-0 bottom-0 w-0.5 z-10"
-        style={{ left: `${pos}%`, backgroundColor: '#dc2626', transform: 'translateX(-50%)' }}
-      >
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center"
-          style={{ backgroundColor: '#dc2626', boxShadow: '0 0 20px rgba(220,38,38,0.6)' }}>
-          <span className="text-white text-xs font-bold">◀▶</span>
-        </div>
+      {/* Toggle button */}
+      <div className="flex justify-center mt-8">
+        <button onClick={() => setTransformed(!transformed)}
+          className={`${body.className} text-sm font-medium px-6 py-3 rounded-full transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]`}
+          style={{
+            backgroundColor: transformed ? `${red}15` : nearBlack,
+            color: transformed ? red : '#999',
+            border: `1.5px solid ${transformed ? `${red}40` : '#333'}`,
+            boxShadow: transformed ? `0 2px 12px ${red}15` : '0 1px 4px rgba(0,0,0,0.3)',
+          }}>
+          {transformed ? '← See the Before' : '✨ Watch the Transformation'}
+        </button>
       </div>
     </div>
   )
@@ -192,6 +322,10 @@ export default function AutomotiveDemo() {
             animation-iteration-count: 1 !important;
             transition-duration: 0.01ms !important;
           }
+        }
+        @keyframes shimmer-border {
+          0% { background-position: 200% center; }
+          100% { background-position: -200% center; }
         }
       `}</style>
 
@@ -402,18 +536,18 @@ export default function AutomotiveDemo() {
       <RedStripe />
       <RacingDivider topColor="#111" bottomColor="#0a0a0a" />
 
-      {/* ═══════════ 7. BEFORE / AFTER ═══════════ */}
+      {/* ═══════════ 7. THE TRANSFORMATION ═══════════ */}
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#0a0a0a' }}>
         <div className="max-w-5xl mx-auto">
           <Reveal>
             <h2 className={`${heading.className} text-4xl md:text-6xl tracking-wider mb-4`} style={chromeGradient}>
-              THE TRANSFORMATION
+              Watch Your Website Transform
             </h2>
             <div className="w-20 h-1.5 mb-4" style={{ backgroundColor: '#dc2626' }} />
-            <p className="mb-12 text-sm uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.4)' }}>Drag to compare — before vs. after a Kootenay Made Digital build</p>
+            <p className="mb-12 text-sm uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.4)' }}>From dated to designed — in real time</p>
           </Reveal>
           <Reveal delay={0.1}>
-            <BeforeAfterSlider />
+            <LiveRedesign />
           </Reveal>
         </div>
       </section>

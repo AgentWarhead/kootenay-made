@@ -3,8 +3,8 @@
 import { Inter } from 'next/font/google'
 import Link from 'next/link'
 import Image from 'next/image'
-import { useState, useEffect, useRef, useCallback } from 'react'
-import { motion, useInView, type Variants } from 'framer-motion'
+import { useState, useEffect, useRef } from 'react'
+import { motion, useInView, AnimatePresence, useReducedMotion, type Variants } from 'framer-motion'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -81,63 +81,197 @@ function Section({
   )
 }
 
-/* ─── Before/After Slider ─── */
-function BeforeAfterSlider() {
-  const [pos, setPos] = useState(50)
-  const containerRef = useRef<HTMLDivElement>(null)
-  const dragging = useRef(false)
+/* ─── Live Redesign ─── */
+const CP = {
+  navy: '#1a365d',
+  blue: '#2563eb',
+  lightBlue: '#eff6ff',
+  slate: '#64748b',
+  white: '#ffffff',
+  bg: '#f8fafc',
+}
 
-  const move = useCallback((clientX: number) => {
-    if (!containerRef.current) return
-    const rect = containerRef.current.getBoundingClientRect()
-    setPos(Math.max(5, Math.min(95, ((clientX - rect.left) / rect.width) * 100)))
-  }, [])
+function LiveRedesign() {
+  const prefersReduced = useReducedMotion()
+  const ref = useRef<HTMLDivElement>(null)
+  const [transformed, setTransformed] = useState(false)
+
+  const dur = prefersReduced ? 0.01 : 0.9
+  const stagger = prefersReduced ? 0 : 0.18
 
   return (
-    <div
-      ref={containerRef}
-      style={{ position: 'relative', aspectRatio: '3/2', cursor: 'ew-resize', userSelect: 'none', overflow: 'hidden', borderRadius: 10, border: '1px solid #e2e8f0', boxShadow: '0 4px 20px rgba(0,0,0,0.08)' }}
-      onMouseDown={() => { dragging.current = true }}
-      onMouseUp={() => { dragging.current = false }}
-      onMouseLeave={() => { dragging.current = false }}
-      onMouseMove={(e) => { if (dragging.current) move(e.clientX) }}
-      onTouchMove={(e) => move(e.touches[0].clientX)}
-      onClick={(e) => move(e.clientX)}
-    >
-      {/* BEFORE — right side background */}
-      <div style={{ position: 'absolute', inset: 0, backgroundColor: '#f0f0f0', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem', fontFamily: 'Georgia, serif', textAlign: 'center', gap: '1rem' }}>
-        <div style={{ color: '#999', fontSize: '0.65rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', border: '1px solid #bbb', padding: '2px 8px' }}>BEFORE</div>
-        <div style={{ color: '#555', fontSize: 'clamp(1.2rem, 3.5vw, 2rem)', fontWeight: 400, lineHeight: 1.35 }}>
-          Smith &amp; Associates Professional Services.<br />
-          <span style={{ fontStyle: 'italic' }}>Trusted. Reliable. Experienced.</span>
-        </div>
-        <div style={{ color: '#777', fontSize: 'clamp(0.8rem, 2vw, 1rem)' }}>Contact Us Today for More Information</div>
-        <div style={{ backgroundColor: '#999', color: '#fff', padding: '0.5rem 1.25rem', fontSize: '0.85rem', fontFamily: 'Georgia, serif', cursor: 'pointer' }}>Contact Us</div>
+    <div ref={ref} className="w-full">
+      {/* Bold label */}
+      <div className="flex items-center justify-center gap-3 mb-5">
+        <motion.div className="h-[1px] flex-1 max-w-[80px]" style={{ backgroundColor: transformed ? CP.blue : '#ccc' }} layout transition={{ duration: 0.4 }} />
+        <AnimatePresence mode="wait">
+          <motion.span
+            key={transformed ? 'after-label' : 'before-label'}
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 8 }}
+            transition={{ duration: 0.3 }}
+            className={`${inter.className} text-sm font-bold uppercase tracking-[0.25em]`}
+            style={{ color: transformed ? CP.blue : '#888' }}
+          >
+            {transformed ? '✨ After' : 'Before'}
+          </motion.span>
+        </AnimatePresence>
+        <motion.div className="h-[1px] flex-1 max-w-[80px]" style={{ backgroundColor: transformed ? CP.blue : '#ccc' }} layout transition={{ duration: 0.4 }} />
       </div>
 
-      {/* AFTER — clipped to show left pos% */}
-      <div style={{ position: 'absolute', inset: 0, clipPath: `inset(0 ${100 - pos}% 0 0)`, backgroundColor: '#1a365d', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem', textAlign: 'center', gap: '1.25rem', fontFamily: inter.style.fontFamily }}>
-        <div style={{ color: '#60a5fa', fontSize: '0.65rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', backgroundColor: 'rgba(37,99,235,0.3)', padding: '3px 10px', borderRadius: 4 }}>AFTER</div>
-        <div style={{ color: '#ffffff', fontSize: 'clamp(1.4rem, 4vw, 2.25rem)', fontWeight: 700, lineHeight: 1.2 }}>
-          Your Money Deserves<br />a Plan. Not a Guessing Game.
-        </div>
-        <div style={{ color: 'rgba(255,255,255,0.7)', fontSize: 'clamp(0.85rem, 2vw, 1rem)' }}>Retirement · Tax · Estate Planning</div>
-        <div style={{ backgroundColor: '#2563eb', color: '#ffffff', padding: '0.65rem 1.75rem', borderRadius: 6, fontSize: 'clamp(0.8rem, 2vw, 1rem)', fontWeight: 700, boxShadow: '0 4px 14px rgba(37,99,235,0.5)' }}>
-          Book a Free Consultation →
-        </div>
+      {/* Fixed-height container */}
+      <div className="relative w-full" style={{ height: '480px' }}>
+        <AnimatePresence mode="wait">
+          {!transformed ? (
+            <motion.div
+              key="before"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.97, filter: 'blur(6px)', transition: { duration: 0.5 } }}
+              className="absolute inset-0 w-full overflow-hidden flex flex-col"
+              style={{ backgroundColor: '#f2f0ed', border: '1px solid #d8d4cf', borderRadius: '8px', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}
+            >
+              {/* WordPress-style nav */}
+              <div className="flex items-center justify-between px-4 sm:px-6 py-3" style={{ backgroundColor: '#2c3e50', borderBottom: '3px solid #1a252f' }}>
+                <div className="flex items-center gap-2">
+                  <div className="w-6 h-6 rounded-full" style={{ backgroundColor: '#7f8c8d' }} />
+                  <span className="text-sm sm:text-base font-bold" style={{ fontFamily: 'Georgia, serif', color: '#fff' }}>Ridgeline Financial</span>
+                </div>
+                <div className="hidden sm:flex gap-4">
+                  {['Home', 'Services', 'About', 'Contact'].map((link) => (
+                    <span key={link} className="text-xs" style={{ fontFamily: 'Arial, sans-serif', color: 'rgba(255,255,255,0.7)', textDecoration: 'underline' }}>{link}</span>
+                  ))}
+                </div>
+                <span className="sm:hidden text-xs" style={{ color: 'rgba(255,255,255,0.5)', fontFamily: 'Arial, sans-serif' }}>&#9776; Menu</span>
+              </div>
+              {/* Hero */}
+              <div className="relative px-5 sm:px-10 py-8 sm:py-14 md:py-20 text-center flex-1 flex flex-col justify-center">
+                <div className="absolute inset-0 opacity-[0.12]" style={{ background: 'linear-gradient(135deg, #2c3e50 0%, #7f8c8d 50%, #bdc3c7 100%)' }} />
+                <div className="relative z-10">
+                  <p className="text-xs uppercase tracking-wide mb-2 sm:mb-4" style={{ fontFamily: 'Arial, sans-serif', color: '#666', letterSpacing: '0.15em' }}>&#9733; Welcome to Our Website &#9733;</p>
+                  <h2 className="text-xl sm:text-3xl md:text-4xl lg:text-5xl leading-tight mb-2 sm:mb-3" style={{ fontFamily: 'Georgia, serif', color: '#3a3a3a', fontWeight: 700, textShadow: '0 1px 0 rgba(255,255,255,0.5)' }}>
+                    Ridgeline Financial
+                  </h2>
+                  <p className="text-sm sm:text-lg mb-1 sm:mb-2" style={{ fontFamily: 'Georgia, serif', color: '#666', fontStyle: 'italic' }}>
+                    &ldquo;Trusted. Reliable. Experienced.&rdquo;
+                  </p>
+                  <p className="text-xs sm:text-sm mb-4 sm:mb-6" style={{ fontFamily: 'Arial, sans-serif', color: '#888' }}>
+                    Tax Planning &bull; Bookkeeping &bull; Payroll &bull; Business Advisory
+                  </p>
+                  <div className="flex justify-center gap-2 sm:gap-3 mb-4 sm:mb-6 flex-wrap">
+                    {['✓ CPA Certified', '✓ Confidential', '✓ Free Consultation'].map((b) => (
+                      <span key={b} className="px-3 py-1 text-xs rounded" style={{ backgroundColor: '#2c3e50', color: '#fff', fontFamily: 'Arial, sans-serif' }}>{b}</span>
+                    ))}
+                  </div>
+                  <p className="text-sm sm:text-lg font-bold mb-3 sm:mb-4" style={{ fontFamily: 'Arial, sans-serif', color: '#2c3e50' }}>&#128222; Call Us Today: (250) 555-0140</p>
+                  <span className="inline-block px-6 py-2.5 text-sm" style={{ backgroundColor: '#34495e', color: '#fff', fontFamily: 'Arial, sans-serif', borderRadius: '3px', border: '1px solid #2c3e50', cursor: 'default' }}>
+                    Request a Free Consultation
+                  </span>
+                  <p className="mt-4 sm:mt-6 text-xs" style={{ color: '#bbb', fontFamily: 'Arial, sans-serif' }}>Powered by WordPress | Theme: Twenty Twenty-Three</p>
+                </div>
+              </div>
+            </motion.div>
+          ) : (
+            <motion.div
+              key="after"
+              initial={{ opacity: 0, scale: 1.02, filter: 'blur(6px)' }}
+              animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+              transition={{ duration: dur * 0.8, ease: 'easeOut' }}
+              className="absolute inset-0 w-full overflow-hidden flex flex-col"
+              style={{ backgroundColor: CP.white, border: `1px solid ${CP.blue}30`, borderRadius: '16px', boxShadow: `0 8px 40px ${CP.blue}15, 0 2px 8px rgba(0,0,0,0.04)` }}
+            >
+              {/* Elegant nav */}
+              <div className="flex items-center justify-between px-6 sm:px-10 py-4" style={{ borderBottom: `1px solid ${CP.blue}15` }}>
+                <motion.span
+                  className={`${inter.className} text-base sm:text-lg font-bold`}
+                  style={{ color: CP.navy, letterSpacing: '0.02em' }}
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: dur * 0.6, delay: stagger }}
+                >
+                  Ridgeline Financial
+                </motion.span>
+                <motion.div className="hidden sm:flex items-center gap-6" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
+                  {['Services', 'About', 'Portfolio', 'Contact'].map((link) => (
+                    <span key={link} className={`${inter.className} text-xs uppercase tracking-widest`} style={{ color: CP.slate, fontWeight: 500 }}>{link}</span>
+                  ))}
+                </motion.div>
+                <motion.div className="sm:hidden flex flex-col gap-[5px]" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur * 0.6, delay: stagger }}>
+                  <span className="block w-5 h-[2px] rounded-full" style={{ backgroundColor: CP.blue }} />
+                  <span className="block w-4 h-[2px] rounded-full" style={{ backgroundColor: CP.blue }} />
+                  <span className="block w-5 h-[2px] rounded-full" style={{ backgroundColor: CP.blue }} />
+                </motion.div>
+              </div>
+
+              {/* Hero */}
+              <div className="relative px-5 sm:px-10 md:px-16 py-8 sm:py-14 flex-1 flex flex-col justify-center">
+                {/* Geometric SVG motif */}
+                <motion.div className="absolute top-0 right-0 pointer-events-none" initial={{ opacity: 0 }} animate={{ opacity: 0.12 }} transition={{ duration: dur, delay: stagger * 3 }}>
+                  <svg width="220" height="220" viewBox="0 0 180 180" fill="none">
+                    <rect x="20" y="20" width="60" height="60" stroke={CP.blue} strokeWidth="1.5" fill="none" />
+                    <rect x="50" y="50" width="90" height="90" stroke={CP.navy} strokeWidth="1" fill="none" />
+                    <line x1="20" y1="20" x2="110" y2="110" stroke={CP.blue} strokeWidth="0.8" />
+                    <line x1="80" y1="20" x2="20" y2="80" stroke={CP.navy} strokeWidth="0.8" />
+                    <circle cx="140" cy="40" r="20" stroke={CP.blue} strokeWidth="1" fill="none" />
+                    <circle cx="140" cy="40" r="8" stroke={CP.blue} strokeWidth="0.6" fill="none" />
+                  </svg>
+                </motion.div>
+
+                <div className="relative z-10 text-center sm:text-left">
+                  <motion.div className="flex justify-center sm:justify-start mb-3 sm:mb-6" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
+                    <span className={`${inter.className} text-xs font-semibold uppercase tracking-[0.2em] px-5 py-2 rounded-full`} style={{ backgroundColor: `${CP.blue}15`, color: CP.blue, border: `1px solid ${CP.blue}25` }}>
+                      Est. 2009 &mdash; West Kootenay
+                    </span>
+                  </motion.div>
+
+                  <motion.h2 className={`${inter.className} text-2xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.15] mb-4 sm:mb-6 sm:max-w-xl font-bold`} style={{ color: CP.navy }} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
+                    Your Money Deserves a Plan. Not a{' '}
+                    <span className="relative inline-block" style={{ color: CP.blue }}>
+                      Guessing Game.
+                      <motion.svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 12" fill="none">
+                        <motion.path d="M4 8 C40 2, 80 2, 130 6 C155 8, 180 4, 196 6" stroke={CP.blue} strokeWidth="2" strokeLinecap="round" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: dur * 1.5, delay: stagger * 5, ease: 'easeOut' }} />
+                      </motion.svg>
+                    </span>
+                  </motion.h2>
+
+                  <motion.p className={`${inter.className} text-sm sm:text-lg max-w-md sm:mx-0 mx-auto mb-6 sm:mb-8`} style={{ color: CP.slate, lineHeight: 1.7 }} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 4 }}>
+                    Retirement, tax, and estate planning — personalized for your life and your goals.
+                  </motion.p>
+
+                  <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 5 }} className="flex flex-col sm:flex-row items-center sm:items-start justify-center sm:justify-start gap-4">
+                    <a href="#contact" className={`${inter.className} inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 text-sm sm:text-base rounded-xl transition-all duration-300 hover:scale-[1.03] active:scale-[0.97] font-bold`} style={{ backgroundColor: CP.blue, color: CP.white, boxShadow: `0 4px 20px ${CP.blue}35` }}>
+                      Book a Free Consultation
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                    </a>
+                    <span className={`${inter.className} text-sm`} style={{ color: '#999' }}>No commitment required</span>
+                  </motion.div>
+
+                  <motion.div className="flex items-center justify-center sm:justify-start gap-4 sm:gap-6 mt-6 flex-wrap" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur, delay: stagger * 6 }}>
+                    {['CPA Certified', '15+ Years', '200+ Clients'].map((badge) => (
+                      <span key={badge} className={`${inter.className} text-xs`} style={{ color: CP.blue, opacity: 0.7, letterSpacing: '0.05em' }}>{badge}</span>
+                    ))}
+                  </motion.div>
+                </div>
+              </div>
+
+              {/* Shimmer border */}
+              <div className="h-[3px] w-full" style={{ background: `linear-gradient(90deg, ${CP.navy}, ${CP.blue}, ${CP.navy})`, backgroundSize: '200% 100%', animation: 'shimmer-border 3s linear infinite' }} />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
-      {/* Divider */}
-      <div style={{ position: 'absolute', top: 0, bottom: 0, left: `${pos}%`, width: 3, backgroundColor: '#2563eb', transform: 'translateX(-50%)', zIndex: 10, pointerEvents: 'none' }}>
-        <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', width: 38, height: 38, borderRadius: '50%', backgroundColor: '#2563eb', border: '3px solid #ffffff', boxShadow: '0 2px 12px rgba(37,99,235,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#ffffff', fontSize: '0.8rem', fontWeight: 700 }}>
-          ⟺
-        </div>
+      {/* Toggle button */}
+      <div className="flex justify-center mt-8">
+        <button
+          onClick={() => setTransformed(!transformed)}
+          className={`${inter.className} text-sm font-medium px-6 py-3 rounded-full transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]`}
+          style={{ backgroundColor: transformed ? `${CP.blue}15` : CP.white, color: transformed ? CP.navy : '#666', border: `1.5px solid ${transformed ? `${CP.blue}30` : '#ddd'}`, boxShadow: transformed ? `0 2px 12px ${CP.blue}10` : '0 1px 4px rgba(0,0,0,0.06)' }}
+        >
+          {transformed ? '← See the Before' : '✨ Watch the Transformation'}
+        </button>
       </div>
-
-      {/* Corner labels */}
-      <div style={{ position: 'absolute', bottom: 12, left: 12, fontSize: '0.68rem', fontWeight: 700, textTransform: 'uppercase', color: '#ffffff', backgroundColor: 'rgba(37,99,235,0.9)', padding: '3px 8px', borderRadius: 4, pointerEvents: 'none', zIndex: 5 }}>After ✨</div>
-      <div style={{ position: 'absolute', bottom: 12, right: 12, fontSize: '0.68rem', fontWeight: 700, textTransform: 'uppercase', color: '#64748b', backgroundColor: 'rgba(255,255,255,0.85)', padding: '3px 8px', borderRadius: 4, pointerEvents: 'none', zIndex: 5 }}>Before</div>
-      <div style={{ position: 'absolute', top: 12, left: '50%', transform: 'translateX(-50%)', fontSize: '0.68rem', color: '#94a3b8', backgroundColor: 'rgba(255,255,255,0.8)', padding: '3px 10px', borderRadius: 4, pointerEvents: 'none', zIndex: 5, whiteSpace: 'nowrap' }}>← drag to compare →</div>
     </div>
   )
 }
@@ -211,6 +345,10 @@ export default function CleanProfessionalDemo() {
             animation-iteration-count: 1 !important;
             transition-duration: 0.01ms !important;
           }
+        }
+        @keyframes shimmer-border {
+          0% { background-position: 200% 0; }
+          100% { background-position: -200% 0; }
         }
       `}</style>
 
@@ -474,19 +612,16 @@ export default function CleanProfessionalDemo() {
         </div>
       </Section>
 
-      {/* ═══════════ 7. BEFORE / AFTER ═══════════ */}
+      {/* ═══════════ 7. THE TRANSFORMATION ═══════════ */}
       <Section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#f8fafc' }}>
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4" style={{ color: '#1a365d' }}>
-            The Transformation
+        <div className="max-w-5xl mx-auto">
+          <h2 className={`${inter.className} text-3xl md:text-4xl font-bold text-center mb-4`} style={{ color: '#1a365d' }}>
+            Watch Your Website Transform
           </h2>
-          <p className="text-center mb-12 max-w-xl mx-auto" style={{ color: '#94a3b8' }}>
-            Drag to compare a generic template with a Kootenay Made design
+          <p className={`${inter.className} text-center mb-12 max-w-xl mx-auto`} style={{ color: '#94a3b8' }}>
+            From dated to designed — in real time
           </p>
-          <BeforeAfterSlider />
-          <p className="text-center mt-6 text-sm font-bold" style={{ color: '#2563eb' }}>
-            Which one would you book a consultation with?
-          </p>
+          <LiveRedesign />
         </div>
       </Section>
 

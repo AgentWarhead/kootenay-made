@@ -3,8 +3,8 @@
 import { Playfair_Display, Source_Sans_3 } from 'next/font/google'
 import Link from 'next/link'
 import Image from 'next/image'
-import { useState, useRef, useCallback } from 'react'
-import { motion, useReducedMotion } from 'framer-motion'
+import { useState, useRef } from 'react'
+import { motion, useReducedMotion, AnimatePresence } from 'framer-motion'
 
 const heading = Playfair_Display({
   subsets: ['latin'],
@@ -49,61 +49,196 @@ function EditorialTitle({ children, subtitle }: { children: React.ReactNode; sub
   )
 }
 
-/* ── Before/After Slider ── */
-function BeforeAfterSlider() {
-  const [pos, setPos] = useState(50)
-  const containerRef = useRef<HTMLDivElement>(null)
-  const dragging = useRef(false)
+/* ── Live Redesign ── */
+const EE = {
+  gold: '#b8860b',
+  dark: '#1a1a1a',
+  cream: '#faf9f7',
+  warm: '#6b6b6b',
+  border: '#e8e6e1',
+  white: '#ffffff',
+}
 
-  const move = useCallback((clientX: number) => {
-    if (!containerRef.current) return
-    const rect = containerRef.current.getBoundingClientRect()
-    setPos(Math.max(5, Math.min(95, ((clientX - rect.left) / rect.width) * 100)))
-  }, [])
+function LiveRedesign() {
+  const prefersReduced = useReducedMotion()
+  const ref = useRef<HTMLDivElement>(null)
+  const [transformed, setTransformed] = useState(false)
+
+  const dur = prefersReduced ? 0.01 : 0.9
+  const stagger = prefersReduced ? 0 : 0.18
 
   return (
-    <div
-      ref={containerRef}
-      style={{ position: 'relative', aspectRatio: '3/2', cursor: 'ew-resize', userSelect: 'none', overflow: 'hidden', border: '1px solid #e8e6e1' }}
-      onMouseDown={() => { dragging.current = true }}
-      onMouseUp={() => { dragging.current = false }}
-      onMouseLeave={() => { dragging.current = false }}
-      onMouseMove={(e) => { if (dragging.current) move(e.clientX) }}
-      onTouchMove={(e) => move(e.touches[0].clientX)}
-      onClick={(e) => move(e.clientX)}
-    >
-      {/* BEFORE */}
-      <div style={{ position: 'absolute', inset: 0, backgroundColor: '#f0f0f0', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem', fontFamily: "'Times New Roman', serif", textAlign: 'center', gap: '1rem' }}>
-        <div style={{ color: '#999', fontSize: '0.65rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', border: '1px solid #bbb', padding: '2px 8px' }}>BEFORE</div>
-        <div style={{ color: '#555', fontSize: 'clamp(1.1rem, 3.5vw, 1.9rem)', fontWeight: 400, lineHeight: 1.3 }}>
-          ★ TOP REALTOR ★ Your Dream Home Awaits!<br />
-          <span style={{ fontSize: '0.85em', fontStyle: 'italic' }}>#1 in Sales! Call Today for a FREE Home Evaluation!!!</span>
-        </div>
-        <div style={{ color: '#777', fontSize: 'clamp(0.75rem, 2vw, 0.95rem)' }}>📞 Call or email for details. Since 1998.</div>
-        <div style={{ backgroundColor: '#999', color: '#fff', padding: '0.5rem 1.25rem', fontSize: '0.85rem', fontFamily: "'Times New Roman', serif", cursor: 'pointer' }}>Click Here</div>
+    <div ref={ref} className="w-full">
+      {/* Bold label */}
+      <div className="flex items-center justify-center gap-3 mb-5">
+        <motion.div className="h-[1px] flex-1 max-w-[80px]" style={{ backgroundColor: transformed ? EE.gold : '#ccc' }} layout transition={{ duration: 0.4 }} />
+        <AnimatePresence mode="wait">
+          <motion.span
+            key={transformed ? 'after-label' : 'before-label'}
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 8 }}
+            transition={{ duration: 0.3 }}
+            className={`${body.className} text-sm font-bold uppercase tracking-[0.25em]`}
+            style={{ color: transformed ? EE.gold : '#888' }}
+          >
+            {transformed ? '✨ After' : 'Before'}
+          </motion.span>
+        </AnimatePresence>
+        <motion.div className="h-[1px] flex-1 max-w-[80px]" style={{ backgroundColor: transformed ? EE.gold : '#ccc' }} layout transition={{ duration: 0.4 }} />
       </div>
 
-      {/* AFTER */}
-      <div style={{ position: 'absolute', inset: 0, clipPath: `inset(0 ${100 - pos}% 0 0)`, backgroundColor: '#1a1a1a', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem', borderLeft: '3px solid #b8860b', textAlign: 'center', gap: '1.25rem', fontFamily: heading.style.fontFamily }}>
-        <div style={{ color: '#b8860b', fontSize: '0.65rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.16em', border: '1px solid rgba(184,134,11,0.4)', padding: '3px 10px' }}>AFTER</div>
-        <div style={{ color: '#faf9f7', fontSize: 'clamp(1.4rem, 4vw, 2.25rem)', fontWeight: 400, fontStyle: 'italic', lineHeight: 1.25 }}>
-          Your Home Has a Story.<br />Let&apos;s Make Sure Buyers Hear It.
-        </div>
-        <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: 'clamp(0.8rem, 2vw, 1rem)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>Curated Real Estate · The Kootenays</div>
-        <div style={{ border: '1px solid #b8860b', color: '#b8860b', padding: '0.65rem 1.75rem', fontSize: 'clamp(0.8rem, 2vw, 0.95rem)', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', cursor: 'pointer' }}>
-          Get Your Property Valuation →
-        </div>
+      {/* Fixed-height container */}
+      <div className="relative w-full" style={{ height: '480px' }}>
+        <AnimatePresence mode="wait">
+          {!transformed ? (
+            <motion.div
+              key="before"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.97, filter: 'blur(6px)', transition: { duration: 0.5 } }}
+              className="absolute inset-0 w-full overflow-hidden flex flex-col"
+              style={{ backgroundColor: '#f2f0ed', border: '1px solid #d8d4cf', borderRadius: '8px', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}
+            >
+              {/* WordPress nav */}
+              <div className="flex items-center justify-between px-4 sm:px-6 py-3" style={{ backgroundColor: '#4a3728', borderBottom: '3px solid #2d2218' }}>
+                <div className="flex items-center gap-2">
+                  <div className="w-6 h-6 rounded-full" style={{ backgroundColor: '#c9a96e' }} />
+                  <span className="text-sm sm:text-base font-bold" style={{ fontFamily: "'Times New Roman', serif", color: '#fff' }}>Pinnacle Real Estate</span>
+                </div>
+                <div className="hidden sm:flex gap-4">
+                  {['Home', 'Listings', 'About', 'Contact'].map((link) => (
+                    <span key={link} className="text-xs" style={{ fontFamily: 'Arial, sans-serif', color: 'rgba(255,255,255,0.7)', textDecoration: 'underline' }}>{link}</span>
+                  ))}
+                </div>
+                <span className="sm:hidden text-xs" style={{ color: 'rgba(255,255,255,0.5)', fontFamily: 'Arial, sans-serif' }}>&#9776; Menu</span>
+              </div>
+              {/* Hero */}
+              <div className="relative px-5 sm:px-10 py-8 sm:py-14 text-center flex-1 flex flex-col justify-center">
+                <div className="absolute inset-0 opacity-[0.10]" style={{ background: 'linear-gradient(135deg, #4a3728 0%, #c9a96e 50%, #f0e8d8 100%)' }} />
+                <div className="relative z-10">
+                  <p className="text-xs uppercase tracking-wide mb-2" style={{ fontFamily: 'Arial, sans-serif', color: '#666', letterSpacing: '0.15em' }}>&#9733; Welcome to Our Website &#9733;</p>
+                  <h2 className="text-xl sm:text-3xl md:text-4xl leading-tight mb-2" style={{ fontFamily: "'Times New Roman', serif", color: '#3a3a3a', fontWeight: 700 }}>
+                    Pinnacle Real Estate
+                  </h2>
+                  <p className="text-sm sm:text-lg mb-1 sm:mb-2" style={{ fontFamily: "'Times New Roman', serif", color: '#666', fontStyle: 'italic' }}>
+                    &ldquo;&#9733; TOP REALTOR &#9733; Your Dream Home Awaits!&rdquo;
+                  </p>
+                  <p className="text-xs sm:text-sm mb-4" style={{ fontFamily: 'Arial, sans-serif', color: '#888' }}>
+                    Buying &bull; Selling &bull; Luxury Homes &bull; Investment &bull; Relocation
+                  </p>
+                  <div className="flex justify-center gap-2 sm:gap-3 mb-4 flex-wrap">
+                    {['✓ #1 in Sales', '✓ Free Home Evaluation', '✓ MLS Listed'].map((b) => (
+                      <span key={b} className="px-3 py-1 text-xs rounded" style={{ backgroundColor: '#4a3728', color: '#fff', fontFamily: 'Arial, sans-serif' }}>{b}</span>
+                    ))}
+                  </div>
+                  <p className="text-sm sm:text-lg font-bold mb-3" style={{ fontFamily: 'Arial, sans-serif', color: '#4a3728' }}>&#128222; Call Us Today: (250) 555-0178</p>
+                  <span className="inline-block px-6 py-2.5 text-sm" style={{ backgroundColor: '#4a3728', color: '#fff', fontFamily: 'Arial, sans-serif', borderRadius: '3px', cursor: 'default' }}>
+                    Click Here for Free Evaluation
+                  </span>
+                  <p className="mt-4 text-xs" style={{ color: '#bbb', fontFamily: 'Arial, sans-serif' }}>Powered by WordPress | Theme: Twenty Twenty-Three</p>
+                </div>
+              </div>
+            </motion.div>
+          ) : (
+            <motion.div
+              key="after"
+              initial={{ opacity: 0, scale: 1.02, filter: 'blur(6px)' }}
+              animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+              transition={{ duration: dur * 0.8, ease: 'easeOut' }}
+              className="absolute inset-0 w-full overflow-hidden flex flex-col"
+              style={{ backgroundColor: EE.cream, border: `1px solid ${EE.gold}30`, borderRadius: '16px', boxShadow: `0 8px 40px ${EE.gold}15, 0 2px 8px rgba(0,0,0,0.04)` }}
+            >
+              {/* Elegant nav */}
+              <div className="flex items-center justify-between px-6 sm:px-10 py-4" style={{ borderBottom: `1px solid ${EE.gold}20` }}>
+                <motion.span className={`${heading.className} text-base sm:text-lg`} style={{ color: EE.dark, fontStyle: 'italic' }} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: dur * 0.6, delay: stagger }}>
+                  Pinnacle Real Estate
+                </motion.span>
+                <motion.div className="hidden sm:flex items-center gap-6" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
+                  {['Properties', 'Portfolio', 'About', 'Contact'].map((link) => (
+                    <span key={link} className={`${body.className} text-xs uppercase tracking-widest`} style={{ color: EE.warm, fontWeight: 500 }}>{link}</span>
+                  ))}
+                </motion.div>
+                <motion.div className="sm:hidden flex flex-col gap-[5px]" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur * 0.6, delay: stagger }}>
+                  <span className="block w-5 h-[2px] rounded-full" style={{ backgroundColor: EE.gold }} />
+                  <span className="block w-4 h-[2px] rounded-full" style={{ backgroundColor: EE.gold }} />
+                  <span className="block w-5 h-[2px] rounded-full" style={{ backgroundColor: EE.gold }} />
+                </motion.div>
+              </div>
+
+              {/* Hero */}
+              <div className="relative px-5 sm:px-10 md:px-16 py-8 sm:py-14 flex-1 flex flex-col justify-center">
+                {/* Editorial flourish SVG motif */}
+                <motion.div className="absolute top-0 right-0 pointer-events-none" initial={{ opacity: 0 }} animate={{ opacity: 0.18 }} transition={{ duration: dur, delay: stagger * 3 }}>
+                  <svg width="200" height="200" viewBox="0 0 160 160" fill="none">
+                    <path d="M140 20 C120 20, 100 30, 90 50 C80 70, 85 90, 70 108 C55 126, 30 135, 20 150" stroke={EE.gold} strokeWidth="1.5" fill="none" strokeLinecap="round" />
+                    <path d="M155 40 C138 40, 122 52, 112 68 C102 84, 105 100, 92 115" stroke={EE.gold} strokeWidth="0.8" fill="none" strokeLinecap="round" />
+                    <circle cx="125" cy="30" r="4" fill={EE.gold} opacity="0.4" />
+                    <circle cx="80" cy="75" r="3" fill={EE.gold} opacity="0.3" />
+                    <path d="M148 65 L158 55 L158 75 Z" fill={EE.gold} opacity="0.25" />
+                  </svg>
+                </motion.div>
+                <motion.div className="absolute bottom-0 left-0 pointer-events-none" initial={{ opacity: 0 }} animate={{ opacity: 0.15 }} transition={{ duration: dur, delay: stagger * 4 }}>
+                  <svg width="160" height="120" viewBox="0 0 120 90" fill="none">
+                    <path d="M10 80 C30 70, 50 55, 70 45 C90 35, 105 40, 112 30" stroke={EE.gold} strokeWidth="1" fill="none" strokeLinecap="round" strokeDasharray="4 6" />
+                    <circle cx="20" cy="72" r="3" fill={EE.gold} opacity="0.3" />
+                  </svg>
+                </motion.div>
+
+                <div className="relative z-10 text-center sm:text-left">
+                  <motion.div className="flex justify-center sm:justify-start mb-3 sm:mb-6" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
+                    <span className={`${body.className} text-xs font-semibold uppercase tracking-[0.2em] px-5 py-2 rounded-full`} style={{ backgroundColor: `${EE.gold}15`, color: EE.gold, border: `1px solid ${EE.gold}30` }}>
+                      Est. 1998 &mdash; West Kootenay
+                    </span>
+                  </motion.div>
+
+                  <motion.h2 className={`${heading.className} text-2xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.15] mb-4 sm:mb-6 sm:max-w-xl`} style={{ color: EE.dark, fontWeight: 400 }} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
+                    Your Home Has a Story.<br />Let&rsquo;s Make Sure Buyers{' '}
+                    <span className="relative inline-block" style={{ color: EE.gold, fontStyle: 'italic' }}>
+                      Hear It.
+                      <motion.svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 100 12" fill="none">
+                        <motion.path d="M2 8 C20 2, 50 2, 80 6 C88 8, 95 5, 98 6" stroke={EE.gold} strokeWidth="1.5" strokeLinecap="round" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: dur * 1.5, delay: stagger * 5, ease: 'easeOut' }} />
+                      </motion.svg>
+                    </span>
+                  </motion.h2>
+
+                  <motion.p className={`${body.className} text-sm sm:text-lg max-w-md sm:mx-0 mx-auto mb-6 sm:mb-8`} style={{ color: EE.warm, lineHeight: 1.7 }} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 4 }}>
+                    Curated real estate in the Kootenays — your property deserves a presence as exceptional as its story.
+                  </motion.p>
+
+                  <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 5 }} className="flex flex-col sm:flex-row items-center sm:items-start justify-center sm:justify-start gap-4">
+                    <a href="#contact" className={`${heading.className} inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 text-sm sm:text-base transition-all duration-300 hover:opacity-90 active:scale-[0.97] font-semibold uppercase tracking-widest`} style={{ backgroundColor: EE.gold, color: EE.cream, boxShadow: `0 4px 20px ${EE.gold}35` }}>
+                      Get Your Property Valuation
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                    </a>
+                    <span className={`${body.className} text-sm`} style={{ color: '#aaa' }}>No commitment required</span>
+                  </motion.div>
+
+                  <motion.div className="flex items-center justify-center sm:justify-start gap-4 sm:gap-6 mt-6 flex-wrap" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur, delay: stagger * 6 }}>
+                    {['Top 1% Agent', '$50M+ Sold', '15 Years'].map((badge) => (
+                      <span key={badge} className={`${body.className} text-xs`} style={{ color: EE.gold, opacity: 0.7, letterSpacing: '0.05em' }}>{badge}</span>
+                    ))}
+                  </motion.div>
+                </div>
+              </div>
+
+              {/* Shimmer border */}
+              <div className="h-[3px] w-full" style={{ background: `linear-gradient(90deg, ${EE.dark}, ${EE.gold}, ${EE.dark})`, backgroundSize: '200% 100%', animation: 'shimmer-border 3s linear infinite' }} />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
-      {/* Divider handle */}
-      <div style={{ position: 'absolute', top: 0, bottom: 0, left: `${pos}%`, width: 2, backgroundColor: '#b8860b', transform: 'translateX(-50%)', zIndex: 10, pointerEvents: 'none' }}>
-        <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', width: 36, height: 36, backgroundColor: '#b8860b', border: '2px solid #faf9f7', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#1a1a1a', fontSize: '0.75rem', fontWeight: 700 }}>
-          ⟺
-        </div>
+      {/* Toggle button */}
+      <div className="flex justify-center mt-8">
+        <button
+          onClick={() => setTransformed(!transformed)}
+          className={`${body.className} text-sm font-medium px-6 py-3 transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]`}
+          style={{ backgroundColor: transformed ? `${EE.gold}10` : EE.cream, color: transformed ? EE.dark : '#888', border: `1px solid ${transformed ? EE.gold : '#ddd'}`, boxShadow: transformed ? `0 2px 12px ${EE.gold}10` : '0 1px 4px rgba(0,0,0,0.06)' }}
+        >
+          {transformed ? '← See the Before' : '✨ Watch the Transformation'}
+        </button>
       </div>
-      <div style={{ position: 'absolute', bottom: 12, left: 12, fontSize: '0.68rem', fontWeight: 700, color: '#b8860b', backgroundColor: 'rgba(26,26,26,0.85)', padding: '3px 8px', pointerEvents: 'none', zIndex: 5, textTransform: 'uppercase', letterSpacing: '0.08em' }}>After ✦</div>
-      <div style={{ position: 'absolute', bottom: 12, right: 12, fontSize: '0.68rem', fontWeight: 700, color: '#888', backgroundColor: 'rgba(255,255,255,0.8)', padding: '3px 8px', pointerEvents: 'none', zIndex: 5 }}>Before</div>
-      <div style={{ position: 'absolute', top: 12, left: '50%', transform: 'translateX(-50%)', fontSize: '0.68rem', color: '#888', backgroundColor: 'rgba(255,255,255,0.75)', padding: '3px 10px', pointerEvents: 'none', zIndex: 5, whiteSpace: 'nowrap' }}>← drag to compare →</div>
     </div>
   )
 }
@@ -174,6 +309,10 @@ export default function EditorialElegantDemo() {
         @keyframes kenBurns {
           0% { transform: scale(1); }
           100% { transform: scale(1.05); }
+        }
+        @keyframes shimmer-border {
+          0% { background-position: 200% 0; }
+          100% { background-position: -200% 0; }
         }
         @media (prefers-reduced-motion: reduce) {
           *, *::before, *::after {
@@ -379,20 +518,17 @@ export default function EditorialElegantDemo() {
         </div>
       </section>
 
-      {/* ═══════════ 7. BEFORE / AFTER ═══════════ */}
+      {/* ═══════════ 7. THE TRANSFORMATION ═══════════ */}
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#ffffff' }}>
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-5xl mx-auto">
           <Reveal>
-            <EditorialTitle subtitle="Drag to compare a generic template with a Kootenay Made brand presence">
-              The Transformation
+            <EditorialTitle subtitle="From dated to designed — in real time">
+              Watch Your Website Transform
             </EditorialTitle>
           </Reveal>
           <Reveal delay={0.1}>
-            <BeforeAfterSlider />
+            <LiveRedesign />
           </Reveal>
-          <p className="text-center mt-8 text-sm italic" style={{ color: '#6b6b6b' }}>
-            Which agent would a luxury buyer trust with their search?
-          </p>
         </div>
       </section>
 

@@ -1,10 +1,10 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { Bebas_Neue, DM_Sans } from 'next/font/google'
 import Link from 'next/link'
 import Image from 'next/image'
-import { motion, useReducedMotion } from 'framer-motion'
+import { motion, useReducedMotion, useInView, AnimatePresence } from 'framer-motion'
 
 const bebas = Bebas_Neue({ subsets: ['latin'], weight: ['400'] })
 const dmSans = DM_Sans({ subsets: ['latin'], weight: ['400', '500', '700'] })
@@ -47,35 +47,184 @@ function AudioVisualizer() {
   )
 }
 
-/* ── Before/After Slider (neon style) ─────────────────────── */
-function BeforeAfterSlider() {
-  const [pos, setPos] = useState(50)
+/* ── Live Redesign (music-entertainment) ─────────────────────── */
+function LiveRedesign() {
+  const prefersReduced = useReducedMotion()
+  const ref = useRef<HTMLDivElement>(null)
+  const [transformed, setTransformed] = useState(false)
+
+  const dur = prefersReduced ? 0.01 : 0.9
+  const stagger = prefersReduced ? 0 : 0.18
+
+  const pink = '#e91e8a'
+  const darkPink = '#b51568'
+  const blue = '#3b82f6'
+  const black = '#000000'
+  const dark = '#111111'
+
   return (
-    <div className="relative overflow-hidden select-none rounded-lg max-w-3xl mx-auto" style={{ aspectRatio: '3/2', border: '1px solid rgba(233,30,138,0.25)' }}>
-      {/* AFTER */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center px-8 text-center" style={{ backgroundColor: '#111111' }}>
-        <div className="text-xs font-bold uppercase tracking-[0.25em] mb-4 neon-heading-sm" style={{ color: '#e91e8a' }}>AFTER</div>
-        <div className={`${bebas.className} text-3xl md:text-5xl neon-heading-sm mb-5 leading-tight`} style={{ color: '#ffffff', letterSpacing: '0.04em' }}>Saturday Sold Out.<br />Friday&rsquo;s Going Fast.</div>
-        <div className="inline-block px-8 py-3 text-sm font-bold uppercase tracking-widest" style={{ backgroundColor: '#e91e8a', color: '#ffffff' }}>Grab Tickets Before They&rsquo;re Gone &rarr;</div>
-        <div className="absolute top-3 right-4 text-xs font-bold uppercase px-2 py-1" style={{ backgroundColor: '#e91e8a', color: '#ffffff' }}>AFTER</div>
+    <div ref={ref} className="w-full">
+      {/* Bold label */}
+      <div className="flex items-center justify-center gap-3 mb-5">
+        <motion.div className="h-[1px] flex-1 max-w-[80px]" style={{ backgroundColor: transformed ? pink : '#333' }} layout transition={{ duration: 0.4 }} />
+        <AnimatePresence mode="wait">
+          <motion.span
+            key={transformed ? 'after-label' : 'before-label'}
+            initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 8 }}
+            transition={{ duration: 0.3 }}
+            className={`${dmSans.className} text-sm font-bold uppercase tracking-[0.25em]`}
+            style={{ color: transformed ? pink : '#555' }}
+          >{transformed ? '✨ After' : 'Before'}</motion.span>
+        </AnimatePresence>
+        <motion.div className="h-[1px] flex-1 max-w-[80px]" style={{ backgroundColor: transformed ? pink : '#333' }} layout transition={{ duration: 0.4 }} />
       </div>
-      {/* BEFORE */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center px-8 text-center"
-        style={{ backgroundColor: '#e8e8e8', clipPath: `inset(0 ${100 - pos}% 0 0)`, fontFamily: 'Times New Roman, serif' }}>
-        <div className="text-xs uppercase tracking-widest mb-4" style={{ color: '#999', fontFamily: 'Times New Roman, serif' }}>★ WELCOME ★</div>
-        <div className="text-2xl md:text-4xl font-bold mb-5 leading-tight" style={{ color: '#555', fontFamily: 'Times New Roman, serif' }}>WELCOME TO THE VENUE!<br />Live Music Every Weekend!<br />Check Our Facebook for Details!</div>
-        <div className="inline-block px-6 py-2 text-sm font-bold" style={{ backgroundColor: '#999', color: '#fff', fontFamily: 'Times New Roman, serif' }}>Click Here</div>
-        <div className="absolute top-3 left-4 text-xs font-bold uppercase px-2 py-1" style={{ backgroundColor: '#9ca3af', color: '#ffffff' }}>BEFORE</div>
+
+      {/* Fixed-height container */}
+      <div className="relative w-full" style={{ height: '480px' }}>
+        <AnimatePresence mode="wait">
+          {!transformed ? (
+            <motion.div
+              key="before"
+              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.97, filter: 'blur(6px)', transition: { duration: 0.5 } }}
+              className="absolute inset-0 w-full overflow-hidden flex flex-col"
+              style={{ backgroundColor: '#f2f0ed', border: '1px solid #d8d4cf', borderRadius: '8px', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}
+            >
+              {/* Fake WordPress nav */}
+              <div className="flex items-center justify-between px-4 sm:px-6 py-3" style={{ backgroundColor: '#1a0a12', borderBottom: '3px solid #0d0508' }}>
+                <div className="flex items-center gap-2">
+                  <div className="w-6 h-6 rounded-full" style={{ backgroundColor: '#e91e8a' }} />
+                  <span className="text-sm sm:text-base font-bold" style={{ fontFamily: 'Georgia, serif', color: '#fff' }}>Neon Pines</span>
+                </div>
+                <div className="hidden sm:flex gap-4">
+                  {['Home', 'Shows', 'Events', 'Contact'].map((link) => (
+                    <span key={link} className="text-xs" style={{ fontFamily: 'Arial, sans-serif', color: 'rgba(255,255,255,0.7)', textDecoration: 'underline' }}>{link}</span>
+                  ))}
+                </div>
+                <span className="sm:hidden text-xs" style={{ color: 'rgba(255,255,255,0.5)', fontFamily: 'Arial, sans-serif' }}>&#9776; Menu</span>
+              </div>
+              {/* Hero area */}
+              <div className="relative px-5 sm:px-10 py-8 sm:py-14 md:py-16 text-center flex-1 flex flex-col justify-center">
+                <div className="absolute inset-0 opacity-[0.12]" style={{ background: 'linear-gradient(135deg, #1a0a12 0%, #e91e8a 50%, #3b82f6 100%)' }} />
+                <div className="relative z-10">
+                  <p className="text-xs uppercase tracking-wide mb-2 sm:mb-4" style={{ fontFamily: 'Arial, sans-serif', color: '#666', letterSpacing: '0.15em' }}>&#9733; Welcome to Our Website &#9733;</p>
+                  <h2 className="text-xl sm:text-3xl md:text-4xl leading-tight mb-2 sm:mb-3" style={{ fontFamily: 'Georgia, serif', color: '#3a3a3a', fontWeight: 700 }}>Neon Pines</h2>
+                  <p className="text-sm sm:text-lg mb-1 sm:mb-2" style={{ fontFamily: 'Georgia, serif', color: '#666', fontStyle: 'italic' }}>&ldquo;Live Music Every Weekend!&rdquo;</p>
+                  <p className="text-xs sm:text-sm mb-4 sm:mb-6" style={{ fontFamily: 'Arial, sans-serif', color: '#888' }}>Live Shows &bull; DJ Nights &bull; Private Events &bull; Merch &bull; Bar</p>
+                  <div className="flex justify-center gap-2 sm:gap-3 mb-4 sm:mb-6 flex-wrap">
+                    {['✓ All Ages Shows', '✓ VIP Available', '✓ Sound System'].map((b) => (
+                      <span key={b} className="px-3 py-1 text-xs rounded" style={{ backgroundColor: '#1a0a12', color: '#fff', fontFamily: 'Arial, sans-serif' }}>{b}</span>
+                    ))}
+                  </div>
+                  <p className="text-sm sm:text-lg font-bold mb-3 sm:mb-4" style={{ fontFamily: 'Arial, sans-serif', color: '#1a0a12' }}>&#128222; Call Us Today: (250) 555-0114</p>
+                  <span className="inline-block px-6 py-2.5 text-sm" style={{ backgroundColor: '#e91e8a', color: '#fff', fontFamily: 'Arial, sans-serif', borderRadius: '3px', border: '1px solid #1a0a12', cursor: 'default' }}>Check Our Facebook for Details</span>
+                  <p className="mt-4 sm:mt-6 text-xs" style={{ color: '#bbb', fontFamily: 'Arial, sans-serif' }}>Powered by WordPress | Theme: Twenty Twenty-Three</p>
+                </div>
+              </div>
+            </motion.div>
+          ) : (
+            <motion.div
+              key="after"
+              initial={{ opacity: 0, scale: 1.02, filter: 'blur(6px)' }}
+              animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+              transition={{ duration: dur * 0.8, ease: 'easeOut' }}
+              className="absolute inset-0 w-full overflow-hidden flex flex-col"
+              style={{ backgroundColor: black, border: `1px solid ${pink}30`, borderRadius: '16px', boxShadow: `0 8px 40px ${pink}15, 0 2px 8px rgba(0,0,0,0.3)` }}
+            >
+              {/* Elegant nav */}
+              <div className="flex items-center justify-between px-6 sm:px-10 py-4" style={{ borderBottom: `1px solid ${pink}20` }}>
+                <motion.span className={`${bebas.className} text-xl sm:text-2xl tracking-widest`} style={{ color: pink, letterSpacing: '0.12em', textShadow: `0 0 10px ${pink}` }}
+                  initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: dur * 0.6, delay: stagger }}>
+                  NEON PINES
+                </motion.span>
+                <motion.div className="hidden sm:flex items-center gap-6" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
+                  {['Shows', 'Venue', 'About', 'Contact'].map((link) => (
+                    <span key={link} className={`${dmSans.className} text-xs uppercase tracking-widest`} style={{ color: 'rgba(255,255,255,0.55)', fontWeight: 500 }}>{link}</span>
+                  ))}
+                </motion.div>
+                <motion.div className="sm:hidden flex flex-col gap-[5px]" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur * 0.6, delay: stagger }}>
+                  <span className="block w-5 h-[2px] rounded-full" style={{ backgroundColor: pink }} />
+                  <span className="block w-4 h-[2px] rounded-full" style={{ backgroundColor: pink }} />
+                  <span className="block w-5 h-[2px] rounded-full" style={{ backgroundColor: pink }} />
+                </motion.div>
+              </div>
+              {/* Hero */}
+              <div className="relative px-5 sm:px-10 md:px-16 py-8 sm:py-10 flex-1 flex flex-col justify-center overflow-hidden">
+                {/* Decorative neon/electric lines SVG */}
+                <motion.div className="absolute top-0 right-0 pointer-events-none" initial={{ opacity: 0 }} animate={{ opacity: 0.2 }} transition={{ duration: dur, delay: stagger * 3 }}>
+                  <svg width="240" height="240" viewBox="0 0 180 180" fill="none">
+                    <line x1="180" y1="0" x2="120" y2="180" stroke={pink} strokeWidth="1" />
+                    <line x1="160" y1="0" x2="100" y2="180" stroke={blue} strokeWidth="0.8" />
+                    <line x1="140" y1="0" x2="80" y2="180" stroke={pink} strokeWidth="0.5" opacity="0.5" />
+                    <path d="M130 20 L160 60 L130 100" stroke={pink} strokeWidth="1" fill="none" strokeLinecap="round" />
+                    <circle cx="150" cy="40" r="3" fill={pink} opacity="0.6" />
+                    <circle cx="160" cy="80" r="2" fill={blue} opacity="0.5" />
+                    <circle cx="145" cy="120" r="2" fill={pink} opacity="0.4" />
+                  </svg>
+                </motion.div>
+                <div className="relative z-10 text-center sm:text-left">
+                  {/* Business chip */}
+                  <motion.div className="flex justify-center sm:justify-start mb-3 sm:mb-5" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
+                    <span className={`${dmSans.className} text-xs font-semibold uppercase tracking-[0.2em] px-5 py-2 rounded-full`} style={{ backgroundColor: `${pink}15`, color: pink, border: `1px solid ${pink}30` }}>
+                      Est. 2016 &mdash; Nelson, BC
+                    </span>
+                  </motion.div>
+                  {/* Headline */}
+                  <motion.h2 className={`${bebas.className} text-3xl sm:text-5xl md:text-6xl leading-[1.05] mb-4 sm:mb-5`}
+                    style={{ color: '#ffffff', letterSpacing: '0.04em' }}
+                    initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
+                    Saturday Sold Out.{' '}
+                    <span className="relative inline-block" style={{ color: pink, textShadow: `0 0 20px ${pink}` }}>
+                      Friday&rsquo;s Going Fast.
+                      <motion.svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 260 12" fill="none">
+                        <motion.path d="M4 8 L260 4" stroke={pink} strokeWidth="2" strokeLinecap="round" fill="none"
+                          initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: dur * 1.5, delay: stagger * 5, ease: 'easeOut' }} />
+                      </motion.svg>
+                    </span>
+                  </motion.h2>
+                  {/* Subline */}
+                  <motion.p className={`${dmSans.className} text-sm sm:text-lg max-w-md sm:mx-0 mx-auto mb-6 sm:mb-8`}
+                    style={{ color: 'rgba(255,255,255,0.6)', lineHeight: 1.7 }}
+                    initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 4 }}>
+                    The Kootenays&rsquo; most intimate live music venue. Real sound. Real nights. Nelson, BC.
+                  </motion.p>
+                  {/* CTA */}
+                  <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 5 }}
+                    className="flex flex-col sm:flex-row items-center sm:items-start justify-center sm:justify-start gap-4">
+                    <a href="#contact" className={`${dmSans.className} inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 text-sm sm:text-base font-bold uppercase tracking-widest rounded-none transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]`}
+                      style={{ backgroundColor: pink, color: '#fff', boxShadow: `0 4px 20px ${pink}40`, letterSpacing: '0.12em' }}>
+                      Grab Tickets Before They&rsquo;re Gone
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                    </a>
+                    <span className={`${dmSans.className} text-sm`} style={{ color: 'rgba(255,255,255,0.35)' }}>No commitment required</span>
+                  </motion.div>
+                  {/* Trust signals */}
+                  <motion.div className="flex items-center justify-center sm:justify-start gap-4 sm:gap-6 mt-5 sm:mt-8 flex-wrap"
+                    initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur, delay: stagger * 6 }}>
+                    {['200+ Shows/Year', '500 Capacity', 'Pro Sound'].map((badge) => (
+                      <span key={badge} className={`${dmSans.className} text-xs`} style={{ color: pink, opacity: 0.7, letterSpacing: '0.05em' }}>{badge}</span>
+                    ))}
+                  </motion.div>
+                </div>
+              </div>
+              {/* Shimmer border */}
+              <div className="h-[3px] w-full" style={{ background: `linear-gradient(90deg, ${pink}, ${blue}, ${pink})`, backgroundSize: '200% 100%', animation: 'shimmer-border 3s linear infinite' }} />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
-      {/* Handle */}
-      <div className="absolute top-0 bottom-0 z-10 flex items-center justify-center" style={{ left: `${pos}%`, transform: 'translateX(-50%)', width: '3px', backgroundColor: '#e91e8a', pointerEvents: 'none' }}>
-        <div className="w-8 h-8 rounded-full flex items-center justify-center" style={{ backgroundColor: '#e91e8a', boxShadow: '0 0 16px rgba(233,30,138,0.6)' }}>
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M5 3L2 8l3 5M11 3l3 5-3 5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-        </div>
+
+      {/* Toggle button */}
+      <div className="flex justify-center mt-8">
+        <button
+          onClick={() => setTransformed(!transformed)}
+          className={`${dmSans.className} text-sm font-medium px-6 py-3 rounded-none transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]`}
+          style={{ backgroundColor: transformed ? `${pink}15` : '#111', color: transformed ? pink : 'rgba(255,255,255,0.6)', border: `1.5px solid ${transformed ? `${pink}40` : 'rgba(255,255,255,0.15)'}`, boxShadow: transformed ? `0 2px 12px ${pink}15` : 'none' }}
+        >
+          {transformed ? '← See the Before' : '✨ Watch the Transformation'}
+        </button>
       </div>
-      <input type="range" min={0} max={100} value={pos} onChange={(e) => setPos(Number(e.target.value))}
-        className="absolute inset-0 w-full h-full opacity-0 cursor-ew-resize z-20"
-        aria-label="Before/After comparison slider" style={{ margin: 0 }} />
     </div>
   )
 }
@@ -140,6 +289,7 @@ export default function MusicEntertainmentPage() {
         .event-row { border-bottom: 1px solid rgba(233,30,138,0.15); transition: background 0.2s ease; }
         .event-row:hover { background: rgba(233,30,138,0.06); }
         .gradient-mesh { background: radial-gradient(ellipse 55% 45% at 15% 40%, rgba(233,30,138,0.14) 0%, transparent 65%), radial-gradient(ellipse 45% 55% at 85% 55%, rgba(59,130,246,0.14) 0%, transparent 65%), radial-gradient(ellipse 35% 35% at 50% 95%, rgba(233,30,138,0.08) 0%, transparent 55%); }
+        @keyframes shimmer-border { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
         @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; } }
       `}</style>
 
@@ -325,15 +475,15 @@ export default function MusicEntertainmentPage() {
         </div>
       </section>
 
-      {/* ═══════════ BEFORE/AFTER ═══════════ */}
+      {/* ═══════════ 7. THE TRANSFORMATION ═══════════ */}
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#000000' }}>
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-5xl mx-auto">
           <Reveal className="text-center mb-12">
-            <p className={`${bebas.className} text-sm tracking-[0.25em] mb-3`} style={{ color: '#e91e8a' }}>THE DIFFERENCE</p>
-            <h2 className={`${bebas.className} text-4xl md:text-6xl neon-heading-sm`} style={{ color: '#ffffff', letterSpacing: '0.04em' }}>Before &amp; After</h2>
-            <p className="mt-4 text-sm" style={{ color: 'rgba(255,255,255,0.35)' }}>Drag the slider. This is what a real digital presence looks like.</p>
+            <p className={`${bebas.className} text-sm tracking-[0.25em] mb-3`} style={{ color: '#e91e8a' }}>THE TRANSFORMATION</p>
+            <h2 className={`${bebas.className} text-4xl md:text-6xl neon-heading-sm`} style={{ color: '#ffffff', letterSpacing: '0.04em' }}>Watch Your Website Transform</h2>
+            <p className="mt-4 text-sm" style={{ color: 'rgba(255,255,255,0.35)' }}>From dated to designed — in real time</p>
           </Reveal>
-          <Reveal delay={0.1}><BeforeAfterSlider /></Reveal>
+          <LiveRedesign />
         </div>
       </section>
 

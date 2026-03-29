@@ -1,10 +1,10 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { Space_Grotesk } from 'next/font/google'
 import Image from 'next/image'
 import Link from 'next/link'
-import { motion, useReducedMotion } from 'framer-motion'
+import { motion, useReducedMotion, AnimatePresence, useInView } from 'framer-motion'
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -58,49 +58,172 @@ function DiamondDeco({ className = '' }: { className?: string }) {
 }
 
 /* ── Before/After Slider ───────────────────────────────────── */
-function BeforeAfterSlider() {
-  const [pos, setPos] = useState(50)
+/* ── Live Redesign Component ─────────────────────────────────── */
+function LiveRedesign() {
+  const prefersReduced = useReducedMotion()
+  const ref = useRef<HTMLDivElement>(null)
+  const [transformed, setTransformed] = useState(false)
+
+  const dur = prefersReduced ? 0.01 : 0.9
+  const stagger = prefersReduced ? 0 : 0.18
+
   return (
-    <div className="relative overflow-hidden rounded-lg select-none max-w-3xl mx-auto" style={{ aspectRatio: '3/2', border: '1px solid #222' }}>
-      {/* AFTER side */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center px-8 text-center" style={{ backgroundColor: '#111111' }}>
-        <div className="w-16 h-1 mb-6" style={{ backgroundColor: '#ff6b00' }} />
-        <div className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: '#ff6b00' }}>AFTER</div>
-        <div className="text-2xl md:text-4xl font-bold uppercase mb-5 leading-tight" style={{ color: '#ffffff' }}>Your Competitor Launched Last Month.<br />What Are You Waiting For?</div>
-        <div className="inline-block px-8 py-3 text-sm font-bold uppercase tracking-widest" style={{ backgroundColor: '#ff6b00', color: '#111111' }}>Let&rsquo;s Build It &rarr;</div>
-        <div className="absolute top-3 right-4 text-xs font-bold uppercase tracking-wider px-2 py-1" style={{ backgroundColor: '#ff6b00', color: '#111111' }}>AFTER</div>
+    <div ref={ref} className="w-full">
+      {/* Bold label */}
+      <div className="flex items-center justify-center gap-3 mb-5">
+        <motion.div className="h-[2px] flex-1 max-w-[80px]" style={{ backgroundColor: transformed ? '#ff6b00' : '#333' }} layout transition={{ duration: 0.4 }} />
+        <AnimatePresence mode="wait">
+          <motion.span key={transformed ? 'after-label' : 'before-label'}
+            initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 8 }} transition={{ duration: 0.3 }}
+            className={`${spaceGrotesk.className} text-sm font-bold uppercase tracking-[0.25em]`}
+            style={{ color: transformed ? '#ff6b00' : 'rgba(255,255,255,0.3)' }}>
+            {transformed ? '✨ After' : 'Before'}
+          </motion.span>
+        </AnimatePresence>
+        <motion.div className="h-[2px] flex-1 max-w-[80px]" style={{ backgroundColor: transformed ? '#ff6b00' : '#333' }} layout transition={{ duration: 0.4 }} />
       </div>
-      {/* BEFORE side — clipped */}
-      <div
-        className="absolute inset-0 flex flex-col items-center justify-center px-8 text-center"
-        style={{
-          backgroundColor: '#f0f0f0',
-          clipPath: `inset(0 ${100 - pos}% 0 0)`,
-          fontFamily: 'Georgia, serif',
-        }}
-      >
-        <div className="text-xs uppercase tracking-widest mb-4" style={{ color: '#999' }}>EST. 1998</div>
-        <div className="text-2xl md:text-4xl font-bold mb-5 leading-tight" style={{ color: '#555', fontFamily: 'Georgia, serif' }}>Welcome! We Are a Leading Technology Solutions Provider.<br />Innovative. Scalable. Dynamic.</div>
-        <div className="inline-block px-6 py-2 text-sm font-bold" style={{ backgroundColor: '#999', color: '#fff', fontFamily: 'Georgia, serif' }}>Click Here</div>
-        <div className="absolute top-3 left-4 text-xs font-bold uppercase tracking-wider px-2 py-1" style={{ backgroundColor: '#9ca3af', color: '#ffffff' }}>BEFORE</div>
+
+      {/* Fixed-height container */}
+      <div className="relative w-full" style={{ height: '480px' }}>
+        <AnimatePresence mode="wait">
+          {!transformed ? (
+            <motion.div key="before"
+              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.97, filter: 'blur(6px)', transition: { duration: 0.5 } }}
+              className="absolute inset-0 w-full overflow-hidden flex flex-col"
+              style={{ backgroundColor: '#f2f0ed', border: '1px solid #d8d4cf', borderRadius: '8px', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
+              {/* WordPress nav */}
+              <div className="flex items-center justify-between px-4 sm:px-6 py-3" style={{ backgroundColor: '#2a2a2a', borderBottom: '3px solid #1a1a1a' }}>
+                <div className="flex items-center gap-2">
+                  <div className="w-6 h-6" style={{ backgroundColor: '#ff6b00', clipPath: 'polygon(50% 0%, 100% 100%, 0% 100%)' }} />
+                  <span className="text-sm sm:text-base font-bold" style={{ fontFamily: 'Georgia, serif', color: '#fff' }}>Volt Electric</span>
+                </div>
+                <div className="hidden sm:flex gap-4">
+                  {['Home', 'Services', 'About', 'Contact'].map((link) => (
+                    <span key={link} className="text-xs" style={{ fontFamily: 'Arial, sans-serif', color: 'rgba(255,255,255,0.7)', textDecoration: 'underline' }}>{link}</span>
+                  ))}
+                </div>
+                <span className="sm:hidden text-xs" style={{ color: 'rgba(255,255,255,0.5)', fontFamily: 'Arial, sans-serif' }}>&#9776; Menu</span>
+              </div>
+              {/* Hero */}
+              <div className="relative px-5 sm:px-10 py-8 sm:py-14 text-center flex-1 flex flex-col justify-center">
+                <div className="absolute inset-0 opacity-[0.12]" style={{ background: 'linear-gradient(135deg, #555 0%, #888 50%, #ccc 100%)' }} />
+                <div className="relative z-10">
+                  <p className="text-xs uppercase tracking-wide mb-2" style={{ fontFamily: 'Arial, sans-serif', color: '#666' }}>★ Welcome to Our Website ★</p>
+                  <h2 className="text-xl sm:text-3xl md:text-4xl leading-tight mb-2" style={{ fontFamily: 'Georgia, serif', color: '#3a3a3a', fontWeight: 700 }}>
+                    Volt Electric
+                  </h2>
+                  <p className="text-sm sm:text-lg mb-1" style={{ fontFamily: 'Georgia, serif', color: '#666', fontStyle: 'italic' }}>
+                    &ldquo;Innovative. Scalable. Dynamic.&rdquo;
+                  </p>
+                  <p className="text-xs sm:text-sm mb-4" style={{ fontFamily: 'Arial, sans-serif', color: '#888' }}>
+                    Commercial &bull; Residential &bull; Industrial &bull; EV Chargers &bull; Solar
+                  </p>
+                  <div className="flex justify-center gap-2 mb-4 flex-wrap">
+                    {['✓ Licensed Master Electrician', '✓ Insured', '✓ Free Quotes'].map((b) => (
+                      <span key={b} className="px-3 py-1 text-xs" style={{ backgroundColor: '#2a2a2a', color: '#fff', fontFamily: 'Arial, sans-serif' }}>{b}</span>
+                    ))}
+                  </div>
+                  <p className="text-sm font-bold mb-3" style={{ fontFamily: 'Arial, sans-serif', color: '#555' }}>📞 Call Us: (250) 555-0180</p>
+                  <span className="inline-block px-6 py-2.5 text-sm" style={{ backgroundColor: '#555', color: '#fff', fontFamily: 'Arial, sans-serif', cursor: 'default' }}>
+                    Get a Free Quote
+                  </span>
+                  <p className="mt-4 text-xs" style={{ color: '#bbb', fontFamily: 'Arial, sans-serif' }}>Powered by WordPress | Theme: Twenty Twenty-Three</p>
+                </div>
+              </div>
+            </motion.div>
+          ) : (
+            <motion.div key="after"
+              initial={{ opacity: 0, scale: 1.02, filter: 'blur(6px)' }}
+              animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+              transition={{ duration: dur * 0.8, ease: 'easeOut' }}
+              className="absolute inset-0 w-full overflow-hidden flex flex-col"
+              style={{ backgroundColor: '#111111', border: '1px solid rgba(255,107,0,0.3)', borderRadius: '0px', boxShadow: '0 8px 40px rgba(255,107,0,0.15), 0 2px 8px rgba(0,0,0,0.3)' }}>
+              {/* Bold nav */}
+              <div className="flex items-center justify-between px-6 sm:px-10 py-4" style={{ borderBottom: '1px solid #222' }}>
+                <motion.span className={`${spaceGrotesk.className} text-base sm:text-lg font-bold uppercase tracking-wider`} style={{ color: '#fff' }}
+                  initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: dur * 0.6, delay: stagger }}>
+                  <span style={{ color: '#ff6b00' }}>VOLT</span> ELECTRIC CO.
+                </motion.span>
+                <motion.div className="hidden sm:flex items-center gap-6" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
+                  {['SERVICES', 'ABOUT', 'PROJECTS', 'CONTACT'].map((link) => (
+                    <span key={link} className={`${spaceGrotesk.className} text-xs font-medium uppercase tracking-widest`} style={{ color: 'rgba(255,107,0,0.7)' }}>{link}</span>
+                  ))}
+                </motion.div>
+                <motion.div className="sm:hidden flex flex-col gap-[5px]" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur * 0.6, delay: stagger }}>
+                  <span className="block w-5 h-[2px]" style={{ backgroundColor: '#ff6b00' }} />
+                  <span className="block w-4 h-[2px]" style={{ backgroundColor: '#ff6b00' }} />
+                  <span className="block w-5 h-[2px]" style={{ backgroundColor: '#ff6b00' }} />
+                </motion.div>
+              </div>
+              {/* Hero */}
+              <div className="relative px-5 sm:px-10 md:px-16 py-8 sm:py-12 flex-1 flex flex-col justify-center">
+                {/* Angular circuit motif */}
+                <motion.div className="absolute top-0 right-0 pointer-events-none" initial={{ opacity: 0 }} animate={{ opacity: 0.2 }} transition={{ duration: dur, delay: stagger * 3 }}>
+                  <svg width="200" height="200" viewBox="0 0 160 160" fill="none">
+                    <path d="M160 0 L160 80 L120 80 L120 40 L80 40 L80 0Z" fill="#ff6b00" />
+                    <path d="M140 0 L140 60 L100 60 L100 20 L60 20 L60 0Z" fill="#ff6b00" opacity="0.3" />
+                    <line x1="80" y1="40" x2="80" y2="160" stroke="#ff6b00" strokeWidth="0.5" />
+                    <line x1="120" y1="80" x2="160" y2="80" stroke="#ff6b00" strokeWidth="0.5" />
+                  </svg>
+                </motion.div>
+                <div className="relative z-10 text-center sm:text-left">
+                  <motion.div initial={{ opacity: 0, scaleX: 0, transformOrigin: 'left' }} animate={{ opacity: 1, scaleX: 1 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
+                    <div className="w-16 h-1 mb-4 mx-auto sm:mx-0" style={{ backgroundColor: '#ff6b00' }} />
+                  </motion.div>
+                  <motion.div className="flex justify-center sm:justify-start mb-4" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
+                    <span className={`${spaceGrotesk.className} text-xs font-bold uppercase tracking-[0.2em] px-4 py-1.5`} style={{ backgroundColor: 'rgba(255,107,0,0.12)', color: '#ff6b00', border: '1px solid rgba(255,107,0,0.25)' }}>
+                      West Kootenays &mdash; 20+ Years
+                    </span>
+                  </motion.div>
+                  <motion.h2 className={`${spaceGrotesk.className} text-2xl sm:text-4xl md:text-5xl font-bold uppercase leading-[1.1] mb-4 sm:max-w-xl`} style={{ color: '#ffffff' }}
+                    initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
+                    Your Competitor Launched Last Month. What Are You{' '}
+                    <span className="relative inline-block" style={{ color: '#ff6b00' }}>
+                      Waiting For?
+                      <motion.svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 12" fill="none">
+                        <motion.path d="M4 8 C40 2, 80 2, 120 6 C140 8, 170 4, 196 6" stroke="#ff6b00" strokeWidth="2" strokeLinecap="round" fill="none"
+                          initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: dur * 1.5, delay: stagger * 5, ease: 'easeOut' }} />
+                      </motion.svg>
+                    </span>
+                  </motion.h2>
+                  <motion.p className={`${spaceGrotesk.className} text-sm sm:text-base max-w-sm mx-auto sm:mx-0 mb-6`} style={{ color: 'rgba(255,255,255,0.45)', lineHeight: 1.7 }}
+                    initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 4 }}>
+                    Licensed electrical contractors. Bold results. Same-day quotes.
+                  </motion.p>
+                  <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 5 }}
+                    className="flex flex-col sm:flex-row items-center sm:items-start justify-center sm:justify-start gap-4">
+                    <a href="#contact" className={`${spaceGrotesk.className} inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 sm:px-8 py-3.5 text-sm transition-all hover:scale-[1.03] active:scale-[0.97] uppercase tracking-wider font-bold`}
+                      style={{ backgroundColor: '#ff6b00', color: '#111111', boxShadow: '0 4px 20px rgba(255,107,0,0.4)' }}>
+                      Let&rsquo;s Build It
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                    <span className={`${spaceGrotesk.className} text-sm`} style={{ color: 'rgba(255,255,255,0.25)' }}>No commitment required</span>
+                  </motion.div>
+                  <motion.div className="flex items-center justify-center sm:justify-start gap-4 sm:gap-6 mt-6 flex-wrap"
+                    initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur, delay: stagger * 6 }}>
+                    {['Master Electrician', '300+ Projects', 'Same-Day Quotes'].map((badge) => (
+                      <span key={badge} className={`${spaceGrotesk.className} text-xs font-bold uppercase tracking-wider`} style={{ color: 'rgba(255,107,0,0.6)' }}>{badge}</span>
+                    ))}
+                  </motion.div>
+                </div>
+              </div>
+              {/* Shimmer border */}
+              <motion.div className="h-[3px] w-full" style={{ background: 'linear-gradient(90deg, transparent, #ff6b00, #ffaa55, #ff6b00, transparent)', backgroundSize: '200% 100%' }}
+                animate={{ backgroundPosition: ['200% 0', '-200% 0'] }} transition={{ duration: 3, repeat: Infinity, ease: 'linear' }} />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
-      {/* Drag handle */}
-      <div
-        className="absolute top-0 bottom-0 z-10 flex items-center justify-center"
-        style={{ left: `${pos}%`, transform: 'translateX(-50%)', width: '3px', backgroundColor: '#ff6b00', pointerEvents: 'none' }}
-      >
-        <div className="w-8 h-8 rounded-full flex items-center justify-center" style={{ backgroundColor: '#ff6b00', boxShadow: '0 0 16px rgba(255,107,0,0.5)' }}>
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M5 3L2 8l3 5M11 3l3 5-3 5" stroke="#111" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-        </div>
+
+      {/* Toggle button */}
+      <div className="flex justify-center mt-8">
+        <button onClick={() => setTransformed(!transformed)}
+          className={`${spaceGrotesk.className} text-sm font-bold px-6 py-3 uppercase tracking-wider transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]`}
+          style={{ backgroundColor: transformed ? 'rgba(255,107,0,0.12)' : 'transparent', color: transformed ? '#ff6b00' : 'rgba(255,255,255,0.3)', border: `1px solid ${transformed ? 'rgba(255,107,0,0.3)' : '#333'}` }}>
+          {transformed ? '← See the Before' : '✨ Watch the Transformation'}
+        </button>
       </div>
-      {/* Range input (invisible, covers entire area) */}
-      <input
-        type="range" min={0} max={100} value={pos}
-        onChange={(e) => setPos(Number(e.target.value))}
-        className="absolute inset-0 w-full h-full opacity-0 cursor-ew-resize z-20"
-        aria-label="Before/After comparison slider"
-        style={{ margin: 0 }}
-      />
     </div>
   )
 }
@@ -145,6 +268,15 @@ export default function BoldModernDemo() {
 
   return (
     <div className={spaceGrotesk.className} style={{ fontFamily: 'Space Grotesk, sans-serif', backgroundColor: '#111111', color: '#ffffff' }}>
+      <style>{`
+        @media (prefers-reduced-motion: reduce) {
+          *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+        }
+        @keyframes shimmer-border {
+          0% { background-position: 200% 0; }
+          100% { background-position: -200% 0; }
+        }
+      `}</style>
 
       {/* ─── 1. NAV ─────────────────────────────────────────── */}
       <nav style={{ backgroundColor: '#111111', borderBottom: '1px solid #222' }} className="relative z-40 px-6 py-4">
@@ -334,16 +466,16 @@ export default function BoldModernDemo() {
 
       <SlashDivider flip topColor="#0a0a0a" bottomColor="#111111" />
 
-      {/* ─── BEFORE/AFTER ───────────────────────────────────── */}
+      {/* ─── THE TRANSFORMATION ─────────────────────────────── */}
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#111111' }}>
         <div className="max-w-4xl mx-auto">
           <Reveal className="mb-12">
-            <h2 className="text-3xl md:text-5xl font-bold uppercase mb-4">THE TRANSFORMATION</h2>
+            <h2 className="text-3xl md:text-5xl font-bold uppercase mb-4">Watch Your Website Transform</h2>
             <div className="w-20 h-1.5 mb-4" style={{ backgroundColor: '#ff6b00' }} />
-            <p className="text-sm" style={{ color: 'rgba(255,255,255,0.4)' }}>Drag the slider to compare. This is what we do for businesses like yours.</p>
+            <p className="text-sm" style={{ color: 'rgba(255,255,255,0.4)' }}>From dated to designed — in real time</p>
           </Reveal>
           <Reveal delay={0.1}>
-            <BeforeAfterSlider />
+            <LiveRedesign />
           </Reveal>
         </div>
       </section>
