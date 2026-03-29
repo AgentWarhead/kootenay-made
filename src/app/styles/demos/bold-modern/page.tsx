@@ -174,7 +174,7 @@ function LiveRedesign() {
                       West Kootenays &mdash; 20+ Years
                     </span>
                   </motion.div>
-                  <motion.h2 className={`${spaceGrotesk.className} text-2xl sm:text-4xl md:text-5xl font-bold uppercase leading-[1.1] mb-4 sm:max-w-xl`} style={{ color: '#ffffff' }}
+                  <motion.h2 className={`heading-font text-2xl sm:text-4xl md:text-5xl font-bold uppercase leading-[1.1] mb-4 sm:max-w-xl`} style={{ color: '#ffffff' }}
                     initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
                     Your Competitor Launched Last Month. What Are You{' '}
                     <span className="relative inline-block" style={{ color: '#ff6b00' }}>
@@ -266,6 +266,8 @@ export default function BoldModernDemo() {
   return (
     <div className={spaceGrotesk.className} style={{ fontFamily: 'Space Grotesk, sans-serif', backgroundColor: '#111111', color: '#ffffff' }}>
       <style>{`
+      @import url('https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap');
+      .heading-font { font-family: 'Clash Display', sans-serif; }
         @media (prefers-reduced-motion: reduce) {
           *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
         }

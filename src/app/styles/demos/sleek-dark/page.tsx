@@ -1,15 +1,10 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-import { Cormorant_Garamond, DM_Sans } from 'next/font/google'
+import { DM_Sans } from 'next/font/google'
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion, useScroll, useTransform, useReducedMotion, AnimatePresence, useInView } from 'framer-motion'
-
-const heading = Cormorant_Garamond({
-  subsets: ['latin'],
-  weight: ['300', '400', '600'],
-})
 
 const body = DM_Sans({
   subsets: ['latin'],
@@ -164,7 +159,7 @@ function LiveRedesign() {
               {/* Elegant nav */}
               <div className="flex items-center justify-between px-6 sm:px-10 py-4" style={{ borderBottom: '1px solid rgba(201,169,110,0.12)' }}>
                 <motion.span
-                  className={`${heading.className} text-base sm:text-lg`}
+                  className={`heading-font text-base sm:text-lg`}
                   style={{ color: '#c9a96e', fontWeight: 300, letterSpacing: '0.05em' }}
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -200,7 +195,7 @@ function LiveRedesign() {
                     </span>
                   </motion.div>
                   <motion.h2
-                    className={`${heading.className} text-2xl sm:text-4xl md:text-5xl leading-[1.15] mb-4 sm:max-w-xl`}
+                    className={`heading-font text-2xl sm:text-4xl md:text-5xl leading-[1.15] mb-4 sm:max-w-xl`}
                     style={{ color: '#f5f0e8', fontWeight: 300 }}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -221,7 +216,7 @@ function LiveRedesign() {
                   </motion.p>
                   <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 5 }}
                     className="flex flex-col sm:flex-row items-center sm:items-start justify-center sm:justify-start gap-4">
-                    <a href="#reserve" className={`${heading.className} inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 sm:px-8 py-3.5 text-sm rounded-xl transition-all hover:scale-[1.03] active:scale-[0.97]`}
+                    <a href="#reserve" className={`heading-font inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 sm:px-8 py-3.5 text-sm rounded-xl transition-all hover:scale-[1.03] active:scale-[0.97]`}
                       style={{ backgroundColor: '#c9a96e', color: '#0a0a0a', boxShadow: '0 4px 20px rgba(201,169,110,0.3)', letterSpacing: '0.02em', fontWeight: 600 }}>
                       Reserve Your Table
                       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -343,6 +338,8 @@ export default function SleekDarkDemo() {
 
       {/* ── prefers-reduced-motion ── */}
       <style>{`
+      @import url('https://api.fontshare.com/v2/css?f[]=boska@400,500,700&display=swap');
+      .heading-font { font-family: 'Boska', serif; }
         @media (prefers-reduced-motion: reduce) {
           *, *::before, *::after {
             animation-duration: 0.01ms !important;
@@ -363,7 +360,7 @@ export default function SleekDarkDemo() {
       {/* ═══════════ 1. NAV ═══════════ */}
       <nav style={{ backgroundColor: '#0a0a0a', borderBottom: '1px solid rgba(201,169,110,0.15)' }} className="px-6 py-5 sticky top-0 z-40">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <span className={`${heading.className} text-2xl md:text-3xl tracking-wide`} style={{ color: '#c9a96e', fontWeight: 300, letterSpacing: '0.05em' }}>
+          <span className={`heading-font text-2xl md:text-3xl tracking-wide`} style={{ color: '#c9a96e', fontWeight: 300, letterSpacing: '0.05em' }}>
             The Copper Table
           </span>
           <div className="hidden md:flex items-center gap-8">
@@ -420,7 +417,7 @@ export default function SleekDarkDemo() {
           >
             Farm to table · Nelson, BC
           </motion.p>
-          <h1 className={`${heading.className} text-5xl md:text-7xl lg:text-8xl leading-tight mb-8`} style={{ fontWeight: 300, color: '#f5f0e8', textShadow: '0 2px 20px rgba(0,0,0,0.5)' }}>
+          <h1 className={`heading-font text-5xl md:text-7xl lg:text-8xl leading-tight mb-8`} style={{ fontWeight: 300, color: '#f5f0e8', textShadow: '0 2px 20px rgba(0,0,0,0.5)' }}>
             <GoldReveal>The Copper</GoldReveal>
             <br />
             <GoldReveal>Table</GoldReveal>
@@ -492,7 +489,7 @@ export default function SleekDarkDemo() {
             <p className="text-center text-xs uppercase tracking-[0.3em] mb-3" style={{ color: '#c9a96e' }}>
               Seasonal · Chef-driven
             </p>
-            <h2 className={`${heading.className} text-3xl md:text-5xl text-center mb-4`} style={{ color: '#f5f0e8', fontWeight: 300 }}>
+            <h2 className={`heading-font text-3xl md:text-5xl text-center mb-4`} style={{ color: '#f5f0e8', fontWeight: 300 }}>
               This Evening&rsquo;s Menu
             </h2>
             <div className="w-16 h-px mx-auto mb-16" style={{ backgroundColor: '#c9a96e' }} />
@@ -513,7 +510,7 @@ export default function SleekDarkDemo() {
                 ].map((item) => (
                   <div key={item.name} className="flex justify-between gap-4" style={{ borderBottom: '1px solid rgba(201,169,110,0.08)', paddingBottom: '1rem' }}>
                     <div>
-                      <p className={`${heading.className} text-base md:text-lg`} style={{ color: '#f5f0e8', fontWeight: 400 }}>{item.name}</p>
+                      <p className={`heading-font text-base md:text-lg`} style={{ color: '#f5f0e8', fontWeight: 400 }}>{item.name}</p>
                       <p className="text-xs mt-1 leading-relaxed" style={{ color: 'rgba(245,240,232,0.45)' }}>{item.desc}</p>
                     </div>
                     <span className="text-sm font-bold flex-shrink-0" style={{ color: '#c9a96e' }}>{item.price}</span>
@@ -540,7 +537,7 @@ export default function SleekDarkDemo() {
                 ].map((item) => (
                   <div key={item.name} className="flex justify-between gap-4" style={{ borderBottom: '1px solid rgba(201,169,110,0.08)', paddingBottom: '1rem' }}>
                     <div>
-                      <p className={`${heading.className} text-base md:text-lg`} style={{ color: '#f5f0e8', fontWeight: 400 }}>{item.name}</p>
+                      <p className={`heading-font text-base md:text-lg`} style={{ color: '#f5f0e8', fontWeight: 400 }}>{item.name}</p>
                       <p className="text-xs mt-1 leading-relaxed" style={{ color: 'rgba(245,240,232,0.45)' }}>{item.desc}</p>
                     </div>
                     <span className="text-sm font-bold flex-shrink-0" style={{ color: '#c9a96e' }}>{item.price}</span>
@@ -565,7 +562,7 @@ export default function SleekDarkDemo() {
                 ].map((item) => (
                   <div key={item.name} className="flex justify-between gap-4" style={{ borderBottom: '1px solid rgba(201,169,110,0.08)', paddingBottom: '1rem' }}>
                     <div>
-                      <p className={`${heading.className} text-base md:text-lg`} style={{ color: '#f5f0e8', fontWeight: 400 }}>{item.name}</p>
+                      <p className={`heading-font text-base md:text-lg`} style={{ color: '#f5f0e8', fontWeight: 400 }}>{item.name}</p>
                       <p className="text-xs mt-1 leading-relaxed" style={{ color: 'rgba(245,240,232,0.45)' }}>{item.desc}</p>
                     </div>
                     <span className="text-sm font-bold flex-shrink-0" style={{ color: '#c9a96e' }}>{item.price}</span>
@@ -587,7 +584,7 @@ export default function SleekDarkDemo() {
       <section id="gallery" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#1a1a1a' }}>
         <div className="max-w-5xl mx-auto">
           <Reveal>
-            <h2 className={`${heading.className} text-3xl md:text-5xl text-center mb-4`} style={{ color: '#f5f0e8', fontWeight: 300 }}>
+            <h2 className={`heading-font text-3xl md:text-5xl text-center mb-4`} style={{ color: '#f5f0e8', fontWeight: 300 }}>
               From Our Kitchen
             </h2>
             <div className="w-16 h-px mx-auto mb-12" style={{ backgroundColor: '#c9a96e' }} />
@@ -604,7 +601,7 @@ export default function SleekDarkDemo() {
                 <Image src="/images/demos/sleek-dark-hero.webp" alt="Seasonal dish — The Copper Table" fill className="object-cover" />
                 <div className="gold-border absolute inset-0 pointer-events-none transition-opacity duration-300" style={{ border: '2px solid #c9a96e', opacity: 0, borderRadius: 'inherit' }} />
                 <div className="absolute bottom-0 left-0 right-0 p-4" style={{ background: 'linear-gradient(to top, rgba(10,10,10,0.7), transparent)' }}>
-                  <p className={`${heading.className} text-sm`} style={{ color: '#c9a96e' }}>Braised Short Rib</p>
+                  <p className={`heading-font text-sm`} style={{ color: '#c9a96e' }}>Braised Short Rib</p>
                 </div>
               </div>
               {/* Square 1 */}
@@ -615,7 +612,7 @@ export default function SleekDarkDemo() {
                 <Image src="/images/demos/gallery/sd-1.webp" alt="Seasonal Menu" fill className="object-cover" />
                 <div className="gold-border absolute inset-0 pointer-events-none transition-opacity duration-300" style={{ border: '2px solid #c9a96e', opacity: 0, borderRadius: 'inherit' }} />
                 <div className="absolute bottom-0 left-0 right-0 p-3" style={{ background: 'linear-gradient(to top, rgba(10,10,10,0.7), transparent)' }}>
-                  <p className={`${heading.className} text-xs`} style={{ color: '#c9a96e' }}>Seasonal Menu</p>
+                  <p className={`heading-font text-xs`} style={{ color: '#c9a96e' }}>Seasonal Menu</p>
                 </div>
               </div>
               {/* Square 2 */}
@@ -626,7 +623,7 @@ export default function SleekDarkDemo() {
                 <Image src="/images/demos/gallery/sd-2.webp" alt="Cocktail Bar" fill className="object-cover" />
                 <div className="gold-border absolute inset-0 pointer-events-none transition-opacity duration-300" style={{ border: '2px solid #c9a96e', opacity: 0, borderRadius: 'inherit' }} />
                 <div className="absolute bottom-0 left-0 right-0 p-3" style={{ background: 'linear-gradient(to top, rgba(10,10,10,0.7), transparent)' }}>
-                  <p className={`${heading.className} text-xs`} style={{ color: '#c9a96e' }}>Cocktail Bar</p>
+                  <p className={`heading-font text-xs`} style={{ color: '#c9a96e' }}>Cocktail Bar</p>
                 </div>
               </div>
             </div>
@@ -638,7 +635,7 @@ export default function SleekDarkDemo() {
               <Image src="/images/demos/gallery/sd-3.webp" alt="Private Dining" fill className="object-cover" />
               <div className="gold-border absolute inset-0 pointer-events-none transition-opacity duration-300" style={{ border: '2px solid #c9a96e', opacity: 0, borderRadius: 'inherit' }} />
               <div className="absolute bottom-0 left-0 right-0 p-4" style={{ background: 'linear-gradient(to top, rgba(10,10,10,0.7), transparent)' }}>
-                <p className={`${heading.className} text-sm`} style={{ color: '#c9a96e' }}>Private Dining</p>
+                <p className={`heading-font text-sm`} style={{ color: '#c9a96e' }}>Private Dining</p>
               </div>
             </div>
           </Reveal>
@@ -649,7 +646,7 @@ export default function SleekDarkDemo() {
       <section id="reserve" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#0a0a0a' }}>
         <div className="max-w-3xl mx-auto">
           <Reveal>
-            <h2 className={`${heading.className} text-3xl md:text-5xl text-center mb-4`} style={{ color: '#f5f0e8', fontWeight: 300 }}>
+            <h2 className={`heading-font text-3xl md:text-5xl text-center mb-4`} style={{ color: '#f5f0e8', fontWeight: 300 }}>
               Reserve Your Table
             </h2>
             <div className="w-16 h-px mx-auto mb-4" style={{ backgroundColor: '#c9a96e' }} />
@@ -754,7 +751,7 @@ export default function SleekDarkDemo() {
                 <Image src="/images/demos/sleek-dark-hero.webp" alt="Chef Marco — The Copper Table" fill className="object-cover" />
                 <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(10,10,10,0.6) 0%, transparent 50%)' }} />
                 <div className="absolute bottom-6 left-6">
-                  <p className={`${heading.className} text-xl`} style={{ color: '#c9a96e', fontWeight: 400 }}>Chef Marco</p>
+                  <p className={`heading-font text-xl`} style={{ color: '#c9a96e', fontWeight: 400 }}>Chef Marco</p>
                   <p className={`${body.className} text-xs uppercase tracking-widest mt-1`} style={{ color: 'rgba(245,240,232,0.5)' }}>Executive Chef & Co-Founder</p>
                 </div>
               </div>
@@ -764,7 +761,7 @@ export default function SleekDarkDemo() {
                 <p className="text-xs uppercase tracking-[0.3em] mb-4" style={{ color: '#c9a96e' }}>
                   The Philosophy
                 </p>
-                <h2 className={`${heading.className} text-3xl md:text-4xl mb-6`} style={{ color: '#f5f0e8', fontWeight: 300, lineHeight: 1.3 }}>
+                <h2 className={`heading-font text-3xl md:text-4xl mb-6`} style={{ color: '#f5f0e8', fontWeight: 300, lineHeight: 1.3 }}>
                   Our ingredients travel<br /><em style={{ color: '#c9a96e' }}>less than 100km.</em>
                 </h2>
                 <div className="w-12 h-px mb-6" style={{ backgroundColor: '#c9a96e' }} />
@@ -838,7 +835,7 @@ export default function SleekDarkDemo() {
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#1a1a1a' }}>
         <div className="max-w-5xl mx-auto">
           <Reveal>
-            <h2 className={`${heading.className} text-3xl md:text-5xl text-center mb-4`} style={{ color: '#f5f0e8', fontWeight: 300 }}>
+            <h2 className={`heading-font text-3xl md:text-5xl text-center mb-4`} style={{ color: '#f5f0e8', fontWeight: 300 }}>
               Watch Your Website Transform
             </h2>
             <div className="w-16 h-px mx-auto mb-4" style={{ backgroundColor: '#c9a96e' }} />
@@ -858,10 +855,10 @@ export default function SleekDarkDemo() {
         <div className="max-w-4xl mx-auto">
           <Reveal>
             <div className="text-center px-6 md:px-16">
-              <div className={`${heading.className} text-6xl md:text-8xl mb-6`} style={{ color: 'rgba(201,169,110,0.2)', lineHeight: 1 }}>
+              <div className={`heading-font text-6xl md:text-8xl mb-6`} style={{ color: 'rgba(201,169,110,0.2)', lineHeight: 1 }}>
                 &ldquo;
               </div>
-              <blockquote className={`${heading.className} text-2xl md:text-3xl lg:text-4xl leading-relaxed mb-8`} style={{ color: '#f5f0e8', fontWeight: 300, fontStyle: 'italic' }}>
+              <blockquote className={`heading-font text-2xl md:text-3xl lg:text-4xl leading-relaxed mb-8`} style={{ color: '#f5f0e8', fontWeight: 300, fontStyle: 'italic' }}>
                 The best meal we&rsquo;ve had in the Kootenays. Period.
               </blockquote>
               <div className="w-12 h-px mx-auto mb-6" style={{ backgroundColor: '#c9a96e' }} />
@@ -880,7 +877,7 @@ export default function SleekDarkDemo() {
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#1a1a1a' }}>
         <div className="max-w-3xl mx-auto">
           <Reveal>
-            <h2 className={`${heading.className} text-3xl md:text-5xl text-center mb-4`} style={{ color: '#f5f0e8', fontWeight: 300 }}>
+            <h2 className={`heading-font text-3xl md:text-5xl text-center mb-4`} style={{ color: '#f5f0e8', fontWeight: 300 }}>
               Common Questions
             </h2>
             <div className="w-16 h-px mx-auto mb-16" style={{ backgroundColor: '#c9a96e' }} />
@@ -900,7 +897,7 @@ export default function SleekDarkDemo() {
       <section id="contact" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#0a0a0a' }}>
         <div className="max-w-6xl mx-auto">
           <Reveal>
-            <h2 className={`${heading.className} text-3xl md:text-5xl text-center mb-4`} style={{ color: '#f5f0e8', fontWeight: 300 }}>
+            <h2 className={`heading-font text-3xl md:text-5xl text-center mb-4`} style={{ color: '#f5f0e8', fontWeight: 300 }}>
               Get in Touch
             </h2>
             <div className="w-16 h-px mx-auto mb-16" style={{ backgroundColor: '#c9a96e' }} />
@@ -998,7 +995,7 @@ export default function SleekDarkDemo() {
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-3 gap-10 mb-10">
             <div>
-              <h3 className={`${heading.className} text-xl mb-3`} style={{ color: '#c9a96e', fontWeight: 300 }}>
+              <h3 className={`heading-font text-xl mb-3`} style={{ color: '#c9a96e', fontWeight: 300 }}>
                 The Copper Table
               </h3>
               <p className="text-sm" style={{ color: 'rgba(245,240,232,0.4)' }}>

@@ -170,7 +170,7 @@ function LiveRedesign() {
                       Est. 2003 &mdash; West Kootenay
                     </span>
                   </motion.div>
-                  <motion.h2 className={`${accent.className} text-2xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.15] mb-4 sm:mb-6 sm:max-w-xl`}
+                  <motion.h2 className={`heading-font text-2xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.15] mb-4 sm:mb-6 sm:max-w-xl`}
                     style={{ color: '#3d2e1f' }}
                     initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
                     Farm-Fresh. Delivered to{' '}
@@ -317,6 +317,8 @@ export default function FarmHarvestDemo() {
     <div className={body.className} style={{ fontFamily: 'Lato, sans-serif', backgroundColor: '#fefcf3', color: '#3d2e1f' }}>
 
       <style>{`
+      @import url('https://api.fontshare.com/v2/css?f[]=sentient@400,500,700&display=swap');
+      .heading-font { font-family: 'Sentient', serif; }
         @media (prefers-reduced-motion: reduce) {
           *, *::before, *::after {
             animation-duration: 0.01ms !important;
@@ -391,7 +393,7 @@ export default function FarmHarvestDemo() {
             </div>
           </motion.div>
 
-          <motion.h1 className={`${accent.className} text-5xl md:text-7xl lg:text-8xl leading-tight mb-8`} style={{ color: '#ffffff', textShadow: '0 2px 20px rgba(0,0,0,0.5)' }}
+          <motion.h1 className={`heading-font text-5xl md:text-7xl lg:text-8xl leading-tight mb-8`} style={{ color: '#ffffff', textShadow: '0 2px 20px rgba(0,0,0,0.5)' }}
             initial={prefersReduced ? {} : { opacity: 0, y: 30 }} animate={prefersReduced ? {} : { opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.4 }}>
             Valley Roots Farm
           </motion.h1>
@@ -437,7 +439,7 @@ export default function FarmHarvestDemo() {
         <div className="max-w-5xl mx-auto">
           <Reveal>
             <div className="text-center mb-12">
-              <h2 className={`${accent.className} text-3xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>The Harvest Box</h2>
+              <h2 className={`heading-font text-3xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>The Harvest Box</h2>
               <div className="max-w-xs mx-auto"><WavyUnderline color="#4a7c59" /></div>
             </div>
           </Reveal>
@@ -507,7 +509,7 @@ export default function FarmHarvestDemo() {
         <div className="max-w-5xl mx-auto">
           <Reveal>
             <div className="text-center mb-8">
-              <h2 className={`${accent.className} text-3xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>What&apos;s Growing Now</h2>
+              <h2 className={`heading-font text-3xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>What&apos;s Growing Now</h2>
               <div className="max-w-xs mx-auto"><WavyUnderline color="#4a7c59" /></div>
             </div>
           </Reveal>
@@ -556,7 +558,7 @@ export default function FarmHarvestDemo() {
         <div className="max-w-6xl mx-auto">
           <Reveal>
             <div className="text-center mb-12">
-              <h2 className={`${accent.className} text-3xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>From Seed to Table</h2>
+              <h2 className={`heading-font text-3xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>From Seed to Table</h2>
               <div className="max-w-xs mx-auto"><WavyUnderline color="#4a7c59" /></div>
             </div>
           </Reveal>
@@ -594,7 +596,7 @@ export default function FarmHarvestDemo() {
         <div className="max-w-3xl mx-auto">
           <Reveal>
             <div className="text-center mb-8">
-              <h2 className={`${accent.className} text-3xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>Recipe of the Week</h2>
+              <h2 className={`heading-font text-3xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>Recipe of the Week</h2>
               <div className="max-w-xs mx-auto"><WavyUnderline color="#4a7c59" /></div>
             </div>
           </Reveal>
@@ -639,7 +641,7 @@ export default function FarmHarvestDemo() {
         <div className="max-w-5xl mx-auto">
           <Reveal>
             <div className="text-center mb-8">
-              <h2 className={`${accent.className} text-3xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>What We Can Do For You</h2>
+              <h2 className={`heading-font text-3xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>What We Can Do For You</h2>
               <div className="max-w-xs mx-auto"><WavyUnderline color="#4a7c59" /></div>
             </div>
           </Reveal>
@@ -679,7 +681,7 @@ export default function FarmHarvestDemo() {
         <div className="max-w-5xl mx-auto">
           <Reveal>
             <div className="text-center mb-16">
-              <h2 className={`${accent.className} text-3xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>How It Works</h2>
+              <h2 className={`heading-font text-3xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>How It Works</h2>
               <div className="max-w-xs mx-auto"><WavyUnderline color="#4a7c59" /></div>
             </div>
           </Reveal>
@@ -708,7 +710,7 @@ export default function FarmHarvestDemo() {
         <div className="max-w-6xl mx-auto">
           <Reveal>
             <div className="text-center mb-12">
-              <h2 className={`${accent.className} text-3xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>From Our Farm</h2>
+              <h2 className={`heading-font text-3xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>From Our Farm</h2>
               <div className="max-w-xs mx-auto"><WavyUnderline color="#4a7c59" /></div>
             </div>
           </Reveal>
@@ -739,7 +741,7 @@ export default function FarmHarvestDemo() {
         <div className="max-w-5xl mx-auto">
           <Reveal>
             <div className="text-center mb-4">
-              <h2 className={`${accent.className} text-3xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>Watch Your Website Transform</h2>
+              <h2 className={`heading-font text-3xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>Watch Your Website Transform</h2>
               <div className="max-w-xs mx-auto"><WavyUnderline color="#4a7c59" /></div>
             </div>
             <p className="text-center mb-12 text-sm uppercase tracking-widest" style={{ color: 'rgba(61,46,31,0.5)' }}>From dated to designed — in real time</p>
@@ -755,7 +757,7 @@ export default function FarmHarvestDemo() {
         <div className="max-w-6xl mx-auto">
           <Reveal>
             <div className="text-center mb-16">
-              <h2 className={`${accent.className} text-3xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>What Farmers Say</h2>
+              <h2 className={`heading-font text-3xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>What Farmers Say</h2>
               <div className="max-w-xs mx-auto"><WavyUnderline color="#4a7c59" /></div>
             </div>
           </Reveal>
@@ -812,7 +814,7 @@ export default function FarmHarvestDemo() {
         <div className="max-w-4xl mx-auto">
           <Reveal>
             <div className="text-center mb-12">
-              <h2 className={`${accent.className} text-3xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>Common Questions</h2>
+              <h2 className={`heading-font text-3xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>Common Questions</h2>
               <div className="max-w-xs mx-auto"><WavyUnderline color="#4a7c59" /></div>
             </div>
           </Reveal>
@@ -833,7 +835,7 @@ export default function FarmHarvestDemo() {
       <section id="our-farm" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#fefcf3' }}>
         <div className="max-w-3xl mx-auto text-center">
           <Reveal>
-            <h2 className={`${accent.className} text-3xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>Our Story</h2>
+            <h2 className={`heading-font text-3xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>Our Story</h2>
             <div className="max-w-xs mx-auto mb-10"><WavyUnderline color="#4a7c59" /></div>
           </Reveal>
           <Reveal delay={0.15}>
@@ -850,7 +852,7 @@ export default function FarmHarvestDemo() {
         <div className="max-w-6xl mx-auto">
           <Reveal>
             <div className="text-center mb-16">
-              <h2 className={`${accent.className} text-3xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>Get In Touch</h2>
+              <h2 className={`heading-font text-3xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>Get In Touch</h2>
               <div className="max-w-xs mx-auto"><WavyUnderline color="#4a7c59" /></div>
             </div>
           </Reveal>

@@ -241,7 +241,7 @@ function LiveRedesign() {
                     </span>
                   </motion.div>
 
-                  <motion.h2 className={`${inter.className} text-2xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.15] mb-4 sm:mb-6 sm:max-w-xl font-bold`} style={{ color: CP.navy }} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
+                  <motion.h2 className={`heading-font text-2xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.15] mb-4 sm:mb-6 sm:max-w-xl font-bold`} style={{ color: CP.navy }} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
                     Your Money Deserves a Plan. Not a{' '}
                     <span className="relative inline-block" style={{ color: CP.blue }}>
                       Guessing Game.
@@ -465,6 +465,8 @@ export default function CleanProfessionalDemo() {
   return (
     <div className={inter.className} style={{ fontFamily: 'Inter, sans-serif', color: '#334155' }}>
       <style>{`
+      @import url('https://api.fontshare.com/v2/css?f[]=supreme@400,500,700&display=swap');
+      .heading-font { font-family: 'Supreme', sans-serif; }
         @media (prefers-reduced-motion: reduce) {
           *, *::before, *::after {
             animation-duration: 0.01ms !important;
@@ -753,7 +755,7 @@ export default function CleanProfessionalDemo() {
       {/* ═══════════ 7. THE TRANSFORMATION ═══════════ */}
       <Section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#f8fafc' }}>
         <div className="max-w-5xl mx-auto">
-          <h2 className={`${inter.className} text-3xl md:text-4xl font-bold text-center mb-4`} style={{ color: '#1a365d' }}>
+          <h2 className={`heading-font text-3xl md:text-4xl font-bold text-center mb-4`} style={{ color: '#1a365d' }}>
             Watch Your Website Transform
           </h2>
           <p className={`${inter.className} text-center mb-12 max-w-xl mx-auto`} style={{ color: '#94a3b8' }}>

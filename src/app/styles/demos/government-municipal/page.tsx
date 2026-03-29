@@ -1,14 +1,14 @@
 'use client'
 
 import { useState, useRef } from 'react'
-import { Source_Sans_3 } from 'next/font/google'
+import { Public_Sans } from 'next/font/google'
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion, useReducedMotion, AnimatePresence } from 'framer-motion'
 
-const sourceSans = Source_Sans_3({
+const sourceSans = Public_Sans({
   subsets: ['latin'],
-  weight: ['400', '600', '700'],
+  weight: ['400', '500', '600', '700'],
 })
 
 /* ── Scroll reveal wrapper ── */

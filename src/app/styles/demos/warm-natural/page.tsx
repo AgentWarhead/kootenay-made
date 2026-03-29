@@ -1,12 +1,11 @@
 'use client'
 
 import { useState, useRef } from 'react'
-import { Lora, Nunito } from 'next/font/google'
+import { Nunito } from 'next/font/google'
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion, useReducedMotion, AnimatePresence, type Variants } from 'framer-motion'
 
-const lora = Lora({ subsets: ['latin'], weight: ['400', '700'] })
 const nunito = Nunito({ subsets: ['latin'], weight: ['400', '600'] })
 
 /* ── Floating botanical SVG leaves ── */
@@ -167,7 +166,7 @@ function LiveRedesign() {
               <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E")`, opacity: 0.4 }} />
               {/* Elegant nav */}
               <div className="flex items-center justify-between px-6 sm:px-10 py-4" style={{ borderBottom: `1px solid ${sage}15` }}>
-                <motion.span className={`${lora.className} text-base sm:text-lg`} style={{ color: '#8b7355', fontStyle: 'italic' }}
+                <motion.span className={`heading-font text-base sm:text-lg`} style={{ color: '#8b7355', fontStyle: 'italic' }}
                   initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: dur * 0.6, delay: stagger }}>
                   Mountain Flow Wellness
                 </motion.span>
@@ -200,7 +199,7 @@ function LiveRedesign() {
                       Est. 2014 &mdash; West Kootenay
                     </span>
                   </motion.div>
-                  <motion.h2 className={`${lora.className} text-2xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.15] mb-4 sm:mb-5 sm:max-w-xl`}
+                  <motion.h2 className={`heading-font text-2xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.15] mb-4 sm:mb-5 sm:max-w-xl`}
                     style={{ color: '#8b7355' }}
                     initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
@@ -220,7 +219,7 @@ function LiveRedesign() {
                   </motion.p>
                   <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 5 }}
                     className="flex flex-col sm:flex-row items-center sm:items-start justify-center sm:justify-start gap-4">
-                    <a href="#contact" className={`${lora.className} inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 text-sm sm:text-base rounded-xl transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]`}
+                    <a href="#contact" className={`heading-font inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 text-sm sm:text-base rounded-xl transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]`}
                       style={{ backgroundColor: sage, color: '#fff', boxShadow: `0 4px 20px ${sage}35`, letterSpacing: '0.02em' }}>
                       View Schedule
                       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
@@ -265,7 +264,7 @@ function FAQAccordion({ items }: { items: { q: string; a: string }[] }) {
           <button onClick={() => setOpen(open === i ? null : i)}
             className="w-full flex items-center justify-between px-6 py-5 text-left"
             aria-expanded={open === i}>
-            <span className={`${lora.className} text-base font-bold`} style={{ color: open === i ? '#7d9a6b' : '#8b7355' }}>{item.q}</span>
+            <span className={`heading-font text-base font-bold`} style={{ color: open === i ? '#7d9a6b' : '#8b7355' }}>{item.q}</span>
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
               style={{ color: '#7d9a6b', flexShrink: 0, transform: open === i ? 'rotate(180deg)' : 'rotate(0deg)', transition: prefersReduced ? 'none' : 'transform 0.3s ease' }}>
               <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -345,6 +344,7 @@ export default function WarmNaturalDemo() {
 
   return (
     <div className={nunito.className} style={{ fontFamily: 'Nunito, sans-serif', color: '#8b7355' }}>
+      <style>{`@import url('https://api.fontshare.com/v2/css?f[]=erode@400,500,700&display=swap'); .heading-font { font-family: 'Erode', serif; }`}</style>
       <style dangerouslySetInnerHTML={{ __html: botanicalKeyframes }} />
 
       {/* Watercolor blobs */}
@@ -367,7 +367,7 @@ export default function WarmNaturalDemo() {
         {/* ── NAV ── */}
         <nav className="px-6 py-4" style={{ backgroundColor: 'rgba(250,246,240,0.92)', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)' }}>
           <div className="max-w-6xl mx-auto flex items-center justify-between">
-            <span className={`${lora.className} text-xl md:text-2xl font-bold`} style={{ color: '#8b7355', fontStyle: 'italic', letterSpacing: '0.03em' }}>Mountain Flow Wellness</span>
+            <span className={`heading-font text-xl md:text-2xl font-bold`} style={{ color: '#8b7355', fontStyle: 'italic', letterSpacing: '0.03em' }}>Mountain Flow Wellness</span>
             <div className="hidden md:flex items-center gap-8">
               {['Schedule', 'Classes', 'About', 'Contact'].map((label) => (
                 <a key={label} href={`#${label.toLowerCase().replace(/\s+/g, '-')}`} className="text-sm transition-colors" style={{ color: '#8b7355' }}
@@ -388,7 +388,7 @@ export default function WarmNaturalDemo() {
             initial={prefersReduced ? {} : { opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: 'easeOut' }}>
-            <h1 className={`${lora.className} text-5xl md:text-7xl font-bold leading-tight mb-6`} style={{ color: '#8b7355' }}>You Carry Enough.<br /><span style={{ color: '#7d9a6b', fontStyle: 'italic' }}>Put It Down.</span></h1>
+            <h1 className={`heading-font text-5xl md:text-7xl font-bold leading-tight mb-6`} style={{ color: '#8b7355' }}>You Carry Enough.<br /><span style={{ color: '#7d9a6b', fontStyle: 'italic' }}>Put It Down.</span></h1>
             <p className="text-lg md:text-xl mb-10 max-w-xl mx-auto leading-relaxed" style={{ color: '#8b7355', opacity: 0.75 }}>
               A holistic wellness sanctuary in the heart of Nelson — yoga, massage, and mindful healing. All levels welcome.
             </p>
@@ -419,7 +419,7 @@ export default function WarmNaturalDemo() {
         <section id="schedule" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#faf6f0' }}>
           <div className="max-w-6xl mx-auto">
             <Reveal className="text-center mb-4">
-              <h2 className={`${lora.className} text-3xl md:text-4xl font-bold`} style={{ color: '#8b7355' }}>This Week&rsquo;s Classes</h2>
+              <h2 className={`heading-font text-3xl md:text-4xl font-bold`} style={{ color: '#8b7355' }}>This Week&rsquo;s Classes</h2>
             </Reveal>
             <Reveal delay={0.05} className="text-center mb-12">
               <p className="text-sm max-w-md mx-auto" style={{ color: '#8b7355', opacity: 0.6 }}>
@@ -447,7 +447,7 @@ export default function WarmNaturalDemo() {
                       <div key={ci} className="p-3 rounded-2xl text-center"
                         style={{ backgroundColor: '#fffcf7', border: `1px solid ${cls.color}25`, boxShadow: '0 2px 8px rgba(139,115,85,0.06)' }}>
                         <div className="w-2.5 h-2.5 rounded-full mx-auto mb-2" style={{ backgroundColor: levelColors[cls.level] }} />
-                        <p className={`${lora.className} text-xs font-bold mb-1`} style={{ color: '#8b7355' }}>{cls.name}</p>
+                        <p className={`heading-font text-xs font-bold mb-1`} style={{ color: '#8b7355' }}>{cls.name}</p>
                         <p className="text-xs" style={{ color: '#8b7355', opacity: 0.6 }}>{cls.time}</p>
                         <p className="text-xs mt-1" style={{ color: '#7d9a6b', opacity: 0.8 }}>{cls.instructor}</p>
                       </div>
@@ -470,7 +470,7 @@ export default function WarmNaturalDemo() {
         <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#f5f0e8' }}>
           <div className="max-w-4xl mx-auto">
             <Reveal className="text-center mb-4">
-              <h2 className={`${lora.className} text-3xl md:text-4xl font-bold`} style={{ color: '#8b7355' }}>Your First Visit</h2>
+              <h2 className={`heading-font text-3xl md:text-4xl font-bold`} style={{ color: '#8b7355' }}>Your First Visit</h2>
             </Reveal>
             <Reveal delay={0.05} className="text-center mb-14">
               <p className="text-sm max-w-md mx-auto" style={{ color: '#8b7355', opacity: 0.6 }}>
@@ -488,9 +488,9 @@ export default function WarmNaturalDemo() {
                   <div className="text-center p-6 rounded-2xl" style={{ backgroundColor: '#fffcf7', border: '1px solid rgba(125,154,107,0.15)', boxShadow: '0 2px 16px rgba(139,115,85,0.06)' }}>
                     <div className="text-3xl mb-3">{step.icon}</div>
                     <div className="w-7 h-7 rounded-full flex items-center justify-center mx-auto mb-3" style={{ backgroundColor: '#7d9a6b' }}>
-                      <span className={`${lora.className} text-sm font-bold text-white`}>{step.num}</span>
+                      <span className={`heading-font text-sm font-bold text-white`}>{step.num}</span>
                     </div>
-                    <h3 className={`${lora.className} text-base font-bold mb-2`} style={{ color: '#8b7355' }}>{step.title}</h3>
+                    <h3 className={`heading-font text-base font-bold mb-2`} style={{ color: '#8b7355' }}>{step.title}</h3>
                     <p className="text-xs leading-relaxed" style={{ color: '#8b7355', opacity: 0.7 }}>{step.desc}</p>
                   </div>
                 </Reveal>
@@ -504,7 +504,7 @@ export default function WarmNaturalDemo() {
         <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#faf6f0' }}>
           <div className="max-w-5xl mx-auto">
             <Reveal className="text-center mb-4">
-              <h2 className={`${lora.className} text-3xl md:text-4xl font-bold`} style={{ color: '#8b7355' }}>Choose Your Practice</h2>
+              <h2 className={`heading-font text-3xl md:text-4xl font-bold`} style={{ color: '#8b7355' }}>Choose Your Practice</h2>
             </Reveal>
             <Reveal delay={0.05} className="text-center mb-14">
               <p className="text-sm max-w-md mx-auto" style={{ color: '#8b7355', opacity: 0.6 }}>Flexible options so you can show up whenever you need it most.</p>
@@ -534,8 +534,8 @@ export default function WarmNaturalDemo() {
                       {pack.badge}
                     </div>
                   )}
-                  <h3 className={`${lora.className} text-lg font-bold mb-2`} style={{ color: pack.highlight ? '#fff' : '#8b7355' }}>{pack.label}</h3>
-                  <div className={`${lora.className} text-4xl font-bold mb-3`} style={{ color: pack.highlight ? '#fff' : '#7d9a6b' }}>{pack.price}</div>
+                  <h3 className={`heading-font text-lg font-bold mb-2`} style={{ color: pack.highlight ? '#fff' : '#8b7355' }}>{pack.label}</h3>
+                  <div className={`heading-font text-4xl font-bold mb-3`} style={{ color: pack.highlight ? '#fff' : '#7d9a6b' }}>{pack.price}</div>
                   <p className="text-xs leading-relaxed mb-5" style={{ color: pack.highlight ? 'rgba(255,255,255,0.85)' : '#8b7355', opacity: pack.highlight ? 1 : 0.7 }}>{pack.desc}</p>
                   <a href="#contact" className="inline-block px-5 py-2 rounded-full text-xs font-semibold transition-all"
                     style={{
@@ -554,7 +554,7 @@ export default function WarmNaturalDemo() {
         <div style={{ height: '60px', background: 'linear-gradient(to bottom, #faf6f0, #f5f0e8)' }} />
         <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#f5f0e8' }}>
           <div className="max-w-4xl mx-auto">
-            <h2 className={`${lora.className} text-3xl md:text-4xl font-bold text-center mb-4`} style={{ color: '#8b7355' }}>How It Works</h2>
+            <h2 className={`heading-font text-3xl md:text-4xl font-bold text-center mb-4`} style={{ color: '#8b7355' }}>How It Works</h2>
             <p className="text-center mb-16 max-w-md mx-auto text-sm" style={{ color: '#8b7355', opacity: 0.6 }}>Simple, gentle, no pressure. Just like your practice.</p>
             <div className="grid md:grid-cols-3 gap-10">
               {[
@@ -565,9 +565,9 @@ export default function WarmNaturalDemo() {
                 <Reveal key={step.num} delay={i * 0.15}>
                   <div className="text-center">
                     <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-5" style={{ backgroundColor: '#7d9a6b', boxShadow: '0 4px 20px rgba(125,154,107,0.25)' }}>
-                      <span className={`${lora.className} text-2xl font-bold text-white`}>{step.num}</span>
+                      <span className={`heading-font text-2xl font-bold text-white`}>{step.num}</span>
                     </div>
-                    <h3 className={`${lora.className} text-xl font-bold mb-3`} style={{ color: '#8b7355' }}>{step.title}</h3>
+                    <h3 className={`heading-font text-xl font-bold mb-3`} style={{ color: '#8b7355' }}>{step.title}</h3>
                     <p className="text-sm leading-relaxed" style={{ color: '#8b7355', opacity: 0.7 }}>{step.desc}</p>
                   </div>
                 </Reveal>
@@ -581,7 +581,7 @@ export default function WarmNaturalDemo() {
         <section id="about" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#faf6f0' }}>
           <div className="max-w-5xl mx-auto">
             <Reveal className="text-center mb-4">
-              <h2 className={`${lora.className} text-3xl md:text-4xl font-bold`} style={{ color: '#8b7355' }}>Meet Your Teachers</h2>
+              <h2 className={`heading-font text-3xl md:text-4xl font-bold`} style={{ color: '#8b7355' }}>Meet Your Teachers</h2>
             </Reveal>
             <Reveal delay={0.05} className="text-center mb-14">
               <p className="text-sm max-w-md mx-auto" style={{ color: '#8b7355', opacity: 0.6 }}>
@@ -600,7 +600,7 @@ export default function WarmNaturalDemo() {
                       style={{ border: '3px solid rgba(125,154,107,0.3)' }}>
                       <Image src={teacher.img} alt={teacher.name} fill className="object-cover" />
                     </div>
-                    <h3 className={`${lora.className} text-xl font-bold mb-1`} style={{ color: '#8b7355' }}>{teacher.name}</h3>
+                    <h3 className={`heading-font text-xl font-bold mb-1`} style={{ color: '#8b7355' }}>{teacher.name}</h3>
                     <p className="text-xs font-semibold mb-1" style={{ color: '#7d9a6b' }}>{teacher.creds}</p>
                     <p className="text-xs mb-4" style={{ color: '#8b7355', opacity: 0.6 }}>{teacher.specialty}</p>
                     <p className="text-xs italic leading-relaxed px-2" style={{ color: '#8b7355', opacity: 0.75 }}>{teacher.quote}</p>
@@ -620,10 +620,10 @@ export default function WarmNaturalDemo() {
             <div className="flex justify-center gap-1 mb-8">
               {[...Array(5)].map((_, j) => <Star key={j} />)}
             </div>
-            <blockquote className={`${lora.className} text-2xl md:text-3xl leading-relaxed mb-8`} style={{ color: '#6b5a44', fontStyle: 'italic' }}>
+            <blockquote className={`heading-font text-2xl md:text-3xl leading-relaxed mb-8`} style={{ color: '#6b5a44', fontStyle: 'italic' }}>
               &ldquo;Bookings doubled in the first month. Clients tell me they booked because the website made them feel calm and safe before they even met me.&rdquo;
             </blockquote>
-            <p className={`${lora.className} font-bold`} style={{ color: '#8b7355' }}>— Sarah L.</p>
+            <p className={`heading-font font-bold`} style={{ color: '#8b7355' }}>— Sarah L.</p>
             <p className="text-sm mt-1" style={{ color: '#8b7355', opacity: 0.55 }}>Roots &amp; Restore Yoga &middot; Nelson</p>
             <Reveal delay={0.3} className="mt-6">
               <p className="text-xs italic" style={{ color: '#8b7355', opacity: 0.35 }}>(Sample review — your real reviews go here)</p>
@@ -636,7 +636,7 @@ export default function WarmNaturalDemo() {
         <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#faf6f0' }}>
           <div className="max-w-5xl mx-auto">
             <Reveal>
-              <h2 className={`${lora.className} text-3xl md:text-4xl font-bold text-center mb-4`} style={{ color: '#8b7355' }}>Watch Your Website Transform</h2>
+              <h2 className={`heading-font text-3xl md:text-4xl font-bold text-center mb-4`} style={{ color: '#8b7355' }}>Watch Your Website Transform</h2>
               <p className="text-center mb-12 text-sm" style={{ color: '#8b7355', opacity: 0.6 }}>From dated to designed — in real time</p>
             </Reveal>
             <LiveRedesign />
@@ -647,7 +647,7 @@ export default function WarmNaturalDemo() {
         <div style={{ height: '60px', background: 'linear-gradient(to bottom, #faf6f0, #f5f0e8)' }} />
         <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#f5f0e8' }}>
           <div className="max-w-2xl mx-auto">
-            <h2 className={`${lora.className} text-3xl md:text-4xl font-bold text-center mb-4`} style={{ color: '#8b7355' }}>Questions &amp; Answers</h2>
+            <h2 className={`heading-font text-3xl md:text-4xl font-bold text-center mb-4`} style={{ color: '#8b7355' }}>Questions &amp; Answers</h2>
             <p className="text-center mb-12 text-sm" style={{ color: '#8b7355', opacity: 0.6 }}>Everything you need to know before your first class.</p>
             <FAQAccordion items={[
               { q: 'Do I need to book in advance?', a: 'We recommend booking online to guarantee your spot — popular classes fill up. Drop-ins are also welcome if space is available.' },
@@ -664,10 +664,10 @@ export default function WarmNaturalDemo() {
         <div style={{ height: '60px', background: 'linear-gradient(to bottom, #f5f0e8, #faf6f0)' }} />
         <section id="contact" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#faf6f0' }}>
           <div className="max-w-5xl mx-auto">
-            <h2 className={`${lora.className} text-3xl md:text-4xl font-bold text-center mb-16`} style={{ color: '#8b7355' }}>Get In Touch</h2>
+            <h2 className={`heading-font text-3xl md:text-4xl font-bold text-center mb-16`} style={{ color: '#8b7355' }}>Get In Touch</h2>
             <div className="grid md:grid-cols-2 gap-12 md:gap-16">
               <div>
-                <h3 className={`${lora.className} text-xl font-bold mb-6`} style={{ color: '#8b7355' }}>Contact Details</h3>
+                <h3 className={`heading-font text-xl font-bold mb-6`} style={{ color: '#8b7355' }}>Contact Details</h3>
                 <div className="space-y-4 text-sm" style={{ color: '#8b7355', opacity: 0.85 }}>
                   <p><span className="font-semibold" style={{ opacity: 1 }}>Phone:</span> (250) 555-0165</p>
                   <p><span className="font-semibold" style={{ opacity: 1 }}>Email:</span> hello@mountainflow.ca</p>
@@ -676,7 +676,7 @@ export default function WarmNaturalDemo() {
                 </div>
               </div>
               <div>
-                <h3 className={`${lora.className} text-xl font-bold mb-6`} style={{ color: '#8b7355' }}>Book a Class</h3>
+                <h3 className={`heading-font text-xl font-bold mb-6`} style={{ color: '#8b7355' }}>Book a Class</h3>
                 <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
                   <input type="text" placeholder="Name" className="w-full px-4 py-3 text-sm outline-none transition-shadow focus:shadow-md" style={{ backgroundColor: '#fffcf7', border: '1px solid rgba(125,154,107,0.25)', borderRadius: '30px 20px 25px 35px / 25px 35px 20px 30px', color: '#8b7355' }} />
                   <input type="email" placeholder="Email" className="w-full px-4 py-3 text-sm outline-none transition-shadow focus:shadow-md" style={{ backgroundColor: '#fffcf7', border: '1px solid rgba(125,154,107,0.25)', borderRadius: '25px 35px 30px 20px / 30px 20px 35px 25px', color: '#8b7355' }} />
@@ -705,11 +705,11 @@ export default function WarmNaturalDemo() {
           <div className="max-w-5xl mx-auto">
             <div className="grid md:grid-cols-3 gap-10 mb-10">
               <div>
-                <span className={`${lora.className} text-xl font-bold block mb-4`} style={{ color: '#faf6f0' }}>Mountain Flow Wellness</span>
+                <span className={`heading-font text-xl font-bold block mb-4`} style={{ color: '#faf6f0' }}>Mountain Flow Wellness</span>
                 <p className="text-sm leading-relaxed" style={{ color: '#faf6f0', opacity: 0.65 }}>A holistic wellness sanctuary in the heart of Nelson, BC.</p>
               </div>
               <div>
-                <h4 className={`${lora.className} font-bold mb-4`} style={{ color: '#faf6f0' }}>Quick Links</h4>
+                <h4 className={`heading-font font-bold mb-4`} style={{ color: '#faf6f0' }}>Quick Links</h4>
                 <div className="flex flex-col gap-2">
                   {['Schedule', 'Classes', 'About', 'Contact'].map((label) => (
                     <a key={label} href={`#${label.toLowerCase().replace(/\s+/g, '-')}`} className="text-sm transition-opacity hover:opacity-100" style={{ color: '#faf6f0', opacity: 0.6 }}>{label}</a>
@@ -717,7 +717,7 @@ export default function WarmNaturalDemo() {
                 </div>
               </div>
               <div>
-                <h4 className={`${lora.className} font-bold mb-4`} style={{ color: '#faf6f0' }}>Visit Us</h4>
+                <h4 className={`heading-font font-bold mb-4`} style={{ color: '#faf6f0' }}>Visit Us</h4>
                 <div className="space-y-2 text-sm" style={{ color: '#faf6f0', opacity: 0.65 }}>
                   <p>123 Sample St, Nelson, BC</p>
                   <p>Mon&ndash;Sat 7:00 AM &ndash; 8:00 PM</p>

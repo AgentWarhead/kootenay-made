@@ -1,12 +1,11 @@
 'use client'
 
 import { useState, useRef } from 'react'
-import { Bebas_Neue, DM_Sans } from 'next/font/google'
+import { DM_Sans } from 'next/font/google'
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion, useReducedMotion, AnimatePresence } from 'framer-motion'
 
-const bebas = Bebas_Neue({ subsets: ['latin'], weight: ['400'] })
 const dmSans = DM_Sans({ subsets: ['latin'], weight: ['400', '500', '700'] })
 
 /* ── Scroll-reveal wrapper ── */
@@ -126,7 +125,7 @@ function LiveRedesign() {
               style={{ backgroundColor: black, border: `1px solid ${pink}30`, borderRadius: '16px', boxShadow: `0 8px 40px ${pink}15, 0 2px 8px rgba(0,0,0,0.3)` }}
             >
               <div className="flex items-center justify-between px-6 sm:px-10 py-4" style={{ borderBottom: `1px solid ${pink}20` }}>
-                <motion.span className={`${bebas.className} text-xl sm:text-2xl tracking-widest`} style={{ color: pink, letterSpacing: '0.12em', textShadow: `0 0 10px ${pink}` }}
+                <motion.span className={`heading-font text-xl sm:text-2xl tracking-widest`} style={{ color: pink, letterSpacing: '0.12em', textShadow: `0 0 10px ${pink}` }}
                   initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: dur * 0.6, delay: stagger }}>
                   NEON PINES
                 </motion.span>
@@ -158,7 +157,7 @@ function LiveRedesign() {
                       Est. 2016 &mdash; Nelson, BC
                     </span>
                   </motion.div>
-                  <motion.h2 className={`${bebas.className} text-3xl sm:text-5xl md:text-6xl leading-[1.05] mb-4 sm:mb-5`}
+                  <motion.h2 className={`heading-font text-3xl sm:text-5xl md:text-6xl leading-[1.05] mb-4 sm:mb-5`}
                     style={{ color: '#ffffff', letterSpacing: '0.04em' }}
                     initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
@@ -222,7 +221,7 @@ function FAQAccordion({ items }: { items: { q: string; a: string }[] }) {
           <button onClick={() => setOpen(open === i ? null : i)}
             className="w-full flex items-center justify-between px-6 py-5 text-left"
             aria-expanded={open === i}>
-            <span className={`${bebas.className} text-xl tracking-wider`} style={{ color: open === i ? '#e91e8a' : '#ffffff', letterSpacing: '0.04em' }}>{item.q}</span>
+            <span className={`heading-font text-xl tracking-wider`} style={{ color: open === i ? '#e91e8a' : '#ffffff', letterSpacing: '0.04em' }}>{item.q}</span>
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
               style={{ color: '#e91e8a', flexShrink: 0, transform: open === i ? 'rotate(180deg)' : 'rotate(0deg)', transition: prefersReduced ? 'none' : 'transform 0.3s ease' }}>
               <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -255,6 +254,8 @@ export default function MusicEntertainmentPage() {
   return (
     <div className={dmSans.className} style={{ backgroundColor: '#000000', color: '#ffffff', minHeight: '100vh' }}>
       <style>{`
+      @import url('https://api.fontshare.com/v2/css?f[]=melodrama@400,500,700&display=swap');
+      .heading-font { font-family: 'Melodrama', sans-serif; }
         @keyframes audioBar1  { 0%,100% { height: 40px }  50% { height: 100px } }
         @keyframes audioBar2  { 0%,100% { height: 60px }  50% { height: 110px } }
         @keyframes audioBar3  { 0%,100% { height: 50px }  50% { height:  90px } }
@@ -281,7 +282,7 @@ export default function MusicEntertainmentPage() {
       <nav className="sticky top-0 z-50 px-6 md:px-12 py-4"
         style={{ backgroundColor: '#000000', borderBottom: '1px solid rgba(233,30,138,0.2)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)' }}>
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <Link href="/styles/demos/music-entertainment" className={`${bebas.className} text-2xl md:text-3xl tracking-widest neon-heading-sm`} style={{ color: '#e91e8a', letterSpacing: '0.12em' }}>NEON PINES</Link>
+          <Link href="/styles/demos/music-entertainment" className={`heading-font text-2xl md:text-3xl tracking-widest neon-heading-sm`} style={{ color: '#e91e8a', letterSpacing: '0.12em' }}>NEON PINES</Link>
           <div className="hidden md:flex items-center gap-8">
             {['Shows', 'Venue', 'About', 'Contact'].map((item) => (
               <a key={item} href={`#${item.toLowerCase()}`} className="text-sm font-medium uppercase tracking-widest transition-colors duration-200" style={{ color: 'rgba(255,255,255,0.55)', letterSpacing: '0.14em' }}
@@ -305,7 +306,7 @@ export default function MusicEntertainmentPage() {
             initial={prefersReduced ? {} : { opacity: 0, y: 20 }} animate={prefersReduced ? {} : { opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}>
             Live Music &middot; Nelson, BC
           </motion.p>
-          <motion.h1 className={`${bebas.className} neon-heading`}
+          <motion.h1 className={`heading-font neon-heading`}
             style={{ fontSize: 'clamp(3.5rem, 12vw, 10rem)', lineHeight: 1, color: '#ffffff', letterSpacing: '0.04em', marginBottom: '1.5rem', textShadow: '0 2px 20px rgba(0,0,0,0.5)' }}
             initial={prefersReduced ? {} : { opacity: 0, y: 40 }} animate={prefersReduced ? {} : { opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.25 }}>
             WHERE THE<br /><span style={{ color: '#e91e8a' }}>MOUNTAINS ROCK</span>
@@ -329,8 +330,8 @@ export default function MusicEntertainmentPage() {
       <section id="shows" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#000000' }}>
         <div className="max-w-5xl mx-auto">
           <Reveal className="text-center mb-14">
-            <p className={`${bebas.className} text-sm tracking-[0.25em] mb-3`} style={{ color: '#e91e8a' }}>ON STAGE</p>
-            <h2 className={`${bebas.className} text-4xl md:text-6xl neon-heading-sm`} style={{ color: '#ffffff', letterSpacing: '0.04em' }}>Upcoming Shows</h2>
+            <p className={`heading-font text-sm tracking-[0.25em] mb-3`} style={{ color: '#e91e8a' }}>ON STAGE</p>
+            <h2 className={`heading-font text-4xl md:text-6xl neon-heading-sm`} style={{ color: '#ffffff', letterSpacing: '0.04em' }}>Upcoming Shows</h2>
             <p className="mt-4 text-sm" style={{ color: 'rgba(255,255,255,0.4)' }}>Direct tickets. No DMs. No Eventbrite fees.</p>
           </Reveal>
           <div className="flex flex-col gap-3">
@@ -339,14 +340,14 @@ export default function MusicEntertainmentPage() {
                 <div className="show-card rounded-lg px-5 md:px-8 py-5 flex flex-col sm:flex-row items-start sm:items-center gap-4">
                   {/* Date block */}
                   <div className="flex-shrink-0 text-center min-w-[64px]">
-                    <div className={`${bebas.className} text-2xl leading-none`} style={{ color: '#e91e8a', letterSpacing: '0.04em' }}>{show.day}</div>
+                    <div className={`heading-font text-2xl leading-none`} style={{ color: '#e91e8a', letterSpacing: '0.04em' }}>{show.day}</div>
                     <div className="text-xs font-bold mt-1" style={{ color: 'rgba(255,255,255,0.35)', letterSpacing: '0.08em' }}>{show.date}</div>
                   </div>
                   {/* Separator */}
                   <div className="hidden sm:block w-px h-12 flex-shrink-0" style={{ backgroundColor: 'rgba(233,30,138,0.2)' }} />
                   {/* Artist info */}
                   <div className="flex-1">
-                    <div className={`${bebas.className} text-xl md:text-2xl`} style={{ color: show.soldOut ? 'rgba(255,255,255,0.35)' : '#ffffff', letterSpacing: '0.04em', textDecoration: show.soldOut ? 'line-through' : 'none' }}>
+                    <div className={`heading-font text-xl md:text-2xl`} style={{ color: show.soldOut ? 'rgba(255,255,255,0.35)' : '#ffffff', letterSpacing: '0.04em', textDecoration: show.soldOut ? 'line-through' : 'none' }}>
                       {show.artist}
                     </div>
                     <div className="flex items-center gap-3 mt-1">
@@ -356,7 +357,7 @@ export default function MusicEntertainmentPage() {
                   </div>
                   {/* Price + CTA */}
                   <div className="flex items-center gap-4 flex-shrink-0">
-                    <span className={`${bebas.className} text-2xl`} style={{ color: show.price === 'Free' ? '#3b82f6' : show.soldOut ? 'rgba(255,255,255,0.2)' : '#e91e8a', letterSpacing: '0.04em' }}>{show.soldOut ? '—' : show.price}</span>
+                    <span className={`heading-font text-2xl`} style={{ color: show.price === 'Free' ? '#3b82f6' : show.soldOut ? 'rgba(255,255,255,0.2)' : '#e91e8a', letterSpacing: '0.04em' }}>{show.soldOut ? '—' : show.price}</span>
                     {show.soldOut ? (
                       <span className="text-xs font-bold uppercase tracking-widest px-4 py-2 rounded" style={{ backgroundColor: 'rgba(255,255,255,0.06)', color: 'rgba(255,255,255,0.2)', border: '1px solid rgba(255,255,255,0.08)' }}>Sold Out</span>
                     ) : (
@@ -378,8 +379,8 @@ export default function MusicEntertainmentPage() {
       <section id="venue" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#0a0a0a' }}>
         <div className="max-w-6xl mx-auto">
           <Reveal className="text-center mb-14">
-            <p className={`${bebas.className} text-sm tracking-[0.25em] mb-3`} style={{ color: '#e91e8a' }}>THE SPACE</p>
-            <h2 className={`${bebas.className} text-4xl md:text-6xl neon-heading-sm`} style={{ color: '#ffffff', letterSpacing: '0.04em' }}>The Venue</h2>
+            <p className={`heading-font text-sm tracking-[0.25em] mb-3`} style={{ color: '#e91e8a' }}>THE SPACE</p>
+            <h2 className={`heading-font text-4xl md:text-6xl neon-heading-sm`} style={{ color: '#ffffff', letterSpacing: '0.04em' }}>The Venue</h2>
             <p className="mt-4 text-sm max-w-xl mx-auto" style={{ color: 'rgba(255,255,255,0.4)' }}>Everything booking agents and event planners need to know about the room.</p>
           </Reveal>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mb-14">
@@ -412,8 +413,8 @@ export default function MusicEntertainmentPage() {
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#000000' }}>
         <div className="max-w-6xl mx-auto">
           <Reveal className="text-center mb-14">
-            <p className={`${bebas.className} text-sm tracking-[0.25em] mb-3`} style={{ color: '#e91e8a' }}>THE WALL OF FAME</p>
-            <h2 className={`${bebas.className} text-4xl md:text-6xl neon-heading-sm`} style={{ color: '#ffffff', letterSpacing: '0.04em' }}>Past Shows</h2>
+            <p className={`heading-font text-sm tracking-[0.25em] mb-3`} style={{ color: '#e91e8a' }}>THE WALL OF FAME</p>
+            <h2 className={`heading-font text-4xl md:text-6xl neon-heading-sm`} style={{ color: '#ffffff', letterSpacing: '0.04em' }}>Past Shows</h2>
           </Reveal>
           {/* Grungy overlapping collage — tilted cards */}
           <Reveal delay={0.1}>
@@ -431,7 +432,7 @@ export default function MusicEntertainmentPage() {
                     <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%)' }} />
                   </div>
                   <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between">
-                    <span className={`${bebas.className} text-base tracking-wider`} style={{ color: '#ffffff' }}>{photo.label}</span>
+                    <span className={`heading-font text-base tracking-wider`} style={{ color: '#ffffff' }}>{photo.label}</span>
                     <span className="text-xs font-bold" style={{ color: '#e91e8a' }}>{photo.date}</span>
                   </div>
                 </div>
@@ -445,8 +446,8 @@ export default function MusicEntertainmentPage() {
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#0a0a0a' }}>
         <div className="max-w-6xl mx-auto">
           <Reveal className="text-center mb-8">
-            <p className={`${bebas.className} text-sm tracking-[0.25em] mb-3 neon-blue`} style={{ color: '#3b82f6' }}>AMPLIFY YOUR PRESENCE</p>
-            <h2 className={`${bebas.className} text-4xl md:text-6xl neon-heading-sm`} style={{ color: '#ffffff', letterSpacing: '0.04em' }}>Digital Services</h2>
+            <p className={`heading-font text-sm tracking-[0.25em] mb-3 neon-blue`} style={{ color: '#3b82f6' }}>AMPLIFY YOUR PRESENCE</p>
+            <h2 className={`heading-font text-4xl md:text-6xl neon-heading-sm`} style={{ color: '#ffffff', letterSpacing: '0.04em' }}>Digital Services</h2>
           </Reveal>
           <Reveal delay={0.1} className="text-center mb-14">
             <p className="text-base md:text-lg leading-relaxed max-w-2xl mx-auto" style={{ color: 'rgba(255,255,255,0.6)' }}>
@@ -463,7 +464,7 @@ export default function MusicEntertainmentPage() {
               <Reveal key={card.title} delay={i * 0.12}>
                 <div className="rounded-lg p-8 h-full" style={{ background: '#111111', borderTop: '3px solid #e91e8a' }}>
                   <div className="mb-5">{card.icon}</div>
-                  <h3 className={`${bebas.className} text-2xl md:text-3xl mb-3`} style={{ color: '#ffffff', letterSpacing: '0.04em' }}>{card.title}</h3>
+                  <h3 className={`heading-font text-2xl md:text-3xl mb-3`} style={{ color: '#ffffff', letterSpacing: '0.04em' }}>{card.title}</h3>
                   <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.5)' }}>{card.desc}</p>
                 </div>
               </Reveal>
@@ -476,8 +477,8 @@ export default function MusicEntertainmentPage() {
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#000000' }}>
         <div className="max-w-6xl mx-auto">
           <Reveal className="text-center mb-14">
-            <p className={`${bebas.className} text-sm tracking-[0.25em] mb-3`} style={{ color: '#e91e8a' }}>ARTIST ENDORSEMENTS</p>
-            <h2 className={`${bebas.className} text-4xl md:text-6xl neon-heading-sm`} style={{ color: '#ffffff', letterSpacing: '0.04em' }}>What Artists Say</h2>
+            <p className={`heading-font text-sm tracking-[0.25em] mb-3`} style={{ color: '#e91e8a' }}>ARTIST ENDORSEMENTS</p>
+            <h2 className={`heading-font text-4xl md:text-6xl neon-heading-sm`} style={{ color: '#ffffff', letterSpacing: '0.04em' }}>What Artists Say</h2>
           </Reveal>
           <div className="grid md:grid-cols-3 gap-6">
             {[
@@ -490,7 +491,7 @@ export default function MusicEntertainmentPage() {
                   <span className="absolute top-4 right-4 text-xs font-bold uppercase tracking-widest px-2 py-1 rounded" style={{ backgroundColor: 'rgba(233,30,138,0.15)', color: '#e91e8a' }}>{t.tag}</span>
                   <div className="text-xl mb-5" style={{ color: '#e91e8a' }}>&#9733;&#9733;&#9733;&#9733;&#9733;</div>
                   <blockquote className="text-base leading-relaxed mb-5 italic" style={{ color: 'rgba(255,255,255,0.8)' }}>&ldquo;{t.quote}&rdquo;</blockquote>
-                  <p className={`${bebas.className} text-lg tracking-wider`} style={{ color: '#e91e8a' }}>{t.name}</p>
+                  <p className={`heading-font text-lg tracking-wider`} style={{ color: '#e91e8a' }}>{t.name}</p>
                   <p className="text-xs mt-1" style={{ color: 'rgba(255,255,255,0.25)' }}>{t.role}</p>
                 </div>
               </Reveal>
@@ -506,8 +507,8 @@ export default function MusicEntertainmentPage() {
       <section className="py-20 md:py-24 px-6" style={{ backgroundColor: '#0a0a0a', borderTop: '1px solid rgba(233,30,138,0.15)', borderBottom: '1px solid rgba(233,30,138,0.15)' }}>
         <div className="max-w-2xl mx-auto text-center">
           <Reveal>
-            <p className={`${bebas.className} text-sm tracking-[0.25em] mb-3`} style={{ color: '#e91e8a' }}>STAY IN THE LOOP</p>
-            <h2 className={`${bebas.className} text-3xl md:text-5xl neon-heading-sm mb-4`} style={{ color: '#ffffff', letterSpacing: '0.04em' }}>Never Miss a Show</h2>
+            <p className={`heading-font text-sm tracking-[0.25em] mb-3`} style={{ color: '#e91e8a' }}>STAY IN THE LOOP</p>
+            <h2 className={`heading-font text-3xl md:text-5xl neon-heading-sm mb-4`} style={{ color: '#ffffff', letterSpacing: '0.04em' }}>Never Miss a Show</h2>
             <p className="text-sm mb-8" style={{ color: 'rgba(255,255,255,0.45)' }}>New show alerts, presale codes, artist announcements. No spam. Ever.</p>
           </Reveal>
           <Reveal delay={0.1}>
@@ -529,8 +530,8 @@ export default function MusicEntertainmentPage() {
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#000000' }}>
         <div className="max-w-5xl mx-auto">
           <Reveal className="text-center mb-12">
-            <p className={`${bebas.className} text-sm tracking-[0.25em] mb-3`} style={{ color: '#e91e8a' }}>THE TRANSFORMATION</p>
-            <h2 className={`${bebas.className} text-4xl md:text-6xl neon-heading-sm`} style={{ color: '#ffffff', letterSpacing: '0.04em' }}>Watch Your Website Transform</h2>
+            <p className={`heading-font text-sm tracking-[0.25em] mb-3`} style={{ color: '#e91e8a' }}>THE TRANSFORMATION</p>
+            <h2 className={`heading-font text-4xl md:text-6xl neon-heading-sm`} style={{ color: '#ffffff', letterSpacing: '0.04em' }}>Watch Your Website Transform</h2>
             <p className="mt-4 text-sm" style={{ color: 'rgba(255,255,255,0.35)' }}>From dated to designed — in real time</p>
           </Reveal>
           <LiveRedesign />
@@ -541,8 +542,8 @@ export default function MusicEntertainmentPage() {
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#0a0a0a' }}>
         <div className="max-w-3xl mx-auto">
           <Reveal className="text-center mb-14">
-            <p className={`${bebas.className} text-sm tracking-[0.25em] mb-3`} style={{ color: '#e91e8a' }}>GOT QUESTIONS</p>
-            <h2 className={`${bebas.className} text-4xl md:text-6xl neon-heading-sm`} style={{ color: '#ffffff', letterSpacing: '0.04em' }}>FAQ</h2>
+            <p className={`heading-font text-sm tracking-[0.25em] mb-3`} style={{ color: '#e91e8a' }}>GOT QUESTIONS</p>
+            <h2 className={`heading-font text-4xl md:text-6xl neon-heading-sm`} style={{ color: '#ffffff', letterSpacing: '0.04em' }}>FAQ</h2>
           </Reveal>
           <Reveal delay={0.1}>
             <FAQAccordion items={[
@@ -565,8 +566,8 @@ export default function MusicEntertainmentPage() {
         </div>
         <div className="relative max-w-3xl mx-auto text-center">
           <Reveal>
-            <p className={`${bebas.className} text-sm tracking-[0.25em] mb-3`} style={{ color: '#e91e8a' }}>OUR STORY</p>
-            <h2 className={`${bebas.className} text-4xl md:text-6xl neon-heading-sm mb-8`} style={{ color: '#ffffff', letterSpacing: '0.04em' }}>About Neon Pines</h2>
+            <p className={`heading-font text-sm tracking-[0.25em] mb-3`} style={{ color: '#e91e8a' }}>OUR STORY</p>
+            <h2 className={`heading-font text-4xl md:text-6xl neon-heading-sm mb-8`} style={{ color: '#ffffff', letterSpacing: '0.04em' }}>About Neon Pines</h2>
           </Reveal>
           <Reveal delay={0.15}>
             <p className="text-lg leading-relaxed mb-6" style={{ color: 'rgba(255,255,255,0.6)' }}>
@@ -580,7 +581,7 @@ export default function MusicEntertainmentPage() {
             <div className="flex justify-center gap-10 flex-wrap">
               {[{ value: '200+', label: 'Shows/Year' }, { value: '300', label: 'Capacity' }, { value: '8+', label: 'Years Running' }].map((stat) => (
                 <div key={stat.label} className="text-center">
-                  <div className={`${bebas.className} text-4xl md:text-5xl neon-heading-sm`} style={{ color: '#e91e8a', letterSpacing: '0.04em' }}>{stat.value}</div>
+                  <div className={`heading-font text-4xl md:text-5xl neon-heading-sm`} style={{ color: '#e91e8a', letterSpacing: '0.04em' }}>{stat.value}</div>
                   <div className="text-xs font-medium uppercase tracking-widest mt-1" style={{ color: 'rgba(255,255,255,0.4)' }}>{stat.label}</div>
                 </div>
               ))}
@@ -593,8 +594,8 @@ export default function MusicEntertainmentPage() {
       <section id="contact" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#0a0a0a' }}>
         <div className="max-w-6xl mx-auto">
           <Reveal className="text-center mb-14">
-            <p className={`${bebas.className} text-sm tracking-[0.25em] mb-3`} style={{ color: '#e91e8a' }}>GET IN TOUCH</p>
-            <h2 className={`${bebas.className} text-4xl md:text-6xl neon-heading-sm`} style={{ color: '#ffffff', letterSpacing: '0.04em' }}>Contact &amp; Booking</h2>
+            <p className={`heading-font text-sm tracking-[0.25em] mb-3`} style={{ color: '#e91e8a' }}>GET IN TOUCH</p>
+            <h2 className={`heading-font text-4xl md:text-6xl neon-heading-sm`} style={{ color: '#ffffff', letterSpacing: '0.04em' }}>Contact &amp; Booking</h2>
           </Reveal>
           <div className="grid md:grid-cols-2 gap-12 md:gap-16">
             <Reveal>
@@ -644,7 +645,7 @@ export default function MusicEntertainmentPage() {
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-3 gap-10 mb-10">
             <div>
-              <div className={`${bebas.className} text-3xl tracking-widest neon-heading-sm mb-2`} style={{ color: '#e91e8a', letterSpacing: '0.12em' }}>NEON PINES</div>
+              <div className={`heading-font text-3xl tracking-widest neon-heading-sm mb-2`} style={{ color: '#e91e8a', letterSpacing: '0.12em' }}>NEON PINES</div>
               <p className="text-sm" style={{ color: 'rgba(255,255,255,0.35)' }}>Where the mountains rock.<br />Nelson, BC.</p>
             </div>
             <div>

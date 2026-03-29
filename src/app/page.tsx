@@ -420,7 +420,7 @@ export default function Home() {
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-16 py-24 sm:py-32">
           {/* Hero headline — staggered word reveal */}
-          <h1 className="font-[family-name:var(--font-satoshi)] text-cream text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold leading-[1.08] max-w-4xl">
+          <h1 className="font-[family-name:var(--font-clash)] text-cream text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-semibold leading-[1.08] max-w-4xl">
             {['You\'re', 'great', 'at', 'what', 'you', 'do.', 'Let\'s', 'make', 'sure', 'people', 'know', 'it.'].map((word, i) => (
               <motion.span
                 key={i}

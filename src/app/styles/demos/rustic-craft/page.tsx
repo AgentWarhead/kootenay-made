@@ -1,15 +1,10 @@
 'use client'
 
 import { useState, useRef } from 'react'
-import { Bitter, Lato } from 'next/font/google'
+import { Lato } from 'next/font/google'
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion, useReducedMotion, AnimatePresence } from 'framer-motion'
-
-const bitter = Bitter({
-  subsets: ['latin'],
-  weight: ['400', '700'],
-})
 
 const lato = Lato({
   subsets: ['latin'],
@@ -205,7 +200,7 @@ function LiveRedesign() {
               style={{ backgroundColor: PARCHMENT, border: `1px solid ${AMBER}40`, borderRadius: '16px', boxShadow: `0 8px 40px ${AMBER}18, 0 2px 8px rgba(0,0,0,0.06)` }}>
               {/* Elegant nav */}
               <div className="flex items-center justify-between px-6 sm:px-10 py-4" style={{ borderBottom: `1px solid ${DARK_BROWN}18` }}>
-                <motion.span className={`${bitter.className} text-base sm:text-lg font-bold`} style={{ color: DARK_BROWN }}
+                <motion.span className={`heading-font text-base sm:text-lg font-bold`} style={{ color: DARK_BROWN }}
                   initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: dur * 0.6, delay: stagger }}>
                   Kootenay Brewing Co.
                 </motion.span>
@@ -237,7 +232,7 @@ function LiveRedesign() {
                       Est. 2018 &mdash; West Kootenay
                     </span>
                   </motion.div>
-                  <motion.h2 className={`${bitter.className} text-2xl sm:text-4xl md:text-5xl leading-[1.15] mb-4 sm:max-w-xl font-bold`} style={{ color: DARK_BROWN }}
+                  <motion.h2 className={`heading-font text-2xl sm:text-4xl md:text-5xl leading-[1.15] mb-4 sm:max-w-xl font-bold`} style={{ color: DARK_BROWN }}
                     initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
                     Brewed 12 Minutes From Where{' '}
                     <span className="relative inline-block" style={{ color: AMBER }}>
@@ -254,7 +249,7 @@ function LiveRedesign() {
                   </motion.p>
                   <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 5 }}
                     className="flex flex-col sm:flex-row items-center sm:items-start justify-center sm:justify-start gap-4">
-                    <a href="#tap" className={`${bitter.className} inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 sm:px-8 py-3.5 text-sm rounded-sm transition-all hover:scale-[1.03] active:scale-[0.97]`}
+                    <a href="#tap" className={`heading-font inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 sm:px-8 py-3.5 text-sm rounded-sm transition-all hover:scale-[1.03] active:scale-[0.97]`}
                       style={{ backgroundColor: AMBER, color: DARK_BROWN, boxShadow: `0 4px 20px ${AMBER}35`, fontWeight: 700 }}>
                       See What&rsquo;s on Tap
                       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -367,6 +362,8 @@ export default function RusticCraftDemo() {
   return (
     <div className={lato.className}>
       <style>{`
+      @import url('https://api.fontshare.com/v2/css?f[]=gambetta@400,500,700&display=swap');
+      .heading-font { font-family: 'Gambetta', serif; }
         @media (prefers-reduced-motion: reduce) {
           *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
         }
@@ -388,7 +385,7 @@ export default function RusticCraftDemo() {
         <GrainOverlay />
         <div className="relative z-10 max-w-6xl mx-auto flex items-center justify-between">
           <span
-            className={`${bitter.className} text-xl md:text-2xl font-bold tracking-tight`}
+            className={`heading-font text-xl md:text-2xl font-bold tracking-tight`}
             style={{ color: PARCHMENT }}
           >
             <span style={{ color: AMBER }}>Kootenay</span> Brewing Collective
@@ -437,7 +434,7 @@ export default function RusticCraftDemo() {
         <div className="relative z-10 text-center px-6 py-24 md:py-32 max-w-4xl mx-auto">
           <StampIn>
             <h1
-              className={`${bitter.className} text-5xl md:text-7xl lg:text-8xl font-bold leading-tight mb-6`}
+              className={`heading-font text-5xl md:text-7xl lg:text-8xl font-bold leading-tight mb-6`}
               style={{ color: PARCHMENT, textShadow: '0 2px 20px rgba(0,0,0,0.5)' }}
             >
               Small Batch.<br />Big Flavour.
@@ -496,7 +493,7 @@ export default function RusticCraftDemo() {
         <div className="relative z-10 max-w-5xl mx-auto">
           <StampIn className="text-center mb-12">
             <h2
-              className={`${bitter.className} text-3xl md:text-5xl font-bold mb-2`}
+              className={`heading-font text-3xl md:text-5xl font-bold mb-2`}
               style={{ color: PARCHMENT }}
             >
               What&rsquo;s on Tap
@@ -518,7 +515,7 @@ export default function RusticCraftDemo() {
               <div className="relative z-10">
                 {/* Chalkboard header */}
                 <div className="text-center mb-8">
-                  <p className={`${bitter.className} text-xs uppercase tracking-[0.3em]`} style={{ color: `${PARCHMENT}66` }}>
+                  <p className={`heading-font text-xs uppercase tracking-[0.3em]`} style={{ color: `${PARCHMENT}66` }}>
                     Today&rsquo;s Selection
                   </p>
                   <div className="w-24 h-px mx-auto mt-2" style={{ backgroundColor: `${PARCHMENT}33` }} />
@@ -541,7 +538,7 @@ export default function RusticCraftDemo() {
                       />
                       <div className="flex-1 min-w-0">
                         <div className="flex items-baseline justify-between gap-2 flex-wrap">
-                          <span className={`${bitter.className} font-bold text-base`} style={{ color: PARCHMENT }}>{beer.name}</span>
+                          <span className={`heading-font font-bold text-base`} style={{ color: PARCHMENT }}>{beer.name}</span>
                           <div className="flex gap-3 text-xs" style={{ color: `${PARCHMENT}88` }}>
                             <span style={{ color: AMBER }}>{beer.abv}</span>
                             <span>{beer.ibu} IBU</span>
@@ -572,7 +569,7 @@ export default function RusticCraftDemo() {
         <div className="relative z-10 max-w-5xl mx-auto">
           <StampIn className="text-center mb-12">
             <h2
-              className={`${bitter.className} text-3xl md:text-4xl font-bold mb-2`}
+              className={`heading-font text-3xl md:text-4xl font-bold mb-2`}
               style={{ color: DARK_BROWN }}
             >
               Brewer&rsquo;s Pick This Week
@@ -595,7 +592,7 @@ export default function RusticCraftDemo() {
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-12 h-12 rounded-full flex-shrink-0" style={{ backgroundColor: '#8b2500', border: `3px solid ${AMBER}` }} />
                   <div>
-                    <h3 className={`${bitter.className} text-2xl font-bold`} style={{ color: DARK_BROWN }}>Arrow Lakes Red</h3>
+                    <h3 className={`heading-font text-2xl font-bold`} style={{ color: DARK_BROWN }}>Arrow Lakes Red</h3>
                     <p className="text-sm font-bold" style={{ color: AMBER }}>Irish Red Ale · 5.6% ABV</p>
                   </div>
                 </div>
@@ -635,7 +632,7 @@ export default function RusticCraftDemo() {
         <div className="relative z-10 max-w-5xl mx-auto">
           <StampIn className="text-center mb-12">
             <h2
-              className={`${bitter.className} text-3xl md:text-5xl font-bold mb-2`}
+              className={`heading-font text-3xl md:text-5xl font-bold mb-2`}
               style={{ color: PARCHMENT }}
             >
               What to Expect
@@ -680,7 +677,7 @@ export default function RusticCraftDemo() {
                   />
                   <div className="relative z-10">
                     <div className="text-4xl mb-3">{item.icon}</div>
-                    <h3 className={`${bitter.className} font-bold text-lg mb-2`} style={{ color: AMBER }}>{item.title}</h3>
+                    <h3 className={`heading-font font-bold text-lg mb-2`} style={{ color: AMBER }}>{item.title}</h3>
                     <p className="text-sm leading-relaxed" style={{ color: `${PARCHMENT}99` }}>{item.detail}</p>
                   </div>
                 </div>
@@ -714,7 +711,7 @@ export default function RusticCraftDemo() {
         <div className="relative z-10 max-w-4xl mx-auto">
           <StampIn className="text-center mb-12">
             <h2
-              className={`${bitter.className} text-3xl md:text-4xl font-bold mb-2`}
+              className={`heading-font text-3xl md:text-4xl font-bold mb-2`}
               style={{ color: DARK_BROWN }}
             >
               Coming Up at the Taproom
@@ -737,11 +734,11 @@ export default function RusticCraftDemo() {
                 ].map((event) => (
                   <div key={event.title} className="grid md:grid-cols-[140px_1fr] gap-4 items-start" style={{ borderBottom: `1px solid ${PARCHMENT}15`, paddingBottom: '1.25rem' }}>
                     <div>
-                      <p className={`${bitter.className} font-bold text-sm`} style={{ color: AMBER }}>{event.date}</p>
+                      <p className={`heading-font font-bold text-sm`} style={{ color: AMBER }}>{event.date}</p>
                       <p className="text-xs" style={{ color: `${PARCHMENT}88` }}>{event.time}</p>
                     </div>
                     <div>
-                      <p className={`${bitter.className} font-bold text-base`} style={{ color: PARCHMENT }}>{event.title}</p>
+                      <p className={`heading-font font-bold text-base`} style={{ color: PARCHMENT }}>{event.title}</p>
                       <p className="text-xs mt-1 leading-relaxed italic" style={{ color: `${PARCHMENT}aa` }}>{event.desc}</p>
                     </div>
                   </div>
@@ -762,7 +759,7 @@ export default function RusticCraftDemo() {
         <div className="relative z-10 max-w-5xl mx-auto">
           <StampIn className="text-center mb-12">
             <h2
-              className={`${bitter.className} text-3xl md:text-5xl font-bold mb-2`}
+              className={`heading-font text-3xl md:text-5xl font-bold mb-2`}
               style={{ color: PARCHMENT }}
             >
               Garage to Taproom
@@ -800,7 +797,7 @@ export default function RusticCraftDemo() {
                     <Image src={beat.img} alt={beat.title} fill className="object-cover" />
                     <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, transparent 40%, rgba(61,43,31,0.9))' }} />
                     <div className="absolute bottom-3 left-4 flex items-baseline gap-2">
-                      <span className={`${bitter.className} font-bold text-xl`} style={{ color: AMBER }}>{beat.title}</span>
+                      <span className={`heading-font font-bold text-xl`} style={{ color: AMBER }}>{beat.title}</span>
                       <span className="text-xs" style={{ color: `${PARCHMENT}88` }}>{beat.year}</span>
                     </div>
                   </div>
@@ -830,7 +827,7 @@ export default function RusticCraftDemo() {
         <div className="relative z-10 max-w-5xl mx-auto">
           <StampIn className="text-center mb-4">
             <h2
-              className={`${bitter.className} text-3xl md:text-5xl font-bold`}
+              className={`heading-font text-3xl md:text-5xl font-bold`}
               style={{ color: DARK_BROWN }}
             >
               Watch Your Website Transform
@@ -858,7 +855,7 @@ export default function RusticCraftDemo() {
         <div className="relative z-10 max-w-5xl mx-auto">
           <StampIn className="text-center mb-16">
             <h2
-              className={`${bitter.className} text-3xl md:text-5xl font-bold`}
+              className={`heading-font text-3xl md:text-5xl font-bold`}
               style={{ color: PARCHMENT }}
             >
               Tasting Notes From Our Regulars
@@ -906,7 +903,7 @@ export default function RusticCraftDemo() {
                   {/* Label top band */}
                   <div className="relative py-4 px-6 text-center" style={{ backgroundColor: t.swatch }}>
                     <GrainOverlay />
-                    <p className={`${bitter.className} font-bold text-sm relative z-10`} style={{ color: DARK_BROWN }}>{t.beerName}</p>
+                    <p className={`heading-font font-bold text-sm relative z-10`} style={{ color: DARK_BROWN }}>{t.beerName}</p>
                     <p className="text-xs relative z-10 mt-1" style={{ color: `${DARK_BROWN}88` }}>{t.style}</p>
                   </div>
                   {/* Label body */}
@@ -945,7 +942,7 @@ export default function RusticCraftDemo() {
         <div className="relative z-10 max-w-3xl mx-auto">
           <StampIn className="text-center mb-16">
             <h2
-              className={`${bitter.className} text-3xl md:text-5xl font-bold`}
+              className={`heading-font text-3xl md:text-5xl font-bold`}
               style={{ color: DARK_BROWN }}
             >
               Common Questions
@@ -976,7 +973,7 @@ export default function RusticCraftDemo() {
         <div className="relative z-10 max-w-6xl mx-auto">
           <StampIn className="text-center mb-14">
             <h2
-              className={`${bitter.className} text-3xl md:text-5xl font-bold`}
+              className={`heading-font text-3xl md:text-5xl font-bold`}
               style={{ color: PARCHMENT }}
             >
               Visit the Taproom
@@ -988,17 +985,17 @@ export default function RusticCraftDemo() {
             <FadeUp>
               <div className="space-y-6">
                 <div>
-                  <h3 className={`${bitter.className} font-bold text-lg mb-2`} style={{ color: PARCHMENT }}>Phone</h3>
+                  <h3 className={`heading-font font-bold text-lg mb-2`} style={{ color: PARCHMENT }}>Phone</h3>
                   <p style={{ color: `${PARCHMENT}cc` }}>
                     <a href="tel:2505550195" className="hover:underline">(250) 555-0195</a>
                   </p>
                 </div>
                 <div>
-                  <h3 className={`${bitter.className} font-bold text-lg mb-2`} style={{ color: PARCHMENT }}>Address</h3>
+                  <h3 className={`heading-font font-bold text-lg mb-2`} style={{ color: PARCHMENT }}>Address</h3>
                   <p style={{ color: `${PARCHMENT}cc` }}>123 Sample St, Trail, BC</p>
                 </div>
                 <div>
-                  <h3 className={`${bitter.className} font-bold text-lg mb-2`} style={{ color: PARCHMENT }}>Hours</h3>
+                  <h3 className={`heading-font font-bold text-lg mb-2`} style={{ color: PARCHMENT }}>Hours</h3>
                   <p style={{ color: `${PARCHMENT}cc` }}>Sun–Thu: 12–9 PM<br />Fri–Sat: 12–11 PM</p>
                 </div>
 
@@ -1027,7 +1024,7 @@ export default function RusticCraftDemo() {
                 style={{ backgroundColor: PARCHMENT, border: `2px solid ${DARK_BROWN}33`, boxShadow: `inset 0 2px 6px rgba(61,43,31,0.08)` }}
                 onSubmit={(e) => e.preventDefault()}
               >
-                <h3 className={`${bitter.className} text-xl font-bold mb-2`} style={{ color: DARK_BROWN }}>
+                <h3 className={`heading-font text-xl font-bold mb-2`} style={{ color: DARK_BROWN }}>
                   Send Us a Message
                 </h3>
                 <div>
@@ -1084,7 +1081,7 @@ export default function RusticCraftDemo() {
         <div className="relative z-10 max-w-6xl mx-auto">
           <div className="grid md:grid-cols-3 gap-10 mb-12">
             <div>
-              <span className={`${bitter.className} text-xl font-bold block mb-3`} style={{ color: PARCHMENT }}>
+              <span className={`heading-font text-xl font-bold block mb-3`} style={{ color: PARCHMENT }}>
                 Kootenay Brewing Collective
               </span>
               <p className="text-sm leading-relaxed" style={{ color: `${PARCHMENT}99` }}>
@@ -1092,7 +1089,7 @@ export default function RusticCraftDemo() {
               </p>
             </div>
             <div>
-              <h4 className={`${bitter.className} font-bold text-sm uppercase tracking-widest mb-4`} style={{ color: AMBER }}>Links</h4>
+              <h4 className={`heading-font font-bold text-sm uppercase tracking-widest mb-4`} style={{ color: AMBER }}>Links</h4>
               <ul className="space-y-2">
                 {['On Tap', 'Taproom', 'Events', 'Contact'].map((link) => (
                   <li key={link}>
@@ -1110,7 +1107,7 @@ export default function RusticCraftDemo() {
               </ul>
             </div>
             <div>
-              <h4 className={`${bitter.className} font-bold text-sm uppercase tracking-widest mb-4`} style={{ color: AMBER }}>Visit Us</h4>
+              <h4 className={`heading-font font-bold text-sm uppercase tracking-widest mb-4`} style={{ color: AMBER }}>Visit Us</h4>
               <p className="text-sm leading-relaxed mb-3" style={{ color: `${PARCHMENT}99` }}>123 Sample St, Trail, BC</p>
               <p className="text-sm leading-relaxed" style={{ color: `${PARCHMENT}99` }}>Sun–Thu: 12–9 PM<br />Fri–Sat: 12–11 PM</p>
             </div>

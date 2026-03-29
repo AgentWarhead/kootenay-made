@@ -180,7 +180,7 @@ function LiveRedesign() {
                     </span>
                   </motion.div>
 
-                  <motion.h2 className={`${font.className} text-2xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.15] mb-4 sm:mb-6 sm:max-w-xl font-bold`} style={{ color: MD.dark }} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
+                  <motion.h2 className={`heading-font text-2xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.15] mb-4 sm:mb-6 sm:max-w-xl font-bold`} style={{ color: MD.dark }} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
                     Nervous About the Dentist?<br />We Get It. That&apos;s Why{' '}
                     <span className="relative inline-block" style={{ color: MD.teal }}>
                       We&apos;re Different.
@@ -326,6 +326,8 @@ export default function MedicalDentalDemo() {
     <div className={font.className} style={{ fontFamily: 'DM Sans, sans-serif', backgroundColor: '#ffffff', color: '#1e293b' }}>
 
       <style>{`
+      @import url('https://api.fontshare.com/v2/css?f[]=ranade@400,500,700&display=swap');
+      .heading-font { font-family: 'Ranade', sans-serif; }
         @media (prefers-reduced-motion: reduce) {
           *, *::before, *::after {
             animation-duration: 0.01ms !important;
@@ -708,7 +710,7 @@ export default function MedicalDentalDemo() {
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#ffffff' }}>
         <div className="max-w-5xl mx-auto">
           <Reveal>
-            <h2 className={`${font.className} text-3xl md:text-5xl font-bold text-center mb-4`} style={{ color: '#1e293b' }}>
+            <h2 className={`heading-font text-3xl md:text-5xl font-bold text-center mb-4`} style={{ color: '#1e293b' }}>
               Watch Your Website Transform
             </h2>
             <p className={`${font.className} text-center mb-12`} style={{ color: '#64748b' }}>

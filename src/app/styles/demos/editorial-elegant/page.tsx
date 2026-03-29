@@ -1,15 +1,10 @@
 'use client'
 
-import { Playfair_Display, Source_Sans_3 } from 'next/font/google'
+import { Source_Sans_3 } from 'next/font/google'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useState, useRef } from 'react'
 import { motion, useReducedMotion, AnimatePresence } from 'framer-motion'
-
-const heading = Playfair_Display({
-  subsets: ['latin'],
-  weight: ['400', '600', '700'],
-})
 
 const body = Source_Sans_3({
   subsets: ['latin'],
@@ -36,7 +31,7 @@ function Reveal({ children, className = '', delay = 0 }: { children: React.React
 function EditorialTitle({ children, subtitle }: { children: React.ReactNode; subtitle?: string }) {
   return (
     <div className="text-center mb-16">
-      <h2 className={`${heading.className} text-3xl md:text-5xl mb-4`} style={{ color: '#1a1a1a', fontWeight: 400 }}>
+      <h2 className={`heading-font text-3xl md:text-5xl mb-4`} style={{ color: '#1a1a1a', fontWeight: 400 }}>
         {children}
       </h2>
       <div className="flex items-center justify-center gap-4 mb-4">
@@ -151,7 +146,7 @@ function LiveRedesign() {
             >
               {/* Elegant nav */}
               <div className="flex items-center justify-between px-6 sm:px-10 py-4" style={{ borderBottom: `1px solid ${EE.gold}20` }}>
-                <motion.span className={`${heading.className} text-base sm:text-lg`} style={{ color: EE.dark, fontStyle: 'italic' }} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: dur * 0.6, delay: stagger }}>
+                <motion.span className={`heading-font text-base sm:text-lg`} style={{ color: EE.dark, fontStyle: 'italic' }} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: dur * 0.6, delay: stagger }}>
                   Pinnacle Real Estate
                 </motion.span>
                 <motion.div className="hidden sm:flex items-center gap-6" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
@@ -192,7 +187,7 @@ function LiveRedesign() {
                     </span>
                   </motion.div>
 
-                  <motion.h2 className={`${heading.className} text-2xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.15] mb-4 sm:mb-6 sm:max-w-xl`} style={{ color: EE.dark, fontWeight: 400 }} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
+                  <motion.h2 className={`heading-font text-2xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.15] mb-4 sm:mb-6 sm:max-w-xl`} style={{ color: EE.dark, fontWeight: 400 }} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
                     Your Home Has a Story.<br />Let&rsquo;s Make Sure Buyers{' '}
                     <span className="relative inline-block" style={{ color: EE.gold, fontStyle: 'italic' }}>
                       Hear It.
@@ -207,7 +202,7 @@ function LiveRedesign() {
                   </motion.p>
 
                   <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 5 }} className="flex flex-col sm:flex-row items-center sm:items-start justify-center sm:justify-start gap-4">
-                    <a href="#contact" className={`${heading.className} inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 text-sm sm:text-base transition-all duration-300 hover:opacity-90 active:scale-[0.97] font-semibold uppercase tracking-widest`} style={{ backgroundColor: EE.gold, color: EE.cream, boxShadow: `0 4px 20px ${EE.gold}35` }}>
+                    <a href="#contact" className={`heading-font inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 text-sm sm:text-base transition-all duration-300 hover:opacity-90 active:scale-[0.97] font-semibold uppercase tracking-widest`} style={{ backgroundColor: EE.gold, color: EE.cream, boxShadow: `0 4px 20px ${EE.gold}35` }}>
                       Get Your Property Valuation
                       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
                     </a>
@@ -357,6 +352,8 @@ export default function EditorialElegantDemo() {
     <div className={body.className} style={{ fontFamily: 'Source Sans 3, sans-serif', backgroundColor: '#faf9f7', color: '#1a1a1a' }}>
 
       <style>{`
+      @import url('https://api.fontshare.com/v2/css?f[]=zodiak@400,500,700&display=swap');
+      .heading-font { font-family: 'Zodiak', serif; }
         @keyframes kenBurns {
           0% { transform: scale(1); }
           100% { transform: scale(1.05); }
@@ -377,7 +374,7 @@ export default function EditorialElegantDemo() {
       {/* ═══════════ 1. NAV ═══════════ */}
       <nav className="px-6 py-5 sticky top-0 z-40" style={{ backgroundColor: '#faf9f7', borderBottom: '1px solid #e8e6e1' }}>
         <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <span className={`${heading.className} text-xl md:text-2xl`} style={{ color: '#1a1a1a', fontWeight: 400, fontStyle: 'italic', letterSpacing: '0.04em' }}>
+          <span className={`heading-font text-xl md:text-2xl`} style={{ color: '#1a1a1a', fontWeight: 400, fontStyle: 'italic', letterSpacing: '0.04em' }}>
             Pinnacle Real Estate
           </span>
           <div className="hidden md:flex items-center gap-8">
@@ -419,7 +416,7 @@ export default function EditorialElegantDemo() {
             Curated living in the Kootenays
           </motion.p>
           <motion.h1
-            className={`${heading.className} text-5xl md:text-7xl lg:text-8xl leading-tight mb-8`}
+            className={`heading-font text-5xl md:text-7xl lg:text-8xl leading-tight mb-8`}
             style={{ color: '#faf9f7', fontWeight: 400, textShadow: '0 2px 20px rgba(0,0,0,0.3)' }}
             initial={prefersReduced ? {} : { opacity: 0, y: 30 }}
             animate={prefersReduced ? {} : { opacity: 1, y: 0 }}
@@ -479,7 +476,7 @@ export default function EditorialElegantDemo() {
                 { label: 'Active Listings', value: '42' },
               ].map((stat) => (
                 <div key={stat.label} className="text-center">
-                  <div className={`${heading.className} text-lg md:text-xl`} style={{ color: '#b8860b', fontWeight: 600 }}>{stat.value}</div>
+                  <div className={`heading-font text-lg md:text-xl`} style={{ color: '#b8860b', fontWeight: 600 }}>{stat.value}</div>
                   <div className={`${body.className} text-xs uppercase tracking-wider`} style={{ color: 'rgba(250,249,247,0.45)' }}>{stat.label}</div>
                 </div>
               ))}
@@ -527,10 +524,10 @@ export default function EditorialElegantDemo() {
                   <div className="p-6" style={{ backgroundColor: '#ffffff' }}>
                     <div className="flex items-start justify-between mb-2">
                       <div>
-                        <h3 className={`${heading.className} text-xl mb-1`} style={{ color: '#1a1a1a', fontWeight: 600 }}>{prop.label}</h3>
+                        <h3 className={`heading-font text-xl mb-1`} style={{ color: '#1a1a1a', fontWeight: 600 }}>{prop.label}</h3>
                         <p className="text-sm" style={{ color: '#6b6b6b' }}>{prop.location}</p>
                       </div>
-                      <div className={`${heading.className} text-xl font-semibold`} style={{ color: '#b8860b' }}>{prop.price}</div>
+                      <div className={`heading-font text-xl font-semibold`} style={{ color: '#b8860b' }}>{prop.price}</div>
                     </div>
                     <div className="flex items-center gap-5 mt-4 pt-4" style={{ borderTop: '1px solid #e8e6e1' }}>
                       {[
@@ -568,9 +565,9 @@ export default function EditorialElegantDemo() {
                   </div>
                   <div className="p-5 flex flex-col justify-between">
                     <div>
-                      <h3 className={`${heading.className} text-base mb-1`} style={{ color: '#1a1a1a', fontWeight: 600 }}>{prop.label}</h3>
+                      <h3 className={`heading-font text-base mb-1`} style={{ color: '#1a1a1a', fontWeight: 600 }}>{prop.label}</h3>
                       <p className="text-xs mb-2" style={{ color: '#6b6b6b' }}>{prop.location}</p>
-                      <div className={`${heading.className} text-base font-semibold`} style={{ color: '#b8860b' }}>{prop.price}</div>
+                      <div className={`heading-font text-base font-semibold`} style={{ color: '#b8860b' }}>{prop.price}</div>
                     </div>
                     <div className="flex items-center gap-3 mt-3 pt-3" style={{ borderTop: '1px solid #e8e6e1' }}>
                       <span className="text-xs" style={{ color: '#6b6b6b' }}>🛏 {prop.beds}</span>
@@ -633,13 +630,13 @@ export default function EditorialElegantDemo() {
                     {/* Step circle */}
                     <div className="flex md:justify-start justify-center mb-6">
                       <div
-                        className={`${heading.className} w-20 h-20 flex items-center justify-center text-xl font-semibold`}
+                        className={`heading-font w-20 h-20 flex items-center justify-center text-xl font-semibold`}
                         style={{ border: '1px solid #b8860b', color: '#b8860b', backgroundColor: '#faf9f7' }}
                       >
                         {step.num}
                       </div>
                     </div>
-                    <h3 className={`${heading.className} text-xl mb-3`} style={{ color: '#1a1a1a', fontWeight: 600 }}>{step.title}</h3>
+                    <h3 className={`heading-font text-xl mb-3`} style={{ color: '#1a1a1a', fontWeight: 600 }}>{step.title}</h3>
                     <p className="text-sm leading-relaxed" style={{ color: '#6b6b6b' }}>{step.desc}</p>
                   </div>
                 </Reveal>
@@ -673,7 +670,7 @@ export default function EditorialElegantDemo() {
                   className="absolute -bottom-6 -right-6 p-6 text-center hidden md:block"
                   style={{ backgroundColor: '#1a1a1a', minWidth: '160px' }}
                 >
-                  <div className={`${heading.className} text-2xl font-semibold mb-1`} style={{ color: '#b8860b' }}>$50M+</div>
+                  <div className={`heading-font text-2xl font-semibold mb-1`} style={{ color: '#b8860b' }}>$50M+</div>
                   <div className={`${body.className} text-xs uppercase tracking-widest`} style={{ color: 'rgba(250,249,247,0.6)' }}>Total Volume Sold</div>
                 </div>
               </div>
@@ -684,7 +681,7 @@ export default function EditorialElegantDemo() {
                 <p className={`${body.className} text-xs uppercase tracking-[0.25em] font-semibold mb-4`} style={{ color: '#b8860b' }}>
                   Meet Your Agent
                 </p>
-                <h2 className={`${heading.className} text-3xl md:text-4xl mb-2`} style={{ color: '#1a1a1a', fontWeight: 400 }}>Amanda Chen</h2>
+                <h2 className={`heading-font text-3xl md:text-4xl mb-2`} style={{ color: '#1a1a1a', fontWeight: 400 }}>Amanda Chen</h2>
                 <p className={`${body.className} text-sm mb-6`} style={{ color: '#6b6b6b' }}>REALTOR® &mdash; Luxury & Residential Specialist</p>
 
                 <div className="w-8 h-px mb-8" style={{ backgroundColor: '#b8860b' }} />
@@ -704,7 +701,7 @@ export default function EditorialElegantDemo() {
                     { value: '98.7%', label: 'List-to-Sale' },
                   ].map((stat) => (
                     <div key={stat.label} className="text-center p-4" style={{ border: '1px solid #e8e6e1', backgroundColor: '#ffffff' }}>
-                      <div className={`${heading.className} text-xl font-semibold mb-1`} style={{ color: '#b8860b' }}>{stat.value}</div>
+                      <div className={`heading-font text-xl font-semibold mb-1`} style={{ color: '#b8860b' }}>{stat.value}</div>
                       <div className="text-xs uppercase tracking-wider" style={{ color: '#6b6b6b' }}>{stat.label}</div>
                     </div>
                   ))}
@@ -744,7 +741,7 @@ export default function EditorialElegantDemo() {
               ].map((item) => (
                 <div key={item.name} className="text-center">
                   <div
-                    className={`${heading.className} text-sm font-semibold`}
+                    className={`heading-font text-sm font-semibold`}
                     style={{ color: '#aaa', letterSpacing: '0.06em' }}
                   >
                     {item.name}
@@ -793,7 +790,7 @@ export default function EditorialElegantDemo() {
                 >
                   {/* Large quotemark */}
                   <div
-                    className={`${heading.className} absolute top-4 left-8 text-7xl leading-none pointer-events-none select-none`}
+                    className={`heading-font absolute top-4 left-8 text-7xl leading-none pointer-events-none select-none`}
                     style={{ color: '#b8860b', opacity: 0.15, fontWeight: 700 }}
                     aria-hidden="true"
                   >
@@ -801,7 +798,7 @@ export default function EditorialElegantDemo() {
                   </div>
                   <div className="flex items-start justify-between flex-wrap gap-4">
                     <blockquote
-                      className={`${heading.className} text-xl md:text-2xl leading-relaxed italic flex-1`}
+                      className={`heading-font text-xl md:text-2xl leading-relaxed italic flex-1`}
                       style={{ color: '#1a1a1a', fontWeight: 400, maxWidth: '720px' }}
                     >
                       &ldquo;{t.quote}&rdquo;
@@ -927,7 +924,7 @@ export default function EditorialElegantDemo() {
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-3 gap-10 mb-10">
             <div>
-              <h3 className={`${heading.className} text-lg mb-3`} style={{ color: '#faf9f7', fontWeight: 400 }}>Pinnacle Real Estate</h3>
+              <h3 className={`heading-font text-lg mb-3`} style={{ color: '#faf9f7', fontWeight: 400 }}>Pinnacle Real Estate</h3>
               <p className="text-sm text-white/40">Curated living in the Kootenays.</p>
             </div>
             <div>

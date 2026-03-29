@@ -103,6 +103,8 @@ function FAQItem({ question, answer, accentColor = TEAL }: { question: string; a
 
 /* ── Confetti burst CSS keyframes ── */
 const confettiStyles = `
+  @import url('https://api.fontshare.com/v2/css?f[]=pally@400,500,700&display=swap');
+  .heading-font { font-family: 'Pally', sans-serif; }
   @keyframes confettiBurst {
     0% { transform: translate(0, 0) scale(1); opacity: 1; }
     100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
@@ -258,7 +260,7 @@ function LiveRedesign() {
                       Est. 2016 &mdash; Castlegar, BC
                     </span>
                   </motion.div>
-                  <motion.h2 className={`${nunito.className} text-2xl sm:text-4xl md:text-5xl font-extrabold leading-[1.15] mb-4 sm:max-w-xl`} style={{ color: '#333' }}
+                  <motion.h2 className={`heading-font text-2xl sm:text-4xl md:text-5xl font-extrabold leading-[1.15] mb-4 sm:max-w-xl`} style={{ color: '#333' }}
                     initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
                     Where Curiosity{' '}
                     <span className="relative inline-block" style={{ color: CORAL }}>
