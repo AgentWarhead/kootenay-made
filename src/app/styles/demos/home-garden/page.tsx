@@ -126,32 +126,6 @@ function LiveRedesign() {
 
   return (
     <div ref={ref} className="w-full">
-      {/* Bold label above the card */}
-      <div className="flex items-center justify-center gap-3 mb-4">
-        <motion.div
-          className="h-[1px] flex-1 max-w-[60px]"
-          style={{ backgroundColor: transformed ? C.green : '#ccc' }}
-          layout
-        />
-        <AnimatePresence mode="wait">
-          <motion.span
-            key={transformed ? 'after-label' : 'before-label'}
-            initial={{ opacity: 0, y: -5 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 5 }}
-            transition={{ duration: 0.3 }}
-            className={`${body.className} text-xs font-bold uppercase tracking-[0.25em]`}
-            style={{ color: transformed ? C.darkGreen : '#999' }}
-          >
-            {transformed ? '\u2728 After' : 'Before'}
-          </motion.span>
-        </AnimatePresence>
-        <motion.div
-          className="h-[1px] flex-1 max-w-[60px]"
-          style={{ backgroundColor: transformed ? C.green : '#ccc' }}
-          layout
-        />
-      </div>
 
       {/* Fixed-height container so both states match */}
       <div className="relative w-full" style={{ minHeight: '420px' }}>
@@ -171,6 +145,11 @@ function LiveRedesign() {
               boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
             }}
           >
+            {/* Before label strip */}
+            <div className="w-full py-1.5 text-center" style={{ backgroundColor: '#e0ddd9' }}>
+              <span className="text-[10px] font-bold uppercase tracking-[0.2em]" style={{ color: '#999' }}>Before</span>
+            </div>
+
             {/* Fake WordPress-style nav bar */}
             <div
               className="flex items-center justify-between px-4 sm:px-6 py-3"
@@ -299,6 +278,11 @@ function LiveRedesign() {
               boxShadow: `0 8px 40px ${C.green}15, 0 2px 8px rgba(0,0,0,0.04)`,
             }}
           >
+            {/* After label strip */}
+            <div className="w-full py-1.5 text-center" style={{ backgroundColor: `${C.green}10` }}>
+              <span className="text-[10px] font-bold uppercase tracking-[0.2em]" style={{ color: C.green }}>After</span>
+            </div>
+
             {/* Elegant nav bar */}
             <div
               className="flex items-center justify-between px-6 sm:px-10 py-4"
