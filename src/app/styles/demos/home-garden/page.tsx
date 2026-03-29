@@ -127,8 +127,37 @@ function LiveRedesign() {
   return (
     <div ref={ref} className="w-full">
 
-      {/* Fixed-height container so both states match */}
-      <div className="relative w-full" style={{ minHeight: '420px' }}>
+      {/* Bold label above the card */}
+      <div className="flex items-center justify-center gap-3 mb-5">
+        <motion.div
+          className="h-[1px] flex-1 max-w-[80px]"
+          style={{ backgroundColor: transformed ? C.green : '#ccc' }}
+          layout
+          transition={{ duration: 0.4 }}
+        />
+        <AnimatePresence mode="wait">
+          <motion.span
+            key={transformed ? 'after-label' : 'before-label'}
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 8 }}
+            transition={{ duration: 0.3 }}
+            className={`${body.className} text-sm font-bold uppercase tracking-[0.25em]`}
+            style={{ color: transformed ? C.darkGreen : '#888' }}
+          >
+            {transformed ? '\u2728 After' : 'Before'}
+          </motion.span>
+        </AnimatePresence>
+        <motion.div
+          className="h-[1px] flex-1 max-w-[80px]"
+          style={{ backgroundColor: transformed ? C.green : '#ccc' }}
+          layout
+          transition={{ duration: 0.4 }}
+        />
+      </div>
+
+      {/* Fixed-height container — both states identical size */}
+      <div className="relative w-full" style={{ height: '480px' }}>
         <AnimatePresence mode="wait">
           {!transformed ? (
             /* ── BEFORE STATE — Realistic WordPress small-town site ── */
@@ -137,7 +166,7 @@ function LiveRedesign() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.97, filter: 'blur(6px)', transition: { duration: 0.5 } }}
-              className="relative w-full overflow-hidden"
+              className="absolute inset-0 w-full overflow-hidden flex flex-col"
             style={{
               backgroundColor: '#f2f0ed',
               border: '1px solid #d8d4cf',
@@ -145,11 +174,6 @@ function LiveRedesign() {
               boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
             }}
           >
-            {/* Before label strip */}
-            <div className="w-full py-1.5 text-center" style={{ backgroundColor: '#e0ddd9' }}>
-              <span className="text-[10px] font-bold uppercase tracking-[0.2em]" style={{ color: '#999' }}>Before</span>
-            </div>
-
             {/* Fake WordPress-style nav bar */}
             <div
               className="flex items-center justify-between px-4 sm:px-6 py-3"
@@ -182,7 +206,7 @@ function LiveRedesign() {
             </div>
 
             {/* Hero area */}
-            <div className="relative px-5 sm:px-10 py-8 sm:py-14 md:py-20 text-center">
+            <div className="relative px-5 sm:px-10 py-8 sm:py-14 md:py-20 text-center flex-1 flex flex-col justify-center">
               {/* Fake stock gradient background */}
               <div
                 className="absolute inset-0 opacity-[0.12]"
@@ -278,11 +302,6 @@ function LiveRedesign() {
               boxShadow: `0 8px 40px ${C.green}15, 0 2px 8px rgba(0,0,0,0.04)`,
             }}
           >
-            {/* After label strip */}
-            <div className="w-full py-1.5 text-center" style={{ backgroundColor: `${C.green}10` }}>
-              <span className="text-[10px] font-bold uppercase tracking-[0.2em]" style={{ color: C.green }}>After</span>
-            </div>
-
             {/* Elegant nav bar */}
             <div
               className="flex items-center justify-between px-6 sm:px-10 py-4"
@@ -327,7 +346,7 @@ function LiveRedesign() {
             </div>
 
             {/* Hero area — lush and premium */}
-            <div className="relative px-5 sm:px-10 md:px-16 py-8 sm:py-14 md:py-20">
+            <div className="relative px-5 sm:px-10 md:px-16 py-8 sm:py-14 md:py-20 flex-1 flex flex-col justify-center">
               {/* Decorative botanical elements */}
               <motion.div
                 className="absolute top-0 right-0 pointer-events-none"
