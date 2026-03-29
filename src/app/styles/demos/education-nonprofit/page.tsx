@@ -596,7 +596,7 @@ export default function EducationNonprofitPage() {
                 name: 'Maria, 42',
                 program: 'Adult Literacy',
                 quote: 'I came to the centre not able to read to my kids. Eighteen months later I read them a chapter book every night. My whole life changed.',
-                img: '/images/demos/education-nonprofit-showcase.webp',
+                img: '/images/demos/gallery/en-3.webp',
               },
               {
                 name: 'James, 16',

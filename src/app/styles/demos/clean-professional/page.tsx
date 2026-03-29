@@ -694,8 +694,14 @@ export default function CleanProfessionalDemo() {
                 className="rounded-xl overflow-hidden"
                 style={{ border: '1px solid #e2e8f0', backgroundColor: '#ffffff', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}>
                 {/* Header */}
-                <div className="px-6 py-5" style={{ backgroundColor: card.color }}>
-                  <div className="flex items-center justify-between">
+                <div className="relative overflow-hidden" style={{ backgroundColor: card.color, height: '160px' }}>
+                  <Image
+                    src={`/images/demos/gallery/cp-${i + 1}.webp`}
+                    alt={card.tag + ' case study'}
+                    fill
+                    className="object-cover opacity-40"
+                  />
+                  <div className="relative z-10 px-6 py-5 flex items-center justify-between h-full">
                     <span className="text-2xl">{card.icon}</span>
                     <span className="text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider"
                       style={{ backgroundColor: 'rgba(255,255,255,0.15)', color: '#fff' }}>{card.tag}</span>
@@ -904,18 +910,31 @@ export default function CleanProfessionalDemo() {
 
       {/* ═══════════ 11. ABOUT ═══════════ */}
       <Section id="about" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#f8fafc' }}>
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6" style={{ color: '#1a365d' }}>
-            About Ridgeline Financial Group
-          </h2>
-          <p className="text-lg leading-relaxed" style={{ color: '#475569' }}>
-            Ridgeline Financial Group is a locally-owned financial planning firm based in the heart of
-            the Kootenays. For over 15 years, we have been committed to helping families and businesses
-            across the region achieve their financial goals. Our approach is built on personalized,
-            transparent advice &mdash; we take the time to understand your unique situation and craft
-            strategies that work for your life. Whether you are planning for retirement, navigating tax
-            season, or building a legacy, Ridgeline is here to guide you every step of the way.
-          </p>
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6" style={{ color: '#1a365d' }}>
+              About Ridgeline Financial Group
+            </h2>
+            <p className="text-lg leading-relaxed" style={{ color: '#475569' }}>
+              Ridgeline Financial Group is a locally-owned financial planning firm based in the heart of
+              the Kootenays. For over 15 years, we have been committed to helping families and businesses
+              across the region achieve their financial goals. Our approach is built on personalized,
+              transparent advice &mdash; we take the time to understand your unique situation and craft
+              strategies that work for your life. Whether you are planning for retirement, navigating tax
+              season, or building a legacy, Ridgeline is here to guide you every step of the way.
+            </p>
+          </div>
+          <Reveal delay={0.1}>
+            <div className="overflow-hidden rounded-xl" style={{ border: '1px solid #e2e8f0', boxShadow: '0 4px 20px rgba(0,0,0,0.06)' }}>
+              <Image
+                src="/images/demos/gallery/cp-4.webp"
+                alt="Ridgeline Financial Group — professional boardroom consultation"
+                width={600}
+                height={400}
+                className="w-full h-auto object-cover"
+              />
+            </div>
+          </Reveal>
         </div>
       </Section>
 

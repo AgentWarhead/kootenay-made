@@ -672,40 +672,27 @@ export default function MedicalDentalDemo() {
           <Reveal delay={0.1}>
             <div className="grid md:grid-cols-3 gap-6">
               {[
-                { treatment: 'Teeth Whitening', before: '🟡', after: '⚪', desc: '2 in-office sessions' },
-                { treatment: 'Composite Veneers', before: '🔶', after: '⬜', desc: 'Single appointment' },
-                { treatment: 'Invisalign', before: '📐', after: '✅', desc: '14 months treatment' },
+                { treatment: 'Dental Chair & Suite', before: '🟡', after: '⚪', desc: 'State-of-the-art facility', img: '/images/demos/gallery/md-1.webp' },
+                { treatment: 'Patient Care', before: '🔶', after: '⬜', desc: 'Gentle, professional service', img: '/images/demos/gallery/md-2.webp' },
+                { treatment: 'Modern Equipment', before: '📐', after: '✅', desc: 'Digital imaging & technology', img: '/images/demos/gallery/md-3.webp' },
               ].map((item) => (
                 <div key={item.treatment} className="rounded-2xl overflow-hidden"
                   style={{ backgroundColor: '#fff', border: '1px solid rgba(8,145,178,0.15)', boxShadow: '0 2px 12px rgba(8,145,178,0.06)' }}>
-                  <div className="flex">
-                    {/* Before */}
-                    <div className="flex-1 p-6 text-center" style={{ borderRight: '2px solid rgba(8,145,178,0.1)' }}>
-                      <p className="text-xs font-bold uppercase tracking-wider mb-3" style={{ color: '#94a3b8' }}>Before</p>
-                      <div className="h-20 flex items-center justify-center rounded-xl mb-2"
-                        style={{ backgroundColor: '#f8fafc' }}>
-                        <span className="text-4xl">{item.before}</span>
-                      </div>
-                    </div>
-                    {/* After */}
-                    <div className="flex-1 p-6 text-center">
-                      <p className="text-xs font-bold uppercase tracking-wider mb-3" style={{ color: '#0891b2' }}>After</p>
-                      <div className="h-20 flex items-center justify-center rounded-xl mb-2"
-                        style={{ backgroundColor: '#f0f7ff' }}>
-                        <span className="text-4xl">{item.after}</span>
-                      </div>
-                    </div>
+                  <div className="relative w-full overflow-hidden" style={{ aspectRatio: '4/3' }}>
+                    <Image
+                      src={item.img}
+                      alt={item.treatment}
+                      fill
+                      className="object-cover"
+                    />
                   </div>
-                  <div className="px-6 pb-5 text-center">
+                  <div className="px-6 py-4 text-center">
                     <p className="font-bold text-sm mb-1" style={{ color: '#0891b2' }}>{item.treatment}</p>
                     <p className="text-xs" style={{ color: '#94a3b8' }}>{item.desc}</p>
                   </div>
                 </div>
               ))}
             </div>
-            <p className="text-center mt-5 text-xs" style={{ color: '#94a3b8' }}>
-              (Illustrative placeholders — actual patient photos with consent go here)
-            </p>
           </Reveal>
         </div>
       </section>

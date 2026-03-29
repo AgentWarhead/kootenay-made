@@ -583,6 +583,27 @@ export default function BrightPlayfulDemo() {
               Full-day schedule · Mon–Fri · 7:00 AM – 5:30 PM
             </p>
           </Bounce>
+
+          {/* Activity photo gallery */}
+          <div className="grid grid-cols-3 gap-3 mt-10">
+            {[
+              { src: '/images/demos/gallery/bp-1.webp', alt: 'Art class activities at Sunshine Daycare' },
+              { src: '/images/demos/gallery/bp-2.webp', alt: 'Children learning and playing' },
+              { src: '/images/demos/gallery/bp-3.webp', alt: 'Creative classroom environment' },
+            ].map((img, i) => (
+              <Bounce key={img.src} delay={0.3 + i * 0.1}>
+                <div className="overflow-hidden rounded-2xl">
+                  <Image
+                    src={img.src}
+                    alt={img.alt}
+                    width={600}
+                    height={400}
+                    className="w-full h-auto object-cover"
+                  />
+                </div>
+              </Bounce>
+            ))}
+          </div>
         </div>
       </section>
 

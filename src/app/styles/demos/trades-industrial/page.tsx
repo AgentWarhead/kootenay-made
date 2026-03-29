@@ -645,6 +645,41 @@ export default function TradesIndustrialDemo() {
 
       <AngularDivider topColor="#2d2d2d" bottomColor="#1a1a1a" />
 
+      {/* ═══════════ 8B. RECENT JOBS — Photo Grid ═══════════ */}
+      <section className="py-16 md:py-20 px-6" style={{ backgroundColor: '#1a1a1a' }}>
+        <div className="max-w-5xl mx-auto">
+          <Reveal>
+            <h2 className={`${heading.className} text-3xl md:text-4xl font-bold uppercase mb-4`}>Jobs We&apos;ve Completed</h2>
+            <div className="w-20 h-1.5 mb-10" style={{ backgroundColor: '#ff6a00' }} />
+          </Reveal>
+          <div className="grid md:grid-cols-3 gap-4">
+            {[
+              { src: '/images/demos/gallery/ti-1.webp', label: 'Plumbing Installation', location: 'Trail, BC' },
+              { src: '/images/demos/gallery/ti-2.webp', label: 'Heating System', location: 'Castlegar, BC' },
+              { src: '/images/demos/gallery/ti-3.webp', label: 'Gas Line Service', location: 'Nelson, BC' },
+            ].map((item, i) => (
+              <Reveal key={item.label} delay={i * 0.12}>
+                <div className="relative overflow-hidden rounded-sm" style={{ border: '1px solid #333' }}>
+                  <Image
+                    src={item.src}
+                    alt={item.label}
+                    width={600}
+                    height={400}
+                    className="w-full h-auto object-cover"
+                  />
+                  <div className="absolute bottom-0 left-0 right-0 p-3" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.8), transparent)' }}>
+                    <p className={`${heading.className} text-sm font-bold uppercase`} style={{ color: '#ff6a00' }}>{item.label}</p>
+                    <p className="text-xs" style={{ color: 'rgba(255,255,255,0.6)' }}>{item.location}</p>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <AngularDivider topColor="#1a1a1a" bottomColor="#2d2d2d" />
+
       {/* ═══════════ 9. THE TRANSFORMATION ═══════════ */}
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#1a1a1a' }}>
         <div className="max-w-5xl mx-auto">

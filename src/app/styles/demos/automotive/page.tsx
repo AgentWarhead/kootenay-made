@@ -648,6 +648,15 @@ export default function AutomotiveDemo() {
                     </div>
                     <span className={`${heading.className} text-lg tracking-wider flex-shrink-0`} style={{ color: '#dc2626' }}>{item.percent}%</span>
                   </div>
+                  <div className="mt-4 overflow-hidden rounded" style={{ border: '1px solid #2a2a2a' }}>
+                    <Image
+                      src={`/images/demos/gallery/au-${i + 1}.webp`}
+                      alt={i === 0 ? 'Engine work in progress' : i === 1 ? 'Mechanic performing car repair' : 'Garage bay active service'}
+                      width={600}
+                      height={400}
+                      className="w-full h-auto object-cover"
+                    />
+                  </div>
                 </div>
               </Reveal>
             ))}
