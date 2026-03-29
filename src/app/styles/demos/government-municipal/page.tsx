@@ -140,7 +140,7 @@ function LiveRedesign() {
             </div>
               {/* White nav — accessible, high contrast */}
               <div className="flex items-center justify-between px-5 sm:px-8 py-3" style={{ borderBottom: `2px solid ${blue}`, backgroundColor: white }}>
-                <motion.span className={`${sourceSans.className} text-xs sm:text-sm font-bold`} style={{ color: '#111827', letterSpacing: '0.01em' }}
+                <motion.span className={`${sourceSans.className} text-xs sm:text-sm font-bold`} style={{ color: '#fff', letterSpacing: '0.01em' }}
                   initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: dur * 0.6, delay: stagger }}>
                   West Kootenay Regional Parks
                 </motion.span>
@@ -176,14 +176,14 @@ function LiveRedesign() {
                     </span>
                   </motion.div>
                   <motion.h2 className={`${sourceSans.className} text-2xl sm:text-4xl font-bold leading-[1.2] mb-4 sm:mb-5 sm:max-w-xl`}
-                    style={{ color: '#111827' }}
+                    style={{ color: '#fff' }}
                     initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
                     Report It. We&rsquo;ll Handle It.{' '}
                     <span style={{ color: blue }}>No Hold Music</span>{' '}Required.
                   </motion.h2>
                   <motion.p className={`${sourceSans.className} text-sm sm:text-base max-w-md sm:mx-0 mx-auto mb-6 sm:mb-8`}
-                    style={{ color: '#374151', lineHeight: 1.7 }}
+                    style={{ color: 'rgba(255,255,255,0.7)', lineHeight: 1.7 }}
                     initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 4 }}>
                     Self-serve online &mdash; 24 hours a day, 7 days a week. No hold music, no wait.
                   </motion.p>

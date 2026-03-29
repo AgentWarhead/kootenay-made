@@ -256,7 +256,7 @@ function LiveRedesign() {
                   <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 5 }}
                     className="flex flex-col sm:flex-row items-center sm:items-start justify-center sm:justify-start gap-4">
                     <a href="#tap" className={`heading-font inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 sm:px-8 py-3.5 text-sm rounded-sm transition-all hover:scale-[1.03] active:scale-[0.97]`}
-                      style={{ backgroundColor: AMBER, color: '#2a1a0e', boxShadow: `0 4px 20px ${AMBER}40`, fontWeight: 700, fontFamily: "'Gambetta', serif" }}>
+                      style={{ backgroundColor: AMBER, color: '#fff', boxShadow: `0 4px 20px ${AMBER}40`, fontWeight: 700, fontFamily: "'Gambetta', serif" }}>
                       See What&rsquo;s on Tap →
                     </a>
                     <span className={`${lato.className} text-sm`} style={{ color: `${AMBER}55` }}>No commitment required</span>

@@ -177,7 +177,7 @@ function LiveRedesign() {
                     </span>
                   </motion.div>
                   <motion.h2 className={`heading-font text-2xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.15] mb-4 sm:mb-6 sm:max-w-xl`}
-                    style={{ color: '#3d2e1f' }}
+                    style={{ color: '#fff' }}
                     initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
                     Farm-Fresh. Delivered to{' '}
                     <span style={{ color: darkGreen }}>
@@ -195,7 +195,7 @@ function LiveRedesign() {
                       Shop This Week&rsquo;s Harvest
                       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
                     </a>
-                    <span className={`${body.className} text-sm`} style={{ color: '#999' }}>No commitment required</span>
+                    <span className={`${body.className} text-sm`} style={{ color: 'rgba(255,255,255,0.5)' }}>No commitment required</span>
                   </motion.div>
                   <motion.div className="flex items-center justify-center sm:justify-start gap-4 sm:gap-6 mt-6 flex-wrap" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur, delay: stagger * 6 }}>
                     {['100% Local', 'Weekly Delivery', '50+ Varieties'].map((badge) => (

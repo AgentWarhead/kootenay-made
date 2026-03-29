@@ -234,7 +234,7 @@ function LiveRedesign() {
             </div>
               {/* Playful nav */}
               <div className="flex items-center justify-between px-6 sm:px-10 py-4" style={{ borderBottom: '2px solid rgba(255,107,107,0.1)' }}>
-                <motion.span className={`heading-font text-base sm:text-lg font-bold`} style={{ color: CORAL, fontFamily: "'Pally', sans-serif" }}
+                <motion.span className={`heading-font text-base sm:text-lg font-bold`} style={{ color: '#ff8a8a', fontFamily: "'Pally', sans-serif" }}
                   initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: dur * 0.6, delay: stagger }}>
                   Sunshine Daycare
                 </motion.span>
@@ -262,18 +262,18 @@ function LiveRedesign() {
                 </motion.div>
                 <div className="relative z-10 text-center sm:text-left">
                   <motion.div className="flex justify-center sm:justify-start mb-4" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
-                    <span className={`${nunito.className} text-xs font-extrabold uppercase tracking-[0.2em] px-4 py-1.5 rounded-full`} style={{ backgroundColor: `${TEAL}15`, color: TEAL, border: `2px solid ${TEAL}25` }}>
+                    <span className={`${nunito.className} text-xs font-extrabold uppercase tracking-[0.2em] px-4 py-1.5 rounded-full`} style={{ backgroundColor: `${TEAL}15`, color: '#7eeee4', border: `2px solid ${TEAL}25` }}>
                       Est. 2016 &mdash; Castlegar, BC
                     </span>
                   </motion.div>
-                  <motion.h2 className={`heading-font text-2xl sm:text-4xl md:text-5xl font-bold leading-[1.15] mb-4 sm:max-w-xl`} style={{ color: '#333', fontFamily: "'Pally', sans-serif" }}
+                  <motion.h2 className={`heading-font text-2xl sm:text-4xl md:text-5xl font-bold leading-[1.15] mb-4 sm:max-w-xl`} style={{ color: '#fff', fontFamily: "'Pally', sans-serif" }}
                     initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
                     You&rsquo;ll Never Wonder If They&rsquo;re Okay.{' '}
-                    <span style={{ color: CORAL }}>
+                    <span style={{ color: '#ff8a8a' }}>
                       Here&rsquo;s Why.
                     </span>
                   </motion.h2>
-                  <motion.p className={`${nunito.className} text-sm sm:text-base max-w-sm mx-auto sm:mx-0 mb-6`} style={{ color: '#888', lineHeight: 1.7 }}
+                  <motion.p className={`${nunito.className} text-sm sm:text-base max-w-sm mx-auto sm:mx-0 mb-6`} style={{ color: 'rgba(255,255,255,0.6)', lineHeight: 1.7 }}
                     initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 4 }}>
                     Professional early learning with licensed educators who care.
                   </motion.p>
@@ -283,12 +283,12 @@ function LiveRedesign() {
                       style={{ backgroundColor: CORAL, color: '#fff', boxShadow: `0 4px 20px ${CORAL}35`, fontWeight: 700, borderRadius: '50px', fontFamily: "'Pally', sans-serif" }}>
                       Book a Tour — See For Yourself →
                     </a>
-                    <span className={`${nunito.className} text-sm`} style={{ color: '#ccc' }}>No commitment required</span>
+                    <span className={`${nunito.className} text-sm`} style={{ color: 'rgba(255,255,255,0.4)' }}>No commitment required</span>
                   </motion.div>
                   <motion.div className="flex items-center justify-center sm:justify-start gap-4 sm:gap-6 mt-6 flex-wrap"
                     initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur, delay: stagger * 6 }}>
                     {['Licensed', 'First Aid Certified', '15:1 Ratio'].map((badge) => (
-                      <span key={badge} className={`${nunito.className} text-xs font-bold`} style={{ color: TEAL, letterSpacing: '0.05em' }}>{badge}</span>
+                      <span key={badge} className={`${nunito.className} text-xs font-bold`} style={{ color: '#7eeee4', letterSpacing: '0.05em' }}>{badge}</span>
                     ))}
                   </motion.div>
                 </div>

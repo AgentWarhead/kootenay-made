@@ -263,7 +263,7 @@ function LiveRedesign() {
                     <a href="#contact" className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]" style={{ backgroundColor: CP.navy, color: CP.white, fontFamily: "'Supreme', sans-serif", fontWeight: 700, fontSize: '0.9rem', boxShadow: `0 4px 20px ${CP.navy}30` }}>
                       Book a Free Consultation &rarr;
                     </a>
-                    <span style={{ color: '#999', fontFamily: "'Supreme', sans-serif", fontSize: '0.85rem' }}>No commitment required</span>
+                    <span style={{ color: 'rgba(255,255,255,0.5)', fontFamily: "'Supreme', sans-serif", fontSize: '0.85rem' }}>No commitment required</span>
                   </motion.div>
 
                   <motion.div className="flex items-center justify-center sm:justify-start gap-4 sm:gap-6 mt-6 flex-wrap" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur, delay: stagger * 6 }}>

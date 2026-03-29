@@ -315,7 +315,7 @@ function LiveRedesign() {
             >
               <motion.span
                 className={`${heading.className} text-base sm:text-lg`}
-                style={{ color: C.darkGreen, fontStyle: 'italic' }}
+                style={{ color: C.cream, fontStyle: 'italic' }}
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: dur * 0.6, delay: stagger }}
@@ -332,7 +332,7 @@ function LiveRedesign() {
                   <span
                     key={link}
                     className={`${body.className} text-xs uppercase tracking-widest`}
-                    style={{ color: C.green, fontWeight: 500 }}
+                    style={{ color: 'rgba(255,255,255,0.7)', fontWeight: 500 }}
                   >
                     {link}
                   </span>
@@ -391,7 +391,7 @@ function LiveRedesign() {
                 >
                   <span
                     className={`${body.className} text-xs font-semibold uppercase tracking-[0.2em] px-5 py-2 rounded-full`}
-                    style={{ backgroundColor: 'rgba(107,154,91,0.15)', color: C.green, border: '1px solid rgba(107,154,91,0.25)' }}
+                    style={{ backgroundColor: 'rgba(107,154,91,0.15)', color: 'rgba(255,255,255,0.7)', border: '1px solid rgba(107,154,91,0.25)' }}
                   >
                     Est. 2003 &mdash; West Kootenay
                   </span>
@@ -400,7 +400,7 @@ function LiveRedesign() {
                 {/* The headline */}
                 <motion.h2
                   className={`${heading.className} text-2xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.15] mb-4 sm:mb-6 sm:max-w-xl`}
-                  style={{ color: C.darkGreen }}
+                  style={{ color: C.cream }}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}
@@ -435,7 +435,7 @@ function LiveRedesign() {
                 {/* Subline */}
                 <motion.p
                   className={`${body.className} text-sm sm:text-lg md:text-xl max-w-md sm:mx-0 mx-auto mb-6 sm:mb-10`}
-                  style={{ color: '#5a6e5a', lineHeight: 1.7 }}
+                  style={{ color: 'rgba(255,255,255,0.6)', lineHeight: 1.7 }}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: dur * 0.8, delay: stagger * 4 }}
@@ -465,7 +465,7 @@ function LiveRedesign() {
                       <path d="M5 12h14M12 5l7 7-7 7" />
                     </svg>
                   </a>
-                  <span className={`${body.className} text-sm`} style={{ color: '#999' }}>
+                  <span className={`${body.className} text-sm`} style={{ color: 'rgba(255,255,255,0.5)' }}>
                     No commitment required
                   </span>
                 </motion.div>
@@ -481,7 +481,7 @@ function LiveRedesign() {
                     <span
                       key={badge}
                       className={`${body.className} text-xs`}
-                      style={{ color: C.green, opacity: 0.7, letterSpacing: '0.05em' }}
+                      style={{ color: 'rgba(255,255,255,0.5)', letterSpacing: '0.05em' }}
                     >
                       {badge}
                     </span>
