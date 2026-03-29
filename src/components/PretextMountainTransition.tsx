@@ -3,24 +3,30 @@
 import { useEffect, useRef, useCallback } from 'react';
 import { prepareWithSegments, walkLineRanges } from '@chenglou/pretext';
 
-/* ── ASCII characters ordered by visual density ── */
-const DENSITY_CHARS = ' .·:;=+*#%@';
+/* ── Ridge characters — chosen for horizontal visual weight ── */
+const RIDGE_CHARS = ['^', '~', '-', '∧', '/', '\\', '▲', '△'];
 
-/* ── Generate mountain contour paths using layered sine waves ── */
-function generateContourY(x: number, layer: number, offset: number): number {
-  const freq1 = 0.003 + layer * 0.001;
-  const freq2 = 0.007 - layer * 0.0005;
-  const freq3 = 0.015;
-  const amp1 = 0.25 - layer * 0.03;
-  const amp2 = 0.12 + layer * 0.02;
-  const amp3 = 0.06;
+/* ── Smooth mountain ridgeline using sine composition ── */
+function ridgelineY(
+  x: number,
+  width: number,
+  layer: number,
+  scrollOffset: number
+): number {
+  const nx = x / width; // 0..1
+  const parallaxShift = scrollOffset * (0.3 + layer * 0.15);
+  const sx = (x + parallaxShift) / width;
 
-  return (
-    0.15 + layer * 0.08 +
-    amp1 * Math.sin((x + offset) * freq1 + layer * 1.2) +
-    amp2 * Math.sin((x + offset * 0.7) * freq2 + layer * 0.8) +
-    amp3 * Math.sin((x + offset * 1.3) * freq3 + layer * 2.1)
-  );
+  // Each layer has unique waveform
+  const base = 0.35 + layer * 0.1;
+  const wave1 = 0.18 * Math.sin(sx * Math.PI * 2 + layer * 1.7);
+  const wave2 = 0.09 * Math.sin(sx * Math.PI * 4.3 + layer * 0.9);
+  const wave3 = 0.04 * Math.sin(sx * Math.PI * 7.1 + layer * 2.4);
+
+  // Gentle edge falloff so ridges don't clip at edges
+  const edgeFade = Math.sin(nx * Math.PI);
+
+  return base + (wave1 + wave2 + wave3) * edgeFade;
 }
 
 export default function PretextMountainTransition() {
@@ -29,29 +35,21 @@ export default function PretextMountainTransition() {
   const animRef = useRef<number>(0);
   const scrollProgressRef = useRef(0);
   const opacityRef = useRef(0);
-  const charWidthsRef = useRef<number[]>([]);
+  const charWidthRef = useRef(8);
   const preparedRef = useRef(false);
   const reducedMotionRef = useRef(false);
 
-  /* ── Measure character widths with Pretext ── */
-  const measureChars = useCallback(() => {
+  /* ── Measure a representative character with Pretext ── */
+  const measureChar = useCallback(() => {
     if (preparedRef.current) return;
     try {
-      const widths: number[] = [];
-      for (let i = 0; i < DENSITY_CHARS.length; i++) {
-        const ch = DENSITY_CHARS[i];
-        const charPrep = prepareWithSegments(ch, '14px Georgia');
-        let w = 0;
-        walkLineRanges(charPrep, 1000, (l) => {
-          w = l.width;
-        });
-        widths.push(w || 8);
-      }
-      charWidthsRef.current = widths;
+      const prep = prepareWithSegments('^', '14px Georgia');
+      walkLineRanges(prep, 1000, (l) => {
+        charWidthRef.current = l.width || 8;
+      });
       preparedRef.current = true;
     } catch {
-      // Fallback: assume monospace-ish widths
-      charWidthsRef.current = DENSITY_CHARS.split('').map(() => 8);
+      charWidthRef.current = 8;
       preparedRef.current = true;
     }
   }, []);
@@ -61,18 +59,19 @@ export default function PretextMountainTransition() {
     const container = containerRef.current;
     if (!canvas || !container) return;
 
-    reducedMotionRef.current = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    reducedMotionRef.current = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
 
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    measureChars();
+    measureChar();
 
-    const CONTOUR_COUNT = 8;
-    const CHAR_SIZE = 14;
     const isMobile = window.innerWidth < 768;
-    const stepX = isMobile ? 16 : 10;
-    const stepY = isMobile ? 18 : 14;
+    const RIDGE_COUNT = isMobile ? 3 : 5;
+    const CHAR_SIZE = isMobile ? 16 : 13;
+    const CHAR_SPACING = isMobile ? 20 : 14;
 
     /* ── Resize canvas for retina ── */
     function resize() {
@@ -83,39 +82,19 @@ export default function PretextMountainTransition() {
       canvas.height = rect.height * dpr;
       canvas.style.width = `${rect.width}px`;
       canvas.style.height = `${rect.height}px`;
-      ctx.scale(dpr, dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
     resize();
 
-    /* ── IntersectionObserver for scroll progress ── */
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            const rect = entry.boundingClientRect;
-            const viewH = entry.rootBounds?.height || window.innerHeight;
-            // Progress: 0 when entering bottom, 1 when leaving top
-            const raw = 1 - (rect.top + rect.height) / (viewH + rect.height);
-            scrollProgressRef.current = Math.max(0, Math.min(1, raw));
-            opacityRef.current = Math.min(1, entry.intersectionRatio * 3);
-          } else {
-            opacityRef.current = 0;
-          }
-        }
-      },
-      { threshold: Array.from({ length: 20 }, (_, i) => i / 19) }
-    );
-    observer.observe(container);
-
-    /* ── Scroll handler for smoother progress ── */
+    /* ── Scroll tracking ── */
     function handleScroll() {
       if (!container) return;
       const rect = container.getBoundingClientRect();
       const viewH = window.innerHeight;
-      const progress = 1 - (rect.top + rect.height) / (viewH + rect.height);
+      const progress =
+        1 - (rect.top + rect.height) / (viewH + rect.height);
       scrollProgressRef.current = Math.max(0, Math.min(1, progress));
 
-      // Opacity: fade in/out at edges
       if (rect.bottom < 0 || rect.top > viewH) {
         opacityRef.current = 0;
       } else {
@@ -125,12 +104,31 @@ export default function PretextMountainTransition() {
       }
     }
     window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+
+    /* ── IntersectionObserver for visibility ── */
+    let isVisible = false;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting;
+        if (isVisible && !animRef.current) {
+          animRef.current = requestAnimationFrame(render);
+        }
+      },
+      { threshold: 0.05 }
+    );
+    observer.observe(container);
 
     /* ── Render loop ── */
     function render() {
-      if (!canvas || !ctx) return;
-      const w = canvas.width / (window.devicePixelRatio || 1);
-      const h = canvas.height / (window.devicePixelRatio || 1);
+      if (!canvas || !ctx || !isVisible) {
+        animRef.current = 0;
+        return;
+      }
+
+      const dpr = window.devicePixelRatio || 1;
+      const w = canvas.width / dpr;
+      const h = canvas.height / dpr;
 
       ctx.clearRect(0, 0, w, h);
 
@@ -140,64 +138,88 @@ export default function PretextMountainTransition() {
         return;
       }
 
+      const scrollOffset = reducedMotionRef.current
+        ? 0
+        : scrollProgressRef.current * 400;
+
       ctx.font = `${CHAR_SIZE}px Georgia, serif`;
       ctx.textBaseline = 'middle';
 
-      const scrollOffset = scrollProgressRef.current * 600;
-      const reducedMotion = reducedMotionRef.current;
-      const effectiveOffset = reducedMotion ? 0 : scrollOffset;
+      // Draw each ridgeline — back to front
+      for (let layer = 0; layer < RIDGE_COUNT; layer++) {
+        // Back layers lighter, front layers stronger
+        const layerAlpha =
+          (0.25 + (layer / Math.max(1, RIDGE_COUNT - 1)) * 0.75) *
+          globalAlpha;
+        ctx.fillStyle = `rgba(193, 120, 23, ${layerAlpha})`;
 
-      // Draw contour lines as ASCII characters
-      for (let layer = 0; layer < CONTOUR_COUNT; layer++) {
-        const layerOpacity = (0.3 + (layer / CONTOUR_COUNT) * 0.7) * globalAlpha;
-        // Copper color with varying opacity per layer
-        ctx.fillStyle = `rgba(193, 120, 23, ${layerOpacity})`;
+        const charIndex = layer % RIDGE_CHARS.length;
+        const char = RIDGE_CHARS[charIndex];
 
-        for (let x = 0; x < w; x += stepX) {
-          const contourY = generateContourY(x, layer, effectiveOffset);
-          const y = contourY * h;
+        // Walk along the ridgeline placing characters
+        for (let x = 0; x < w; x += CHAR_SPACING) {
+          const normY = ridgelineY(x, w, layer, scrollOffset);
+          const y = normY * h;
 
-          // Only draw near contour lines — calculate distance to nearest contour
-          for (let row = 0; row < h; row += stepY) {
-            const dist = Math.abs(row - y);
-            if (dist > stepY * 2) continue;
+          // Place character on the ridge
+          ctx.fillText(char, x, y);
 
-            // Brightness based on distance to contour
-            const brightness = Math.max(0, 1 - dist / (stepY * 2));
-            const charIndex = Math.min(
-              DENSITY_CHARS.length - 1,
-              Math.floor(brightness * (DENSITY_CHARS.length - 1))
-            );
+          // Add 1-2 fainter chars above/below for ridge thickness
+          const spread = CHAR_SIZE * 0.7;
+          ctx.globalAlpha = layerAlpha * 0.4;
+          ctx.fillStyle = `rgba(193, 120, 23, ${layerAlpha * 0.4})`;
+          ctx.fillText(
+            RIDGE_CHARS[(charIndex + 1) % RIDGE_CHARS.length],
+            x + CHAR_SPACING * 0.3,
+            y - spread
+          );
+          ctx.fillText(
+            RIDGE_CHARS[(charIndex + 2) % RIDGE_CHARS.length],
+            x + CHAR_SPACING * 0.6,
+            y + spread
+          );
 
-            if (charIndex <= 0) continue;
-            const char = DENSITY_CHARS[charIndex];
-            ctx.fillText(char, x, row);
-          }
+          // Restore full alpha for next main char
+          ctx.fillStyle = `rgba(193, 120, 23, ${layerAlpha})`;
+          ctx.globalAlpha = 1;
         }
       }
 
       animRef.current = requestAnimationFrame(render);
     }
 
-    animRef.current = requestAnimationFrame(render);
+    // Initial render for reduced motion
+    if (reducedMotionRef.current) {
+      isVisible = true;
+      opacityRef.current = 1;
+      render();
+    } else {
+      animRef.current = requestAnimationFrame(render);
+    }
+
     window.addEventListener('resize', resize);
 
     return () => {
       cancelAnimationFrame(animRef.current);
+      animRef.current = 0;
       observer.disconnect();
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', resize);
     };
-  }, [measureChars]);
+  }, [measureChar]);
 
   return (
     <div
       ref={containerRef}
       className="relative w-full overflow-hidden"
-      style={{ height: 'clamp(200px, 25vh, 300px)', background: 'transparent' }}
+      style={{
+        height: 'clamp(200px, 25vh, 280px)',
+        background: '#1A1D20',
+      }}
     >
       <canvas
         ref={canvasRef}
+        aria-hidden="true"
         className="absolute inset-0 w-full h-full"
         style={{ pointerEvents: 'none' }}
       />

@@ -1,77 +1,143 @@
 'use client';
 
 import { useEffect, useRef, useCallback } from 'react';
-import { prepareWithSegments, walkLineRanges } from '@chenglou/pretext';
+import { prepareWithSegments, layoutWithLines } from '@chenglou/pretext';
 import ScrollReveal from '@/components/ScrollReveal';
 
-/* ── Particle simulation + ASCII brightness field ── */
-interface Particle {
+/* ── Kootenay words for the cloud ── */
+const KOOTENAY_WORDS = [
+  'cedar', 'alpine', 'summit', 'glacier', 'creek', 'powder', 'ridge',
+  'basin', 'rapids', 'timber', 'meadow', 'aurora', 'watershed', 'hemlock',
+  'chinook', 'selkirk', 'purcell', 'slocan', 'kokanee', 'tamarack',
+  'cougar', 'caribou', 'huckleberry', 'fireweed', 'osprey', 'columbia',
+  'granite', 'wildfire', 'trailhead', 'kootenay', 'monashee', 'copper',
+  'Nelson', 'Fernie', 'Revelstoke', 'Invermere',
+];
+
+interface CloudWord {
+  text: string;
   x: number;
   y: number;
-  vx: number;
-  vy: number;
-  radius: number;
+  size: number;
+  width: number;
+  height: number;
+  phase: number;
+  breathRate: number;
+  baseOpacity: number;
 }
-
-/* Characters ordered by visual density (lightest to heaviest) */
-const DENSITY_CHARS = ' .\'`^",:;Il!i><~+_-?][}{1)(|\\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$';
-
-/* Map a brightness value (0..1) to a character */
-function brightnessToChar(b: number): string {
-  const idx = Math.floor(b * (DENSITY_CHARS.length - 1));
-  return DENSITY_CHARS[Math.max(0, Math.min(DENSITY_CHARS.length - 1, idx))];
-}
-
-const COPPER = { r: 193, g: 120, b: 23 };
-const PARTICLE_COUNT = 80;
 
 export default function PretextShowcase() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const animRef = useRef<number>(0);
-  const particlesRef = useRef<Particle[]>([]);
-  const charWidthsRef = useRef<Map<string, number>>(new Map());
+  const wordsRef = useRef<CloudWord[]>([]);
   const isVisibleRef = useRef(false);
   const reducedMotionRef = useRef(false);
+  const pointerRef = useRef<{ x: number; y: number } | null>(null);
 
-  /* ── Measure character widths with Pretext ── */
-  const measureCharWidths = useCallback((font: string) => {
-    const map = charWidthsRef.current;
-    if (map.size > 0) return;
+  /* ── Layout words in an organic cloud ── */
+  const layoutCloud = useCallback(() => {
+    const canvas = canvasRef.current;
+    const container = containerRef.current;
+    if (!canvas || !container) return;
 
-    try {
-      // Measure a representative set of characters
-      const chars = DENSITY_CHARS;
-      for (let i = 0; i < chars.length; i++) {
-        const ch = chars[i];
-        const prepared = prepareWithSegments(ch, font);
-        let w = 0;
-        walkLineRanges(prepared, 1000, (line) => {
-          w = line.width;
-        });
-        map.set(ch, w || 7);
+    const dpr = window.devicePixelRatio || 1;
+    const rect = container.getBoundingClientRect();
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    canvas.style.width = `${rect.width}px`;
+    canvas.style.height = `${rect.height}px`;
+
+    const w = rect.width;
+    const h = rect.height;
+    const isMobile = w < 640;
+    const wordCount = isMobile ? 18 : 34;
+    const minSize = isMobile ? 13 : 12;
+    const maxSize = isMobile ? 22 : 24;
+
+    const placed: CloudWord[] = [];
+    const padding = 6;
+
+    // Shuffle words
+    const shuffled = [...KOOTENAY_WORDS]
+      .sort(() => Math.random() - 0.5)
+      .slice(0, wordCount);
+
+    // Sort by size descending — place large words first
+    const sized = shuffled.map((text) => ({
+      text,
+      size: Math.round(minSize + Math.random() * (maxSize - minSize)),
+    }));
+    sized.sort((a, b) => b.size - a.size);
+
+    for (const { text, size } of sized) {
+      const font = `${size}px Georgia, serif`;
+      let textWidth: number;
+
+      try {
+        const prepared = prepareWithSegments(text, font);
+        const result = layoutWithLines(prepared, 1000, size * 1.2);
+        textWidth = result.lines[0]?.width ?? size * text.length * 0.55;
+      } catch {
+        textWidth = size * text.length * 0.55;
       }
-    } catch {
-      // Fallback widths
-      for (let i = 0; i < DENSITY_CHARS.length; i++) {
-        charWidthsRef.current.set(DENSITY_CHARS[i], 7);
-      }
-    }
-  }, []);
 
-  /* ── Initialize particles ── */
-  const initParticles = useCallback((w: number, h: number) => {
-    const particles: Particle[] = [];
-    for (let i = 0; i < PARTICLE_COUNT; i++) {
-      particles.push({
-        x: Math.random() * w,
-        y: Math.random() * h,
-        vx: (Math.random() - 0.5) * 1.5,
-        vy: (Math.random() - 0.5) * 1.5,
-        radius: 20 + Math.random() * 40,
+      const textHeight = size * 1.2;
+
+      // Try placing with no overlap — up to 80 attempts
+      let bestX = 0;
+      let bestY = 0;
+      let foundSpot = false;
+
+      for (let attempt = 0; attempt < 80; attempt++) {
+        // Bias towards center with gaussian-ish distribution
+        const cx = w / 2 + (Math.random() - 0.5) * w * 0.8;
+        const cy = h / 2 + (Math.random() - 0.5) * h * 0.7;
+        const tx = cx - textWidth / 2;
+        const ty = cy - textHeight / 2;
+
+        // Bounds check
+        if (tx < padding || tx + textWidth > w - padding) continue;
+        if (ty < padding || ty + textHeight > h - padding) continue;
+
+        // Overlap check
+        let overlaps = false;
+        for (const p of placed) {
+          if (
+            tx < p.x + p.width + padding &&
+            tx + textWidth + padding > p.x &&
+            ty < p.y + p.height + padding &&
+            ty + textHeight + padding > p.y
+          ) {
+            overlaps = true;
+            break;
+          }
+        }
+
+        if (!overlaps) {
+          bestX = tx;
+          bestY = ty;
+          foundSpot = true;
+          break;
+        }
+      }
+
+      if (!foundSpot) continue;
+
+      placed.push({
+        text,
+        x: bestX,
+        y: bestY,
+        size,
+        width: textWidth,
+        height: textHeight,
+        phase: Math.random() * Math.PI * 2,
+        breathRate: 0.4 + Math.random() * 0.6, // Different breathing speeds
+        baseOpacity: 0.5 + Math.random() * 0.4,
       });
     }
-    particlesRef.current = particles;
+
+    wordsRef.current = placed;
   }, []);
 
   useEffect(() => {
@@ -79,38 +145,14 @@ export default function PretextShowcase() {
     const container = containerRef.current;
     if (!canvas || !container) return;
 
-    reducedMotionRef.current = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    reducedMotionRef.current = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
 
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    const FONT_SIZE = 12;
-    const FONT = `${FONT_SIZE}px Georgia, serif`;
-    const LINE_HEIGHT = FONT_SIZE + 2;
-
-    measureCharWidths(FONT);
-
-    /* ── Size canvas ── */
-    let logicalW = 0;
-    let logicalH = 0;
-
-    function resize() {
-      if (!canvas || !container || !ctx) return;
-      const rect = container.getBoundingClientRect();
-      const dpr = window.devicePixelRatio || 1;
-      logicalW = rect.width;
-      logicalH = rect.height;
-      canvas.width = logicalW * dpr;
-      canvas.height = logicalH * dpr;
-      canvas.style.width = `${logicalW}px`;
-      canvas.style.height = `${logicalH}px`;
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-      if (particlesRef.current.length === 0) {
-        initParticles(logicalW, logicalH);
-      }
-    }
-    resize();
+    layoutCloud();
 
     /* ── Visibility ── */
     const observer = new IntersectionObserver(
@@ -124,89 +166,94 @@ export default function PretextShowcase() {
     );
     observer.observe(container);
 
-    /* ── Compute brightness field from particles ── */
-    function computeBrightness(px: number, py: number): number {
-      let brightness = 0;
-      const particles = particlesRef.current;
-      for (let i = 0; i < particles.length; i++) {
-        const p = particles[i];
-        const dx = px - p.x;
-        const dy = py - p.y;
-        const distSq = dx * dx + dy * dy;
-        const rSq = p.radius * p.radius;
-        if (distSq < rSq) {
-          brightness += 1 - distSq / rSq;
-        }
-      }
-      return Math.min(1, brightness);
+    /* ── Pointer tracking for scatter effect ── */
+    function handlePointerMove(e: PointerEvent) {
+      const rect = canvas!.getBoundingClientRect();
+      pointerRef.current = {
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
+      };
     }
-
-    /* ── Update particles ── */
-    function updateParticles() {
-      const particles = particlesRef.current;
-      for (let i = 0; i < particles.length; i++) {
-        const p = particles[i];
-        if (!reducedMotionRef.current) {
-          p.x += p.vx;
-          p.y += p.vy;
-        }
-
-        // Bounce off walls
-        if (p.x < -p.radius) p.x = logicalW + p.radius;
-        if (p.x > logicalW + p.radius) p.x = -p.radius;
-        if (p.y < -p.radius) p.y = logicalH + p.radius;
-        if (p.y > logicalH + p.radius) p.y = -p.radius;
-      }
+    function handlePointerLeave() {
+      pointerRef.current = null;
     }
+    container.addEventListener('pointermove', handlePointerMove);
+    container.addEventListener('pointerleave', handlePointerLeave);
 
-    /* ── Render loop ── */
+    /* ── Render ── */
     function render() {
-      if (!ctx || !isVisibleRef.current) {
+      if (!ctx || !canvas || !isVisibleRef.current) {
         animRef.current = 0;
         return;
       }
 
-      ctx.clearRect(0, 0, logicalW, logicalH);
-      ctx.font = FONT;
+      const dpr = window.devicePixelRatio || 1;
+      const w = canvas.width / dpr;
+      const h = canvas.height / dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, w, h);
+
+      const t = Date.now() * 0.001;
+      const reduced = reducedMotionRef.current;
+      const pointer = pointerRef.current;
+      const scatterRadius = 60;
+
       ctx.textBaseline = 'top';
 
-      updateParticles();
+      for (const word of wordsRef.current) {
+        let opacity = word.baseOpacity;
+        let dx = 0;
+        let dy = 0;
 
-      // Render ASCII field
-      const charW = 7.2; // Approximate character width
-      const cols = Math.floor(logicalW / charW);
-      const rows = Math.floor(logicalH / LINE_HEIGHT);
+        if (!reduced) {
+          // Breathing effect
+          const breath = Math.sin(t * word.breathRate + word.phase);
+          opacity = word.baseOpacity + breath * 0.15;
 
-      for (let row = 0; row < rows; row++) {
-        const y = row * LINE_HEIGHT;
-        for (let col = 0; col < cols; col++) {
-          const x = col * charW;
-          const b = computeBrightness(x + charW / 2, y + LINE_HEIGHT / 2);
-          if (b < 0.02) continue;
+          // Scatter on hover/touch
+          if (pointer) {
+            const wcx = word.x + word.width / 2;
+            const wcy = word.y + word.height / 2;
+            const distX = wcx - pointer.x;
+            const distY = wcy - pointer.y;
+            const dist = Math.sqrt(distX * distX + distY * distY);
 
-          const ch = brightnessToChar(b);
-          if (ch === ' ') continue;
-
-          // Copper color with brightness-based alpha
-          const alpha = Math.min(1, b * 1.2);
-          ctx.fillStyle = `rgba(${COPPER.r}, ${COPPER.g}, ${COPPER.b}, ${alpha})`;
-          ctx.fillText(ch, x, y);
+            if (dist < scatterRadius && dist > 0) {
+              const force = (1 - dist / scatterRadius) * 12;
+              dx = (distX / dist) * force;
+              dy = (distY / dist) * force;
+            }
+          }
         }
+
+        ctx.font = `${word.size}px Georgia, serif`;
+        ctx.fillStyle = `rgba(193, 120, 23, ${Math.max(0.15, Math.min(1, opacity))})`;
+        ctx.fillText(word.text, word.x + dx, word.y + dy);
       }
 
+      if (reduced) {
+        animRef.current = 0;
+        return;
+      }
       animRef.current = requestAnimationFrame(render);
     }
 
     animRef.current = requestAnimationFrame(render);
-    window.addEventListener('resize', resize);
+
+    function handleResize() {
+      layoutCloud();
+    }
+    window.addEventListener('resize', handleResize);
 
     return () => {
       cancelAnimationFrame(animRef.current);
       animRef.current = 0;
       observer.disconnect();
-      window.removeEventListener('resize', resize);
+      container.removeEventListener('pointermove', handlePointerMove);
+      container.removeEventListener('pointerleave', handlePointerLeave);
+      window.removeEventListener('resize', handleResize);
     };
-  }, [measureCharWidths, initParticles]);
+  }, [layoutCloud]);
 
   return (
     <section className="bg-slate relative overflow-hidden py-20 sm:py-28">
@@ -223,7 +270,8 @@ export default function PretextShowcase() {
               We don&apos;t just design &mdash; we engineer.
             </h2>
             <p className="mt-4 text-dark-text-muted text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
-              This text is being measured and laid out 60 times per second using pure arithmetic. No DOM. No reflow. Just math.
+              Every word below is measured with sub-pixel precision and placed
+              using pure arithmetic. No DOM. No reflow. Just math.
             </p>
           </div>
         </ScrollReveal>
@@ -233,14 +281,15 @@ export default function PretextShowcase() {
           <div className="flex justify-center">
             <div
               ref={containerRef}
-              className="relative w-full max-w-[400px] rounded-xl overflow-hidden border border-white/10"
+              className="relative w-full sm:max-w-[600px] rounded-xl overflow-hidden border border-white/10 aspect-[3/2] sm:aspect-[4/3]"
               style={{
-                aspectRatio: '4 / 3',
-                boxShadow: '0 0 40px rgba(193, 120, 23, 0.08), 0 0 80px rgba(193, 120, 23, 0.04)',
+                boxShadow:
+                  'inset 0 2px 12px rgba(0,0,0,0.4), 0 0 40px rgba(193, 120, 23, 0.06)',
               }}
             >
               <canvas
                 ref={canvasRef}
+                aria-hidden="true"
                 className="absolute inset-0 w-full h-full"
                 style={{ background: '#1A1D20' }}
               />
@@ -258,14 +307,25 @@ export default function PretextShowcase() {
               className="text-copper/70 hover:text-copper text-sm transition-colors inline-flex items-center gap-1.5"
             >
               Powered by Pretext
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
                 <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
                 <polyline points="15 3 21 3 21 9" />
                 <line x1="10" y1="14" x2="21" y2="3" />
               </svg>
             </a>
             <p className="mt-4 text-dark-text-muted/60 text-xs sm:text-sm max-w-xl mx-auto leading-relaxed">
-              Every character is measured with sub-pixel precision and placed using proportional font arithmetic. The same technology powers our balanced headlines and scroll transitions across the site.
+              Every character is measured with sub-pixel precision and placed
+              using proportional font arithmetic. The same technology powers our
+              balanced headlines and scroll transitions across the site.
             </p>
           </div>
         </ScrollReveal>
