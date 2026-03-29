@@ -137,7 +137,7 @@ function LiveRedesign() {
               animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
               transition={{ duration: dur * 0.8, ease: 'easeOut' }}
               className="absolute inset-0 w-full overflow-hidden flex flex-col"
-              style={{ backgroundColor: '#111111', border: '1px solid rgba(255,107,0,0.3)', borderRadius: '4px', boxShadow: '0 8px 40px rgba(255,107,0,0.15), 0 2px 8px rgba(0,0,0,0.3)', overflow: 'hidden' }}>
+              style={{ border: '1px solid rgba(255,107,0,0.3)', borderRadius: '4px', boxShadow: '0 8px 40px rgba(255,107,0,0.15), 0 2px 8px rgba(0,0,0,0.3)', overflow: 'hidden' }}>
 
             {/* Background image overlay */}
             <div className="absolute inset-0 z-0">
@@ -164,7 +164,7 @@ function LiveRedesign() {
                   ))}
                 </motion.div>
                 <motion.div className="sm:hidden flex flex-col gap-[5px]" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur * 0.6, delay: stagger }}>
-                  <span className="block w-5 h-[2px]" style={{ backgroundColor: '#ff6b00' }} />
+                  <span className="block w-5 h-[2px]" style={{ backgroundColor: 'rgba(0,0,0,0.4)' }} />
                   <span className="block w-4 h-[2px]" style={{ backgroundColor: '#ff6b00' }} />
                   <span className="block w-5 h-[2px]" style={{ backgroundColor: '#ff6b00' }} />
                 </motion.div>

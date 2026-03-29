@@ -225,7 +225,7 @@ function LiveRedesign() {
               animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
               transition={{ duration: dur * 0.8, ease: 'easeOut' }}
               className="absolute inset-0 w-full overflow-hidden flex flex-col"
-              style={{ backgroundColor: '#ffffff', border: '2px solid rgba(255,107,107,0.25)', borderRadius: '20px', boxShadow: '0 8px 40px rgba(255,107,107,0.12), 0 2px 12px rgba(78,205,196,0.1)' }}>
+              style={{ border: '2px solid rgba(255,107,107,0.25)', borderRadius: '20px', boxShadow: '0 8px 40px rgba(255,107,107,0.12), 0 2px 12px rgba(78,205,196,0.1)' }}>
 
             {/* Background image overlay */}
             <div className="absolute inset-0 z-0">

@@ -122,7 +122,7 @@ function LiveRedesign() {
               animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
               transition={{ duration: dur * 0.8, ease: 'easeOut' }}
               className="absolute inset-0 w-full overflow-hidden flex flex-col"
-              style={{ backgroundColor: '#111', border: `2px solid ${pink}`, borderRadius: '16px', boxShadow: `0 0 24px ${pink}55, 0 0 60px ${pink}25, 0 2px 8px rgba(0,0,0,0.5)` }}
+              style={{ border: `2px solid ${pink}`, borderRadius: '16px', boxShadow: `0 0 24px ${pink}55, 0 0 60px ${pink}25, 0 2px 8px rgba(0,0,0,0.5)` }}
             >
 
             {/* Background image overlay */}
@@ -131,7 +131,7 @@ function LiveRedesign() {
               <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.78) 50%, rgba(0,0,0,0.9) 100%)' }} />
             </div>
               {/* Black nav with neon pink brand */}
-              <div className="flex items-center justify-between px-6 sm:px-10 py-4" style={{ borderBottom: `1px solid ${pink}30`, backgroundColor: '#111' }}>
+              <div className="flex items-center justify-between px-6 sm:px-10 py-4" style={{ borderBottom: `1px solid ${pink}30`, backgroundColor: 'rgba(0,0,0,0.4)' }}>
                 <motion.span className="heading-font text-xl sm:text-2xl tracking-widest" style={{ color: pink, letterSpacing: '0.12em', textShadow: `0 0 12px ${pink}, 0 0 28px ${pink}80`, fontFamily: "'Melodrama', sans-serif" }}
                   initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: dur * 0.6, delay: stagger }}>
                   NEON PINES
