@@ -69,7 +69,10 @@ export default function Navigation() {
       setScrolled(window.scrollY > 50);
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       if (docHeight > 0) {
-        setScrollProgress(window.scrollY / docHeight);
+        const raw = Math.min(0.99, window.scrollY / docHeight);
+        // Round to 2 decimals to prevent micro-oscillation layout thrashing
+        const rounded = Math.round(raw * 100) / 100;
+        setScrollProgress(rounded);
       }
     };
     window.addEventListener('scroll', onScroll, { passive: true });
