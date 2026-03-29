@@ -81,7 +81,7 @@ function LiveRedesign() {
         <motion.div className="h-[1px] flex-1 max-w-[80px]" style={{ backgroundColor: transformed ? green : '#ccc' }} layout transition={{ duration: 0.4 }} />
       </div>
 
-      <div className="relative w-full" style={{ height: '480px' }}>
+      <div className="relative w-full" style={{ minHeight: '520px' }}>
         <AnimatePresence mode="wait">
           {!transformed ? (
             <motion.div key="before"

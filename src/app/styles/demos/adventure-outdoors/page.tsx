@@ -96,7 +96,7 @@ function LiveRedesign() {
       </div>
 
       {/* Fixed-height container */}
-      <div className="relative w-full" style={{ height: '480px' }}>
+      <div className="relative w-full" style={{ minHeight: '520px' }}>
         <AnimatePresence mode="wait">
           {!transformed ? (
             <motion.div key="before"

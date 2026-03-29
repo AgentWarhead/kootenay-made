@@ -157,7 +157,7 @@ function LiveRedesign() {
       </div>
 
       {/* Fixed-height container — both states identical size */}
-      <div className="relative w-full" style={{ height: '480px' }}>
+      <div className="relative w-full" style={{ minHeight: '520px' }}>
         <AnimatePresence mode="wait">
           {!transformed ? (
             /* ── BEFORE STATE — Realistic WordPress small-town site ── */
