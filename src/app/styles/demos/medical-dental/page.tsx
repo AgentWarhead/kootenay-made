@@ -84,7 +84,7 @@ function LiveRedesign() {
       </div>
 
       {/* Fixed-height container */}
-      <div className="relative w-full" style={{ minHeight: '520px' }}>
+      <div className="relative w-full" style={{ minHeight: '560px' }}>
         <AnimatePresence mode="wait">
           {!transformed ? (
             <motion.div
@@ -148,10 +148,10 @@ function LiveRedesign() {
             {/* Background image overlay */}
             <div className="absolute inset-0 z-0">
               <img src="/images/demos/medical-dental-hero.webp" alt="" className="w-full h-full object-cover" />
-              <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.78) 50%, rgba(0,0,0,0.9) 100%)' }} />
+              <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.82) 50%, rgba(0,0,0,0.92) 100%)' }} />
             </div>
 {/* Nav — white/light, Ranade, teal text */}
-              <div className="flex items-center justify-between px-6 sm:px-10 py-4" style={{ borderBottom: `1px solid ${MD.teal}15`, backgroundColor: 'rgba(0,0,0,0.3)' }}>
+              <div className="flex items-center justify-between px-6 sm:px-10 py-4" style={{ borderBottom: `1px solid ${MD.teal}15`, backgroundColor: 'rgba(0,0,0,0.5)' }}>
                 <motion.span style={{ color: MD.teal, fontFamily: "'Ranade', sans-serif", fontSize: '1.05rem', fontWeight: 700 }} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: dur * 0.6, delay: stagger }}>
                   Kootenay Family Dental
                 </motion.span>
@@ -161,14 +161,14 @@ function LiveRedesign() {
                   ))}
                 </motion.div>
                 <motion.div className="sm:hidden flex flex-col gap-[5px]" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur * 0.6, delay: stagger }}>
-                  <span className="block w-5 h-[2px] rounded-full" style={{ backgroundColor: MD.teal }} />
-                  <span className="block w-4 h-[2px] rounded-full" style={{ backgroundColor: MD.teal }} />
-                  <span className="block w-5 h-[2px] rounded-full" style={{ backgroundColor: MD.teal }} />
+                  <span className="block w-5 h-[2px] rounded-full" style={{ }} />
+                  <span className="block w-4 h-[2px] rounded-full" style={{ }} />
+                  <span className="block w-5 h-[2px] rounded-full" style={{ }} />
                 </motion.div>
               </div>
 
               {/* Hero */}
-              <div className="relative px-5 sm:px-10 md:px-16 py-8 sm:py-14 flex-1 flex flex-col justify-center" style={{ backgroundColor: MD.white }}>
+              <div className="relative px-5 sm:px-10 md:px-16 py-8 sm:py-14 flex-1 flex flex-col justify-center" style={{ }}>
                 {/* Soft curves/waves SVG motif — calming, not clinical */}
                 <motion.div className="absolute top-0 right-0 pointer-events-none" initial={{ opacity: 0 }} animate={{ opacity: 0.13 }} transition={{ duration: dur, delay: stagger * 3 }}>
                   <svg width="220" height="220" viewBox="0 0 180 180" fill="none">
@@ -181,14 +181,14 @@ function LiveRedesign() {
                   </svg>
                 </motion.div>
 
-                <div className="relative z-10 text-center sm:text-left" style={{ textShadow: "0 2px 12px rgba(0,0,0,0.9), 0 1px 3px rgba(0,0,0,0.7)" }}>
+                <div className="relative z-10 text-center sm:text-left" >
                   <motion.div className="flex justify-center sm:justify-start mb-3 sm:mb-6" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
                     <span style={{ backgroundColor: `${MD.teal}12`, color: MD.teal, border: `1px solid ${MD.teal}22`, fontFamily: "'Ranade', sans-serif", fontSize: '0.7rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.2em', padding: '0.4rem 1.25rem', borderRadius: '999px' }}>
                       Est. 2009 &mdash; West Kootenay
                     </span>
                   </motion.div>
 
-                  <motion.h2 className="heading-font text-2xl sm:text-4xl md:text-5xl lg:text-5xl leading-[1.15] mb-4 sm:mb-6 sm:max-w-xl font-bold" style={{ color: '#fff' }} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
+                  <motion.h2 className="heading-font text-2xl sm:text-4xl md:text-5xl lg:text-5xl leading-[1.15] mb-4 sm:mb-6 sm:max-w-xl font-bold" style={{ color: '#ffffff' }} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur, delay: stagger * 3, ease: [0.22, 1, 0.36, 1] }}>
                     Nervous About the Dentist? We Get It. That&apos;s Why{' '}
                     <span style={{ color: MD.teal }}>
                       We&apos;re Different.
@@ -200,7 +200,7 @@ function LiveRedesign() {
                   </motion.p>
 
                   <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 5 }} className="flex flex-col sm:flex-row items-center sm:items-start justify-center sm:justify-start gap-4">
-                    <a href="#book-now" className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 rounded-full transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]" style={{ backgroundColor: MD.teal, color: MD.white, fontFamily: "'Ranade', sans-serif", fontWeight: 700, fontSize: '0.88rem', textTransform: 'uppercase', letterSpacing: '0.06em', boxShadow: `0 4px 20px ${MD.teal}35` }}>
+                    <a href="#book-now" className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 rounded-full transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]" style={{ color: MD.white, fontFamily: "'Ranade', sans-serif", fontWeight: 700, fontSize: '0.88rem', textTransform: 'uppercase', letterSpacing: '0.06em', boxShadow: `0 4px 20px ${MD.teal}35` }}>
                       Book Online — No Phone Call Needed &rarr;
                     </a>
                     <span style={{ color: 'rgba(255,255,255,0.5)', fontFamily: "'Ranade', sans-serif", fontSize: '0.85rem' }}>No commitment required</span>
