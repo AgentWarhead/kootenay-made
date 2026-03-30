@@ -233,7 +233,7 @@ export default function CaseStudyClient({ study }: { study: CaseStudy }) {
           }} />
 
           <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6">
-            <p className="text-center text-copper/50 text-xs font-[family-name:var(--font-satoshi)] uppercase tracking-[0.2em] mb-8">
+            <p className="text-center text-copper text-sm font-[family-name:var(--font-satoshi)] font-bold uppercase tracking-[0.3em] mb-8" style={{ textShadow: '0 0 20px rgba(193,120,23,0.3)' }}>
               Continue the Trail
             </p>
 
@@ -243,18 +243,19 @@ export default function CaseStudyClient({ study }: { study: CaseStudy }) {
                   href={`/portfolio/${prev.slug}`}
                   className="group relative w-full sm:w-auto"
                 >
-                  {/* Left-pointing signpost — uses the left image as-is */}
+                  {/* Left-pointing signpost — flip the right-pointing image */}
                   <div className="relative h-[100px] sm:h-[120px] w-full sm:w-[300px] transition-transform duration-300 group-hover:translate-x-[-8px]">
                     <img
                       src="/images/signpost-left-v2.png"
                       alt=""
                       className="absolute inset-0 w-full h-full object-contain drop-shadow-[0_4px_12px_rgba(0,0,0,0.4)]"
+                      style={{ transform: 'scaleX(-1)' }}
                       aria-hidden="true"
                     />
-                    {/* Text centered on the plank */}
-                    <div className="absolute flex flex-col items-center justify-center text-center" style={{ left: '22%', right: '18%', top: '22%', bottom: '48%' }}>
-                      <p className="text-[8px] text-[#F5E6C8]/40 uppercase tracking-[0.2em] font-medium">← Previous</p>
-                      <p className="font-[family-name:var(--font-satoshi)] font-bold text-[#F5E6C8] text-xs sm:text-sm truncate max-w-full drop-shadow-[0_1px_3px_rgba(0,0,0,0.7)]">{prev.name}</p>
+                    {/* Text centered on the plank — shifted down */}
+                    <div className="absolute flex flex-col items-center justify-center text-center" style={{ left: '18%', right: '22%', top: '30%', bottom: '35%' }}>
+                      <p className="text-[8px] text-copper/70 uppercase tracking-[0.2em] font-bold">← Previous</p>
+                      <p className="font-[family-name:var(--font-satoshi)] font-bold text-[#F5E6C8] text-sm sm:text-base truncate max-w-full drop-shadow-[0_1px_3px_rgba(0,0,0,0.7)]">{prev.name}</p>
                     </div>
                   </div>
                 </Link>
@@ -267,19 +268,18 @@ export default function CaseStudyClient({ study }: { study: CaseStudy }) {
                   href={`/portfolio/${next.slug}`}
                   className="group relative w-full sm:w-auto"
                 >
-                  {/* Right-pointing signpost — flip the left image horizontally */}
+                  {/* Right-pointing signpost — uses the image as-is (it points right) */}
                   <div className="relative h-[100px] sm:h-[120px] w-full sm:w-[300px] transition-transform duration-300 group-hover:translate-x-[8px]">
                     <img
                       src="/images/signpost-left-v2.png"
                       alt=""
                       className="absolute inset-0 w-full h-full object-contain drop-shadow-[0_4px_12px_rgba(0,0,0,0.4)]"
-                      style={{ transform: 'scaleX(-1)' }}
                       aria-hidden="true"
                     />
-                    {/* Text centered on the plank (same zones, image is flipped) */}
-                    <div className="absolute flex flex-col items-center justify-center text-center" style={{ left: '18%', right: '22%', top: '22%', bottom: '48%' }}>
-                      <p className="text-[8px] text-[#F5E6C8]/40 uppercase tracking-[0.2em] font-medium">Next →</p>
-                      <p className="font-[family-name:var(--font-satoshi)] font-bold text-[#F5E6C8] text-xs sm:text-sm truncate max-w-full drop-shadow-[0_1px_3px_rgba(0,0,0,0.7)]">{next.name}</p>
+                    {/* Text centered on the plank — shifted down */}
+                    <div className="absolute flex flex-col items-center justify-center text-center" style={{ left: '22%', right: '18%', top: '30%', bottom: '35%' }}>
+                      <p className="text-[8px] text-copper/70 uppercase tracking-[0.2em] font-bold">Next →</p>
+                      <p className="font-[family-name:var(--font-satoshi)] font-bold text-[#F5E6C8] text-sm sm:text-base truncate max-w-full drop-shadow-[0_1px_3px_rgba(0,0,0,0.7)]">{next.name}</p>
                     </div>
                   </div>
                 </Link>
@@ -290,7 +290,7 @@ export default function CaseStudyClient({ study }: { study: CaseStudy }) {
 
             {/* Trail marker */}
             <div className="flex justify-center mt-6">
-              <div className="flex items-center gap-2 text-copper/25 text-[10px] font-[family-name:var(--font-satoshi)]">
+              <div className="flex items-center gap-2 text-copper/60 text-xs font-[family-name:var(--font-satoshi)] font-medium">
                 <span>◆</span>
                 <span className="tracking-[0.2em] uppercase">Trail Marker {caseStudies.findIndex(s => s.slug === study.slug) + 1} of {caseStudies.length}</span>
                 <span>◆</span>
