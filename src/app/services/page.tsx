@@ -13,6 +13,7 @@ import CostCalculator from '@/components/CostCalculator';
 import PretextFreezeThaw from '@/components/PretextFreezeThaw';
 import PretextExplainer from '@/components/PretextExplainer';
 import FrostMeltOverlay from '@/components/FrostMeltOverlay';
+import FrostCursorTrail from '@/components/FrostCursorTrail';
 
 const serviceCards = [
   { icon: Star, name: 'Free AI Website Audit', price: '$0', desc: 'A 30-minute walkthrough of your current online presence with actionable recommendations.', features: ['Full site review', 'SEO quick-check', 'Competitor comparison', 'Prioritized action plan'], tier: 'entry', highlight: true },
@@ -274,6 +275,7 @@ function RetainerSection() {
 export default function ServicesPage() {
   return (
     <div className="overflow-x-hidden">
+      <FrostCursorTrail />
       <section className="aurora-bg grain pt-32 pb-20 relative">
         <AmbientOrbs />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">

@@ -12,6 +12,7 @@ import AmbientOrbs from '@/components/AmbientOrbs';
 import { caseStudies } from './data';
 import PretextAvalanche from '@/components/PretextAvalanche';
 import PretextExplainer from '@/components/PretextExplainer';
+import RippleCursorTrail from '@/components/RippleCursorTrail';
 
 /* ── Terrain-specific SVG background patterns ── */
 function TerrainPattern({ terrain, slug }: { terrain: string; slug: string }) {
@@ -254,6 +255,7 @@ function TrailPath({ count }: { count: number }) {
 export default function PortfolioPage() {
   return (
     <div className="overflow-x-hidden">
+      <RippleCursorTrail />
       <section className="aurora-bg grain pt-32 pb-20 relative overflow-x-hidden">
         <AmbientOrbs />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
