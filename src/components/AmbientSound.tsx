@@ -104,24 +104,16 @@ export default function AmbientSound() {
               <p className="text-cream/40 text-xs font-[family-name:var(--font-satoshi)] mb-3">
                 We build immersive audio experiences.
               </p>
-              <div className="flex items-center gap-3">
-                <button
-                  onClick={handlePlay}
-                  className="flex items-center gap-2 bg-copper hover:bg-copper-light text-white text-xs font-semibold uppercase tracking-wider px-4 py-2 rounded-lg transition-all duration-200 hover:scale-[1.02]"
-                >
-                  <span className="relative flex h-2 w-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-40" />
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-white" />
-                  </span>
-                  Preview
-                </button>
-                <a
-                  href="/contact"
-                  className="text-copper/50 hover:text-copper text-xs font-medium transition-colors"
-                >
-                  Get a quote →
-                </a>
-              </div>
+              <button
+                onClick={handlePlay}
+                className="flex items-center gap-2 bg-copper hover:bg-copper-light text-white text-xs font-semibold uppercase tracking-wider px-4 py-2 rounded-lg transition-all duration-200 hover:scale-[1.02]"
+              >
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-40" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-white" />
+                </span>
+                Preview
+              </button>
               {/* Arrow pointing down to speaker button */}
               <div className="absolute -bottom-2 right-5 w-4 h-4 rotate-45 bg-slate/95 border-r border-b border-copper/20" />
             </div>
