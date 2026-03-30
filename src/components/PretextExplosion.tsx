@@ -48,7 +48,7 @@ export default function PretextExplosion() {
 
   const buildChars = useCallback((canvasW: number, canvasH: number) => {
     // Scale font size to fit canvas width on mobile (min 24px, max 52px)
-    const responsiveFontSize = Math.max(24, Math.min(FONT_SIZE, Math.floor(canvasW / 12)));
+    const responsiveFontSize = Math.max(18, Math.min(FONT_SIZE, Math.floor(canvasW / 16)));
     const responsiveFont = `bold ${responsiveFontSize}px Georgia, serif`;
 
     const chars: Char[] = [];
