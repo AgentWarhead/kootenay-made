@@ -56,10 +56,6 @@ function DrawServiceIcon({ icon: Icon, delay = 0 }: { icon: typeof Star; delay?:
 }
 
 function PinnedCard({ card, index, total }: { card: typeof serviceCards[0]; index: number; total: number }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'start start'] });
-  const scale = useTransform(scrollYProgress, [0, 1], [0.92, 1]);
-
   const tierColors: Record<string, string> = {
     entry: 'bg-cream',
     core: 'bg-white',
@@ -68,47 +64,52 @@ function PinnedCard({ card, index, total }: { card: typeof serviceCards[0]; inde
 
   const tier = tierLabels[card.tier];
 
-  // Each card sticks slightly lower than the previous — creating the stacking effect
-  const stickyTop = 80 + index * 12; // px offset increases per card
+  // All cards stick at the same top position. Each card has a scroll spacer (100vh)
+  // so as user scrolls, the NEXT card slides up from below and covers the current one.
+  // Tiny top offset per card (8px each) creates visible "deck edge" peek effect.
+  const stickyTop = 100 + index * 8;
 
   return (
-    <div ref={ref} style={{ height: '85vh', marginBottom: index === total - 1 ? 0 : '-60vh' }}>
-      <motion.div
-        style={{ scale, zIndex: index + 10, top: stickyTop }}
+    <div style={{ height: index === total - 1 ? 'auto' : '100vh' }}>
+      <div
         className="sticky"
+        style={{ top: stickyTop, zIndex: index + 10 }}
       >
-      <div className={`rounded-2xl p-5 sm:p-8 lg:p-10 border ${card.highlight ? 'border-copper/40 shadow-lg' : 'border-cream-border'} ${tierColors[card.tier]} mb-6 relative overflow-hidden`}>
-        {/* Animated copper border for highlighted cards */}
-        {card.highlight && (
-          <div className="absolute inset-0 rounded-2xl animated-gradient-border opacity-20 pointer-events-none" style={{ margin: '-1px' }} />
-        )}
-        <div className="flex flex-col sm:flex-row sm:items-start gap-6 relative z-10">
-          <div className={`w-14 h-14 rounded-xl flex items-center justify-center shrink-0 ${card.tier === 'premium' ? 'bg-copper/20' : 'bg-copper/10'}`}>
-            <DrawServiceIcon icon={card.icon} delay={index * 0.05} />
-          </div>
-          <div className="flex-1">
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
-              <div className="flex items-center gap-3">
-                <h3 className={`font-[family-name:var(--font-satoshi)] text-xl font-bold ${card.tier === 'premium' ? 'text-cream' : 'text-slate'}`}>{card.name}</h3>
-                <span className={`text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full ${tier.color}`}>
-                  {tier.label}
-                </span>
-              </div>
-              <span className="font-[family-name:var(--font-satoshi)] text-2xl font-bold text-copper">{card.price}</span>
+        <div
+          className={`rounded-2xl p-5 sm:p-8 lg:p-10 border shadow-xl ${card.highlight ? 'border-copper/40' : 'border-cream-border'} ${tierColors[card.tier]} relative overflow-hidden`}
+          style={{ boxShadow: `0 ${4 + index * 2}px ${20 + index * 5}px rgba(0,0,0,${0.05 + index * 0.02})` }}
+        >
+          {/* Animated copper border for highlighted cards */}
+          {card.highlight && (
+            <div className="absolute inset-0 rounded-2xl animated-gradient-border opacity-20 pointer-events-none" style={{ margin: '-1px' }} />
+          )}
+          <div className="flex flex-col sm:flex-row sm:items-start gap-6 relative z-10">
+            <div className={`w-14 h-14 rounded-xl flex items-center justify-center shrink-0 ${card.tier === 'premium' ? 'bg-copper/20' : 'bg-copper/10'}`}>
+              <DrawServiceIcon icon={card.icon} delay={index * 0.05} />
             </div>
-            <BalancedText as="p" className={`text-sm leading-relaxed mb-6 ${card.tier === 'premium' ? 'text-dark-text-muted' : 'text-text-secondary'}`}>{card.desc}</BalancedText>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-              {card.features.map((f) => (
-                <div key={f} className="flex items-start gap-2 text-sm">
-                  <Check size={14} className="text-forest mt-0.5 shrink-0" />
-                  <span className={card.tier === 'premium' ? 'text-dark-text-muted' : 'text-text-secondary'}>{f}</span>
+            <div className="flex-1">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
+                <div className="flex items-center gap-3">
+                  <h3 className={`font-[family-name:var(--font-satoshi)] text-xl font-bold ${card.tier === 'premium' ? 'text-cream' : 'text-slate'}`}>{card.name}</h3>
+                  <span className={`text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full ${tier.color}`}>
+                    {tier.label}
+                  </span>
                 </div>
-              ))}
+                <span className="font-[family-name:var(--font-satoshi)] text-2xl font-bold text-copper">{card.price}</span>
+              </div>
+              <BalancedText as="p" className={`text-sm leading-relaxed mb-6 ${card.tier === 'premium' ? 'text-dark-text-muted' : 'text-text-secondary'}`}>{card.desc}</BalancedText>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                {card.features.map((f) => (
+                  <div key={f} className="flex items-start gap-2 text-sm">
+                    <Check size={14} className="text-forest mt-0.5 shrink-0" />
+                    <span className={card.tier === 'premium' ? 'text-dark-text-muted' : 'text-text-secondary'}>{f}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </motion.div>
     </div>
   );
 }
