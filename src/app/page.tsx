@@ -481,14 +481,21 @@ export default function Home() {
 
       <MountainDivider variant={1} fillColor="#1a1208" />
 
-      {/* ═══ ASCII MOUNTAIN CONTOURS ═══ */}
-      <PretextExplosion />
-      <div className="text-center mt-4">
-        <p className="text-cream/50 text-sm italic font-[family-name:var(--font-satoshi)]">&quot;That&apos;s what we do to boring websites.&quot;</p>
-      </div>
-      <PretextExplainer
-        text="Every letter you just blew up was measured to sub-pixel precision using Pretext — no templates, no drag-and-drop. This is what custom-engineered websites feel like. Your competitors are using Wix."
-      />
+      {/* ═══ PRETEXT EXPLOSION ═══ */}
+      <section className="relative bg-slate overflow-hidden">
+        <div className="absolute inset-0 grain" />
+        <div className="relative z-10">
+          <PretextExplosion />
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-16 pb-12">
+            <div className="text-center mt-4">
+              <p className="text-cream/50 text-sm italic font-[family-name:var(--font-satoshi)]">&quot;That&apos;s what we do to boring websites.&quot;</p>
+            </div>
+            <PretextExplainer
+              text="Every letter you just blew up was measured to sub-pixel precision using Pretext — no templates, no drag-and-drop. This is what custom-engineered websites feel like. Your competitors are using Wix."
+            />
+          </div>
+        </div>
+      </section>
 
       {/* ═══ CAMPFIRE STORIES ═══ */}
       <CampfireStories stories={painPoints} />
