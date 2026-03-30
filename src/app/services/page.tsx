@@ -58,10 +58,7 @@ function DrawServiceIcon({ icon: Icon, delay = 0 }: { icon: typeof Star; delay?:
 function PinnedCard({ card, index, total }: { card: typeof serviceCards[0]; index: number; total: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'start start'] });
-  const y = useTransform(scrollYProgress, [0, 1], [100, 0]);
-  const scale = useTransform(scrollYProgress, [0, 1], [0.95, 1]);
-  const rotate = useTransform(scrollYProgress, [0, 0.5, 1], [3, 1, 0]);
-  const x = useTransform(scrollYProgress, [0, 1], [60, 0]);
+  const scale = useTransform(scrollYProgress, [0, 1], [0.92, 1]);
 
   const tierColors: Record<string, string> = {
     entry: 'bg-cream',
@@ -71,12 +68,15 @@ function PinnedCard({ card, index, total }: { card: typeof serviceCards[0]; inde
 
   const tier = tierLabels[card.tier];
 
+  // Each card sticks slightly lower than the previous — creating the stacking effect
+  const stickyTop = 80 + index * 12; // px offset increases per card
+
   return (
-    <motion.div
-      ref={ref}
-      style={{ y, scale, x, rotate, zIndex: index + 10 }}
-      className="sticky top-20 sm:top-24 lg:top-32 mb-4"
-    >
+    <div ref={ref} style={{ height: '85vh', marginBottom: index === total - 1 ? 0 : '-60vh' }}>
+      <motion.div
+        style={{ scale, zIndex: index + 10, top: stickyTop }}
+        className="sticky"
+      >
       <div className={`rounded-2xl p-5 sm:p-8 lg:p-10 border ${card.highlight ? 'border-copper/40 shadow-lg' : 'border-cream-border'} ${tierColors[card.tier]} mb-6 relative overflow-hidden`}>
         {/* Animated copper border for highlighted cards */}
         {card.highlight && (
@@ -109,6 +109,7 @@ function PinnedCard({ card, index, total }: { card: typeof serviceCards[0]; inde
         </div>
       </div>
     </motion.div>
+    </div>
   );
 }
 
@@ -336,7 +337,7 @@ export default function ServicesPage() {
             <BalancedText as="h2" className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl font-bold text-slate mb-12">From quick wins to full builds.</BalancedText>
           </ScrollReveal>
 
-          <div className="relative" style={{ minHeight: `${serviceCards.length * 280}px` }}>
+          <div className="relative">
             {serviceCards.map((card, i) => (
               <PinnedCard key={card.name} card={card} index={i} total={serviceCards.length} />
             ))}

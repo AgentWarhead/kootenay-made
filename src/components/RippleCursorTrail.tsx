@@ -3,10 +3,9 @@
 import { useEffect, useRef, useCallback } from 'react';
 import { prepareWithSegments, walkLineRanges } from '@chenglou/pretext';
 
-/* ── Continuous water ripple trail with Pretext-measured words ── */
-const RIPPLE_WORDS = ['IMPACT', 'RESULTS', 'CRAFT', 'WEIGHT', 'BUILT', 'PROVEN', 'SOLID', 'BOLD'];
-const WATER_CHARS = ['~', '≈', '∿', '〰', '⌇', '◦', '∘', '·'];
-const FONT = 'bold 16px Georgia, serif';
+/* ── High-quality water ripple cursor with Pretext-measured wave text ── */
+const WAVE_CHARS = ['~', '≈', '∿', '~', '≈'];
+const FONT = '13px Georgia, serif';
 
 interface RippleRing {
   id: number;
@@ -15,48 +14,36 @@ interface RippleRing {
   createdAt: number;
 }
 
-interface WaterChar {
+interface WaveChar {
   id: number;
   x: number;
   y: number;
   char: string;
-  angle: number;
   opacity: number;
   createdAt: number;
   offsetX: number;
   offsetY: number;
   drift: number;
+  freq: number;
+  phase: number;
 }
 
-interface WordBurst {
-  id: number;
-  x: number;
-  y: number;
-  createdAt: number;
-  chars: { char: string; angle: number; speed: number; width: number }[];
-}
-
-const MAX_RINGS = 12;
-const MAX_CHARS = 40;
-const MAX_WORDS = 3;
-const RING_DURATION = 900;
-const CHAR_DURATION = 1800;
-const WORD_DURATION = 2500;
-const RING_INTERVAL_PX = 60;
-const CHAR_INTERVAL_PX = 25;
-const WORD_INTERVAL_PX = 250;
+const MAX_RINGS = 15;
+const MAX_CHARS = 50;
+const RING_DURATION = 1200;
+const CHAR_DURATION = 2000;
+const RING_INTERVAL_PX = 40;
+const CHAR_INTERVAL_PX = 18;
 const THROTTLE_MS = 16;
 
 export default function RippleCursorTrail() {
   const containerRef = useRef<SVGSVGElement>(null);
   const ringsRef = useRef<RippleRing[]>([]);
-  const charsRef = useRef<WaterChar[]>([]);
-  const wordsRef = useRef<WordBurst[]>([]);
+  const charsRef = useRef<WaveChar[]>([]);
   const idRef = useRef(0);
   const lastPosRef = useRef({ x: 0, y: 0 });
   const ringDistRef = useRef(0);
   const charDistRef = useRef(0);
-  const wordDistRef = useRef(0);
   const lastFrameRef = useRef(0);
   const animRef = useRef<number>(0);
   const isActiveRef = useRef(false);
@@ -65,7 +52,7 @@ export default function RippleCursorTrail() {
   const measureChar = useCallback((ch: string): number => {
     const cached = widthCacheRef.current.get(ch);
     if (cached) return cached;
-    let w = 10;
+    let w = 8;
     try {
       const prepared = prepareWithSegments(ch, FONT);
       walkLineRanges(prepared, 2000, (line) => { if (line.width > 0) w = line.width; });
@@ -82,86 +69,70 @@ export default function RippleCursorTrail() {
     while (svg.lastChild) svg.removeChild(svg.lastChild);
     let hasContent = false;
 
-    // Ripple rings — expanding copper circles
+    // ── Multi-ring ripples — 3 concentric rings per spawn point ──
     for (let i = ringsRef.current.length - 1; i >= 0; i--) {
       const r = ringsRef.current[i];
       const age = now - r.createdAt;
       if (age >= RING_DURATION) { ringsRef.current.splice(i, 1); continue; }
       hasContent = true;
       const p = age / RING_DURATION;
-      const radius = 4 + p * 35;
-      const opacity = 0.35 * (1 - p * p);
 
-      // Outer ring
-      const c1 = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-      c1.setAttribute('cx', String(r.x)); c1.setAttribute('cy', String(r.y));
-      c1.setAttribute('r', String(radius));
-      c1.setAttribute('fill', 'none'); c1.setAttribute('stroke', '#4A90A4');
-      c1.setAttribute('stroke-width', String(1.5 - p)); c1.setAttribute('opacity', String(opacity));
-      svg.appendChild(c1);
+      // 3 concentric rings with staggered timing
+      for (let ring = 0; ring < 3; ring++) {
+        const stagger = ring * 0.12;
+        const rp = Math.max(0, p - stagger);
+        if (rp <= 0 || rp >= 1) continue;
 
-      // Inner ring
-      if (p < 0.5) {
-        const c2 = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-        c2.setAttribute('cx', String(r.x)); c2.setAttribute('cy', String(r.y));
-        c2.setAttribute('r', String(2 + p * 18));
-        c2.setAttribute('fill', 'none'); c2.setAttribute('stroke', '#C17817');
-        c2.setAttribute('stroke-width', '0.8'); c2.setAttribute('opacity', String(0.2 * (1 - p / 0.5)));
-        svg.appendChild(c2);
+        const radius = 3 + rp * (25 + ring * 10);
+        const opacity = (0.3 - ring * 0.08) * (1 - rp * rp);
+        const sw = (1.5 - ring * 0.3) * (1 - rp);
+
+        const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        circle.setAttribute('cx', String(r.x));
+        circle.setAttribute('cy', String(r.y));
+        circle.setAttribute('r', String(radius));
+        circle.setAttribute('fill', 'none');
+        // Alternate copper and river blue for depth
+        circle.setAttribute('stroke', ring === 1 ? '#4A90A4' : '#C17817');
+        circle.setAttribute('stroke-width', String(Math.max(0.2, sw)));
+        circle.setAttribute('opacity', String(Math.max(0, opacity)));
+        svg.appendChild(circle);
       }
     }
 
-    // Water characters — tilde waves scattered behind cursor
+    // ── Pretext-measured wave characters — flowing water texture ──
     for (let i = charsRef.current.length - 1; i >= 0; i--) {
       const wc = charsRef.current[i];
       const age = now - wc.createdAt;
       if (age >= CHAR_DURATION) { charsRef.current.splice(i, 1); continue; }
       hasContent = true;
       const p = age / CHAR_DURATION;
-      wc.opacity = 0.4 * (1 - p);
-      wc.offsetY -= 0.2; // float upward
-      wc.offsetX += wc.drift * 0.15; // lateral drift
+
+      // Wave motion — chars bob and drift like water surface
+      const bobY = Math.sin(now * 0.003 * wc.freq + wc.phase) * 3;
+      const bobX = Math.cos(now * 0.002 * wc.freq + wc.phase * 1.3) * 2;
+      wc.offsetY -= 0.12; // slow upward float
+      wc.offsetX += wc.drift * 0.08;
+
+      // Fade: quick in, slow out
+      const opacity = p < 0.05 ? (p / 0.05) * 0.35 : 0.35 * (1 - (p - 0.05) / 0.95);
 
       const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
       const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
       text.textContent = wc.char;
       text.setAttribute('font-family', 'Georgia, serif');
-      text.setAttribute('font-size', '14');
-      text.setAttribute('fill', p < 0.5 ? '#4A90A4' : '#C17817');
-      text.setAttribute('opacity', String(wc.opacity));
+      text.setAttribute('font-size', '13');
+      // Color shifts from river blue to copper as it ages
+      const blueAmt = 1 - p;
+      const r = Math.round(74 + (193 - 74) * p);
+      const g2 = Math.round(144 + (120 - 144) * p);
+      const b = Math.round(164 + (23 - 164) * p);
+      text.setAttribute('fill', `rgb(${r},${g2},${b})`);
+      text.setAttribute('opacity', String(Math.max(0, opacity)));
       text.setAttribute('text-anchor', 'middle');
-      g.setAttribute('transform', `translate(${wc.x + wc.offsetX},${wc.y + wc.offsetY}) rotate(${wc.angle})`);
+      g.setAttribute('transform', `translate(${wc.x + wc.offsetX + bobX},${wc.y + wc.offsetY + bobY})`);
       g.appendChild(text);
       svg.appendChild(g);
-    }
-
-    // Word bursts — chars radiate outward from spawn point
-    for (let i = wordsRef.current.length - 1; i >= 0; i--) {
-      const wb = wordsRef.current[i];
-      const age = now - wb.createdAt;
-      if (age >= WORD_DURATION) { wordsRef.current.splice(i, 1); continue; }
-      hasContent = true;
-      const p = age / WORD_DURATION;
-
-      for (const ch of wb.chars) {
-        const dist = p * ch.speed * 45;
-        const cx = wb.x + Math.cos(ch.angle) * dist;
-        const cy = wb.y + Math.sin(ch.angle) * dist - p * 12;
-        const opacity = p < 0.1 ? (p / 0.1) * 0.5 : 0.5 * (1 - (p - 0.1) / 0.9);
-
-        const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-        const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-        text.textContent = ch.char;
-        text.setAttribute('font-family', 'Georgia, serif');
-        text.setAttribute('font-weight', 'bold');
-        text.setAttribute('font-size', '16');
-        text.setAttribute('fill', '#C17817');
-        text.setAttribute('opacity', String(Math.max(0, opacity)));
-        text.setAttribute('text-anchor', 'middle');
-        g.setAttribute('transform', `translate(${cx},${cy})`);
-        g.appendChild(text);
-        svg.appendChild(g);
-      }
     }
 
     if (isActiveRef.current || hasContent) {
@@ -172,6 +143,9 @@ export default function RippleCursorTrail() {
   useEffect(() => {
     if (!window.matchMedia('(pointer: fine)').matches) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    // Pre-measure wave chars
+    for (const ch of WAVE_CHARS) measureChar(ch);
 
     isActiveRef.current = true;
     animRef.current = requestAnimationFrame(animate);
@@ -188,7 +162,7 @@ export default function RippleCursorTrail() {
 
       const angle = Math.atan2(dy, dx);
 
-      // Spawn ripple rings along movement
+      // Spawn ripple rings
       ringDistRef.current += dist;
       if (ringDistRef.current >= RING_INTERVAL_PX) {
         ringDistRef.current = 0;
@@ -196,37 +170,25 @@ export default function RippleCursorTrail() {
         while (ringsRef.current.length > MAX_RINGS) ringsRef.current.shift();
       }
 
-      // Spawn water chars densely
+      // Spawn dense wave characters
       charDistRef.current += dist;
       if (charDistRef.current >= CHAR_INTERVAL_PX) {
         charDistRef.current = 0;
-        const char = WATER_CHARS[Math.floor(Math.random() * WATER_CHARS.length)];
+        const char = WAVE_CHARS[idRef.current % WAVE_CHARS.length];
         const side = (idRef.current % 2 === 0) ? 1 : -1;
-        const perpX = -Math.sin(angle) * side * (6 + Math.random() * 14);
-        const perpY = Math.cos(angle) * side * (6 + Math.random() * 14);
+        const spread = 5 + Math.random() * 18;
+        const perpX = -Math.sin(angle) * side * spread;
+        const perpY = Math.cos(angle) * side * spread;
 
         charsRef.current.push({
           id: idRef.current++, x, y, char,
-          angle: Math.random() * 20 - 10,
-          opacity: 0.4, createdAt: now,
+          opacity: 0.35, createdAt: now,
           offsetX: perpX, offsetY: perpY,
-          drift: (Math.random() - 0.5) * 2,
+          drift: (Math.random() - 0.5) * 1.5,
+          freq: 0.8 + Math.random() * 0.6,
+          phase: Math.random() * Math.PI * 2,
         });
         while (charsRef.current.length > MAX_CHARS) charsRef.current.shift();
-      }
-
-      // Spawn Pretext-measured word bursts occasionally
-      wordDistRef.current += dist;
-      if (wordDistRef.current >= WORD_INTERVAL_PX) {
-        wordDistRef.current = 0;
-        const word = RIPPLE_WORDS[Math.floor(Math.random() * RIPPLE_WORDS.length)];
-        const chars = [];
-        for (let i = 0; i < word.length; i++) {
-          const a = (i / word.length) * Math.PI * 2 + (Math.random() - 0.5) * 0.4;
-          chars.push({ char: word[i], angle: a, speed: 1.2 + Math.random() * 1.2, width: measureChar(word[i]) });
-        }
-        wordsRef.current.push({ id: idRef.current++, x, y, createdAt: now, chars });
-        while (wordsRef.current.length > MAX_WORDS) wordsRef.current.shift();
       }
 
       lastPosRef.current = { x, y };
