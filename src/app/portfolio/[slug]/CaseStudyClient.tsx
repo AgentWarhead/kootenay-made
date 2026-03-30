@@ -222,49 +222,44 @@ export default function CaseStudyClient({ study }: { study: CaseStudy }) {
 
       {/* Next on the Trail — Wooden Signpost Navigation */}
       {(prev || next) && (
-        <section className="relative py-16 sm:py-20 overflow-hidden" style={{ background: 'linear-gradient(180deg, #F8F4F0 0%, #E8E0D4 100%)' }}>
-          {/* Wood grain texture overlay */}
-          <div className="absolute inset-0 opacity-[0.04]" style={{
-            backgroundImage: `repeating-linear-gradient(90deg, transparent, transparent 11px, rgba(139,90,43,0.3) 11px, rgba(139,90,43,0.3) 12px),
-              repeating-linear-gradient(0deg, transparent, transparent 29px, rgba(139,90,43,0.15) 29px, rgba(139,90,43,0.15) 30px)`
-          }} />
-          {/* Ground texture at bottom */}
-          <div className="absolute bottom-0 left-0 right-0 h-8" style={{
-            background: 'linear-gradient(0deg, rgba(101,67,33,0.08) 0%, transparent 100%)'
+        <section className="relative py-14 sm:py-16 overflow-hidden bg-slate">
+          <div className="absolute inset-0 grain" />
+          {/* Forest atmosphere */}
+          <div className="absolute inset-0" style={{
+            backgroundImage: `
+              radial-gradient(ellipse at 30% 50%, rgba(45,106,79,0.06) 0%, transparent 50%),
+              radial-gradient(ellipse at 70% 50%, rgba(45,106,79,0.06) 0%, transparent 50%)
+            `
           }} />
 
-          <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6">
-            {/* Signpost pole */}
-            <div className="flex flex-col items-center mb-6">
-              <div className="w-4 h-4 rounded-full bg-gradient-to-b from-[#A0714A] to-[#6B4226] shadow-[0_2px_4px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.15)] mb-0.5" />
-              <div className="w-2.5 h-16 bg-gradient-to-b from-[#8B5A2B] to-[#5A3A1E] rounded-sm shadow-[2px_0_4px_rgba(0,0,0,0.2),-1px_0_2px_rgba(0,0,0,0.1)]" style={{
-                backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.05) 3px, rgba(0,0,0,0.05) 4px)'
-              }} />
-            </div>
+          <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6">
+            <p className="text-center text-copper/50 text-xs font-[family-name:var(--font-satoshi)] uppercase tracking-[0.2em] mb-8">
+              Continue the Trail
+            </p>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-12">
               {prev ? (
                 <Link
                   href={`/portfolio/${prev.slug}`}
                   className="group relative w-full sm:w-auto"
                 >
-                  {/* Left-pointing signpost */}
-                  <div className="relative h-[120px] sm:h-[140px] w-full sm:w-[320px] transition-transform duration-300 group-hover:translate-x-[-8px] group-hover:rotate-[-1deg]">
+                  {/* Left-pointing signpost — uses the left image as-is */}
+                  <div className="relative h-[100px] sm:h-[120px] w-full sm:w-[300px] transition-transform duration-300 group-hover:translate-x-[-8px]">
                     <img
                       src="/images/signpost-left-v2.png"
                       alt=""
-                      className="absolute inset-0 w-full h-full object-contain drop-shadow-[0_6px_16px_rgba(0,0,0,0.25)]"
+                      className="absolute inset-0 w-full h-full object-contain drop-shadow-[0_4px_12px_rgba(0,0,0,0.4)]"
                       aria-hidden="true"
                     />
-                    {/* Text in safe zone: 25-75% width, 28-50% height */}
-                    <div className="absolute flex flex-col justify-center" style={{ left: '25%', right: '30%', top: '28%', bottom: '52%' }}>
-                      <p className="text-[9px] text-[#F5E6C8]/50 uppercase tracking-[0.15em] font-medium mb-0.5">← Previous</p>
-                      <p className="font-[family-name:var(--font-satoshi)] font-bold text-[#F5E6C8] text-sm sm:text-base truncate drop-shadow-[0_1px_3px_rgba(0,0,0,0.6)]">{prev.name}</p>
+                    {/* Text centered on the plank */}
+                    <div className="absolute flex flex-col items-center justify-center text-center" style={{ left: '22%', right: '18%', top: '22%', bottom: '48%' }}>
+                      <p className="text-[8px] text-[#F5E6C8]/40 uppercase tracking-[0.2em] font-medium">← Previous</p>
+                      <p className="font-[family-name:var(--font-satoshi)] font-bold text-[#F5E6C8] text-xs sm:text-sm truncate max-w-full drop-shadow-[0_1px_3px_rgba(0,0,0,0.7)]">{prev.name}</p>
                     </div>
                   </div>
                 </Link>
               ) : (
-                <div className="w-full sm:w-[320px]" />
+                <div className="w-full sm:w-[300px]" />
               )}
 
               {next ? (
@@ -272,31 +267,32 @@ export default function CaseStudyClient({ study }: { study: CaseStudy }) {
                   href={`/portfolio/${next.slug}`}
                   className="group relative w-full sm:w-auto"
                 >
-                  {/* Right-pointing signpost */}
-                  <div className="relative h-[120px] sm:h-[140px] w-full sm:w-[320px] transition-transform duration-300 group-hover:translate-x-[8px] group-hover:rotate-[1deg]">
+                  {/* Right-pointing signpost — flip the left image horizontally */}
+                  <div className="relative h-[100px] sm:h-[120px] w-full sm:w-[300px] transition-transform duration-300 group-hover:translate-x-[8px]">
                     <img
-                      src="/images/signpost-right-v2.png"
+                      src="/images/signpost-left-v2.png"
                       alt=""
-                      className="absolute inset-0 w-full h-full object-contain drop-shadow-[0_6px_16px_rgba(0,0,0,0.25)]"
+                      className="absolute inset-0 w-full h-full object-contain drop-shadow-[0_4px_12px_rgba(0,0,0,0.4)]"
+                      style={{ transform: 'scaleX(-1)' }}
                       aria-hidden="true"
                     />
-                    {/* Text in safe zone: 25-75% width, 28-50% height */}
-                    <div className="absolute flex flex-col justify-center text-right" style={{ left: '28%', right: '25%', top: '28%', bottom: '52%' }}>
-                      <p className="text-[9px] text-[#F5E6C8]/50 uppercase tracking-[0.15em] font-medium mb-0.5">Next →</p>
-                      <p className="font-[family-name:var(--font-satoshi)] font-bold text-[#F5E6C8] text-sm sm:text-base truncate drop-shadow-[0_1px_3px_rgba(0,0,0,0.6)]">{next.name}</p>
+                    {/* Text centered on the plank (same zones, image is flipped) */}
+                    <div className="absolute flex flex-col items-center justify-center text-center" style={{ left: '18%', right: '22%', top: '22%', bottom: '48%' }}>
+                      <p className="text-[8px] text-[#F5E6C8]/40 uppercase tracking-[0.2em] font-medium">Next →</p>
+                      <p className="font-[family-name:var(--font-satoshi)] font-bold text-[#F5E6C8] text-xs sm:text-sm truncate max-w-full drop-shadow-[0_1px_3px_rgba(0,0,0,0.7)]">{next.name}</p>
                     </div>
                   </div>
                 </Link>
               ) : (
-                <div className="w-full sm:w-[320px]" />
+                <div className="w-full sm:w-[300px]" />
               )}
             </div>
 
-            {/* Trail marker below */}
-            <div className="flex justify-center mt-8">
-              <div className="flex items-center gap-2 text-[#8B5A2B]/40 text-xs font-[family-name:var(--font-satoshi)]">
+            {/* Trail marker */}
+            <div className="flex justify-center mt-6">
+              <div className="flex items-center gap-2 text-copper/25 text-[10px] font-[family-name:var(--font-satoshi)]">
                 <span>◆</span>
-                <span className="tracking-widest uppercase">Trail Marker {caseStudies.findIndex(s => s.slug === study.slug) + 1} of {caseStudies.length}</span>
+                <span className="tracking-[0.2em] uppercase">Trail Marker {caseStudies.findIndex(s => s.slug === study.slug) + 1} of {caseStudies.length}</span>
                 <span>◆</span>
               </div>
             </div>
