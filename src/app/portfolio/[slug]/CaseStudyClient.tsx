@@ -193,24 +193,56 @@ export default function CaseStudyClient({ study }: { study: CaseStudy }) {
         </div>
       </section>
 
-      {/* Next on the Trail — Prev/Next Navigation */}
+      {/* Next on the Trail — Wooden Signpost Navigation */}
       {(prev || next) && (
-        <section className="bg-cream py-12 sm:py-16 border-t border-slate/10">
-          <div className="max-w-3xl mx-auto px-4 sm:px-6">
-            <p className="text-copper font-medium text-sm tracking-wider uppercase mb-6 text-center">
-              Next on the Trail
-            </p>
-            <div className="flex flex-col sm:flex-row items-stretch gap-4">
+        <section className="relative py-16 sm:py-20 overflow-hidden" style={{ background: 'linear-gradient(180deg, #F8F4F0 0%, #E8E0D4 100%)' }}>
+          {/* Wood grain texture overlay */}
+          <div className="absolute inset-0 opacity-[0.04]" style={{
+            backgroundImage: `repeating-linear-gradient(90deg, transparent, transparent 11px, rgba(139,90,43,0.3) 11px, rgba(139,90,43,0.3) 12px),
+              repeating-linear-gradient(0deg, transparent, transparent 29px, rgba(139,90,43,0.15) 29px, rgba(139,90,43,0.15) 30px)`
+          }} />
+          {/* Ground texture at bottom */}
+          <div className="absolute bottom-0 left-0 right-0 h-8" style={{
+            background: 'linear-gradient(0deg, rgba(101,67,33,0.08) 0%, transparent 100%)'
+          }} />
+
+          <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6">
+            {/* Signpost pole */}
+            <div className="flex flex-col items-center mb-10">
+              <div className="w-3 h-3 rounded-full bg-[#8B5A2B] shadow-inner mb-1" />
+              <div className="w-1.5 h-12 bg-gradient-to-b from-[#8B5A2B] to-[#6B4226] rounded-full shadow-md" />
+            </div>
+
+            <div className="flex flex-col sm:flex-row items-stretch gap-5 sm:gap-8">
               {prev ? (
                 <Link
                   href={`/portfolio/${prev.slug}`}
-                  className="flex-1 group flex items-center gap-3 p-4 rounded-xl border border-slate/10 hover:border-copper/30 hover:bg-copper/5 transition-all"
+                  className="flex-1 group"
                 >
-                  <ArrowLeft size={18} className="text-text-tertiary group-hover:text-copper transition-colors shrink-0" />
-                  <div className="min-w-0">
-                    <p className="text-xs text-text-tertiary">Previous</p>
-                    <p className="font-[family-name:var(--font-satoshi)] font-bold text-slate truncate">{prev.name}</p>
-                    <p className="text-xs text-text-tertiary">{prev.terrain}</p>
+                  {/* Wooden sign plank — pointing left */}
+                  <div className="relative">
+                    {/* Arrow notch on left */}
+                    <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-3 w-0 h-0 border-t-[28px] border-t-transparent border-b-[28px] border-b-transparent border-r-[16px] border-r-[#5C3D1E] hidden sm:block" />
+                    <div className="rounded-lg sm:rounded-r-lg sm:rounded-l-none px-6 py-5 transition-all duration-300 group-hover:translate-x-[-4px] group-hover:shadow-xl relative overflow-hidden" style={{
+                      background: 'linear-gradient(135deg, #7A5230 0%, #5C3D1E 50%, #4A3118 100%)',
+                      boxShadow: '0 4px 12px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.08)',
+                    }}>
+                      {/* Wood grain lines */}
+                      <div className="absolute inset-0 opacity-[0.06]" style={{
+                        backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 5px, rgba(255,255,255,0.1) 5px, rgba(255,255,255,0.1) 6px)'
+                      }} />
+                      {/* Nail holes */}
+                      <div className="absolute top-3 right-3 w-1.5 h-1.5 rounded-full bg-black/20 shadow-inner" />
+                      <div className="absolute bottom-3 right-6 w-1.5 h-1.5 rounded-full bg-black/20 shadow-inner" />
+                      <div className="relative z-10">
+                        <div className="flex items-center gap-2 mb-1">
+                          <ArrowLeft size={14} className="text-[#C17817] group-hover:text-[#E8A849] transition-colors" />
+                          <p className="text-[10px] text-[#C17817]/60 uppercase tracking-widest font-medium">Back down the trail</p>
+                        </div>
+                        <p className="font-[family-name:var(--font-satoshi)] font-bold text-cream text-lg truncate">{prev.name}</p>
+                        <p className="text-xs text-cream/40 mt-0.5">{prev.terrain}</p>
+                      </div>
+                    </div>
                   </div>
                 </Link>
               ) : (
@@ -220,18 +252,46 @@ export default function CaseStudyClient({ study }: { study: CaseStudy }) {
               {next ? (
                 <Link
                   href={`/portfolio/${next.slug}`}
-                  className="flex-1 group flex items-center justify-end gap-3 p-4 rounded-xl border border-slate/10 hover:border-copper/30 hover:bg-copper/5 transition-all text-right"
+                  className="flex-1 group"
                 >
-                  <div className="min-w-0">
-                    <p className="text-xs text-text-tertiary">Next</p>
-                    <p className="font-[family-name:var(--font-satoshi)] font-bold text-slate truncate">{next.name}</p>
-                    <p className="text-xs text-text-tertiary">{next.terrain}</p>
+                  {/* Wooden sign plank — pointing right */}
+                  <div className="relative">
+                    {/* Arrow notch on right */}
+                    <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-3 w-0 h-0 border-t-[28px] border-t-transparent border-b-[28px] border-b-transparent border-l-[16px] border-l-[#5C3D1E] hidden sm:block" />
+                    <div className="rounded-lg sm:rounded-l-lg sm:rounded-r-none px-6 py-5 text-right transition-all duration-300 group-hover:translate-x-[4px] group-hover:shadow-xl relative overflow-hidden" style={{
+                      background: 'linear-gradient(225deg, #7A5230 0%, #5C3D1E 50%, #4A3118 100%)',
+                      boxShadow: '0 4px 12px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.08)',
+                    }}>
+                      {/* Wood grain lines */}
+                      <div className="absolute inset-0 opacity-[0.06]" style={{
+                        backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 5px, rgba(255,255,255,0.1) 5px, rgba(255,255,255,0.1) 6px)'
+                      }} />
+                      {/* Nail holes */}
+                      <div className="absolute top-3 left-3 w-1.5 h-1.5 rounded-full bg-black/20 shadow-inner" />
+                      <div className="absolute bottom-3 left-6 w-1.5 h-1.5 rounded-full bg-black/20 shadow-inner" />
+                      <div className="relative z-10">
+                        <div className="flex items-center justify-end gap-2 mb-1">
+                          <p className="text-[10px] text-[#C17817]/60 uppercase tracking-widest font-medium">Continue the trail</p>
+                          <ArrowRight size={14} className="text-[#C17817] group-hover:text-[#E8A849] transition-colors" />
+                        </div>
+                        <p className="font-[family-name:var(--font-satoshi)] font-bold text-cream text-lg truncate">{next.name}</p>
+                        <p className="text-xs text-cream/40 mt-0.5">{next.terrain}</p>
+                      </div>
+                    </div>
                   </div>
-                  <ArrowRight size={18} className="text-text-tertiary group-hover:text-copper transition-colors shrink-0" />
                 </Link>
               ) : (
                 <div className="flex-1" />
               )}
+            </div>
+
+            {/* Trail marker below */}
+            <div className="flex justify-center mt-8">
+              <div className="flex items-center gap-2 text-[#8B5A2B]/40 text-xs font-[family-name:var(--font-satoshi)]">
+                <span>◆</span>
+                <span className="tracking-widest uppercase">Trail Marker {caseStudies.findIndex(s => s.slug === study.slug) + 1} of {caseStudies.length}</span>
+                <span>◆</span>
+              </div>
             </div>
           </div>
         </section>
