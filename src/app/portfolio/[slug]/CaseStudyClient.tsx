@@ -49,7 +49,7 @@ export default function CaseStudyClient({ study }: { study: CaseStudy }) {
 
       <MountainDivider variant={1} fillColor="#F8F4F0" bgColor="#1A1D20" />
 
-      {/* Hero Screenshot in Browser Mockup */}
+      {/* Hero Screenshot — Premium floating frame */}
       <section className="bg-cream py-16 sm:py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
           <ScrollReveal>
@@ -58,31 +58,29 @@ export default function CaseStudyClient({ study }: { study: CaseStudy }) {
               whileInView={{ y: 0, opacity: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, ease: 'easeOut' }}
-              className="rounded-xl overflow-hidden shadow-2xl border border-slate/10"
+              className="relative"
             >
-              {/* Browser chrome */}
-              <div className="bg-slate/95 px-4 py-3 flex items-center gap-2">
-                <div className="flex gap-1.5">
-                  <div className="w-3 h-3 rounded-full bg-red-400/80" />
-                  <div className="w-3 h-3 rounded-full bg-yellow-400/80" />
-                  <div className="w-3 h-3 rounded-full bg-green-400/80" />
+              {/* Glow behind the image */}
+              <div className="absolute -inset-4 rounded-3xl opacity-20 blur-2xl" style={{ background: `radial-gradient(ellipse at center, ${study.terrainColor}40 0%, transparent 70%)` }} />
+              {/* Frame */}
+              <div className="relative rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.15)] ring-1 ring-slate/10">
+                <div className="relative aspect-[16/9] bg-slate">
+                  <Image
+                    src={study.heroImage}
+                    alt={`${study.name} screenshot`}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 800px"
+                    className="object-cover"
+                    priority
+                  />
                 </div>
-                <div className="flex-1 mx-3">
-                  <div className="bg-white/10 rounded-md px-3 py-1 text-xs text-white/50 font-mono truncate">
-                    {study.liveUrl.replace('https://', '')}
-                  </div>
+                {/* Bottom bar with URL */}
+                <div className="bg-slate/95 backdrop-blur-sm px-5 py-2.5 flex items-center justify-between">
+                  <span className="text-xs text-white/40 font-mono truncate">{study.liveUrl.replace('https://', '')}</span>
+                  <a href={study.liveUrl} target="_blank" rel="noopener noreferrer" className="text-xs text-copper hover:text-copper-light transition-colors flex items-center gap-1">
+                    Visit <ExternalLink size={12} />
+                  </a>
                 </div>
-              </div>
-              {/* Screenshot */}
-              <div className="relative aspect-[16/9] bg-slate">
-                <Image
-                  src={study.heroImage}
-                  alt={`${study.name} screenshot`}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 800px"
-                  className="object-contain"
-                  priority
-                />
               </div>
             </motion.div>
           </ScrollReveal>
