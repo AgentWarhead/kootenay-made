@@ -242,33 +242,29 @@ export default function CaseStudyClient({ study }: { study: CaseStudy }) {
               }} />
             </div>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-10">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8">
               {prev ? (
                 <Link
                   href={`/portfolio/${prev.slug}`}
                   className="group relative w-full sm:w-auto"
                 >
-                  <div className="relative h-[140px] sm:h-[160px] w-full sm:w-[280px] transition-transform duration-300 group-hover:translate-x-[-6px] group-hover:rotate-[-1deg]">
-                    {/* Signpost image as background */}
+                  {/* Left-pointing signpost */}
+                  <div className="relative h-[120px] sm:h-[140px] w-full sm:w-[320px] transition-transform duration-300 group-hover:translate-x-[-8px] group-hover:rotate-[-1deg]">
                     <img
-                      src="/images/signpost-left.png"
+                      src="/images/signpost-left-v2.png"
                       alt=""
-                      className="absolute inset-0 w-full h-full object-contain drop-shadow-[0_8px_20px_rgba(0,0,0,0.3)]"
+                      className="absolute inset-0 w-full h-full object-contain drop-shadow-[0_6px_16px_rgba(0,0,0,0.25)]"
                       aria-hidden="true"
                     />
-                    {/* Text overlay on the sign plank */}
-                    <div className="absolute inset-0 flex flex-col justify-center pl-10 sm:pl-12 pr-6">
-                      <div className="flex items-center gap-1.5 mb-1">
-                        <ArrowLeft size={12} className="text-[#F5E6C8] group-hover:text-white transition-colors" />
-                        <p className="text-[9px] text-[#F5E6C8]/50 uppercase tracking-[0.2em] font-medium">Previous</p>
-                      </div>
-                      <p className="font-[family-name:var(--font-satoshi)] font-bold text-[#F5E6C8] text-base sm:text-lg truncate drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]">{prev.name}</p>
-                      <p className="text-[10px] text-[#F5E6C8]/40 mt-0.5 drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]">{prev.terrain}</p>
+                    {/* Text in safe zone: 25-75% width, 28-50% height */}
+                    <div className="absolute flex flex-col justify-center" style={{ left: '25%', right: '30%', top: '28%', bottom: '52%' }}>
+                      <p className="text-[9px] text-[#F5E6C8]/50 uppercase tracking-[0.15em] font-medium mb-0.5">← Previous</p>
+                      <p className="font-[family-name:var(--font-satoshi)] font-bold text-[#F5E6C8] text-sm sm:text-base truncate drop-shadow-[0_1px_3px_rgba(0,0,0,0.6)]">{prev.name}</p>
                     </div>
                   </div>
                 </Link>
               ) : (
-                <div className="w-full sm:w-[280px]" />
+                <div className="w-full sm:w-[320px]" />
               )}
 
               {next ? (
@@ -276,27 +272,23 @@ export default function CaseStudyClient({ study }: { study: CaseStudy }) {
                   href={`/portfolio/${next.slug}`}
                   className="group relative w-full sm:w-auto"
                 >
-                  <div className="relative h-[140px] sm:h-[160px] w-full sm:w-[280px] transition-transform duration-300 group-hover:translate-x-[6px] group-hover:rotate-[1deg]">
-                    {/* Signpost image as background */}
+                  {/* Right-pointing signpost */}
+                  <div className="relative h-[120px] sm:h-[140px] w-full sm:w-[320px] transition-transform duration-300 group-hover:translate-x-[8px] group-hover:rotate-[1deg]">
                     <img
-                      src="/images/signpost-right.png"
+                      src="/images/signpost-right-v2.png"
                       alt=""
-                      className="absolute inset-0 w-full h-full object-contain drop-shadow-[0_8px_20px_rgba(0,0,0,0.3)]"
+                      className="absolute inset-0 w-full h-full object-contain drop-shadow-[0_6px_16px_rgba(0,0,0,0.25)]"
                       aria-hidden="true"
                     />
-                    {/* Text overlay on the sign plank */}
-                    <div className="absolute inset-0 flex flex-col justify-center pr-10 sm:pr-12 pl-6 text-right">
-                      <div className="flex items-center justify-end gap-1.5 mb-1">
-                        <p className="text-[9px] text-[#F5E6C8]/50 uppercase tracking-[0.2em] font-medium">Next</p>
-                        <ArrowRight size={12} className="text-[#F5E6C8] group-hover:text-white transition-colors" />
-                      </div>
-                      <p className="font-[family-name:var(--font-satoshi)] font-bold text-[#F5E6C8] text-base sm:text-lg truncate drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]">{next.name}</p>
-                      <p className="text-[10px] text-[#F5E6C8]/40 mt-0.5 drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]">{next.terrain}</p>
+                    {/* Text in safe zone: 25-75% width, 28-50% height */}
+                    <div className="absolute flex flex-col justify-center text-right" style={{ left: '28%', right: '25%', top: '28%', bottom: '52%' }}>
+                      <p className="text-[9px] text-[#F5E6C8]/50 uppercase tracking-[0.15em] font-medium mb-0.5">Next →</p>
+                      <p className="font-[family-name:var(--font-satoshi)] font-bold text-[#F5E6C8] text-sm sm:text-base truncate drop-shadow-[0_1px_3px_rgba(0,0,0,0.6)]">{next.name}</p>
                     </div>
                   </div>
                 </Link>
               ) : (
-                <div className="w-full sm:w-[280px]" />
+                <div className="w-full sm:w-[320px]" />
               )}
             </div>
 
