@@ -14,7 +14,7 @@ import AmbientOrbs from '@/components/AmbientOrbs';
 import PineTreeline from '@/components/PineTreeline';
 import FogTransition from '@/components/FogTransition';
 import ForcesOfNature from '@/components/ForcesOfNature';
-import PretextMountainTransition from '@/components/PretextMountainTransition';
+import PretextExplosion from '@/components/PretextExplosion';
 import WildernessCursorTrail from '@/components/WildernessCursorTrail';
 import BalancedText from '@/components/BalancedText';
 
@@ -481,7 +481,7 @@ export default function Home() {
       <MountainDivider variant={1} fillColor="#1a1208" />
 
       {/* ═══ ASCII MOUNTAIN CONTOURS ═══ */}
-      <PretextMountainTransition />
+      <PretextExplosion />
 
       {/* ═══ CAMPFIRE STORIES ═══ */}
       <CampfireStories stories={painPoints} />

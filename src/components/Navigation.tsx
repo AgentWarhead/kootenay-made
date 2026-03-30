@@ -61,19 +61,9 @@ export default function Navigation() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
 
-  // Scroll progress — direct tracking, no spring (prevents erratic jumping)
-  const [scrollProgress, setScrollProgress] = useState(0);
-
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 50);
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      if (docHeight > 0) {
-        const raw = Math.min(0.99, window.scrollY / docHeight);
-        // Round to 2 decimals to prevent micro-oscillation layout thrashing
-        const rounded = Math.round(raw * 100) / 100;
-        setScrollProgress(rounded);
-      }
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
@@ -174,30 +164,7 @@ export default function Navigation() {
           </div>
         </div>
 
-        {/* Scroll progress — bear paw trail */}
-        {scrollProgress > 0.005 && (
-          <div className="absolute -bottom-[14px] left-0 right-0 h-[14px] overflow-hidden pointer-events-none">
-            <div
-              className="h-full flex items-center"
-              style={{ width: `${scrollProgress * 100}%`, transition: 'width 60ms linear' }}
-            >
-              <svg className="w-full h-full" preserveAspectRatio="none">
-                <defs>
-                  <pattern id="pawprint" x="0" y="0" width="36" height="14" patternUnits="userSpaceOnUse">
-                    {/* Main pad */}
-                    <ellipse cx="14" cy="9.5" rx="5" ry="3.5" fill="#C17817" opacity="0.55" />
-                    {/* Toe beans */}
-                    <circle cx="7" cy="4" r="2" fill="#C17817" opacity="0.5" />
-                    <circle cx="12" cy="2" r="1.8" fill="#C17817" opacity="0.5" />
-                    <circle cx="17" cy="2" r="1.8" fill="#C17817" opacity="0.5" />
-                    <circle cx="22" cy="4" r="2" fill="#C17817" opacity="0.5" />
-                  </pattern>
-                </defs>
-                <rect width="100%" height="100%" fill="url(#pawprint)" />
-              </svg>
-            </div>
-          </div>
-        )}
+
       </nav>
 
       {/* Mobile overlay — full-screen dark takeover with staggered reveals */}
