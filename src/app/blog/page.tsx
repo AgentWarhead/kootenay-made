@@ -143,7 +143,7 @@ function BlogCard({ post, index }: { post: typeof posts[0]; index: number }) {
 
 export default function BlogPage() {
   const [activeCategory, setActiveCategory] = useState('All');
-  const [email, setEmail] = useState('');
+
 
   const featuredPost = posts.find((p) => p.featured)!;
   const filtered = posts.filter((p) => !p.featured && (activeCategory === 'All' || p.category === activeCategory));
@@ -291,35 +291,7 @@ export default function BlogPage() {
         </div>
       </section>
 
-      {/* ─── Newsletter signup ─── */}
-      <section className="bg-cream cedar-texture py-16 relative">
-        <div className="relative z-10 max-w-xl mx-auto px-4 sm:px-6 text-center">
-          <ScrollReveal>
-            <p className="text-copper font-semibold text-xs tracking-[0.2em] uppercase mb-3" style={{ fontFamily: 'Georgia, serif' }}>
-              Stay in the loop
-            </p>
-            <h2 className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl font-bold text-slate mb-3">
-              Digital tips for Kootenay businesses
-            </h2>
-            <p className="text-text-secondary mb-7 text-base">No spam, just useful stuff — delivered when it matters.</p>
-            <form onSubmit={(e) => e.preventDefault()} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-              <input
-                type="email"
-                placeholder="your@email.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="flex-1 px-4 py-3 rounded-lg border border-copper/20 bg-white text-slate placeholder:text-text-tertiary text-sm focus:outline-none focus:ring-2 focus:ring-copper/30 focus:border-copper transition-all"
-              />
-              <button
-                type="submit"
-                className="px-6 py-3 bg-copper hover:bg-copper-light text-white font-semibold text-sm rounded-lg transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] whitespace-nowrap shadow-md shadow-copper/15"
-              >
-                Subscribe →
-              </button>
-            </form>
-          </ScrollReveal>
-        </div>
-      </section>
+
     </div>
   );
 }
