@@ -1,12 +1,15 @@
 @import "tailwindcss";
 
-/* Hide browser scrollbars globally — content still scrollable */
+/* Hide browser scrollbars visually but keep scroll space reserved to prevent jitter */
 html {
+  overflow-y: scroll;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE/Edge */
 }
 html::-webkit-scrollbar {
-  display: none; /* Chrome/Safari */
+  width: 0;
+  height: 0;
+  background: transparent;
 }
 
 @font-face {
