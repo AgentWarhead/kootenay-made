@@ -104,27 +104,33 @@ export default function PretextExplosion() {
     buildChars(rect.width, rect.height);
   }, [buildChars]);
 
-  /* ── Explode ── */
-  const explode = useCallback(() => {
+  /* ── Explode from a specific point ── */
+  const explode = useCallback((clickX?: number, clickY?: number) => {
     if (stateRef.current === 'exploding') return;
     stateRef.current = 'exploding';
     setHint(false);
 
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    const container = containerRef.current;
+    if (!canvas || !container) return;
     const dpr = window.devicePixelRatio || 1;
-    const cx = (canvas.width / dpr) / 2;
-    const cy = (canvas.height / dpr) / 2;
+    // Default to center if no click coords
+    const cx = clickX ?? (canvas.width / dpr) / 2;
+    const cy = clickY ?? (canvas.height / dpr) / 2;
 
     for (const ch of charsRef.current) {
       if (ch.char === ' ') continue;
-      const dx = ch.x + ch.width / 2 - cx;
-      const dy = ch.y + FONT_SIZE / 2 - cy;
+      const charCX = ch.x + ch.width / 2;
+      const charCY = ch.y + FONT_SIZE / 2;
+      const dx = charCX - cx;
+      const dy = charCY - cy;
       const dist = Math.sqrt(dx * dx + dy * dy) || 1;
-      const speed = 8 + Math.random() * 14;
-      ch.vx = (dx / dist) * speed + (Math.random() - 0.5) * 5;
-      ch.vy = (dy / dist) * speed + (Math.random() - 0.5) * 5 - 3;
-      ch.angularV = (Math.random() - 0.5) * 0.3;
+      // Closer chars get blasted harder
+      const proximity = Math.max(0.3, 1 - dist / 600);
+      const speed = (10 + Math.random() * 16) * proximity;
+      ch.vx = (dx / dist) * speed + (Math.random() - 0.5) * 6;
+      ch.vy = (dy / dist) * speed + (Math.random() - 0.5) * 6 - 4;
+      ch.angularV = (Math.random() - 0.5) * 0.4;
     }
 
     // After 1.5s drift, start reforming
@@ -223,7 +229,14 @@ export default function PretextExplosion() {
       ref={containerRef}
       className="relative w-full overflow-hidden cursor-pointer select-none"
       style={{ height: 'clamp(160px, 22vh, 240px)', background: '#1A1D20' }}
-      onClick={explode}
+      onClick={(e) => {
+        const rect = containerRef.current?.getBoundingClientRect();
+        if (rect) {
+          explode(e.clientX - rect.left, e.clientY - rect.top);
+        } else {
+          explode();
+        }
+      }}
       title="Click to detonate"
       aria-label="Click to explode the text"
     >
@@ -233,16 +246,24 @@ export default function PretextExplosion() {
         className="absolute inset-0 w-full h-full"
       />
 
-      {/* TNT hint */}
+      {/* TNT hint — impossible to miss */}
       {hint && (
-        <div className="absolute bottom-3 right-4 flex items-center gap-1.5 text-copper/50 text-xs font-[family-name:var(--font-satoshi)] pointer-events-none select-none">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2.5 pointer-events-none select-none animate-pulse">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C17817" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <rect x="4" y="8" width="16" height="12" rx="2"/>
             <line x1="8" y1="8" x2="8" y2="4"/>
             <line x1="16" y1="8" x2="16" y2="4"/>
             <line x1="12" y1="4" x2="12" y2="1"/>
           </svg>
-          <span>click to detonate</span>
+          <span className="text-copper font-[family-name:var(--font-satoshi)] font-bold text-sm tracking-[0.25em] uppercase">
+            CLICK TO DETONATE
+          </span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C17817" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <rect x="4" y="8" width="16" height="12" rx="2"/>
+            <line x1="8" y1="8" x2="8" y2="4"/>
+            <line x1="16" y1="8" x2="16" y2="4"/>
+            <line x1="12" y1="4" x2="12" y2="1"/>
+          </svg>
         </div>
       )}
     </div>
