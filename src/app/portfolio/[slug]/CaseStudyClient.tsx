@@ -7,6 +7,7 @@ import { motion } from 'framer-motion';
 import ScrollReveal from '@/components/ScrollReveal';
 import Breadcrumb from '@/components/Breadcrumb';
 import MountainDivider from '@/components/MountainDivider';
+import RiverWave from '@/components/RiverWave';
 import AmbientOrbs from '@/components/AmbientOrbs';
 import { CaseStudy, caseStudies } from '../data';
 
@@ -73,13 +74,13 @@ export default function CaseStudyClient({ study }: { study: CaseStudy }) {
                 </div>
               </div>
               {/* Screenshot */}
-              <div className="relative aspect-[16/10] bg-slate/5">
+              <div className="relative aspect-[16/9] bg-slate">
                 <Image
                   src={study.heroImage}
                   alt={`${study.name} screenshot`}
                   fill
                   sizes="(max-width: 768px) 100vw, 800px"
-                  className="object-cover"
+                  className="object-contain"
                   priority
                 />
               </div>
@@ -101,7 +102,7 @@ export default function CaseStudyClient({ study }: { study: CaseStudy }) {
         </div>
       </section>
 
-      <MountainDivider variant={2} fillColor="#1A1D20" bgColor="#F8F4F0" />
+      <RiverWave fillColor="#1A1D20" bgColor="#F8F4F0" />
 
       {/* What We Built */}
       <section className="bg-slate grain py-16 sm:py-20 relative">
@@ -117,7 +118,7 @@ export default function CaseStudyClient({ study }: { study: CaseStudy }) {
         </div>
       </section>
 
-      <MountainDivider variant={1} fillColor="#F8F4F0" bgColor="#1A1D20" />
+      <RiverWave fillColor="#F8F4F0" bgColor="#1A1D20" />
 
       {/* Key Highlight */}
       <section className="bg-cream py-16 sm:py-20">
@@ -169,7 +170,7 @@ export default function CaseStudyClient({ study }: { study: CaseStudy }) {
         </div>
       </section>
 
-      <MountainDivider variant={2} fillColor="#1A1D20" bgColor="#F8F4F0" />
+      <RiverWave fillColor="#1A1D20" bgColor="#F8F4F0" />
 
       {/* Explore Live CTA */}
       <section className="bg-slate grain py-16 sm:py-20 relative">
