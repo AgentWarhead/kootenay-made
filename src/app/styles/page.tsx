@@ -8,7 +8,7 @@ import ScrollReveal from '@/components/ScrollReveal';
 import Breadcrumb from '@/components/Breadcrumb';
 import AmbientOrbs from '@/components/AmbientOrbs';
 import { ArrowRight } from 'lucide-react';
-import MountainDivider from '@/components/MountainDivider';
+
 import PretextCurrent from '@/components/PretextCurrent';
 import PretextExplainer from '@/components/PretextExplainer';
 
@@ -92,10 +92,8 @@ export default function StylesPage() {
         </div>
       </section>
 
-      <MountainDivider variant={2} fillColor="#1A1D20" bgColor="#1A1D20" />
-
       {/* Sticky category filter tabs */}
-      <div className="sticky top-16 z-30 bg-slate/95 backdrop-blur-md border-b border-white/5 grain">
+      <div className="sticky top-16 z-30 bg-slate/95 backdrop-blur-md border-t border-b border-white/5 grain">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
           <nav
             className="flex gap-2 py-3 overflow-x-auto scrollbar-hide -mx-4 px-4 sm:mx-0 sm:px-0 sm:justify-center"

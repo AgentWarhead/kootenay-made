@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import ScrollReveal from '@/components/ScrollReveal';
 import Breadcrumb from '@/components/Breadcrumb';
-import MountainDivider from '@/components/MountainDivider';
+import GradientFade from '@/components/GradientFade';
 import AmbientOrbs from '@/components/AmbientOrbs';
 import TypingEcho from '@/components/TypingEcho';
 import SeasonalParticles from '@/components/SeasonalParticles';
@@ -230,14 +230,8 @@ export default function ContactPage() {
             </p>
           </ScrollReveal>
         </div>
-        {/* Parallax mountain at bottom */}
-        <motion.div
-          className="absolute bottom-0 left-0 right-0 z-[1] pointer-events-none"
-          style={{ y: 0 }}
-        >
-          <MountainDivider variant={1} fillColor="#F8F4F0" bgColor="#1A1D20" />
-        </motion.div>
       </section>
+      <GradientFade from="#1A1D20" to="#0d120d" height="60px" />
 
       {/* Pretext Bear Scramble — surprise! no heading */}
       <section className="relative overflow-hidden" style={{ background: 'linear-gradient(180deg, #0d120d 0%, #1A1D20 50%, #0d120d 100%)' }}>

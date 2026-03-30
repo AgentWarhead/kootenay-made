@@ -6,7 +6,7 @@ import { motion, useScroll, useTransform, useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
 import ScrollReveal from '@/components/ScrollReveal';
 import Breadcrumb from '@/components/Breadcrumb';
-import MountainDivider from '@/components/MountainDivider';
+import RiverWave from '@/components/RiverWave';
 import AmbientOrbs from '@/components/AmbientOrbs';
 import BalancedText from '@/components/BalancedText';
 import CostCalculator from '@/components/CostCalculator';
@@ -290,7 +290,7 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <MountainDivider variant={1} fillColor="#F8F4F0" bgColor="#1A1D20" />
+      <RiverWave fillColor="#0a1520" bgColor="#1A1D20" />
 
       {/* Pretext Freeze & Thaw */}
       <section className="relative overflow-hidden border-t border-white/5" style={{ background: 'linear-gradient(180deg, #0a1520 0%, #1A1D20 50%, #0a1520 100%)' }}>
@@ -349,7 +349,7 @@ export default function ServicesPage() {
       {/* Cost Calculator */}
       <CostCalculator />
 
-      <MountainDivider variant={2} fillColor="#1A1D20" bgColor="#F8F4F0" />
+      <RiverWave fillColor="#1A1D20" bgColor="#F8F4F0" />
 
       {/* Retainers */}
       <section className="bg-slate grain py-20 sm:py-24 relative">
@@ -368,7 +368,7 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <MountainDivider variant={3} fillColor="#F8F4F0" bgColor="#1A1D20" />
+      <RiverWave fillColor="#F8F4F0" bgColor="#1A1D20" />
 
       {/* CTA */}
       <section className="bg-cream py-20 sm:py-24 cedar-texture relative">

@@ -10,9 +10,11 @@ import TiltCard from '@/components/TiltCard';
 import CampfireStories from '@/components/CampfireStories';
 import VideoSection from '@/components/VideoSection';
 import MountainDivider from '@/components/MountainDivider';
+import RiverWave from '@/components/RiverWave';
+import GradientFade from '@/components/GradientFade';
+import CopperRule from '@/components/CopperRule';
 import AmbientOrbs from '@/components/AmbientOrbs';
 import PineTreeline from '@/components/PineTreeline';
-import FogTransition from '@/components/FogTransition';
 import ForcesOfNature from '@/components/ForcesOfNature';
 import PretextExplosion from '@/components/PretextExplosion';
 import PretextExplainer from '@/components/PretextExplainer';
@@ -479,7 +481,7 @@ export default function Home() {
         <RiverScroll />
       </section>
 
-      <MountainDivider variant={1} fillColor="#1a1208" />
+      <MountainDivider variant={1} fillColor="#1a1208" bgColor="transparent" />
 
       {/* ═══ PRETEXT EXPLOSION ═══ */}
       <section className="relative bg-[#0D0F11] overflow-hidden">
@@ -512,7 +514,7 @@ export default function Home() {
       {/* ═══ CAMPFIRE STORIES ═══ */}
       <CampfireStories stories={painPoints} />
 
-      <MountainDivider variant={2} fillColor="#1A1D20" />
+      <GradientFade from="#1A1D20" to="#1A1D20" height="80px" />
 
       {/* ═══ WHO WE HELP ═══ */}
       <section className="bg-slate grain py-24 sm:py-32 relative overflow-hidden">
@@ -560,12 +562,7 @@ export default function Home() {
         </div>
       </section>
 
-      <MountainDivider variant={3} fillColor="#1A1D20" />
-
-      {/* ═══ VIDEO BACKGROUND — KOOTENAY ROOTS ═══ */}
-      <VideoSection />
-
-      <MountainDivider variant={2} fillColor="#F8F4F0" />
+      <RiverWave fillColor="#F8F4F0" bgColor="#1A1D20" />
 
       {/* ═══ SERVICES BENTO — Interactive 3D Grid ═══ */}
       <section id="services" className="bg-cream py-24 sm:py-32 cedar-texture relative">
@@ -605,8 +602,10 @@ export default function Home() {
         </div>
       </section>
 
+      <CopperRule />
+
       {/* ═══ HOW IT WORKS ═══ */}
-      <section className="bg-cream cedar-texture py-24 sm:py-32 relative border-t border-copper/10">
+      <section className="bg-cream cedar-texture py-24 sm:py-32 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
           <ScrollReveal>
             <p className="text-copper font-medium text-sm tracking-wider uppercase mb-3">Simple as 1-2-3</p>
@@ -667,16 +666,18 @@ export default function Home() {
         </div>
       </section>
 
-      <MountainDivider variant={1} fillColor="#1A1D20" />
+      <RiverWave fillColor="#1A1D20" bgColor="#F8F4F0" />
+
+      {/* ═══ VIDEO BACKGROUND — KOOTENAY ROOTS ═══ */}
+      <VideoSection />
+
+      <GradientFade from="#1A1D20" to="#1A1D20" height="80px" />
 
       {/* ═══ FORCES OF NATURE — Interactive Stat Cards ═══ */}
-      <FogTransition from="dark" />
       <ForcesOfNature />
 
-      <MountainDivider variant={3} fillColor="#1A1D20" />
-
       {/* ═══ STYLE MENU PREVIEW — Scroll Snap ═══ */}
-      <section className="bg-slate grain py-24 sm:py-32 overflow-hidden relative">
+      <section className="bg-slate grain py-24 sm:py-32 overflow-hidden relative border-t border-white/5">
         <AmbientOrbs />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
           <ScrollReveal>
@@ -738,7 +739,7 @@ export default function Home() {
       {/* ═══ MARQUEE ═══ */}
       <Marquee />
 
-      <MountainDivider variant={1} fillColor="#1A1D20" />
+      <RiverWave fillColor="#1A1D20" bgColor="#1e2226" />
 
       {/* ═══ FINAL CTA ═══ */}
       <section className="aurora-bg grain py-24 sm:py-32 relative">

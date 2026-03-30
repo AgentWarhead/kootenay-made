@@ -4,6 +4,7 @@ import { useState, useRef } from 'react';
 import ScrollReveal from '@/components/ScrollReveal';
 import Breadcrumb from '@/components/Breadcrumb';
 import MountainDivider from '@/components/MountainDivider';
+import RiverWave from '@/components/RiverWave';
 import AmbientOrbs from '@/components/AmbientOrbs';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
 import { Search, TrendingUp, Zap, ChevronDown, ChevronUp, CheckCircle2, AlertCircle, Globe, Gauge, Shield } from 'lucide-react';
@@ -275,7 +276,7 @@ export default function AuditPage() {
         </div>
       </section>
 
-      <MountainDivider variant={2} fillColor="#1A1D20" bgColor="#F8F4F0" />
+      <RiverWave fillColor="#1A1D20" bgColor="#F8F4F0" />
 
       {/* Form */}
       <section className="bg-slate grain py-16 sm:py-20 relative">
@@ -326,7 +327,7 @@ export default function AuditPage() {
         </div>
       </section>
 
-      <MountainDivider variant={3} fillColor="#F8F4F0" bgColor="#1A1D20" />
+      <RiverWave fillColor="#F8F4F0" bgColor="#1A1D20" />
 
       {/* FAQ with spring physics */}
       <section className="bg-cream py-16 sm:py-20 cedar-texture relative">

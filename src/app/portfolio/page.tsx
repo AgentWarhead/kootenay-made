@@ -7,6 +7,7 @@ import { useRef } from 'react';
 import ScrollReveal from '@/components/ScrollReveal';
 import Breadcrumb from '@/components/Breadcrumb';
 import MountainDivider from '@/components/MountainDivider';
+import RiverWave from '@/components/RiverWave';
 import AmbientOrbs from '@/components/AmbientOrbs';
 import { caseStudies } from './data';
 import PretextAvalanche from '@/components/PretextAvalanche';
@@ -320,7 +321,7 @@ export default function PortfolioPage() {
         </div>
       </section>
 
-      <MountainDivider variant={2} fillColor="#1A1D20" bgColor="#F8F4F0" />
+      <RiverWave fillColor="#1A1D20" bgColor="#F8F4F0" />
 
       {/* CTA */}
       <section className="bg-slate grain py-20 relative">

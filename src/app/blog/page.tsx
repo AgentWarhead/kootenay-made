@@ -7,6 +7,7 @@ import { motion } from 'framer-motion';
 import Breadcrumb from '@/components/Breadcrumb';
 import ScrollReveal from '@/components/ScrollReveal';
 import MountainDivider from '@/components/MountainDivider';
+import RiverWave from '@/components/RiverWave';
 import AmbientOrbs from '@/components/AmbientOrbs';
 
 const posts = [
@@ -211,7 +212,7 @@ export default function BlogPage() {
         </div>
       </section>
 
-      <MountainDivider variant={2} fillColor="#1A1D20" bgColor="#F8F4F0" />
+      <RiverWave fillColor="#1A1D20" bgColor="#F8F4F0" />
 
       <section className="bg-slate grain py-16 relative">
         <AmbientOrbs />
