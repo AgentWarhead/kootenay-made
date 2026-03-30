@@ -11,6 +11,7 @@ import { ArrowRight } from 'lucide-react';
 
 import PretextCurrent from '@/components/PretextCurrent';
 import PretextExplainer from '@/components/PretextExplainer';
+import RippleCursorTrail from '@/components/RippleCursorTrail';
 
 const styles = [
   { slug: 'clean-professional', name: 'Clean & Professional', tags: 'Law, Accounting, Finance', category: 'professional', vibe: 'Trust, authority, clean confidence', color: '#2563EB', popular: false },
@@ -49,6 +50,7 @@ export default function StylesPage() {
 
   return (
     <div className="pt-0 bg-slate">
+      <RippleCursorTrail />
       {/* Hero */}
       <section className="aurora-bg grain pt-32 pb-20 relative">
         <AmbientOrbs />
