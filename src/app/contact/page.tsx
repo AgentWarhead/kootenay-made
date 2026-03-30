@@ -242,25 +242,31 @@ export default function ContactPage() {
       {/* Pretext Bear Scramble — surprise! no heading */}
       <section className="relative overflow-hidden" style={{ background: 'linear-gradient(180deg, #0d120d 0%, #1A1D20 50%, #0d120d 100%)' }}>
         <div className="absolute inset-0 grain" />
-        {/* Forest canopy light */}
-        <div className="absolute inset-0 opacity-[0.04]" style={{
+        {/* Forest canopy light — vivid */}
+        <div className="absolute inset-0" style={{
           backgroundImage: `
-            radial-gradient(ellipse at 25% 20%, rgba(45,106,79,0.5) 0%, transparent 40%),
-            radial-gradient(ellipse at 75% 30%, rgba(45,106,79,0.4) 0%, transparent 35%),
-            radial-gradient(ellipse at 50% 60%, rgba(45,106,79,0.3) 0%, transparent 45%)
+            radial-gradient(ellipse at 25% 20%, rgba(45,106,79,0.12) 0%, transparent 40%),
+            radial-gradient(ellipse at 75% 30%, rgba(45,106,79,0.10) 0%, transparent 35%),
+            radial-gradient(ellipse at 50% 60%, rgba(45,106,79,0.08) 0%, transparent 45%),
+            radial-gradient(ellipse at 10% 80%, rgba(30,80,50,0.06) 0%, transparent 30%),
+            radial-gradient(ellipse at 90% 80%, rgba(30,80,50,0.06) 0%, transparent 30%)
           `
         }} />
         {/* Ground fog at bottom */}
-        <div className="absolute bottom-0 left-0 right-0 h-1/4" style={{
-          background: 'linear-gradient(0deg, rgba(255,255,255,0.02) 0%, transparent 100%)'
+        <div className="absolute bottom-0 left-0 right-0 h-1/3" style={{
+          background: 'linear-gradient(0deg, rgba(30,80,50,0.08) 0%, transparent 100%)'
+        }} />
+        {/* Forest edge vignette */}
+        <div className="absolute inset-0" style={{
+          background: 'linear-gradient(90deg, rgba(20,60,30,0.1) 0%, transparent 15%, transparent 85%, rgba(20,60,30,0.1) 100%)'
         }} />
         <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-16 py-12 sm:py-16">
           <PretextBearScramble />
           <div className="text-center mt-2 animate-[fadeIn_0.5s_ease-out_2s_both]">
-            <p className="text-cream/25 text-xs font-[family-name:var(--font-satoshi)] tracking-wider">hover over the towns...</p>
+            <p className="text-copper/60 text-sm font-[family-name:var(--font-satoshi)] font-medium tracking-[0.15em] uppercase animate-pulse">🐻 Hover over the towns to scatter them</p>
           </div>
           <div className="text-center mt-4">
-            <p className="text-cream/50 text-sm font-[family-name:var(--font-satoshi)]">&quot;Don&apos;t worry. We don&apos;t bite.&quot;</p>
+            <p className="text-copper text-lg sm:text-xl font-bold font-[family-name:var(--font-satoshi)]" style={{ textShadow: '0 0 20px rgba(193,120,23,0.3)' }}>&quot;Don&apos;t worry. We don&apos;t bite.&quot;</p>
           </div>
           <PretextExplainer
             text="Every town name scatters differently because every letter is measured individually. This is the same technology that makes text wrap perfectly on any screen size, load faster, and look sharper. The fun stuff is just the tip of the iceberg."

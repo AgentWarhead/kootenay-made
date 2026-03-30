@@ -317,17 +317,7 @@ export default function ServicesPage() {
           </ScrollReveal>
           <PretextFreezeThaw />
           <div className="text-center mt-6">
-            <p className="text-cream/60 text-base italic font-[family-name:var(--font-satoshi)] mb-4">&quot;We turn cold websites into warm leads.&quot;</p>
-            <a href="#services-grid" className="group relative inline-flex items-center gap-2 bg-transparent border border-[#A8D8EA]/30 hover:border-copper text-[#A8D8EA] hover:text-copper px-6 py-2.5 rounded-lg text-sm font-[family-name:var(--font-satoshi)] font-semibold uppercase tracking-wider transition-all duration-500 overflow-hidden">
-              <span className="relative z-10">See What We Offer</span>
-              {/* Frost shatter particles on hover */}
-              <span className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                <span className="absolute top-1 left-2 w-1 h-1 bg-[#A8D8EA]/40 rounded-full animate-ping" style={{animationDelay: '0ms', animationDuration: '600ms'}} />
-                <span className="absolute top-3 right-4 w-0.5 h-0.5 bg-white/30 rounded-full animate-ping" style={{animationDelay: '100ms', animationDuration: '500ms'}} />
-                <span className="absolute bottom-2 left-6 w-1 h-1 bg-[#A8D8EA]/30 rounded-full animate-ping" style={{animationDelay: '200ms', animationDuration: '700ms'}} />
-                <span className="absolute bottom-1 right-8 w-0.5 h-0.5 bg-white/20 rounded-full animate-ping" style={{animationDelay: '50ms', animationDuration: '550ms'}} />
-              </span>
-            </a>
+            <p className="text-copper text-lg sm:text-xl font-bold font-[family-name:var(--font-satoshi)]" style={{ textShadow: '0 0 20px rgba(193,120,23,0.3)' }}>&quot;We turn cold websites into warm leads.&quot;</p>
           </div>
           {/* Explainer accordion */}
           <PretextExplainer

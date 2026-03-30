@@ -9,7 +9,7 @@ import ScrollReveal from '@/components/ScrollReveal';
 import Breadcrumb from '@/components/Breadcrumb';
 import MountainDivider from '@/components/MountainDivider';
 import AmbientOrbs from '@/components/AmbientOrbs';
-import KootenayTypoPortrait from '@/components/KootenayTypoPortrait';
+
 
 /* ── SVG Icon with stroke draw animation ── */
 function DrawIcon({ d, viewBox = '0 0 24 24', delay = 0 }: { d: string; viewBox?: string; delay?: number }) {
@@ -218,8 +218,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Kootenay Typographic Portrait */}
-      <KootenayTypoPortrait />
+
 
       {/* Values with greyscale → copper fill */}
       <section className="bg-white py-20 sm:py-24 relative">

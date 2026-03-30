@@ -18,6 +18,7 @@ export default function PretextAvalanche() {
   const containerRef = useRef<HTMLDivElement>(null)
   const charsRef = useRef<CharPhysics[]>([])
   const particlesRef = useRef<Particle[]>([])
+  const snowRef = useRef<Particle[]>([])
   const rafRef = useRef<number>(0)
   const visibleRef = useRef(false)
   const avalancheRef = useRef(false)
@@ -130,12 +131,28 @@ export default function PretextAvalanche() {
       }
     }
 
+    // Falling snow background particles
+    if (!snowRef.current) snowRef.current = []
+    if (snowRef.current.length < 40) {
+      snowRef.current.push({ x: Math.random() * w, y: -5, vx: (Math.random() - 0.5) * 0.5, vy: 0.3 + Math.random() * 0.8, life: 1 })
+    }
+    for (let i = snowRef.current.length - 1; i >= 0; i--) {
+      const s = snowRef.current[i]
+      s.x += s.vx + Math.sin(Date.now() * 0.001 + i) * 0.2
+      s.y += s.vy
+      if (s.y > h) { snowRef.current.splice(i, 1); continue }
+      ctx.beginPath(); ctx.arc(s.x, s.y, 1.5, 0, Math.PI * 2)
+      ctx.fillStyle = 'rgba(220,235,255,0.4)'; ctx.fill()
+    }
+
     for (let i = 0; i < chars.length; i++) {
       const c = chars[i]
-      // Per-character color variation — slight hue and lightness shift
-      const hue = 30 + (i % 5) * 3
-      const lightness = 50 + Math.sin(i * 0.7) * 10
-      ctx.fillStyle = `hsl(${hue}, 80%, ${lightness}%)`
+      // Avalanche colors — icy whites and pale blues with some warmth
+      const iceBlend = avalancheRef.current ? 0.7 : 0.3
+      const r = Math.round(200 + (255 - 200) * iceBlend + Math.sin(i * 0.5) * 15)
+      const g = Math.round(180 + (240 - 180) * iceBlend + Math.sin(i * 0.8) * 10)
+      const b = Math.round(140 + (255 - 140) * iceBlend + Math.cos(i * 0.6) * 20)
+      ctx.fillStyle = `rgb(${Math.min(255,r)},${Math.min(255,g)},${Math.min(255,b)})`
       ctx.save()
       ctx.translate(c.x + c.width / 2, c.y)
       ctx.rotate(c.angle)
@@ -146,8 +163,8 @@ export default function PretextAvalanche() {
     particlesRef.current = particlesRef.current.filter(p => p.life > 0)
     for (const p of particlesRef.current) {
       p.x += p.vx; p.y += p.vy; p.vy += 0.05; p.life -= 0.04
-      ctx.beginPath(); ctx.arc(p.x, p.y, 2, 0, Math.PI * 2)
-      ctx.fillStyle = `rgba(200,220,255,${p.life})`; ctx.fill()
+      ctx.beginPath(); ctx.arc(p.x, p.y, 2.5, 0, Math.PI * 2)
+      ctx.fillStyle = `rgba(220,235,255,${p.life * 0.8})`; ctx.fill()
     }
   }, [spawnDust])
 

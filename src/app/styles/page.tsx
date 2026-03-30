@@ -229,7 +229,7 @@ export default function StylesPage() {
           </ScrollReveal>
           <PretextCurrent />
           <div className="text-center mt-6">
-            <p className="text-cream/60 text-base italic font-[family-name:var(--font-satoshi)]">&quot;Every design flows from somewhere.&quot;</p>
+            <p className="text-copper text-lg sm:text-xl font-bold font-[family-name:var(--font-satoshi)]" style={{ textShadow: '0 0 20px rgba(193,120,23,0.3)' }}>&quot;Every design flows from somewhere.&quot;</p>
           </div>
           <PretextExplainer
             text="Each character floats independently because we know its exact width and position mathematically. When your content changes, the animation adapts automatically. That's the difference between a website and a web experience."

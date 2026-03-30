@@ -299,7 +299,7 @@ export default function PortfolioPage() {
           </div>
           <PretextAvalanche />
           <div className="text-center mt-6">
-            <p className="text-cream/60 text-base italic font-[family-name:var(--font-satoshi)]">&quot;See the work that moved mountains.&quot;</p>
+            <p className="text-copper text-lg sm:text-xl font-bold font-[family-name:var(--font-satoshi)]" style={{ textShadow: '0 0 20px rgba(193,120,23,0.3)' }}>&quot;See the work that moved mountains.&quot;</p>
           </div>
           <PretextExplainer
             text="Those letters have physics — gravity, collision, momentum — all calculated from precise text measurements. This isn't a video or a GIF. It's real-time code running in your visitor's browser. Imagine this on YOUR site."

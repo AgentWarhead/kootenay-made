@@ -97,10 +97,13 @@ export default function PretextFreezeThaw() {
         const dx = g.x + g.width / 2 - cursor.x
         const dy = g.y - fontSize / 2 - cursor.y
         const dist = Math.sqrt(dx * dx + dy * dy)
-        const target = dist < FREEZE_RADIUS ? 1 : 0
-        g.frozen += (target - g.frozen) * 0.1
+        const target = dist < FREEZE_RADIUS ? 1 : dist < FREEZE_RADIUS * 1.5 ? 0.5 : 0
+        // Freeze fast, thaw SLOW — ice lingers
+        const rate = target > g.frozen ? 0.12 : 0.02
+        g.frozen += (target - g.frozen) * rate
       } else {
-        g.frozen *= 0.95
+        // Very slow thaw when cursor leaves — ice lingers dramatically
+        g.frozen *= 0.97
       }
       ctx.fillStyle = lerpColor(Math.max(0, Math.min(1, g.frozen)))
       ctx.fillText(g.char, g.x, g.y)

@@ -100,7 +100,7 @@ export default function PretextBearScramble() {
   }, [])
 
   const drawTreeline = (ctx: CanvasRenderingContext2D, w: number, h: number) => {
-    ctx.save(); ctx.globalAlpha = 0.15; ctx.fillStyle = '#1a3a1a'
+    ctx.save(); ctx.globalAlpha = 0.3; ctx.fillStyle = '#1a4a1a'
     const bottom = h - 2
     for (let x = 0; x < w; x += 18) {
       const peak = bottom - 30 - Math.sin(x * 0.07) * 8
