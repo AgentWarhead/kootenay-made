@@ -120,18 +120,19 @@ function TrailWaypoint({ study, index }: { study: typeof caseStudies[0]; index: 
 
               {/* Image */}
               <a href={study.liveUrl} target="_blank" rel="noopener noreferrer" className="block">
-                <div className="relative h-56 sm:h-64 overflow-hidden rounded-t-2xl">
+                <div className="relative h-56 sm:h-64 overflow-hidden rounded-t-2xl bg-slate">
                   <motion.div
-                    initial={{ clipPath: 'inset(0 100% 0 0)', rotate: 1 }}
-                    whileInView={{ clipPath: 'inset(0 0% 0 0)', rotate: 0 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.8, ease: 'easeOut', delay: index * 0.1 }}
+                    transition={{ duration: 0.6, ease: 'easeOut', delay: index * 0.1 }}
                     className="absolute inset-0"
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={study.heroImage}
                       alt={study.name}
+                      loading="eager"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                     />
                   </motion.div>
