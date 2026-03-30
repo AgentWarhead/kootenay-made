@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowLeft, Clock, Tag } from 'lucide-react';
 
 interface Props {
@@ -6,12 +7,28 @@ interface Props {
   date: string;
   readTime: string;
   category: string;
+  image?: string;
   children: React.ReactNode;
 }
 
-export default function BlogArticle({ title, date, readTime, category, children }: Props) {
+export default function BlogArticle({ title, date, readTime, category, image, children }: Props) {
   return (
     <div className="pt-20">
+      {/* Hero image */}
+      {image && (
+        <div className="relative w-full h-[240px] sm:h-[340px] lg:h-[420px] bg-slate overflow-hidden">
+          <Image
+            src={image}
+            alt={title}
+            fill
+            className="object-cover"
+            priority
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#F8F4F0] via-transparent to-transparent" />
+        </div>
+      )}
+
       <article className="bg-cream py-12 sm:py-16">
         <div className="max-w-[720px] mx-auto px-4 sm:px-6">
           <Link
@@ -22,7 +39,7 @@ export default function BlogArticle({ title, date, readTime, category, children 
             Back to blog
           </Link>
 
-          <div className="flex items-center gap-3 mb-4">
+          <div className="flex items-center gap-3 mb-4 flex-wrap">
             <span className="inline-flex items-center gap-1 bg-copper/10 text-copper text-xs font-medium px-2.5 py-1 rounded-full">
               <Tag size={12} />
               {category}
