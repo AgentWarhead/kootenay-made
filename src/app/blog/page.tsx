@@ -24,9 +24,9 @@ const posts = [
   { slug: 'ai-business-setup', title: 'What an AI Business Setup Actually Looks Like', excerpt: 'No robots. No sci-fi. Just boring-in-the-best-way tools that save you hours.', category: 'AI & Automation', readTime: '7 min', image: '/images/blog/ai-business-setup.jpg', date: 'March 30, 2026' },
   { slug: 'tourism-season-website', title: 'Tourism Season Is Coming — Is Your Website Ready?', excerpt: 'Summer tourists are Googling before they arrive. Make sure they find you.', category: 'Growth & SEO', readTime: '5 min', image: '/images/blog/tourism-season-website.jpg', date: 'March 30, 2026' },
   { slug: 'website-soundtrack', title: "We Added a Soundtrack to Our Website. Here's Why.", excerpt: 'Because websites should be experiences, not brochures.', category: 'Our Story', readTime: '5 min', image: '/images/blog/website-soundtrack.jpg', date: 'March 30, 2026' },
-  { slug: 'google-business-profile', title: 'Google Business Profile: The Free Tool Most Businesses Ignore', excerpt: "It's free, it takes 20 minutes, and it might be the single best marketing move you make this year.", category: 'Growth & SEO', readTime: '6 min', image: '/images/blog/google-profile.png', date: 'March 28, 2026' },
-  { slug: 'kootenay-business-new-website', title: '5 Signs Your Kootenay Business Needs a New Website', excerpt: 'If any of these sound familiar, it might be time.', category: 'Getting Started', readTime: '5 min', image: '/images/blog/new-website.png', date: 'March 28, 2026' },
-  { slug: 'what-to-expect-web-designer', title: 'What to Expect When Working with a Web Designer', excerpt: 'No jargon. No mystery. Just a clear walkthrough of the process.', category: 'Getting Started', readTime: '5 min', image: '/images/blog/web-designer.png', date: 'March 28, 2026' },
+  { slug: 'google-business-profile', title: 'Google Business Profile: The Free Tool Most Businesses Ignore', excerpt: "It's free, it takes 20 minutes, and it might be the single best marketing move you make this year.", category: 'Growth & SEO', readTime: '6 min', image: '/images/blog/google-business-profile.jpg', date: 'March 28, 2026' },
+  { slug: 'kootenay-business-new-website', title: '5 Signs Your Kootenay Business Needs a New Website', excerpt: 'If any of these sound familiar, it might be time.', category: 'Getting Started', readTime: '5 min', image: '/images/blog/kootenay-business-new-website.jpg', date: 'March 28, 2026' },
+  { slug: 'what-to-expect-web-designer', title: 'What to Expect When Working with a Web Designer', excerpt: 'No jargon. No mystery. Just a clear walkthrough of the process.', category: 'Getting Started', readTime: '5 min', image: '/images/blog/what-to-expect-web-designer.jpg', date: 'March 28, 2026' },
 ];
 
 const categories = ['All', 'Getting Started', 'AI & Automation', 'Growth & SEO', 'Our Story'];
@@ -71,7 +71,7 @@ function FeaturedPost({ post }: { post: typeof posts[0] }) {
           </div>
           <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-10">
             <span
-              className="inline-block bg-copper/20 text-copper text-xs font-bold px-3 py-1.5 rounded-sm border border-copper/20 mb-4"
+              className="inline-block bg-copper text-white text-xs font-bold px-3 py-1.5 rounded-sm mb-4 shadow-lg"
               style={{ fontFamily: 'Georgia, serif', letterSpacing: '0.05em' }}
             >
               Featured · {post.category}
@@ -121,7 +121,7 @@ function BlogCard({ post, index }: { post: typeof posts[0]; index: number }) {
         </div>
         <div className="p-5 flex flex-col flex-1">
           <span
-            className="inline-block self-start bg-copper/10 text-copper text-xs font-bold px-2.5 py-1 rounded-sm mb-3 border border-copper/10"
+            className="inline-block self-start bg-slate text-copper text-xs font-bold px-2.5 py-1 rounded-sm mb-3"
             style={{ fontFamily: 'Georgia, serif' }}
           >
             {post.category}
@@ -201,7 +201,7 @@ export default function BlogPage() {
                   className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 border ${
                     activeCategory === cat
                       ? 'bg-copper text-white border-copper shadow-md shadow-copper/20'
-                      : 'bg-transparent text-cream/50 border-cream/20 hover:border-copper/40 hover:text-cream/80'
+                      : 'bg-white/80 text-slate/70 border-slate/15 hover:border-copper/40 hover:text-copper'
                   }`}
                   style={{ fontFamily: activeCategory === cat ? undefined : 'Georgia, serif' }}
                 >

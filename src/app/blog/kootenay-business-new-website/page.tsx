@@ -12,7 +12,7 @@ export default function Article() {
       date="March 28, 2026"
       readTime="5 min read"
       category="Getting Started"
-      image="/images/blog/new-website.png"
+      image="/images/blog/kootenay-business-new-website.jpg"
     >
       <p>
         Let&apos;s be honest — most of us don&apos;t think about our website until someone mentions it. Maybe a customer says they couldn&apos;t find your hours. Maybe you notice a competitor in Nelson or Trail just launched something sleek and modern while yours still looks like it was built during the Harper administration.

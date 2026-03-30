@@ -12,7 +12,7 @@ export default function Article() {
       date="March 28, 2026"
       readTime="5 min read"
       category="Getting Started"
-      image="/images/blog/web-designer.png"
+      image="/images/blog/what-to-expect-web-designer.jpg"
     >
       <p>
         If you&apos;ve never worked with a web designer before, the whole thing can feel a bit mysterious. What happens after you say yes? How long does it take? What do you need to provide? What if you don&apos;t know what you want?

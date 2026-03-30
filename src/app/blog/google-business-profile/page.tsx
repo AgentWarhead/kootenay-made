@@ -12,7 +12,7 @@ export default function Article() {
       date="March 28, 2026"
       readTime="6 min read"
       category="Growth & SEO"
-      image="/images/blog/google-profile.png"
+      image="/images/blog/google-business-profile.jpg"
     >
       <p>
         Here&apos;s a scenario that plays out every single day in the Kootenays: someone new to town pulls out their phone and searches &quot;coffee shop near me&quot; or &quot;plumber Castlegar&quot; or &quot;yoga studio Nelson.&quot; Google shows them a map with three businesses pinned on it. Those three businesses get the click. Everyone else? Invisible.
