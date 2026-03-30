@@ -301,7 +301,7 @@ export default function PretextExplosion() {
 
       {/* Detonation counter */}
       {count > 0 && (
-        <div className="absolute top-3 right-4 text-copper/40 text-xs font-[family-name:var(--font-satoshi)] tracking-wider pointer-events-none select-none">
+        <div className="absolute top-3 right-4 text-copper text-sm font-[family-name:var(--font-satoshi)] font-semibold tracking-wider pointer-events-none select-none" style={{ textShadow: '0 0 12px rgba(193,120,23,0.4)' }}>
           💥 Detonated {count} {count === 1 ? 'time' : 'times'}
         </div>
       )}

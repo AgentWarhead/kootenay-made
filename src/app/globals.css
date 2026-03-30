@@ -1169,3 +1169,8 @@ input:focus, textarea:focus, select:focus {
   .campfire-spark { animation: none; display: none; }
   .campfire-smoke { animation: none; display: none; }
 }
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

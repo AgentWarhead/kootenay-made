@@ -208,7 +208,7 @@ export default function PretextCurrent() {
   }, [addSplash])
 
   return (
-    <div ref={containerRef} className="w-full" style={{ height: '160px' }}>
+    <div ref={containerRef} className="w-full" style={{ height: 'clamp(160px, 22vh, 240px)' }}>
       <canvas ref={canvasRef} className="w-full h-full cursor-crosshair"
         onMouseMove={handleMouseMove}
         onMouseDown={() => { draggingRef.current = true }}

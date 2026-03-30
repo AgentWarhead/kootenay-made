@@ -499,8 +499,8 @@ export default function Home() {
         <div className="relative z-10">
           <PretextExplosion />
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-16 pb-12">
-            <div className="text-center mt-4">
-              <p className="text-cream/50 text-sm italic font-[family-name:var(--font-satoshi)]">&quot;That&apos;s what we do to boring websites.&quot;</p>
+            <div className="text-center mt-6">
+              <p className="text-copper text-lg sm:text-xl font-bold font-[family-name:var(--font-satoshi)]" style={{ textShadow: '0 0 20px rgba(193,120,23,0.3)' }}>&quot;That&apos;s what we do to boring websites.&quot;</p>
             </div>
             <PretextExplainer
               text="Every letter you just blew up was measured to sub-pixel precision using Pretext — no templates, no drag-and-drop. This is what custom-engineered websites feel like. Your competitors are using Wix."

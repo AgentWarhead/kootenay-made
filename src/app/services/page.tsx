@@ -12,6 +12,7 @@ import BalancedText from '@/components/BalancedText';
 import CostCalculator from '@/components/CostCalculator';
 import PretextFreezeThaw from '@/components/PretextFreezeThaw';
 import PretextExplainer from '@/components/PretextExplainer';
+import FrostMeltOverlay from '@/components/FrostMeltOverlay';
 
 const serviceCards = [
   { icon: Star, name: 'Free AI Website Audit', price: '$0', desc: 'A 30-minute walkthrough of your current online presence with actionable recommendations.', features: ['Full site review', 'SEO quick-check', 'Competitor comparison', 'Prioritized action plan'], tier: 'entry', highlight: true },
@@ -294,6 +295,7 @@ export default function ServicesPage() {
       {/* Pretext Freeze & Thaw */}
       <section className="relative overflow-hidden border-t border-white/5" style={{ background: 'linear-gradient(180deg, #0a1520 0%, #1A1D20 50%, #0a1520 100%)' }}>
         {/* Frost overlay that melts via scroll */}
+        <FrostMeltOverlay />
         <div className="absolute inset-0 grain" />
         {/* Frost crystal pattern */}
         <div className="absolute inset-0 opacity-[0.03]" style={{
@@ -315,7 +317,17 @@ export default function ServicesPage() {
           </ScrollReveal>
           <PretextFreezeThaw />
           <div className="text-center mt-6">
-            <p className="text-cream/60 text-base italic font-[family-name:var(--font-satoshi)]">&quot;We turn cold websites into warm leads.&quot;</p>
+            <p className="text-cream/60 text-base italic font-[family-name:var(--font-satoshi)] mb-4">&quot;We turn cold websites into warm leads.&quot;</p>
+            <a href="#services-grid" className="group relative inline-flex items-center gap-2 bg-transparent border border-[#A8D8EA]/30 hover:border-copper text-[#A8D8EA] hover:text-copper px-6 py-2.5 rounded-lg text-sm font-[family-name:var(--font-satoshi)] font-semibold uppercase tracking-wider transition-all duration-500 overflow-hidden">
+              <span className="relative z-10">See What We Offer</span>
+              {/* Frost shatter particles on hover */}
+              <span className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                <span className="absolute top-1 left-2 w-1 h-1 bg-[#A8D8EA]/40 rounded-full animate-ping" style={{animationDelay: '0ms', animationDuration: '600ms'}} />
+                <span className="absolute top-3 right-4 w-0.5 h-0.5 bg-white/30 rounded-full animate-ping" style={{animationDelay: '100ms', animationDuration: '500ms'}} />
+                <span className="absolute bottom-2 left-6 w-1 h-1 bg-[#A8D8EA]/30 rounded-full animate-ping" style={{animationDelay: '200ms', animationDuration: '700ms'}} />
+                <span className="absolute bottom-1 right-8 w-0.5 h-0.5 bg-white/20 rounded-full animate-ping" style={{animationDelay: '50ms', animationDuration: '550ms'}} />
+              </span>
+            </a>
           </div>
           {/* Explainer accordion */}
           <PretextExplainer

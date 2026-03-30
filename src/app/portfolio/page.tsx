@@ -280,13 +280,23 @@ export default function PortfolioPage() {
             repeating-linear-gradient(0deg, transparent, transparent 38px, rgba(193,120,23,0.4) 38px, rgba(193,120,23,0.4) 40px),
             repeating-linear-gradient(90deg, transparent, transparent 78px, rgba(193,120,23,0.2) 78px, rgba(193,120,23,0.2) 80px)
           `,
-          backgroundSize: '40px 40px, 80px 80px'
+          backgroundSize: '40px 40px, 80px 80px',
+          backgroundAttachment: 'fixed'
         }} />
         {/* Mountain glow from below */}
         <div className="absolute bottom-0 left-0 right-0 h-1/3" style={{
           background: 'linear-gradient(0deg, rgba(193,120,23,0.05) 0%, transparent 100%)'
         }} />
+        {/* Mountain ridge silhouette */}
+        <div className="absolute bottom-0 left-0 right-0 h-16 pointer-events-none overflow-hidden z-[1]">
+          <svg viewBox="0 0 1200 60" preserveAspectRatio="none" className="w-full h-full" fill="rgba(193,120,23,0.06)">
+            <path d="M0,60 L0,45 L80,30 L150,38 L220,20 L300,32 L380,15 L450,28 L520,10 L600,25 L680,18 L750,30 L830,12 L900,28 L980,22 L1050,35 L1120,18 L1200,30 L1200,60 Z" />
+          </svg>
+        </div>
         <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-16 py-16 sm:py-20">
+          <div className="text-center mb-2">
+            <p className="text-cream/30 text-xs font-[family-name:var(--font-satoshi)] tracking-[0.15em] uppercase animate-pulse">⛰ Click to trigger avalanche</p>
+          </div>
           <PretextAvalanche />
           <div className="text-center mt-6">
             <p className="text-cream/60 text-base italic font-[family-name:var(--font-satoshi)]">&quot;See the work that moved mountains.&quot;</p>

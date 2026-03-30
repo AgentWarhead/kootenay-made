@@ -224,7 +224,7 @@ export default function StylesPage() {
         <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-16 py-16 sm:py-20">
           <ScrollReveal>
             <div className="text-center mb-8">
-              <p className="text-copper/60 font-[family-name:var(--font-satoshi)] text-sm tracking-[0.15em] uppercase">Drag through the current</p>
+              <p className="text-copper/70 font-[family-name:var(--font-satoshi)] text-sm tracking-[0.15em] uppercase animate-pulse">🌊 Drag through the current · Click any letter to sink it</p>
             </div>
           </ScrollReveal>
           <PretextCurrent />

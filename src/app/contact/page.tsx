@@ -256,6 +256,9 @@ export default function ContactPage() {
         }} />
         <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-16 py-12 sm:py-16">
           <PretextBearScramble />
+          <div className="text-center mt-2 animate-[fadeIn_0.5s_ease-out_2s_both]">
+            <p className="text-cream/25 text-xs font-[family-name:var(--font-satoshi)] tracking-wider">hover over the towns...</p>
+          </div>
           <div className="text-center mt-4">
             <p className="text-cream/50 text-sm font-[family-name:var(--font-satoshi)]">&quot;Don&apos;t worry. We don&apos;t bite.&quot;</p>
           </div>
@@ -324,7 +327,7 @@ export default function ContactPage() {
                         whileTap={{ scale: 0.98 }}
                         className="w-full sm:w-auto bg-copper hover:bg-copper-light text-white font-medium px-8 py-3.5 sm:py-4 rounded-lg transition-colors duration-200 disabled:opacity-60 disabled:cursor-not-allowed relative overflow-hidden"
                       >
-                        {status === 'sending' ? 'Sending...' : 'Send Message'}
+                        {status === 'sending' ? 'Sending...' : 'Send it into the wild 🐻'}
                       </motion.button>
                     </motion.form>
                   )}

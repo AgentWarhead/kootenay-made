@@ -11,7 +11,7 @@ export default function PretextExplainer({ text }: { text: string }) {
       <div className="max-w-lg w-full">
         <button
           onClick={() => setOpen(!open)}
-          className="w-full text-center text-copper/50 hover:text-copper text-xs font-[family-name:var(--font-satoshi)] tracking-[0.1em] uppercase transition-colors duration-300 py-2"
+          className="w-full text-center text-copper/70 hover:text-copper text-sm font-[family-name:var(--font-satoshi)] font-medium tracking-[0.15em] uppercase transition-colors duration-300 py-2"
         >
           ✦ {open ? 'Got it' : 'What\'s happening here?'}
         </button>
@@ -25,7 +25,7 @@ export default function PretextExplainer({ text }: { text: string }) {
               className="overflow-hidden"
             >
               <div className="border-l-4 border-copper/30 pl-4 py-3 mt-2 bg-white/[0.02] rounded-r-lg">
-                <p className="text-cream/60 text-sm leading-relaxed font-[family-name:var(--font-satoshi)]">
+                <p className="text-cream/80 text-sm leading-relaxed font-[family-name:var(--font-satoshi)]">
                   {text}
                 </p>
                 <a href="/guides" className="inline-block mt-2 text-copper/60 hover:text-copper text-xs tracking-wide uppercase transition-colors">
