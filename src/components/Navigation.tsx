@@ -42,18 +42,9 @@ function MountainPeakIndicator() {
   );
 }
 
-/* ── Mountain ridgeline bottom edge ── */
+/* ── Mountain ridgeline bottom edge — REMOVED (janky copper lines) ── */
 function MountainRidgeline({ scrolled }: { scrolled: boolean }) {
-  return (
-    <div className={`absolute -bottom-[9px] left-0 right-0 transition-opacity duration-300 ${scrolled ? 'opacity-100' : 'opacity-0'}`} aria-hidden="true">
-      <svg viewBox="0 0 1440 10" preserveAspectRatio="none" className="w-full h-[10px]">
-        <path
-          d="M0,10 L40,6 L80,8 L120,3 L160,7 L200,2 L240,6 L280,4 L320,8 L360,1 L400,5 L440,3 L480,7 L520,2 L560,6 L600,4 L640,8 L680,1 L720,5 L760,3 L800,7 L840,2 L880,6 L920,4 L960,8 L1000,1 L1040,5 L1080,3 L1120,7 L1160,2 L1200,6 L1240,4 L1280,8 L1320,3 L1360,6 L1400,2 L1440,5 L1440,10 L0,10 Z"
-          fill="rgba(193,120,23,0.25)"
-        />
-      </svg>
-    </div>
-  );
+  return null;
 }
 
 export default function Navigation() {
