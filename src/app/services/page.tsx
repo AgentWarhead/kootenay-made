@@ -75,7 +75,7 @@ function PinnedCard({ card, index, total }: { card: typeof serviceCards[0]; inde
     <motion.div
       ref={ref}
       style={{ y, scale, x, rotate, zIndex: index }}
-      className="sticky top-20 sm:top-24 lg:top-32"
+      className="sm:sticky top-20 sm:top-24 lg:top-32"
     >
       <div className={`rounded-2xl p-5 sm:p-8 lg:p-10 border ${card.highlight ? 'border-copper/40 shadow-lg' : 'border-cream-border'} ${tierColors[card.tier]} mb-6 relative overflow-hidden`}>
         {/* Animated copper border for highlighted cards */}

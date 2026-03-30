@@ -93,7 +93,7 @@ function TrailWaypoint({ study, index }: { study: typeof caseStudies[0]; index: 
       </div>
 
       {/* Card — alternating sides on desktop */}
-      <div className={`md:grid md:grid-cols-2 md:gap-16 ${isLeft ? '' : 'md:direction-rtl'}`}>
+      <div className="md:grid md:grid-cols-2 md:gap-16">
         <div className={isLeft ? 'md:pr-12' : 'md:col-start-2 md:pl-12'}>
           <motion.div
             initial={{ opacity: 0, x: isLeft ? -50 : 50, rotate: isLeft ? -2 : 2 }}

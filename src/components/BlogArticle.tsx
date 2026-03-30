@@ -71,7 +71,7 @@ export default function BlogArticle({ title, date, readTime, category, image, ch
                 </p>
                 <Link
                   href="/audit"
-                  className="inline-block bg-copper hover:bg-copper-light text-white font-medium px-6 py-3 rounded-lg transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
+                  className="inline-flex items-center justify-center w-full sm:w-auto bg-copper hover:bg-copper-light text-white font-medium px-6 py-3 rounded-lg transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] min-h-[44px]"
                 >
                   Book Your Free Audit →
                 </Link>

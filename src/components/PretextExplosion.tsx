@@ -38,6 +38,7 @@ export default function PretextExplosion() {
   const containerRef = useRef<HTMLDivElement>(null);
   const stateRef = useRef<State>('idle');
   const charsRef = useRef<Char[]>([]);
+  const fontSizeRef = useRef<number>(FONT_SIZE);
   const smokeRef = useRef<SmokeParticle[]>([]);
   const animRef = useRef<number>(0);
   const lastFrameRef = useRef<number>(0);
@@ -46,6 +47,10 @@ export default function PretextExplosion() {
   const shakeRef = useRef(false);
 
   const buildChars = useCallback((canvasW: number, canvasH: number) => {
+    // Scale font size to fit canvas width on mobile (min 24px, max 52px)
+    const responsiveFontSize = Math.max(24, Math.min(FONT_SIZE, Math.floor(canvasW / 12)));
+    const responsiveFont = `bold ${responsiveFontSize}px Georgia, serif`;
+
     const chars: Char[] = [];
     const centerY = canvasH / 2;
     let totalWidth = 0;
@@ -53,13 +58,13 @@ export default function PretextExplosion() {
 
     for (const ch of PHRASE) {
       if (ch === ' ') {
-        measured.push({ char: ' ', width: FONT_SIZE * 0.28 });
-        totalWidth += FONT_SIZE * 0.28;
+        measured.push({ char: ' ', width: responsiveFontSize * 0.28 });
+        totalWidth += responsiveFontSize * 0.28;
         continue;
       }
-      let w = FONT_SIZE * 0.55;
+      let w = responsiveFontSize * 0.55;
       try {
-        const prepared = prepareWithSegments(ch, FONT);
+        const prepared = prepareWithSegments(ch, responsiveFont);
         walkLineRanges(prepared, 2000, (line) => {
           w = line.width > 0 ? line.width : w;
         });
@@ -74,13 +79,14 @@ export default function PretextExplosion() {
 
     for (const m of measured) {
       chars.push({
-        char: m.char, restX: curX, restY: centerY - FONT_SIZE / 2,
-        x: curX, y: centerY - FONT_SIZE / 2,
+        char: m.char, restX: curX, restY: centerY - responsiveFontSize / 2,
+        x: curX, y: centerY - responsiveFontSize / 2,
         vx: 0, vy: 0, angle: 0, angularV: 0, opacity: 1, width: m.width,
       });
       curX += m.width + letterSpacing;
     }
     charsRef.current = chars;
+    fontSizeRef.current = responsiveFontSize;
   }, []);
 
   const resize = useCallback(() => {
@@ -135,7 +141,7 @@ export default function PretextExplosion() {
     for (const ch of charsRef.current) {
       if (ch.char === ' ') continue;
       const charCX = ch.x + ch.width / 2;
-      const charCY = ch.y + FONT_SIZE / 2;
+      const charCY = ch.y + fontSizeRef.current / 2;
       const dx = charCX - cx;
       const dy = charCY - cy;
       const dist = Math.sqrt(dx * dx + dy * dy) || 1;
@@ -217,9 +223,9 @@ export default function PretextExplosion() {
       }
 
       ctx.save();
-      ctx.translate(ch.x + ch.width / 2, ch.y + FONT_SIZE / 2);
+      ctx.translate(ch.x + ch.width / 2, ch.y + fontSizeRef.current / 2);
       ctx.rotate(ch.angle);
-      ctx.font = FONT;
+      ctx.font = `bold ${fontSizeRef.current}px Georgia, serif`;
       ctx.textBaseline = 'middle';
       ctx.fillStyle = `rgba(220, 160, 50, ${ch.opacity})`;
       ctx.fillText(ch.char, -ch.width / 2, 0);

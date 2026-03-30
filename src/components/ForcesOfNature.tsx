@@ -57,7 +57,7 @@ function AuroraCard({ inView }: { inView: boolean }) {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={inView ? { opacity: 1, scale: 1 } : {}}
           transition={{ duration: 0.8, delay: 0.3, type: 'spring', stiffness: 200 }}
-          className="font-[family-name:var(--font-satoshi)] text-8xl sm:text-9xl font-black aurora-text-fill drop-shadow-[0_4px_20px_rgba(0,200,150,0.3)]"
+          className="font-[family-name:var(--font-satoshi)] text-6xl sm:text-8xl md:text-9xl font-black aurora-text-fill drop-shadow-[0_4px_20px_rgba(0,200,150,0.3)]"
         >
           <AnimatedCounter end={7} inView={inView} />
         </motion.span>
@@ -120,7 +120,7 @@ function SnowfallCard({ inView }: { inView: boolean }) {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={inView ? { opacity: 1, scale: 1 } : {}}
           transition={{ duration: 0.8, delay: 0.3, type: 'spring', stiffness: 200 }}
-          className="font-[family-name:var(--font-satoshi)] text-8xl sm:text-9xl font-black text-white drop-shadow-[0_4px_20px_rgba(255,255,255,0.2)]"
+          className="font-[family-name:var(--font-satoshi)] text-6xl sm:text-8xl md:text-9xl font-black text-white drop-shadow-[0_4px_20px_rgba(255,255,255,0.2)]"
         >
           24/7
         </motion.span>
@@ -149,7 +149,7 @@ function ForestGrowthCard({ inView }: { inView: boolean }) {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={inView ? { opacity: 1, scale: 1 } : {}}
           transition={{ duration: 0.8, delay: 0.3, type: 'spring', stiffness: 200 }}
-          className="font-[family-name:var(--font-satoshi)] text-8xl sm:text-9xl font-black text-forest-light drop-shadow-[0_4px_20px_rgba(45,106,79,0.4)]"
+          className="font-[family-name:var(--font-satoshi)] text-6xl sm:text-8xl md:text-9xl font-black text-forest-light drop-shadow-[0_4px_20px_rgba(45,106,79,0.4)]"
         >
           2-4
         </motion.span>
@@ -178,7 +178,7 @@ function MountainSummitCard({ inView }: { inView: boolean }) {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={inView ? { opacity: 1, scale: 1 } : {}}
           transition={{ duration: 0.8, delay: 2, type: 'spring', stiffness: 200 }}
-          className="font-[family-name:var(--font-satoshi)] text-8xl sm:text-9xl font-black text-copper drop-shadow-[0_4px_20px_rgba(193,120,23,0.4)]"
+          className="font-[family-name:var(--font-satoshi)] text-6xl sm:text-8xl md:text-9xl font-black text-copper drop-shadow-[0_4px_20px_rgba(193,120,23,0.4)]"
         >
           <AnimatedCounter end={100} suffix="%" inView={inView} duration={2500} />
         </motion.span>
