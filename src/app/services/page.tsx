@@ -483,6 +483,20 @@ export default function ServicesPage() {
       {/* 5. Package Cards */}
       <section className="bg-[#F5F0E8] cedar-texture py-20 sm:py-28 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
+          {/* Kootenay Neighbours Rate Banner */}
+          <ScrollReveal>
+            <div className="mb-10 rounded-2xl border border-copper/30 bg-white/70 backdrop-blur-sm px-6 py-5 flex flex-col sm:flex-row items-start sm:items-center gap-4 shadow-sm">
+              <div className="text-3xl">🏔️</div>
+              <div className="flex-1">
+                <p className="font-[family-name:var(--font-satoshi)] font-bold text-slate text-base">Kootenay Neighbours Rate — 10% Off</p>
+                <p className="text-text-secondary text-sm mt-0.5">We live here. We work here. If your business is based in the West Kootenays, you get the neighbour rate — because building up this community is why we started.</p>
+              </div>
+              <div className="shrink-0 bg-copper/10 border border-copper/20 rounded-xl px-4 py-2 text-copper font-bold text-sm whitespace-nowrap">
+                Local? 10% off any package
+              </div>
+            </div>
+          </ScrollReveal>
+
           <ScrollReveal>
             <p className="text-copper font-medium text-sm tracking-wider uppercase mb-2">Our Packages</p>
             <h2 className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl font-bold text-slate mb-4">Choose Your Path</h2>
@@ -638,6 +652,59 @@ export default function ServicesPage() {
               <span className="text-forest font-[family-name:var(--font-satoshi)] font-semibold text-sm">
                 Kootenay Neighbours Rate: 10% off any package for West Kootenay businesses
               </span>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      <RiverWave fillColor="#1A1D20" bgColor="#F5F0E8" />
+
+      {/* Print-on-Demand Add-On */}
+      <section className="bg-slate grain py-16 sm:py-20 relative">
+        <AmbientOrbs />
+        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <ScrollReveal>
+            <div className="rounded-2xl border border-copper/20 bg-white/5 backdrop-blur-sm p-8 sm:p-10">
+              <div className="flex flex-col sm:flex-row items-start gap-6">
+                <div className="text-5xl">🖨️</div>
+                <div className="flex-1">
+                  <div className="flex flex-wrap items-center gap-3 mb-3">
+                    <p className="font-[family-name:var(--font-satoshi)] font-bold text-cream text-xl sm:text-2xl">Print-on-Demand Setup</p>
+                    <span className="bg-copper text-white text-xs font-bold px-3 py-1 rounded-full">Add-On · $500</span>
+                    <span className="bg-white/10 text-cream/60 text-xs font-medium px-3 py-1 rounded-full">With Storefront or Masterpiece</span>
+                  </div>
+                  <p className="text-dark-text-muted mb-6 text-base leading-relaxed">
+                    Turn your Shopify store into a product empire — no inventory, no upfront costs. Your designs on t-shirts, hoodies, mugs, totes, and more. Customer orders, it ships, you collect the margin.
+                  </p>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+                    {[
+                      'Printify account setup + Shopify integration',
+                      'Up to 10 products with your designs applied',
+                      'Shipping + fulfillment configured',
+                      'Profit margins reviewed (so you\'re actually making money)',
+                      'AI-generated product mockups available',
+                      'Guidance on your first product line',
+                    ].map((f) => (
+                      <div key={f} className="flex items-start gap-2 text-sm text-dark-text-muted">
+                        <span className="text-green-400 mt-0.5 shrink-0">✓</span>
+                        <span>{f}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="bg-copper/10 border border-copper/20 rounded-xl px-5 py-4 mb-6">
+                    <p className="text-copper text-sm font-medium">
+                      <span className="font-bold">We&apos;ve done this ourselves.</span>{' '}
+                      Lapphund Designs — our own Shopify + Printify store — is the largest Finnish Lapphund store in the world. We know exactly what works.
+                    </p>
+                  </div>
+                  <Link
+                    href="/contact"
+                    className="inline-flex items-center gap-2 bg-copper hover:bg-copper-light text-white font-medium px-6 py-3 rounded-xl transition-all duration-200 hover:scale-[1.02] text-sm"
+                  >
+                    Add this to my package <ArrowRight size={16} />
+                  </Link>
+                </div>
+              </div>
             </div>
           </ScrollReveal>
         </div>
