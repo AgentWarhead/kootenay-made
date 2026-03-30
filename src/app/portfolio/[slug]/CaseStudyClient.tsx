@@ -248,17 +248,16 @@ export default function CaseStudyClient({ study }: { study: CaseStudy }) {
                   href={`/portfolio/${prev.slug}`}
                   className="group relative w-full sm:w-auto"
                 >
-                  {/* Left-pointing signpost — flip the right-pointing image */}
+                  {/* Left-pointing signpost — image already points left, use as-is */}
                   <div className="relative h-[110px] sm:h-[130px] w-full sm:w-[300px] transition-transform duration-300 group-hover:translate-x-[-8px] group-hover:rotate-[-1deg]">
                     <img
                       src="/images/signpost-left-v2.png"
                       alt=""
                       className="absolute inset-0 w-full h-full object-contain drop-shadow-[0_4px_12px_rgba(0,0,0,0.4)]"
-                      style={{ transform: 'scaleX(-1)' }}
                       aria-hidden="true"
                     />
-                    {/* Text dead-center on the plank */}
-                    <div className="absolute inset-0 flex flex-col items-center justify-center text-center" style={{ paddingLeft: '15%', paddingRight: '20%', paddingBottom: '8%' }}>
+                    {/* Text on left-pointing plank — offset right to avoid arrow tip */}
+                    <div className="absolute inset-0 flex flex-col items-center justify-center text-center" style={{ paddingLeft: '20%', paddingRight: '15%', paddingBottom: '5%' }}>
                       <p className="text-[9px] text-copper/80 uppercase tracking-[0.15em] font-bold mb-0.5" style={{ fontFamily: 'Georgia, serif' }}>← Previous</p>
                       <p className="font-bold text-[#F5E6C8] text-sm sm:text-base truncate max-w-full drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)]" style={{ fontFamily: 'Georgia, serif' }}>{prev.name}</p>
                     </div>
@@ -273,16 +272,17 @@ export default function CaseStudyClient({ study }: { study: CaseStudy }) {
                   href={`/portfolio/${next.slug}`}
                   className="group relative w-full sm:w-auto"
                 >
-                  {/* Right-pointing signpost — uses the image as-is */}
+                  {/* Right-pointing signpost — flip the left-pointing image */}
                   <div className="relative h-[110px] sm:h-[130px] w-full sm:w-[300px] transition-transform duration-300 group-hover:translate-x-[8px] group-hover:rotate-[1deg]">
                     <img
                       src="/images/signpost-left-v2.png"
                       alt=""
                       className="absolute inset-0 w-full h-full object-contain drop-shadow-[0_4px_12px_rgba(0,0,0,0.4)]"
+                      style={{ transform: 'scaleX(-1)' }}
                       aria-hidden="true"
                     />
-                    {/* Text dead-center on the plank */}
-                    <div className="absolute inset-0 flex flex-col items-center justify-center text-center" style={{ paddingLeft: '20%', paddingRight: '15%', paddingBottom: '8%' }}>
+                    {/* Text on right-pointing plank (flipped) — offset left to avoid arrow tip */}
+                    <div className="absolute inset-0 flex flex-col items-center justify-center text-center" style={{ paddingLeft: '15%', paddingRight: '20%', paddingBottom: '5%' }}>
                       <p className="text-[9px] text-copper/80 uppercase tracking-[0.15em] font-bold mb-0.5" style={{ fontFamily: 'Georgia, serif' }}>Next →</p>
                       <p className="font-bold text-[#F5E6C8] text-sm sm:text-base truncate max-w-full drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)]" style={{ fontFamily: 'Georgia, serif' }}>{next.name}</p>
                     </div>

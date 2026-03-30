@@ -11,7 +11,8 @@ export default function Article() {
       title="Google Business Profile: The Free Tool Most Local Businesses Ignore"
       date="March 28, 2026"
       readTime="6 min read"
-      category="Local SEO"
+      category="Growth & SEO"
+      image="/images/blog/google-profile.png"
     >
       <p>
         Here&apos;s a scenario that plays out every single day in the Kootenays: someone new to town pulls out their phone and searches &quot;coffee shop near me&quot; or &quot;plumber Castlegar&quot; or &quot;yoga studio Nelson.&quot; Google shows them a map with three businesses pinned on it. Those three businesses get the click. Everyone else? Invisible.
@@ -90,6 +91,12 @@ export default function Article() {
       </p>
       <p>
         Twenty minutes today could mean dozens of new customers this year. That&apos;s a pretty solid return on investment.
+      </p>
+      <p>
+        Once your profile is dialed in, the next step is making sure the website it links to does its job. Read <a href="/blog/local-search-visibility">Google Says 46% of Searches Are Local</a> for the bigger picture on local visibility — and <a href="/blog/what-google-sees">What Actually Happens When Someone Googles Your Business Name</a> to understand the full journey from search to sale.
+      </p>
+      <p className="border-l-4 border-copper pl-4 my-6 text-text-secondary italic">
+        Want us to audit your current local presence? <a href="/audit" className="text-copper font-semibold not-italic hover:underline">Book a free audit →</a> We&apos;ll check your Google profile, website, and local rankings in one shot.
       </p>
     </BlogArticle>
   );

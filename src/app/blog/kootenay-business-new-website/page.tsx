@@ -11,7 +11,8 @@ export default function Article() {
       title="5 Signs Your Kootenay Business Needs a New Website"
       date="March 28, 2026"
       readTime="5 min read"
-      category="Web Design"
+      category="Getting Started"
+      image="/images/blog/new-website.png"
     >
       <p>
         Let&apos;s be honest — most of us don&apos;t think about our website until someone mentions it. Maybe a customer says they couldn&apos;t find your hours. Maybe you notice a competitor in Nelson or Trail just launched something sleek and modern while yours still looks like it was built during the Harper administration.
@@ -69,6 +70,12 @@ export default function Article() {
       </p>
       <p>
         The Kootenays are full of incredible businesses doing amazing work. Your online presence should reflect that. If any of these signs hit close to home, it might be time to have a conversation about what&apos;s possible.
+      </p>
+      <p>
+        Not sure what a website should cost? Read <a href="/blog/website-cost-guide">What Should a Website Cost?</a> — it&apos;ll give you the knowledge to evaluate any quote like a pro. And if you&apos;re wondering whether a website is even necessary in 2026, we covered that too: <a href="/blog/do-you-need-website-2026">Do You Actually Need a Website in 2026?</a>
+      </p>
+      <p className="border-l-4 border-copper pl-4 my-6 text-text-secondary italic">
+        Ready to find out where your current site stands? <a href="/audit" className="text-copper font-semibold not-italic hover:underline">Book a free 30-minute audit →</a> We&apos;ll show you exactly what&apos;s working and what isn&apos;t.
       </p>
     </BlogArticle>
   );

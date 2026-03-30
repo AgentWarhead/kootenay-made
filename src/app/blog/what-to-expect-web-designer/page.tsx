@@ -12,6 +12,7 @@ export default function Article() {
       date="March 28, 2026"
       readTime="5 min read"
       category="Getting Started"
+      image="/images/blog/web-designer.png"
     >
       <p>
         If you&apos;ve never worked with a web designer before, the whole thing can feel a bit mysterious. What happens after you say yes? How long does it take? What do you need to provide? What if you don&apos;t know what you want?
@@ -85,6 +86,12 @@ export default function Article() {
       </p>
       <p>
         The best client-designer relationships work like any good partnership: clear communication, mutual respect, and a shared goal. You bring the expertise about your business. We bring the expertise about the digital side. Together, we build something you&apos;re proud to share.
+      </p>
+      <p>
+        Curious what a website should actually cost? Read <a href="/blog/website-cost-guide">What Should a Website Cost?</a> so you can evaluate any quote with confidence. And if you&apos;re on the fence about whether you need one at all, start with <a href="/blog/do-you-need-website-2026">Do You Actually Need a Website in 2026?</a>
+      </p>
+      <p className="border-l-4 border-copper pl-4 my-6 text-text-secondary italic">
+        The best first step? A free conversation. <a href="/contact" className="text-copper font-semibold not-italic hover:underline">Get in touch →</a> No pressure, no pitch — just an honest look at what would actually help your business.
       </p>
     </BlogArticle>
   );
