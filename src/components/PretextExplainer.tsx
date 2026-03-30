@@ -28,8 +28,8 @@ export default function PretextExplainer({ text }: { text: string }) {
                 <p className="text-cream/80 text-sm leading-relaxed font-[family-name:var(--font-satoshi)]">
                   {text}
                 </p>
-                <a href="/guides" className="inline-block mt-2 text-copper/60 hover:text-copper text-xs tracking-wide uppercase transition-colors">
-                  Build this yourself →
+                <a href="/contact" className="inline-block mt-2 text-copper/60 hover:text-copper text-xs tracking-wide uppercase transition-colors">
+                  Want this on your site? Let&apos;s talk →
                 </a>
               </div>
             </motion.div>
