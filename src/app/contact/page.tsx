@@ -10,6 +10,8 @@ import MountainDivider from '@/components/MountainDivider';
 import AmbientOrbs from '@/components/AmbientOrbs';
 import TypingEcho from '@/components/TypingEcho';
 import SeasonalParticles from '@/components/SeasonalParticles';
+import PretextBearScramble from '@/components/PretextBearScramble';
+import PretextExplainer from '@/components/PretextExplainer';
 
 /* ── Mountain icon for location ── */
 function MountainIcon({ className = '' }: { className?: string }) {
@@ -235,6 +237,20 @@ export default function ContactPage() {
         >
           <MountainDivider variant={1} fillColor="#F8F4F0" bgColor="#1A1D20" />
         </motion.div>
+      </section>
+
+      {/* Pretext Bear Scramble — surprise! no heading */}
+      <section className="relative bg-slate overflow-hidden">
+        <div className="absolute inset-0 grain" />
+        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-16 py-12 sm:py-16">
+          <PretextBearScramble />
+          <div className="text-center mt-4">
+            <p className="text-cream/50 text-sm font-[family-name:var(--font-satoshi)]">&quot;Don&apos;t worry. We don&apos;t bite.&quot;</p>
+          </div>
+          <PretextExplainer
+            text="Every town name scatters differently because every letter is measured individually. This is the same technology that makes text wrap perfectly on any screen size, load faster, and look sharper. The fun stuff is just the tip of the iceberg."
+          />
+        </div>
       </section>
 
       {/* Form + Info */}

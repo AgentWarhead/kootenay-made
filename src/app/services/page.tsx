@@ -10,6 +10,8 @@ import MountainDivider from '@/components/MountainDivider';
 import AmbientOrbs from '@/components/AmbientOrbs';
 import BalancedText from '@/components/BalancedText';
 import CostCalculator from '@/components/CostCalculator';
+import PretextFreezeThaw from '@/components/PretextFreezeThaw';
+import PretextExplainer from '@/components/PretextExplainer';
 
 const serviceCards = [
   { icon: Star, name: 'Free AI Website Audit', price: '$0', desc: 'A 30-minute walkthrough of your current online presence with actionable recommendations.', features: ['Full site review', 'SEO quick-check', 'Competitor comparison', 'Prioritized action plan'], tier: 'entry', highlight: true },
@@ -288,6 +290,27 @@ export default function ServicesPage() {
       </section>
 
       <MountainDivider variant={1} fillColor="#F8F4F0" bgColor="#1A1D20" />
+
+      {/* Pretext Freeze & Thaw */}
+      <section className="relative bg-slate overflow-hidden border-t border-white/5">
+        {/* Frost overlay that melts via scroll */}
+        <div className="absolute inset-0 grain" />
+        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-16 py-16 sm:py-20">
+          <ScrollReveal>
+            <div className="text-center mb-8">
+              <p className="text-ice-blue font-[family-name:var(--font-satoshi)] text-sm tracking-[0.15em] uppercase opacity-60">Interactive Demo</p>
+            </div>
+          </ScrollReveal>
+          <PretextFreezeThaw />
+          <div className="text-center mt-6">
+            <p className="text-cream/60 text-base italic font-[family-name:var(--font-satoshi)]">&quot;We turn cold websites into warm leads.&quot;</p>
+          </div>
+          {/* Explainer accordion */}
+          <PretextExplainer
+            text="Each character knows its exact width and position. As your cursor approaches, they freeze in real-time — no pre-rendered animation, pure math. This kind of interactivity keeps visitors on your site 3x longer than a static page."
+          />
+        </div>
+      </section>
 
       {/* Pinned card stack */}
       <section className="bg-cream py-20 sm:py-24 cedar-texture relative">

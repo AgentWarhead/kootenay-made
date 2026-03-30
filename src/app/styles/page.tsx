@@ -9,7 +9,8 @@ import Breadcrumb from '@/components/Breadcrumb';
 import AmbientOrbs from '@/components/AmbientOrbs';
 import { ArrowRight } from 'lucide-react';
 import MountainDivider from '@/components/MountainDivider';
-import PretextShowcase from '@/components/PretextShowcase';
+import PretextCurrent from '@/components/PretextCurrent';
+import PretextExplainer from '@/components/PretextExplainer';
 
 const styles = [
   { slug: 'clean-professional', name: 'Clean & Professional', tags: 'Law, Accounting, Finance', category: 'professional', vibe: 'Trust, authority, clean confidence', color: '#2563EB', popular: false },
@@ -200,8 +201,26 @@ export default function StylesPage() {
         </div>
       </section>
 
-      {/* Under the Hood — Pretext Showcase */}
-      <PretextShowcase />
+      {/* Pretext Current */}
+      <section className="relative bg-slate overflow-hidden border-t border-white/5">
+        <div className="absolute inset-0 grain" />
+        {/* Canyon depth gradient */}
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(90deg, rgba(0,0,0,0.4) 0%, transparent 15%, transparent 85%, rgba(0,0,0,0.4) 100%)' }} />
+        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-16 py-16 sm:py-20">
+          <ScrollReveal>
+            <div className="text-center mb-8">
+              <p className="text-copper/60 font-[family-name:var(--font-satoshi)] text-sm tracking-[0.15em] uppercase">Drag through the current</p>
+            </div>
+          </ScrollReveal>
+          <PretextCurrent />
+          <div className="text-center mt-6">
+            <p className="text-cream/60 text-base italic font-[family-name:var(--font-satoshi)]">&quot;Every design flows from somewhere.&quot;</p>
+          </div>
+          <PretextExplainer
+            text="Each character floats independently because we know its exact width and position mathematically. When your content changes, the animation adapts automatically. That's the difference between a website and a web experience."
+          />
+        </div>
+      </section>
 
       {/* Bottom CTA */}
       <section className="bg-slate grain py-20 relative border-t border-white/5">

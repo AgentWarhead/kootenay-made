@@ -15,6 +15,7 @@ import PineTreeline from '@/components/PineTreeline';
 import FogTransition from '@/components/FogTransition';
 import ForcesOfNature from '@/components/ForcesOfNature';
 import PretextExplosion from '@/components/PretextExplosion';
+import PretextExplainer from '@/components/PretextExplainer';
 import WildernessCursorTrail from '@/components/WildernessCursorTrail';
 import BalancedText from '@/components/BalancedText';
 
@@ -294,7 +295,7 @@ const towns = [
 /* ── Marquee with gradient fades ─────────────── */
 function Marquee() {
   const row1 = 'WEBSITES ◆ BRANDS ◆ MARKETING ◆ AI SETUP ◆ SEO ◆ E-COMMERCE ◆ EMAIL MARKETING ◆ KOOTENAY MADE ◆ ';
-  const row2 = 'CASTLEGAR ⛰ TRAIL ⛰ NELSON ⛰ ROSSLAND ⛰ REVELSTOKE ⛰ FERNIE ⛰ CRANBROOK ⛰ ';
+  const row2 = 'CASTLEGAR ⛰ TRAIL ⛰ NELSON ⛰ ROSSLAND ⛰ KASLO ⛰ NAKUSP ⛰ CRESTON ⛰ SALMO ⛰ NEW DENVER ⛰ FRUITVALE ⛰ SLOCAN ⛰ GRAND FORKS ⛰ CHRISTINA LAKE ⛰ WARFIELD ⛰ MONTROSE ⛰ ';
 
   return (
     <section className="bg-slate py-8 sm:py-10 overflow-hidden border-y border-white/5 space-y-4 relative">
@@ -482,6 +483,12 @@ export default function Home() {
 
       {/* ═══ ASCII MOUNTAIN CONTOURS ═══ */}
       <PretextExplosion />
+      <div className="text-center mt-4">
+        <p className="text-cream/50 text-sm italic font-[family-name:var(--font-satoshi)]">&quot;That&apos;s what we do to boring websites.&quot;</p>
+      </div>
+      <PretextExplainer
+        text="Every letter you just blew up was measured to sub-pixel precision using Pretext — no templates, no drag-and-drop. This is what custom-engineered websites feel like. Your competitors are using Wix."
+      />
 
       {/* ═══ CAMPFIRE STORIES ═══ */}
       <CampfireStories stories={painPoints} />

@@ -9,6 +9,8 @@ import Breadcrumb from '@/components/Breadcrumb';
 import MountainDivider from '@/components/MountainDivider';
 import AmbientOrbs from '@/components/AmbientOrbs';
 import { caseStudies } from './data';
+import PretextAvalanche from '@/components/PretextAvalanche';
+import PretextExplainer from '@/components/PretextExplainer';
 
 /* ── Terrain-specific SVG background patterns ── */
 function TerrainPattern({ terrain, slug }: { terrain: string; slug: string }) {
@@ -268,6 +270,22 @@ export default function PortfolioPage() {
       </section>
 
       <MountainDivider variant={1} fillColor="#F8F4F0" bgColor="#1A1D20" />
+
+      {/* Pretext Avalanche */}
+      <section className="relative bg-slate overflow-hidden border-t border-white/5">
+        <div className="absolute inset-0 grain" />
+        {/* Topo contour background */}
+        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(193,120,23,0.3) 40px)', backgroundSize: '40px 40px' }} />
+        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-16 py-16 sm:py-20">
+          <PretextAvalanche />
+          <div className="text-center mt-6">
+            <p className="text-cream/60 text-base italic font-[family-name:var(--font-satoshi)]">&quot;See the work that moved mountains.&quot;</p>
+          </div>
+          <PretextExplainer
+            text="Those letters have physics — gravity, collision, momentum — all calculated from precise text measurements. This isn't a video or a GIF. It's real-time code running in your visitor's browser. Imagine this on YOUR site."
+          />
+        </div>
+      </section>
 
       {/* Trail layout with case studies */}
       <section className="bg-cream py-20 sm:py-24 cedar-texture relative overflow-x-hidden">
