@@ -120,7 +120,7 @@ function TrailWaypoint({ study, index }: { study: typeof caseStudies[0]; index: 
 
               {/* Image */}
               <a href={study.liveUrl} target="_blank" rel="noopener noreferrer" className="block">
-                <div className="relative h-56 sm:h-64 overflow-hidden">
+                <div className="relative h-56 sm:h-64 overflow-hidden rounded-t-2xl">
                   <motion.div
                     initial={{ clipPath: 'inset(0 100% 0 0)', rotate: 1 }}
                     whileInView={{ clipPath: 'inset(0 0% 0 0)', rotate: 0 }}
