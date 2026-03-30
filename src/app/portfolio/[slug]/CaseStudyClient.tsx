@@ -49,9 +49,13 @@ export default function CaseStudyClient({ study }: { study: CaseStudy }) {
 
       <MountainDivider variant={1} fillColor="#F8F4F0" bgColor="#1A1D20" />
 
-      {/* Hero Screenshot — Premium floating frame */}
-      <section className="bg-cream py-16 sm:py-20">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6">
+      {/* Hero Screenshot — Premium framed showcase */}
+      <section className="relative py-16 sm:py-20 overflow-hidden" style={{ background: 'linear-gradient(180deg, #F8F4F0 0%, #EDE6DA 100%)' }}>
+        {/* Terrain-colored ambient glow */}
+        <div className="absolute inset-0" style={{
+          background: `radial-gradient(ellipse at 50% 30%, ${study.terrainColor}15 0%, transparent 60%)`
+        }} />
+        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6">
           <ScrollReveal>
             <motion.div
               initial={{ y: 30, opacity: 0 }}
@@ -60,25 +64,48 @@ export default function CaseStudyClient({ study }: { study: CaseStudy }) {
               transition={{ duration: 0.6, ease: 'easeOut' }}
               className="relative"
             >
-              {/* Glow behind the image */}
-              <div className="absolute -inset-4 rounded-3xl opacity-20 blur-2xl" style={{ background: `radial-gradient(ellipse at center, ${study.terrainColor}40 0%, transparent 70%)` }} />
-              {/* Frame */}
-              <div className="relative rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.15)] ring-1 ring-slate/10">
-                <div className="relative aspect-[16/9] bg-slate">
-                  <Image
-                    src={study.heroImage}
-                    alt={`${study.name} screenshot`}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 800px"
-                    className="object-cover"
-                    priority
-                  />
+              {/* Large glow behind frame */}
+              <div className="absolute -inset-8 sm:-inset-12 rounded-[2rem] blur-3xl" style={{
+                background: `radial-gradient(ellipse at center, ${study.terrainColor}25 0%, ${study.terrainColor}08 50%, transparent 80%)`
+              }} />
+
+              {/* Outer frame — wooden/premium border */}
+              <div className="relative rounded-2xl p-2 sm:p-3" style={{
+                background: 'linear-gradient(145deg, #3a2a1a 0%, #2a1e12 40%, #1a140c 100%)',
+                boxShadow: '0 25px 80px rgba(0,0,0,0.25), 0 8px 20px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.05)',
+              }}>
+                {/* Wood grain texture on frame */}
+                <div className="absolute inset-0 rounded-2xl opacity-[0.04]" style={{
+                  backgroundImage: 'repeating-linear-gradient(90deg, transparent, transparent 7px, rgba(255,255,255,0.08) 7px, rgba(255,255,255,0.08) 8px)'
+                }} />
+                {/* Corner accents */}
+                <div className="absolute top-3 left-3 w-2 h-2 rounded-full" style={{ background: `${study.terrainColor}60` }} />
+                <div className="absolute top-3 right-3 w-2 h-2 rounded-full" style={{ background: `${study.terrainColor}60` }} />
+                <div className="absolute bottom-3 left-3 w-2 h-2 rounded-full" style={{ background: `${study.terrainColor}60` }} />
+                <div className="absolute bottom-3 right-3 w-2 h-2 rounded-full" style={{ background: `${study.terrainColor}60` }} />
+
+                {/* Inner image */}
+                <div className="relative rounded-lg overflow-hidden">
+                  <div className="relative aspect-[16/9] bg-slate">
+                    <Image
+                      src={study.heroImage}
+                      alt={`${study.name} screenshot`}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 800px"
+                      className="object-cover"
+                      priority
+                    />
+                  </div>
                 </div>
-                {/* Bottom bar with URL */}
-                <div className="bg-slate/95 backdrop-blur-sm px-5 py-2.5 flex items-center justify-between">
-                  <span className="text-xs text-white/40 font-mono truncate">{study.liveUrl.replace('https://', '')}</span>
-                  <a href={study.liveUrl} target="_blank" rel="noopener noreferrer" className="text-xs text-copper hover:text-copper-light transition-colors flex items-center gap-1">
-                    Visit <ExternalLink size={12} />
+
+                {/* Bottom info strip inside the frame */}
+                <div className="relative z-10 flex items-center justify-between px-3 sm:px-4 py-2 mt-1">
+                  <div className="flex items-center gap-2">
+                    <div className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: study.terrainColor }} />
+                    <span className="text-xs text-white/50 font-mono truncate">{study.liveUrl.replace('https://', '')}</span>
+                  </div>
+                  <a href={study.liveUrl} target="_blank" rel="noopener noreferrer" className="text-xs font-semibold uppercase tracking-wider flex items-center gap-1.5 transition-colors" style={{ color: study.terrainColor }}>
+                    Explore Live <ExternalLink size={12} />
                   </a>
                 </div>
               </div>
