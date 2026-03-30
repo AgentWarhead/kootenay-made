@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import ReadingProgressTrail from '@/components/ReadingProgressTrail';
+
 
 export const metadata: Metadata = {
   title: 'Blog',
@@ -14,7 +14,6 @@ export const metadata: Metadata = {
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <ReadingProgressTrail />
       {children}
     </>
   );
