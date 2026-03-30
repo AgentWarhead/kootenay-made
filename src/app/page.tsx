@@ -482,8 +482,20 @@ export default function Home() {
       <MountainDivider variant={1} fillColor="#1a1208" />
 
       {/* ═══ PRETEXT EXPLOSION ═══ */}
-      <section className="relative bg-slate overflow-hidden">
+      <section className="relative bg-[#0D0F11] overflow-hidden">
         <div className="absolute inset-0 grain" />
+        {/* Mining blueprint grid */}
+        <div className="absolute inset-0 opacity-[0.04]" style={{
+          backgroundImage: `
+            linear-gradient(rgba(193,120,23,0.3) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(193,120,23,0.3) 1px, transparent 1px)
+          `,
+          backgroundSize: '40px 40px'
+        }} />
+        {/* Warm vignette */}
+        <div className="absolute inset-0" style={{
+          background: 'radial-gradient(ellipse at center, rgba(193,120,23,0.06) 0%, transparent 70%)'
+        }} />
         <div className="relative z-10">
           <PretextExplosion />
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-16 pb-12">

@@ -136,12 +136,17 @@ export default function PretextCurrent() {
         const age = 1 - c.sinkTimer / 2
         const r = age * 40
         ctx.beginPath(); ctx.arc(c.x + c.width / 2, c.y, r, 0, Math.PI * 2)
-        ctx.strokeStyle = `rgba(193,120,23,${(1 - age) * 0.5})`; ctx.lineWidth = 1.5; ctx.stroke()
+        ctx.strokeStyle = `rgba(74,144,164,${(1 - age) * 0.6})`; ctx.lineWidth = 1.5; ctx.stroke()
       }
     }
 
-    ctx.fillStyle = '#C17817'
-    for (const c of charsRef.current) ctx.fillText(c.char, c.x, c.y)
+    for (let i = 0; i < charsRef.current.length; i++) {
+      const c = charsRef.current[i]
+      // Characters alternate between warm copper and cool river blue
+      const isWarm = i % 3 !== 0
+      ctx.fillStyle = isWarm ? '#C17817' : '#4A90A4'
+      ctx.fillText(c.char, c.x, c.y)
+    }
 
     particlesRef.current = particlesRef.current.filter(p => p.life > 0)
     for (const p of particlesRef.current) {
@@ -158,7 +163,7 @@ export default function PretextCurrent() {
     for (const f of foamRef.current) {
       f.life -= 0.015
       ctx.beginPath(); ctx.arc(f.x, f.y, 2, 0, Math.PI * 2)
-      ctx.fillStyle = `rgba(255,255,255,${0.2 * f.life})`; ctx.fill()
+      ctx.fillStyle = `rgba(255,255,255,${0.3 * f.life})`; ctx.fill()
     }
   }, [addSplash])
 

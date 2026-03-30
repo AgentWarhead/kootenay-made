@@ -130,8 +130,12 @@ export default function PretextAvalanche() {
       }
     }
 
-    ctx.fillStyle = '#C17817'
-    for (const c of chars) {
+    for (let i = 0; i < chars.length; i++) {
+      const c = chars[i]
+      // Per-character color variation — slight hue and lightness shift
+      const hue = 30 + (i % 5) * 3
+      const lightness = 50 + Math.sin(i * 0.7) * 10
+      ctx.fillStyle = `hsl(${hue}, 80%, ${lightness}%)`
       ctx.save()
       ctx.translate(c.x + c.width / 2, c.y)
       ctx.rotate(c.angle)
@@ -143,7 +147,7 @@ export default function PretextAvalanche() {
     for (const p of particlesRef.current) {
       p.x += p.vx; p.y += p.vy; p.vy += 0.05; p.life -= 0.04
       ctx.beginPath(); ctx.arc(p.x, p.y, 2, 0, Math.PI * 2)
-      ctx.fillStyle = `rgba(255,255,255,${p.life})`; ctx.fill()
+      ctx.fillStyle = `rgba(200,220,255,${p.life})`; ctx.fill()
     }
   }, [spawnDust])
 

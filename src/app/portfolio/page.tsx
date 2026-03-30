@@ -272,10 +272,20 @@ export default function PortfolioPage() {
       <MountainDivider variant={1} fillColor="#F8F4F0" bgColor="#1A1D20" />
 
       {/* Pretext Avalanche */}
-      <section className="relative bg-slate overflow-hidden border-t border-white/5">
+      <section className="relative overflow-hidden border-t border-white/5" style={{ background: 'linear-gradient(180deg, #12100E 0%, #1A1D20 40%, #0f0d0a 100%)' }}>
         <div className="absolute inset-0 grain" />
-        {/* Topo contour background */}
-        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(193,120,23,0.3) 40px)', backgroundSize: '40px 40px' }} />
+        {/* Topo contour lines */}
+        <div className="absolute inset-0 opacity-[0.06]" style={{
+          backgroundImage: `
+            repeating-linear-gradient(0deg, transparent, transparent 38px, rgba(193,120,23,0.4) 38px, rgba(193,120,23,0.4) 40px),
+            repeating-linear-gradient(90deg, transparent, transparent 78px, rgba(193,120,23,0.2) 78px, rgba(193,120,23,0.2) 80px)
+          `,
+          backgroundSize: '40px 40px, 80px 80px'
+        }} />
+        {/* Mountain glow from below */}
+        <div className="absolute bottom-0 left-0 right-0 h-1/3" style={{
+          background: 'linear-gradient(0deg, rgba(193,120,23,0.05) 0%, transparent 100%)'
+        }} />
         <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-16 py-16 sm:py-20">
           <PretextAvalanche />
           <div className="text-center mt-6">

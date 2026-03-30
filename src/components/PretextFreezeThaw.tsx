@@ -12,9 +12,10 @@ interface CharGlyph {
 }
 
 function lerpColor(t: number): string {
-  const r = Math.round(0xC1 + (0xA8 - 0xC1) * t)
-  const g = Math.round(0x78 + (0xD8 - 0x78) * t)
-  const b = Math.round(0x17 + (0xEA - 0x17) * t)
+  // Warm gold (220,160,50) → bright ice blue (180,220,255) — dramatic transition
+  const r = Math.round(220 + (180 - 220) * t)
+  const g = Math.round(160 + (220 - 160) * t)
+  const b = Math.round(50 + (255 - 50) * t)
   return `rgb(${r},${g},${b})`
 }
 
@@ -78,8 +79,9 @@ export default function PretextFreezeThaw() {
     const showCrystals = cursor !== null && Date.now() - stillSinceRef.current > CRYSTAL_DELAY
 
     if (cursor) {
-      const grad = ctx.createRadialGradient(cursor.x, cursor.y, 0, cursor.x, cursor.y, FREEZE_RADIUS * 1.5)
-      grad.addColorStop(0, 'rgba(168,216,234,0.08)')
+      const grad = ctx.createRadialGradient(cursor.x, cursor.y, 0, cursor.x, cursor.y, FREEZE_RADIUS * 2.5)
+      grad.addColorStop(0, 'rgba(168,216,234,0.18)')
+      grad.addColorStop(0.4, 'rgba(168,216,234,0.08)')
       grad.addColorStop(1, 'rgba(168,216,234,0)')
       ctx.fillStyle = grad
       ctx.fillRect(0, 0, w, h)
@@ -106,8 +108,8 @@ export default function PretextFreezeThaw() {
 
     if (showCrystals && cursor) {
       const age = Math.min((Date.now() - stillSinceRef.current - CRYSTAL_DELAY) / 3000, 1)
-      ctx.strokeStyle = `rgba(220,240,255,${0.4 * age})`
-      ctx.lineWidth = 0.5
+      ctx.strokeStyle = `rgba(220,240,255,${0.6 * age})`
+      ctx.lineWidth = 2
       for (let i = 0; i < glyphs.length - 1; i++) {
         const a = glyphs[i], b = glyphs[i + 1]
         if (a.frozen > 0.5 && b.frozen > 0.5) {

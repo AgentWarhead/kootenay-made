@@ -4,6 +4,16 @@ import { useEffect, useRef, useCallback } from 'react'
 import { prepareWithSegments, layoutWithLines } from '@chenglou/pretext'
 
 const TOWNS = ['CASTLEGAR', 'TRAIL', 'NELSON', 'ROSSLAND', 'KASLO', 'NAKUSP', 'SALMO', 'CRESTON']
+const TOWN_COLORS: Record<string, string> = {
+  'CASTLEGAR': '#C17817',  // warm copper (home base)
+  'TRAIL': '#D4942A',      // industrial amber
+  'NELSON': '#E8A849',     // bright artistic gold
+  'ROSSLAND': '#87CEEB',   // sky blue (ski town)
+  'KASLO': '#4A90A4',      // lake blue
+  'NAKUSP': '#7CB68E',     // hot springs green
+  'SALMO': '#C9A96E',      // trail dust
+  'CRESTON': '#8FBC8F',    // orchard green
+}
 const TOWN_POS: Record<string, [number, number]> = {
   CASTLEGAR: [0.38, 0.52], TRAIL: [0.28, 0.68], NELSON: [0.62, 0.50],
   ROSSLAND:  [0.18, 0.60], KASLO: [0.75, 0.22], NAKUSP: [0.55, 0.18],
@@ -90,7 +100,7 @@ export default function PretextBearScramble() {
   }, [])
 
   const drawTreeline = (ctx: CanvasRenderingContext2D, w: number, h: number) => {
-    ctx.save(); ctx.globalAlpha = 0.08; ctx.fillStyle = '#1a3a1a'
+    ctx.save(); ctx.globalAlpha = 0.15; ctx.fillStyle = '#1a3a1a'
     const bottom = h - 2
     for (let x = 0; x < w; x += 18) {
       const peak = bottom - 30 - Math.sin(x * 0.07) * 8
@@ -124,21 +134,21 @@ export default function PretextBearScramble() {
           if (Math.abs(dx) > 2 || Math.abs(dy) > 2) reformed = false
         }
         if (reformed && !town.reformed) {
-          town.reformed = true; town.scattered = false; town.bearTimer = 400
+          town.reformed = true; town.scattered = false; town.bearTimer = 600
         }
       }
 
       if (town.bearTimer > 0) {
         town.bearTimer -= 16
         ctx.save()
-        ctx.globalAlpha = Math.min(1, town.bearTimer / 150)
-        ctx.font = '18px serif'
-        ctx.fillText('🐻', town.cx - 9, town.cy - fontSize - 4)
+        ctx.globalAlpha = Math.min(1, town.bearTimer / 250)
+        ctx.font = '24px serif'
+        ctx.fillText('🐻', town.cx - 12, town.cy - fontSize - 4)
         ctx.restore()
         ctx.font = `bold ${fontSize}px Georgia, serif`
       }
 
-      ctx.fillStyle = '#C17817'
+      ctx.fillStyle = TOWN_COLORS[town.name] ?? '#C17817'
       for (const l of town.letters) ctx.fillText(l.char, l.x, l.y)
     }
   }, [])

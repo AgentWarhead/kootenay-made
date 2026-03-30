@@ -292,9 +292,21 @@ export default function ServicesPage() {
       <MountainDivider variant={1} fillColor="#F8F4F0" bgColor="#1A1D20" />
 
       {/* Pretext Freeze & Thaw */}
-      <section className="relative bg-slate overflow-hidden border-t border-white/5">
+      <section className="relative overflow-hidden border-t border-white/5" style={{ background: 'linear-gradient(180deg, #0a1520 0%, #1A1D20 50%, #0a1520 100%)' }}>
         {/* Frost overlay that melts via scroll */}
         <div className="absolute inset-0 grain" />
+        {/* Frost crystal pattern */}
+        <div className="absolute inset-0 opacity-[0.03]" style={{
+          backgroundImage: `
+            radial-gradient(circle at 20% 30%, rgba(168,216,234,0.4) 0%, transparent 40%),
+            radial-gradient(circle at 80% 70%, rgba(168,216,234,0.3) 0%, transparent 40%),
+            radial-gradient(circle at 50% 10%, rgba(200,230,255,0.2) 0%, transparent 30%)
+          `
+        }} />
+        {/* Frozen edge vignette */}
+        <div className="absolute inset-0" style={{
+          background: 'linear-gradient(90deg, rgba(168,216,234,0.08) 0%, transparent 20%, transparent 80%, rgba(168,216,234,0.08) 100%)'
+        }} />
         <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-16 py-16 sm:py-20">
           <ScrollReveal>
             <div className="text-center mb-8">

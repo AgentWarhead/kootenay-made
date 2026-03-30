@@ -240,8 +240,20 @@ export default function ContactPage() {
       </section>
 
       {/* Pretext Bear Scramble — surprise! no heading */}
-      <section className="relative bg-slate overflow-hidden">
+      <section className="relative overflow-hidden" style={{ background: 'linear-gradient(180deg, #0d120d 0%, #1A1D20 50%, #0d120d 100%)' }}>
         <div className="absolute inset-0 grain" />
+        {/* Forest canopy light */}
+        <div className="absolute inset-0 opacity-[0.04]" style={{
+          backgroundImage: `
+            radial-gradient(ellipse at 25% 20%, rgba(45,106,79,0.5) 0%, transparent 40%),
+            radial-gradient(ellipse at 75% 30%, rgba(45,106,79,0.4) 0%, transparent 35%),
+            radial-gradient(ellipse at 50% 60%, rgba(45,106,79,0.3) 0%, transparent 45%)
+          `
+        }} />
+        {/* Ground fog at bottom */}
+        <div className="absolute bottom-0 left-0 right-0 h-1/4" style={{
+          background: 'linear-gradient(0deg, rgba(255,255,255,0.02) 0%, transparent 100%)'
+        }} />
         <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-16 py-12 sm:py-16">
           <PretextBearScramble />
           <div className="text-center mt-4">

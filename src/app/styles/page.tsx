@@ -202,10 +202,25 @@ export default function StylesPage() {
       </section>
 
       {/* Pretext Current */}
-      <section className="relative bg-slate overflow-hidden border-t border-white/5">
+      <section className="relative overflow-hidden border-t border-white/5" style={{ background: 'linear-gradient(180deg, #0a0d12 0%, #111820 50%, #0a0d12 100%)' }}>
         <div className="absolute inset-0 grain" />
-        {/* Canyon depth gradient */}
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(90deg, rgba(0,0,0,0.4) 0%, transparent 15%, transparent 85%, rgba(0,0,0,0.4) 100%)' }} />
+        {/* Canyon walls — dark edges */}
+        <div className="absolute inset-0" style={{
+          background: 'linear-gradient(90deg, rgba(0,0,0,0.5) 0%, transparent 12%, transparent 88%, rgba(0,0,0,0.5) 100%)'
+        }} />
+        {/* Water caustic ripples */}
+        <div className="absolute inset-0 opacity-[0.03]" style={{
+          backgroundImage: `
+            radial-gradient(ellipse at 30% 60%, rgba(74,144,164,0.5) 0%, transparent 40%),
+            radial-gradient(ellipse at 70% 40%, rgba(74,144,164,0.4) 0%, transparent 35%),
+            radial-gradient(ellipse at 50% 80%, rgba(100,180,200,0.3) 0%, transparent 30%)
+          `
+        }} />
+        {/* River glow strip across middle */}
+        <div className="absolute left-0 right-0" style={{
+          top: '35%', height: '30%',
+          background: 'linear-gradient(180deg, transparent 0%, rgba(74,144,164,0.04) 50%, transparent 100%)'
+        }} />
         <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-16 py-16 sm:py-20">
           <ScrollReveal>
             <div className="text-center mb-8">
