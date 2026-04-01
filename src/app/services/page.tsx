@@ -48,6 +48,42 @@ const categories = [
   },
 ];
 
+/* ── Immersive Category Cards Data ── */
+const categoryCards = [
+  {
+    id: 'websites',
+    emoji: '🌐',
+    label: 'Get Online',
+    description: "Your business deserves to be found. We'll build you a website that makes you look as good online as you are in person.",
+    image: '/images/categories/get-online.png',
+    packageCount: 3,
+  },
+  {
+    id: 'ecommerce',
+    emoji: '🛒',
+    label: 'Sell Online',
+    description: "Ready to sell beyond the counter? From Shopify stores to custom print-on-demand, we'll get your products in front of the world.",
+    image: '/images/categories/sell-online.png',
+    packageCount: 3,
+  },
+  {
+    id: 'ai',
+    emoji: '🤖',
+    label: 'Work Smarter',
+    description: "AI isn't just for tech companies. We'll set up tools that save you hours every week — and teach you how to use them.",
+    image: '/images/categories/work-smarter.png',
+    packageCount: 1,
+  },
+  {
+    id: 'gobig',
+    emoji: '🏰',
+    label: 'Go Big',
+    description: "Full transformation. Brand, website, AI, marketing — everything your business needs to dominate, built by your neighbors.",
+    image: '/images/categories/go-big.png',
+    packageCount: 1,
+  },
+];
+
 /* ── Package Data ── */
 const packages = [
   {
@@ -412,6 +448,307 @@ const comparisonRows = [
   { feature: 'AI Integration', other: '$15,000+ (enterprise only)', us: '✅ From $2,000' },
 ];
 
+/* ── Immersive Category Card ── */
+function CategoryCardLarge({
+  cat,
+  isSelected,
+  isOther,
+  onSelect,
+}: {
+  cat: typeof categoryCards[number];
+  isSelected: boolean;
+  isOther: boolean;
+  onSelect: () => void;
+}) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [parallax, setParallax] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const cx = (e.clientX - rect.left) / rect.width - 0.5;
+    const cy = (e.clientY - rect.top) / rect.height - 0.5;
+    setParallax({ x: cx * 12, y: cy * 8 });
+  };
+
+  const handleMouseLeave = () => setParallax({ x: 0, y: 0 });
+
+  return (
+    <motion.div
+      ref={cardRef}
+      layout
+      onClick={onSelect}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      whileHover={{ scale: isOther ? 1.02 : 1.03, boxShadow: '0 0 0 2px #C17817, 0 20px 60px rgba(193,120,23,0.3)' }}
+      whileTap={{ scale: 0.98 }}
+      transition={{ duration: 0.3, ease: 'easeOut' }}
+      className="relative overflow-hidden rounded-2xl cursor-pointer select-none"
+      style={{
+        aspectRatio: '16/10',
+        minHeight: '200px',
+        border: isSelected ? '2px solid #C17817' : '2px solid transparent',
+        boxShadow: isSelected ? '0 0 0 2px #C17817, 0 20px 60px rgba(193,120,23,0.35)' : undefined,
+      }}
+    >
+      {/* Background image with parallax */}
+      <motion.div
+        className="absolute inset-[-8%] bg-cover bg-center"
+        style={{ backgroundImage: `url(${cat.image})` }}
+        animate={{ x: parallax.x, y: parallax.y }}
+        transition={{ type: 'spring', stiffness: 200, damping: 30 }}
+      />
+
+      {/* Gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10" />
+
+      {/* Content */}
+      <div className="absolute inset-0 flex flex-col justify-end p-6">
+        <div className="flex items-end justify-between gap-3">
+          <div>
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-3xl" role="img" aria-label={cat.label}>{cat.emoji}</span>
+              <h3 className="font-[family-name:var(--font-satoshi)] text-xl sm:text-2xl font-bold text-white leading-tight drop-shadow-lg">
+                {cat.label}
+              </h3>
+            </div>
+            <p className="text-white/80 text-sm leading-relaxed max-w-xs drop-shadow-md line-clamp-2">
+              {cat.description}
+            </p>
+          </div>
+          <div className="shrink-0">
+            <span
+              className="inline-block px-3 py-1.5 rounded-full text-xs font-bold text-white whitespace-nowrap"
+              style={{ background: 'rgba(193,120,23,0.85)', backdropFilter: 'blur(4px)' }}
+            >
+              {cat.packageCount} package{cat.packageCount !== 1 ? 's' : ''}
+            </span>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+/* ── Small category pill (when one is selected) ── */
+function CategoryPill({
+  cat,
+  isActive,
+  onSelect,
+}: {
+  cat: typeof categoryCards[number];
+  isActive: boolean;
+  onSelect: () => void;
+}) {
+  return (
+    <motion.button
+      layout
+      onClick={onSelect}
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      className="relative overflow-hidden rounded-xl flex items-center gap-2 px-4 py-2.5 text-sm font-semibold transition-all duration-200"
+      style={{
+        border: isActive ? '2px solid #C17817' : '2px solid rgba(193,120,23,0.3)',
+        background: isActive ? 'rgba(193,120,23,0.15)' : 'rgba(193,120,23,0.06)',
+        color: isActive ? '#C17817' : '#8B6834',
+        minHeight: '44px',
+        minWidth: '44px',
+      }}
+    >
+      <span className="text-base">{cat.emoji}</span>
+      <span className="hidden sm:inline">{cat.label}</span>
+    </motion.button>
+  );
+}
+
+/* ── Immersive Package Showcase ── */
+function ImmersivePackageShowcase() {
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const packagesRef = useRef<HTMLDivElement>(null);
+
+  const handleSelectCategory = (id: string) => {
+    setSelectedCategory(id);
+    // Smooth scroll to packages after brief delay for animation
+    setTimeout(() => {
+      packagesRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 150);
+  };
+
+  const handleBack = () => {
+    setSelectedCategory(null);
+    window.scrollTo({ top: packagesRef.current?.offsetTop ?? 0 - 200, behavior: 'smooth' });
+  };
+
+  const selectedCat = categoryCards.find(c => c.id === selectedCategory);
+  const visiblePackages = selectedCategory
+    ? packages.filter(p => p.category === selectedCategory && p.id !== 'audit')
+    : [];
+
+  return (
+    <div ref={packagesRef} className="relative">
+      {/* Free Audit Banner — always visible */}
+      <motion.div
+        initial={{ opacity: 0, y: -12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+        className="mb-10 rounded-2xl overflow-hidden relative"
+        style={{
+          background: 'linear-gradient(135deg, rgba(45,106,79,0.12) 0%, rgba(193,120,23,0.12) 100%)',
+          border: '1.5px solid rgba(45,106,79,0.35)',
+        }}
+      >
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-5 p-6 sm:p-8">
+          <div className="flex items-center gap-4">
+            <div
+              className="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl shrink-0 font-bold"
+              style={{ background: 'rgba(45,106,79,0.15)', border: '1px solid rgba(45,106,79,0.3)' }}
+            >
+              🆓
+            </div>
+            <div>
+              <div className="flex items-center gap-2 mb-1">
+                <span
+                  className="text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-full"
+                  style={{ background: 'rgba(45,106,79,0.18)', color: '#2D6A4F' }}
+                >
+                  Start Here — It&apos;s Free
+                </span>
+              </div>
+              <h3 className="font-[family-name:var(--font-satoshi)] text-xl font-bold text-slate">
+                The Audit — Free Online Presence Report
+              </h3>
+              <p className="text-text-secondary text-sm mt-1 max-w-md">
+                Every great website starts with an honest look. Get a branded PDF with exactly what&apos;s working, what&apos;s not, and what to fix first. No pressure. Just truth.
+              </p>
+            </div>
+          </div>
+          <div className="flex flex-col items-center sm:items-end gap-2 shrink-0">
+            <span className="font-[family-name:var(--font-satoshi)] text-3xl font-bold text-forest">FREE</span>
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-2 font-medium px-6 py-3 rounded-xl text-sm transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] text-white"
+              style={{ background: '#2D6A4F', minHeight: '44px' }}
+            >
+              Get My Free Audit <ArrowRight size={14} />
+            </Link>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Phase 1: Category Grid */}
+      <AnimatePresence mode="wait">
+        {!selectedCategory && (
+          <motion.div
+            key="category-grid"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0, scale: 0.98 }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="mb-6">
+              <p className="text-text-secondary text-base">
+                Choose a category to explore our packages — or start with the free audit above.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-5">
+              {categoryCards.map((cat) => (
+                <CategoryCardLarge
+                  key={cat.id}
+                  cat={cat}
+                  isSelected={false}
+                  isOther={false}
+                  onSelect={() => handleSelectCategory(cat.id)}
+                />
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Phase 2: Selected Category — Hero + Packages */}
+      <AnimatePresence mode="wait">
+        {selectedCategory && selectedCat && (
+          <motion.div
+            key={`selected-${selectedCategory}`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            {/* Back button + category pills */}
+            <div className="flex flex-wrap items-center gap-3 mb-6">
+              <motion.button
+                onClick={handleBack}
+                whileHover={{ x: -3 }}
+                whileTap={{ scale: 0.96 }}
+                className="flex items-center gap-2 text-sm font-semibold text-slate hover:text-copper transition-colors"
+                style={{ minHeight: '44px' }}
+              >
+                <span>←</span>
+                <span>Back to all categories</span>
+              </motion.button>
+              <div className="h-4 w-px bg-slate/20 hidden sm:block" />
+              <div className="flex gap-2 flex-wrap">
+                {categoryCards.map((cat) => (
+                  <CategoryPill
+                    key={cat.id}
+                    cat={cat}
+                    isActive={cat.id === selectedCategory}
+                    onSelect={() => handleSelectCategory(cat.id)}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Hero banner */}
+            <motion.div
+              initial={{ scale: 0.96, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.4, ease: 'easeOut' }}
+              className="relative overflow-hidden rounded-2xl mb-10"
+              style={{ minHeight: '240px', border: '2px solid rgba(193,120,23,0.5)' }}
+            >
+              <div
+                className="absolute inset-[-4%] bg-cover bg-center"
+                style={{ backgroundImage: `url(${selectedCat.image})` }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-black/20" />
+              <div className="relative z-10 flex flex-col justify-center h-full p-8 sm:p-12 min-h-[240px]">
+                <div className="flex items-center gap-3 mb-3">
+                  <span className="text-4xl">{selectedCat.emoji}</span>
+                  <h2 className="font-[family-name:var(--font-satoshi)] text-3xl sm:text-4xl font-bold text-white drop-shadow-lg">
+                    {selectedCat.label}
+                  </h2>
+                </div>
+                <p className="text-white/85 text-base sm:text-lg max-w-lg leading-relaxed drop-shadow-md">
+                  {selectedCat.description}
+                </p>
+                <p className="text-copper font-semibold text-sm mt-4">
+                  {selectedCat.packageCount} package{selectedCat.packageCount !== 1 ? 's' : ''} available
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Package Cards — staggered entrance */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 items-start">
+              {visiblePackages.map((pkg, i) => (
+                <motion.div
+                  key={pkg.id}
+                  initial={{ opacity: 0, y: 24 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.35, delay: i * 0.04, ease: 'easeOut' }}
+                >
+                  <PackageCard pkg={pkg} index={i} />
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
 /* ── ROI Calculator ── */
 function ROICalculator() {
   const [customerValue, setCustomerValue] = useState(200);
@@ -668,13 +1005,7 @@ function HowItWorks() {
 
 /* ── Main Page ── */
 export default function ServicesPage() {
-  const _ref = useRef(null);
-  void _ref;
-  const [activeCategory, setActiveCategory] = useState('all');
 
-  const filteredPackages = activeCategory === 'all'
-    ? packages
-    : packages.filter(p => p.category === activeCategory);
 
   return (
     <div className="overflow-x-hidden">
@@ -817,7 +1148,7 @@ export default function ServicesPage() {
 
       <RiverWave fillColor="#F5F0E8" bgColor="#1A1D20" />
 
-      {/* 4. Interactive Package Selector + Cards */}
+      {/* 4. Immersive Category-First Package Showcase */}
       <section className="bg-[#F5F0E8] cedar-texture py-20 sm:py-28 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
           <ScrollReveal>
@@ -828,68 +1159,9 @@ export default function ServicesPage() {
             </p>
           </ScrollReveal>
 
-          {/* Category Selector */}
           <ScrollReveal delay={0.05}>
-            <div className="flex flex-wrap gap-3 mb-12">
-              {categories.map((cat) => (
-                <motion.button
-                  key={cat.id}
-                  onClick={() => setActiveCategory(cat.id)}
-                  whileHover={{ scale: 1.03 }}
-                  whileTap={{ scale: 0.97 }}
-                  className={`relative flex items-center gap-2 px-5 py-3 rounded-2xl font-medium text-sm transition-all duration-200 border ${
-                    activeCategory === cat.id
-                      ? 'bg-slate text-cream border-slate shadow-lg shadow-slate/20'
-                      : 'bg-white text-slate border-cream-border hover:border-copper/30 hover:shadow-md'
-                  }`}
-                >
-                  <span>{cat.emoji}</span>
-                  <span>{cat.label}</span>
-                  {activeCategory === cat.id && (
-                    <motion.div
-                      layoutId="categoryActive"
-                      className="absolute inset-0 rounded-2xl bg-slate -z-10"
-                      transition={{ type: 'spring', stiffness: 400, damping: 35 }}
-                    />
-                  )}
-                </motion.button>
-              ))}
-            </div>
+            <ImmersivePackageShowcase />
           </ScrollReveal>
-
-          {/* Category description */}
-          <AnimatePresence mode="wait">
-            {activeCategory !== 'all' && (
-              <motion.div
-                key={activeCategory}
-                initial={{ opacity: 0, y: -8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.2 }}
-                className="mb-8"
-              >
-                <p className="text-text-secondary text-base">
-                  {categories.find(c => c.id === activeCategory)?.desc}
-                </p>
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          {/* Package Cards */}
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeCategory}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.25 }}
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 items-start"
-            >
-              {filteredPackages.map((pkg, i) => (
-                <PackageCard key={pkg.id} pkg={pkg} index={i} />
-              ))}
-            </motion.div>
-          </AnimatePresence>
         </div>
       </section>
 
