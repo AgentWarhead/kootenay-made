@@ -438,17 +438,22 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* 3. Industry Anchor Statement */}
-      <div style={{ background: 'rgba(193,120,23,0.12)', borderTop: '1px solid rgba(193,120,23,0.25)', borderBottom: '1px solid rgba(193,120,23,0.25)' }} className="py-10 px-4 text-center">
-        <p className="font-[family-name:var(--font-satoshi)] text-cream text-lg sm:text-xl font-semibold max-w-3xl mx-auto leading-relaxed">
+      {/* 3. Industry Anchor Statement — dark bg for contrast */}
+      <div style={{ background: '#1A1D20', borderTop: '1px solid rgba(193,120,23,0.2)', borderBottom: '1px solid rgba(193,120,23,0.2)' }} className="py-12 px-4 text-center">
+        <p className="font-[family-name:var(--font-satoshi)] text-cream text-lg sm:text-2xl font-semibold max-w-3xl mx-auto leading-relaxed" style={{ textShadow: '0 1px 2px rgba(0,0,0,0.3)' }}>
           &ldquo;The average Canadian web agency charges $7,000–$30,000 for a custom website. We deliver the same quality — hand-coded, not templated — at a fraction of that.&rdquo;
         </p>
-        <p className="text-dark-text-muted text-xs mt-3">Source: Clio Websites survey of 136 Canadian developers, 2025</p>
+        <p className="text-copper/60 text-xs mt-4">Source: Clio Websites survey of 136 Canadian developers, 2025</p>
       </div>
 
-      <RiverWave fillColor="#1A1D20" bgColor="#0a1520" />
+      <RiverWave fillColor="#F5F0E8" bgColor="#1A1D20" />
 
-      {/* 4. Pretext Freeze & Thaw — preserved exactly */}
+      {/* 4. How It Works */}
+      <HowItWorks />
+
+      <RiverWave fillColor="#0a1520" bgColor="#F5F0E8" />
+
+      {/* 5. Pretext Freeze & Thaw — preserved exactly */}
       <section className="relative overflow-hidden border-t border-white/5" style={{ background: 'linear-gradient(180deg, #0a1520 0%, #1A1D20 50%, #0a1520 100%)' }}>
         <FrostMeltOverlay />
         <div className="absolute inset-0 grain" />
@@ -478,42 +483,7 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <RiverWave fillColor="#F5F0E8" bgColor="#0a1520" />
-
-      {/* 5. Package Cards */}
-      <section className="bg-[#F5F0E8] cedar-texture py-20 sm:py-28 relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
-          {/* Kootenay Neighbours Rate Banner */}
-          <ScrollReveal>
-            <div className="mb-10 rounded-2xl border border-copper/30 bg-white/70 backdrop-blur-sm px-6 py-5 flex flex-col sm:flex-row items-start sm:items-center gap-4 shadow-sm">
-              <div className="text-3xl">🏔️</div>
-              <div className="flex-1">
-                <p className="font-[family-name:var(--font-satoshi)] font-bold text-slate text-base">Kootenay Neighbours Rate — 10% Off</p>
-                <p className="text-text-secondary text-sm mt-0.5">We live here. We work here. If your business is based in the West Kootenays, you get the neighbour rate — because building up this community is why we started.</p>
-              </div>
-              <div className="shrink-0 bg-copper/10 border border-copper/20 rounded-xl px-4 py-2 text-copper font-bold text-sm whitespace-nowrap">
-                Local? 10% off any package
-              </div>
-            </div>
-          </ScrollReveal>
-
-          <ScrollReveal>
-            <p className="text-copper font-medium text-sm tracking-wider uppercase mb-2">Our Packages</p>
-            <h2 className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl font-bold text-slate mb-4">Choose Your Path</h2>
-            <p className="text-text-secondary max-w-xl mb-14">
-              Every package is built for Kootenay businesses — flat pricing, full ownership, zero surprises.
-            </p>
-          </ScrollReveal>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 items-start">
-            {packages.map((pkg, i) => (
-              <PackageCard key={pkg.id} pkg={pkg} index={i} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <RiverWave fillColor="#1A1D20" bgColor="#F5F0E8" />
+      <RiverWave fillColor="#1A1D20" bgColor="#0a1520" />
 
       {/* 6. Comparison Table */}
       <section className="bg-slate grain py-20 sm:py-24 relative">
@@ -556,7 +526,95 @@ export default function ServicesPage() {
 
       <RiverWave fillColor="#F5F0E8" bgColor="#1A1D20" />
 
-      {/* 7. Retainer Cards */}
+      {/* 7. Package Cards */}
+      <section className="bg-[#F5F0E8] cedar-texture py-20 sm:py-28 relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
+          {/* Kootenay Neighbours Rate Banner */}
+          <ScrollReveal>
+            <div className="mb-10 rounded-2xl border border-copper/30 bg-white/70 backdrop-blur-sm px-6 py-5 flex flex-col sm:flex-row items-start sm:items-center gap-4 shadow-sm">
+              <div className="text-3xl">🏔️</div>
+              <div className="flex-1">
+                <p className="font-[family-name:var(--font-satoshi)] font-bold text-slate text-base">Kootenay Neighbours Rate — 10% Off</p>
+                <p className="text-text-secondary text-sm mt-0.5">We live here. We work here. If your business is based in the West Kootenays, you get the neighbour rate — because building up this community is why we started.</p>
+              </div>
+              <div className="shrink-0 bg-copper/10 border border-copper/20 rounded-xl px-4 py-2 text-copper font-bold text-sm whitespace-nowrap">
+                Local? 10% off any package
+              </div>
+            </div>
+          </ScrollReveal>
+
+          <ScrollReveal>
+            <p className="text-copper font-medium text-sm tracking-wider uppercase mb-2">Our Packages</p>
+            <h2 className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl font-bold text-slate mb-4">Choose Your Path</h2>
+            <p className="text-text-secondary max-w-xl mb-14">
+              Every package is built for Kootenay businesses — flat pricing, full ownership, zero surprises.
+            </p>
+          </ScrollReveal>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 items-start">
+            {packages.map((pkg, i) => (
+              <PackageCard key={pkg.id} pkg={pkg} index={i} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <RiverWave fillColor="#1A1D20" bgColor="#F5F0E8" />
+
+      {/* 8. Print-on-Demand Add-On */}
+      <section className="bg-slate grain py-16 sm:py-20 relative">
+        <AmbientOrbs />
+        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <ScrollReveal>
+            <div className="rounded-2xl border border-copper/20 bg-white/5 backdrop-blur-sm p-8 sm:p-10">
+              <div className="flex flex-col sm:flex-row items-start gap-6">
+                <div className="text-5xl">🖨️</div>
+                <div className="flex-1">
+                  <div className="flex flex-wrap items-center gap-3 mb-3">
+                    <p className="font-[family-name:var(--font-satoshi)] font-bold text-cream text-xl sm:text-2xl">Print-on-Demand Setup</p>
+                    <span className="bg-copper text-white text-xs font-bold px-3 py-1 rounded-full">Add-On · $500</span>
+                    <span className="bg-white/10 text-cream/60 text-xs font-medium px-3 py-1 rounded-full">With Storefront or Masterpiece</span>
+                  </div>
+                  <p className="text-dark-text-muted mb-6 text-base leading-relaxed">
+                    Turn your Shopify store into a product empire — no inventory, no upfront costs. Your designs on t-shirts, hoodies, mugs, totes, and more. Customer orders, it ships, you collect the margin.
+                  </p>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+                    {[
+                      'Printify account setup + Shopify integration',
+                      'Up to 10 products with your designs applied',
+                      'Shipping + fulfillment configured',
+                      'Profit margins reviewed (so you\'re actually making money)',
+                      'AI-generated product mockups available',
+                      'Guidance on your first product line',
+                    ].map((f) => (
+                      <div key={f} className="flex items-start gap-2 text-sm text-dark-text-muted">
+                        <span className="text-green-400 mt-0.5 shrink-0">✓</span>
+                        <span>{f}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="bg-copper/10 border border-copper/20 rounded-xl px-5 py-4 mb-6">
+                    <p className="text-copper text-sm font-medium">
+                      <span className="font-bold">We&apos;ve done this ourselves.</span>{' '}
+                      Lapphund Designs — our own Shopify + Printify store — is the largest Finnish Lapphund store in the world. We know exactly what works.
+                    </p>
+                  </div>
+                  <Link
+                    href="/contact"
+                    className="inline-flex items-center gap-2 bg-copper hover:bg-copper-light text-white font-medium px-6 py-3 rounded-xl transition-all duration-200 hover:scale-[1.02] text-sm"
+                  >
+                    Add this to my package <ArrowRight size={16} />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      <RiverWave fillColor="#F5F0E8" bgColor="#1A1D20" />
+
+      {/* 9. Retainer Cards */}
       <section className="bg-[#F5F0E8] cedar-texture py-20 sm:py-24 relative">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal>
@@ -634,7 +692,7 @@ export default function ServicesPage() {
 
       <RiverWave fillColor="#F5F0E8" bgColor="#1A1D20" />
 
-      {/* 9. Capacity + Payment Notice */}
+      {/* 10. Capacity + Payment Notice */}
       <section className="bg-[#F5F0E8] cedar-texture py-16 sm:py-20 relative">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <ScrollReveal>
@@ -656,64 +714,6 @@ export default function ServicesPage() {
           </ScrollReveal>
         </div>
       </section>
-
-      <RiverWave fillColor="#1A1D20" bgColor="#F5F0E8" />
-
-      {/* Print-on-Demand Add-On */}
-      <section className="bg-slate grain py-16 sm:py-20 relative">
-        <AmbientOrbs />
-        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <ScrollReveal>
-            <div className="rounded-2xl border border-copper/20 bg-white/5 backdrop-blur-sm p-8 sm:p-10">
-              <div className="flex flex-col sm:flex-row items-start gap-6">
-                <div className="text-5xl">🖨️</div>
-                <div className="flex-1">
-                  <div className="flex flex-wrap items-center gap-3 mb-3">
-                    <p className="font-[family-name:var(--font-satoshi)] font-bold text-cream text-xl sm:text-2xl">Print-on-Demand Setup</p>
-                    <span className="bg-copper text-white text-xs font-bold px-3 py-1 rounded-full">Add-On · $500</span>
-                    <span className="bg-white/10 text-cream/60 text-xs font-medium px-3 py-1 rounded-full">With Storefront or Masterpiece</span>
-                  </div>
-                  <p className="text-dark-text-muted mb-6 text-base leading-relaxed">
-                    Turn your Shopify store into a product empire — no inventory, no upfront costs. Your designs on t-shirts, hoodies, mugs, totes, and more. Customer orders, it ships, you collect the margin.
-                  </p>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
-                    {[
-                      'Printify account setup + Shopify integration',
-                      'Up to 10 products with your designs applied',
-                      'Shipping + fulfillment configured',
-                      'Profit margins reviewed (so you\'re actually making money)',
-                      'AI-generated product mockups available',
-                      'Guidance on your first product line',
-                    ].map((f) => (
-                      <div key={f} className="flex items-start gap-2 text-sm text-dark-text-muted">
-                        <span className="text-green-400 mt-0.5 shrink-0">✓</span>
-                        <span>{f}</span>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="bg-copper/10 border border-copper/20 rounded-xl px-5 py-4 mb-6">
-                    <p className="text-copper text-sm font-medium">
-                      <span className="font-bold">We&apos;ve done this ourselves.</span>{' '}
-                      Lapphund Designs — our own Shopify + Printify store — is the largest Finnish Lapphund store in the world. We know exactly what works.
-                    </p>
-                  </div>
-                  <Link
-                    href="/contact"
-                    className="inline-flex items-center gap-2 bg-copper hover:bg-copper-light text-white font-medium px-6 py-3 rounded-xl transition-all duration-200 hover:scale-[1.02] text-sm"
-                  >
-                    Add this to my package <ArrowRight size={16} />
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </ScrollReveal>
-        </div>
-      </section>
-
-      <RiverWave fillColor="#F5F0E8" bgColor="#1A1D20" />
-
-      {/* 11. How It Works */}
-      <HowItWorks />
 
       <RiverWave fillColor="#1A1D20" bgColor="#F5F0E8" />
 
