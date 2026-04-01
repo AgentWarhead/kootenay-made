@@ -59,20 +59,23 @@ const packages = [
     priceNote: null,
     monthlyHint: null,
     tagline: 'Every great website starts with an honest look.',
-    description: 'We dig into your current online presence and tell you exactly what\'s working, what\'s broken, and what to fix first. No sales pitch. No fluff.',
+    description: 'We run your entire online presence through a thorough AI analysis — design, branding, Google visibility, competitor gaps, trust signals, the works. You get a plain-English report that tells you exactly what\'s working, what\'s not, and what to fix first. No sales pitch. No fluff. Just the truth.',
     featuresShort: [
-      'We check your whole online presence',
-      'See how you show up on Google',
-      'Quick look at what your competitors are doing',
-      'Plain-English report with a clear action plan',
+      'AI-powered analysis of your design & brand confidence',
+      'How you show up on Google Maps, Search & Reviews',
+      'See what your competitors are doing that you\'re not',
+      'Mobile & speed performance check',
+      'Trust signals audit — does your site make people feel safe?',
+      'Branded PDF report with a prioritized action plan',
     ],
     featuresFull: [
-      'Full website review',
-      'Google Business Profile check',
-      'SEO snapshot',
-      'Competitor quick-glance',
-      'AI readiness assessment',
-      'Branded PDF report with priorities',
+      'AI-powered analysis of your design & brand confidence',
+      'How you show up on Google Maps, Search & Reviews',
+      'See what your competitors are doing that you\'re not',
+      'Mobile & speed performance check',
+      'Trust signals audit — does your site make people feel safe?',
+      'Branded PDF report with a prioritized action plan',
+      'Access to the Neighbours Dashboard (guides, tutorials, troubleshooting)',
     ],
     perfectFor: 'Any Kootenay business curious about where they stand online.',
     delivery: 'Report in 48 hours',
@@ -86,7 +89,7 @@ const packages = [
     name: 'The Trailhead',
     price: '$1,500',
     priceNote: null,
-    monthlyHint: '~$125/mo over 12 months',
+    monthlyHint: null,
     tagline: 'Your first step online — done right.',
     description: 'We build you a clean, professional website. One page, beautifully done. You\'ll look established from day one.',
     featuresShort: [
@@ -117,7 +120,7 @@ const packages = [
     name: 'The Foundation',
     price: '$4,000',
     priceNote: null,
-    monthlyHint: '~$333/mo over 12 months',
+    monthlyHint: null,
     tagline: 'The complete digital home for your business.',
     description: 'A full multi-page website that tells your whole story. Built to rank on Google and turn visitors into customers.',
     featuresShort: [
@@ -148,7 +151,7 @@ const packages = [
     name: 'The Engine',
     price: '$6,000',
     priceNote: null,
-    monthlyHint: '~$500/mo over 12 months',
+    monthlyHint: null,
     tagline: 'Built to grow — not just exist.',
     description: 'Everything in The Foundation, plus email marketing, social media branding, and AI tools to keep bringing customers back.',
     featuresShort: [
@@ -179,7 +182,7 @@ const packages = [
     name: 'The Storefront',
     price: '$4,500',
     priceNote: 'Shopify subscription: ~$50–$75 CAD/mo',
-    monthlyHint: '~$375/mo over 12 months',
+    monthlyHint: null,
     tagline: 'A professional online store, ready to sell.',
     description: 'We set up your Shopify store from scratch — branded, polished, and wired to take payments. You focus on products; we handle everything else.',
     featuresShort: [
@@ -210,7 +213,7 @@ const packages = [
     name: 'The Masterpiece',
     price: '$8,500',
     priceNote: 'Shopify subscription: ~$50–$75 CAD/mo',
-    monthlyHint: '~$708/mo over 12 months',
+    monthlyHint: null,
     tagline: "Your store, designed from the ground up.",
     description: 'A 100% custom Shopify store — no themes, no compromises. Built to look exactly like your brand and sell like crazy.',
     featuresShort: [
@@ -272,7 +275,7 @@ const packages = [
     name: 'The AI Advantage',
     price: '$2,000',
     priceNote: 'Claude subscription: ~$23–$135 CAD/mo',
-    monthlyHint: '~$167/mo over 12 months',
+    monthlyHint: null,
     tagline: 'AI that actually works for your business.',
     description: 'We learn how your business runs, set up AI tools built for your specific workflow, and teach you to use them confidently. No tech degree required.',
     featuresShort: [
@@ -303,7 +306,7 @@ const packages = [
     name: 'The Empire',
     price: '$15,000+',
     priceNote: 'Starting at — scope determines final price',
-    monthlyHint: '~$1,250/mo over 12 months',
+    monthlyHint: null,
     tagline: 'The full transformation. Everything, done right.',
     description: 'When you\'re ready to go all-in. Custom website, full brand identity, AI integration, email marketing, social media, and a launch campaign. Nothing left on the table.',
     featuresShort: [
@@ -384,8 +387,8 @@ const universalFeatures = [
   },
   {
     icon: GraduationCap,
-    title: 'We Teach You Everything',
-    desc: "Video tutorials, written guides, and a private dashboard so you're never stuck wondering how something works.",
+    title: 'The Neighbours Dashboard',
+    desc: "Every client gets lifetime access to our private members area — packed with step-by-step guides, troubleshooting manuals, video walkthroughs, and continued learning resources. Something breaks? The answer's probably already there. And if it's not, we are.",
   },
   {
     icon: Bot,
@@ -583,16 +586,19 @@ function PackageCard({ pkg, index }: { pkg: typeof packages[number]; index: numb
           {pkg.featuresFull.length > pkg.featuresShort.length && (
             <button
               onClick={() => setExpanded(!expanded)}
-              className="text-xs text-copper font-medium mb-4 text-left hover:text-copper/70 transition-colors flex items-center gap-1"
+              className="text-xs text-copper font-medium mb-4 text-left hover:text-copper/70 transition-colors flex flex-col gap-0.5"
             >
-              <motion.span
-                animate={{ rotate: expanded ? 90 : 0 }}
-                transition={{ duration: 0.2 }}
-                className="inline-block"
-              >
-                ▶
-              </motion.span>
-              {expanded ? 'Show less' : 'See all details'}
+              <span className="flex items-center gap-1">
+                <motion.span
+                  animate={{ rotate: expanded ? 90 : 0 }}
+                  transition={{ duration: 0.2 }}
+                  className="inline-block"
+                >
+                  ▶
+                </motion.span>
+                {expanded ? 'Hide tech specs' : 'See the tech specs'}
+              </span>
+              {!expanded && <span className="text-copper/55 font-normal pl-4">(the technical breakdown, in plain English)</span>}
             </button>
           )}
 
@@ -887,7 +893,88 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <RiverWave fillColor="#1A1D20" bgColor="#F5F0E8" />
+      <RiverWave fillColor="#0B1A2E" bgColor="#F5F0E8" />
+
+      {/* goBlink Crypto Payments Section */}
+      <section className="relative overflow-hidden py-20 sm:py-28 grain" style={{ background: 'linear-gradient(160deg, #0B1A2E 0%, #0D2137 40%, #0A1E30 70%, #091825 100%)' }}>
+        {/* Teal glow orbs */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full opacity-[0.07]" style={{ background: 'radial-gradient(circle, #00E5FF, transparent 70%)' }} />
+          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full opacity-[0.05]" style={{ background: 'radial-gradient(circle, #00BCD4, transparent 70%)' }} />
+        </div>
+
+        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-16">
+          <ScrollReveal>
+            <div className="text-center mb-14">
+              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase mb-6" style={{ background: 'rgba(0,229,255,0.1)', border: '1px solid rgba(0,229,255,0.25)', color: '#00E5FF' }}>
+                Available as an add-on to any Kootenay Made website
+              </span>
+              <h2 className="font-[family-name:var(--font-satoshi)] text-3xl sm:text-4xl md:text-5xl font-bold mb-5 leading-tight" style={{ color: '#C17817' }}>
+                Accept Crypto Payments.<br />No Tech Degree Required.
+              </h2>
+              <p className="text-slate-300 text-lg max-w-2xl mx-auto leading-relaxed">
+                Add{' '}
+                <a href="https://merchant.goblink.io" target="_blank" rel="noopener noreferrer" className="font-bold transition-colors" style={{ color: '#00E5FF' }}>
+                  goBlink
+                </a>{' '}
+                to your Kootenay Made website and start accepting cryptocurrency from customers worldwide — settled instantly to your wallet in stablecoins, ready to withdraw.
+              </p>
+            </div>
+          </ScrollReveal>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-14">
+            {[
+              {
+                icon: '⚡',
+                title: 'Instant Settlement',
+                desc: 'Payments convert and land in your wallet immediately. No waiting 3–5 business days. No middlemen.',
+              },
+              {
+                icon: '💸',
+                title: 'Fees as Low as 0.05%',
+                desc: 'Compare that to the 2.9% + $0.30 you\'re paying on every credit card transaction. On a $1,000 sale, that\'s $29 saved — every single time.',
+              },
+              {
+                icon: '🔒',
+                title: 'Stablecoins = No Volatility',
+                desc: 'Your payments settle in USD-pegged stablecoins. You get the benefits of crypto without the price swings. Withdraw to your bank anytime.',
+              },
+            ].map((item, i) => (
+              <ScrollReveal key={item.title} delay={i * 0.08}>
+                <motion.div
+                  whileHover={{ y: -4, borderColor: 'rgba(0,229,255,0.35)' }}
+                  transition={{ duration: 0.2 }}
+                  className="rounded-2xl p-6 flex flex-col gap-4 h-full transition-all duration-300"
+                  style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(0,229,255,0.15)' }}
+                >
+                  <span className="text-3xl">{item.icon}</span>
+                  <h3 className="font-[family-name:var(--font-satoshi)] font-bold text-white text-lg leading-snug">{item.title}</h3>
+                  <p className="text-slate-400 text-sm leading-relaxed">{item.desc}</p>
+                </motion.div>
+              </ScrollReveal>
+            ))}
+          </div>
+
+          <ScrollReveal delay={0.2}>
+            <div className="rounded-2xl p-8 sm:p-10 text-center" style={{ background: 'rgba(0,229,255,0.05)', border: '1px solid rgba(0,229,255,0.15)' }}>
+              <p className="text-slate-300 text-lg max-w-2xl mx-auto leading-relaxed mb-8">
+                Most business owners think crypto is complicated. It&apos;s not — not anymore. goBlink is built for real businesses, not crypto nerds. Your customers pay however they want. You receive stable, real money. Instantly.
+              </p>
+              <a
+                href="https://merchant.goblink.io"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 font-bold px-8 py-4 rounded-xl transition-all duration-200 hover:scale-[1.03] active:scale-[0.98] text-base"
+                style={{ background: 'rgba(0,229,255,0.15)', border: '1px solid rgba(0,229,255,0.4)', color: '#00E5FF' }}
+              >
+                Learn More About goBlink →
+              </a>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      <RiverWave fillColor="#1A1D20" bgColor="#0B1A2E" />
 
       {/* 5. Comparison Table */}
       <section className="bg-slate grain py-20 sm:py-24 relative">
