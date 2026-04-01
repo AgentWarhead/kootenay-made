@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { ArrowRight, Check, Code, DollarSign, Zap, GraduationCap, Bot, Handshake } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useRef, useState } from 'react';
 import ScrollReveal from '@/components/ScrollReveal';
 import Breadcrumb from '@/components/Breadcrumb';
@@ -14,118 +14,318 @@ import PretextExplainer from '@/components/PretextExplainer';
 import FrostMeltOverlay from '@/components/FrostMeltOverlay';
 import FrostCursorTrail from '@/components/FrostCursorTrail';
 
-/* ── Data ── */
+/* ── Category Data ── */
+const categories = [
+  {
+    id: 'all',
+    emoji: '✨',
+    label: 'Show All',
+    desc: 'Browse everything we offer',
+  },
+  {
+    id: 'websites',
+    emoji: '🌐',
+    label: 'Get Online',
+    desc: 'A website that works as hard as you do',
+  },
+  {
+    id: 'ecommerce',
+    emoji: '🛒',
+    label: 'Sell Online',
+    desc: 'Turn your products into online sales',
+  },
+  {
+    id: 'ai',
+    emoji: '🤖',
+    label: 'Work Smarter',
+    desc: 'AI tools built for your actual workflow',
+  },
+  {
+    id: 'gobig',
+    emoji: '🏰',
+    label: 'Go Big',
+    desc: 'Full transformation, nothing held back',
+  },
+];
+
+/* ── Package Data ── */
 const packages = [
   {
     id: 'audit',
+    category: 'websites',
     emoji: '🆓',
     name: 'The Audit',
     price: 'FREE',
     priceNote: null,
-    tagline: 'Every relationship starts here.',
-    description: '30-minute walkthrough of your current online presence with actionable recommendations. No sales pitch, no obligation.',
-    features: ['Full website + online presence review', 'Google presence check', 'SEO snapshot', 'Competitor quick-glance', 'AI readiness assessment', 'Branded PDF report with action plan'],
-    perfectFor: 'Any business curious about where they stand online.',
-    delivery: 'Report delivered within 48 hours',
+    monthlyHint: null,
+    tagline: 'Every great website starts with an honest look.',
+    description: 'We dig into your current online presence and tell you exactly what\'s working, what\'s broken, and what to fix first. No sales pitch. No fluff.',
+    featuresShort: [
+      'We check your whole online presence',
+      'See how you show up on Google',
+      'Quick look at what your competitors are doing',
+      'Plain-English report with a clear action plan',
+    ],
+    featuresFull: [
+      'Full website review',
+      'Google Business Profile check',
+      'SEO snapshot',
+      'Competitor quick-glance',
+      'AI readiness assessment',
+      'Branded PDF report with priorities',
+    ],
+    perfectFor: 'Any Kootenay business curious about where they stand online.',
+    delivery: 'Report in 48 hours',
     tier: 'free',
     popular: false,
   },
   {
     id: 'trailhead',
+    category: 'websites',
     emoji: '🌱',
     name: 'The Trailhead',
     price: '$1,500',
     priceNote: null,
+    monthlyHint: '~$125/mo over 12 months',
     tagline: 'Your first step online — done right.',
-    description: 'Single-page scrolling website, hand-coded from scratch.',
-    features: ['Custom single-page website', 'Google Business Profile setup', 'Basic local SEO', 'Contact form', 'Google Analytics', 'Content writing included', 'Mobile-optimized'],
-    perfectFor: 'New businesses, trades/contractors, anyone who needs to look professional online fast.',
-    delivery: '1-2 weeks',
+    description: 'We build you a clean, professional website. One page, beautifully done. You\'ll look established from day one.',
+    featuresShort: [
+      'Beautiful single-page website, built for you',
+      'Shows up when locals search for your service',
+      'Contact form so customers can reach you',
+      'Works perfectly on phones and tablets',
+      'We write all the words — you just review',
+    ],
+    featuresFull: [
+      'Custom single-page website (not a template)',
+      'Google Business Profile setup',
+      'Local SEO — we make Google love your site',
+      'Contact form',
+      'Google Analytics so you can see your visitors',
+      'Content writing included',
+      'Mobile-optimized',
+    ],
+    perfectFor: 'Plumbers, electricians, hair salons, contractors, anyone who needs to look professional online fast.',
+    delivery: '1–2 weeks',
     tier: 'starter',
     popular: false,
   },
   {
-    id: 'ai-advantage',
-    emoji: '🤖',
-    name: 'The AI Advantage',
-    price: '$2,000',
-    priceNote: 'Requires Claude subscription (~$23-$135 CAD/mo)',
-    tagline: 'Your business, supercharged with AI.',
-    description: "We learn your workflow, set up AI tools tailored to YOUR business, and train you to use them confidently.",
-    features: ['Claude Pro configured for your business', 'Co-Work workspace with your docs + processes', 'Custom AI workflows for your needs', 'Automation setup connecting your tools', 'Google Business tools optimization', 'Hands-on training session', 'Client dashboard access', '30 days follow-up support'],
-    perfectFor: "Any business owner who knows AI exists but doesn't know where to start.",
-    delivery: '1-2 sessions',
-    tier: 'ai',
-    popular: false,
-  },
-  {
     id: 'foundation',
+    category: 'websites',
     emoji: '🏔️',
     name: 'The Foundation',
     price: '$4,000',
     priceNote: null,
-    tagline: 'Everything a Kootenay business needs.',
-    description: 'The complete digital presence. Custom multi-page website with full SEO and Google setup.',
-    features: ['Custom multi-page website (up to 7 pages)', 'Full local SEO (schema, structured data, speed optimization)', 'Google Business Profile setup + optimization', 'Google Analytics + Search Console', 'Contact forms + CTAs', 'Content writing for all pages', 'Mobile-optimized'],
-    perfectFor: 'Restaurants, salons, professional services, tourism operators, established local businesses.',
-    delivery: '2-3 weeks',
+    monthlyHint: '~$333/mo over 12 months',
+    tagline: 'The complete digital home for your business.',
+    description: 'A full multi-page website that tells your whole story. Built to rank on Google and turn visitors into customers.',
+    featuresShort: [
+      'Up to 7 pages (Home, About, Services, Contact…)',
+      'We make Google love your site',
+      'Full Google setup — Maps, reviews, everything',
+      'We write all the content for every page',
+      'Looks stunning on every screen',
+    ],
+    featuresFull: [
+      'Custom multi-page website (up to 7 pages)',
+      'Full local SEO — Google-optimized throughout',
+      'Google Business Profile setup + optimization',
+      'Google Analytics + Search Console',
+      'Contact forms + clear calls-to-action',
+      'Content writing for all pages',
+      'Mobile-optimized',
+    ],
+    perfectFor: 'Restaurants, salons, professional services, tourism operators, retail shops, established Kootenay businesses.',
+    delivery: '2–3 weeks',
     tier: 'popular',
     popular: true,
   },
   {
-    id: 'storefront',
-    emoji: '🛒',
-    name: 'The Storefront',
-    price: '$4,500',
-    priceNote: 'Shopify subscription extra (~$50-$540 CAD/mo)',
-    tagline: 'A professional Shopify store built to sell.',
-    description: 'Premium Shopify theme customized to your brand with everything wired to start selling.',
-    features: ['Premium Shopify theme customized to your brand', 'Product catalog (up to 50 products)', 'Payment processing + shipping configured', 'Inventory management', 'Google Business Profile + local SEO', 'Email marketing (abandoned cart + welcome series)', 'Analytics + conversion tracking'],
-    perfectFor: 'Retail shops going online, product sellers who want professional without fully custom.',
-    delivery: '2-3 weeks',
-    tier: 'ecommerce',
-    popular: false,
-  },
-  {
     id: 'engine',
+    category: 'websites',
     emoji: '⚡',
     name: 'The Engine',
     price: '$6,000',
     priceNote: null,
-    tagline: 'For businesses ready to grow, not just exist.',
-    description: 'Everything in The Foundation, plus email marketing, social media, and AI — the complete growth system.',
-    features: ['Everything in The Foundation', 'Email marketing setup (welcome + automation)', 'Social media creation + branding (2 platforms)', 'AI business tools setup (Claude)', 'Hands-on AI training session', 'Content strategy template'],
-    perfectFor: 'Businesses with competition, seasonal operators, anyone done relying solely on word-of-mouth.',
-    delivery: '3-4 weeks',
+    monthlyHint: '~$500/mo over 12 months',
+    tagline: 'Built to grow — not just exist.',
+    description: 'Everything in The Foundation, plus email marketing, social media branding, and AI tools to keep bringing customers back.',
+    featuresShort: [
+      'Everything in The Foundation',
+      'Email marketing set up and running',
+      'Social media accounts branded and ready',
+      'AI tools configured for your business',
+      'We train you on everything',
+    ],
+    featuresFull: [
+      'Everything in The Foundation',
+      'Email marketing setup (welcome series + automation)',
+      'Social media branding for 2 platforms',
+      'AI business tools setup (Claude)',
+      'Hands-on AI training session',
+      'Content strategy template',
+    ],
+    perfectFor: 'Businesses with real competition, seasonal operators, anyone done relying solely on word-of-mouth.',
+    delivery: '3–4 weeks',
     tier: 'growth',
     popular: false,
     savings: { separate: '$8,000', save: '$2,000' },
   },
   {
+    id: 'storefront',
+    category: 'ecommerce',
+    emoji: '🛒',
+    name: 'The Storefront',
+    price: '$4,500',
+    priceNote: 'Shopify subscription: ~$50–$75 CAD/mo',
+    monthlyHint: '~$375/mo over 12 months',
+    tagline: 'A professional online store, ready to sell.',
+    description: 'We set up your Shopify store from scratch — branded, polished, and wired to take payments. You focus on products; we handle everything else.',
+    featuresShort: [
+      'Your Shopify store, fully set up and branded',
+      'Up to 50 products loaded and ready',
+      'Payments, shipping, and taxes all configured',
+      'Email follow-ups to recover abandoned carts',
+      'Shows up on Google',
+    ],
+    featuresFull: [
+      'Premium Shopify theme customized to your brand',
+      'Product catalog (up to 50 products)',
+      'Payment processing + shipping configured',
+      'Inventory management',
+      'Google Business Profile + local SEO',
+      'Email marketing (abandoned cart + welcome series)',
+      'Analytics + conversion tracking',
+    ],
+    perfectFor: 'Retail shops going online, artisans, gift shops, anyone selling physical products.',
+    delivery: '2–3 weeks',
+    tier: 'ecommerce',
+    popular: false,
+  },
+  {
     id: 'masterpiece',
+    category: 'ecommerce',
     emoji: '🎨',
     name: 'The Masterpiece',
     price: '$8,500',
-    priceNote: 'Shopify subscription extra',
-    tagline: "Your store, nobody else's.",
-    description: '100% custom-coded Shopify theme designed from zero. Unique design matching your brand exactly.',
-    features: ['100% custom Shopify theme from scratch', 'Unique design matching your brand', 'Custom product + collection layouts', 'Advanced features (filtering, quick view, size guides)', 'Up to 100 products', 'Payment, shipping, inventory', 'Google Business Profile + local SEO', 'Email marketing (abandoned cart + welcome + post-purchase)', 'Analytics + conversion tracking'],
-    perfectFor: 'Brands that want to stand out, established businesses upgrading.',
-    delivery: '4-6 weeks',
+    priceNote: 'Shopify subscription: ~$50–$75 CAD/mo',
+    monthlyHint: '~$708/mo over 12 months',
+    tagline: "Your store, designed from the ground up.",
+    description: 'A 100% custom Shopify store — no themes, no compromises. Built to look exactly like your brand and sell like crazy.',
+    featuresShort: [
+      'Fully custom design (not a template)',
+      'Up to 100 products',
+      'Advanced features: filters, quick view, size guides',
+      'Complete email marketing system',
+      'Full analytics to track what\'s working',
+    ],
+    featuresFull: [
+      '100% custom Shopify theme from scratch',
+      'Unique design matching your brand exactly',
+      'Custom product + collection layouts',
+      'Advanced features (filtering, quick view, size guides)',
+      'Up to 100 products',
+      'Payment, shipping, inventory fully configured',
+      'Google Business Profile + local SEO',
+      'Email marketing (abandoned cart + welcome + post-purchase)',
+      'Analytics + conversion tracking',
+    ],
+    perfectFor: 'Established brands that want to stand out, businesses upgrading from a basic store.',
+    delivery: '4–6 weeks',
     tier: 'premium',
     popular: false,
   },
   {
+    id: 'pod',
+    category: 'ecommerce',
+    emoji: '🖨️',
+    name: 'Print-on-Demand Setup',
+    price: '$500',
+    priceNote: 'Add-on with Storefront or Masterpiece',
+    monthlyHint: null,
+    tagline: 'Sell merch. Zero inventory. Pure profit.',
+    description: 'We connect your Shopify store to print-on-demand so your designs appear on t-shirts, mugs, totes, and more. Customer orders, it ships, you collect the margin.',
+    featuresShort: [
+      'Printify connected to your Shopify store',
+      'Up to 10 products with your designs applied',
+      'Shipping and fulfillment fully configured',
+      'We check your profit margins (so you actually make money)',
+    ],
+    featuresFull: [
+      'Printify account setup + Shopify integration',
+      'Up to 10 products with your designs applied',
+      'Shipping + fulfillment configured',
+      'Profit margins reviewed',
+      'AI-generated product mockups available',
+      'Guidance on your first product line',
+    ],
+    perfectFor: 'Any business wanting to sell branded merchandise without holding inventory.',
+    delivery: '3–5 days (add-on)',
+    tier: 'addon',
+    popular: false,
+  },
+  {
+    id: 'ai-advantage',
+    category: 'ai',
+    emoji: '🤖',
+    name: 'The AI Advantage',
+    price: '$2,000',
+    priceNote: 'Claude subscription: ~$23–$135 CAD/mo',
+    monthlyHint: '~$167/mo over 12 months',
+    tagline: 'AI that actually works for your business.',
+    description: 'We learn how your business runs, set up AI tools built for your specific workflow, and teach you to use them confidently. No tech degree required.',
+    featuresShort: [
+      'AI set up and trained on your business',
+      'Custom automations for your most repetitive tasks',
+      'Hands-on training — you leave knowing how to use it',
+      '30 days of follow-up support',
+    ],
+    featuresFull: [
+      'Claude Pro configured for your business',
+      'Co-Work workspace with your docs + processes',
+      'Custom AI workflows for your needs',
+      'Automation setup connecting your tools',
+      'Google Business tools optimization',
+      'Hands-on training session',
+      'Client dashboard access',
+      '30 days follow-up support',
+    ],
+    perfectFor: 'Business owners who keep hearing about AI but don\'t know where to start.',
+    delivery: '1–2 sessions',
+    tier: 'ai',
+    popular: false,
+  },
+  {
     id: 'empire',
+    category: 'gobig',
     emoji: '🏰',
     name: 'The Empire',
-    price: '$15,000',
-    priceNote: 'Starting at',
-    tagline: 'Full transformation for complex businesses.',
-    description: 'Everything in The Engine, plus full brand identity, multi-location support, and premium everything.',
-    features: ['Everything in The Engine', 'Full brand identity (logo, colours, typography, guidelines)', 'Multi-location support + local SEO per location', 'Custom AI workflows', 'Advanced email segmentation', 'Social media branding kit', 'Business cards + print collateral', 'Priority support for 90 days', 'Launch campaign'],
-    perfectFor: 'Multi-location businesses, franchise operations, major rebrands.',
-    delivery: '4-8 weeks',
+    price: '$15,000+',
+    priceNote: 'Starting at — scope determines final price',
+    monthlyHint: '~$1,250/mo over 12 months',
+    tagline: 'The full transformation. Everything, done right.',
+    description: 'When you\'re ready to go all-in. Custom website, full brand identity, AI integration, email marketing, social media, and a launch campaign. Nothing left on the table.',
+    featuresShort: [
+      'Everything in The Engine',
+      'Full brand identity (logo, colors, guidelines)',
+      'Multi-location support if you need it',
+      'Custom AI workflows for your team',
+      '90 days priority support after launch',
+    ],
+    featuresFull: [
+      'Everything in The Engine',
+      'Full brand identity (logo, colours, typography, guidelines)',
+      'Multi-location support + local SEO per location',
+      'Custom AI workflows',
+      'Advanced email segmentation',
+      'Social media branding kit',
+      'Business cards + print collateral',
+      'Priority support for 90 days',
+      'Launch campaign',
+    ],
+    perfectFor: 'Multi-location businesses, franchise operations, major rebrands, businesses ready to dominate their market.',
+    delivery: '4–8 weeks',
     tier: 'enterprise',
     popular: false,
   },
@@ -137,28 +337,66 @@ const retainers = [
     price: '$150',
     period: '/mo',
     tagline: 'Keep it running. Keep it safe.',
-    features: ['Monthly security + software updates', '1 content/design update per month', 'Analytics snapshot', 'Client dashboard access', 'Email support (48-hour response)'],
-    pairedWith: 'Paired with Trailhead clients',
+    features: [
+      'Monthly security + software updates',
+      'One content or design change per month',
+      'Analytics snapshot so you know how you\'re doing',
+      'Client dashboard access',
+      'Email support (we respond within 48 hours)',
+    ],
+    pairedWith: 'Great fit for Trailhead clients',
     popular: false,
   },
   {
     name: 'Growth',
     price: '$350',
     period: '/mo',
-    tagline: 'Keep it growing. Keep it ahead.',
-    features: ['Everything in Essentials', 'Unlimited minor updates (same-day)', 'SEO improvements + content suggestions', 'Monthly analytics review + report', 'Priority support (24-hour response)', '24/7 AI emergency support (coming soon)', 'Quarterly strategy call'],
-    pairedWith: 'Paired with Foundation and above',
+    tagline: 'Keep growing. Keep ahead.',
+    features: [
+      'Everything in Essentials',
+      'Unlimited small updates (most done same day)',
+      'SEO improvements month over month',
+      'Monthly analytics review + plain-English report',
+      'Priority support (we respond within 24 hours)',
+      'Help when you need it — AI emergency support (coming soon)',
+      'Quarterly strategy call',
+    ],
+    pairedWith: 'Perfect for Foundation and above',
     popular: true,
   },
 ];
 
 const universalFeatures = [
-  { icon: Code, title: 'Hand-Coded, Not Templated', desc: 'Every site is built from scratch with the latest technology. No WordPress. No Wix. No shortcuts. Clean, fast code that you own completely.' },
-  { icon: DollarSign, title: 'Flat-Rate Pricing, Zero Surprises', desc: 'The price you see is the price you pay. No hidden fees, no scope creep charges. Everything is included.' },
-  { icon: Zap, title: 'Same-Day Updates', desc: "Need something changed? Most updates are live within hours, not weeks. Your business moves fast — your website should too." },
-  { icon: GraduationCap, title: 'Client Dashboard & Training', desc: 'Every client gets access to our private dashboard with training, AI tools, troubleshooting guides, and resources to grow with technology.' },
-  { icon: Bot, title: '24/7 AI Support (Coming Soon)', desc: "Something break at midnight? Our AI support system handles emergencies around the clock so you're never stuck waiting." },
-  { icon: Handshake, title: 'Full Handoff, No Lock-In', desc: "When your site is done, it's yours. Full access, full ownership, full training. We earn your business by being worth coming back to." },
+  {
+    icon: Code,
+    title: 'Built From Scratch, Just For You',
+    desc: 'No cookie-cutter templates. No WordPress. No Wix. Your site is as unique as your business — clean code that\'s fast, yours, and built to last.',
+  },
+  {
+    icon: DollarSign,
+    title: 'The Price You See Is The Price You Pay',
+    desc: "No hidden fees, no 'oh by the way' invoices. Everything is included upfront. No surprises at the end.",
+  },
+  {
+    icon: Zap,
+    title: 'Need Something Changed? Done Today.',
+    desc: "Most updates go live within hours. Your business doesn't wait — your website shouldn't either.",
+  },
+  {
+    icon: GraduationCap,
+    title: 'We Teach You Everything',
+    desc: "Video tutorials, written guides, and a private dashboard so you're never stuck wondering how something works.",
+  },
+  {
+    icon: Bot,
+    title: 'Help When You Need It',
+    desc: 'Something break at midnight? Our AI support handles emergencies around the clock. (Coming soon)',
+  },
+  {
+    icon: Handshake,
+    title: "It's Yours. Period.",
+    desc: "When it's done, you own everything — the code, the domain, the content. No hostage situations. We earn your business by being worth coming back to.",
+  },
 ];
 
 const comparisonRows = [
@@ -258,24 +496,32 @@ function ROICalculator() {
 
 /* ── Package Card ── */
 function PackageCard({ pkg, index }: { pkg: typeof packages[number]; index: number }) {
-  const isStartingAt = pkg.priceNote === 'Starting at';
+  const [expanded, setExpanded] = useState(false);
+  const isStartingAt = pkg.price.includes('+');
   const hasSavings = 'savings' in pkg && pkg.savings;
 
   return (
     <ScrollReveal delay={index * 0.05}>
       <motion.div
-        whileHover={{ y: -4 }}
+        whileHover={{ y: -5, boxShadow: '0 20px 60px rgba(193,120,23,0.12)' }}
         transition={{ duration: 0.2 }}
-        className={`relative rounded-2xl border flex flex-col h-full transition-shadow duration-300 hover:shadow-xl hover:shadow-copper/10 ${
+        className={`relative rounded-2xl border flex flex-col h-full transition-all duration-300 ${
           pkg.popular
             ? 'border-copper/50 bg-white shadow-lg shadow-copper/15'
-            : 'border-cream-border bg-white'
+            : 'border-cream-border bg-white hover:border-copper/25'
         }`}
       >
         {pkg.popular && (
           <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-10">
             <span className="bg-copper text-white text-xs font-bold uppercase tracking-wider px-4 py-1.5 rounded-full shadow-md whitespace-nowrap">
               Most Popular
+            </span>
+          </div>
+        )}
+        {pkg.tier === 'addon' && (
+          <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-10">
+            <span className="bg-forest text-white text-xs font-bold uppercase tracking-wider px-4 py-1.5 rounded-full shadow-md whitespace-nowrap">
+              Add-On
             </span>
           </div>
         )}
@@ -287,7 +533,7 @@ function PackageCard({ pkg, index }: { pkg: typeof packages[number]; index: numb
           </div>
 
           <div className="mb-4">
-            {pkg.priceNote && !isStartingAt && (
+            {pkg.priceNote && (
               <p className="text-xs text-text-secondary mb-1">{pkg.priceNote}</p>
             )}
             {isStartingAt && (
@@ -296,19 +542,59 @@ function PackageCard({ pkg, index }: { pkg: typeof packages[number]; index: numb
             <p className={`font-[family-name:var(--font-satoshi)] font-bold ${pkg.price === 'FREE' ? 'text-4xl text-forest' : 'text-3xl text-slate'}`}>
               {pkg.price}
             </p>
+            {pkg.monthlyHint && (
+              <p className="text-xs text-copper/70 mt-1 font-medium">{pkg.monthlyHint}</p>
+            )}
           </div>
 
           <p className="text-copper italic text-sm mb-3" style={{ fontFamily: 'Georgia, serif' }}>{pkg.tagline}</p>
           <p className="text-text-secondary text-sm leading-relaxed mb-5">{pkg.description}</p>
 
-          <ul className="space-y-2 mb-5 flex-1">
-            {pkg.features.map((f) => (
+          {/* Short features always visible */}
+          <ul className="space-y-2 mb-4 flex-1">
+            {pkg.featuresShort.map((f) => (
               <li key={f} className="flex items-start gap-2 text-sm">
                 <Check size={14} className="text-forest mt-0.5 shrink-0" />
                 <span className="text-text-secondary">{f}</span>
               </li>
             ))}
           </ul>
+
+          {/* Expandable full features */}
+          <AnimatePresence>
+            {expanded && (
+              <motion.ul
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.3, ease: 'easeInOut' }}
+                className="space-y-2 mb-4 overflow-hidden"
+              >
+                {pkg.featuresFull.filter(f => !pkg.featuresShort.includes(f)).map((f) => (
+                  <li key={f} className="flex items-start gap-2 text-sm">
+                    <Check size={14} className="text-copper mt-0.5 shrink-0" />
+                    <span className="text-text-secondary">{f}</span>
+                  </li>
+                ))}
+              </motion.ul>
+            )}
+          </AnimatePresence>
+
+          {pkg.featuresFull.length > pkg.featuresShort.length && (
+            <button
+              onClick={() => setExpanded(!expanded)}
+              className="text-xs text-copper font-medium mb-4 text-left hover:text-copper/70 transition-colors flex items-center gap-1"
+            >
+              <motion.span
+                animate={{ rotate: expanded ? 90 : 0 }}
+                transition={{ duration: 0.2 }}
+                className="inline-block"
+              >
+                ▶
+              </motion.span>
+              {expanded ? 'Show less' : 'See all details'}
+            </button>
+          )}
 
           {hasSavings && (
             <div className="bg-green-50 border border-green-200 rounded-xl px-4 py-3 mb-5 text-sm">
@@ -319,7 +605,7 @@ function PackageCard({ pkg, index }: { pkg: typeof packages[number]; index: numb
             </div>
           )}
 
-          <p className="text-xs text-text-secondary italic mb-5 border-t border-cream-border pt-4">
+          <p className="text-xs text-text-secondary italic mb-3 border-t border-cream-border pt-4">
             <span className="font-semibold not-italic text-slate">Perfect for:</span> {pkg.perfectFor}
           </p>
           <p className="text-xs text-copper font-medium mb-5">⏱ {pkg.delivery}</p>
@@ -376,9 +662,13 @@ function HowItWorks() {
 
 /* ── Main Page ── */
 export default function ServicesPage() {
-  // suppress unused import warning — useRef is used in subcomponents pattern but keeping here for potential future use
   const _ref = useRef(null);
   void _ref;
+  const [activeCategory, setActiveCategory] = useState('all');
+
+  const filteredPackages = activeCategory === 'all'
+    ? packages
+    : packages.filter(p => p.category === activeCategory);
 
   return (
     <div className="overflow-x-hidden">
@@ -392,25 +682,98 @@ export default function ServicesPage() {
           <ScrollReveal>
             <p className="text-copper font-[family-name:var(--font-satoshi)] font-semibold text-sm tracking-[0.2em] uppercase mb-3">Our Services</p>
             <BalancedText as="h1" className="font-[family-name:var(--font-satoshi)] text-4xl sm:text-5xl md:text-6xl font-bold text-cream leading-tight max-w-3xl">
-              Built Different.<br />On Purpose.
+              Real websites.<br />Real results.<br />Real neighbours.
             </BalancedText>
             <p className="mt-6 text-dark-text-muted text-lg max-w-2xl leading-relaxed">
-              Hand-coded websites, AI integration, and honest marketing for Kootenay businesses. No templates. No surprises. No lock-in.
+              Hand-built websites, AI tools, and honest marketing for Kootenay businesses. No templates. No surprises. No lock-in. Just clear work from people who live here.
             </p>
           </ScrollReveal>
         </div>
       </section>
 
-      <RiverWave fillColor="#111827" bgColor="#1A1D20" />
+      <RiverWave fillColor="#7C4A10" bgColor="#1A1D20" />
 
-      {/* 2. What Every Package Includes */}
+      {/* 2. Kootenay Neighbours Rate — Hero Section */}
+      <section
+        className="relative overflow-hidden py-24 sm:py-32"
+        style={{
+          background: 'linear-gradient(160deg, #7C4A10 0%, #C17817 35%, #E8A020 60%, #D4821A 80%, #8B5E0A 100%)',
+        }}
+      >
+        {/* Sun rays */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          {[...Array(8)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute top-0 left-1/2 origin-top opacity-[0.08]"
+              style={{
+                width: '3px',
+                height: '120%',
+                background: 'linear-gradient(to bottom, #FFF8E1, transparent)',
+                transform: `translateX(-50%) rotate(${(i - 3.5) * 14}deg)`,
+              }}
+            />
+          ))}
+        </div>
+
+        {/* Pine treeline silhouette at bottom */}
+        <div className="absolute bottom-0 left-0 right-0 pointer-events-none" style={{ height: '80px' }}>
+          <svg viewBox="0 0 1440 80" preserveAspectRatio="none" className="w-full h-full" style={{ fill: 'rgba(45,106,79,0.35)' }}>
+            <path d="M0,80 L0,60 L30,30 L50,50 L70,20 L90,45 L110,10 L130,40 L150,15 L170,50 L190,25 L210,55 L230,20 L250,45 L270,10 L290,40 L310,5 L330,35 L350,15 L370,50 L390,20 L410,45 L430,10 L450,35 L470,5 L490,30 L510,55 L530,20 L550,45 L570,10 L590,40 L610,15 L630,50 L650,25 L670,55 L690,20 L710,45 L730,10 L750,40 L770,5 L790,35 L810,15 L830,50 L850,20 L870,45 L890,10 L910,35 L930,5 L950,30 L970,55 L990,20 L1010,45 L1030,10 L1050,40 L1070,15 L1090,50 L1110,25 L1130,55 L1150,20 L1170,45 L1190,10 L1210,40 L1230,5 L1250,35 L1270,15 L1290,50 L1310,20 L1330,45 L1350,10 L1370,35 L1390,15 L1410,50 L1440,30 L1440,80 Z" />
+          </svg>
+        </div>
+
+        {/* Mountain ridgeline */}
+        <div className="absolute bottom-12 left-0 right-0 pointer-events-none" style={{ height: '60px' }}>
+          <svg viewBox="0 0 1440 60" preserveAspectRatio="none" className="w-full h-full" style={{ fill: 'rgba(45,52,36,0.15)' }}>
+            <path d="M0,60 L0,45 L120,10 L240,35 L360,5 L480,30 L600,8 L720,28 L840,5 L960,25 L1080,8 L1200,32 L1320,10 L1440,40 L1440,60 Z" />
+          </svg>
+        </div>
+
+        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 text-center">
+          <ScrollReveal>
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.6, ease: 'easeOut' }}
+            >
+              <p className="text-amber-100/80 font-semibold text-sm tracking-[0.25em] uppercase mb-4">
+                🌲 For West Kootenay Businesses
+              </p>
+              <h2 className="font-[family-name:var(--font-satoshi)] text-5xl sm:text-6xl md:text-7xl font-bold text-white mb-6 leading-tight"
+                style={{ textShadow: '0 2px 20px rgba(0,0,0,0.25)' }}>
+                10% OFF<br />
+                <span className="text-amber-100">FOR NEIGHBOURS</span>
+              </h2>
+              <p className="text-amber-100/90 text-xl sm:text-2xl font-medium mb-8 max-w-2xl mx-auto leading-relaxed"
+                style={{ textShadow: '0 1px 8px rgba(0,0,0,0.2)' }}>
+                We live here. We work here. Supporting this community is why we started.
+              </p>
+              <p className="text-amber-50/75 text-base max-w-xl mx-auto mb-10 leading-relaxed">
+                Your business is based in the West Kootenays — Trail, Castlegar, Nelson, Rossland, Nakusp, anywhere in the valley. That makes you a neighbour. And neighbours get the neighbour rate.
+              </p>
+              <Link
+                href="/contact"
+                className="inline-flex items-center gap-2 bg-white/20 hover:bg-white/30 backdrop-blur-sm border-2 border-white/50 text-white font-bold px-8 py-4 rounded-2xl transition-all duration-200 hover:scale-[1.03] text-base shadow-lg"
+              >
+                Claim Your Neighbour Rate <ArrowRight size={18} />
+              </Link>
+            </motion.div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      <RiverWave fillColor="#111827" bgColor="#8B5E0A" />
+
+      {/* 3. What Every Package Includes */}
       <section className="py-20 sm:py-24 grain relative" style={{ background: 'linear-gradient(180deg, #111827 0%, #1A1D20 100%)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
           <ScrollReveal>
-            <p className="text-copper font-medium text-sm tracking-wider uppercase mb-2">Every Package</p>
-            <h2 className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl font-bold text-cream mb-12 max-w-xl">
-              What every package includes — no asterisks.
+            <p className="text-copper font-medium text-sm tracking-wider uppercase mb-2">Our Promises</p>
+            <h2 className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl font-bold text-cream mb-3 max-w-xl">
+              What every package includes.
             </h2>
+            <p className="text-dark-text-muted mb-12 max-w-xl">No asterisks. No fine print. These come with everything we build.</p>
           </ScrollReveal>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -419,15 +782,15 @@ export default function ServicesPage() {
               return (
                 <ScrollReveal key={feat.title} delay={i * 0.07}>
                   <motion.div
-                    whileHover={{ y: -4 }}
+                    whileHover={{ y: -5, borderColor: 'rgba(193,120,23,0.4)' }}
                     transition={{ duration: 0.2 }}
-                    className="bg-slate/90 border border-white/8 rounded-2xl p-6 flex flex-col gap-4 h-full hover:shadow-lg hover:shadow-copper/10 hover:border-copper/30 transition-all duration-300"
+                    className="group bg-slate/90 border border-white/8 rounded-2xl p-6 flex flex-col gap-4 h-full hover:shadow-xl hover:shadow-copper/10 transition-all duration-300 cursor-default"
                   >
-                    <div className="w-10 h-10 rounded-xl bg-copper/15 flex items-center justify-center shrink-0">
-                      <Icon size={20} className="text-copper" />
+                    <div className="w-12 h-12 rounded-xl bg-copper/15 flex items-center justify-center shrink-0 group-hover:bg-copper/25 transition-colors duration-300">
+                      <Icon size={22} className="text-copper" />
                     </div>
                     <div>
-                      <h3 className="font-[family-name:var(--font-satoshi)] font-bold text-white mb-2">{feat.title}</h3>
+                      <h3 className="font-[family-name:var(--font-satoshi)] font-bold text-white mb-2 leading-snug">{feat.title}</h3>
                       <p className="text-dark-text-muted text-sm leading-relaxed">{feat.desc}</p>
                     </div>
                   </motion.div>
@@ -438,7 +801,7 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* 3. Industry Anchor Statement — dark bg for contrast */}
+      {/* Industry Anchor Statement */}
       <div style={{ background: '#1A1D20', borderTop: '1px solid rgba(193,120,23,0.2)', borderBottom: '1px solid rgba(193,120,23,0.2)' }} className="py-12 px-4 text-center">
         <p className="font-[family-name:var(--font-satoshi)] text-cream text-lg sm:text-2xl font-semibold max-w-3xl mx-auto leading-relaxed" style={{ textShadow: '0 1px 2px rgba(0,0,0,0.3)' }}>
           &ldquo;The average Canadian web agency charges $7,000–$30,000 for a custom website. We deliver the same quality — hand-coded, not templated — at a fraction of that.&rdquo;
@@ -448,44 +811,85 @@ export default function ServicesPage() {
 
       <RiverWave fillColor="#F5F0E8" bgColor="#1A1D20" />
 
-      {/* 4. How It Works */}
-      <HowItWorks />
-
-      <RiverWave fillColor="#0a1520" bgColor="#F5F0E8" />
-
-      {/* 5. Pretext Freeze & Thaw — preserved exactly */}
-      <section className="relative overflow-hidden border-t border-white/5" style={{ background: 'linear-gradient(180deg, #0a1520 0%, #1A1D20 50%, #0a1520 100%)' }}>
-        <FrostMeltOverlay />
-        <div className="absolute inset-0 grain" />
-        <div className="absolute inset-0 opacity-[0.03]" style={{
-          backgroundImage: `
-            radial-gradient(circle at 20% 30%, rgba(168,216,234,0.4) 0%, transparent 40%),
-            radial-gradient(circle at 80% 70%, rgba(168,216,234,0.3) 0%, transparent 40%),
-            radial-gradient(circle at 50% 10%, rgba(200,230,255,0.2) 0%, transparent 30%)
-          `
-        }} />
-        <div className="absolute inset-0" style={{
-          background: 'linear-gradient(90deg, rgba(168,216,234,0.08) 0%, transparent 20%, transparent 80%, rgba(168,216,234,0.08) 100%)'
-        }} />
-        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-16 py-16 sm:py-20">
+      {/* 4. Interactive Package Selector + Cards */}
+      <section className="bg-[#F5F0E8] cedar-texture py-20 sm:py-28 relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
           <ScrollReveal>
-            <div className="text-center mb-8">
-              <p className="text-ice-blue font-[family-name:var(--font-satoshi)] text-sm tracking-[0.15em] uppercase opacity-60">Interactive Demo</p>
+            <p className="text-copper font-medium text-sm tracking-wider uppercase mb-2">Our Packages</p>
+            <h2 className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl font-bold text-slate mb-4">Choose Your Path</h2>
+            <p className="text-text-secondary max-w-xl mb-10">
+              Every package is built for Kootenay businesses — flat pricing, full ownership, zero surprises.
+            </p>
+          </ScrollReveal>
+
+          {/* Category Selector */}
+          <ScrollReveal delay={0.05}>
+            <div className="flex flex-wrap gap-3 mb-12">
+              {categories.map((cat) => (
+                <motion.button
+                  key={cat.id}
+                  onClick={() => setActiveCategory(cat.id)}
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
+                  className={`relative flex items-center gap-2 px-5 py-3 rounded-2xl font-medium text-sm transition-all duration-200 border ${
+                    activeCategory === cat.id
+                      ? 'bg-slate text-cream border-slate shadow-lg shadow-slate/20'
+                      : 'bg-white text-slate border-cream-border hover:border-copper/30 hover:shadow-md'
+                  }`}
+                >
+                  <span>{cat.emoji}</span>
+                  <span>{cat.label}</span>
+                  {activeCategory === cat.id && (
+                    <motion.div
+                      layoutId="categoryActive"
+                      className="absolute inset-0 rounded-2xl bg-slate -z-10"
+                      transition={{ type: 'spring', stiffness: 400, damping: 35 }}
+                    />
+                  )}
+                </motion.button>
+              ))}
             </div>
           </ScrollReveal>
-          <PretextFreezeThaw />
-          <div className="text-center mt-6">
-            <p className="text-copper text-lg sm:text-xl font-bold font-[family-name:var(--font-satoshi)]" style={{ textShadow: '0 0 20px rgba(193,120,23,0.3)' }}>&quot;We turn cold websites into warm leads.&quot;</p>
-          </div>
-          <PretextExplainer
-            text="Each character knows its exact width and position. As your cursor approaches, they freeze in real-time — no pre-rendered animation, pure math. This kind of interactivity keeps visitors on your site 3x longer than a static page."
-          />
+
+          {/* Category description */}
+          <AnimatePresence mode="wait">
+            {activeCategory !== 'all' && (
+              <motion.div
+                key={activeCategory}
+                initial={{ opacity: 0, y: -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.2 }}
+                className="mb-8"
+              >
+                <p className="text-text-secondary text-base">
+                  {categories.find(c => c.id === activeCategory)?.desc}
+                </p>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* Package Cards */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeCategory}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 items-start"
+            >
+              {filteredPackages.map((pkg, i) => (
+                <PackageCard key={pkg.id} pkg={pkg} index={i} />
+              ))}
+            </motion.div>
+          </AnimatePresence>
         </div>
       </section>
 
-      <RiverWave fillColor="#1A1D20" bgColor="#0a1520" />
+      <RiverWave fillColor="#1A1D20" bgColor="#F5F0E8" />
 
-      {/* 6. Comparison Table */}
+      {/* 5. Comparison Table */}
       <section className="bg-slate grain py-20 sm:py-24 relative">
         <AmbientOrbs />
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -526,104 +930,66 @@ export default function ServicesPage() {
 
       <RiverWave fillColor="#F5F0E8" bgColor="#1A1D20" />
 
-      {/* 7. Package Cards */}
-      <section className="bg-[#F5F0E8] cedar-texture py-20 sm:py-28 relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
-          {/* Kootenay Neighbours Rate Banner */}
+      {/* 6. How It Works */}
+      <HowItWorks />
+
+      <RiverWave fillColor="#0a1520" bgColor="#F5F0E8" />
+
+      {/* 7. Pretext Freeze & Thaw — preserved exactly */}
+      <section className="relative overflow-hidden border-t border-white/5" style={{ background: 'linear-gradient(180deg, #0a1520 0%, #1A1D20 50%, #0a1520 100%)' }}>
+        <FrostMeltOverlay />
+        <div className="absolute inset-0 grain" />
+        <div className="absolute inset-0 opacity-[0.03]" style={{
+          backgroundImage: `
+            radial-gradient(circle at 20% 30%, rgba(168,216,234,0.4) 0%, transparent 40%),
+            radial-gradient(circle at 80% 70%, rgba(168,216,234,0.3) 0%, transparent 40%),
+            radial-gradient(circle at 50% 10%, rgba(200,230,255,0.2) 0%, transparent 30%)
+          `
+        }} />
+        <div className="absolute inset-0" style={{
+          background: 'linear-gradient(90deg, rgba(168,216,234,0.08) 0%, transparent 20%, transparent 80%, rgba(168,216,234,0.08) 100%)'
+        }} />
+        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-16 py-16 sm:py-20">
           <ScrollReveal>
-            <div className="mb-10 rounded-2xl border border-copper/30 bg-white/70 backdrop-blur-sm px-6 py-5 flex flex-col sm:flex-row items-start sm:items-center gap-4 shadow-sm">
-              <div className="text-3xl">🏔️</div>
-              <div className="flex-1">
-                <p className="font-[family-name:var(--font-satoshi)] font-bold text-slate text-base">Kootenay Neighbours Rate — 10% Off</p>
-                <p className="text-text-secondary text-sm mt-0.5">We live here. We work here. If your business is based in the West Kootenays, you get the neighbour rate — because building up this community is why we started.</p>
-              </div>
-              <div className="shrink-0 bg-copper/10 border border-copper/20 rounded-xl px-4 py-2 text-copper font-bold text-sm whitespace-nowrap">
-                Local? 10% off any package
-              </div>
+            <div className="text-center mb-8">
+              <p className="text-ice-blue font-[family-name:var(--font-satoshi)] text-sm tracking-[0.15em] uppercase opacity-60">Interactive Demo</p>
             </div>
           </ScrollReveal>
-
-          <ScrollReveal>
-            <p className="text-copper font-medium text-sm tracking-wider uppercase mb-2">Our Packages</p>
-            <h2 className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl font-bold text-slate mb-4">Choose Your Path</h2>
-            <p className="text-text-secondary max-w-xl mb-14">
-              Every package is built for Kootenay businesses — flat pricing, full ownership, zero surprises.
-            </p>
-          </ScrollReveal>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 items-start">
-            {packages.map((pkg, i) => (
-              <PackageCard key={pkg.id} pkg={pkg} index={i} />
-            ))}
+          <PretextFreezeThaw />
+          <div className="text-center mt-6">
+            <p className="text-copper text-lg sm:text-xl font-bold font-[family-name:var(--font-satoshi)]" style={{ textShadow: '0 0 20px rgba(193,120,23,0.3)' }}>&quot;We turn cold websites into warm leads.&quot;</p>
           </div>
+          <PretextExplainer
+            text="Each character knows its exact width and position. As your cursor approaches, they freeze in real-time — no pre-rendered animation, pure math. This kind of interactivity keeps visitors on your site 3x longer than a static page."
+          />
         </div>
       </section>
 
-      <RiverWave fillColor="#1A1D20" bgColor="#F5F0E8" />
+      <RiverWave fillColor="#F5F0E8" bgColor="#0a1520" />
 
-      {/* 8. Print-on-Demand Add-On */}
-      <section className="bg-slate grain py-16 sm:py-20 relative">
-        <AmbientOrbs />
-        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <ScrollReveal>
-            <div className="rounded-2xl border border-copper/20 bg-white/5 backdrop-blur-sm p-8 sm:p-10">
-              <div className="flex flex-col sm:flex-row items-start gap-6">
-                <div className="text-5xl">🖨️</div>
-                <div className="flex-1">
-                  <div className="flex flex-wrap items-center gap-3 mb-3">
-                    <p className="font-[family-name:var(--font-satoshi)] font-bold text-cream text-xl sm:text-2xl">Print-on-Demand Setup</p>
-                    <span className="bg-copper text-white text-xs font-bold px-3 py-1 rounded-full">Add-On · $500</span>
-                    <span className="bg-white/10 text-cream/60 text-xs font-medium px-3 py-1 rounded-full">With Storefront or Masterpiece</span>
-                  </div>
-                  <p className="text-dark-text-muted mb-6 text-base leading-relaxed">
-                    Turn your Shopify store into a product empire — no inventory, no upfront costs. Your designs on t-shirts, hoodies, mugs, totes, and more. Customer orders, it ships, you collect the margin.
-                  </p>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
-                    {[
-                      'Printify account setup + Shopify integration',
-                      'Up to 10 products with your designs applied',
-                      'Shipping + fulfillment configured',
-                      'Profit margins reviewed (so you\'re actually making money)',
-                      'AI-generated product mockups available',
-                      'Guidance on your first product line',
-                    ].map((f) => (
-                      <div key={f} className="flex items-start gap-2 text-sm text-dark-text-muted">
-                        <span className="text-green-400 mt-0.5 shrink-0">✓</span>
-                        <span>{f}</span>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="bg-copper/10 border border-copper/20 rounded-xl px-5 py-4 mb-6">
-                    <p className="text-copper text-sm font-medium">
-                      <span className="font-bold">We&apos;ve done this ourselves.</span>{' '}
-                      Lapphund Designs — our own Shopify + Printify store — is the largest Finnish Lapphund store in the world. We know exactly what works.
-                    </p>
-                  </div>
-                  <Link
-                    href="/contact"
-                    className="inline-flex items-center gap-2 bg-copper hover:bg-copper-light text-white font-medium px-6 py-3 rounded-xl transition-all duration-200 hover:scale-[1.02] text-sm"
-                  >
-                    Add this to my package <ArrowRight size={16} />
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </ScrollReveal>
-        </div>
-      </section>
-
-      <RiverWave fillColor="#F5F0E8" bgColor="#1A1D20" />
-
-      {/* 9. Retainer Cards */}
+      {/* 8. Retainers — Integrated Flow */}
       <section className="bg-[#F5F0E8] cedar-texture py-20 sm:py-24 relative">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Transition connector */}
+          <ScrollReveal>
+            <div className="text-center mb-12">
+              <div className="inline-flex flex-col items-center gap-3">
+                <div className="w-px h-10 bg-gradient-to-b from-transparent to-copper/40" />
+                <div className="w-10 h-10 rounded-full border-2 border-copper/30 flex items-center justify-center bg-white shadow-sm">
+                  <span className="text-copper text-xl">↓</span>
+                </div>
+                <p className="text-text-secondary text-sm font-medium italic">Your site is live. Now let&apos;s keep it growing.</p>
+              </div>
+            </div>
+          </ScrollReveal>
+
           <ScrollReveal>
             <p className="text-copper font-medium text-sm tracking-wider uppercase mb-2">Monthly Retainers</p>
             <h2 className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl font-bold text-slate mb-4">
               Ongoing support that grows with you.
             </h2>
             <p className="text-text-secondary mb-12 max-w-xl">
-              Your website is live. Now keep it growing. Our retainers handle everything so you can focus on running your business.
+              A website isn&apos;t a one-and-done thing. Our retainers keep your site safe, fresh, and growing — so you can focus on running your business.
             </p>
           </ScrollReveal>
 
@@ -631,12 +997,12 @@ export default function ServicesPage() {
             {retainers.map((r, i) => (
               <ScrollReveal key={r.name} delay={i * 0.1}>
                 <motion.div
-                  whileHover={{ y: -4 }}
+                  whileHover={{ y: -5, boxShadow: '0 20px 60px rgba(193,120,23,0.12)' }}
                   transition={{ duration: 0.2 }}
-                  className={`relative rounded-2xl border flex flex-col h-full p-7 ${
+                  className={`relative rounded-2xl border flex flex-col h-full p-7 transition-all duration-300 ${
                     r.popular
                       ? 'border-copper/50 bg-white shadow-lg shadow-copper/15'
-                      : 'border-cream-border bg-white'
+                      : 'border-cream-border bg-white hover:border-copper/25'
                   }`}
                 >
                   {r.popular && (
@@ -666,7 +1032,9 @@ export default function ServicesPage() {
                     ))}
                   </ul>
 
-                  <p className="text-xs text-text-secondary italic mb-5 border-t border-cream-border pt-4">{r.pairedWith}</p>
+                  <div className="mb-5 border-t border-cream-border pt-4">
+                    <p className="text-xs text-text-secondary italic">{r.pairedWith}</p>
+                  </div>
 
                   <Link
                     href="/contact"
@@ -687,7 +1055,7 @@ export default function ServicesPage() {
 
       <RiverWave fillColor="#1A1D20" bgColor="#F5F0E8" />
 
-      {/* 8. ROI Calculator */}
+      {/* 9. ROI Calculator */}
       <ROICalculator />
 
       <RiverWave fillColor="#F5F0E8" bgColor="#1A1D20" />
@@ -717,7 +1085,7 @@ export default function ServicesPage() {
 
       <RiverWave fillColor="#1A1D20" bgColor="#F5F0E8" />
 
-      {/* 10. Risk Reversal + CTA */}
+      {/* 11. Risk Reversal + CTA */}
       <section className="aurora-bg grain py-24 sm:py-32 relative">
         <AmbientOrbs />
         <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 text-center">
