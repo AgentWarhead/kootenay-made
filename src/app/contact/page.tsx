@@ -344,7 +344,7 @@ export default function ContactPage() {
                       </div>
 
                       {/* Row 3: Website */}
-                      <FloatingInput id="website" name="Current Website (yoursite.com or 'none')" />
+                      <FloatingInput id="website" name="Current Website" />
 
                       {/* Row 4: Interest */}
                       <FloatingSelect
