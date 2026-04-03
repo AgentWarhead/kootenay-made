@@ -23,6 +23,8 @@ import {
   FileCheck,
   ClipboardList,
   ArrowDown,
+  Gauge,
+  Eye,
 } from 'lucide-react';
 
 /* ─────────────────────────────────────────────
@@ -114,31 +116,62 @@ function scoreLabel(score: number): string {
    CIRCULAR SCORE RING
 ───────────────────────────────────────────── */
 
-function ScoreRing({ score, label, delay = 0 }: { score: number; label: string; delay?: number }) {
-  const radius = 36;
+function ScoreRing({
+  score,
+  label,
+  description,
+  icon: Icon,
+  tip,
+  delay = 0,
+}: {
+  score: number;
+  label: string;
+  description: string;
+  icon: React.ElementType;
+  tip: string;
+  delay?: number;
+}) {
+  const [hovered, setHovered] = useState(false);
+  const radius = 32;
   const circumference = 2 * Math.PI * radius;
   const color = scoreColor(score);
   const progress = (score / 100) * circumference;
 
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.8 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ delay, duration: 0.5, type: 'spring', stiffness: 200, damping: 20 }}
-      className="flex flex-col items-center gap-2"
+      initial={{ opacity: 0, y: 30, scale: 0.85 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ delay, duration: 0.6, type: 'spring', stiffness: 180, damping: 18 }}
+      className="relative flex flex-col items-center gap-3 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm p-4 cursor-default"
+      style={{
+        boxShadow: hovered ? `0 0 20px 2px ${color}33` : 'none',
+        transform: hovered ? 'scale(1.04)' : 'scale(1)',
+        transition: 'box-shadow 0.25s ease, transform 0.25s ease',
+      }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      onTouchStart={() => setHovered(true)}
+      onTouchEnd={() => setHovered(false)}
     >
-      <div className="relative w-24 h-24">
-        <svg className="w-24 h-24 -rotate-90" viewBox="0 0 96 96">
-          {/* Track */}
-          <circle cx="48" cy="48" r={radius} fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="8" />
-          {/* Progress ring */}
+      {/* Icon */}
+      <div
+        className="w-8 h-8 rounded-xl flex items-center justify-center"
+        style={{ background: `${color}22` }}
+      >
+        <Icon size={16} style={{ color }} />
+      </div>
+
+      {/* Ring */}
+      <div className="relative w-20 h-20">
+        <svg className="w-20 h-20 -rotate-90" viewBox="0 0 80 80">
+          <circle cx="40" cy="40" r={radius} fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="7" />
           <motion.circle
-            cx="48"
-            cy="48"
+            cx="40"
+            cy="40"
             r={radius}
             fill="none"
             stroke={color}
-            strokeWidth="8"
+            strokeWidth="7"
             strokeLinecap="round"
             strokeDasharray={circumference}
             initial={{ strokeDashoffset: circumference }}
@@ -146,21 +179,47 @@ function ScoreRing({ score, label, delay = 0 }: { score: number; label: string; 
             transition={{ delay: delay + 0.2, duration: 1.2, ease: 'easeOut' }}
           />
         </svg>
-        {/* Score number */}
         <div className="absolute inset-0 flex items-center justify-center">
           <motion.span
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: delay + 0.6 }}
-            className="font-[family-name:var(--font-satoshi)] text-2xl font-bold"
+            className="font-[family-name:var(--font-satoshi)] text-xl font-bold"
             style={{ color }}
           >
             {score}
           </motion.span>
         </div>
       </div>
-      <p className="text-cream text-xs font-semibold text-center">{label}</p>
-      <p className="text-dark-text-muted text-[10px] text-center">{scoreLabel(score)}</p>
+
+      {/* Label + score descriptor */}
+      <div className="text-center">
+        <p className="text-cream text-xs font-semibold">{label}</p>
+        <p className="text-dark-text-muted text-[10px] mt-0.5">{scoreLabel(score)}</p>
+      </div>
+
+      {/* Description */}
+      <p className="text-dark-text-muted text-[9px] text-center leading-relaxed px-1">{description}</p>
+
+      {/* Tooltip on hover */}
+      <AnimatePresence>
+        {hovered && (
+          <motion.div
+            initial={{ opacity: 0, y: 6, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 6, scale: 0.95 }}
+            transition={{ duration: 0.18 }}
+            className="absolute -top-10 left-1/2 -translate-x-1/2 z-20 whitespace-nowrap rounded-lg px-3 py-1.5 text-[10px] font-medium text-white shadow-lg pointer-events-none"
+            style={{ background: `${color}dd` }}
+          >
+            {tip}
+            <div
+              className="absolute top-full left-1/2 -translate-x-1/2 w-0 h-0"
+              style={{ borderLeft: '5px solid transparent', borderRight: '5px solid transparent', borderTop: `5px solid ${color}dd` }}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 }
@@ -210,11 +269,61 @@ function URLScanner({ onScrollToForm }: { onScrollToForm: () => void }) {
     }
   }, [url]);
 
-  const scoreItems: { key: keyof ScanScores; label: string }[] = [
-    { key: 'performance', label: '⚡ Performance' },
-    { key: 'accessibility', label: '♿ Accessibility' },
-    { key: 'seo', label: '🔍 SEO' },
-    { key: 'bestPractices', label: '✅ Best Practices' },
+  const scoreItems: {
+    key: keyof ScanScores;
+    label: string;
+    description: string;
+    icon: React.ElementType;
+    tip: (score: number) => string;
+  }[] = [
+    {
+      key: 'performance',
+      label: 'Speed',
+      description: 'How fast your site loads for visitors',
+      icon: Gauge,
+      tip: (s) =>
+        s >= 90
+          ? 'Lightning fast — your visitors will love this'
+          : s >= 50
+          ? 'Good, but faster sites convert better'
+          : 'Slow sites lose 53% of visitors',
+    },
+    {
+      key: 'accessibility',
+      label: 'Accessibility',
+      description: 'Can everyone use your site easily?',
+      icon: Eye,
+      tip: (s) =>
+        s >= 90
+          ? 'Excellent — your site works for everyone'
+          : s >= 50
+          ? 'Some accessibility gaps to address'
+          : "Many visitors can't use your site properly",
+    },
+    {
+      key: 'seo',
+      label: 'Google-Ready',
+      description: 'How visible you are in search results',
+      icon: Search,
+      tip: (s) =>
+        s >= 90
+          ? 'Well optimized — Google likes what it sees'
+          : s >= 50
+          ? 'Some SEO basics missing — easy wins available'
+          : "Google can barely see you right now",
+    },
+    {
+      key: 'bestPractices',
+      label: 'Best Practices',
+      description: 'Security, image formats & modern standards',
+      icon: ShieldCheck,
+      tip: (s) =>
+        s >= 90
+          ? 'Following modern web standards nicely'
+          : s >= 50
+          ? 'A few modern standards to adopt'
+          : 'Outdated practices hurting your site',
+    },
   ];
 
   return (
@@ -292,27 +401,37 @@ function URLScanner({ onScrollToForm }: { onScrollToForm: () => void }) {
                   </p>
                 )}
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
-                  {scoreItems.map(({ key, label }, i) => (
-                    <ScoreRing key={key} score={scores[key]} label={label} delay={i * 0.1} />
+                  {scoreItems.map(({ key, label, description, icon, tip }, i) => (
+                    <ScoreRing
+                      key={key}
+                      score={scores[key]}
+                      label={label}
+                      description={description}
+                      icon={icon}
+                      tip={tip(scores[key])}
+                      delay={i * 0.15}
+                    />
                   ))}
                 </div>
 
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  transition={{ delay: 0.8 }}
+                  transition={{ delay: 0.9 }}
                   className="border-t border-white/10 pt-6"
                 >
                   <p className="text-dark-text-muted text-sm text-center mb-4 leading-relaxed">
                     This is just the surface. Your full audit covers design quality, competitor analysis, local SEO, trust signals, and a prioritized action plan —{' '}
                     <span className="text-cream font-semibold">completely free.</span>
                   </p>
-                  <button
+                  <motion.button
                     onClick={onScrollToForm}
-                    className="w-full bg-copper hover:bg-copper-light text-white font-semibold px-6 py-3.5 rounded-lg transition-all duration-200 hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2"
+                    animate={{ boxShadow: ['0 0 0px 0px #C1781700', '0 0 18px 4px #C1781755', '0 0 0px 0px #C1781700'] }}
+                    transition={{ repeat: Infinity, duration: 2.4, ease: 'easeInOut', delay: 1.2 }}
+                    className="w-full bg-copper hover:bg-copper-light text-white font-semibold px-6 py-3.5 rounded-lg transition-colors duration-200 hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2"
                   >
                     Get My Full Audit <ArrowDown size={16} />
-                  </button>
+                  </motion.button>
                 </motion.div>
               </motion.div>
             )}
@@ -392,7 +511,6 @@ function AuditTierSection() {
               <h3 className="font-[family-name:var(--font-satoshi)] text-lg font-bold text-slate mb-1">Branded PDF Report</h3>
               <p className="text-text-secondary text-sm leading-relaxed">
                 All 9 areas scored, a prioritized &ldquo;fix this first&rdquo; action plan, and explained in plain English — no jargon.
-                Plus access to the <span className="text-forest font-semibold">Neighbours Dashboard</span> (tutorials &amp; guides).
               </p>
             </div>
           </div>
