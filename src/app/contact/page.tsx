@@ -266,6 +266,10 @@ export default function ContactPage() {
       const json = await res.json();
       if (!res.ok) throw new Error(json.error || 'Something went wrong');
       setStatus('success');
+      // Scroll success message into view on mobile
+      setTimeout(() => {
+        formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
     } catch (err: unknown) {
       setErrorMsg(err instanceof Error ? err.message : 'Something went wrong. Please try again.');
       setStatus('error');
