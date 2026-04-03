@@ -29,7 +29,9 @@ export async function POST(request: NextRequest) {
     }
 
     const encodedUrl = encodeURIComponent(parsedUrl.href);
-    const apiUrl = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodedUrl}&strategy=mobile&category=performance&category=accessibility&category=seo&category=best-practices`;
+    const apiKey = process.env.PAGESPEED_API_KEY;
+    const keyParam = apiKey ? `&key=${apiKey}` : '';
+    const apiUrl = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodedUrl}&strategy=mobile&category=performance&category=accessibility&category=seo&category=best-practices${keyParam}`;
 
     // 30-second timeout
     const controller = new AbortController();
