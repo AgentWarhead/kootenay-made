@@ -1489,7 +1489,7 @@ const dashboardFeatures: Array<{ emoji: string; title: string; desc: string; isE
   { emoji: '🎮', title: 'One More Thing...', desc: 'We hid something fun in the footer. Think you can find it?', isEasterEgg: true },
 ];
 
-const CARD_THRESHOLDS = [0.12, 0.25, 0.38, 0.54, 0.68, 0.82, 0.90];
+const CARD_THRESHOLDS = [0.05, 0.12, 0.19, 0.26, 0.33, 0.40, 0.47];
 
 function TrailCard({ feat, index, isActive, reducedMotion }: {
   feat: typeof dashboardFeatures[number];
@@ -1594,26 +1594,26 @@ function TrailSVG({ progress }: { progress: number }) {
       <path
         d={PATH_D}
         fill="none"
-        stroke="rgba(193,120,23,0.15)"
-        strokeWidth="2"
-        strokeDasharray="8 6"
+        stroke="rgba(193,120,23,0.3)"
+        strokeWidth="3"
+        strokeDasharray="10 8"
       />
       <path
         ref={pathRef}
         d={PATH_D}
         fill="none"
-        stroke="rgba(193,120,23,0.6)"
-        strokeWidth="2.5"
+        stroke="rgba(193,120,23,0.85)"
+        strokeWidth="3.5"
         strokeDasharray={pathLength}
         strokeDashoffset={dashOffset}
         strokeLinecap="round"
       />
       {pathLength > 0 && (
         <g transform={`translate(${dotPos.x}, ${dotPos.y})`} style={{ willChange: 'transform' }}>
-          <circle r="16" fill="rgba(193,120,23,0.25)" />
-          <circle r="10" fill="rgba(193,120,23,0.35)" />
-          <circle r="5" fill="#C17817" />
-          <circle r="3" fill="#E8A020" />
+          <circle r="24" fill="rgba(193,120,23,0.15)" />
+          <circle r="14" fill="rgba(193,120,23,0.3)" />
+          <circle r="7" fill="#C17817" />
+          <circle r="4" fill="#E8A020" />
         </g>
       )}
     </svg>
@@ -1626,7 +1626,7 @@ function NeighboursDashboard() {
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ['start end', 'end start'],
+    offset: ['start 0.75', 'end 0.25'],
   });
 
   const [progress, setProgress] = useState(0);
