@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { ArrowRight, Check, Code, DollarSign, Zap, GraduationCap, Bot, Handshake } from 'lucide-react';
-import { motion, AnimatePresence, useScroll, useReducedMotion } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion, useInView } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
 import ScrollReveal from '@/components/ScrollReveal';
 import Breadcrumb from '@/components/Breadcrumb';
@@ -1489,58 +1489,28 @@ const dashboardFeatures: Array<{ emoji: string; title: string; desc: string; isE
   { emoji: '🎮', title: 'One More Thing...', desc: 'We hid something fun in the footer. Think you can find it?', isEasterEgg: true },
 ];
 
-const CARD_THRESHOLDS = [0.05, 0.12, 0.19, 0.26, 0.33, 0.40, 0.47];
-
-function TrailCard({ feat, index, isActive, reducedMotion }: {
-  feat: typeof dashboardFeatures[number];
-  index: number;
-  isActive: boolean;
-  reducedMotion: boolean;
-}) {
-  const [hasActivated, setHasActivated] = useState(false);
+/* ── Dashboard Card with staggered reveal ── */
+function DashboardCard({ feat, index }: { feat: typeof dashboardFeatures[number]; index: number }) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(cardRef, { once: true, margin: '-50px' });
   const isEgg = feat.isEasterEgg === true;
-
-  useEffect(() => {
-    if (isActive && !hasActivated) setHasActivated(true);
-  }, [isActive, hasActivated]);
-
-  if (reducedMotion) {
-    return (
-      <div
-        className="rounded-2xl p-6 flex flex-col gap-3 h-full"
-        style={{
-          background: isEgg ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.06)',
-          border: isEgg ? '1px solid rgba(193,120,23,0.2)' : '1px solid rgba(255,255,255,0.1)',
-          backdropFilter: 'blur(12px)',
-        }}
-      >
-        <span className="text-4xl">{feat.emoji}</span>
-        <h3 className="font-[family-name:var(--font-satoshi)] font-bold text-lg" style={{ color: isEgg ? '#C17817' : '#F5F0E8' }}>{feat.title}</h3>
-        <p className="text-slate-400 text-sm leading-relaxed">{feat.desc}</p>
-      </div>
-    );
-  }
+  const prefersReducedMotion = useReducedMotion() ?? false;
 
   return (
     <motion.div
-      initial={{ opacity: 0.3, y: 20 }}
-      animate={hasActivated ? {
-        opacity: 1,
-        y: 0,
-        boxShadow: isEgg ? '0 0 20px rgba(193,120,23,0.15)' : '0 0 20px rgba(193,120,23,0.3)',
-      } : { opacity: 0.3, y: 20 }}
+      ref={cardRef}
+      initial={prefersReducedMotion ? false : { opacity: 0, y: 40, scale: 0.92 }}
+      animate={isInView ? { opacity: 1, y: 0, scale: 1 } : undefined}
       transition={{
-        duration: 0.6,
+        duration: 0.7,
+        delay: prefersReducedMotion ? 0 : index * 0.12,
         ease: [0.16, 1, 0.3, 1],
       }}
-      className="rounded-2xl p-6 flex flex-col gap-3 h-full transition-colors duration-500"
+      whileHover={{ y: -6, boxShadow: isEgg ? '0 0 30px rgba(193,120,23,0.2)' : '0 0 30px rgba(193,120,23,0.25)' }}
+      className="rounded-2xl p-6 flex flex-col gap-3 h-full cursor-default"
       style={{
-        background: isEgg
-          ? (hasActivated ? 'rgba(255,255,255,0.04)' : 'rgba(255,255,255,0.03)')
-          : (hasActivated ? 'rgba(255,255,255,0.09)' : 'rgba(255,255,255,0.06)'),
-        border: isEgg
-          ? (hasActivated ? '1px solid rgba(193,120,23,0.3)' : '1px solid rgba(193,120,23,0.2)')
-          : (hasActivated ? '1px solid rgba(193,120,23,0.4)' : '1px solid rgba(255,255,255,0.1)'),
+        background: isEgg ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.06)',
+        border: isEgg ? '1px solid rgba(193,120,23,0.25)' : '1px solid rgba(255,255,255,0.1)',
         backdropFilter: 'blur(12px)',
       }}
     >
@@ -1548,106 +1518,24 @@ function TrailCard({ feat, index, isActive, reducedMotion }: {
         className="text-4xl inline-block"
         animate={isEgg
           ? { y: [0, -6, 0] }
-          : (hasActivated ? { scale: [1, 1.2, 1] } : { scale: 1 })}
+          : (isInView ? { scale: [0.5, 1.25, 1] } : { scale: 0.5 })}
         transition={isEgg
           ? { duration: 1.5, repeat: Infinity, ease: 'easeInOut' }
-          : (hasActivated ? { duration: 0.5, ease: [0.34, 1.56, 0.64, 1], delay: 0.1 } : {})}
+          : { duration: 0.6, delay: index * 0.12 + 0.2, ease: [0.34, 1.56, 0.64, 1] }}
       >
         {feat.emoji}
       </motion.span>
-      <h3 className="font-[family-name:var(--font-satoshi)] font-bold text-lg" style={{ color: isEgg ? '#C17817' : '#F5F0E8' }}>{feat.title}</h3>
+      <h3 className="font-[family-name:var(--font-satoshi)] font-bold text-lg" style={{ color: isEgg ? '#C17817' : '#F5F0E8' }}>
+        {feat.title}
+      </h3>
       <p className="text-slate-400 text-sm leading-relaxed">{feat.desc}</p>
     </motion.div>
   );
 }
 
-function TrailSVG({ progress }: { progress: number }) {
-  const pathRef = useRef<SVGPathElement>(null);
-  const [pathLength, setPathLength] = useState(0);
-  const [dotPos, setDotPos] = useState({ x: 0, y: 0 });
-
-  const PATH_D = "M 80,80 C 200,80 200,150 300,120 C 400,90 450,90 500,100 C 580,115 620,80 700,80 C 800,80 850,100 900,100 C 960,100 1000,200 1000,260 C 1000,330 920,350 900,350 C 800,350 750,330 700,350 C 620,370 580,370 500,350 C 420,330 350,360 300,370 C 200,390 150,370 100,350";
-
-  useEffect(() => {
-    if (pathRef.current) {
-      const len = pathRef.current.getTotalLength();
-      setPathLength(len);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (pathRef.current && pathLength > 0) {
-      const pt = pathRef.current.getPointAtLength(progress * pathLength);
-      setDotPos({ x: pt.x, y: pt.y });
-    }
-  }, [progress, pathLength]);
-
-  const dashOffset = pathLength > 0 ? pathLength * (1 - progress) : pathLength;
-
-  return (
-    <svg
-      viewBox="0 0 1200 480"
-      preserveAspectRatio="none"
-      className="absolute inset-0 w-full h-full pointer-events-none hidden md:block"
-      aria-hidden="true"
-    >
-      <path
-        d={PATH_D}
-        fill="none"
-        stroke="rgba(193,120,23,0.3)"
-        strokeWidth="3"
-        strokeDasharray="10 8"
-      />
-      <path
-        ref={pathRef}
-        d={PATH_D}
-        fill="none"
-        stroke="rgba(193,120,23,0.85)"
-        strokeWidth="3.5"
-        strokeDasharray={pathLength}
-        strokeDashoffset={dashOffset}
-        strokeLinecap="round"
-      />
-      {pathLength > 0 && (
-        <g transform={`translate(${dotPos.x}, ${dotPos.y})`} style={{ willChange: 'transform' }}>
-          <circle r="24" fill="rgba(193,120,23,0.15)" />
-          <circle r="14" fill="rgba(193,120,23,0.3)" />
-          <circle r="7" fill="#C17817" />
-          <circle r="4" fill="#E8A020" />
-        </g>
-      )}
-    </svg>
-  );
-}
-
 function NeighboursDashboard() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const prefersReducedMotion = useReducedMotion() ?? false;
-
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ['start 0.75', 'end 0.25'],
-  });
-
-  const [progress, setProgress] = useState(0);
-  const [activeCards, setActiveCards] = useState<boolean[]>([false, false, false, false, false, false, false]);
-
-  useEffect(() => {
-    if (prefersReducedMotion) {
-      setActiveCards([true, true, true, true, true, true]);
-      setProgress(1);
-      return;
-    }
-    const unsub = scrollYProgress.on('change', (v) => {
-      setProgress(v);
-      setActiveCards(CARD_THRESHOLDS.map(t => v >= t));
-    });
-    return unsub;
-  }, [scrollYProgress, prefersReducedMotion]);
-
   return (
     <section
-      ref={sectionRef}
       className="relative overflow-hidden py-24 sm:py-32 grain"
       style={{ background: 'linear-gradient(180deg, #0a1520 0%, #1A1D20 50%, #0a1520 100%)' }}
     >
@@ -1660,37 +1548,30 @@ function NeighboursDashboard() {
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
-        <div className="text-center mb-16">
-          <div
-            className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-6"
-            style={{ background: 'rgba(193,120,23,0.15)', border: '2px solid rgba(193,120,23,0.3)' }}
-          >
-            <span className="text-3xl">🏔️</span>
+        <ScrollReveal>
+          <div className="text-center mb-16">
+            <div
+              className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-6"
+              style={{ background: 'rgba(193,120,23,0.15)', border: '2px solid rgba(193,120,23,0.3)' }}
+            >
+              <span className="text-3xl">🏔️</span>
+            </div>
+            <span className="block text-copper font-semibold text-xs tracking-[0.2em] uppercase mb-3">
+              Included With Every Package
+            </span>
+            <h2 className="font-[family-name:var(--font-satoshi)] text-3xl sm:text-4xl md:text-5xl font-bold text-[#F5F0E8] mb-5">
+              The Neighbours Dashboard
+            </h2>
+            <p className="text-slate-400 text-lg max-w-2xl mx-auto leading-relaxed">
+              Your project doesn&apos;t end at launch. Every client gets lifetime access to a private members area — your basecamp for continued growth.
+            </p>
           </div>
-          <span className="block text-copper font-semibold text-xs tracking-[0.2em] uppercase mb-3">
-            Included With Every Package
-          </span>
-          <h2 className="font-[family-name:var(--font-satoshi)] text-3xl sm:text-4xl md:text-5xl font-bold text-[#F5F0E8] mb-5">
-            The Neighbours Dashboard
-          </h2>
-          <p className="text-slate-400 text-lg max-w-2xl mx-auto leading-relaxed">
-            Your project doesn&apos;t end at launch. Every client gets lifetime access to a private members area — your basecamp for continued growth.
-          </p>
-        </div>
+        </ScrollReveal>
 
-        <div className="relative">
-          {!prefersReducedMotion && <TrailSVG progress={progress} />}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 relative z-10">
-            {dashboardFeatures.map((feat, i) => (
-              <TrailCard
-                key={feat.title}
-                feat={feat}
-                index={i}
-                isActive={activeCards[i]}
-                reducedMotion={prefersReducedMotion}
-              />
-            ))}
-          </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {dashboardFeatures.map((feat, i) => (
+            <DashboardCard key={feat.title} feat={feat} index={i} />
+          ))}
         </div>
       </div>
     </section>
