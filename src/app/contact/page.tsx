@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { Mail, Clock, Coffee, CheckCircle2, AlertCircle, Phone, CalendarDays } from 'lucide-react';
+import { Mail, Clock, CheckCircle2, AlertCircle, Phone, CalendarDays, Globe, MapPin } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -11,7 +11,7 @@ import AmbientOrbs from '@/components/AmbientOrbs';
 import TypingEcho from '@/components/TypingEcho';
 import SeasonalParticles from '@/components/SeasonalParticles';
 
-/* ── Mountain icon for location ── */
+/* ── Mountain icon ── */
 function MountainIcon({ className = '' }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" className={className}>
@@ -25,16 +25,14 @@ function MountainIcon({ className = '' }: { className?: string }) {
 }
 
 /* ── Floating label input ── */
-function FloatingInput({ id, name, type = 'text', required = false }: { id: string; name: string; type?: string; required?: boolean }) {
+function FloatingInput({ id, name, type = 'text', required = false, placeholder }: { id: string; name: string; type?: string; required?: boolean; placeholder?: string }) {
   const [focused, setFocused] = useState(false);
   const [hasValue, setHasValue] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
   const isActive = focused || hasValue;
 
   return (
     <div className="relative">
       <input
-        ref={inputRef}
         type={type}
         id={id}
         name={id}
@@ -46,7 +44,7 @@ function FloatingInput({ id, name, type = 'text', required = false }: { id: stri
           focused ? 'border-copper ring-1 ring-copper/40' : 'border-cream-border'
         }`}
         style={focused ? { animation: 'copper-focus-glow 1s ease-out forwards' } : undefined}
-        placeholder=" "
+        placeholder={placeholder || ' '}
       />
       <label
         htmlFor={id}
@@ -56,14 +54,14 @@ function FloatingInput({ id, name, type = 'text', required = false }: { id: stri
             : 'top-4 text-sm text-text-tertiary'
         }`}
       >
-        {name}{!required && <span className="text-text-tertiary/60"> (optional)</span>}
+        {name}{required && <span className="text-copper/60">*</span>}{!required && <span className="text-text-tertiary/60"> (optional)</span>}
       </label>
     </div>
   );
 }
 
 /* ── Floating label textarea ── */
-function FloatingTextarea({ id, name, required = false }: { id: string; name: string; required?: boolean }) {
+function FloatingTextarea({ id, name, required = false, rows = 5 }: { id: string; name: string; required?: boolean; rows?: number }) {
   const [focused, setFocused] = useState(false);
   const [hasValue, setHasValue] = useState(false);
   const isActive = focused || hasValue;
@@ -74,7 +72,7 @@ function FloatingTextarea({ id, name, required = false }: { id: string; name: st
         id={id}
         name={id}
         required={required}
-        rows={5}
+        rows={rows}
         onFocus={() => setFocused(true)}
         onBlur={(e) => { setFocused(false); setHasValue(!!e.target.value); }}
         onChange={(e) => setHasValue(!!e.target.value)}
@@ -92,14 +90,14 @@ function FloatingTextarea({ id, name, required = false }: { id: string; name: st
             : 'top-4 text-sm text-text-tertiary'
         }`}
       >
-        {name}
+        {name}{required && <span className="text-copper/60">*</span>}
       </label>
     </div>
   );
 }
 
 /* ── Floating label select ── */
-function FloatingSelect({ id, name, options }: { id: string; name: string; options: { value: string; label: string }[] }) {
+function FloatingSelect({ id, name, options, required = false }: { id: string; name: string; options: { value: string; label: string }[]; required?: boolean }) {
   const [focused, setFocused] = useState(false);
   const [hasValue, setHasValue] = useState(false);
   const isActive = focused || hasValue;
@@ -109,10 +107,11 @@ function FloatingSelect({ id, name, options }: { id: string; name: string; optio
       <select
         id={id}
         name={id}
+        required={required}
         onFocus={() => setFocused(true)}
         onBlur={(e) => { setFocused(false); setHasValue(!!e.target.value); }}
         onChange={(e) => setHasValue(!!e.target.value)}
-        className={`w-full px-4 py-3 pt-6 rounded-lg border bg-white text-slate focus:outline-none transition-all duration-300 ${
+        className={`w-full px-4 py-3 pt-6 rounded-lg border bg-white text-slate focus:outline-none transition-all duration-300 appearance-none ${
           focused ? 'border-copper ring-1 ring-copper/40' : 'border-cream-border'
         }`}
         defaultValue=""
@@ -122,6 +121,9 @@ function FloatingSelect({ id, name, options }: { id: string; name: string; optio
           <option key={o.value} value={o.value}>{o.label}</option>
         ))}
       </select>
+      <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-text-tertiary">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+      </div>
       <label
         htmlFor={id}
         className={`absolute left-4 transition-all duration-200 pointer-events-none ${
@@ -130,7 +132,7 @@ function FloatingSelect({ id, name, options }: { id: string; name: string; optio
             : 'top-4 text-sm text-text-tertiary'
         }`}
       >
-        {name}
+        {name}{required && <span className="text-copper/60">*</span>}
       </label>
     </div>
   );
@@ -186,9 +188,9 @@ function SummitCelebration({ active }: { active: boolean }) {
 /* ── What Happens Next — 3-step process ── */
 function WhatHappensNext() {
   const steps = [
-    { emoji: '📝', title: 'Tell us about your project', note: 'You are here', active: true },
-    { emoji: '☕', title: 'Brett gets back to you within 24 hours', note: 'No fluff. Just a real reply.' },
-    { emoji: '🚀', title: 'Get a custom plan', note: 'No obligation, no pressure.' },
+    { emoji: '📝', title: 'Fill out the form below', note: 'You are here', active: true },
+    { emoji: '☕', title: 'Brett gets back to you within 24 hours', note: 'A real person. A real reply.' },
+    { emoji: '🚀', title: 'Get a custom plan for your business', note: 'No obligation, no pressure.' },
   ];
 
   return (
@@ -197,7 +199,6 @@ function WhatHappensNext() {
       <div className="flex flex-col sm:flex-row gap-4 sm:gap-0">
         {steps.map((step, i) => (
           <div key={i} className="flex sm:flex-col items-start sm:items-center gap-3 sm:gap-2 flex-1 relative">
-            {/* connector line between steps (desktop) */}
             {i < steps.length - 1 && (
               <div className="hidden sm:block absolute top-5 left-1/2 w-full h-px bg-copper/20" style={{ left: '50%' }} />
             )}
@@ -222,7 +223,7 @@ function SocialProof() {
   const painPoints = [
     'Tired of your website looking like it was built in 2012?',
     'Losing customers to competitors who show up on Google first?',
-    'Paying too much for a website that doesn\'t actually bring in business?',
+    'Not sure if your website is actually helping — or hurting — your business?',
   ];
 
   return (
@@ -237,7 +238,7 @@ function SocialProof() {
           ))}
         </div>
         <p className="text-text-secondary text-sm leading-relaxed border-t border-slate/10 pt-4">
-          You&apos;re not alone. These are the exact problems Kootenay businesses bring to us — and exactly what we solve.
+          You&apos;re not alone. These are the exact problems business owners bring to us — and exactly what we solve.
         </p>
       </div>
     </ScrollReveal>
@@ -274,18 +275,18 @@ export default function ContactPage() {
   return (
     <div className="overflow-x-hidden">
       <SeasonalParticles />
-      {/* Header with parallax mountain */}
+      {/* Header */}
       <section className="aurora-bg grain pt-32 pb-20 relative overflow-hidden">
         <AmbientOrbs />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
           <Breadcrumb items={[{ label: 'Contact' }]} dark />
           <ScrollReveal>
-            <p className="text-copper font-[family-name:var(--font-satoshi)] font-semibold text-sm tracking-[0.2em] uppercase mb-3">The Trailhead</p>
+            <p className="text-copper font-[family-name:var(--font-satoshi)] font-semibold text-sm tracking-[0.2em] uppercase mb-3">Let&apos;s Talk</p>
             <h1 className="font-[family-name:var(--font-satoshi)] text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-cream leading-tight max-w-3xl">
-              Come say hi.
+              Your website should work as hard as you do.
             </h1>
             <p className="mt-6 text-dark-text-muted text-lg max-w-2xl leading-relaxed">
-              Whether you know exactly what you need or just have a question — we&apos;d love to hear from you.
+              Tell us about your business. We&apos;ll tell you exactly how we can help — no jargon, no runaround.
             </p>
           </ScrollReveal>
         </div>
@@ -297,19 +298,16 @@ export default function ContactPage() {
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-16">
             {/* Form */}
             <div className="lg:col-span-3" ref={formRef}>
-              {/* Pain-point social proof */}
               <SocialProof />
 
-              {/* What Happens Next */}
               <ScrollReveal>
                 <WhatHappensNext />
               </ScrollReveal>
 
               <TypingEcho>
               <ScrollReveal>
-                {/* Micro-headline above form */}
                 <p className="font-[family-name:var(--font-satoshi)] text-lg sm:text-xl font-semibold text-slate mb-6">
-                  Tell us what you&apos;re building. We&apos;ll tell you how we can help.
+                  Tell us about your business. The more we know, the better we can help.
                 </p>
 
                 <AnimatePresence mode="wait">
@@ -322,42 +320,51 @@ export default function ContactPage() {
                     >
                       <SummitCelebration active={true} />
                       <CheckCircle2 className="text-forest mx-auto mb-4 relative z-10" size={48} />
-                      <h3 className="font-[family-name:var(--font-satoshi)] text-2xl font-bold text-slate mb-2 relative z-10">Message sent!</h3>
-                      <p className="text-text-secondary relative z-10">Sent! We&apos;ll get back to you faster than the ferry crosses the lake. ⛴️</p>
+                      <h3 className="font-[family-name:var(--font-satoshi)] text-2xl font-bold text-slate mb-2 relative z-10">You&apos;re on the list!</h3>
+                      <p className="text-text-secondary relative z-10">Brett will get back to you within 24 hours with a real, personalized reply. No bots. No templates. ⛰️</p>
                     </motion.div>
                   ) : (
                     <motion.form key="form" onSubmit={handleSubmit} className="space-y-5">
+                      {/* Row 1: Name + Email */}
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                         <FloatingInput id="name" name="Your Name" required />
                         <FloatingInput id="email" name="Email" type="email" required />
                       </div>
-                      <FloatingInput id="business" name="Business Name" />
+
+                      {/* Row 2: Phone + Business Name */}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        <FloatingInput id="phone" name="Phone Number" type="tel" required />
+                        <FloatingInput id="business" name="Business Name" required />
+                      </div>
+
+                      {/* Row 3: Website */}
+                      <FloatingInput id="website" name="Current Website" placeholder="yoursite.com or 'none'" />
+
+                      {/* Row 4: Interest */}
                       <FloatingSelect
                         id="interest"
-                        name="What are you interested in?"
+                        name="What are you looking for?"
+                        required
                         options={[
-                          { value: 'website', label: 'I need a new website' },
-                          { value: 'rebrand', label: 'Brand refresh or rebrand' },
-                          { value: 'ecommerce', label: 'Online store (Shopify)' },
-                          { value: 'email', label: 'Email marketing' },
+                          { value: 'website', label: 'A brand new website' },
+                          { value: 'ecommerce', label: 'An online store (Shopify)' },
+                          { value: 'rebrand', label: 'A brand refresh or rebrand' },
+                          { value: 'email', label: 'Email marketing that actually works' },
                           { value: 'ai', label: 'AI tools for my business' },
-                          { value: 'google', label: 'Get found on Google' },
-                          { value: 'audit', label: 'Free website audit' },
+                          { value: 'google', label: 'Show up on Google' },
+                          { value: 'audit', label: 'Free website audit first' },
+                          { value: 'not-sure', label: "Not sure yet — help me figure it out" },
                           { value: 'other', label: 'Something else entirely' },
                         ]}
                       />
-                      <FloatingSelect
-                        id="budget"
-                        name="What's your rough budget?"
-                        options={[
-                          { value: 'exploring', label: 'Just exploring' },
-                          { value: 'under-1k', label: 'Under $1,000' },
-                          { value: '1k-3k', label: '$1,000 – $3,000' },
-                          { value: '3k-6k', label: '$3,000 – $6,000' },
-                          { value: '6k-plus', label: '$6,000+' },
-                        ]}
+
+                      {/* Row 5: Message */}
+                      <FloatingTextarea
+                        id="message"
+                        name="What's going on with your business? What do you need?"
+                        required
+                        rows={4}
                       />
-                      <FloatingTextarea id="message" name="Tell us about your project..." required />
 
                       <AnimatePresence>
                         {status === 'error' && (
@@ -375,14 +382,13 @@ export default function ContactPage() {
                           whileTap={{ scale: 0.98 }}
                           className="w-full sm:w-auto bg-copper hover:bg-copper-light text-white font-medium px-8 py-3.5 sm:py-4 rounded-lg transition-colors duration-200 disabled:opacity-60 disabled:cursor-not-allowed relative overflow-hidden"
                         >
-                          {status === 'sending' ? 'Sending...' : 'Send it into the wild 🐻'}
+                          {status === 'sending' ? 'Sending...' : 'Send it over 🏔️'}
                         </motion.button>
 
-                        {/* Risk reversal */}
                         <div className="mt-4 flex flex-col sm:flex-row sm:flex-wrap gap-2 sm:gap-4">
                           {[
-                            'No commitment. No sales pitch.',
-                            'We reply within 24 hours',
+                            'No sales pitch. Just a conversation.',
+                            'Brett replies within 24 hours',
                             'Your info stays between us',
                           ].map((item) => (
                             <p key={item} className="text-xs text-text-tertiary flex items-center gap-1">
@@ -405,26 +411,21 @@ export default function ContactPage() {
                   {/* Logo + personal touch */}
                   <div className="flex flex-col items-center mb-4 text-center">
                     <Image src="/brand/kmd-graphic-nobg.png" alt="Kootenay Made Digital" width={120} height={120} className="brightness-[1.5]" />
-                    <p className="text-sm text-text-secondary mt-3 max-w-[200px] leading-snug">
-                      You&apos;ll be working with Brett — one person, not an agency machine.
+                    <p className="text-sm text-text-secondary mt-3 max-w-[220px] leading-snug">
+                      You&apos;ll work directly with Brett — one person, not an agency machine.
                     </p>
                   </div>
 
                   {/* Info items */}
                   {[
                     { icon: Mail, label: 'Email', value: 'hello@kootenaymade.ca', href: 'mailto:hello@kootenaymade.ca' },
-                    { icon: Phone, label: 'Text or Call', value: '778-986-4468', href: 'tel:+17789864468', note: 'Text anytime. To arrange a call, submit the form first so we have context.' },
-                    { icon: MountainIcon, label: 'Location', value: 'Castlegar, BC — Serving Trail, Nelson, Rossland & the West Kootenays', isSvg: true },
-                    { icon: Clock, label: 'Response Time', value: 'Usually within 24 hours' },
-                    { icon: Coffee, label: 'Availability', value: 'Available for coffee ☕' },
+                    { icon: Phone, label: 'Text', value: '778-986-4468', href: 'sms:+17789864468', note: 'Text anytime. To book a call, submit the form first — Brett will set one up.' },
+                    { icon: Globe, label: 'We Serve', value: 'Businesses worldwide', note: '10% Neighbours Discount for Kootenay businesses 🏔️' },
+                    { icon: Clock, label: 'Response Time', value: 'Within 24 hours' },
                   ].map((item) => (
                     <div key={item.label} className="flex gap-4">
                       <div className="w-12 h-12 rounded-xl bg-copper/10 flex items-center justify-center shrink-0">
-                        {'isSvg' in item ? (
-                          <MountainIcon className="w-5 h-5 text-copper" />
-                        ) : (
-                          <item.icon size={20} className="text-copper" />
-                        )}
+                        <item.icon size={20} className="text-copper" />
                       </div>
                       <div>
                         <p className="text-sm text-text-tertiary mb-0.5">{item.label}</p>
@@ -440,22 +441,33 @@ export default function ContactPage() {
                     </div>
                   ))}
 
-                  {/* Urgency line */}
+                  {/* Availability */}
                   <div className="flex gap-4">
                     <div className="w-12 h-12 rounded-xl bg-copper/10 flex items-center justify-center shrink-0">
                       <CalendarDays size={20} className="text-copper" />
                     </div>
                     <div>
-                      <p className="text-sm text-text-tertiary mb-0.5">Availability</p>
+                      <p className="text-sm text-text-tertiary mb-0.5">Booking</p>
                       <p className="text-slate font-medium">Currently booking for May 2026</p>
+                    </div>
+                  </div>
+
+                  {/* Based in */}
+                  <div className="flex gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-copper/10 flex items-center justify-center shrink-0">
+                      <MapPin size={20} className="text-copper" />
+                    </div>
+                    <div>
+                      <p className="text-sm text-text-tertiary mb-0.5">Based In</p>
+                      <p className="text-slate font-medium">Castlegar, BC — the West Kootenays</p>
                     </div>
                   </div>
 
                   {/* Free Audit CTA card */}
                   <div className="mt-10 p-6 rounded-2xl bg-white border border-cream-border">
-                    <h3 className="font-[family-name:var(--font-satoshi)] text-lg font-bold text-slate mb-2">Free Website Audit</h3>
+                    <h3 className="font-[family-name:var(--font-satoshi)] text-lg font-bold text-slate mb-2">Not sure where to start?</h3>
                     <p className="text-text-secondary text-sm leading-relaxed mb-4">
-                      Not sure where to start? Book a free 30-minute audit. We&apos;ll review your current online presence and give you an honest, actionable plan. No strings attached.
+                      Get a free website audit — we&apos;ll review your current site and give you an honest, actionable report. No strings attached.
                     </p>
                     <Link
                       href="/audit"
