@@ -72,7 +72,7 @@ const categoryCards = [
     label: 'Work Smarter',
     description: "AI isn't just for tech companies. We'll set up tools that save you hours every week — and teach you how to use them.",
     image: '/images/categories/work-smarter.png',
-    packageCount: 1,
+    packageCount: 2,
   },
   {
     id: 'gobig',
@@ -103,9 +103,9 @@ const packages = [
     priceNote: null,
     monthlyHint: null,
     tagline: 'Every great website starts with an honest look.',
-    description: 'We run your entire online presence through a thorough AI analysis — design, branding, Google visibility, competitor gaps, trust signals, the works. You get a plain-English report that tells you exactly what\'s working, what\'s not, and what to fix first. No sales pitch. No fluff. Just the truth.',
+    description: 'We run your entire online presence through a custom AI-powered audit — design, branding, Google visibility, competitor gaps, trust signals, the works. You get a plain-English report that tells you exactly what\'s working, what\'s not, and what to fix first. No sales pitch. No fluff. Just the truth.',
     featuresShort: [
-      'AI-powered analysis of your design & brand confidence',
+      'Custom AI audit of your design & brand confidence',
       'How you show up on Google Maps, Search & Reviews',
       'See what your competitors are doing that you\'re not',
       'Mobile & speed performance check',
@@ -113,7 +113,7 @@ const packages = [
       'Branded PDF report with a prioritized action plan',
     ],
     featuresFull: [
-      'AI-powered analysis of your design & brand confidence',
+      'Custom AI audit of your design & brand confidence',
       'How you show up on Google Maps, Search & Reviews',
       'See what your competitors are doing that you\'re not',
       'Mobile & speed performance check',
@@ -141,6 +141,7 @@ const packages = [
       'Contact form so customers can reach you',
       'Works perfectly on phones and tablets',
       'We write all the words — you just review',
+      'Stripe payments + crypto via goBlink — included',
     ],
     featuresFull: [
       'Custom single-page website (not a template)',
@@ -150,6 +151,7 @@ const packages = [
       'Google Analytics so you can see your visitors',
       'Content writing included',
       'Mobile-optimized',
+      'Payment processing: Stripe credit cards + goBlink cryptocurrency (setup included)',
     ],
     perfectFor: 'Plumbers, electricians, hair salons, contractors, anyone who needs to look professional online fast.',
     delivery: '1–2 weeks',
@@ -172,6 +174,7 @@ const packages = [
       'Full Google setup — Maps, reviews, everything',
       'We write all the content for every page',
       'Looks stunning on every screen',
+      'Stripe payments + crypto via goBlink — included',
     ],
     featuresFull: [
       'Custom multi-page website (up to 7 pages)',
@@ -181,6 +184,7 @@ const packages = [
       'Contact forms + clear calls-to-action',
       'Content writing for all pages',
       'Mobile-optimized',
+      'Payment processing: Stripe credit cards + goBlink cryptocurrency (setup included)',
     ],
     perfectFor: 'Restaurants, salons, professional services, tourism operators, retail shops, established Kootenay businesses.',
     delivery: '2–3 weeks',
@@ -203,6 +207,7 @@ const packages = [
       'Social media accounts branded and ready',
       'AI tools configured for your business',
       'We train you on everything',
+      'Stripe payments + crypto via goBlink — included',
     ],
     featuresFull: [
       'Everything in The Foundation',
@@ -211,6 +216,7 @@ const packages = [
       'AI business tools setup (Claude)',
       'Hands-on AI training session',
       'Content strategy template',
+      'Payment processing: Stripe credit cards + goBlink cryptocurrency (setup included)',
     ],
     perfectFor: 'Businesses with real competition, seasonal operators, anyone done relying solely on word-of-mouth.',
     delivery: '3–4 weeks',
@@ -223,8 +229,8 @@ const packages = [
     category: 'websites',
     emoji: '🎨',
     name: 'Brand Identity',
-    price: '$1,200',
-    priceNote: 'Add-on with any website package, or standalone',
+    price: '$800',
+    priceNote: '$800 as add-on · $1,200 standalone',
     monthlyHint: null,
     tagline: 'Look like you mean business.',
     description: 'Your complete brand toolkit — logo, colors, typography, and a brand strategy document you can hand to anyone who works on your business.',
@@ -266,6 +272,7 @@ const packages = [
       'Payments, shipping, and taxes all configured',
       'Email follow-ups to recover abandoned carts',
       'Shows up on Google',
+      'Stripe payments + crypto via goBlink — included',
     ],
     featuresFull: [
       'Premium Shopify theme customized to your brand',
@@ -275,6 +282,7 @@ const packages = [
       'Google Business Profile + local SEO',
       'Email marketing (abandoned cart + welcome series)',
       'Analytics + conversion tracking',
+      'Payment processing: Stripe credit cards + goBlink cryptocurrency (setup included)',
     ],
     perfectFor: 'Retail shops going online, artisans, gift shops, anyone selling physical products.',
     delivery: '2–3 weeks',
@@ -297,6 +305,7 @@ const packages = [
       'Advanced features: filters, quick view, size guides',
       'Complete email marketing system',
       'Full analytics to track what\'s working',
+      'Stripe payments + crypto via goBlink — included',
     ],
     featuresFull: [
       '100% custom Shopify theme from scratch',
@@ -308,6 +317,7 @@ const packages = [
       'Google Business Profile + local SEO',
       'Email marketing (abandoned cart + welcome + post-purchase)',
       'Analytics + conversion tracking',
+      'Payment processing: Stripe credit cards + goBlink cryptocurrency (setup included)',
     ],
     perfectFor: 'Established brands that want to stand out, businesses upgrading from a basic store.',
     delivery: '4–6 weeks',
@@ -375,6 +385,41 @@ const packages = [
     popular: false,
   },
   {
+    id: 'openclaw',
+    category: 'ai',
+    emoji: '🦞',
+    name: 'AI Assistant Setup',
+    price: '$1,500',
+    priceNote: 'Anthropic subscription: ~$23–$135 CAD/mo',
+    monthlyHint: null,
+    tagline: 'Your own 24/7 AI employee — set up and trained on your business.',
+    description: 'We install and configure OpenClaw — an always-on AI assistant that lives on your phone, answers customer questions, manages your inbox, handles scheduling, and automates the busywork that eats your day. It works through WhatsApp, Telegram, or text — no app to download.',
+    featuresShort: [
+      'OpenClaw installed, configured, and secured on your own server',
+      'Connected to your email, calendar, and business tools',
+      'Trained on your business — your services, your prices, your voice',
+      'Works through WhatsApp, Telegram, or text message',
+      'Handles customer inquiries, scheduling, and follow-ups 24/7',
+      'Hands-on training so you know how to use it confidently',
+      '30 days of support after setup',
+    ],
+    featuresFull: [
+      'OpenClaw gateway deployed on dedicated VPS (AWS/DigitalOcean)',
+      'Security hardening: firewall, SSH keys, Docker sandboxing',
+      'Channel integration: WhatsApp Business, Telegram, or SMS',
+      'Email + calendar connection (Gmail/Google Workspace)',
+      'Custom skills and workflows for your business processes',
+      'AI model configuration (Claude/GPT — optimized for your needs)',
+      'Knowledge base setup with your docs, services, and FAQs',
+      'Hands-on training session (1-2 hours)',
+      '30 days priority support + troubleshooting',
+    ],
+    perfectFor: 'Busy business owners drowning in admin, anyone who wants 24/7 customer response without hiring staff.',
+    delivery: '3–5 days',
+    tier: 'ai',
+    popular: false,
+  },
+  {
     id: 'empire',
     category: 'gobig',
     emoji: '🏰',
@@ -390,6 +435,7 @@ const packages = [
       'Multi-location support if you need it',
       'Custom AI workflows for your team',
       '90 days priority support after launch',
+      'Stripe payments + crypto via goBlink — included',
     ],
     featuresFull: [
       'Everything in The Engine',
@@ -401,6 +447,7 @@ const packages = [
       'Business cards + print collateral',
       'Priority support for 90 days',
       'Launch campaign',
+      'Payment processing: Stripe credit cards + goBlink cryptocurrency (setup included)',
     ],
     perfectFor: 'Multi-location businesses, franchise operations, major rebrands, businesses ready to dominate their market.',
     delivery: '4–8 weeks',
@@ -1014,11 +1061,23 @@ function PackageCard({ pkg, index }: { pkg: typeof packages[number]; index: numb
                 {hasFlip && (
                   <button
                     onClick={() => setFlipped(true)}
-                    className="inline-flex items-center justify-center gap-1.5 font-medium text-xs text-copper/70 hover:text-copper transition-colors rounded-xl px-4"
-                    style={{ minHeight: '44px' }}
+                    className="group inline-flex items-center justify-center gap-2 font-bold text-base text-white rounded-xl w-full transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
+                    style={{
+                      minHeight: '48px',
+                      background: 'linear-gradient(135deg, #C17817 0%, #D4922A 100%)',
+                      boxShadow: '0 4px 16px rgba(193,120,23,0.3)',
+                    }}
+                    onMouseEnter={e => (e.currentTarget.style.boxShadow = '0 6px 24px rgba(193,120,23,0.55)')}
+                    onMouseLeave={e => (e.currentTarget.style.boxShadow = '0 4px 16px rgba(193,120,23,0.3)')}
                     aria-label="Flip card to see technical details"
                   >
-                    <span>Flip for tech details ↻</span>
+                    <motion.span
+                      animate={{ rotate: 0 }}
+                      whileHover={{ rotate: 180 }}
+                      transition={{ duration: 0.4 }}
+                      style={{ display: 'inline-block' }}
+                    >↻</motion.span>
+                    <span>Flip for tech details</span>
                   </button>
                 )}
               </div>
@@ -1067,11 +1126,25 @@ function PackageCard({ pkg, index }: { pkg: typeof packages[number]; index: numb
                 </Link>
                 <button
                   onClick={() => setFlipped(false)}
-                  className="inline-flex items-center justify-center gap-1.5 font-medium text-xs transition-colors rounded-xl px-4"
-                  style={{ minHeight: '44px', color: '#C17817' }}
+                  className="inline-flex items-center justify-center gap-2 font-bold text-base rounded-xl w-full transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
+                  style={{
+                    minHeight: '48px',
+                    color: '#C17817',
+                    border: '2px solid #C17817',
+                    background: 'rgba(193,120,23,0.08)',
+                    boxShadow: '0 2px 8px rgba(193,120,23,0.15)',
+                  }}
+                  onMouseEnter={e => (e.currentTarget.style.boxShadow = '0 4px 16px rgba(193,120,23,0.35)')}
+                  onMouseLeave={e => (e.currentTarget.style.boxShadow = '0 2px 8px rgba(193,120,23,0.15)')}
                   aria-label="Flip back to plain English"
                 >
-                  <span>Back to plain English ↻</span>
+                  <motion.span
+                    animate={{ rotate: 0 }}
+                    whileHover={{ rotate: -180 }}
+                    transition={{ duration: 0.4 }}
+                    style={{ display: 'inline-block' }}
+                  >↻</motion.span>
+                  <span>Back to plain English</span>
                 </button>
               </div>
             </div>
