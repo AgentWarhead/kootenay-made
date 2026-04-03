@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { Mail, Clock, Coffee, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Mail, Clock, Coffee, CheckCircle2, AlertCircle, Phone, CalendarDays } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -10,8 +10,6 @@ import Breadcrumb from '@/components/Breadcrumb';
 import AmbientOrbs from '@/components/AmbientOrbs';
 import TypingEcho from '@/components/TypingEcho';
 import SeasonalParticles from '@/components/SeasonalParticles';
-import dynamic from 'next/dynamic';
-const KootenayBreaker = dynamic(() => import('@/components/KootenayBreaker'), { ssr: false });
 
 /* ── Mountain icon for location ── */
 function MountainIcon({ className = '' }: { className?: string }) {
@@ -185,6 +183,67 @@ function SummitCelebration({ active }: { active: boolean }) {
   );
 }
 
+/* ── What Happens Next — 3-step process ── */
+function WhatHappensNext() {
+  const steps = [
+    { emoji: '📝', title: 'Tell us about your project', note: 'You are here', active: true },
+    { emoji: '☕', title: 'Brett gets back to you within 24 hours', note: 'No fluff. Just a real reply.' },
+    { emoji: '🚀', title: 'Get a custom plan', note: 'No obligation, no pressure.' },
+  ];
+
+  return (
+    <div className="mb-10">
+      <p className="text-copper font-[family-name:var(--font-satoshi)] font-semibold text-xs tracking-[0.2em] uppercase mb-4">What Happens Next</p>
+      <div className="flex flex-col sm:flex-row gap-4 sm:gap-0">
+        {steps.map((step, i) => (
+          <div key={i} className="flex sm:flex-col items-start sm:items-center gap-3 sm:gap-2 flex-1 relative">
+            {/* connector line between steps (desktop) */}
+            {i < steps.length - 1 && (
+              <div className="hidden sm:block absolute top-5 left-1/2 w-full h-px bg-copper/20" style={{ left: '50%' }} />
+            )}
+            <div className={`relative z-10 w-10 h-10 rounded-full flex items-center justify-center text-lg shrink-0 ${
+              step.active ? 'bg-copper/20 ring-2 ring-copper' : 'bg-cream border border-cream-border'
+            }`}>
+              {step.emoji}
+            </div>
+            <div className="sm:text-center">
+              <p className={`text-sm font-medium leading-snug ${step.active ? 'text-slate' : 'text-text-secondary'}`}>{step.title}</p>
+              <p className={`text-xs mt-0.5 ${step.active ? 'text-copper font-medium' : 'text-text-tertiary'}`}>{step.note}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ── Pain-point social proof ── */
+function SocialProof() {
+  const painPoints = [
+    'Tired of your website looking like it was built in 2012?',
+    'Losing customers to competitors who show up on Google first?',
+    'Paying too much for a website that doesn\'t actually bring in business?',
+  ];
+
+  return (
+    <ScrollReveal>
+      <div className="bg-slate/5 border border-slate/10 rounded-2xl p-6 sm:p-8 mb-12">
+        <div className="space-y-3 mb-5">
+          {painPoints.map((point, i) => (
+            <p key={i} className="text-slate text-sm sm:text-base font-medium flex items-start gap-2">
+              <span className="text-copper mt-0.5 shrink-0">›</span>
+              {point}
+            </p>
+          ))}
+        </div>
+        <p className="text-text-secondary text-sm leading-relaxed border-t border-slate/10 pt-4">
+          You&apos;re not alone. These are the exact problems Kootenay businesses bring to us — and exactly what we solve.
+        </p>
+      </div>
+    </ScrollReveal>
+  );
+}
+
 export default function ContactPage() {
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
   const [errorMsg, setErrorMsg] = useState('');
@@ -231,14 +290,28 @@ export default function ContactPage() {
           </ScrollReveal>
         </div>
       </section>
+
       {/* Form + Info */}
       <section className="bg-cream py-20 sm:py-24 cedar-texture relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-16">
             {/* Form */}
             <div className="lg:col-span-3" ref={formRef}>
+              {/* Pain-point social proof */}
+              <SocialProof />
+
+              {/* What Happens Next */}
+              <ScrollReveal>
+                <WhatHappensNext />
+              </ScrollReveal>
+
               <TypingEcho>
               <ScrollReveal>
+                {/* Micro-headline above form */}
+                <p className="font-[family-name:var(--font-satoshi)] text-lg sm:text-xl font-semibold text-slate mb-6">
+                  Tell us what you&apos;re building. We&apos;ll tell you how we can help.
+                </p>
+
                 <AnimatePresence mode="wait">
                   {status === 'success' ? (
                     <motion.div
@@ -263,14 +336,25 @@ export default function ContactPage() {
                         id="interest"
                         name="What are you interested in?"
                         options={[
-                          { value: 'website', label: 'New Website' },
-                          { value: 'rebrand', label: 'Brand Build / Rebrand' },
-                          { value: 'ecommerce', label: 'E-Commerce Store' },
-                          { value: 'email', label: 'Email Marketing' },
-                          { value: 'ai', label: 'AI Business Setup' },
-                          { value: 'google', label: 'Google / Local SEO' },
-                          { value: 'audit', label: 'Free Website Audit' },
-                          { value: 'other', label: 'Something Else' },
+                          { value: 'website', label: 'I need a new website' },
+                          { value: 'rebrand', label: 'Brand refresh or rebrand' },
+                          { value: 'ecommerce', label: 'Online store (Shopify)' },
+                          { value: 'email', label: 'Email marketing' },
+                          { value: 'ai', label: 'AI tools for my business' },
+                          { value: 'google', label: 'Get found on Google' },
+                          { value: 'audit', label: 'Free website audit' },
+                          { value: 'other', label: 'Something else entirely' },
+                        ]}
+                      />
+                      <FloatingSelect
+                        id="budget"
+                        name="What's your rough budget?"
+                        options={[
+                          { value: 'exploring', label: 'Just exploring' },
+                          { value: 'under-1k', label: 'Under $1,000' },
+                          { value: '1k-3k', label: '$1,000 – $3,000' },
+                          { value: '3k-6k', label: '$3,000 – $6,000' },
+                          { value: '6k-plus', label: '$6,000+' },
                         ]}
                       />
                       <FloatingTextarea id="message" name="Tell us about your project..." required />
@@ -283,15 +367,30 @@ export default function ContactPage() {
                         )}
                       </AnimatePresence>
 
-                      <motion.button
-                        type="submit"
-                        disabled={status === 'sending'}
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        className="w-full sm:w-auto bg-copper hover:bg-copper-light text-white font-medium px-8 py-3.5 sm:py-4 rounded-lg transition-colors duration-200 disabled:opacity-60 disabled:cursor-not-allowed relative overflow-hidden"
-                      >
-                        {status === 'sending' ? 'Sending...' : 'Send it into the wild 🐻'}
-                      </motion.button>
+                      <div>
+                        <motion.button
+                          type="submit"
+                          disabled={status === 'sending'}
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                          className="w-full sm:w-auto bg-copper hover:bg-copper-light text-white font-medium px-8 py-3.5 sm:py-4 rounded-lg transition-colors duration-200 disabled:opacity-60 disabled:cursor-not-allowed relative overflow-hidden"
+                        >
+                          {status === 'sending' ? 'Sending...' : 'Send it into the wild 🐻'}
+                        </motion.button>
+
+                        {/* Risk reversal */}
+                        <div className="mt-4 flex flex-col sm:flex-row sm:flex-wrap gap-2 sm:gap-4">
+                          {[
+                            'No commitment. No sales pitch.',
+                            'We reply within 24 hours',
+                            'Your info stays between us',
+                          ].map((item) => (
+                            <p key={item} className="text-xs text-text-tertiary flex items-center gap-1">
+                              <span className="text-forest">✅</span> {item}
+                            </p>
+                          ))}
+                        </div>
+                      </div>
                     </motion.form>
                   )}
                 </AnimatePresence>
@@ -299,16 +398,23 @@ export default function ContactPage() {
               </TypingEcho>
             </div>
 
-            {/* Info */}
+            {/* Info sidebar */}
             <div className="lg:col-span-2">
               <ScrollReveal delay={0.2}>
                 <div className="space-y-8">
-                  <div className="flex justify-center mb-4">
+                  {/* Logo + personal touch */}
+                  <div className="flex flex-col items-center mb-4 text-center">
                     <Image src="/brand/kmd-graphic-nobg.png" alt="Kootenay Made Digital" width={120} height={120} className="brightness-[1.5]" />
+                    <p className="text-sm text-text-secondary mt-3 max-w-[200px] leading-snug">
+                      You&apos;ll be working with Brett — one person, not an agency machine.
+                    </p>
                   </div>
+
+                  {/* Info items */}
                   {[
                     { icon: Mail, label: 'Email', value: 'hello@kootenaymade.ca', href: 'mailto:hello@kootenaymade.ca' },
-                    { icon: MountainIcon, label: 'Location', value: 'Castlegar, BC, Canada', isSvg: true },
+                    { icon: Phone, label: 'Text or Call', value: '778-986-4468', href: 'tel:+17789864468', note: 'Text anytime. To arrange a call, submit the form first so we have context.' },
+                    { icon: MountainIcon, label: 'Location', value: 'Castlegar, BC — Serving Trail, Nelson, Rossland & the West Kootenays', isSvg: true },
                     { icon: Clock, label: 'Response Time', value: 'Usually within 24 hours' },
                     { icon: Coffee, label: 'Availability', value: 'Available for coffee ☕' },
                   ].map((item) => (
@@ -327,35 +433,40 @@ export default function ContactPage() {
                         ) : (
                           <p className="text-slate font-medium">{item.value}</p>
                         )}
+                        {'note' in item && item.note && (
+                          <p className="text-xs text-text-tertiary mt-1 leading-snug">{item.note}</p>
+                        )}
                       </div>
                     </div>
                   ))}
+
+                  {/* Urgency line */}
+                  <div className="flex gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-copper/10 flex items-center justify-center shrink-0">
+                      <CalendarDays size={20} className="text-copper" />
+                    </div>
+                    <div>
+                      <p className="text-sm text-text-tertiary mb-0.5">Availability</p>
+                      <p className="text-slate font-medium">Currently booking for May 2026</p>
+                    </div>
+                  </div>
+
+                  {/* Free Audit CTA card */}
                   <div className="mt-10 p-6 rounded-2xl bg-white border border-cream-border">
                     <h3 className="font-[family-name:var(--font-satoshi)] text-lg font-bold text-slate mb-2">Free Website Audit</h3>
-                    <p className="text-text-secondary text-sm leading-relaxed">
+                    <p className="text-text-secondary text-sm leading-relaxed mb-4">
                       Not sure where to start? Book a free 30-minute audit. We&apos;ll review your current online presence and give you an honest, actionable plan. No strings attached.
                     </p>
+                    <Link
+                      href="/audit"
+                      className="inline-flex items-center gap-1 text-copper font-semibold text-sm border border-copper/40 rounded-lg px-4 py-2 hover:bg-copper hover:text-white transition-all duration-200"
+                    >
+                      Get Your Free Audit →
+                    </Link>
                   </div>
                 </div>
               </ScrollReveal>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Kootenay Breaker — below the fold */}
-      <section className="relative overflow-hidden py-12 sm:py-20" style={{ background: '#2D3436' }}>
-        <div className="max-w-5xl mx-auto px-2 sm:px-6 lg:px-16">
-          <div className="text-center mb-6 sm:mb-10 px-4">
-            <p className="text-[#C17817] font-[family-name:var(--font-satoshi)] font-semibold text-[10px] sm:text-sm tracking-[0.2em] uppercase mb-1 sm:mb-2">WHILE YOU&apos;RE HERE...</p>
-            <h2 className="font-[family-name:var(--font-satoshi)] text-xl sm:text-3xl font-bold text-[#F8F4F0]">Break through the noise.</h2>
-            <p className="text-[#F8F4F0]/50 mt-1.5 text-[11px] sm:text-sm">10 levels of Kootenay pride. Can you clear The Summit?</p>
-          </div>
-          <KootenayBreaker />
-          <div className="text-center mt-4 sm:mt-6 px-4">
-            <Link href="/play" className="text-[#C17817]/60 hover:text-[#C17817] text-xs sm:text-sm transition-colors">
-              Play fullscreen →
-            </Link>
           </div>
         </div>
       </section>
