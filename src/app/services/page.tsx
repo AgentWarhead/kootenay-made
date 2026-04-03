@@ -1051,7 +1051,7 @@ function AIPackageCard({ variant }: { variant: 'advantage' | 'assistant' }) {
     tagline: 'AI that actually works for your business.',
     description: 'We set up Claude AI as your personal business tool — trained on your services, your processes, your voice. You get hands-on training and walk away confident.',
     highlights: [
-      "Set up in 1-2 sessions — you're productive immediately",
+      "Set up in 1-2 sessions — no tech skills needed",
       'Works inside Claude (simple interface, no tech skills needed)',
       "Perfect entry point if you're curious about AI",
     ],
@@ -1075,7 +1075,7 @@ function AIPackageCard({ variant }: { variant: 'advantage' | 'assistant' }) {
     ],
     perfectFor: "Business owners who keep hearing about AI but don't know where to start.",
     delivery: '1–2 sessions',
-    badge: null as string | null,
+    badge: 'Beginner Friendly' as string | null,
     costs: null as null | Record<string, { label: string; monthly: string; items: string[] }>,
   };
 
@@ -1087,8 +1087,8 @@ function AIPackageCard({ variant }: { variant: 'advantage' | 'assistant' }) {
     tagline: 'Your own 24/7 AI employee.',
     description: 'A dedicated AI assistant that lives on your phone, answers customers, manages your inbox, handles scheduling — and never sleeps. Works through WhatsApp, Telegram, or text.',
     highlights: [
-      'Runs 24/7 — answers customers while you sleep',
-      'Works through apps you already use (WhatsApp, Telegram, text)',
+      'We build it, you use it — no tech skills on your end',
+      'Runs 24/7 through WhatsApp, Telegram, or text',
       'Trained on YOUR business — sounds like you, not a robot',
     ],
     features: [
@@ -1112,7 +1112,7 @@ function AIPackageCard({ variant }: { variant: 'advantage' | 'assistant' }) {
     ],
     perfectFor: 'Busy owners drowning in admin who want 24/7 customer response without hiring staff.',
     delivery: '3–5 days',
-    badge: '24/7' as string | null,
+    badge: 'Done For You' as string | null,
     costs: {
       basic: { label: 'Basic Use', monthly: '~$30–$50/mo', items: ['VPS hosting: ~$7–$15/mo', 'Anthropic API: ~$23/mo CAD'] },
       advanced: { label: 'Advanced Use', monthly: '~$80–$160/mo', items: ['VPS hosting: ~$15–$25/mo', 'Anthropic Pro: $135/mo CAD', 'Optional integrations'] },
