@@ -860,18 +860,22 @@ function ImmersivePackageShowcase() {
             </motion.div>
 
             {/* Package Cards — staggered entrance */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 items-start">
-              {visiblePackages.map((pkg, i) => (
-                <motion.div
-                  key={pkg.id}
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.35, delay: i * 0.04, ease: 'easeOut' }}
-                >
-                  <PackageCard pkg={pkg} index={i} />
-                </motion.div>
-              ))}
-            </div>
+            {selectedCategory === 'ai' ? (
+              <AIShowcase />
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 items-start">
+                {visiblePackages.map((pkg, i) => (
+                  <motion.div
+                    key={pkg.id}
+                    initial={{ opacity: 0, y: 24 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.35, delay: i * 0.04, ease: 'easeOut' }}
+                  >
+                    <PackageCard pkg={pkg} index={i} />
+                  </motion.div>
+                ))}
+              </div>
+            )}
           </motion.div>
         )}
       </AnimatePresence>
@@ -961,6 +965,298 @@ function ROICalculator() {
         </ScrollReveal>
       </div>
     </section>
+  );
+}
+
+/* ── AI Showcase ── */
+function AIShowcase() {
+  return (
+    <div>
+      <AIReplacesSection />
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-10">
+        <AIPackageCard variant="advantage" />
+        <AIPackageCard variant="assistant" />
+      </div>
+    </div>
+  );
+}
+
+function AIReplacesSection() {
+  const tasks = [
+    { task: 'Answering the same customer questions over and over', hours: '5-10 hrs/week', emoji: '💬' },
+    { task: 'Writing social media posts and emails', hours: '3-5 hrs/week', emoji: '✍️' },
+    { task: 'Scheduling appointments and follow-ups', hours: '2-4 hrs/week', emoji: '📅' },
+    { task: 'Updating your website and online listings', hours: '2-3 hrs/week', emoji: '🌐' },
+    { task: 'Researching competitors and market trends', hours: '2-4 hrs/week', emoji: '🔍' },
+    { task: 'Creating quotes, invoices, and proposals', hours: '2-3 hrs/week', emoji: '📄' },
+  ];
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+      className="rounded-2xl overflow-hidden"
+      style={{ background: 'linear-gradient(135deg, #2D3436 0%, #3d4648 100%)' }}
+    >
+      <div className="p-8 sm:p-10">
+        <div className="flex items-center gap-3 mb-2">
+          <span className="text-2xl">⏰</span>
+          <p className="text-copper font-semibold text-sm tracking-wider uppercase">Sound Familiar?</p>
+        </div>
+        <h3 className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl font-bold text-white mb-2">
+          Tasks AI can handle for you
+        </h3>
+        <p className="text-slate-400 mb-8">
+          Most business owners spend 15-30 hours a week on tasks that AI can do faster, better, and without complaining.
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {tasks.map((item, i) => (
+            <motion.div
+              key={item.task}
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: i * 0.05 }}
+              className="flex items-start gap-3 p-3 rounded-xl"
+              style={{ background: 'rgba(255,255,255,0.05)' }}
+            >
+              <span className="text-xl shrink-0">{item.emoji}</span>
+              <div>
+                <p className="text-white text-sm font-medium">{item.task}</p>
+                <p className="text-copper text-xs font-medium">{item.hours} saved</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+        <div className="mt-8 pt-6 border-t border-white/10 text-center">
+          <p className="text-slate-300 text-lg font-medium">
+            That&apos;s <span className="text-copper font-bold text-2xl">16–29 hours</span> back in your week.
+          </p>
+          <p className="text-slate-400 text-sm mt-1">Two packages. Two ways to get there.</p>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+function AIPackageCard({ variant }: { variant: 'advantage' | 'assistant' }) {
+  const [activeTab, setActiveTab] = useState('overview');
+  const isAssistant = variant === 'assistant';
+
+  const advantageData = {
+    emoji: '🤖',
+    name: 'The AI Advantage',
+    price: '$2,000',
+    priceNote: 'Claude subscription: ~$23–$135 CAD/mo',
+    tagline: 'AI that actually works for your business.',
+    description: 'We set up Claude AI as your personal business tool — trained on your services, your processes, your voice. You get hands-on training and walk away confident.',
+    highlights: [
+      "Set up in 1-2 sessions — you're productive immediately",
+      'Works inside Claude (simple interface, no tech skills needed)',
+      "Perfect entry point if you're curious about AI",
+    ],
+    features: [
+      'Claude Pro configured for your business',
+      'Co-Work workspace with your docs + processes',
+      'Custom AI workflows for your needs',
+      'Automation setup connecting your tools',
+      'Google Business tools optimization',
+      'Hands-on training session',
+      '30 days follow-up support',
+      'Lifetime Neighbours Dashboard access',
+    ],
+    techDetails: [
+      'Claude Pro subscription setup + configuration',
+      'Co-Work workspace: business docs, SOPs, pricing uploaded',
+      'Custom system prompts optimized for your industry',
+      'Workflow templates: email drafts, social posts, customer responses',
+      'Integration guidance: Zapier/Make connections where applicable',
+      'Google Business Profile + Analytics optimization',
+    ],
+    perfectFor: "Business owners who keep hearing about AI but don't know where to start.",
+    delivery: '1–2 sessions',
+    badge: null as string | null,
+    costs: null as null | Record<string, { label: string; monthly: string; items: string[] }>,
+  };
+
+  const assistantData = {
+    emoji: '🦞',
+    name: 'AI Assistant Setup',
+    price: '$3,000',
+    priceNote: null as string | null,
+    tagline: 'Your own 24/7 AI employee.',
+    description: 'A dedicated AI assistant that lives on your phone, answers customers, manages your inbox, handles scheduling — and never sleeps. Works through WhatsApp, Telegram, or text.',
+    highlights: [
+      'Runs 24/7 — answers customers while you sleep',
+      'Works through apps you already use (WhatsApp, Telegram, text)',
+      'Trained on YOUR business — sounds like you, not a robot',
+    ],
+    features: [
+      'OpenClaw installed and secured on your own server',
+      'Connected to email, calendar, and business tools',
+      'Trained on your services, prices, and voice',
+      'Works through WhatsApp, Telegram, or text',
+      'Handles inquiries, scheduling, and follow-ups 24/7',
+      'Hands-on training (1-2 hours)',
+      '30 days priority support',
+      'Lifetime Neighbours Dashboard access',
+    ],
+    techDetails: [
+      'OpenClaw gateway on dedicated VPS (AWS/DigitalOcean)',
+      'Security: firewall rules, SSH keys, Docker sandboxing',
+      'Channel integration: WhatsApp Business, Telegram, or SMS via Twilio',
+      'Gmail/Google Workspace: email + calendar connection',
+      'Custom skills & workflows for your business processes',
+      'AI model: Claude or GPT, optimized for your use case',
+      'Knowledge base: your docs, services, FAQs loaded',
+    ],
+    perfectFor: 'Busy owners drowning in admin who want 24/7 customer response without hiring staff.',
+    delivery: '3–5 days',
+    badge: '24/7' as string | null,
+    costs: {
+      basic: { label: 'Basic Use', monthly: '~$30–$50/mo', items: ['VPS hosting: ~$7–$15/mo', 'Anthropic API: ~$23/mo CAD'] },
+      advanced: { label: 'Advanced Use', monthly: '~$80–$160/mo', items: ['VPS hosting: ~$15–$25/mo', 'Anthropic Pro: $135/mo CAD', 'Optional integrations'] },
+    } as Record<string, { label: string; monthly: string; items: string[] }>,
+  };
+
+  const data = isAssistant ? assistantData : advantageData;
+
+  const tabs = [
+    { id: 'overview', label: 'Overview' },
+    { id: 'features', label: "What's Included" },
+    { id: 'tech', label: 'Under the Hood' },
+    ...(isAssistant ? [{ id: 'costs', label: 'Monthly Costs' }] : []),
+  ];
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.35, delay: isAssistant ? 0.1 : 0 }}
+      className={`rounded-2xl border bg-white flex flex-col ${
+        isAssistant ? 'border-copper/40 shadow-lg shadow-copper/10' : 'border-cream-border'
+      }`}
+    >
+      <div className="p-6 pb-0">
+        <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center gap-3">
+            <span className="text-3xl">{data.emoji}</span>
+            <h3 className="font-[family-name:var(--font-satoshi)] text-xl font-bold text-slate">{data.name}</h3>
+          </div>
+          {data.badge && (
+            <span className="bg-copper text-white text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full">
+              {data.badge}
+            </span>
+          )}
+        </div>
+        {data.priceNote && <p className="text-xs text-text-secondary mb-1">{data.priceNote}</p>}
+        <p className="font-[family-name:var(--font-satoshi)] text-3xl font-bold text-slate mb-1">{data.price}</p>
+        <p className="text-copper italic text-sm mb-4" style={{ fontFamily: 'Georgia, serif' }}>{data.tagline}</p>
+      </div>
+
+      <div className="px-6 border-b border-cream-border">
+        <div className="flex gap-1 overflow-x-auto">
+          {tabs.map(tab => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`relative px-3 py-2.5 text-xs font-semibold whitespace-nowrap transition-colors ${
+                activeTab === tab.id ? 'text-copper' : 'text-text-tertiary hover:text-slate'
+              }`}
+            >
+              {tab.label}
+              {activeTab === tab.id && (
+                <motion.div
+                  layoutId={`tab-${variant}`}
+                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-copper rounded-full"
+                />
+              )}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="p-6 flex-1 flex flex-col">
+        <AnimatePresence mode="wait">
+          {activeTab === 'overview' && (
+            <motion.div key="overview" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}>
+              <p className="text-text-secondary text-sm leading-relaxed mb-5">{data.description}</p>
+              <ul className="space-y-3 mb-5">
+                {data.highlights.map(h => (
+                  <li key={h} className="flex items-start gap-3 text-sm">
+                    <span className="text-copper font-bold text-lg leading-none mt-[-2px]">→</span>
+                    <span className="text-slate font-medium">{h}</span>
+                  </li>
+                ))}
+              </ul>
+              <p className="text-xs text-text-secondary italic border-t border-cream-border pt-3">
+                <span className="font-semibold not-italic text-slate">Perfect for:</span> {data.perfectFor}
+              </p>
+              <p className="text-xs text-copper font-medium mt-2">⏱ {data.delivery}</p>
+            </motion.div>
+          )}
+          {activeTab === 'features' && (
+            <motion.div key="features" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}>
+              <ul className="space-y-2">
+                {data.features.map(f => (
+                  <li key={f} className="flex items-start gap-2 text-sm">
+                    <Check size={14} className="text-forest mt-0.5 shrink-0" />
+                    <span className="text-text-secondary">{f}</span>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          )}
+          {activeTab === 'tech' && (
+            <motion.div key="tech" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}>
+              <p className="text-xs text-copper font-semibold uppercase tracking-wider mb-3">Under the Hood 🔧</p>
+              <ul className="space-y-2">
+                {data.techDetails.map(f => (
+                  <li key={f} className="flex items-start gap-2 text-sm">
+                    <Check size={14} className="text-copper mt-0.5 shrink-0" />
+                    <span className="text-text-secondary">{f}</span>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          )}
+          {activeTab === 'costs' && isAssistant && data.costs && (
+            <motion.div key="costs" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}>
+              <p className="text-text-secondary text-sm mb-4">These are the ongoing costs to keep your AI assistant running after setup:</p>
+              {Object.values(data.costs).map((tier) => (
+                <div key={tier.label} className="mb-4 last:mb-0 p-4 rounded-xl bg-slate/5 border border-slate/10">
+                  <div className="flex items-center justify-between mb-2">
+                    <p className="font-semibold text-slate text-sm">{tier.label}</p>
+                    <p className="text-copper font-bold">{tier.monthly}</p>
+                  </div>
+                  <ul className="space-y-1">
+                    {tier.items.map((item) => (
+                      <li key={item} className="text-xs text-text-tertiary flex items-center gap-1.5">
+                        <span className="w-1 h-1 rounded-full bg-copper/40 shrink-0" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        <div className="mt-auto pt-5">
+          <Link
+            href="/contact"
+            className={`inline-flex items-center justify-center gap-2 font-medium px-5 py-3 rounded-xl transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] text-sm w-full ${
+              isAssistant
+                ? 'bg-copper hover:bg-copper-light text-white shadow-md shadow-copper/20'
+                : 'bg-slate/5 hover:bg-slate/10 text-slate border border-slate/20'
+            }`}
+          >
+            Get Started <ArrowRight size={14} />
+          </Link>
+        </div>
+      </div>
+    </motion.div>
   );
 }
 
