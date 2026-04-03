@@ -419,7 +419,7 @@ export default function ContactPage() {
                   {/* Info items */}
                   {[
                     { icon: Mail, label: 'Email', value: 'hello@kootenaymade.ca', href: 'mailto:hello@kootenaymade.ca' },
-                    { icon: Phone, label: 'Text', value: '778-986-4468', href: 'sms:+17789864468', note: 'Text anytime. To book a call, submit the form first — Brett will set one up.' },
+                    { icon: Phone, label: 'Text', value: '778-986-4468', href: 'sms:+17789864468', note: 'Text anytime. Submit the form first, then text if you want to arrange a call.' },
                     { icon: Globe, label: 'We Serve', value: 'Businesses worldwide', note: '10% Neighbours Discount for Kootenay businesses 🏔️' },
                     { icon: Clock, label: 'Response Time', value: 'Within 24 hours' },
                   ].map((item) => (
@@ -467,7 +467,7 @@ export default function ContactPage() {
                   <div className="mt-10 p-6 rounded-2xl bg-white border border-cream-border">
                     <h3 className="font-[family-name:var(--font-satoshi)] text-lg font-bold text-slate mb-2">Not sure where to start?</h3>
                     <p className="text-text-secondary text-sm leading-relaxed mb-4">
-                      Get a free website audit — we&apos;ll review your current site and give you an honest, actionable report. No strings attached.
+                      Request a free website audit — we&apos;ll review your site and send you an honest, actionable report within 48 hours. No strings attached.
                     </p>
                     <Link
                       href="/audit"
