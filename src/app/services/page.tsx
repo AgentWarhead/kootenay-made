@@ -9,10 +9,7 @@ import Breadcrumb from '@/components/Breadcrumb';
 import RiverWave from '@/components/RiverWave';
 import AmbientOrbs from '@/components/AmbientOrbs';
 import BalancedText from '@/components/BalancedText';
-import PretextFreezeThaw from '@/components/PretextFreezeThaw';
-import PretextExplainer from '@/components/PretextExplainer';
-import FrostMeltOverlay from '@/components/FrostMeltOverlay';
-import FrostCursorTrail from '@/components/FrostCursorTrail';
+
 
 /* ── Category Data ── */
 const categories = [
@@ -1729,7 +1726,6 @@ export default function ServicesPage() {
 
   return (
     <div className="overflow-x-hidden">
-      <FrostCursorTrail />
 
       {/* 1. Hero */}
       <section className="aurora-bg grain pt-32 pb-20 relative">
@@ -1820,9 +1816,38 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <RiverWave fillColor="#111827" bgColor="#8B5E0A" />
+      <RiverWave fillColor="#F5F0E8" bgColor="#8B5E0A" />
 
-      {/* 3. What Every Package Includes */}
+      {/* 3. Package Showcase (moved up) */}
+      <section className="bg-[#F5F0E8] cedar-texture py-20 sm:py-28 relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
+          <ScrollReveal>
+            <p className="text-copper font-medium text-sm tracking-wider uppercase mb-2">Our Packages</p>
+            <h2 className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl font-bold text-slate mb-4">Choose Your Path</h2>
+            <p className="text-text-secondary max-w-xl mb-10">
+              Every package is built for Kootenay businesses — flat pricing, full ownership, zero surprises.
+            </p>
+          </ScrollReveal>
+
+          <p className="text-text-tertiary text-sm text-center mb-8 italic">
+            The average Canadian web agency charges $7,000–$30,000 for a custom website.
+            We deliver the same quality — hand-coded, not templated — at a fraction of that.
+          </p>
+
+          <ScrollReveal delay={0.05}>
+            <ImmersivePackageShowcase />
+          </ScrollReveal>
+        </div>
+      </section>
+
+      <RiverWave fillColor="#0a1520" bgColor="#F5F0E8" />
+
+      {/* 4. Neighbours Dashboard / Mountain Trail */}
+      <NeighboursDashboard />
+
+      <RiverWave fillColor="#111827" bgColor="#0a1520" />
+
+      {/* 5. What Every Package Includes (moved down) */}
       <section className="py-20 sm:py-24 grain relative" style={{ background: 'linear-gradient(180deg, #111827 0%, #1A1D20 100%)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
           <ScrollReveal>
@@ -1858,123 +1883,9 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <RiverWave fillColor="#0a1520" bgColor="#1A1D20" />
+      <RiverWave fillColor="#1A1D20" bgColor="#1A1D20" />
 
-      <NeighboursDashboard />
-
-      <RiverWave fillColor="#1A1D20" bgColor="#0a1520" />
-
-      {/* Industry Anchor Statement */}
-      <div style={{ background: '#1A1D20', borderTop: '1px solid rgba(193,120,23,0.2)', borderBottom: '1px solid rgba(193,120,23,0.2)' }} className="py-12 px-4 text-center">
-        <p className="font-[family-name:var(--font-satoshi)] text-cream text-lg sm:text-2xl font-semibold max-w-3xl mx-auto leading-relaxed" style={{ textShadow: '0 1px 2px rgba(0,0,0,0.3)' }}>
-          &ldquo;The average Canadian web agency charges $7,000–$30,000 for a custom website. We deliver the same quality — hand-coded, not templated — at a fraction of that.&rdquo;
-        </p>
-        <p className="text-copper/60 text-xs mt-4">Source: Clio Websites survey of 136 Canadian developers, 2025</p>
-      </div>
-
-      <RiverWave fillColor="#F5F0E8" bgColor="#1A1D20" />
-
-      {/* 4. Immersive Category-First Package Showcase */}
-      <section className="bg-[#F5F0E8] cedar-texture py-20 sm:py-28 relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
-          <ScrollReveal>
-            <p className="text-copper font-medium text-sm tracking-wider uppercase mb-2">Our Packages</p>
-            <h2 className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl font-bold text-slate mb-4">Choose Your Path</h2>
-            <p className="text-text-secondary max-w-xl mb-10">
-              Every package is built for Kootenay businesses — flat pricing, full ownership, zero surprises.
-            </p>
-          </ScrollReveal>
-
-          <ScrollReveal delay={0.05}>
-            <ImmersivePackageShowcase />
-          </ScrollReveal>
-        </div>
-      </section>
-
-      <RiverWave fillColor="#0B1A2E" bgColor="#F5F0E8" />
-
-      {/* goBlink Crypto Payments Section */}
-      <section className="relative overflow-hidden py-20 sm:py-28 grain" style={{ background: 'linear-gradient(160deg, #0B1A2E 0%, #0D2137 40%, #0A1E30 70%, #091825 100%)' }}>
-        {/* Teal glow orbs */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full opacity-[0.07]" style={{ background: 'radial-gradient(circle, #00E5FF, transparent 70%)' }} />
-          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full opacity-[0.05]" style={{ background: 'radial-gradient(circle, #00BCD4, transparent 70%)' }} />
-        </div>
-
-        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-16">
-          <ScrollReveal>
-            <div className="text-center mb-14">
-              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase mb-6" style={{ background: 'rgba(0,229,255,0.1)', border: '1px solid rgba(0,229,255,0.25)', color: '#00E5FF' }}>
-                Available as an add-on to any Kootenay Made website
-              </span>
-              <h2 className="font-[family-name:var(--font-satoshi)] text-3xl sm:text-4xl md:text-5xl font-bold mb-5 leading-tight" style={{ color: '#C17817' }}>
-                Accept Crypto Payments.<br />No Tech Degree Required.
-              </h2>
-              <p className="text-slate-300 text-lg max-w-2xl mx-auto leading-relaxed">
-                Add{' '}
-                <a href="https://merchant.goblink.io" target="_blank" rel="noopener noreferrer" className="font-bold transition-colors" style={{ color: '#00E5FF' }}>
-                  goBlink
-                </a>{' '}
-                to your Kootenay Made website and start accepting cryptocurrency from customers worldwide — settled instantly to your wallet in stablecoins, ready to withdraw.
-              </p>
-            </div>
-          </ScrollReveal>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-14">
-            {[
-              {
-                icon: '⚡',
-                title: 'Instant Settlement',
-                desc: 'Payments convert and land in your wallet immediately. No waiting 3–5 business days. No middlemen.',
-              },
-              {
-                icon: '💸',
-                title: 'Fees as Low as 0.05%',
-                desc: 'Compare that to the 2.9% + $0.30 you\'re paying on every credit card transaction. On a $1,000 sale, that\'s $29 saved — every single time.',
-              },
-              {
-                icon: '🔒',
-                title: 'Stablecoins = No Volatility',
-                desc: 'Your payments settle in USD-pegged stablecoins. You get the benefits of crypto without the price swings. Withdraw to your bank anytime.',
-              },
-            ].map((item, i) => (
-              <ScrollReveal key={item.title} delay={i * 0.08}>
-                <motion.div
-                  whileHover={{ y: -4, borderColor: 'rgba(0,229,255,0.35)' }}
-                  transition={{ duration: 0.2 }}
-                  className="rounded-2xl p-6 flex flex-col gap-4 h-full transition-all duration-300"
-                  style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(0,229,255,0.15)' }}
-                >
-                  <span className="text-3xl">{item.icon}</span>
-                  <h3 className="font-[family-name:var(--font-satoshi)] font-bold text-white text-lg leading-snug">{item.title}</h3>
-                  <p className="text-slate-400 text-sm leading-relaxed">{item.desc}</p>
-                </motion.div>
-              </ScrollReveal>
-            ))}
-          </div>
-
-          <ScrollReveal delay={0.2}>
-            <div className="rounded-2xl p-8 sm:p-10 text-center" style={{ background: 'rgba(0,229,255,0.05)', border: '1px solid rgba(0,229,255,0.15)' }}>
-              <p className="text-slate-300 text-lg max-w-2xl mx-auto leading-relaxed mb-8">
-                Most business owners think crypto is complicated. It&apos;s not — not anymore. goBlink is built for real businesses, not crypto nerds. Your customers pay however they want. You receive stable, real money. Instantly.
-              </p>
-              <a
-                href="https://merchant.goblink.io"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 font-bold px-8 py-4 rounded-xl transition-all duration-200 hover:scale-[1.03] active:scale-[0.98] text-base"
-                style={{ background: 'rgba(0,229,255,0.15)', border: '1px solid rgba(0,229,255,0.4)', color: '#00E5FF' }}
-              >
-                Learn More About goBlink →
-              </a>
-            </div>
-          </ScrollReveal>
-        </div>
-      </section>
-
-      <RiverWave fillColor="#1A1D20" bgColor="#0B1A2E" />
-
-      {/* 5. Comparison Table */}
+      {/* 6. Comparison Table */}
       <section className="bg-slate grain py-20 sm:py-24 relative">
         <AmbientOrbs />
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -2015,47 +1926,55 @@ export default function ServicesPage() {
 
       <RiverWave fillColor="#F5F0E8" bgColor="#1A1D20" />
 
-      {/* 6. How It Works */}
+      {/* 7. How It Works */}
       <HowItWorks />
 
-      <RiverWave fillColor="#0a1520" bgColor="#F5F0E8" />
+      <RiverWave fillColor="#1A1D20" bgColor="#F5F0E8" />
 
-      {/* 7. Pretext Freeze & Thaw — preserved exactly */}
-      <section className="relative overflow-hidden border-t border-white/5" style={{ background: 'linear-gradient(180deg, #0a1520 0%, #1A1D20 50%, #0a1520 100%)' }}>
-        <FrostMeltOverlay />
-        <div className="absolute inset-0 grain" />
-        <div className="absolute inset-0 opacity-[0.03]" style={{
-          backgroundImage: `
-            radial-gradient(circle at 20% 30%, rgba(168,216,234,0.4) 0%, transparent 40%),
-            radial-gradient(circle at 80% 70%, rgba(168,216,234,0.3) 0%, transparent 40%),
-            radial-gradient(circle at 50% 10%, rgba(200,230,255,0.2) 0%, transparent 30%)
-          `
-        }} />
-        <div className="absolute inset-0" style={{
-          background: 'linear-gradient(90deg, rgba(168,216,234,0.08) 0%, transparent 20%, transparent 80%, rgba(168,216,234,0.08) 100%)'
-        }} />
-        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-16 py-16 sm:py-20">
-          <ScrollReveal>
-            <div className="text-center mb-8">
-              <p className="text-ice-blue font-[family-name:var(--font-satoshi)] text-sm tracking-[0.15em] uppercase opacity-60">Interactive Demo</p>
+      {/* 8. ROI Calculator */}
+      <ROICalculator />
+
+      <RiverWave fillColor="#0B1A2E" bgColor="#1A1D20" />
+
+      {/* 9. goBlink Crypto Payments — Compact Banner */}
+      <section className="relative overflow-hidden py-12 sm:py-16" style={{ background: 'linear-gradient(135deg, #0B1A2E 0%, #0D2137 100%)' }}>
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-16">
+          <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
+            <div className="flex-1">
+              <div className="flex items-center gap-3 mb-3">
+                <span className="text-2xl">⚡</span>
+                <span className="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full"
+                  style={{ background: 'rgba(0,229,255,0.1)', border: '1px solid rgba(0,229,255,0.25)', color: '#00E5FF' }}>
+                  Available With Any Package
+                </span>
+              </div>
+              <h3 className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl font-bold text-white mb-3">
+                Accept crypto payments. Fees as low as 0.05%.
+              </h3>
+              <p className="text-slate-400 text-sm leading-relaxed max-w-lg">
+                Every Kootenay Made website can accept cryptocurrency via{' '}
+                <a href="https://merchant.goblink.io" target="_blank" rel="noopener noreferrer" className="font-semibold transition-colors" style={{ color: '#00E5FF' }}>
+                  goBlink
+                </a>
+                . Instant settlement, stablecoin payouts, no volatility. Compare that to the 2.9% you pay on every credit card.
+              </p>
             </div>
-          </ScrollReveal>
-          <PretextFreezeThaw />
-          <div className="text-center mt-6">
-            <p className="text-copper text-lg sm:text-xl font-bold font-[family-name:var(--font-satoshi)]" style={{ textShadow: '0 0 20px rgba(193,120,23,0.3)' }}>&quot;We turn cold websites into warm leads.&quot;</p>
+            <div className="shrink-0">
+              <a
+                href="https://merchant.goblink.io"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 font-semibold px-6 py-3 rounded-xl transition-all duration-200 hover:scale-[1.03] text-sm"
+                style={{ background: 'rgba(0,229,255,0.12)', border: '1px solid rgba(0,229,255,0.3)', color: '#00E5FF' }}
+              >
+                Learn About goBlink →
+              </a>
+            </div>
           </div>
-          <PretextExplainer
-            text="Each character knows its exact width and position. As your cursor approaches, they freeze in real-time — no pre-rendered animation, pure math. This kind of interactivity keeps visitors on your site 3x longer than a static page."
-          />
         </div>
       </section>
 
-      <RiverWave fillColor="#F5F0E8" bgColor="#0a1520" />
-
-      {/* 9. ROI Calculator */}
-      <ROICalculator />
-
-      <RiverWave fillColor="#F5F0E8" bgColor="#1A1D20" />
+      <RiverWave fillColor="#F5F0E8" bgColor="#0B1A2E" />
 
       {/* 10. Capacity + Payment Notice */}
       <section className="bg-[#F5F0E8] cedar-texture py-16 sm:py-20 relative">
