@@ -283,7 +283,7 @@ export default function ContactPage() {
           <ScrollReveal>
             <p className="text-copper font-[family-name:var(--font-satoshi)] font-semibold text-sm tracking-[0.2em] uppercase mb-3">Let&apos;s Talk</p>
             <h1 className="font-[family-name:var(--font-satoshi)] text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-cream leading-tight max-w-3xl">
-              Your website should work as hard as you do.
+              Let&apos;s build something worth clicking on.
             </h1>
             <p className="mt-6 text-dark-text-muted text-lg max-w-2xl leading-relaxed">
               Tell us about your business. We&apos;ll tell you exactly how we can help — no jargon, no runaround.
@@ -338,7 +338,7 @@ export default function ContactPage() {
                       </div>
 
                       {/* Row 3: Website */}
-                      <FloatingInput id="website" name="Current Website" placeholder="yoursite.com or 'none'" />
+                      <FloatingInput id="website" name="Current Website (yoursite.com or 'none')" />
 
                       {/* Row 4: Interest */}
                       <FloatingSelect
