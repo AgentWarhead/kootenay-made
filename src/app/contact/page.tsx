@@ -4,6 +4,7 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import { Mail, Clock, Coffee, CheckCircle2, AlertCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
+import Link from 'next/link';
 import ScrollReveal from '@/components/ScrollReveal';
 import Breadcrumb from '@/components/Breadcrumb';
 import AmbientOrbs from '@/components/AmbientOrbs';
@@ -343,13 +344,19 @@ export default function ContactPage() {
       </section>
 
       {/* Kootenay Breaker — below the fold */}
-      <section className="relative overflow-hidden py-16 sm:py-20" style={{ background: '#2D3436' }}>
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-16">
-          <div className="text-center mb-10">
-            <p className="text-[#C17817] font-[family-name:var(--font-satoshi)] font-semibold text-sm tracking-[0.2em] uppercase mb-2">WHILE YOU&apos;RE HERE...</p>
-            <h2 className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl font-bold text-[#F8F4F0]">Break through the noise.</h2>
+      <section className="relative overflow-hidden py-12 sm:py-20" style={{ background: '#2D3436' }}>
+        <div className="max-w-5xl mx-auto px-2 sm:px-6 lg:px-16">
+          <div className="text-center mb-6 sm:mb-10 px-4">
+            <p className="text-[#C17817] font-[family-name:var(--font-satoshi)] font-semibold text-[10px] sm:text-sm tracking-[0.2em] uppercase mb-1 sm:mb-2">WHILE YOU&apos;RE HERE...</p>
+            <h2 className="font-[family-name:var(--font-satoshi)] text-xl sm:text-3xl font-bold text-[#F8F4F0]">Break through the noise.</h2>
+            <p className="text-[#F8F4F0]/50 mt-1.5 text-[11px] sm:text-sm">10 levels of Kootenay pride. Can you clear The Summit?</p>
           </div>
           <KootenayBreaker />
+          <div className="text-center mt-4 sm:mt-6 px-4">
+            <Link href="/play" className="text-[#C17817]/60 hover:text-[#C17817] text-xs sm:text-sm transition-colors">
+              Play fullscreen →
+            </Link>
+          </div>
         </div>
       </section>
     </div>
