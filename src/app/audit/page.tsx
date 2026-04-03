@@ -142,7 +142,7 @@ function ScoreRing({
       initial={{ opacity: 0, y: 30, scale: 0.85 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{ delay, duration: 0.6, type: 'spring', stiffness: 180, damping: 18 }}
-      className="relative flex flex-col items-center gap-3 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm p-4 cursor-default"
+      className="relative overflow-visible flex flex-col items-center gap-3 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm p-3 sm:p-4 cursor-default"
       style={{
         boxShadow: hovered ? `0 0 20px 2px ${color}33` : 'none',
         transform: hovered ? 'scale(1.04)' : 'scale(1)',
@@ -201,23 +201,37 @@ function ScoreRing({
       {/* Description */}
       <p className="text-dark-text-muted text-[9px] text-center leading-relaxed px-1">{description}</p>
 
-      {/* Tooltip on hover */}
+      {/* Tooltip on hover — below card on mobile, above on desktop */}
       <AnimatePresence>
         {hovered && (
-          <motion.div
-            initial={{ opacity: 0, y: 6, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 6, scale: 0.95 }}
-            transition={{ duration: 0.18 }}
-            className="absolute -top-10 left-1/2 -translate-x-1/2 z-20 whitespace-nowrap rounded-lg px-3 py-1.5 text-[10px] font-medium text-white shadow-lg pointer-events-none"
-            style={{ background: `${color}dd` }}
-          >
-            {tip}
-            <div
-              className="absolute top-full left-1/2 -translate-x-1/2 w-0 h-0"
-              style={{ borderLeft: '5px solid transparent', borderRight: '5px solid transparent', borderTop: `5px solid ${color}dd` }}
-            />
-          </motion.div>
+          <>
+            {/* Desktop: above */}
+            <motion.div
+              initial={{ opacity: 0, y: 6, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 6, scale: 0.95 }}
+              transition={{ duration: 0.18 }}
+              className="hidden sm:block absolute -top-12 left-1/2 -translate-x-1/2 z-20 w-[200px] text-center rounded-lg px-3 py-1.5 text-[10px] font-medium text-white shadow-lg pointer-events-none leading-snug"
+              style={{ background: `${color}dd` }}
+            >
+              {tip}
+              <div
+                className="absolute top-full left-1/2 -translate-x-1/2 w-0 h-0"
+                style={{ borderLeft: '5px solid transparent', borderRight: '5px solid transparent', borderTop: `5px solid ${color}dd` }}
+              />
+            </motion.div>
+            {/* Mobile: below */}
+            <motion.div
+              initial={{ opacity: 0, y: -4, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -4, scale: 0.95 }}
+              transition={{ duration: 0.18 }}
+              className="sm:hidden absolute -bottom-10 left-1/2 -translate-x-1/2 z-20 w-[170px] text-center rounded-lg px-2.5 py-1.5 text-[9px] font-medium text-white shadow-lg pointer-events-none leading-snug"
+              style={{ background: `${color}dd` }}
+            >
+              {tip}
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </motion.div>
@@ -400,7 +414,7 @@ function URLScanner({ onScrollToForm }: { onScrollToForm: () => void }) {
                     Results for: <span className="text-cream/80">{fetchedUrl}</span>
                   </p>
                 )}
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-8">
                   {scoreItems.map(({ key, label, description, icon, tip }, i) => (
                     <ScoreRing
                       key={key}
