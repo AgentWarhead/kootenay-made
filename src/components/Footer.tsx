@@ -58,10 +58,11 @@ function EndOfTrail() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  if (!visible) return null;
-
   return (
-    <div className="text-center py-3 text-dark-text-muted/40 text-xs">
+    <div
+      className="text-center py-3 text-dark-text-muted/40 text-xs transition-opacity duration-300"
+      style={{ opacity: visible ? 1 : 0 }}
+    >
       You&apos;ve reached the end of the trail. 🏕️
     </div>
   );

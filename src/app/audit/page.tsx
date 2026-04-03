@@ -529,7 +529,7 @@ export default function AuditPage() {
               Is your website working as hard as you are?
             </h1>
             <p className="text-dark-text-muted text-lg sm:text-xl max-w-2xl mx-auto mb-2">
-              Find out in 30 minutes — completely free.
+              Find out what&apos;s holding your site back — completely free.
             </p>
             <p className="text-copper font-medium text-sm">No sales pitch. No obligation. Just honest insight.</p>
           </ScrollReveal>

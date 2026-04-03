@@ -111,7 +111,6 @@ const packages = [
       'Mobile & speed performance check',
       'Trust signals audit — does your site make people feel safe?',
       'Branded PDF report with a prioritized action plan',
-      'Access to the Neighbours Dashboard (guides, tutorials, troubleshooting)',
     ],
     perfectFor: 'Any Kootenay business curious about where they stand online.',
     delivery: 'Report in 48 hours',

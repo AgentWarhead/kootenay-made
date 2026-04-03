@@ -50,7 +50,10 @@ export async function POST(request: NextRequest) {
 
     if (!apiResponse.ok) {
       const errBody = await apiResponse.json().catch(() => ({}));
-      const msg = errBody?.error?.message || 'PageSpeed API returned an error.';
+      const rawMsg = (errBody?.error?.message || '').toLowerCase();
+      const msg = rawMsg.includes('quota') || rawMsg.includes('limit')
+        ? 'Our scanner is temporarily busy. Please try again in a few minutes, or skip straight to booking your free audit below.'
+        : 'We couldn\'t scan that site. Please check the URL and try again.';
       return NextResponse.json({ error: msg }, { status: 502 });
     }
 
