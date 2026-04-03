@@ -2,8 +2,8 @@
 
 import Link from 'next/link';
 import { ArrowRight, Check, Code, DollarSign, Zap, GraduationCap, Bot, Handshake } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { useRef, useState } from 'react';
+import { motion, AnimatePresence, useScroll, useReducedMotion } from 'framer-motion';
+import { useRef, useState, useEffect } from 'react';
 import ScrollReveal from '@/components/ScrollReveal';
 import Breadcrumb from '@/components/Breadcrumb';
 import RiverWave from '@/components/RiverWave';
@@ -1184,48 +1184,209 @@ function PackageCard({ pkg, index }: { pkg: typeof packages[number]; index: numb
   );
 }
 
-/* ── Neighbours Dashboard ── */
-function NeighboursDashboard() {
-  const features = [
-    { emoji: '📚', title: 'Step-by-Step Training Manuals', desc: 'Written in plain English. Every tool, every feature, every workflow — explained like a friend is sitting next to you.' },
-    { emoji: '🎬', title: 'Video Walkthroughs', desc: 'Short, focused YouTube videos for when you\'d rather watch than read. Pause, rewind, learn at your own pace.' },
-    { emoji: '🔧', title: 'Troubleshooting & Support', desc: 'Something not working? Search the knowledge base first — most answers are already there. If not, we are.' },
-    { emoji: '📈', title: 'Grow Your Business', desc: 'Guides on SEO, social media, email marketing, and customer retention — updated regularly with what\'s actually working right now.' },
-    { emoji: '🤖', title: 'AI Integration Guides', desc: 'As AI tools evolve, so does the dashboard. New workflows, new automations, new ways to save time — all explained step by step.' },
-    { emoji: '🤝', title: 'Connect With Other Customers', desc: 'A private community of business owners learning and growing together. Share wins, ask questions, find inspiration from people who get it.' },
-  ];
+/* ── Neighbours Dashboard — Mountain Trail Animation ── */
+const dashboardFeatures = [
+  { emoji: '📚', title: 'Step-by-Step Training Manuals', desc: 'Written in plain English. Every tool, every feature, every workflow — explained like a friend is sitting next to you.' },
+  { emoji: '🎬', title: 'Curated Video Library', desc: 'Hand-picked YouTube tutorials and walkthroughs for every skill you need. Learn at your own pace — pause, rewind, master.' },
+  { emoji: '🔧', title: 'Troubleshooting & Support', desc: 'Something not working? Search the knowledge base first — most answers are already there. If not, we are.' },
+  { emoji: '📈', title: 'Grow Your Business', desc: "Guides on SEO, social media, email marketing, and customer retention — updated regularly with what's actually working right now." },
+  { emoji: '🤖', title: 'AI Integration Guides', desc: 'As AI tools evolve, so does the dashboard. New workflows, new automations, new ways to save time — all explained step by step.' },
+  { emoji: '🤝', title: 'Connect With Other Customers', desc: 'A private community of business owners learning and growing together. Share wins, ask questions, find inspiration from people who get it.' },
+];
+
+const CARD_THRESHOLDS = [0.12, 0.25, 0.38, 0.54, 0.68, 0.82];
+
+function TrailCard({ feat, index, isActive, reducedMotion }: {
+  feat: typeof dashboardFeatures[number];
+  index: number;
+  isActive: boolean;
+  reducedMotion: boolean;
+}) {
+  const [hasActivated, setHasActivated] = useState(false);
+
+  useEffect(() => {
+    if (isActive && !hasActivated) setHasActivated(true);
+  }, [isActive, hasActivated]);
+
+  if (reducedMotion) {
+    return (
+      <div
+        className="rounded-2xl p-6 flex flex-col gap-3 h-full"
+        style={{
+          background: 'rgba(255,255,255,0.06)',
+          border: '1px solid rgba(255,255,255,0.1)',
+          backdropFilter: 'blur(12px)',
+        }}
+      >
+        <span className="text-4xl">{feat.emoji}</span>
+        <h3 className="font-[family-name:var(--font-satoshi)] font-bold text-[#F5F0E8] text-lg">{feat.title}</h3>
+        <p className="text-slate-400 text-sm leading-relaxed">{feat.desc}</p>
+      </div>
+    );
+  }
 
   return (
-    <section className="bg-[#F5F0E8] cedar-texture py-20 sm:py-24 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
-        <ScrollReveal>
-          <div className="text-center mb-14">
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase mb-4" style={{ background: 'rgba(45,106,79,0.12)', border: '1px solid rgba(45,106,79,0.25)', color: '#2D6A4F' }}>
-              🏔️ Included With Every Package
-            </span>
-            <h2 className="font-[family-name:var(--font-satoshi)] text-3xl sm:text-4xl font-bold text-slate mb-4">
-              The Neighbours Dashboard
-            </h2>
-            <p className="text-text-secondary text-lg max-w-2xl mx-auto leading-relaxed">
-              Your project doesn&apos;t end at launch. Every client gets lifetime access to a private members area built to help you keep growing — long after we&apos;ve handed over the keys.
-            </p>
-          </div>
-        </ScrollReveal>
+    <motion.div
+      initial={{ opacity: 0.3, y: 20 }}
+      animate={hasActivated ? {
+        opacity: 1,
+        y: 0,
+        boxShadow: '0 0 20px rgba(193,120,23,0.3)',
+      } : { opacity: 0.3, y: 20 }}
+      transition={{
+        duration: 0.6,
+        ease: [0.16, 1, 0.3, 1],
+      }}
+      className="rounded-2xl p-6 flex flex-col gap-3 h-full transition-colors duration-500"
+      style={{
+        background: hasActivated ? 'rgba(255,255,255,0.09)' : 'rgba(255,255,255,0.06)',
+        border: hasActivated ? '1px solid rgba(193,120,23,0.4)' : '1px solid rgba(255,255,255,0.1)',
+        backdropFilter: 'blur(12px)',
+      }}
+    >
+      <motion.span
+        className="text-4xl inline-block"
+        animate={hasActivated ? { scale: [1, 1.2, 1] } : { scale: 1 }}
+        transition={hasActivated ? { duration: 0.5, ease: [0.34, 1.56, 0.64, 1], delay: 0.1 } : {}}
+      >
+        {feat.emoji}
+      </motion.span>
+      <h3 className="font-[family-name:var(--font-satoshi)] font-bold text-[#F5F0E8] text-lg">{feat.title}</h3>
+      <p className="text-slate-400 text-sm leading-relaxed">{feat.desc}</p>
+    </motion.div>
+  );
+}
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {features.map((feat, i) => (
-            <ScrollReveal key={feat.title} delay={i * 0.06}>
-              <motion.div
-                whileHover={{ y: -4, boxShadow: '0 12px 40px rgba(45,106,79,0.12)' }}
-                transition={{ duration: 0.2 }}
-                className="bg-white rounded-2xl border border-cream-border p-6 flex flex-col gap-3 h-full hover:border-forest/30 transition-all duration-300"
-              >
-                <span className="text-3xl">{feat.emoji}</span>
-                <h3 className="font-[family-name:var(--font-satoshi)] font-bold text-slate text-lg">{feat.title}</h3>
-                <p className="text-text-secondary text-sm leading-relaxed">{feat.desc}</p>
-              </motion.div>
-            </ScrollReveal>
-          ))}
+function TrailSVG({ progress }: { progress: number }) {
+  const pathRef = useRef<SVGPathElement>(null);
+  const [pathLength, setPathLength] = useState(0);
+  const [dotPos, setDotPos] = useState({ x: 0, y: 0 });
+
+  const PATH_D = "M 80,80 C 200,80 200,150 300,120 C 400,90 450,90 500,100 C 580,115 620,80 700,80 C 800,80 850,100 900,100 C 960,100 1000,200 1000,260 C 1000,330 920,350 900,350 C 800,350 750,330 700,350 C 620,370 580,370 500,350 C 420,330 350,360 300,370 C 200,390 150,370 100,350";
+
+  useEffect(() => {
+    if (pathRef.current) {
+      const len = pathRef.current.getTotalLength();
+      setPathLength(len);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (pathRef.current && pathLength > 0) {
+      const pt = pathRef.current.getPointAtLength(progress * pathLength);
+      setDotPos({ x: pt.x, y: pt.y });
+    }
+  }, [progress, pathLength]);
+
+  const dashOffset = pathLength > 0 ? pathLength * (1 - progress) : pathLength;
+
+  return (
+    <svg
+      viewBox="0 0 1200 480"
+      preserveAspectRatio="none"
+      className="absolute inset-0 w-full h-full pointer-events-none hidden md:block"
+      aria-hidden="true"
+    >
+      <path
+        d={PATH_D}
+        fill="none"
+        stroke="rgba(193,120,23,0.15)"
+        strokeWidth="2"
+        strokeDasharray="8 6"
+      />
+      <path
+        ref={pathRef}
+        d={PATH_D}
+        fill="none"
+        stroke="rgba(193,120,23,0.6)"
+        strokeWidth="2.5"
+        strokeDasharray={pathLength}
+        strokeDashoffset={dashOffset}
+        strokeLinecap="round"
+      />
+      {pathLength > 0 && (
+        <g transform={`translate(${dotPos.x}, ${dotPos.y})`} style={{ willChange: 'transform' }}>
+          <circle r="16" fill="rgba(193,120,23,0.25)" />
+          <circle r="10" fill="rgba(193,120,23,0.35)" />
+          <circle r="5" fill="#C17817" />
+          <circle r="3" fill="#E8A020" />
+        </g>
+      )}
+    </svg>
+  );
+}
+
+function NeighboursDashboard() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const prefersReducedMotion = useReducedMotion() ?? false;
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'end start'],
+  });
+
+  const [progress, setProgress] = useState(0);
+  const [activeCards, setActiveCards] = useState<boolean[]>([false, false, false, false, false, false]);
+
+  useEffect(() => {
+    if (prefersReducedMotion) {
+      setActiveCards([true, true, true, true, true, true]);
+      setProgress(1);
+      return;
+    }
+    const unsub = scrollYProgress.on('change', (v) => {
+      setProgress(v);
+      setActiveCards(CARD_THRESHOLDS.map(t => v >= t));
+    });
+    return unsub;
+  }, [scrollYProgress, prefersReducedMotion]);
+
+  return (
+    <section
+      ref={sectionRef}
+      className="relative overflow-hidden py-24 sm:py-32 grain"
+      style={{ background: 'linear-gradient(180deg, #0a1520 0%, #1A1D20 50%, #0a1520 100%)' }}
+    >
+      <AmbientOrbs />
+
+      <div className="absolute bottom-0 left-0 right-0 pointer-events-none" style={{ height: '100px' }}>
+        <svg viewBox="0 0 1440 100" preserveAspectRatio="none" className="w-full h-full" style={{ fill: 'rgba(45,106,79,0.15)' }}>
+          <path d="M0,100 L0,75 L80,35 L160,60 L240,20 L320,55 L400,15 L480,50 L560,10 L640,45 L720,8 L800,40 L880,12 L960,48 L1040,18 L1120,55 L1200,25 L1280,60 L1360,30 L1440,65 L1440,100 Z" />
+        </svg>
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
+        <div className="text-center mb-16">
+          <div
+            className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-6"
+            style={{ background: 'rgba(193,120,23,0.15)', border: '2px solid rgba(193,120,23,0.3)' }}
+          >
+            <span className="text-3xl">🏔️</span>
+          </div>
+          <span className="block text-copper font-semibold text-xs tracking-[0.2em] uppercase mb-3">
+            Included With Every Package
+          </span>
+          <h2 className="font-[family-name:var(--font-satoshi)] text-3xl sm:text-4xl md:text-5xl font-bold text-[#F5F0E8] mb-5">
+            The Neighbours Dashboard
+          </h2>
+          <p className="text-slate-400 text-lg max-w-2xl mx-auto leading-relaxed">
+            Your project doesn&apos;t end at launch. Every client gets lifetime access to a private members area — your basecamp for continued growth.
+          </p>
+        </div>
+
+        <div className="relative">
+          {!prefersReducedMotion && <TrailSVG progress={progress} />}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 relative z-10">
+            {dashboardFeatures.map((feat, i) => (
+              <TrailCard
+                key={feat.title}
+                feat={feat}
+                index={i}
+                isActive={activeCards[i]}
+                reducedMotion={prefersReducedMotion}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>
@@ -1401,9 +1562,11 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <RiverWave fillColor="#F5F0E8" bgColor="#1A1D20" />
+      <RiverWave fillColor="#0a1520" bgColor="#1A1D20" />
 
       <NeighboursDashboard />
+
+      <RiverWave fillColor="#1A1D20" bgColor="#0a1520" />
 
       {/* Industry Anchor Statement */}
       <div style={{ background: '#1A1D20', borderTop: '1px solid rgba(193,120,23,0.2)', borderBottom: '1px solid rgba(193,120,23,0.2)' }} className="py-12 px-4 text-center">
