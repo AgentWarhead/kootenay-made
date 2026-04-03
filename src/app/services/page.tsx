@@ -134,7 +134,7 @@ const packages = [
     priceNote: null,
     monthlyHint: null,
     tagline: 'Your first step online — done right.',
-    description: 'We build you a clean, professional website. One page, beautifully done. You\'ll look established from day one.',
+    description: 'We build you a clean, professional website. One page, beautifully done. You\'ll look established from day one. Lifetime access to the Neighbours Dashboard included.',
     featuresShort: [
       'Beautiful single-page website, built for you',
       'Shows up when locals search for your service',
@@ -142,6 +142,7 @@ const packages = [
       'Works perfectly on phones and tablets',
       'We write all the words — you just review',
       'Stripe payments + crypto via goBlink — included',
+      'Lifetime access to the Neighbours Dashboard',
     ],
     featuresFull: [
       'Custom single-page website (not a template)',
@@ -167,7 +168,7 @@ const packages = [
     priceNote: null,
     monthlyHint: null,
     tagline: 'The complete digital home for your business.',
-    description: 'A full multi-page website that tells your whole story. Built to rank on Google and turn visitors into customers.',
+    description: 'A full multi-page website that tells your whole story. Built to rank on Google and turn visitors into customers. Lifetime access to the Neighbours Dashboard included.',
     featuresShort: [
       'Up to 7 pages (Home, About, Services, Contact…)',
       'We make Google love your site',
@@ -175,6 +176,7 @@ const packages = [
       'We write all the content for every page',
       'Looks stunning on every screen',
       'Stripe payments + crypto via goBlink — included',
+      'Lifetime access to the Neighbours Dashboard',
     ],
     featuresFull: [
       'Custom multi-page website (up to 7 pages)',
@@ -200,7 +202,7 @@ const packages = [
     priceNote: null,
     monthlyHint: null,
     tagline: 'Built to grow — not just exist.',
-    description: 'Everything in The Foundation, plus email marketing, social media branding, and AI tools to keep bringing customers back.',
+    description: 'Everything in The Foundation, plus email marketing, social media branding, and AI tools to keep bringing customers back. Lifetime access to the Neighbours Dashboard included.',
     featuresShort: [
       'Everything in The Foundation',
       'Email marketing set up and running',
@@ -208,6 +210,7 @@ const packages = [
       'AI tools configured for your business',
       'We train you on everything',
       'Stripe payments + crypto via goBlink — included',
+      'Lifetime access to the Neighbours Dashboard',
     ],
     featuresFull: [
       'Everything in The Foundation',
@@ -265,7 +268,7 @@ const packages = [
     priceNote: 'Shopify subscription: ~$50–$75 CAD/mo',
     monthlyHint: null,
     tagline: 'A professional online store, ready to sell.',
-    description: 'We set up your Shopify store from scratch — branded, polished, and wired to take payments. You focus on products; we handle everything else.',
+    description: 'We set up your Shopify store from scratch — branded, polished, and wired to take payments. You focus on products; we handle everything else. Lifetime access to the Neighbours Dashboard included.',
     featuresShort: [
       'Your Shopify store, fully set up and branded',
       'Up to 15 products loaded and ready',
@@ -273,6 +276,7 @@ const packages = [
       'Email follow-ups to recover abandoned carts',
       'Shows up on Google',
       'Stripe payments + crypto via goBlink — included',
+      'Lifetime access to the Neighbours Dashboard',
     ],
     featuresFull: [
       'Premium Shopify theme customized to your brand',
@@ -298,7 +302,7 @@ const packages = [
     priceNote: 'Shopify subscription: ~$50–$75 CAD/mo',
     monthlyHint: null,
     tagline: "Your store, designed from the ground up.",
-    description: 'A 100% custom Shopify store — no themes, no compromises. Built to look exactly like your brand and sell like crazy.',
+    description: 'A 100% custom Shopify store — no themes, no compromises. Built to look exactly like your brand and sell like crazy. Lifetime access to the Neighbours Dashboard included.',
     featuresShort: [
       'Fully custom design (not a template)',
       'Up to 30 products',
@@ -306,6 +310,7 @@ const packages = [
       'Complete email marketing system',
       'Full analytics to track what\'s working',
       'Stripe payments + crypto via goBlink — included',
+      'Lifetime access to the Neighbours Dashboard',
     ],
     featuresFull: [
       '100% custom Shopify theme from scratch',
@@ -333,12 +338,13 @@ const packages = [
     priceNote: 'Add-on with Storefront or Masterpiece',
     monthlyHint: null,
     tagline: 'Sell merch. Zero inventory. Pure profit.',
-    description: 'We connect your Shopify store to print-on-demand so your designs appear on t-shirts, mugs, totes, and more. Customer orders, it ships, you collect the margin.',
+    description: 'We connect your Shopify store to print-on-demand so your designs appear on t-shirts, mugs, totes, and more. Customer orders, it ships, you collect the margin. Lifetime access to the Neighbours Dashboard included.',
     featuresShort: [
       'Printify connected to your Shopify store',
       'Up to 10 products with your designs applied',
       'Shipping and fulfillment fully configured',
       'We check your profit margins (so you actually make money)',
+      'Lifetime access to the Neighbours Dashboard',
     ],
     featuresFull: [
       'Printify account setup + Shopify integration',
@@ -362,12 +368,13 @@ const packages = [
     priceNote: 'Claude subscription: ~$23–$135 CAD/mo',
     monthlyHint: null,
     tagline: 'AI that actually works for your business.',
-    description: 'We learn how your business runs, set up AI tools built for your specific workflow, and teach you to use them confidently. No tech degree required.',
+    description: 'We learn how your business runs, set up AI tools built for your specific workflow, and teach you to use them confidently. No tech degree required. Lifetime access to the Neighbours Dashboard included.',
     featuresShort: [
       'AI set up and trained on your business',
       'Custom automations for your most repetitive tasks',
       'Hands-on training — you leave knowing how to use it',
       '30 days of follow-up support',
+      'Lifetime access to the Neighbours Dashboard',
     ],
     featuresFull: [
       'Claude Pro configured for your business',
@@ -389,11 +396,11 @@ const packages = [
     category: 'ai',
     emoji: '🦞',
     name: 'AI Assistant Setup',
-    price: '$1,500',
-    priceNote: 'Anthropic subscription: ~$23–$135 CAD/mo',
+    price: '$3,000',
+    priceNote: null,
     monthlyHint: null,
     tagline: 'Your own 24/7 AI employee — set up and trained on your business.',
-    description: 'We install and configure OpenClaw — an always-on AI assistant that lives on your phone, answers customer questions, manages your inbox, handles scheduling, and automates the busywork that eats your day. It works through WhatsApp, Telegram, or text — no app to download.',
+    description: 'We install and configure OpenClaw — an always-on AI assistant that lives on your phone, answers customer questions, manages your inbox, handles scheduling, and automates the busywork that eats your day. It works through WhatsApp, Telegram, or text — no app to download. Lifetime access to the Neighbours Dashboard included.',
     featuresShort: [
       'OpenClaw installed, configured, and secured on your own server',
       'Connected to your email, calendar, and business tools',
@@ -402,6 +409,7 @@ const packages = [
       'Handles customer inquiries, scheduling, and follow-ups 24/7',
       'Hands-on training so you know how to use it confidently',
       '30 days of support after setup',
+      'Lifetime access to the Neighbours Dashboard',
     ],
     featuresFull: [
       'OpenClaw gateway deployed on dedicated VPS (AWS/DigitalOcean)',
@@ -413,11 +421,16 @@ const packages = [
       'Knowledge base setup with your docs, services, and FAQs',
       'Hands-on training session (1-2 hours)',
       '30 days priority support + troubleshooting',
+      'Lifetime access to the Neighbours Dashboard',
     ],
     perfectFor: 'Busy business owners drowning in admin, anyone who wants 24/7 customer response without hiring staff.',
     delivery: '3–5 days',
     tier: 'ai',
     popular: false,
+    runningCosts: {
+      basic: { label: 'Basic Use', monthly: '~$30–$50/mo', breakdown: 'VPS hosting (~$7–$15/mo) + Anthropic API (~$23/mo CAD)' },
+      advanced: { label: 'Advanced Use', monthly: '~$80–$160/mo', breakdown: 'VPS hosting (~$15–$25/mo) + Anthropic Pro ($135/mo CAD) + optional integrations' },
+    },
   },
   {
     id: 'empire',
@@ -428,7 +441,7 @@ const packages = [
     priceNote: 'Starting at — scope determines final price',
     monthlyHint: null,
     tagline: 'The full transformation. Everything, done right.',
-    description: 'When you\'re ready to go all-in. Custom website, full brand identity, AI integration, email marketing, social media, and a launch campaign. Nothing left on the table.',
+    description: 'When you\'re ready to go all-in. Custom website, full brand identity, AI integration, email marketing, social media, and a launch campaign. Nothing left on the table. Lifetime access to the Neighbours Dashboard included.',
     featuresShort: [
       'Everything in The Engine',
       'Full brand identity (logo, colors, guidelines)',
@@ -436,6 +449,7 @@ const packages = [
       'Custom AI workflows for your team',
       '90 days priority support after launch',
       'Stripe payments + crypto via goBlink — included',
+      'Lifetime access to the Neighbours Dashboard',
     ],
     featuresFull: [
       'Everything in The Engine',
@@ -463,13 +477,14 @@ const packages = [
     priceNote: '/mo',
     monthlyHint: null,
     tagline: 'Keep it running. Keep it safe.',
-    description: 'Your site stays secure, updated, and healthy every month — without you having to think about it.',
+    description: 'Your site stays secure, updated, and healthy every month — without you having to think about it. Lifetime access to the Neighbours Dashboard included. Our goal is to have you completely self-sufficient within the first few months. The learning curve for AI and modern web tools can be steep — we\'ll guide you through every step.',
     featuresShort: [
       'Monthly security + software updates',
       'One content or design change per month',
       'Analytics snapshot so you know how you\'re doing',
       'Client dashboard access',
       'Email support (we respond within 48 hours)',
+      'Lifetime access to the Neighbours Dashboard',
     ],
     featuresFull: [
       'Monthly CMS + plugin security updates',
@@ -493,7 +508,7 @@ const packages = [
     priceNote: '/mo',
     monthlyHint: null,
     tagline: 'Keep growing. Keep ahead.',
-    description: 'Everything in Essentials, plus active SEO improvements, unlimited small updates, and a quarterly strategy call to keep momentum going.',
+    description: 'Everything in Essentials, plus active SEO improvements, unlimited small updates, and a quarterly strategy call to keep momentum going. Lifetime access to the Neighbours Dashboard included. Our goal is to have you completely self-sufficient within the first few months. The learning curve for AI and modern web tools can be steep — we\'ll guide you through every step.',
     featuresShort: [
       'Everything in Essentials',
       'Unlimited small updates (most done same day)',
@@ -501,6 +516,7 @@ const packages = [
       'Monthly analytics review + plain-English report',
       'Priority support (we respond within 24 hours)',
       'Quarterly strategy call',
+      'Lifetime access to the Neighbours Dashboard',
     ],
     featuresFull: [
       'Everything in Essentials',
@@ -1045,6 +1061,19 @@ function PackageCard({ pkg, index }: { pkg: typeof packages[number]; index: numb
               <p className="text-xs text-text-secondary italic mb-3 border-t border-cream-border pt-4">
                 <span className="font-semibold not-italic text-slate">Perfect for:</span> {pkg.perfectFor}
               </p>
+
+              {'runningCosts' in pkg && pkg.runningCosts && (
+                <div className="bg-slate/5 border border-slate/10 rounded-xl p-4 mb-4 text-sm">
+                  <p className="font-semibold text-slate mb-2">Expected Monthly Costs</p>
+                  {Object.values((pkg as any).runningCosts).map((tier: any) => (
+                    <div key={tier.label} className="mb-2 last:mb-0">
+                      <p className="text-copper font-medium">{tier.label}: {tier.monthly}</p>
+                      <p className="text-text-tertiary text-xs">{tier.breakdown}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+
               <p className="text-xs text-copper font-medium mb-4">⏱ {pkg.delivery}</p>
 
               <div className="flex flex-col gap-2 mt-auto">
@@ -1152,6 +1181,54 @@ function PackageCard({ pkg, index }: { pkg: typeof packages[number]; index: numb
         </motion.div>
       </div>
     </ScrollReveal>
+  );
+}
+
+/* ── Neighbours Dashboard ── */
+function NeighboursDashboard() {
+  const features = [
+    { emoji: '📚', title: 'Step-by-Step Training Manuals', desc: 'Written in plain English. Every tool, every feature, every workflow — explained like a friend is sitting next to you.' },
+    { emoji: '🎬', title: 'Video Walkthroughs', desc: 'Short, focused YouTube videos for when you\'d rather watch than read. Pause, rewind, learn at your own pace.' },
+    { emoji: '🔧', title: 'Troubleshooting & Support', desc: 'Something not working? Search the knowledge base first — most answers are already there. If not, we are.' },
+    { emoji: '📈', title: 'Grow Your Business', desc: 'Guides on SEO, social media, email marketing, and customer retention — updated regularly with what\'s actually working right now.' },
+    { emoji: '🤖', title: 'AI Integration Guides', desc: 'As AI tools evolve, so does the dashboard. New workflows, new automations, new ways to save time — all explained step by step.' },
+    { emoji: '🤝', title: 'Connect With Other Customers', desc: 'A private community of business owners learning and growing together. Share wins, ask questions, find inspiration from people who get it.' },
+  ];
+
+  return (
+    <section className="bg-[#F5F0E8] cedar-texture py-20 sm:py-24 relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
+        <ScrollReveal>
+          <div className="text-center mb-14">
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase mb-4" style={{ background: 'rgba(45,106,79,0.12)', border: '1px solid rgba(45,106,79,0.25)', color: '#2D6A4F' }}>
+              🏔️ Included With Every Package
+            </span>
+            <h2 className="font-[family-name:var(--font-satoshi)] text-3xl sm:text-4xl font-bold text-slate mb-4">
+              The Neighbours Dashboard
+            </h2>
+            <p className="text-text-secondary text-lg max-w-2xl mx-auto leading-relaxed">
+              Your project doesn&apos;t end at launch. Every client gets lifetime access to a private members area built to help you keep growing — long after we&apos;ve handed over the keys.
+            </p>
+          </div>
+        </ScrollReveal>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {features.map((feat, i) => (
+            <ScrollReveal key={feat.title} delay={i * 0.06}>
+              <motion.div
+                whileHover={{ y: -4, boxShadow: '0 12px 40px rgba(45,106,79,0.12)' }}
+                transition={{ duration: 0.2 }}
+                className="bg-white rounded-2xl border border-cream-border p-6 flex flex-col gap-3 h-full hover:border-forest/30 transition-all duration-300"
+              >
+                <span className="text-3xl">{feat.emoji}</span>
+                <h3 className="font-[family-name:var(--font-satoshi)] font-bold text-slate text-lg">{feat.title}</h3>
+                <p className="text-text-secondary text-sm leading-relaxed">{feat.desc}</p>
+              </motion.div>
+            </ScrollReveal>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -1323,6 +1400,10 @@ export default function ServicesPage() {
           </div>
         </div>
       </section>
+
+      <RiverWave fillColor="#F5F0E8" bgColor="#1A1D20" />
+
+      <NeighboursDashboard />
 
       {/* Industry Anchor Statement */}
       <div style={{ background: '#1A1D20', borderTop: '1px solid rgba(193,120,23,0.2)', borderBottom: '1px solid rgba(193,120,23,0.2)' }} className="py-12 px-4 text-center">
