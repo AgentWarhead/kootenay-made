@@ -126,6 +126,7 @@ const footerLinks = [
   { href: '/about', label: 'About' },
   { href: '/contact', label: 'Contact' },
   { href: '/audit', label: 'Free Audit' },
+  { href: '/play', label: '🏔 Play' },
 ];
 
 export default function Footer() {
