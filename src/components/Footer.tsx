@@ -127,8 +127,47 @@ const footerLinks = [
   { href: '/about', label: 'About' },
   { href: '/contact', label: 'Contact' },
   { href: '/audit', label: 'Free Audit' },
-  { href: '/play', label: '🏔 Play' },
+  { href: '/play', label: 'play', isGame: true },
 ];
+
+function GameFooterLink() {
+  const [showGame, setShowGame] = useState(false);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setShowGame(prev => !prev);
+    }, 2500);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <Link
+      href="/play"
+      className="text-cream hover:text-cream transition-colors text-sm group relative inline-block w-fit"
+      style={{
+        animation: 'footer-game-pulse 5s ease-in-out infinite',
+      }}
+    >
+      <style>{`
+        @keyframes footer-game-pulse {
+          0%, 100% { text-shadow: 0 0 0 transparent; }
+          50% { text-shadow: 0 0 12px rgba(193,120,23,0.5); }
+        }
+        @keyframes emoji-fade {
+          0%, 45% { opacity: 1; }
+          50%, 95% { opacity: 0; }
+          100% { opacity: 1; }
+        }
+      `}</style>
+      <span style={{ position: 'relative' }}>
+        <span style={{ opacity: showGame ? 0 : 1, transition: 'opacity 0.4s ease' }}>🏔</span>
+        <span style={{ position: 'absolute', left: 0, opacity: showGame ? 1 : 0, transition: 'opacity 0.4s ease' }}>🎮</span>
+      </span>
+      {' '}Play
+      <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-copper transition-all duration-300 group-hover:w-full" />
+    </Link>
+  );
+}
 
 export default function Footer() {
   return (
@@ -164,14 +203,18 @@ export default function Footer() {
             <h3 className="font-[family-name:var(--font-satoshi)] font-semibold text-sm uppercase tracking-wider mb-4 text-dark-text-muted">Navigate</h3>
             <div className="flex flex-col gap-3">
               {footerLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="text-dark-text-muted hover:text-cream transition-colors text-sm group relative inline-block w-fit"
-                >
-                  {link.label}
-                  <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-copper transition-all duration-300 group-hover:w-full" />
-                </Link>
+                link.isGame ? (
+                  <GameFooterLink key={link.href} />
+                ) : (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className="text-dark-text-muted hover:text-cream transition-colors text-sm group relative inline-block w-fit"
+                  >
+                    {link.label}
+                    <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-copper transition-all duration-300 group-hover:w-full" />
+                  </Link>
+                )
               ))}
             </div>
           </div>

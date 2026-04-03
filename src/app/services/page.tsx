@@ -1478,16 +1478,18 @@ function PackageCard({ pkg, index }: { pkg: typeof packages[number]; index: numb
 }
 
 /* ── Neighbours Dashboard — Mountain Trail Animation ── */
-const dashboardFeatures = [
+// Add isEasterEgg to the type
+const dashboardFeatures: Array<{ emoji: string; title: string; desc: string; isEasterEgg?: boolean }> = [
   { emoji: '📚', title: 'Step-by-Step Training Manuals', desc: 'Written in plain English. Every tool, every feature, every workflow — explained like a friend is sitting next to you.' },
   { emoji: '🎬', title: 'Curated Video Library', desc: 'Hand-picked YouTube tutorials and walkthroughs for every skill you need. Learn at your own pace — pause, rewind, master.' },
   { emoji: '🔧', title: 'Troubleshooting & Support', desc: 'Something not working? Search the knowledge base first — most answers are already there. If not, we are.' },
   { emoji: '📈', title: 'Grow Your Business', desc: "Guides on SEO, social media, email marketing, and customer retention — updated regularly with what's actually working right now." },
   { emoji: '🤖', title: 'AI Integration Guides', desc: 'As AI tools evolve, so does the dashboard. New workflows, new automations, new ways to save time — all explained step by step.' },
   { emoji: '🤝', title: 'Connect With Other Customers', desc: 'A private community of business owners learning and growing together. Share wins, ask questions, find inspiration from people who get it.' },
+  { emoji: '🎮', title: 'One More Thing...', desc: 'We hid something fun in the footer. Think you can find it?', isEasterEgg: true },
 ];
 
-const CARD_THRESHOLDS = [0.12, 0.25, 0.38, 0.54, 0.68, 0.82];
+const CARD_THRESHOLDS = [0.12, 0.25, 0.38, 0.54, 0.68, 0.82, 0.90];
 
 function TrailCard({ feat, index, isActive, reducedMotion }: {
   feat: typeof dashboardFeatures[number];
@@ -1496,6 +1498,7 @@ function TrailCard({ feat, index, isActive, reducedMotion }: {
   reducedMotion: boolean;
 }) {
   const [hasActivated, setHasActivated] = useState(false);
+  const isEgg = feat.isEasterEgg === true;
 
   useEffect(() => {
     if (isActive && !hasActivated) setHasActivated(true);
@@ -1506,13 +1509,13 @@ function TrailCard({ feat, index, isActive, reducedMotion }: {
       <div
         className="rounded-2xl p-6 flex flex-col gap-3 h-full"
         style={{
-          background: 'rgba(255,255,255,0.06)',
-          border: '1px solid rgba(255,255,255,0.1)',
+          background: isEgg ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.06)',
+          border: isEgg ? '1px solid rgba(193,120,23,0.2)' : '1px solid rgba(255,255,255,0.1)',
           backdropFilter: 'blur(12px)',
         }}
       >
         <span className="text-4xl">{feat.emoji}</span>
-        <h3 className="font-[family-name:var(--font-satoshi)] font-bold text-[#F5F0E8] text-lg">{feat.title}</h3>
+        <h3 className="font-[family-name:var(--font-satoshi)] font-bold text-lg" style={{ color: isEgg ? '#C17817' : '#F5F0E8' }}>{feat.title}</h3>
         <p className="text-slate-400 text-sm leading-relaxed">{feat.desc}</p>
       </div>
     );
@@ -1524,7 +1527,7 @@ function TrailCard({ feat, index, isActive, reducedMotion }: {
       animate={hasActivated ? {
         opacity: 1,
         y: 0,
-        boxShadow: '0 0 20px rgba(193,120,23,0.3)',
+        boxShadow: isEgg ? '0 0 20px rgba(193,120,23,0.15)' : '0 0 20px rgba(193,120,23,0.3)',
       } : { opacity: 0.3, y: 20 }}
       transition={{
         duration: 0.6,
@@ -1532,19 +1535,27 @@ function TrailCard({ feat, index, isActive, reducedMotion }: {
       }}
       className="rounded-2xl p-6 flex flex-col gap-3 h-full transition-colors duration-500"
       style={{
-        background: hasActivated ? 'rgba(255,255,255,0.09)' : 'rgba(255,255,255,0.06)',
-        border: hasActivated ? '1px solid rgba(193,120,23,0.4)' : '1px solid rgba(255,255,255,0.1)',
+        background: isEgg
+          ? (hasActivated ? 'rgba(255,255,255,0.04)' : 'rgba(255,255,255,0.03)')
+          : (hasActivated ? 'rgba(255,255,255,0.09)' : 'rgba(255,255,255,0.06)'),
+        border: isEgg
+          ? (hasActivated ? '1px solid rgba(193,120,23,0.3)' : '1px solid rgba(193,120,23,0.2)')
+          : (hasActivated ? '1px solid rgba(193,120,23,0.4)' : '1px solid rgba(255,255,255,0.1)'),
         backdropFilter: 'blur(12px)',
       }}
     >
       <motion.span
         className="text-4xl inline-block"
-        animate={hasActivated ? { scale: [1, 1.2, 1] } : { scale: 1 }}
-        transition={hasActivated ? { duration: 0.5, ease: [0.34, 1.56, 0.64, 1], delay: 0.1 } : {}}
+        animate={isEgg
+          ? { y: [0, -6, 0] }
+          : (hasActivated ? { scale: [1, 1.2, 1] } : { scale: 1 })}
+        transition={isEgg
+          ? { duration: 1.5, repeat: Infinity, ease: 'easeInOut' }
+          : (hasActivated ? { duration: 0.5, ease: [0.34, 1.56, 0.64, 1], delay: 0.1 } : {})}
       >
         {feat.emoji}
       </motion.span>
-      <h3 className="font-[family-name:var(--font-satoshi)] font-bold text-[#F5F0E8] text-lg">{feat.title}</h3>
+      <h3 className="font-[family-name:var(--font-satoshi)] font-bold text-lg" style={{ color: isEgg ? '#C17817' : '#F5F0E8' }}>{feat.title}</h3>
       <p className="text-slate-400 text-sm leading-relaxed">{feat.desc}</p>
     </motion.div>
   );
@@ -1619,7 +1630,7 @@ function NeighboursDashboard() {
   });
 
   const [progress, setProgress] = useState(0);
-  const [activeCards, setActiveCards] = useState<boolean[]>([false, false, false, false, false, false]);
+  const [activeCards, setActiveCards] = useState<boolean[]>([false, false, false, false, false, false, false]);
 
   useEffect(() => {
     if (prefersReducedMotion) {

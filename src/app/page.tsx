@@ -426,6 +426,32 @@ export default function Home() {
 
         <FloatingShapes />
 
+        {/* Easter egg - floating game controller */}
+        <motion.span
+          className="absolute text-lg pointer-events-auto cursor-pointer select-none z-20"
+          style={{ top: '40%', left: '10%', opacity: 0.15 }}
+          animate={{
+            x: [0, 100, 50, 150, 0],
+            y: [0, -30, 20, -10, 0],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: 'linear',
+          }}
+          whileHover={{ opacity: 0.6, scale: 1.5 }}
+          whileTap={{ scale: 2, opacity: 1 }}
+          onClick={() => {
+            const el = document.createElement('div');
+            el.textContent = 'Keep looking... 👀';
+            el.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#2D3436;color:#F8F4F0;padding:12px 20px;border-radius:12px;font-size:14px;z-index:9999;pointer-events:none;';
+            document.body.appendChild(el);
+            setTimeout(() => el.remove(), 2000);
+          }}
+        >
+          🎮
+        </motion.span>
+
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-16 py-24 sm:py-32">
           {/* Hero headline — staggered word reveal */}
           <h1 className="font-[family-name:var(--font-clash)] text-cream text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-semibold leading-[1.08] max-w-4xl">

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import LayoutShell from '@/components/LayoutShell';
+import GameHintBubble from '@/components/GameHintBubble';
 import GoldenHourScroll from '@/components/GoldenHourScroll';
 
 import AmbientSound from '@/components/AmbientSound';
@@ -64,6 +65,7 @@ export default function RootLayout({
         <SeasonalParticles />
         <KonamiCode />
         <RouteProgress />
+        <GameHintBubble />
         {/* Easter egg console message */}
         <script
           dangerouslySetInnerHTML={{

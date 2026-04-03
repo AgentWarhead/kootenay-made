@@ -230,6 +230,10 @@ function buildConfirmationEmail(name: string, source: string) {
       </td></tr>
     </table>
 
+    <p style="margin-top:20px;font-size:12px;color:#999;font-style:italic;">
+      P.S. — We hid a game on our website. See if you can find it. 🎮
+    </p>
+
     <!-- Sign off -->
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-top:28px;">
       <tr><td>
