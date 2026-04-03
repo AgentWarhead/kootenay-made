@@ -249,6 +249,7 @@ export default function ContactPage() {
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
   const [errorMsg, setErrorMsg] = useState('');
   const formRef = useRef<HTMLDivElement>(null);
+  const successRef = useRef<HTMLDivElement>(null);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -268,8 +269,8 @@ export default function ContactPage() {
       setStatus('success');
       // Scroll success message into view on mobile
       setTimeout(() => {
-        formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 100);
+        successRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 200);
     } catch (err: unknown) {
       setErrorMsg(err instanceof Error ? err.message : 'Something went wrong. Please try again.');
       setStatus('error');
@@ -318,6 +319,7 @@ export default function ContactPage() {
                   {status === 'success' ? (
                     <motion.div
                       key="success"
+                      ref={successRef}
                       initial={{ opacity: 0, scale: 0.95 }}
                       animate={{ opacity: 1, scale: 1 }}
                       className="bg-forest/10 border border-forest/20 rounded-2xl p-8 sm:p-12 text-center relative overflow-hidden"
