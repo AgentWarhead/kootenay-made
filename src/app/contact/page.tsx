@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { Mail, Clock, CheckCircle2, AlertCircle, Phone, CalendarDays, Globe, MapPin } from 'lucide-react';
+import { Mail, Clock, CheckCircle2, AlertCircle, CalendarDays, Globe, MapPin } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -425,7 +425,7 @@ export default function ContactPage() {
                   {/* Info items */}
                   {[
                     { icon: Mail, label: 'Email', value: 'hello@kootenaymade.ca', href: 'mailto:hello@kootenaymade.ca' },
-                    { icon: Phone, label: 'Text', value: '778-986-4468', href: 'sms:+17789864468', note: 'Text anytime. Submit the form first, then text if you want to arrange a call.' },
+                    { icon: Clock, label: 'Calls', value: 'By appointment only', note: 'Fill out the form — if a call makes sense, Brett will suggest a time.' },
                     { icon: Globe, label: 'We Serve', value: 'Businesses worldwide', note: '10% Neighbours Discount for Kootenay businesses 🏔️' },
                     { icon: Clock, label: 'Response Time', value: 'Within 24 hours' },
                   ].map((item) => (

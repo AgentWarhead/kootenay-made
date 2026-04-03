@@ -225,9 +225,8 @@ function buildConfirmationEmail(name: string, source: string) {
     <!-- CTA -->
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#F8F4F0;border-radius:12px;padding:24px;">
       <tr><td style="padding:24px;text-align:center;">
-        <p style="margin:0 0 4px;font-size:13px;color:#888;">Want to chat sooner?</p>
-        <a href="sms:+17789864468" style="display:inline-block;font-size:20px;font-weight:700;color:#C17817;text-decoration:none;">Text 778-986-4468</a>
-        <p style="margin:6px 0 0;font-size:12px;color:#999;">Submit the form first, then text to arrange a call.</p>
+        <p style="margin:0 0 8px;font-size:15px;color:#2D3436;font-weight:600;">What happens from here?</p>
+        <p style="margin:0;font-size:14px;color:#555;line-height:1.6;">I\u2019ll review your message and get back to you within 24 hours.<br/>If a call makes sense, I\u2019ll suggest a time that works for both of us.</p>
       </td></tr>
     </table>
 
@@ -248,8 +247,6 @@ function buildConfirmationEmail(name: string, source: string) {
       <a href="${SITE_URL}" style="color:#C17817;font-size:13px;font-weight:600;text-decoration:none;">kootenaymade.ca</a>
       <span style="color:#ccc;"> \u00B7 </span>
       <a href="mailto:hello@kootenaymade.ca" style="color:#888;font-size:13px;text-decoration:none;">hello@kootenaymade.ca</a>
-      <span style="color:#ccc;"> \u00B7 </span>
-      <a href="tel:+17789864468" style="color:#888;font-size:13px;text-decoration:none;">778-986-4468</a>
     </p>
     <p style="margin:0;font-size:11px;color:#bbb;">Locally crafted digital for businesses worldwide.</p>
   </td></tr>
