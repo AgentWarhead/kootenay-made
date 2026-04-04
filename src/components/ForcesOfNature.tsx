@@ -226,7 +226,7 @@ function ForestGrowthCard({ inView }: { inView: boolean }) {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={inView ? { opacity: 1, scale: 1 } : {}}
           transition={{ duration: 0.8, delay: 0.3, type: 'spring', stiffness: 200 }}
-          className="font-[family-name:var(--font-satoshi)] text-6xl sm:text-8xl md:text-9xl font-black text-forest-light drop-shadow-[0_4px_20px_rgba(45,106,79,0.4)]"
+          className="font-[family-name:var(--font-satoshi)] text-6xl sm:text-8xl md:text-9xl font-black text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] drop-shadow-[0_4px_30px_rgba(45,106,79,0.4)]"
         >
           2-4
         </motion.span>
@@ -250,41 +250,40 @@ function MountainSummitCard({ inView }: { inView: boolean }) {
       <Image src="/images/stats/mountain-bg.webp" alt="Kootenay mountain summit" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent z-[1]" />
 
-      {/* Golden hour warmth + lens flare */}
-      {inView && (
-        <div className="absolute inset-0 z-[2] overflow-hidden pointer-events-none">
-          {/* Warm color wash — like sunrise warming the peaks */}
-          <div className="absolute inset-0" style={{
-            background: 'linear-gradient(135deg, rgba(255,140,50,0.25) 0%, rgba(255,80,20,0.1) 30%, transparent 60%)',
-            animation: 'mountain-glow 6s ease-in-out infinite',
-          }} />
-          {/* Big visible god rays */}
-          <div className="absolute -top-[10%] left-[10%] w-[30%] h-[120%] origin-top" style={{
-            background: 'linear-gradient(180deg, rgba(255,200,100,0.3) 0%, rgba(255,180,80,0.15) 30%, transparent 70%)',
-            transform: 'rotate(8deg)',
-            filter: 'blur(8px)',
-            animation: 'god-ray 8s ease-in-out infinite',
-          }} />
-          <div className="absolute -top-[10%] left-[45%] w-[25%] h-[120%] origin-top" style={{
-            background: 'linear-gradient(180deg, rgba(255,220,120,0.25) 0%, rgba(255,180,80,0.1) 40%, transparent 70%)',
-            transform: 'rotate(-4deg)',
-            filter: 'blur(12px)',
-            animation: 'god-ray 10s ease-in-out infinite reverse',
-          }} />
-          <div className="absolute -top-[10%] left-[70%] w-[20%] h-[120%] origin-top" style={{
-            background: 'linear-gradient(180deg, rgba(255,180,80,0.2) 0%, transparent 60%)',
-            transform: 'rotate(-8deg)',
-            filter: 'blur(6px)',
-            animation: 'god-ray 12s ease-in-out infinite',
-          }} />
-          {/* Lens flare hotspot */}
-          <div className="absolute top-[15%] right-[25%] w-24 h-24 rounded-full" style={{
-            background: 'radial-gradient(circle, rgba(255,220,150,0.4) 0%, rgba(255,180,80,0.15) 40%, transparent 70%)',
-            filter: 'blur(8px)',
-            animation: 'lens-flare-pulse 4s ease-in-out infinite',
-          }} />
-        </div>
-      )}
+      {/* Golden hour warmth — CRANKED */}
+      <div className={`absolute inset-0 z-[2] overflow-hidden pointer-events-none transition-opacity duration-1000 ${inView ? 'opacity-100' : 'opacity-0'}`}>
+        {/* Full card warm wash that pulses */}
+        <div className="absolute inset-0" style={{
+          background: 'linear-gradient(135deg, rgba(255,120,30,0.35) 0%, rgba(255,80,20,0.2) 40%, rgba(255,160,60,0.15) 70%, transparent 100%)',
+          animation: 'mountain-glow 5s ease-in-out infinite',
+          mixBlendMode: 'screen',
+        }} />
+        {/* Thick god rays — impossible to miss */}
+        <div className="absolute -top-[20%] left-[5%] w-[35%] h-[140%]" style={{
+          background: 'linear-gradient(180deg, rgba(255,200,80,0.45) 0%, rgba(255,160,60,0.2) 40%, transparent 80%)',
+          transform: 'rotate(10deg)',
+          filter: 'blur(15px)',
+          animation: 'god-ray 7s ease-in-out infinite',
+        }} />
+        <div className="absolute -top-[20%] left-[40%] w-[30%] h-[140%]" style={{
+          background: 'linear-gradient(180deg, rgba(255,220,100,0.4) 0%, rgba(255,180,60,0.15) 50%, transparent 80%)',
+          transform: 'rotate(-5deg)',
+          filter: 'blur(20px)',
+          animation: 'god-ray 9s ease-in-out infinite reverse',
+        }} />
+        <div className="absolute -top-[20%] left-[65%] w-[30%] h-[140%]" style={{
+          background: 'linear-gradient(180deg, rgba(255,180,60,0.35) 0%, rgba(255,140,40,0.15) 40%, transparent 70%)',
+          transform: 'rotate(-10deg)',
+          filter: 'blur(12px)',
+          animation: 'god-ray 11s ease-in-out infinite',
+        }} />
+        {/* Big lens flare */}
+        <div className="absolute top-[12%] right-[20%] w-32 h-32 rounded-full" style={{
+          background: 'radial-gradient(circle, rgba(255,220,120,0.6) 0%, rgba(255,180,60,0.3) 30%, transparent 70%)',
+          filter: 'blur(10px)',
+          animation: 'lens-flare-pulse 3s ease-in-out infinite',
+        }} />
+      </div>
 
       <div className="absolute inset-0 z-[3] flex flex-col items-center justify-end pb-10 sm:pb-12 text-center px-6">
         <motion.span
