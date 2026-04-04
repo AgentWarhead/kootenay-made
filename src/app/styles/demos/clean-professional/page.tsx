@@ -517,7 +517,7 @@ export default function CleanProfessionalDemo() {
       </nav>
 
       {/* ═══════════ 2. HERO — Asymmetric authority layout ═══════════ */}
-      <section className="relative overflow-hidden py-20 md:py-32" style={{ display: 'flex', alignItems: 'center', backgroundColor: '#1a365d' }}>
+      <section className="relative overflow-hidden py-12 md:py-24" style={{ display: 'flex', alignItems: 'center', backgroundColor: '#1a365d' }}>
         {/* Grid pattern */}
         <div className="absolute inset-0 opacity-10"
           style={{
@@ -529,7 +529,7 @@ export default function CleanProfessionalDemo() {
         <div className="absolute right-0 top-0 bottom-0 w-1/3 hidden lg:block"
           style={{ background: 'linear-gradient(135deg, transparent 40%, rgba(37,99,235,0.15) 100%)' }} />
 
-        <div className="relative max-w-6xl mx-auto px-6 py-24 w-full">
+        <div className="relative max-w-6xl mx-auto px-6 py-12 md:py-24 w-full">
           <div className="flex flex-col lg:flex-row lg:items-center gap-12 lg:gap-16">
             {/* LEFT: Headline */}
             <div className="flex-1">
@@ -719,7 +719,7 @@ export default function CleanProfessionalDemo() {
                     src={`/images/demos/gallery/cp-${i + 1}.webp`}
                     alt={card.tag + ' case study'}
                     fill
-                    className="object-cover opacity-40"
+                    className="object-cover opacity-60"
                   />
                   <div className="relative z-10 px-6 py-5 flex items-center justify-between h-full">
                     <span>{card.icon}</span>
@@ -754,26 +754,23 @@ export default function CleanProfessionalDemo() {
       </Section>
 
       {/* ═══════════ 6. AUTHORITY BAR ═══════════ */}
-      <Section className="py-10 px-6" style={{ backgroundColor: '#1a365d' }}>
+      <Section className="py-8 px-6" style={{ backgroundColor: '#1a365d' }}>
         <div className="max-w-5xl mx-auto">
           <Reveal>
-            <p className="text-xs font-bold uppercase tracking-[0.3em] text-center mb-6" style={{ color: 'rgba(255,255,255,0.4)' }}>
+            <p className="text-xs font-bold uppercase tracking-[0.3em] text-center mb-5" style={{ color: 'rgba(255,255,255,0.4)' }}>
               Recognized &amp; Affiliated With
             </p>
-            <div className="flex flex-wrap justify-center items-center gap-6 md:gap-10">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               {[
                 { abbr: 'CPA BC', name: 'BC CPA Association' },
                 { abbr: 'FP Canada', name: 'Financial Planning Canada' },
-                { abbr: 'KBOT', name: 'Kootenay Boundary\nChamber of Commerce' },
-                { abbr: 'BBB', name: 'Better Business\nBureau A+' },
+                { abbr: 'KBOT', name: 'Kootenay Boundary Chamber' },
+                { abbr: 'BBB A+', name: 'Better Business Bureau' },
               ].map((org) => (
-                <div key={org.abbr} className="flex items-center gap-3 px-5 py-3 rounded-xl transition-all duration-200 hover:bg-white/10"
-                  style={{ backgroundColor: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)' }}>
-                  <div className="w-10 h-10 rounded-xl flex items-center justify-center text-xs font-bold"
-                    style={{ backgroundColor: 'rgba(37,99,235,0.3)', color: '#93c5fd', border: '1px solid rgba(37,99,235,0.4)' }}>
-                    {org.abbr}
-                  </div>
-                  <span className="text-xs leading-tight whitespace-pre-line" style={{ color: 'rgba(255,255,255,0.5)' }}>{org.name}</span>
+                <div key={org.abbr} className="text-center py-4 transition-all duration-200 hover:bg-white/5"
+                  style={{ borderTop: '2px solid rgba(37,99,235,0.4)' }}>
+                  <p className="text-sm font-bold tracking-wide" style={{ color: '#93c5fd' }}>{org.abbr}</p>
+                  <p className="text-xs mt-1" style={{ color: 'rgba(255,255,255,0.45)' }}>{org.name}</p>
                 </div>
               ))}
             </div>
