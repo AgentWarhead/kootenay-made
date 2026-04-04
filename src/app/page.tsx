@@ -601,7 +601,7 @@ export default function Home() {
                 onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-4px)'; }}
                 onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; }}
               >
-                <span className="absolute top-4 left-6 text-6xl font-black text-copper opacity-[0.08] font-[family-name:var(--font-satoshi)] select-none leading-none">1</span>
+                <span className="absolute top-4 right-6 text-6xl font-black text-copper opacity-[0.08] font-[family-name:var(--font-satoshi)] select-none leading-none">1</span>
                 <div className="relative z-10">
                   <h3 className="font-[family-name:var(--font-satoshi)] text-2xl font-bold text-slate mb-3">Tell Us About Your Business</h3>
                   <p className="text-text-secondary text-base leading-relaxed mb-5 font-[family-name:var(--font-general)]">
@@ -627,7 +627,7 @@ export default function Home() {
                 onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-4px)'; }}
                 onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; }}
               >
-                <span className="absolute top-4 left-6 text-6xl font-black text-copper opacity-[0.08] font-[family-name:var(--font-satoshi)] select-none leading-none">2</span>
+                <span className="absolute top-4 right-6 text-6xl font-black text-copper opacity-[0.08] font-[family-name:var(--font-satoshi)] select-none leading-none">2</span>
                 <div className="relative z-10">
                   <h3 className="font-[family-name:var(--font-satoshi)] text-2xl font-bold text-slate mb-3">Brett Runs Your Audit</h3>
                   <p className="text-text-secondary text-base leading-relaxed mb-5 font-[family-name:var(--font-general)]">
@@ -648,7 +648,7 @@ export default function Home() {
                 onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-4px)'; }}
                 onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; }}
               >
-                <span className="absolute top-4 left-6 text-6xl font-black text-copper opacity-[0.08] font-[family-name:var(--font-satoshi)] select-none leading-none">3</span>
+                <span className="absolute top-4 right-6 text-6xl font-black text-copper opacity-[0.08] font-[family-name:var(--font-satoshi)] select-none leading-none">3</span>
                 <div className="relative z-10">
                   <h3 className="font-[family-name:var(--font-satoshi)] text-2xl font-bold text-slate mb-3">Get Your Game Plan</h3>
                   <p className="text-text-secondary text-base leading-relaxed mb-5 font-[family-name:var(--font-general)]">
