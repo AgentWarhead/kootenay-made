@@ -132,8 +132,15 @@ export default function Navigation() {
                   </Link>
                 </Fragment>
               ))}
+              {/* Client Login */}
+              <Link
+                href="/login"
+                className="ml-4 text-dark-text-muted/60 hover:text-cream text-[11px] xl:text-[12px] font-medium tracking-wide transition-colors duration-200"
+              >
+                Client Login
+              </Link>
               {/* Free Audit CTA */}
-              <div className="ml-6">
+              <div className="ml-4">
                 <Link
                   href="/audit"
                   className="inline-flex items-center gap-2 bg-copper hover:bg-copper-light text-white text-[11px] xl:text-[13px] font-semibold uppercase tracking-[0.1em] px-4 xl:px-6 py-2 xl:py-2.5 rounded-lg border border-copper/30 transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] pulse-glow group"
@@ -204,6 +211,19 @@ export default function Navigation() {
                 className="mt-4 inline-flex items-center gap-2 bg-copper text-white text-lg font-semibold uppercase tracking-wide px-8 py-3 rounded-lg pulse-glow"
               >
                 Free Audit <ArrowRight size={18} />
+              </Link>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.9, duration: 0.4 }}
+            >
+              <Link
+                href="/login"
+                onClick={() => setMobileOpen(false)}
+                className="text-dark-text-muted/50 text-sm font-medium tracking-wide hover:text-cream transition-colors"
+              >
+                Client Login
               </Link>
             </motion.div>
           </motion.div>

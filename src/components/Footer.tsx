@@ -127,6 +127,7 @@ const footerLinks = [
   { href: '/about', label: 'About' },
   { href: '/contact', label: 'Contact' },
   { href: '/audit', label: 'Free Audit' },
+  { href: '/login', label: 'Client Login' },
   { href: '/play', label: 'play', isGame: true },
 ];
 
