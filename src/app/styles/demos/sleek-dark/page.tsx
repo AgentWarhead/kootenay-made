@@ -120,7 +120,7 @@ function LiveRedesign() {
                 <div className="absolute inset-0 opacity-[0.12]" style={{ background: 'linear-gradient(135deg, #555 0%, #888 50%, #ccc 100%)' }} />
                 <div className="relative z-10">
                   <p className="text-xs uppercase tracking-wide mb-2" style={{ fontFamily: 'Arial, sans-serif', color: '#666' }}>★ Welcome to Our Website ★</p>
-                  <h2 className="text-xl sm:text-3xl md:text-4xl leading-tight mb-2" style={{ fontFamily: 'Georgia, serif', color: '#3a3a3a', fontWeight: 700, textShadow: '0 1px 0 rgba(255,255,255,0.5)' }}>
+                  <h2 className="text-xl sm:text-2xl md:text-4xl leading-tight mb-2" style={{ fontFamily: 'Georgia, serif', color: '#3a3a3a', fontWeight: 700, textShadow: '0 1px 0 rgba(255,255,255,0.5)' }}>
                     The Copper Table
                   </h2>
                   <p className="text-sm sm:text-lg mb-1" style={{ fontFamily: 'Georgia, serif', color: '#666', fontStyle: 'italic' }}>
@@ -175,7 +175,7 @@ function LiveRedesign() {
                 </motion.span>
                 <motion.div className="hidden sm:flex items-center gap-6" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
                   {['Menu', 'Events', 'About', 'Reserve'].map((link) => (
-                    <span key={link} className={`${body.className} text-xs uppercase tracking-widest`} style={{ color: 'rgba(201,169,110,0.6)', fontWeight: 500 }}>{link}</span>
+                    <span key={link} className={`${body.className} text-xs uppercase tracking-widest`} style={{ color: 'rgba(201,169,110,0.7)', fontWeight: 500 }}>{link}</span>
                   ))}
                 </motion.div>
                 <motion.div className="sm:hidden flex flex-col gap-[5px]" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur * 0.6, delay: stagger }}>
@@ -222,12 +222,12 @@ function LiveRedesign() {
                       style={{ backgroundColor: 'transparent', color: '#c9a96e', border: '1.5px solid #c9a96e', letterSpacing: '0.06em', fontWeight: 500 }}>
                       Reserve Your Table →
                     </a>
-                    <span className={`${body.className} text-sm`} style={{ color: 'rgba(201,169,110,0.4)' }}>No commitment required</span>
+                    <span className={`${body.className} text-sm`} style={{ color: 'rgba(201,169,110,0.7)' }}>No commitment required</span>
                   </motion.div>
                   <motion.div className="flex items-center justify-center sm:justify-start gap-4 sm:gap-6 mt-6 flex-wrap"
                     initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur, delay: stagger * 6 }}>
                     {['4.8★ Google', "Chef's Table", 'Local Sourced'].map((badge) => (
-                      <span key={badge} className={`${body.className} text-xs`} style={{ color: 'rgba(201,169,110,0.5)', letterSpacing: '0.05em' }}>{badge}</span>
+                      <span key={badge} className={`${body.className} text-xs`} style={{ color: 'rgba(201,169,110,0.7)', letterSpacing: '0.05em' }}>{badge}</span>
                     ))}
                   </motion.div>
                 </div>
@@ -263,7 +263,7 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
   const [open, setOpen] = useState(false)
   const prefersReduced = useReducedMotion()
   return (
-    <div style={{ borderBottom: '1px solid rgba(201,169,110,0.15)' }}>
+    <div className="transition-all duration-200 hover:bg-white/[0.02]" style={{ borderBottom: '1px solid rgba(201,169,110,0.15)' }}>
       <button
         className="w-full text-left py-5 flex items-center justify-between gap-4"
         onClick={() => setOpen(!open)}
@@ -457,7 +457,7 @@ export default function SleekDarkDemo() {
           </motion.div>
           <motion.p
             className={`${body.className} mt-8 text-sm`}
-            style={{ color: 'rgba(201,169,110,0.5)' }}
+            style={{ color: 'rgba(201,169,110,0.7)' }}
             initial={prefersReduced ? {} : { opacity: 0 }}
             animate={prefersReduced ? {} : { opacity: 1 }}
             transition={{ duration: 0.6, delay: 1.1 }}
@@ -490,7 +490,7 @@ export default function SleekDarkDemo() {
             <p className="text-center text-xs uppercase tracking-[0.3em] mb-3" style={{ color: '#c9a96e' }}>
               Seasonal · Chef-driven
             </p>
-            <h2 className={`heading-font text-3xl md:text-5xl text-center mb-4`} style={{ color: '#f5f0e8', fontWeight: 300 }}>
+            <h2 className={`heading-font text-2xl md:text-5xl text-center mb-4`} style={{ color: '#f5f0e8', fontWeight: 300 }}>
               This Evening&rsquo;s Menu
             </h2>
             <div className="w-16 h-px mx-auto mb-16" style={{ backgroundColor: '#c9a96e' }} />
@@ -499,7 +499,7 @@ export default function SleekDarkDemo() {
           {/* Starters */}
           <Reveal delay={0.05}>
             <div className="mb-14">
-              <p className="text-xs uppercase tracking-[0.25em] mb-8 text-center" style={{ color: 'rgba(201,169,110,0.6)' }}>
+              <p className="text-xs uppercase tracking-[0.25em] mb-8 text-center" style={{ color: 'rgba(201,169,110,0.7)' }}>
                 — Starters —
               </p>
               <div className="grid md:grid-cols-2 gap-x-16 gap-y-6">
@@ -509,10 +509,10 @@ export default function SleekDarkDemo() {
                   { name: 'French Onion Soup', desc: 'Slow-caramelized onions, veal stock, gruyère croûte', price: '$14' },
                   { name: 'Seared Scallops', desc: 'Pan-seared sea scallops, cauliflower purée, crispy capers', price: '$24' },
                 ].map((item) => (
-                  <div key={item.name} className="flex justify-between gap-4" style={{ borderBottom: '1px solid rgba(201,169,110,0.08)', paddingBottom: '1rem' }}>
+                  <div key={item.name} className="flex justify-between gap-4 transition-all duration-200 hover:pl-3 hover:border-l-2" style={{ borderBottom: '1px solid rgba(201,169,110,0.08)', paddingBottom: '1rem', borderLeftColor: '#c9a96e' }}>
                     <div>
                       <p className={`heading-font text-base md:text-lg`} style={{ color: '#f5f0e8', fontWeight: 400 }}>{item.name}</p>
-                      <p className="text-xs mt-1 leading-relaxed" style={{ color: 'rgba(245,240,232,0.45)' }}>{item.desc}</p>
+                      <p className="text-xs mt-1 leading-relaxed" style={{ color: 'rgba(245,240,232,0.65)' }}>{item.desc}</p>
                     </div>
                     <span className="text-sm font-bold flex-shrink-0" style={{ color: '#c9a96e' }}>{item.price}</span>
                   </div>
@@ -524,7 +524,7 @@ export default function SleekDarkDemo() {
           {/* Mains */}
           <Reveal delay={0.1}>
             <div className="mb-14">
-              <p className="text-xs uppercase tracking-[0.25em] mb-8 text-center" style={{ color: 'rgba(201,169,110,0.6)' }}>
+              <p className="text-xs uppercase tracking-[0.25em] mb-8 text-center" style={{ color: 'rgba(201,169,110,0.7)' }}>
                 — Mains —
               </p>
               <div className="grid md:grid-cols-2 gap-x-16 gap-y-6">
@@ -536,10 +536,10 @@ export default function SleekDarkDemo() {
                   { name: 'Dry-Aged Striploin', desc: '10oz 45-day dry-aged BC beef, bone marrow butter, frites, peppercorn jus', price: '$62' },
                   { name: 'Pan-Roasted Chicken', desc: 'Free-range chicken supreme, herbed pan sauce, fingerling potatoes, seasonal greens', price: '$38' },
                 ].map((item) => (
-                  <div key={item.name} className="flex justify-between gap-4" style={{ borderBottom: '1px solid rgba(201,169,110,0.08)', paddingBottom: '1rem' }}>
+                  <div key={item.name} className="flex justify-between gap-4 transition-all duration-200 hover:pl-3 hover:border-l-2" style={{ borderBottom: '1px solid rgba(201,169,110,0.08)', paddingBottom: '1rem', borderLeftColor: '#c9a96e' }}>
                     <div>
                       <p className={`heading-font text-base md:text-lg`} style={{ color: '#f5f0e8', fontWeight: 400 }}>{item.name}</p>
-                      <p className="text-xs mt-1 leading-relaxed" style={{ color: 'rgba(245,240,232,0.45)' }}>{item.desc}</p>
+                      <p className="text-xs mt-1 leading-relaxed" style={{ color: 'rgba(245,240,232,0.65)' }}>{item.desc}</p>
                     </div>
                     <span className="text-sm font-bold flex-shrink-0" style={{ color: '#c9a96e' }}>{item.price}</span>
                   </div>
@@ -551,7 +551,7 @@ export default function SleekDarkDemo() {
           {/* Desserts */}
           <Reveal delay={0.15}>
             <div className="mb-10">
-              <p className="text-xs uppercase tracking-[0.25em] mb-8 text-center" style={{ color: 'rgba(201,169,110,0.6)' }}>
+              <p className="text-xs uppercase tracking-[0.25em] mb-8 text-center" style={{ color: 'rgba(201,169,110,0.7)' }}>
                 — Desserts —
               </p>
               <div className="grid md:grid-cols-2 gap-x-16 gap-y-6">
@@ -561,10 +561,10 @@ export default function SleekDarkDemo() {
                   { name: 'Cheese Board', desc: 'Selection of three local and imported cheeses, honeycomb, fruit preserves', price: '$22' },
                   { name: 'Lemon Tart', desc: 'Silky lemon curd, pâte sablée, Italian meringue, candied zest', price: '$13' },
                 ].map((item) => (
-                  <div key={item.name} className="flex justify-between gap-4" style={{ borderBottom: '1px solid rgba(201,169,110,0.08)', paddingBottom: '1rem' }}>
+                  <div key={item.name} className="flex justify-between gap-4 transition-all duration-200 hover:pl-3 hover:border-l-2" style={{ borderBottom: '1px solid rgba(201,169,110,0.08)', paddingBottom: '1rem', borderLeftColor: '#c9a96e' }}>
                     <div>
                       <p className={`heading-font text-base md:text-lg`} style={{ color: '#f5f0e8', fontWeight: 400 }}>{item.name}</p>
-                      <p className="text-xs mt-1 leading-relaxed" style={{ color: 'rgba(245,240,232,0.45)' }}>{item.desc}</p>
+                      <p className="text-xs mt-1 leading-relaxed" style={{ color: 'rgba(245,240,232,0.65)' }}>{item.desc}</p>
                     </div>
                     <span className="text-sm font-bold flex-shrink-0" style={{ color: '#c9a96e' }}>{item.price}</span>
                   </div>
@@ -574,7 +574,7 @@ export default function SleekDarkDemo() {
           </Reveal>
 
           <Reveal delay={0.2}>
-            <p className="text-center text-xs italic" style={{ color: 'rgba(245,240,232,0.3)' }}>
+            <p className="text-center text-xs italic" style={{ color: 'rgba(245,240,232,0.5)' }}>
               Menu changes seasonally. Please advise your server of any dietary requirements.
             </p>
           </Reveal>
@@ -585,7 +585,7 @@ export default function SleekDarkDemo() {
       <section id="gallery" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#1a1a1a' }}>
         <div className="max-w-5xl mx-auto">
           <Reveal>
-            <h2 className={`heading-font text-3xl md:text-5xl text-center mb-4`} style={{ color: '#f5f0e8', fontWeight: 300 }}>
+            <h2 className={`heading-font text-2xl md:text-5xl text-center mb-4`} style={{ color: '#f5f0e8', fontWeight: 300 }}>
               From Our Kitchen
             </h2>
             <div className="w-16 h-px mx-auto mb-12" style={{ backgroundColor: '#c9a96e' }} />
@@ -647,11 +647,11 @@ export default function SleekDarkDemo() {
       <section id="reserve" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#0a0a0a' }}>
         <div className="max-w-3xl mx-auto">
           <Reveal>
-            <h2 className={`heading-font text-3xl md:text-5xl text-center mb-4`} style={{ color: '#f5f0e8', fontWeight: 300 }}>
+            <h2 className={`heading-font text-2xl md:text-5xl text-center mb-4`} style={{ color: '#f5f0e8', fontWeight: 300 }}>
               Reserve Your Table
             </h2>
             <div className="w-16 h-px mx-auto mb-4" style={{ backgroundColor: '#c9a96e' }} />
-            <p className="text-center text-sm mb-12" style={{ color: 'rgba(201,169,110,0.5)' }}>
+            <p className="text-center text-sm mb-12" style={{ color: 'rgba(201,169,110,0.7)' }}>
               Reservations recommended. Walk-ins welcome based on availability.
             </p>
           </Reveal>
@@ -735,7 +735,7 @@ export default function SleekDarkDemo() {
               >
                 Request Reservation
               </button>
-              <p className="text-center text-xs mt-4" style={{ color: 'rgba(245,240,232,0.3)' }}>
+              <p className="text-center text-xs mt-4" style={{ color: 'rgba(245,240,232,0.5)' }}>
                 For parties of 8+, please call us directly at (250) 555-0195
               </p>
             </div>
@@ -762,7 +762,7 @@ export default function SleekDarkDemo() {
                 <p className="text-xs uppercase tracking-[0.3em] mb-4" style={{ color: '#c9a96e' }}>
                   The Philosophy
                 </p>
-                <h2 className={`heading-font text-3xl md:text-4xl mb-6`} style={{ color: '#f5f0e8', fontWeight: 300, lineHeight: 1.3 }}>
+                <h2 className={`heading-font text-2xl md:text-4xl mb-6`} style={{ color: '#f5f0e8', fontWeight: 300, lineHeight: 1.3 }}>
                   Our ingredients travel<br /><em style={{ color: '#c9a96e' }}>less than 100km.</em>
                 </h2>
                 <div className="w-12 h-px mb-6" style={{ backgroundColor: '#c9a96e' }} />
@@ -799,7 +799,7 @@ export default function SleekDarkDemo() {
                   5:00 PM – 10:30 PM<br /><br />
                   Sunday<br />
                   5:00 PM – 9:00 PM<br /><br />
-                  <span style={{ color: 'rgba(201,169,110,0.5)' }}>Closed Mondays &amp; Tuesdays</span>
+                  <span style={{ color: 'rgba(201,169,110,0.7)' }}>Closed Mondays &amp; Tuesdays</span>
                 </p>
               </div>
               <div>
@@ -836,11 +836,11 @@ export default function SleekDarkDemo() {
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#1a1a1a' }}>
         <div className="max-w-5xl mx-auto">
           <Reveal>
-            <h2 className={`heading-font text-3xl md:text-5xl text-center mb-4`} style={{ color: '#f5f0e8', fontWeight: 300 }}>
+            <h2 className={`heading-font text-2xl md:text-5xl text-center mb-4`} style={{ color: '#f5f0e8', fontWeight: 300 }}>
               Watch Your Website Transform
             </h2>
             <div className="w-16 h-px mx-auto mb-4" style={{ backgroundColor: '#c9a96e' }} />
-            <p className="text-center text-sm mb-12" style={{ color: 'rgba(201,169,110,0.6)' }}>
+            <p className="text-center text-sm mb-12" style={{ color: 'rgba(201,169,110,0.7)' }}>
               From dated to designed — in real time
             </p>
           </Reveal>
@@ -866,7 +866,7 @@ export default function SleekDarkDemo() {
               <p className={`${body.className} text-sm font-bold uppercase tracking-widest`} style={{ color: '#c9a96e' }}>
                 — Sarah &amp; James T., Nelson
               </p>
-              <p className="text-xs mt-2 italic" style={{ color: 'rgba(245,240,232,0.25)' }}>
+              <p className="text-xs mt-2 italic" style={{ color: 'rgba(245,240,232,0.45)' }}>
                 (Sample review — your real reviews go here)
               </p>
             </div>
@@ -878,7 +878,7 @@ export default function SleekDarkDemo() {
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#1a1a1a' }}>
         <div className="max-w-3xl mx-auto">
           <Reveal>
-            <h2 className={`heading-font text-3xl md:text-5xl text-center mb-4`} style={{ color: '#f5f0e8', fontWeight: 300 }}>
+            <h2 className={`heading-font text-2xl md:text-5xl text-center mb-4`} style={{ color: '#f5f0e8', fontWeight: 300 }}>
               Common Questions
             </h2>
             <div className="w-16 h-px mx-auto mb-16" style={{ backgroundColor: '#c9a96e' }} />
@@ -898,7 +898,7 @@ export default function SleekDarkDemo() {
       <section id="contact" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#0a0a0a' }}>
         <div className="max-w-6xl mx-auto">
           <Reveal>
-            <h2 className={`heading-font text-3xl md:text-5xl text-center mb-4`} style={{ color: '#f5f0e8', fontWeight: 300 }}>
+            <h2 className={`heading-font text-2xl md:text-5xl text-center mb-4`} style={{ color: '#f5f0e8', fontWeight: 300 }}>
               Get in Touch
             </h2>
             <div className="w-16 h-px mx-auto mb-16" style={{ backgroundColor: '#c9a96e' }} />
@@ -942,50 +942,17 @@ export default function SleekDarkDemo() {
             </Reveal>
 
             <Reveal delay={0.15}>
-              <form onSubmit={(e) => e.preventDefault()} className="space-y-5">
-                <div>
-                  <label className="block text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#c9a96e' }}>Name</label>
-                  <input
-                    type="text"
-                    placeholder="Your name"
-                    className="w-full px-4 py-3 text-sm outline-none transition-all"
-                    style={{ backgroundColor: '#0a0a0a', border: '1px solid rgba(201,169,110,0.2)', color: '#f5f0e8' }}
-                    onFocus={(e) => (e.currentTarget.style.borderColor = '#c9a96e')}
-                    onBlur={(e) => (e.currentTarget.style.borderColor = 'rgba(201,169,110,0.2)')}
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#c9a96e' }}>Email</label>
-                  <input
-                    type="email"
-                    placeholder="you@example.com"
-                    className="w-full px-4 py-3 text-sm outline-none transition-all"
-                    style={{ backgroundColor: '#0a0a0a', border: '1px solid rgba(201,169,110,0.2)', color: '#f5f0e8' }}
-                    onFocus={(e) => (e.currentTarget.style.borderColor = '#c9a96e')}
-                    onBlur={(e) => (e.currentTarget.style.borderColor = 'rgba(201,169,110,0.2)')}
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#c9a96e' }}>Message</label>
-                  <textarea
-                    rows={4}
-                    placeholder="Party size, date, special requests..."
-                    className="w-full px-4 py-3 text-sm outline-none transition-all resize-none"
-                    style={{ backgroundColor: '#0a0a0a', border: '1px solid rgba(201,169,110,0.2)', color: '#f5f0e8' }}
-                    onFocus={(e) => (e.currentTarget.style.borderColor = '#c9a96e')}
-                    onBlur={(e) => (e.currentTarget.style.borderColor = 'rgba(201,169,110,0.2)')}
-                  />
-                </div>
-                <button
-                  type="submit"
-                  className="w-full px-8 py-3.5 text-sm font-bold uppercase tracking-widest transition-all"
+              <div className="flex flex-col items-center justify-center h-full gap-6 p-12" style={{ backgroundColor: '#1a1a1a', border: '1px solid rgba(201,169,110,0.15)' }}>
+                <p className="text-xs uppercase tracking-[0.25em]" style={{ color: 'rgba(201,169,110,0.7)' }}>Ready to dine?</p>
+                <a href="#reserve"
+                  className="inline-block px-10 py-4 text-sm font-bold uppercase tracking-widest transition-all"
                   style={{ backgroundColor: '#c9a96e', color: '#0a0a0a' }}
-                  onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.85')}
-                  onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
-                >
-                  Send Message
-                </button>
-              </form>
+                  onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.88')}
+                  onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}>
+                  Reserve Your Table &rarr;
+                </a>
+                <p className="text-xs" style={{ color: 'rgba(245,240,232,0.5)' }}>Or call us directly at (250) 555-0195</p>
+              </div>
             </Reveal>
           </div>
         </div>
@@ -999,7 +966,7 @@ export default function SleekDarkDemo() {
               <h3 className={`heading-font text-xl mb-3`} style={{ color: '#c9a96e', fontWeight: 300 }}>
                 The Copper Table
               </h3>
-              <p className="text-sm" style={{ color: 'rgba(245,240,232,0.4)' }}>
+              <p className="text-sm" style={{ color: 'rgba(245,240,232,0.6)' }}>
                 Farm-to-table dining in the heart of Nelson.
               </p>
             </div>
@@ -1011,7 +978,7 @@ export default function SleekDarkDemo() {
                     key={link}
                     href={`#${link.toLowerCase()}`}
                     className="text-sm transition-colors"
-                    style={{ color: 'rgba(245,240,232,0.4)' }}
+                    style={{ color: 'rgba(245,240,232,0.6)' }}
                     onMouseEnter={(e) => (e.currentTarget.style.color = '#c9a96e')}
                     onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(245,240,232,0.4)')}
                   >
@@ -1022,14 +989,14 @@ export default function SleekDarkDemo() {
             </div>
             <div>
               <h4 className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: '#c9a96e' }}>Info</h4>
-              <p className="text-sm mb-1" style={{ color: 'rgba(245,240,232,0.4)' }}>Wed–Sun 5:00 PM – Close</p>
-              <p className="text-sm mb-1" style={{ color: 'rgba(245,240,232,0.4)' }}>123 Sample St, Nelson, BC</p>
-              <p className="text-sm" style={{ color: 'rgba(245,240,232,0.4)' }}>(250) 555-0195</p>
+              <p className="text-sm mb-1" style={{ color: 'rgba(245,240,232,0.6)' }}>Wed–Sun 5:00 PM – Close</p>
+              <p className="text-sm mb-1" style={{ color: 'rgba(245,240,232,0.6)' }}>123 Sample St, Nelson, BC</p>
+              <p className="text-sm" style={{ color: 'rgba(245,240,232,0.6)' }}>(250) 555-0195</p>
             </div>
           </div>
           <div style={{ borderTop: '1px solid rgba(201,169,110,0.1)' }} className="pt-6 text-center">
-            <span className="text-sm" style={{ color: 'rgba(245,240,232,0.25)' }}>
-              &copy; 2025 The Copper Table. All rights reserved.
+            <span className="text-sm" style={{ color: 'rgba(245,240,232,0.45)' }}>
+              &copy; {new Date().getFullYear()} The Copper Table. All rights reserved.
             </span>
           </div>
         </div>
