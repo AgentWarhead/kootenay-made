@@ -166,17 +166,7 @@ const services = [
   { icon: Search, name: 'Google Domination', price: '$500', desc: 'When someone searches "plumber near me" or "best restaurant in Trail" — you show up.' },
 ];
 
-/* ── Style previews data ───────────────────── */
-const styles = [
-  { name: 'Clean & Professional', tags: ['Law', 'Accounting', 'Medical'], color: '#4A90A4', gradient: 'from-blue-500/20 to-blue-600/5' },
-  { name: 'Bold & Modern', tags: ['Tech', 'Startups', 'Fitness'], color: '#F97316', gradient: 'from-orange-500/20 to-orange-600/5' },
-  { name: 'Warm & Natural', tags: ['Wellness', 'Yoga', 'Therapy'], color: '#2D6A4F', gradient: 'from-green-500/20 to-green-600/5' },
-  { name: 'Rustic Craft', tags: ['Breweries', 'Bakeries', 'Artisan'], color: '#9E6012', gradient: 'from-amber-500/20 to-amber-600/5' },
-  { name: 'Sleek & Dark', tags: ['Restaurants', 'Bars', 'Luxury'], color: '#C9A96E', gradient: 'from-yellow-500/10 to-yellow-600/5' },
-  { name: 'Bright & Playful', tags: ['Daycares', 'Pets', 'Retail'], color: '#8B5CF6', gradient: 'from-purple-500/20 to-purple-600/5' },
-  { name: 'Editorial & Elegant', tags: ['Real Estate', 'Fashion', 'Salons'], color: '#B8860B', gradient: 'from-yellow-600/20 to-yellow-700/5' },
-  { name: 'Adventure & Outdoors', tags: ['Tourism', 'Guides', 'Ski Resorts'], color: '#0EA5E9', gradient: 'from-sky-500/20 to-sky-600/5' },
-];
+
 
 /* ── Pain Points (campfire stories) ──────────── */
 const painPoints = [
@@ -341,32 +331,7 @@ function Marquee() {
   );
 }
 
-/* ── Style scroll drag hint ──────────────────── */
-function DragHint() {
-  const [dismissed, setDismissed] = useState(false);
 
-  useEffect(() => {
-    const t = setTimeout(() => setDismissed(true), 6000);
-    return () => clearTimeout(t);
-  }, []);
-
-  return (
-    <AnimatePresence>
-      {!dismissed && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="absolute right-6 sm:right-10 top-1/2 -translate-y-1/2 z-20 flex items-center gap-2 text-cream/40 text-xs tracking-wider"
-        >
-          <motion.span animate={{ x: [0, 8, 0] }} transition={{ repeat: Infinity, duration: 1.5 }}>
-            ← Drag
-          </motion.span>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  );
-}
 
 /* ══════════════════════════════════════════════
    HOME PAGE
@@ -386,17 +351,9 @@ export default function Home() {
   const bentoRef = useRef<HTMLDivElement>(null);
   const bentoInView = useInView(bentoRef, { once: true, margin: '-80px' });
 
-  // Style scroll hint dismiss on interaction
-  const styleScrollRef = useRef<HTMLDivElement>(null);
-  const [styleInteracted, setStyleInteracted] = useState(false);
-
   // Trail timeline animation
   const trailRef = useRef<HTMLDivElement>(null);
   const trailInView = useInView(trailRef, { once: true, margin: '-100px' });
-
-  const handleStyleScroll = useCallback(() => {
-    if (!styleInteracted) setStyleInteracted(true);
-  }, [styleInteracted]);
 
   return (
     <>
@@ -724,66 +681,6 @@ export default function Home() {
 
       {/* ═══ FORCES OF NATURE — Interactive Stat Cards ═══ */}
       <ForcesOfNature />
-
-      {/* ═══ STYLE MENU PREVIEW — Scroll Snap ═══ */}
-      <section className="bg-slate grain py-24 sm:py-32 overflow-hidden relative border-t border-white/5">
-        <AmbientOrbs />
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
-          <ScrollReveal>
-            <p className="text-copper-light font-medium text-sm tracking-wider uppercase mb-3">Find Your Style</p>
-            <h2 className="font-[family-name:var(--font-satoshi)] text-3xl sm:text-4xl md:text-5xl font-bold text-cream leading-tight max-w-2xl">
-              Browse design styles built for businesses like yours.
-            </h2>
-          </ScrollReveal>
-
-          <div className="mt-16 relative">
-            {/* Gradient fade edges */}
-            <div className="absolute left-0 top-0 bottom-6 w-8 sm:w-16 bg-gradient-to-r from-slate to-transparent z-10 pointer-events-none" />
-            <div className="absolute right-0 top-0 bottom-6 w-8 sm:w-16 bg-gradient-to-l from-slate to-transparent z-10 pointer-events-none" />
-
-            {!styleInteracted && <DragHint />}
-
-            <div
-              ref={styleScrollRef}
-              onScroll={handleStyleScroll}
-              onTouchStart={handleStyleScroll}
-              className="flex gap-6 overflow-x-auto pb-6 -mx-6 px-6 snap-x snap-mandatory scrollbar-hide scroll-smooth"
-              style={{ WebkitOverflowScrolling: 'touch' }}
-            >
-              {styles.map((style, i) => (
-                <ScrollReveal key={style.name} delay={i * 0.08}>
-                  <Link href="/styles" className="group">
-                    <motion.div
-                      whileHover={{ y: -6 }}
-                      className="snap-start shrink-0 w-[80vw] sm:w-80 glass-card-dark rounded-2xl p-5 sm:p-6"
-                    >
-                      <div className={`h-40 rounded-xl mb-5 bg-gradient-to-br ${style.gradient} flex items-center justify-center relative overflow-hidden`}>
-                        <span className="font-[family-name:var(--font-satoshi)] text-4xl font-bold opacity-30" style={{ color: style.color }}>
-                          Aa
-                        </span>
-                      </div>
-                      <h3 className="font-[family-name:var(--font-satoshi)] text-lg font-bold text-cream mb-3">{style.name}</h3>
-                      <div className="flex flex-wrap gap-2">
-                        {style.tags.map((tag) => (
-                          <span key={tag} className="text-xs bg-white/5 text-dark-text-muted px-3 py-1 rounded-full">
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    </motion.div>
-                  </Link>
-                </ScrollReveal>
-              ))}
-            </div>
-          </div>
-
-          <ScrollReveal delay={0.3}>
-            <Link href="/styles" className="inline-flex items-center gap-2 text-copper-light hover:text-copper font-medium group transition-colors mt-4">
-              Explore all styles <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-            </Link>
-          </ScrollReveal>
-        </div>
-      </section>
 
       {/* ═══ MARQUEE ═══ */}
       <Marquee />
