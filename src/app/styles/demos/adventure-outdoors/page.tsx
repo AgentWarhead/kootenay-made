@@ -279,7 +279,7 @@ function TripCard({
   return (
     <Reveal delay={delay}>
       <div
-        className="relative rounded-2xl overflow-hidden cursor-pointer"
+        className="relative rounded-2xl overflow-hidden cursor-pointer snap-center flex-shrink-0 w-[75vw] md:w-auto"
         style={{ aspectRatio: '3/4', minHeight: '340px' }}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
@@ -476,11 +476,11 @@ export default function AdventureOutdoorsDemo() {
             <h2 className={`${heading.className} text-2xl md:text-5xl font-bold uppercase text-center mb-4`}>Choose Your Adventure</h2>
             <div className="w-16 h-1 mx-auto mb-4" style={{ backgroundColor: '#f97316' }} />
             <p className="text-center mb-12 text-sm uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.55)' }}>
-              Tap a card to see trip details — hover on desktop
+              Swipe to explore · hover for details on desktop
             </p>
           </Reveal>
 
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory md:grid md:grid-cols-3 md:gap-6 md:overflow-visible md:pb-0" style={{ scrollbarWidth: 'none', WebkitOverflowScrolling: 'touch' }}>
             <TripCard
               image="/images/demos/gallery/ao-1.webp"
               title="Backcountry Skiing"
