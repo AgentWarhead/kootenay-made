@@ -1626,7 +1626,7 @@ export default function ServicesPage() {
           <Breadcrumb items={[{ label: 'Services' }]} dark />
           <ScrollReveal>
             <p className="text-copper font-[family-name:var(--font-satoshi)] font-semibold text-sm tracking-[0.2em] uppercase mb-3">Our Services</p>
-            <BalancedText as="h1" className="font-[family-name:var(--font-satoshi)] text-4xl sm:text-5xl md:text-6xl font-bold text-cream leading-tight max-w-3xl">
+            <BalancedText as="h1" className="font-[family-name:var(--font-satoshi)] text-3xl sm:text-5xl md:text-6xl font-bold text-cream leading-tight max-w-3xl">
               Real websites.<br />Real results.<br />Real neighbours.
             </BalancedText>
             <p className="mt-6 text-dark-text-muted text-lg max-w-2xl leading-relaxed">
