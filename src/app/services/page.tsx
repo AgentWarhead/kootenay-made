@@ -704,18 +704,20 @@ function CategoryPill({
 function ImmersivePackageShowcase() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const packagesRef = useRef<HTMLDivElement>(null);
+  const categoryNavRef = useRef<HTMLDivElement>(null);
 
   const handleSelectCategory = (id: string) => {
     setSelectedCategory(id);
-    // Smooth scroll to packages after brief delay for animation
     setTimeout(() => {
-      packagesRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      categoryNavRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 150);
   };
 
   const handleBack = () => {
     setSelectedCategory(null);
-    packagesRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setTimeout(() => {
+      categoryNavRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 150);
   };
 
   const selectedCat = categoryCards.find(c => c.id === selectedCategory);
@@ -784,7 +786,7 @@ function ImmersivePackageShowcase() {
             exit={{ opacity: 0, scale: 0.98 }}
             transition={{ duration: 0.3 }}
           >
-            <div className="mb-6">
+            <div ref={categoryNavRef} className="mb-6 scroll-mt-24">
               <p className="text-text-secondary text-base">
                 Choose a category to explore our packages — or start with the free audit above.
               </p>
@@ -815,7 +817,7 @@ function ImmersivePackageShowcase() {
             transition={{ duration: 0.3 }}
           >
             {/* Back button + category pills */}
-            <div className="flex flex-wrap items-center gap-3 mb-6">
+            <div ref={categoryNavRef} className="flex flex-wrap items-center gap-3 mb-6 scroll-mt-24">
               <motion.button
                 onClick={handleBack}
                 whileHover={{ x: -3 }}
