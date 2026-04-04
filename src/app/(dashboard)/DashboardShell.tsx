@@ -146,15 +146,15 @@ export default function DashboardShell({ children }: { children: React.ReactNode
           </button>
 
           {/* Avatar */}
-          <button
-            className="w-8 h-8 rounded-full flex items-center justify-center font-semibold text-sm text-white"
+          <Link
+            href="/dashboard/account"
+            className="w-8 h-8 rounded-full flex items-center justify-center font-semibold text-sm text-white hover:opacity-90 transition-opacity"
             style={{ backgroundColor: 'var(--color-dash-copper)' }}
             title={businessName}
-            onClick={signOut}
-            aria-label="Sign out"
+            aria-label="My Account"
           >
             {initials}
-          </button>
+          </Link>
         </div>
       </header>
 
