@@ -250,7 +250,7 @@ function FAQAccordion({ items, hc }: { items: { q: string; a: string }[]; hc: bo
             </svg>
           </button>
           {open === i && (
-            <div className="px-6 pb-5 text-base leading-relaxed" style={{ color: C.slateLight }}>{item.a}</div>
+            <div className="px-6 pb-5 text-base leading-relaxed" style={{ color: '#64748b' }}>{item.a}</div>
           )}
         </div>
       ))}
