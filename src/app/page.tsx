@@ -603,9 +603,9 @@ export default function Home() {
               >
                 <span className="absolute top-4 right-6 text-6xl font-black text-copper opacity-[0.08] font-[family-name:var(--font-satoshi)] select-none leading-none">1</span>
                 <div className="relative z-10">
-                  <h3 className="font-[family-name:var(--font-satoshi)] text-2xl font-bold text-slate mb-3">Tell Us About Your Business</h3>
+                  <h3 className="font-[family-name:var(--font-satoshi)] text-2xl font-bold text-slate mb-3">Run Your Instant Scan</h3>
                   <p className="text-text-secondary text-base leading-relaxed mb-5 font-[family-name:var(--font-general)]">
-                    30 seconds. Seriously. Just your name, your website (if you have one), and what you do. That&apos;s it.
+                    Drop in your website URL and get your speed, SEO, and accessibility scores in 30 seconds — right on screen. No email required.
                   </p>
                   <span className="text-xs text-text-secondary bg-cream-dark/80 px-3 py-1.5 rounded-full inline-flex items-center gap-1.5 mb-5">
                     <Shield size={13} /> No credit card. No sales call. No catch.
@@ -629,9 +629,9 @@ export default function Home() {
               >
                 <span className="absolute top-4 right-6 text-6xl font-black text-copper opacity-[0.08] font-[family-name:var(--font-satoshi)] select-none leading-none">2</span>
                 <div className="relative z-10">
-                  <h3 className="font-[family-name:var(--font-satoshi)] text-2xl font-bold text-slate mb-3">Brett Runs Your Audit</h3>
+                  <h3 className="font-[family-name:var(--font-satoshi)] text-2xl font-bold text-slate mb-3">Want the Full Picture? Leave Your Info</h3>
                   <p className="text-text-secondary text-base leading-relaxed mb-5 font-[family-name:var(--font-general)]">
-                    Within 48 hours, Brett personally reviews your online presence — your website speed, how you show up on Google, what your competitors are doing, and where the quick wins are.
+                    Want more than scores? Leave your name and email, and within 48 hours Brett personally reviews your online presence — competitors, quick wins, and everything the scan can&apos;t see.
                   </p>
                   <span className="text-xs text-text-secondary bg-cream-dark/80 px-3 py-1.5 rounded-full inline-flex items-center gap-1.5">
                     <User size={13} /> AI-powered analysis, personally reviewed by Brett.
@@ -650,9 +650,9 @@ export default function Home() {
               >
                 <span className="absolute top-4 right-6 text-6xl font-black text-copper opacity-[0.08] font-[family-name:var(--font-satoshi)] select-none leading-none">3</span>
                 <div className="relative z-10">
-                  <h3 className="font-[family-name:var(--font-satoshi)] text-2xl font-bold text-slate mb-3">Get Your Game Plan</h3>
+                  <h3 className="font-[family-name:var(--font-satoshi)] text-2xl font-bold text-slate mb-3">Get Your Branded Report</h3>
                   <p className="text-text-secondary text-base leading-relaxed mb-5 font-[family-name:var(--font-general)]">
-                    You get a branded report with exactly what&apos;s working, what&apos;s not, and what to do next. It&apos;s yours to keep — whether you hire us or not.
+                    A custom PDF with your scores, what&apos;s working, what&apos;s not, and exactly what to do next. Yours to keep — whether you hire us or not.
                   </p>
                   <span className="text-xs text-text-secondary bg-cream-dark/80 px-3 py-1.5 rounded-full inline-flex items-center gap-1.5">
                     <Gift size={13} /> The report is yours. No strings attached.
@@ -686,7 +686,7 @@ export default function Home() {
               Let&apos;s grab a coffee and talk about your business.
             </BalancedText>
             <p className="mt-6 text-dark-text-muted text-lg max-w-xl mx-auto leading-relaxed">
-              Our website check-up is free, takes 30 minutes, and comes with zero pressure. We&apos;ll look at where you are online, show you what&apos;s working, and give you an honest plan — whether you hire us or not.
+              Run a free instant scan in 30 seconds — or leave your info and get a full branded audit from Brett within 48 hours. Either way, zero pressure and zero cost.
             </p>
             <div className="mt-10">
               <RippleButton href="/audit">
@@ -695,7 +695,7 @@ export default function Home() {
                   <span className="absolute inset-0 rounded-lg animated-gradient-border" />
                   <span className="absolute inset-[2px] rounded-[6px] bg-slate" />
                   <span className="relative z-10 inline-flex items-center gap-2">
-                    Book a Free Check-Up ☕
+                    Scan Your Website Free ☕
                   </span>
                 </span>
               </RippleButton>
