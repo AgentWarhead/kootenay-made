@@ -441,7 +441,7 @@ export default function BoldModernDemo() {
                 { label: 'ECRA Member', sub: 'Electrical Contractors Reg.', icon: <Certificate size={28} weight="duotone" className="text-orange-500" /> },
                 { label: 'WorkSafeBC', sub: 'Certificate of Recognition', icon: <HardHat size={28} weight="duotone" className="text-orange-500" /> },
               ].map((cred) => (
-                <div key={cred.label} className="text-center">
+                <div key={cred.label} className="text-center transition-all duration-200 hover:scale-105">
                   <div className="flex justify-center mb-2">{cred.icon}</div>
                   <p className="text-sm font-bold uppercase tracking-wider" style={{ color: '#ffffff' }}>{cred.label}</p>
                   <p className="text-xs mt-1" style={{ color: 'rgba(255,255,255,0.55)' }}>{cred.sub}</p>
@@ -521,7 +521,7 @@ export default function BoldModernDemo() {
             ].map((proj, i) => (
               <Reveal key={i} delay={i * 0.08}>
                 <div
-                  className="p-6 h-full"
+                  className="p-6 h-full transition-all duration-300 hover:-translate-y-1 hover:border-l-orange-500"
                   style={{ backgroundColor: '#111111', border: '1px solid #222', borderLeft: '4px solid #ff6b00' }}
                 >
                   <div className="flex items-center justify-between mb-3">
@@ -538,7 +538,7 @@ export default function BoldModernDemo() {
           <Reveal delay={0.1}>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {['Commercial Wiring', 'Panel Upgrades', 'Smart Home', 'EV Charger Install'].map((label, i) => (
-                <div key={label} className="relative aspect-[4/3] overflow-hidden" style={{ borderBottom: '4px solid #ff6b00' }}>
+                <div key={label} className="relative aspect-[4/3] overflow-hidden transition-all duration-300 hover:scale-[1.02]" style={{ borderBottom: '4px solid #ff6b00' }}>
                   <Image src={`/images/demos/gallery/bm-${i + 1}.webp`} alt={label} fill className="object-cover" />
                   <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(17,17,17,0.8) 0%, transparent 50%)' }} />
                   <div className="absolute bottom-0 left-0 right-0 p-3">
@@ -594,7 +594,7 @@ export default function BoldModernDemo() {
               },
             ].map((svc) => (
               <Reveal key={svc.title}>
-                <div className="p-8 h-full" style={{ backgroundColor: '#0a0a0a', border: '1px solid rgba(255,107,0,0.2)', borderTop: '4px solid #ff6b00' }}>
+                <div className="p-8 h-full transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-orange-500/10" style={{ backgroundColor: '#0a0a0a', border: '1px solid rgba(255,107,0,0.2)', borderTop: '4px solid #ff6b00' }}>
                   <div className="flex items-center gap-3 mb-6">
                     {svc.icon}
                     <div>
@@ -721,7 +721,7 @@ export default function BoldModernDemo() {
               { quote: 'The site looks exactly like our brand — bold, professional, no BS. Clients actually comment on it before we even start a job.', name: 'Marcus D.', biz: 'Volt & Watt Electric', town: 'Trail', type: 'Commercial' },
             ].map((t, i) => (
               <Reveal key={i} delay={i * 0.12}>
-                <div className="p-8 h-full" style={{ backgroundColor: '#111111', borderTop: '4px solid #ff6b00' }}>
+                <div className="p-8 h-full transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-orange-500/10" style={{ backgroundColor: '#111111', borderTop: '4px solid #ff6b00' }}>
                   <div className="flex items-center justify-between mb-5">
                     <div className="flex gap-0.5">
                       {Array.from({ length: 5 }).map((_, j) => <span key={j} className="text-xl" style={{ color: '#ff6b00' }}>★</span>)}
@@ -790,7 +790,7 @@ export default function BoldModernDemo() {
                   { n: '75+', label: 'EV Chargers Installed' },
                   { n: '100%', label: 'Licensed & Insured' },
                 ].map((stat) => (
-                  <div key={stat.n} className="p-6 text-center" style={{ backgroundColor: '#111111', borderTop: '3px solid #ff6b00' }}>
+                  <div key={stat.n} className="p-6 text-center transition-all duration-200 hover:-translate-y-1 hover:shadow-lg hover:shadow-orange-500/10" style={{ backgroundColor: '#111111', borderTop: '3px solid #ff6b00' }}>
                     <p className="text-3xl font-bold mb-1" style={{ color: '#ff6b00' }}>{stat.n}</p>
                     <p className="text-xs uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.6)' }}>{stat.label}</p>
                   </div>
@@ -827,30 +827,19 @@ export default function BoldModernDemo() {
               </div>
             </Reveal>
             <Reveal delay={0.15}>
-              <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
-                <div>
-                  <label className="block text-sm font-bold uppercase tracking-wider mb-2" style={{ color: 'rgba(255,255,255,0.5)' }}>NAME</label>
-                  <input type="text" placeholder="Your name" className="w-full px-4 py-3 text-white placeholder-white/30 outline-none transition-all" style={{ backgroundColor: '#0a0a0a', border: '1px solid #333' }}
-                    onFocus={(e) => (e.currentTarget.style.borderColor = '#ff6b00')}
-                    onBlur={(e) => (e.currentTarget.style.borderColor = '#333')} />
-                </div>
-                <div>
-                  <label className="block text-sm font-bold uppercase tracking-wider mb-2" style={{ color: 'rgba(255,255,255,0.5)' }}>EMAIL</label>
-                  <input type="email" placeholder="your@email.com" className="w-full px-4 py-3 text-white placeholder-white/30 outline-none transition-all" style={{ backgroundColor: '#0a0a0a', border: '1px solid #333' }}
-                    onFocus={(e) => (e.currentTarget.style.borderColor = '#ff6b00')}
-                    onBlur={(e) => (e.currentTarget.style.borderColor = '#333')} />
-                </div>
-                <div>
-                  <label className="block text-sm font-bold uppercase tracking-wider mb-2" style={{ color: 'rgba(255,255,255,0.5)' }}>MESSAGE</label>
-                  <textarea rows={4} placeholder="Tell us about your project..." className="w-full px-4 py-3 text-white placeholder-white/30 outline-none transition-all resize-none" style={{ backgroundColor: '#0a0a0a', border: '1px solid #333' }}
-                    onFocus={(e) => (e.currentTarget.style.borderColor = '#ff6b00')}
-                    onBlur={(e) => (e.currentTarget.style.borderColor = '#333')} />
-                </div>
-                <motion.button type="submit" className="w-full px-8 py-4 text-sm font-bold uppercase tracking-widest transition-all" style={{ backgroundColor: '#ff6b00', color: '#111111' }}
-                  whileHover={prefersReduced ? {} : { boxShadow: '0 0 30px rgba(255,107,0,0.5)', scale: 1.02 }}>
-                  SEND MESSAGE
-                </motion.button>
-              </form>
+              <div className="flex flex-col items-center justify-center h-full gap-6 p-8" style={{ backgroundColor: '#111111', border: '1px solid #222' }}>
+                <p className="text-lg font-bold uppercase tracking-wider text-center" style={{ color: 'rgba(255,255,255,0.6)' }}>
+                  Ready to get started?
+                </p>
+                <a href="#estimate"
+                  className="inline-block px-10 py-4 text-sm font-bold uppercase tracking-widest transition-all"
+                  style={{ backgroundColor: '#ff6b00', color: '#111111' }}
+                  onMouseEnter={(e) => { e.currentTarget.style.boxShadow = '0 0 30px rgba(255,107,0,0.5)'; (e.currentTarget as HTMLElement).style.transform = 'scale(1.03)' }}
+                  onMouseLeave={(e) => { e.currentTarget.style.boxShadow = 'none'; (e.currentTarget as HTMLElement).style.transform = 'scale(1)' }}>
+                  GET YOUR FREE ESTIMATE →
+                </a>
+                <p className="text-xs" style={{ color: 'rgba(255,255,255,0.4)' }}>Same-day response guaranteed</p>
+              </div>
             </Reveal>
           </div>
         </div>
