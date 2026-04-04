@@ -686,14 +686,7 @@ export default function Home() {
               />
             </motion.svg>
 
-            {/* Trail line — mobile (vertical dashed bg) */}
-            <div className="md:hidden absolute left-1/2 -translate-x-[1px] top-6 bottom-6 border-l-2 border-dashed border-copper/20 z-0" />
-            <motion.div
-              className="md:hidden absolute left-1/2 -translate-x-[1px] top-6 w-[2px] bg-copper origin-top z-0"
-              initial={{ height: 0 }}
-              animate={trailInView ? { height: 'calc(100% - 48px)' } : {}}
-              transition={{ duration: 1.5, ease: 'easeInOut' }}
-            />
+            {/* Mobile: no vertical line — numbered circles provide sequence, line cuts through text */}
 
             {/* Steps */}
             <div className="flex flex-col md:flex-row gap-16 md:gap-8">
