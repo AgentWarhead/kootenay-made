@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useCallback } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import ScrollReveal from '@/components/ScrollReveal';
 import Breadcrumb from '@/components/Breadcrumb';
@@ -12,18 +12,10 @@ import {
   ChevronDown,
   CheckCircle2,
   AlertCircle,
-  Palette,
-  Smartphone,
   Zap,
-  MapPin,
   Search,
-  Users,
   ShieldCheck,
-  MousePointerClick,
-  FileText,
-  FileCheck,
   ClipboardList,
-  ArrowDown,
   ArrowRight,
   Gauge,
   Eye,
@@ -40,7 +32,7 @@ const faqs = [
   },
   {
     q: 'I don\'t have a website yet. Can I still do this?',
-    a: 'Absolutely. We\'ll review your current online presence — Google Business Profile, social media, competitor landscape — and give you a roadmap for getting started the right way.',
+    a: 'Not yet? No problem — reach out to Brett directly and he\'ll point you in the right direction. The scan needs a URL, but a conversation doesn\'t.',
   },
   {
     q: 'What do the scores mean?',
@@ -51,48 +43,6 @@ const faqs = [
     a: 'We\'ll tell you what we found and what we\'d recommend. If you ask about our services, we\'re happy to explain them. But we won\'t push.',
   },
 ];
-
-const auditTiers = [
-  {
-    tier: 'Tier 1',
-    label: 'First Impressions',
-    sub: 'What customers see',
-    color: 'copper',
-    items: [
-      { icon: Palette, title: 'Design & Brand Score', desc: 'AI reviews homepage design quality, color consistency, typography, and imagery.' },
-      { icon: Smartphone, title: 'Mobile Experience', desc: 'Responsive testing, touch targets, text readability across all screen sizes.' },
-      { icon: Zap, title: 'Page Speed', desc: 'Full Lighthouse deep dive beyond the quick scan — every millisecond counts.' },
-    ],
-  },
-  {
-    tier: 'Tier 2',
-    label: 'Google & Discovery',
-    sub: 'Can they find you?',
-    color: 'forest',
-    items: [
-      { icon: MapPin, title: 'Local SEO Health', desc: 'Google Business Profile status, NAP consistency, and local keyword presence.' },
-      { icon: Search, title: 'Search Visibility', desc: 'Rankings, missing keywords, and title/meta quality that moves you up.' },
-      { icon: Users, title: 'Competitor Gap', desc: 'What your top 2–3 local competitors do that you\'re not — yet.' },
-    ],
-  },
-  {
-    tier: 'Tier 3',
-    label: 'Trust & Conversion',
-    sub: 'Do they take action?',
-    color: 'river',
-    items: [
-      { icon: ShieldCheck, title: 'Trust Signals', desc: 'SSL, reviews, testimonials, contact info, and professional email presence.' },
-      { icon: MousePointerClick, title: 'Call-to-Action Clarity', desc: 'Can a visitor figure out what to do in 5 seconds? We find out.' },
-      { icon: FileText, title: 'Content Quality', desc: 'Is the copy speaking to customers or just describing the business?' },
-    ],
-  },
-];
-
-const tierColorMap: Record<string, { border: string; bg: string; text: string; badge: string }> = {
-  copper: { border: 'border-copper/30', bg: 'bg-copper/10', text: 'text-copper', badge: 'bg-copper/15 text-copper' },
-  forest: { border: 'border-forest/30', bg: 'bg-forest/10', text: 'text-forest-light', badge: 'bg-forest/15 text-forest-light' },
-  river: { border: 'border-river/30', bg: 'bg-river/10', text: 'text-river', badge: 'bg-river/15 text-river' },
-};
 
 /* ─────────────────────────────────────────────
    SCORE HELPERS
@@ -247,14 +197,14 @@ interface ScanScores {
   bestPractices: number;
 }
 
-function URLScanner({ onScrollToForm }: { onScrollToForm: () => void }) {
+function URLScanner() {
   const [url, setUrl] = useState('');
   const [scanning, setScanning] = useState(false);
   const [scores, setScores] = useState<ScanScores | null>(null);
   const [fetchedUrl, setFetchedUrl] = useState('');
   const [error, setError] = useState('');
 
-  const handleScan = useCallback(async () => {
+  const handleScan = async () => {
     const trimmed = url.trim();
     if (!trimmed) return;
     setScanning(true);
@@ -279,7 +229,7 @@ function URLScanner({ onScrollToForm }: { onScrollToForm: () => void }) {
     } finally {
       setScanning(false);
     }
-  }, [url]);
+  };
 
   const scoreItems: {
     key: keyof ScanScores;
@@ -453,84 +403,6 @@ function URLScanner({ onScrollToForm }: { onScrollToForm: () => void }) {
 }
 
 /* ─────────────────────────────────────────────
-   AUDIT TIER CARDS
-───────────────────────────────────────────── */
-
-function AuditTierSection() {
-  return (
-    <section className="bg-cream py-16 sm:py-24 cedar-texture relative">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-16">
-        <ScrollReveal>
-          <p className="text-copper text-xs font-bold uppercase tracking-widest text-center mb-3">What&apos;s included</p>
-          <h2 className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl font-bold text-slate text-center mb-2">
-            The 10-Point Audit
-          </h2>
-          <p className="text-text-secondary text-center max-w-xl mx-auto mb-14">
-            Every audit covers these three areas. Most agencies charge hundreds. You get it free.
-          </p>
-        </ScrollReveal>
-
-        <div className="space-y-8">
-          {auditTiers.map((tier, ti) => {
-            const c = tierColorMap[tier.color];
-            return (
-              <ScrollReveal key={tier.tier} delay={ti * 0.1}>
-                <div className={`rounded-2xl border ${c.border} bg-white/60 backdrop-blur-sm overflow-hidden`}>
-                  {/* Tier header */}
-                  <div className={`${c.bg} px-6 py-4 flex items-center gap-4`}>
-                    <span className={`text-xs font-bold uppercase tracking-widest px-2.5 py-1 rounded-full ${c.badge}`}>
-                      {tier.tier}
-                    </span>
-                    <div>
-                      <h3 className={`font-[family-name:var(--font-satoshi)] text-lg font-bold ${c.text}`}>{tier.label}</h3>
-                      <p className="text-text-tertiary text-xs">{tier.sub}</p>
-                    </div>
-                  </div>
-
-                  {/* Items grid */}
-                  <div className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-slate/10">
-                    {tier.items.map((item, ii) => (
-                      <div key={ii} className="p-5 flex gap-3">
-                        <div className={`w-9 h-9 rounded-xl ${c.bg} flex items-center justify-center shrink-0 mt-0.5`}>
-                          <item.icon size={16} className={c.text} />
-                        </div>
-                        <div>
-                          <p className="font-[family-name:var(--font-satoshi)] font-semibold text-slate text-sm mb-1">{item.title}</p>
-                          <p className="text-text-secondary text-xs leading-relaxed">{item.desc}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </ScrollReveal>
-            );
-          })}
-        </div>
-
-        {/* Deliverable highlight */}
-        <ScrollReveal delay={0.4}>
-          <div className="mt-8 rounded-2xl border border-copper/30 bg-gradient-to-br from-copper/10 to-forest/10 p-6 sm:p-8 flex flex-col sm:flex-row gap-6 items-start sm:items-center">
-            <div className="w-14 h-14 rounded-2xl bg-copper/15 flex items-center justify-center shrink-0">
-              <FileCheck size={26} className="text-copper" />
-            </div>
-            <div className="flex-1">
-              <div className="flex items-center gap-2 mb-1">
-                <span className="text-xs font-bold uppercase tracking-widest text-copper">The Deliverable</span>
-                <span className="text-xs bg-copper/15 text-copper px-2 py-0.5 rounded-full font-semibold">#10</span>
-              </div>
-              <h3 className="font-[family-name:var(--font-satoshi)] text-lg font-bold text-slate mb-1">Instant Results</h3>
-              <p className="text-text-secondary text-sm leading-relaxed">
-                Your scores appear on screen in 30 seconds — speed, SEO, accessibility, and best practices. Ready to talk about what they mean? Brett&apos;s a call away.
-              </p>
-            </div>
-          </div>
-        </ScrollReveal>
-      </div>
-    </section>
-  );
-}
-
-/* ─────────────────────────────────────────────
    WHAT HAPPENS NEXT
 ───────────────────────────────────────────── */
 
@@ -615,31 +487,6 @@ function FaqItem({ faq, isOpen, onToggle, index }: { faq: typeof faqs[0]; isOpen
 
 export default function AuditPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
-  const [errorMsg, setErrorMsg] = useState('');
-  const formRef = useRef<HTMLElement>(null);
-
-  const scrollToForm = useCallback(() => {
-    formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }, []);
-
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setStatus('sending');
-    const form = e.currentTarget;
-    const data = Object.fromEntries(new FormData(form)) as Record<string, string>;
-    data.source = 'audit';
-    data.message = `Audit request from ${data.name} at ${data.business}. Website: ${data.website || 'N/A'}`;
-    try {
-      const res = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
-      const json = await res.json();
-      if (!res.ok) throw new Error(json.error || 'Something went wrong');
-      setStatus('success');
-    } catch (err: unknown) {
-      setErrorMsg(err instanceof Error ? err.message : 'Something went wrong.');
-      setStatus('error');
-    }
-  }
 
   return (
     <div className="overflow-x-hidden">
@@ -677,111 +524,39 @@ export default function AuditPage() {
               Enter your URL for a real Google PageSpeed audit — takes about 15 seconds.
             </p>
           </ScrollReveal>
-          <URLScanner onScrollToForm={scrollToForm} />
+          <URLScanner />
         </div>
       </section>
-
-      {/* ── 10-POINT AUDIT BREAKDOWN ── */}
-      <AuditTierSection />
 
       {/* ── WHAT HAPPENS NEXT ── */}
       <WhatHappensNext />
 
       <RiverWave fillColor="#1A1D20" bgColor="#F8F4F0" />
 
-      {/* ── BOOKING FORM ── */}
-      <section ref={formRef} className="bg-slate grain py-16 sm:py-24 relative">
+      {/* ── CONTACT CTA ── */}
+      <section className="bg-slate grain py-16 sm:py-24 relative">
         <AmbientOrbs />
-        <div className="relative z-10 max-w-2xl mx-auto px-4 sm:px-6 lg:px-16">
+        <div className="relative z-10 max-w-2xl mx-auto px-4 sm:px-6 lg:px-16 text-center">
           <ScrollReveal>
-            <p className="text-copper text-xs font-bold uppercase tracking-widest text-center mb-3">Book your spot</p>
-            <h2 className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl font-bold text-cream text-center mb-2">
-              Get your free audit
+            <p className="text-copper text-xs font-bold uppercase tracking-widest mb-3">Ready to level up?</p>
+            <h2 className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl font-bold text-cream mb-4">
+              Like what you see? Let&apos;s talk.
             </h2>
-            <p className="text-dark-text-muted text-center mb-10">
-              Paste your URL above and get your scores in 30 seconds. Want to chat about the results? Reach out anytime.
+            <p className="text-dark-text-muted text-base mb-8 max-w-lg mx-auto">
+              Your scan tells you where you stand. A quick call with Brett shows you where you could be. 15 minutes, zero pressure.
             </p>
-
-            <AnimatePresence mode="wait">
-              {status === 'success' ? (
-                <motion.div
-                  key="success"
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="glass-card-dark rounded-2xl p-8 text-center"
-                >
-                  <CheckCircle2 className="text-green-400 mx-auto mb-4" size={48} />
-                  <h3 className="font-[family-name:var(--font-satoshi)] text-xl font-bold text-cream mb-2">Request received!</h3>
-                  <p className="text-dark-text-muted">
-                    Your audit is on its way. Grab a coffee from your favourite Kootenay café while you wait. ☕
-                  </p>
-                </motion.div>
-              ) : (
-                <motion.form
-                  key="form"
-                  onSubmit={handleSubmit}
-                  className="glass-card-dark rounded-2xl p-6 sm:p-8 space-y-5"
-                >
-                  {[
-                    { name: 'name', label: 'Your Name', type: 'text', required: true, placeholder: 'Jane Smith' },
-                    { name: 'business', label: 'Business Name', type: 'text', required: true, placeholder: 'Nelson Hardware Co.' },
-                    { name: 'website', label: 'Website URL', type: 'url', required: false, placeholder: 'yoursite.ca (optional)' },
-                    { name: 'email', label: 'Email', type: 'email', required: true, placeholder: 'jane@yourbusiness.ca' },
-                    { name: 'phone', label: 'Phone', type: 'tel', required: true, placeholder: '(250) 555-0123' },
-                  ].map((field) => (
-                    <div key={field.name}>
-                      <label htmlFor={`audit-${field.name}`} className="block text-sm font-medium text-dark-text-muted mb-1.5">
-                        {field.label}{' '}
-                        {!field.required && <span className="text-dark-text-muted/50">(optional)</span>}
-                      </label>
-                      <input
-                        type={field.type}
-                        id={`audit-${field.name}`}
-                        name={field.name}
-                        required={field.required}
-                        placeholder={field.placeholder}
-                        className="w-full bg-slate-card border border-white/10 rounded-lg px-4 py-3 text-cream placeholder:text-dark-text-muted/40 focus:outline-none focus:border-copper focus:ring-1 focus:ring-copper/40 transition-all"
-                      />
-                    </div>
-                  ))}
-
-                  <AnimatePresence>
-                    {status === 'error' && (
-                      <motion.div
-                        initial={{ opacity: 0, y: -8 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0 }}
-                        className="flex items-center gap-2 text-red-400 text-sm"
-                      >
-                        <AlertCircle size={16} /> {errorMsg}
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-
-                  <button
-                    type="submit"
-                    disabled={status === 'sending'}
-                    className="w-full bg-copper hover:bg-copper-light text-white font-semibold px-6 py-4 rounded-lg transition-all duration-200 hover:scale-[1.01] active:scale-[0.99] disabled:opacity-60 text-base"
-                  >
-                    {status === 'sending' ? 'Sending…' : 'Request My Free Audit →'}
-                  </button>
-
-                  {/* Risk reversal */}
-                  <div className="pt-2 border-t border-white/10 space-y-2">
-                    {[
-                      '100% free — no credit card, no catch',
-                      'Your scores are ready above',
-                      'Zero obligation — the insights are yours to keep',
-                    ].map((item, i) => (
-                      <div key={i} className="flex items-center gap-2">
-                        <CheckCircle2 size={14} className="text-green-400 shrink-0" />
-                        <span className="text-dark-text-muted text-xs">{item}</span>
-                      </div>
-                    ))}
-                  </div>
-                </motion.form>
-              )}
-            </AnimatePresence>
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-2 bg-copper hover:bg-copper-light text-white font-semibold px-8 py-4 rounded-lg transition-all duration-200 hover:scale-[1.01] active:scale-[0.99] text-base"
+            >
+              Book a Free Call <ArrowRight size={16} />
+            </Link>
+            <p className="text-dark-text-muted text-xs mt-4">
+              Or email Brett directly at{' '}
+              <a href="mailto:hello@kootenaymade.ca" className="text-copper hover:text-copper-light transition-colors underline">
+                hello@kootenaymade.ca
+              </a>
+            </p>
           </ScrollReveal>
         </div>
       </section>
