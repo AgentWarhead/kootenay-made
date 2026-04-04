@@ -634,7 +634,7 @@ export default function Home() {
                     Within 48 hours, Brett personally reviews your online presence — your website speed, how you show up on Google, what your competitors are doing, and where the quick wins are.
                   </p>
                   <span className="text-xs text-text-secondary bg-cream-dark/80 px-3 py-1.5 rounded-full inline-flex items-center gap-1.5">
-                    <User size={13} /> A real person. Not a bot. Not a template.
+                    <User size={13} /> AI-powered analysis, personally reviewed by Brett.
                   </span>
                 </div>
               </div>
