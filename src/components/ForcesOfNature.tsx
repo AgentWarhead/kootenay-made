@@ -44,18 +44,20 @@ function AuroraCard({ inView }: { inView: boolean }) {
       {/* Gradient overlay — lighter to let aurora shine */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent z-[1]" />
 
-      {/* Aurora glow bands — cranked up */}
-      <div className={`absolute inset-0 z-[2] transition-opacity duration-[1500ms] ${inView ? 'opacity-100' : 'opacity-0'}`} style={{ mixBlendMode: 'screen' }}>
-        <div className="aurora-band aurora-band-1" />
-        <div className="aurora-band aurora-band-2" />
-        <div className="aurora-band aurora-band-3" />
-        <div className="aurora-band aurora-band-4" />
-        {/* Extra shimmer overlay */}
-        <div className="absolute inset-0" style={{
-          background: 'linear-gradient(180deg, transparent 0%, rgba(45,106,79,0.15) 30%, rgba(74,144,164,0.1) 60%, transparent 100%)',
-          animation: 'aurora-shimmer 6s ease-in-out infinite',
-        }} />
-      </div>
+      {/* Pulsing light sweep */}
+      {inView && (
+        <div className="absolute inset-0 z-[2] overflow-hidden pointer-events-none">
+          <div className="absolute inset-0" style={{
+            background: 'linear-gradient(180deg, rgba(45,200,120,0.15) 0%, transparent 50%)',
+            animation: 'aurora-shimmer 6s ease-in-out infinite',
+          }} />
+          {/* Sweeping light beam */}
+          <div className="absolute top-0 w-[40%] h-full" style={{
+            background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent)',
+            animation: 'light-sweep 8s ease-in-out infinite',
+          }} />
+        </div>
+      )}
 
       {/* Content — bottom aligned */}
       <div className="absolute inset-0 z-[3] flex flex-col items-center justify-end pb-10 sm:pb-12 text-center px-6">
@@ -63,7 +65,7 @@ function AuroraCard({ inView }: { inView: boolean }) {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={inView ? { opacity: 1, scale: 1 } : {}}
           transition={{ duration: 0.8, delay: 0.3, type: 'spring', stiffness: 200 }}
-          className="font-[family-name:var(--font-satoshi)] text-6xl sm:text-8xl md:text-9xl font-black aurora-text-fill drop-shadow-[0_4px_20px_rgba(0,200,150,0.3)]"
+          className="font-[family-name:var(--font-satoshi)] text-6xl sm:text-8xl md:text-9xl font-black text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] drop-shadow-[0_4px_30px_rgba(45,200,120,0.4)]"
         >
           <AnimatedCounter end={10} suffix="+" inView={inView} />
         </motion.span>
@@ -230,16 +232,24 @@ function MountainSummitCard({ inView }: { inView: boolean }) {
       <Image src="/images/stats/mountain-bg.webp" alt="Kootenay mountain summit" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent z-[1]" />
 
-      {/* Drifting clouds + sun glow */}
+      {/* God rays + warm glow */}
       {inView && (
         <div className="absolute inset-0 z-[2] overflow-hidden pointer-events-none">
-          <div className="mountain-cloud mountain-cloud-1" />
-          <div className="mountain-cloud mountain-cloud-2" />
-          <div className="mountain-cloud mountain-cloud-3" />
-          {/* Sun/golden glow at horizon */}
-          <div className="absolute bottom-[30%] left-1/2 -translate-x-1/2 w-[120%] h-[40%]" style={{
-            background: 'radial-gradient(ellipse at center bottom, rgba(193,120,23,0.2) 0%, rgba(193,120,23,0.08) 40%, transparent 70%)',
+          {/* Golden hour glow at top */}
+          <div className="absolute top-0 left-0 right-0 h-[60%]" style={{
+            background: 'linear-gradient(180deg, rgba(255,180,80,0.15) 0%, transparent 100%)',
             animation: 'mountain-glow 8s ease-in-out infinite',
+          }} />
+          {/* God ray beams */}
+          <div className="absolute top-0 left-[20%] w-[15%] h-full origin-top" style={{
+            background: 'linear-gradient(180deg, rgba(255,200,100,0.12) 0%, transparent 60%)',
+            transform: 'rotate(5deg)',
+            animation: 'god-ray 10s ease-in-out infinite',
+          }} />
+          <div className="absolute top-0 left-[55%] w-[12%] h-full origin-top" style={{
+            background: 'linear-gradient(180deg, rgba(255,200,100,0.08) 0%, transparent 50%)',
+            transform: 'rotate(-3deg)',
+            animation: 'god-ray 12s ease-in-out infinite reverse',
           }} />
         </div>
       )}
@@ -249,7 +259,7 @@ function MountainSummitCard({ inView }: { inView: boolean }) {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={inView ? { opacity: 1, scale: 1 } : {}}
           transition={{ duration: 0.8, delay: 2, type: 'spring', stiffness: 200 }}
-          className="font-[family-name:var(--font-satoshi)] text-6xl sm:text-8xl md:text-9xl font-black text-copper drop-shadow-[0_4px_20px_rgba(193,120,23,0.4)]"
+          className="font-[family-name:var(--font-satoshi)] text-6xl sm:text-8xl md:text-9xl font-black text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] drop-shadow-[0_4px_30px_rgba(193,120,23,0.4)]"
         >
           Your
         </motion.span>

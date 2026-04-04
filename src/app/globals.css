@@ -1035,10 +1035,23 @@ input:focus, textarea:focus, select:focus {
   50% { opacity: 1; transform: translateY(-5%); }
 }
 
+/* Light sweep across card */
+@keyframes light-sweep {
+  0% { transform: translateX(-100%); }
+  50% { transform: translateX(300%); }
+  100% { transform: translateX(300%); }
+}
+
 /* Mountain golden glow pulse */
 @keyframes mountain-glow {
-  0%, 100% { opacity: 0.6; transform: translateX(-50%) scale(1); }
-  50% { opacity: 1; transform: translateX(-50%) scale(1.1); }
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+/* God ray breathing */
+@keyframes god-ray {
+  0%, 100% { opacity: 0.5; transform: rotate(5deg) scaleY(1); }
+  50% { opacity: 1; transform: rotate(5deg) scaleY(1.1); }
 }
 
 /* Reduced motion: forces of nature card effects */
