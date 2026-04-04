@@ -427,10 +427,15 @@ export default function RusticCraftDemo() {
         className="relative min-h-screen flex items-center justify-center overflow-hidden"
         style={{ backgroundColor: DARK_BROWN }}
       >
+        {/* Hero background image */}
+        <div className="absolute inset-0 z-0">
+          <Image src="/images/demos/rustic-craft-hero.webp" alt="" fill className="object-cover" priority />
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(61,43,31,0.75) 0%, rgba(61,43,31,0.65) 40%, rgba(61,43,31,0.85) 100%)' }} />
+        </div>
         <GrainOverlay />
 
         <div
-          className="absolute inset-0 opacity-30"
+          className="absolute inset-0 opacity-20"
           style={{
             background: `radial-gradient(ellipse 70% 50% at 50% 40%, ${AMBER}33, transparent)`,
           }}
