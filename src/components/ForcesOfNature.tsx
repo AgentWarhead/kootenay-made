@@ -44,17 +44,35 @@ function AuroraCard({ inView }: { inView: boolean }) {
       {/* Gradient overlay — lighter to let aurora shine */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent z-[1]" />
 
-      {/* Pulsing light sweep */}
+      {/* Vivid aurora overlay + shimmer */}
       {inView && (
         <div className="absolute inset-0 z-[2] overflow-hidden pointer-events-none">
+          {/* Green aurora wash across top half */}
           <div className="absolute inset-0" style={{
-            background: 'linear-gradient(180deg, rgba(45,200,120,0.15) 0%, transparent 50%)',
-            animation: 'aurora-shimmer 6s ease-in-out infinite',
+            background: 'linear-gradient(180deg, rgba(45,220,120,0.3) 0%, rgba(74,180,200,0.15) 35%, transparent 60%)',
+            animation: 'aurora-shimmer 5s ease-in-out infinite',
+            mixBlendMode: 'screen',
+          }} />
+          {/* Dancing curtain bands */}
+          <div className="absolute top-0 left-[-10%] w-[50%] h-[70%]" style={{
+            background: 'linear-gradient(180deg, rgba(45,200,120,0.25) 0%, rgba(100,60,180,0.15) 50%, transparent 100%)',
+            filter: 'blur(20px)',
+            animation: 'aurora-curtain-1 7s ease-in-out infinite',
+          }} />
+          <div className="absolute top-0 left-[30%] w-[45%] h-[65%]" style={{
+            background: 'linear-gradient(180deg, rgba(74,200,220,0.2) 0%, rgba(45,180,120,0.15) 50%, transparent 100%)',
+            filter: 'blur(16px)',
+            animation: 'aurora-curtain-2 9s ease-in-out infinite',
+          }} />
+          <div className="absolute top-0 left-[60%] w-[40%] h-[60%]" style={{
+            background: 'linear-gradient(180deg, rgba(120,60,200,0.2) 0%, rgba(45,200,150,0.1) 50%, transparent 100%)',
+            filter: 'blur(24px)',
+            animation: 'aurora-curtain-1 11s ease-in-out infinite reverse',
           }} />
           {/* Sweeping light beam */}
-          <div className="absolute top-0 w-[40%] h-full" style={{
-            background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent)',
-            animation: 'light-sweep 8s ease-in-out infinite',
+          <div className="absolute top-0 w-[30%] h-full" style={{
+            background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent)',
+            animation: 'light-sweep 6s ease-in-out infinite',
           }} />
         </div>
       )}
@@ -232,24 +250,38 @@ function MountainSummitCard({ inView }: { inView: boolean }) {
       <Image src="/images/stats/mountain-bg.webp" alt="Kootenay mountain summit" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent z-[1]" />
 
-      {/* God rays + warm glow */}
+      {/* Golden hour warmth + lens flare */}
       {inView && (
         <div className="absolute inset-0 z-[2] overflow-hidden pointer-events-none">
-          {/* Golden hour glow at top */}
-          <div className="absolute top-0 left-0 right-0 h-[60%]" style={{
-            background: 'linear-gradient(180deg, rgba(255,180,80,0.15) 0%, transparent 100%)',
-            animation: 'mountain-glow 8s ease-in-out infinite',
+          {/* Warm color wash — like sunrise warming the peaks */}
+          <div className="absolute inset-0" style={{
+            background: 'linear-gradient(135deg, rgba(255,140,50,0.25) 0%, rgba(255,80,20,0.1) 30%, transparent 60%)',
+            animation: 'mountain-glow 6s ease-in-out infinite',
           }} />
-          {/* God ray beams */}
-          <div className="absolute top-0 left-[20%] w-[15%] h-full origin-top" style={{
-            background: 'linear-gradient(180deg, rgba(255,200,100,0.12) 0%, transparent 60%)',
-            transform: 'rotate(5deg)',
-            animation: 'god-ray 10s ease-in-out infinite',
+          {/* Big visible god rays */}
+          <div className="absolute -top-[10%] left-[10%] w-[30%] h-[120%] origin-top" style={{
+            background: 'linear-gradient(180deg, rgba(255,200,100,0.3) 0%, rgba(255,180,80,0.15) 30%, transparent 70%)',
+            transform: 'rotate(8deg)',
+            filter: 'blur(8px)',
+            animation: 'god-ray 8s ease-in-out infinite',
           }} />
-          <div className="absolute top-0 left-[55%] w-[12%] h-full origin-top" style={{
-            background: 'linear-gradient(180deg, rgba(255,200,100,0.08) 0%, transparent 50%)',
-            transform: 'rotate(-3deg)',
-            animation: 'god-ray 12s ease-in-out infinite reverse',
+          <div className="absolute -top-[10%] left-[45%] w-[25%] h-[120%] origin-top" style={{
+            background: 'linear-gradient(180deg, rgba(255,220,120,0.25) 0%, rgba(255,180,80,0.1) 40%, transparent 70%)',
+            transform: 'rotate(-4deg)',
+            filter: 'blur(12px)',
+            animation: 'god-ray 10s ease-in-out infinite reverse',
+          }} />
+          <div className="absolute -top-[10%] left-[70%] w-[20%] h-[120%] origin-top" style={{
+            background: 'linear-gradient(180deg, rgba(255,180,80,0.2) 0%, transparent 60%)',
+            transform: 'rotate(-8deg)',
+            filter: 'blur(6px)',
+            animation: 'god-ray 12s ease-in-out infinite',
+          }} />
+          {/* Lens flare hotspot */}
+          <div className="absolute top-[15%] right-[25%] w-24 h-24 rounded-full" style={{
+            background: 'radial-gradient(circle, rgba(255,220,150,0.4) 0%, rgba(255,180,80,0.15) 40%, transparent 70%)',
+            filter: 'blur(8px)',
+            animation: 'lens-flare-pulse 4s ease-in-out infinite',
           }} />
         </div>
       )}

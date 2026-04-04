@@ -1050,8 +1050,25 @@ input:focus, textarea:focus, select:focus {
 
 /* God ray breathing */
 @keyframes god-ray {
-  0%, 100% { opacity: 0.5; transform: rotate(5deg) scaleY(1); }
-  50% { opacity: 1; transform: rotate(5deg) scaleY(1.1); }
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* Lens flare pulse */
+@keyframes lens-flare-pulse {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.3); }
+}
+
+/* Aurora curtain sway */
+@keyframes aurora-curtain-1 {
+  0%, 100% { transform: translateX(0) skewX(0deg); opacity: 0.6; }
+  33% { transform: translateX(15%) skewX(3deg); opacity: 1; }
+  66% { transform: translateX(-10%) skewX(-2deg); opacity: 0.8; }
+}
+@keyframes aurora-curtain-2 {
+  0%, 100% { transform: translateX(0) skewX(0deg); opacity: 0.5; }
+  50% { transform: translateX(-20%) skewX(-3deg); opacity: 1; }
 }
 
 /* Reduced motion: forces of nature card effects */
