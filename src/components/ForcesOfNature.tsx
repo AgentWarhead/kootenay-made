@@ -41,36 +41,20 @@ function AuroraCard({ inView }: { inView: boolean }) {
   return (
     <div className="relative aspect-square rounded-2xl overflow-hidden border border-white/5 group hover:-translate-y-1 transition-transform duration-300">
       <Image src="/images/stats/aurora-bg.webp" alt="Northern lights" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
-      {/* Gradient overlay — heavier at bottom for text readability */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10 z-[1]" />
-      
-      {/* Twinkling stars */}
-      {inView && (
-        <div className="absolute inset-0 z-[1]" style={{
-          boxShadow: `
-            ${Array.from({ length: 30 }, () => 
-              `${Math.floor(Math.random() * 100)}% ${Math.floor(Math.random() * 60)}% 0 ${Math.random() > 0.7 ? '1px' : '0.5px'} rgba(255,255,255,${0.4 + Math.random() * 0.5})`
-            ).join(', ')}
-          `,
-        }}>
-          <div className="absolute inset-0 animate-[twinkle_3s_ease-in-out_infinite]" style={{
-            boxShadow: `
-              15% 8% 0 1px rgba(255,255,255,0.8),
-              45% 22% 0 1px rgba(255,255,255,0.7),
-              72% 12% 0 1px rgba(255,255,255,0.9),
-              88% 35% 0 1px rgba(255,255,255,0.6),
-              33% 48% 0 1px rgba(255,255,255,0.8)
-            `,
-          }} />
-        </div>
-      )}
+      {/* Gradient overlay — lighter to let aurora shine */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent z-[1]" />
 
-      {/* Aurora glow bands */}
-      <div className={`absolute inset-0 z-[2] transition-opacity duration-[2000ms] ${inView ? 'opacity-60' : 'opacity-0'}`}>
+      {/* Aurora glow bands — cranked up */}
+      <div className={`absolute inset-0 z-[2] transition-opacity duration-[1500ms] ${inView ? 'opacity-100' : 'opacity-0'}`} style={{ mixBlendMode: 'screen' }}>
         <div className="aurora-band aurora-band-1" />
         <div className="aurora-band aurora-band-2" />
         <div className="aurora-band aurora-band-3" />
         <div className="aurora-band aurora-band-4" />
+        {/* Extra shimmer overlay */}
+        <div className="absolute inset-0" style={{
+          background: 'linear-gradient(180deg, transparent 0%, rgba(45,106,79,0.15) 30%, rgba(74,144,164,0.1) 60%, transparent 100%)',
+          animation: 'aurora-shimmer 6s ease-in-out infinite',
+        }} />
       </div>
 
       {/* Content — bottom aligned */}
@@ -181,13 +165,13 @@ function SnowfallCard({ inView }: { inView: boolean }) {
 /* ── Card 3: Forest Growth — '2-4 Week Delivery' ── */
 function ForestGrowthCard({ inView }: { inView: boolean }) {
   const fireflies = useMemo(
-    () => Array.from({ length: 12 }, (_, i) => ({
+    () => Array.from({ length: 24 }, (_, i) => ({
       id: i,
-      left: `${10 + Math.random() * 80}%`,
-      size: 2 + Math.random() * 3,
-      duration: 4 + Math.random() * 6,
-      delay: Math.random() * 5,
-      drift: -20 + Math.random() * 40,
+      left: `${5 + Math.random() * 90}%`,
+      size: 3 + Math.random() * 5,
+      duration: 3 + Math.random() * 5,
+      delay: Math.random() * 4,
+      drift: -30 + Math.random() * 60,
     })),
     []
   );
@@ -246,12 +230,17 @@ function MountainSummitCard({ inView }: { inView: boolean }) {
       <Image src="/images/stats/mountain-bg.webp" alt="Kootenay mountain summit" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent z-[1]" />
 
-      {/* Drifting clouds */}
+      {/* Drifting clouds + sun glow */}
       {inView && (
         <div className="absolute inset-0 z-[2] overflow-hidden pointer-events-none">
           <div className="mountain-cloud mountain-cloud-1" />
           <div className="mountain-cloud mountain-cloud-2" />
           <div className="mountain-cloud mountain-cloud-3" />
+          {/* Sun/golden glow at horizon */}
+          <div className="absolute bottom-[30%] left-1/2 -translate-x-1/2 w-[120%] h-[40%]" style={{
+            background: 'radial-gradient(ellipse at center bottom, rgba(193,120,23,0.2) 0%, rgba(193,120,23,0.08) 40%, transparent 70%)',
+            animation: 'mountain-glow 8s ease-in-out infinite',
+          }} />
         </div>
       )}
 
@@ -262,7 +251,7 @@ function MountainSummitCard({ inView }: { inView: boolean }) {
           transition={{ duration: 0.8, delay: 2, type: 'spring', stiffness: 200 }}
           className="font-[family-name:var(--font-satoshi)] text-6xl sm:text-8xl md:text-9xl font-black text-copper drop-shadow-[0_4px_20px_rgba(193,120,23,0.4)]"
         >
-          0km
+          Your
         </motion.span>
         <motion.p
           initial={{ opacity: 0, y: 10 }}
@@ -270,7 +259,7 @@ function MountainSummitCard({ inView }: { inView: boolean }) {
           transition={{ delay: 2.5 }}
           className="text-cream/90 text-xl sm:text-2xl mt-2 font-semibold tracking-wide font-[family-name:var(--font-satoshi)]"
         >
-          Away From Your Business
+          Neighbour Builds It
         </motion.p>
       </div>
     </div>

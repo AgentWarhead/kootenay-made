@@ -964,10 +964,10 @@ input:focus, textarea:focus, select:focus {
   position: absolute;
   bottom: 20%;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255,200,50,0.9) 0%, rgba(255,200,50,0) 70%);
+  background: radial-gradient(circle, rgba(255,200,50,1) 0%, rgba(255,200,50,0) 70%);
   pointer-events: none;
   animation: firefly-float linear infinite;
-  box-shadow: 0 0 6px 2px rgba(255,200,50,0.3);
+  box-shadow: 0 0 10px 4px rgba(255,200,50,0.5), 0 0 20px 8px rgba(255,150,0,0.2);
 }
 
 @keyframes firefly-float {
@@ -989,43 +989,56 @@ input:focus, textarea:focus, select:focus {
 .mountain-cloud {
   position: absolute;
   border-radius: 50%;
-  background: radial-gradient(ellipse at center, rgba(255,255,255,0.12) 0%, transparent 70%);
+  background: radial-gradient(ellipse at center, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.08) 50%, transparent 70%);
   pointer-events: none;
+  filter: blur(4px);
 }
 
 .mountain-cloud-1 {
-  width: 60%;
-  height: 25%;
-  top: 20%;
-  left: -20%;
-  animation: cloud-drift-1 20s ease-in-out infinite;
+  width: 80%;
+  height: 30%;
+  top: 15%;
+  left: -30%;
+  animation: cloud-drift-1 18s ease-in-out infinite;
 }
 .mountain-cloud-2 {
-  width: 45%;
-  height: 20%;
-  top: 30%;
-  left: 60%;
-  animation: cloud-drift-2 25s ease-in-out infinite;
+  width: 60%;
+  height: 25%;
+  top: 25%;
+  left: 50%;
+  animation: cloud-drift-2 22s ease-in-out infinite;
 }
 .mountain-cloud-3 {
-  width: 50%;
-  height: 18%;
-  top: 15%;
-  left: 20%;
-  animation: cloud-drift-3 30s ease-in-out infinite;
+  width: 70%;
+  height: 22%;
+  top: 10%;
+  left: 10%;
+  animation: cloud-drift-3 26s ease-in-out infinite;
 }
 
 @keyframes cloud-drift-1 {
-  0%, 100% { transform: translateX(0); opacity: 0.5; }
-  50% { transform: translateX(80%); opacity: 0.8; }
+  0%, 100% { transform: translateX(0); opacity: 0.7; }
+  50% { transform: translateX(100%); opacity: 1; }
 }
 @keyframes cloud-drift-2 {
-  0%, 100% { transform: translateX(0); opacity: 0.6; }
-  50% { transform: translateX(-60%); opacity: 0.4; }
+  0%, 100% { transform: translateX(0); opacity: 0.8; }
+  50% { transform: translateX(-80%); opacity: 0.5; }
 }
 @keyframes cloud-drift-3 {
-  0%, 100% { transform: translateX(0); opacity: 0.3; }
-  50% { transform: translateX(50%); opacity: 0.6; }
+  0%, 100% { transform: translateX(0); opacity: 0.5; }
+  50% { transform: translateX(60%); opacity: 0.9; }
+}
+
+/* Aurora shimmer overlay */
+@keyframes aurora-shimmer {
+  0%, 100% { opacity: 0.6; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(-5%); }
+}
+
+/* Mountain golden glow pulse */
+@keyframes mountain-glow {
+  0%, 100% { opacity: 0.6; transform: translateX(-50%) scale(1); }
+  50% { opacity: 1; transform: translateX(-50%) scale(1.1); }
 }
 
 /* Reduced motion: forces of nature card effects */
