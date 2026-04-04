@@ -709,7 +709,7 @@ function ImmersivePackageShowcase() {
   const handleSelectCategory = (id: string) => {
     setSelectedCategory(id);
     setTimeout(() => {
-      categoryNavRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      packagesRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 150);
   };
 
@@ -726,7 +726,7 @@ function ImmersivePackageShowcase() {
     : [];
 
   return (
-    <div ref={packagesRef} className="relative scroll-mt-24">
+    <div ref={packagesRef} className="relative scroll-mt-32">
       {/* Free Audit Banner — always visible */}
       <motion.div
         initial={{ opacity: 0, y: -12 }}
