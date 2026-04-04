@@ -607,14 +607,6 @@ export default function Home() {
                   <p className="text-text-secondary text-base leading-relaxed mb-5 font-[family-name:var(--font-general)]">
                     30 seconds. Seriously. Just your name, your website (if you have one), and what you do. That&apos;s it.
                   </p>
-                  {/* Mini form preview */}
-                  <div className="flex flex-col gap-2.5 mb-5 max-w-xs">
-                    {['Name', 'Website', 'Email'].map((label) => (
-                      <div key={label} className="bg-white/50 border border-cream-border rounded-lg px-4 py-2.5">
-                        <span className="text-xs text-text-secondary/50 font-[family-name:var(--font-general)]">{label}</span>
-                      </div>
-                    ))}
-                  </div>
                   <span className="text-xs text-text-secondary bg-cream-dark/80 px-3 py-1.5 rounded-full inline-flex items-center gap-1.5 mb-5">
                     <Shield size={13} /> No credit card. No sales call. No catch.
                   </span>
@@ -641,16 +633,6 @@ export default function Home() {
                   <p className="text-text-secondary text-base leading-relaxed mb-5 font-[family-name:var(--font-general)]">
                     Within 48 hours, Brett personally reviews your online presence — your website speed, how you show up on Google, what your competitors are doing, and where the quick wins are.
                   </p>
-                  {/* Mini scanning animation */}
-                  <div className="relative w-40 h-24 border border-cream-border/80 rounded-lg bg-white/30 mb-5 overflow-hidden">
-                    {/* Wireframe lines */}
-                    <div className="absolute top-3 left-3 right-3 h-2 bg-cream-border/40 rounded" />
-                    <div className="absolute top-8 left-3 right-8 h-1.5 bg-cream-border/30 rounded" />
-                    <div className="absolute top-12 left-3 right-12 h-1.5 bg-cream-border/30 rounded" />
-                    <div className="absolute top-16 left-3 right-6 h-1.5 bg-cream-border/20 rounded" />
-                    {/* Scanning line */}
-                    <div className="audit-scan-line absolute left-0 right-0 h-[2px] bg-copper/60 top-0" />
-                  </div>
                   <span className="text-xs text-text-secondary bg-cream-dark/80 px-3 py-1.5 rounded-full inline-flex items-center gap-1.5">
                     <User size={13} /> A real person. Not a bot. Not a template.
                   </span>
@@ -672,23 +654,6 @@ export default function Home() {
                   <p className="text-text-secondary text-base leading-relaxed mb-5 font-[family-name:var(--font-general)]">
                     You get a branded report with exactly what&apos;s working, what&apos;s not, and what to do next. It&apos;s yours to keep — whether you hire us or not.
                   </p>
-                  {/* Mini document with page-flip on scroll */}
-                  <motion.div
-                    className="w-28 h-36 border border-cream-border/80 rounded-lg bg-white/40 mb-5 p-3 flex flex-col gap-1.5"
-                    initial={{ rotateY: 0 }}
-                    whileInView={{ rotateY: [0, 5, 0] }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8, ease: [0.34, 1.56, 0.64, 1] }}
-                    style={{ perspective: 600 }}
-                  >
-                    <div className="h-2 w-16 bg-copper/20 rounded" />
-                    <div className="h-1.5 w-full bg-cream-border/40 rounded" />
-                    <div className="h-1.5 w-20 bg-cream-border/30 rounded" />
-                    <div className="h-1.5 w-full bg-cream-border/30 rounded" />
-                    <div className="h-1.5 w-14 bg-cream-border/20 rounded" />
-                    <div className="h-1.5 w-full bg-cream-border/30 rounded mt-1" />
-                    <div className="h-1.5 w-18 bg-cream-border/20 rounded" />
-                  </motion.div>
                   <span className="text-xs text-text-secondary bg-cream-dark/80 px-3 py-1.5 rounded-full inline-flex items-center gap-1.5">
                     <Gift size={13} /> The report is yours. No strings attached.
                   </span>

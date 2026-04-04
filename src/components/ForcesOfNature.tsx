@@ -81,7 +81,7 @@ function AuroraCard({ inView }: { inView: boolean }) {
           transition={{ duration: 0.8, delay: 0.3, type: 'spring', stiffness: 200 }}
           className="font-[family-name:var(--font-satoshi)] text-6xl sm:text-8xl md:text-9xl font-black aurora-text-fill drop-shadow-[0_4px_20px_rgba(0,200,150,0.3)]"
         >
-          <AnimatedCounter end={7} inView={inView} />
+          <AnimatedCounter end={10} suffix="+" inView={inView} />
         </motion.span>
         <motion.p
           initial={{ opacity: 0, y: 10 }}
@@ -89,7 +89,7 @@ function AuroraCard({ inView }: { inView: boolean }) {
           transition={{ delay: 0.8 }}
           className="text-cream/90 text-xl sm:text-2xl mt-2 font-semibold tracking-wide font-[family-name:var(--font-satoshi)]"
         >
-          Services Under One Roof
+          Services, One Team
         </motion.p>
       </div>
     </div>
@@ -163,7 +163,7 @@ function SnowfallCard({ inView }: { inView: boolean }) {
           transition={{ duration: 0.8, delay: 0.3, type: 'spring', stiffness: 200 }}
           className="font-[family-name:var(--font-satoshi)] text-6xl sm:text-8xl md:text-9xl font-black text-white drop-shadow-[0_4px_20px_rgba(255,255,255,0.2)]"
         >
-          24/7
+          $0
         </motion.span>
         <motion.p
           initial={{ opacity: 0, y: 10 }}
@@ -171,7 +171,7 @@ function SnowfallCard({ inView }: { inView: boolean }) {
           transition={{ delay: 0.8 }}
           className="text-cream/90 text-xl sm:text-2xl mt-2 font-semibold tracking-wide font-[family-name:var(--font-satoshi)]"
         >
-          Your Website Never Sleeps
+          Customers Find You For Free
         </motion.p>
       </div>
     </div>
@@ -232,7 +232,7 @@ function ForestGrowthCard({ inView }: { inView: boolean }) {
           transition={{ delay: 2 }}
           className="text-cream/90 text-xl sm:text-2xl mt-2 font-semibold tracking-wide font-[family-name:var(--font-satoshi)]"
         >
-          Week Delivery
+          Weeks, Not Months
         </motion.p>
       </div>
     </div>
@@ -262,7 +262,7 @@ function MountainSummitCard({ inView }: { inView: boolean }) {
           transition={{ duration: 0.8, delay: 2, type: 'spring', stiffness: 200 }}
           className="font-[family-name:var(--font-satoshi)] text-6xl sm:text-8xl md:text-9xl font-black text-copper drop-shadow-[0_4px_20px_rgba(193,120,23,0.4)]"
         >
-          <AnimatedCounter end={100} suffix="%" inView={inView} duration={2500} />
+          0km
         </motion.span>
         <motion.p
           initial={{ opacity: 0, y: 10 }}
@@ -270,7 +270,7 @@ function MountainSummitCard({ inView }: { inView: boolean }) {
           transition={{ delay: 2.5 }}
           className="text-cream/90 text-xl sm:text-2xl mt-2 font-semibold tracking-wide font-[family-name:var(--font-satoshi)]"
         >
-          Kootenay Made
+          Away From Your Business
         </motion.p>
       </div>
     </div>
