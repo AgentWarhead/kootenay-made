@@ -5,6 +5,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useState, useEffect, useRef } from 'react'
 import { motion, useInView, AnimatePresence, useReducedMotion, type Variants } from 'framer-motion'
+import { CaretDown } from '@phosphor-icons/react'
+import { ShieldCheck, ChartLineUp, CalendarBlank, UsersThree, GraduationCap, Briefcase, Mountains } from '@phosphor-icons/react'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -301,7 +303,7 @@ function FAQAccordion({ items }: { items: { q: string; a: string }[] }) {
   return (
     <div className="space-y-3">
       {items.map((item, i) => (
-        <div key={i} style={{ border: '1px solid #e2e8f0', borderRadius: 8, overflow: 'hidden' }}>
+        <div key={i} className="transition-all duration-200 hover:border-blue-200" style={{ border: '1px solid #e2e8f0', borderRadius: 8, overflow: 'hidden' }}>
           <button
             className="w-full text-left px-6 py-4 flex items-center justify-between font-bold text-sm transition-colors"
             style={{ color: '#1a365d', backgroundColor: open === i ? '#f8fafc' : '#ffffff' }}
@@ -310,11 +312,22 @@ function FAQAccordion({ items }: { items: { q: string; a: string }[] }) {
             <span>{item.q}</span>
             <span style={{ color: '#2563eb', transition: 'transform 0.25s', transform: open === i ? 'rotate(180deg)' : 'none', display: 'inline-block', marginLeft: '1rem', flexShrink: 0 }}>▼</span>
           </button>
-          {open === i && (
-            <div className="px-6 py-4 text-sm leading-relaxed" style={{ color: '#475569', borderTop: '1px solid #e2e8f0', backgroundColor: '#f8fafc' }}>
-              {item.a}
-            </div>
-          )}
+          <AnimatePresence initial={false}>
+            {open === i && (
+              <motion.div
+                key={`faq-${i}`}
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: 'auto', opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.3, ease: 'easeInOut' }}
+                style={{ overflow: 'hidden' }}
+              >
+                <div className="px-6 py-4 text-sm leading-relaxed" style={{ color: '#475569', borderTop: '1px solid #e2e8f0', backgroundColor: '#f8fafc' }}>
+                  {item.a}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       ))}
     </div>
@@ -328,7 +341,7 @@ function WhoWeServeTabs() {
   const tabs = [
     {
       label: 'Individuals',
-      icon: '👤',
+      icon: <UsersThree size={20} weight="duotone" />,
       headline: 'Your personal finances, under control.',
       services: [
         { name: 'Tax Return Preparation', detail: 'Maximize your refund, minimize your stress' },
@@ -336,11 +349,11 @@ function WhoWeServeTabs() {
         { name: 'Estate Planning', detail: 'Protect your family — today and tomorrow' },
         { name: 'Investment Review', detail: 'Objective analysis of your current portfolio' },
       ],
-      cta: 'Start Your Personal Plan',
+      cta: 'Book a Free Consultation',
     },
     {
       label: 'Business Owners',
-      icon: '🏢',
+      icon: <Briefcase size={20} weight="duotone" />,
       headline: 'Stop leaving money on the table.',
       services: [
         { name: 'Corporate Tax Planning', detail: 'Incorporated? We find savings most accountants miss' },
@@ -348,11 +361,11 @@ function WhoWeServeTabs() {
         { name: 'Business Structuring', detail: 'Sole prop vs. corp vs. holding — done right from day one' },
         { name: 'HST / GST Filing', detail: 'Timely, accurate, penalty-free' },
       ],
-      cta: 'Scale Your Business Finances',
+      cta: 'Book a Free Consultation',
     },
     {
       label: 'Retirees',
-      icon: '🏔️',
+      icon: <Mountains size={20} weight="duotone" />,
       headline: 'Make your money last as long as you do.',
       services: [
         { name: 'CPP & OAS Optimization', detail: 'When to take which payment — timing is everything' },
@@ -360,7 +373,7 @@ function WhoWeServeTabs() {
         { name: 'Estate & Beneficiary Review', detail: 'Ensure your assets go where you intend them to' },
         { name: 'Cash Flow Planning', detail: 'Monthly income mapped to your actual spending' },
       ],
-      cta: 'Protect Your Retirement',
+      cta: 'Book a Free Consultation',
     },
   ]
 
@@ -404,7 +417,7 @@ function WhoWeServeTabs() {
           </p>
           <div className="grid md:grid-cols-2 gap-4 mb-6">
             {activeTab.services.map((svc) => (
-              <div key={svc.name} className="flex items-start gap-3 p-4 rounded-xl"
+              <div key={svc.name} className="flex items-start gap-3 p-4 rounded-xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md"
                 style={{ backgroundColor: '#f8fafc', border: '1px solid #e2e8f0' }}>
                 <div className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
                   style={{ backgroundColor: '#2563eb' }}>
@@ -504,7 +517,7 @@ export default function CleanProfessionalDemo() {
       </nav>
 
       {/* ═══════════ 2. HERO — Asymmetric authority layout ═══════════ */}
-      <section className="relative overflow-hidden" style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', backgroundColor: '#1a365d' }}>
+      <section className="relative overflow-hidden py-20 md:py-32" style={{ display: 'flex', alignItems: 'center', backgroundColor: '#1a365d' }}>
         {/* Grid pattern */}
         <div className="absolute inset-0 opacity-10"
           style={{
@@ -551,7 +564,7 @@ export default function CleanProfessionalDemo() {
                 <a href="#contact"
                   className="inline-flex items-center justify-center gap-2 px-8 py-4 text-white font-bold text-sm rounded-xl transition-all hover:scale-105"
                   style={{ backgroundColor: '#2563eb', boxShadow: '0 4px 20px rgba(37,99,235,0.4)' }}>
-                  Book a Confidential Consultation
+                  Book a Free Consultation
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
                 </a>
                 <a href="#services"
@@ -569,14 +582,14 @@ export default function CleanProfessionalDemo() {
             >
               <div className="space-y-3">
                 {[
-                  { badge: 'CPA', label: 'Chartered Professional Accountant', icon: '🎓' },
-                  { badge: 'CFP', label: 'Certified Financial Planner', icon: '📊' },
-                  { badge: '15+', label: 'Years of local expertise', icon: '📅' },
-                  { badge: '200+', label: 'Clients served & counting', icon: '👥' },
+                  { badge: 'CPA', label: 'Chartered Professional Accountant', icon: <GraduationCap size={24} weight="duotone" className="text-blue-400" /> },
+                  { badge: 'CFP', label: 'Certified Financial Planner', icon: <ChartLineUp size={24} weight="duotone" className="text-blue-400" /> },
+                  { badge: '15+', label: 'Years of local expertise', icon: <CalendarBlank size={24} weight="duotone" className="text-blue-400" /> },
+                  { badge: '200+', label: 'Clients served & counting', icon: <UsersThree size={24} weight="duotone" className="text-blue-400" /> },
                 ].map((item, i) => (
                   <motion.div
                     key={item.badge}
-                    className="flex items-center gap-4 px-5 py-4 rounded-xl"
+                    className="flex items-center gap-4 px-5 py-4 rounded-xl transition-all duration-200 hover:bg-white/10"
                     style={{ backgroundColor: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.12)' }}
                     initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5, delay: 0.6 + i * 0.1 }}
                   >
@@ -594,6 +607,13 @@ export default function CleanProfessionalDemo() {
             </motion.div>
           </div>
         </div>
+        <motion.div
+          className="absolute bottom-8 left-1/2 -translate-x-1/2"
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+        >
+          <CaretDown size={24} weight="bold" className="text-white/40" />
+        </motion.div>
       </section>
 
       {/* ═══════════ 3. TRUST BAR ═══════════ */}
@@ -605,7 +625,7 @@ export default function CleanProfessionalDemo() {
         <div className="max-w-5xl mx-auto flex flex-wrap justify-center items-center gap-6 md:gap-12 text-sm font-bold" style={{ color: '#1a365d' }}>
           <span className="flex items-center gap-2">
             <span style={{ color: '#f59e0b' }}>&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-            {ratingCount}.9 Rating
+            4.9 Rating
           </span>
           <span style={{ color: '#94a3b8' }} className="hidden md:inline">&#183;</span>
           <span>{yearsCount}+ Years</span>
@@ -614,7 +634,7 @@ export default function CleanProfessionalDemo() {
           <span style={{ color: '#94a3b8' }} className="hidden md:inline">&#183;</span>
           <span>Free Consultation</span>
           <span style={{ color: '#94a3b8' }} className="hidden md:inline">&#183;</span>
-          <span className="hidden md:inline" style={{ color: '#2563eb' }}>🔒 Confidential</span>
+          <span className="hidden md:inline" style={{ color: '#2563eb' }}><ShieldCheck size={20} weight="duotone" className="inline text-blue-500" /> Confidential</span>
         </div>
       </div>
 
@@ -670,7 +690,7 @@ export default function CleanProfessionalDemo() {
                 challenge: 'Incorporated contractor losing $40K/year in tax inefficiencies',
                 approach: 'Restructured as holding company with split income strategy',
                 result: 'Saved $38,400 in year one — more than paying for the restructure 12x over',
-                icon: '💼',
+                icon: <Briefcase size={24} weight="duotone" className="text-white" />,
                 color: '#1a365d',
               },
               {
@@ -678,7 +698,7 @@ export default function CleanProfessionalDemo() {
                 challenge: 'Couple drawing RRSP too early, triggering OAS clawback',
                 approach: 'Reversed drawdown order; CPP deferral + TFSA conversion strategy',
                 result: 'Increased net lifetime income by $127,000 with no lifestyle change',
-                icon: '🏔️',
+                icon: <Mountains size={24} weight="duotone" className="text-white" />,
                 color: '#2563eb',
               },
               {
@@ -686,12 +706,12 @@ export default function CleanProfessionalDemo() {
                 challenge: 'Professional earning $280K/year with no tax optimization plan',
                 approach: 'Spousal RRSP, professional corporation, investment income sheltering',
                 result: 'Reduced annual tax bill by $22,000 — ongoing, every single year',
-                icon: '📈',
+                icon: <ChartLineUp size={24} weight="duotone" className="text-white" />,
                 color: '#1a365d',
               },
             ].map((card, i) => (
               <motion.div key={i} variants={fadeUp}
-                className="rounded-xl overflow-hidden"
+                className="rounded-xl overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
                 style={{ border: '1px solid #e2e8f0', backgroundColor: '#ffffff', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}>
                 {/* Header */}
                 <div className="relative overflow-hidden" style={{ backgroundColor: card.color, height: '160px' }}>
@@ -702,7 +722,7 @@ export default function CleanProfessionalDemo() {
                     className="object-cover opacity-40"
                   />
                   <div className="relative z-10 px-6 py-5 flex items-center justify-between h-full">
-                    <span className="text-2xl">{card.icon}</span>
+                    <span>{card.icon}</span>
                     <span className="text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider"
                       style={{ backgroundColor: 'rgba(255,255,255,0.15)', color: '#fff' }}>{card.tag}</span>
                   </div>
@@ -747,7 +767,7 @@ export default function CleanProfessionalDemo() {
                 { abbr: 'KBOT', name: 'Kootenay Boundary\nChamber of Commerce' },
                 { abbr: 'BBB', name: 'Better Business\nBureau A+' },
               ].map((org) => (
-                <div key={org.abbr} className="flex items-center gap-3 px-5 py-3 rounded-xl"
+                <div key={org.abbr} className="flex items-center gap-3 px-5 py-3 rounded-xl transition-all duration-200 hover:bg-white/10"
                   style={{ backgroundColor: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)' }}>
                   <div className="w-10 h-10 rounded-xl flex items-center justify-center text-xs font-bold"
                     style={{ backgroundColor: 'rgba(37,99,235,0.3)', color: '#93c5fd', border: '1px solid rgba(37,99,235,0.4)' }}>
@@ -816,7 +836,7 @@ export default function CleanProfessionalDemo() {
               <motion.div
                 key={i}
                 variants={fadeUp}
-                className="p-8 rounded-lg"
+                className="p-8 rounded-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
                 style={{ backgroundColor: '#f8fafc', border: '1px solid #e2e8f0', borderTop: '4px solid #1a365d' }}
               >
                 <div className="mb-4 text-xl" style={{ color: '#f59e0b' }}>&#9733;&#9733;&#9733;&#9733;&#9733;</div>
@@ -902,7 +922,7 @@ export default function CleanProfessionalDemo() {
               className="inline-block px-8 py-3.5 text-white font-bold text-sm rounded-lg transition-all hover:opacity-90"
               style={{ backgroundColor: '#1a365d' }}
             >
-              Still have questions? Let&rsquo;s talk.
+              Book a Free Consultation
             </a>
           </div>
         </div>
@@ -945,7 +965,7 @@ export default function CleanProfessionalDemo() {
             Schedule a Confidential Consultation
           </h2>
           <p className="text-center mb-12" style={{ color: '#64748b' }}>
-            🔒 Everything discussed is strictly confidential — your information is protected.
+            <ShieldCheck size={20} weight="duotone" className="inline text-blue-500" /> Everything discussed is strictly confidential — your information is protected.
           </p>
           <div className="grid md:grid-cols-2 gap-12">
             <div className="space-y-6">
@@ -965,20 +985,12 @@ export default function CleanProfessionalDemo() {
                 <h3 className="font-bold mb-1" style={{ color: '#1a365d' }}>Location</h3>
                 <p style={{ color: '#475569' }}>123 Sample St, Castlegar, BC</p>
               </div>
-              {/* Calendar-style widget */}
-              <div className="p-5 rounded-xl" style={{ backgroundColor: '#f8fafc', border: '1px solid #e2e8f0' }}>
-                <p className="text-sm font-bold mb-3" style={{ color: '#1a365d' }}>📅 Preferred Consultation Time</p>
-                <div className="grid grid-cols-3 gap-2">
-                  {['Mon', 'Tue', 'Wed', 'Thu', 'Fri'].map((day) => (
-                    <button key={day} className="py-2 text-xs font-bold rounded-lg transition-colors"
-                      style={{ backgroundColor: '#fff', border: '1px solid #e2e8f0', color: '#64748b' }}
-                      onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#1a365d'; e.currentTarget.style.color = '#fff'; }}
-                      onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#fff'; e.currentTarget.style.color = '#64748b'; }}>
-                      {day}
-                    </button>
-                  ))}
+              <div className="p-5 rounded-xl flex items-center gap-4" style={{ backgroundColor: '#f8fafc', border: '1px solid #e2e8f0' }}>
+                <ShieldCheck size={32} weight="duotone" className="text-blue-500 flex-shrink-0" />
+                <div>
+                  <p className="text-sm font-bold" style={{ color: '#1a365d' }}>100% Confidential</p>
+                  <p className="text-xs" style={{ color: '#94a3b8' }}>Your information is never shared. We respond within 24 hours.</p>
                 </div>
-                <p className="text-xs mt-2" style={{ color: '#94a3b8' }}>Evening appointments available on request</p>
               </div>
             </div>
             <form onSubmit={(e) => e.preventDefault()} className="space-y-5">
@@ -1004,7 +1016,7 @@ export default function CleanProfessionalDemo() {
                 <textarea rows={3} placeholder="What are you hoping to accomplish?" className="w-full px-4 py-3 rounded-lg text-sm outline-none transition-all resize-none" style={{ border: '1px solid #cbd5e1', backgroundColor: '#ffffff', color: '#1e293b' }} onFocus={(e) => (e.currentTarget.style.borderColor = '#1a365d')} onBlur={(e) => (e.currentTarget.style.borderColor = '#cbd5e1')} />
               </div>
               <button type="submit" className="w-full px-8 py-3.5 text-white font-bold text-sm rounded-lg transition-all hover:opacity-90" style={{ backgroundColor: '#1a365d' }}>
-                Schedule My Confidential Consultation
+                Book a Free Consultation
               </button>
             </form>
           </div>
@@ -1036,7 +1048,7 @@ export default function CleanProfessionalDemo() {
             </div>
           </div>
           <div className="border-t border-white/10 pt-6 text-center">
-            <span className="text-white/50 text-sm">&copy; 2025 Ridgeline Financial Group. All rights reserved.</span>
+            <span className="text-white/50 text-sm">&copy; {new Date().getFullYear()} Ridgeline Financial Group. All rights reserved.</span>
           </div>
         </div>
       </footer>
