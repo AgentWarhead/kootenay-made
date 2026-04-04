@@ -250,7 +250,7 @@ function FAQAccordion({ items, hc }: { items: { q: string; a: string }[]; hc: bo
             </svg>
           </button>
           {open === i && (
-            <div className="px-6 pb-5 text-base leading-relaxed" style={{ color: 'rgba(255,255,255,0.7)' }}>{item.a}</div>
+            <div className="px-6 pb-5 text-base leading-relaxed" style={{ color: C.slateLight }}>{item.a}</div>
           )}
         </div>
       ))}
@@ -602,7 +602,7 @@ export default function GovernmentMunicipalPage() {
               <h2 id="digital-heading" className="text-2xl md:text-4xl font-bold" style={{ color: C.navy }}>Digital Services</h2>
             </Reveal>
             <Reveal delay={0.05} className="text-center mb-14">
-              <p className="text-base md:text-lg leading-relaxed max-w-2xl mx-auto" style={{ color: 'rgba(255,255,255,0.7)' }}>
+              <p className="text-base md:text-lg leading-relaxed max-w-2xl mx-auto" style={{ color: C.slateLight }}>
                 Residents call the office for basic information — program hours, pool schedules, trail closures. Your website should answer those questions before they pick up the phone.{' '}
                 <span style={{ color: C.blue, fontWeight: 700 }}>The municipality down the highway cut call volume by 40%. Yours can too.</span>
               </p>
@@ -734,7 +734,7 @@ export default function GovernmentMunicipalPage() {
                 <p className="text-base leading-relaxed mb-5" style={{ color: C.slateLight }}>
                   West Kootenay Parks &amp; Recreation has been enriching lives across the region for over four decades. From Nelson to Castlegar, Trail to Rossland, our team manages parks, trails, sports facilities, aquatic centres, and hundreds of recreation programs for all ages and abilities.
                 </p>
-                <p className="text-base leading-relaxed mb-8" style={{ color: 'rgba(255,255,255,0.7)' }}>
+                <p className="text-base leading-relaxed mb-8" style={{ color: C.slateLight }}>
                   We believe that access to recreation is a right, not a privilege. Our programs are designed with accessibility in mind — adaptive programming, seniors&rsquo; fitness, youth leadership, and everything in between.
                 </p>
                 <a href="#contact" className="gov-focusable inline-block px-8 font-bold text-base transition-colors rounded-lg"
@@ -794,19 +794,19 @@ export default function GovernmentMunicipalPage() {
                   <div className="flex flex-col gap-5">
                     {[{ id: 'contact-name', label: 'Your Name', type: 'text', placeholder: 'Jane Smith', auto: 'name' }, { id: 'contact-email', label: 'Email Address', type: 'email', placeholder: 'jane@example.com', auto: 'email' }, { id: 'contact-subject', label: 'Subject', type: 'text', placeholder: 'Program inquiry, issue report, etc.', auto: 'off' }].map((f) => (
                       <div key={f.id}>
-                        <label htmlFor={f.id} className="block font-semibold mb-2 text-base" style={{ color: '#fff' }}>{f.label}</label>
+                        <label htmlFor={f.id} className="block font-semibold mb-2 text-base" style={{ color: C.navy }}>{f.label}</label>
                         <input id={f.id} type={f.type} placeholder={f.placeholder} autoComplete={f.auto}
                           className="gov-focusable w-full px-4 py-3 text-base rounded-lg outline-none transition-colors"
-                          style={{ border: C.inputBorder, backgroundColor: C.white, color: '#fff', minHeight: '48px' }}
+                          style={{ border: C.inputBorder, backgroundColor: C.white, color: C.slate, minHeight: '48px' }}
                           onFocus={(e) => (e.currentTarget.style.borderColor = hc ? '#000000' : '#2563eb')}
                           onBlur={(e) => (e.currentTarget.style.borderColor = hc ? '#000000' : '#cbd5e1')} />
                       </div>
                     ))}
                     <div>
-                      <label htmlFor="contact-message" className="block font-semibold mb-2 text-base" style={{ color: '#fff' }}>Message</label>
+                      <label htmlFor="contact-message" className="block font-semibold mb-2 text-base" style={{ color: C.navy }}>Message</label>
                       <textarea id="contact-message" rows={4} placeholder="How can we help you?"
                         className="gov-focusable w-full px-4 py-3 text-base rounded-lg outline-none transition-colors resize-none"
-                        style={{ border: C.inputBorder, backgroundColor: C.white, color: '#fff', fontFamily: 'inherit' }}
+                        style={{ border: C.inputBorder, backgroundColor: C.white, color: C.slate, fontFamily: 'inherit' }}
                         onFocus={(e) => (e.currentTarget.style.borderColor = hc ? '#000000' : '#2563eb')}
                         onBlur={(e) => (e.currentTarget.style.borderColor = hc ? '#000000' : '#cbd5e1')} />
                     </div>
@@ -831,8 +831,8 @@ export default function GovernmentMunicipalPage() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-10">
             <div className="md:col-span-2">
               <h2 className="text-lg font-bold mb-2" style={{ color: hc ? '#ffffff' : '#93c5fd' }}>West Kootenay Parks &amp; Recreation</h2>
-              <p className="text-sm mt-2" style={{ color: 'rgba(255,255,255,0.45)' }}>Serving the West Kootenays since 1980.</p>
-              <p className="text-sm mt-4 font-semibold" style={{ color: 'rgba(255,255,255,0.6)' }}>
+              <p className="text-sm mt-2" style={{ color: C.slateLight }}>Serving the West Kootenays since 1980.</p>
+              <p className="text-sm mt-4 font-semibold" style={{ color: C.slateLight }}>
                 ♿ This site meets WCAG 2.1 AA standards.<br />
                 <a href="#contact" className="gov-focusable transition-opacity" style={{ color: '#93c5fd', textDecoration: hc ? 'underline' : 'none' }}>Need assistance? Contact us.</a>
               </p>
