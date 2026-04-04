@@ -481,26 +481,28 @@ export default function EditorialElegantDemo() {
 
       {/* ═══════════ 3. MARKET PULSE ═══════════ */}
       <section style={{ backgroundColor: '#1a1a1a', borderBottom: `2px solid ${EE.gold}` }}>
-        <div className="max-w-6xl mx-auto px-6 py-6">
-          <div className="flex flex-wrap items-center justify-between gap-6">
-            <span className={`${body.className} text-xs uppercase tracking-[0.25em] font-semibold`} style={{ color: '#b8860b', whiteSpace: 'nowrap' }}>
+        <div className="max-w-6xl mx-auto px-6 py-8">
+          <div className="flex items-center justify-center gap-3 mb-6">
+            <div className="h-px flex-1 max-w-8" style={{ backgroundColor: 'rgba(184,134,11,0.3)' }} />
+            <span className={`${body.className} text-xs uppercase tracking-[0.25em] font-semibold`} style={{ color: '#b8860b' }}>
               Market Pulse &mdash; Q1 2025
             </span>
-            <div className="flex flex-wrap gap-6 md:gap-10 text-sm">
-              {[
-                { label: 'Avg. Sale Price', value: '$687,000' },
-                { label: 'Days on Market', value: '18' },
-                { label: 'List-to-Sale Ratio', value: '98.7%' },
-                { label: 'Active Listings', value: '42' },
-              ].map((stat) => (
-                <div key={stat.label} className="text-center">
-                  <div className={`heading-font text-lg md:text-xl`} style={{ color: '#b8860b', fontWeight: 600 }}>{stat.value}</div>
-                  <div className={`${body.className} text-xs uppercase tracking-wider`} style={{ color: 'rgba(250,249,247,0.45)' }}>{stat.label}</div>
-                </div>
-              ))}
-            </div>
-            <span className={`${body.className} text-xs`} style={{ color: 'rgba(250,249,247,0.3)' }}>West Kootenay Region</span>
+            <div className="h-px flex-1 max-w-8" style={{ backgroundColor: 'rgba(184,134,11,0.3)' }} />
           </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {[
+              { label: 'Avg. Sale Price', value: '$687,000' },
+              { label: 'Days on Market', value: '18' },
+              { label: 'List-to-Sale Ratio', value: '98.7%' },
+              { label: 'Active Listings', value: '42' },
+            ].map((stat) => (
+              <div key={stat.label} className="text-center py-3" style={{ borderTop: '1px solid rgba(184,134,11,0.2)' }}>
+                <div className={`heading-font text-xl md:text-2xl mb-1`} style={{ color: '#b8860b', fontWeight: 600 }}>{stat.value}</div>
+                <div className={`${body.className} text-xs uppercase tracking-wider`} style={{ color: 'rgba(250,249,247,0.5)' }}>{stat.label}</div>
+              </div>
+            ))}
+          </div>
+          <p className="text-center text-xs mt-4" style={{ color: 'rgba(250,249,247,0.3)' }}>West Kootenay Region</p>
         </div>
       </section>
 
