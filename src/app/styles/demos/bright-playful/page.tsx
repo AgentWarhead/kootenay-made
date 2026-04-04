@@ -197,7 +197,7 @@ function LiveRedesign() {
                 <div className="absolute inset-0 opacity-[0.12]" style={{ background: 'linear-gradient(135deg, #4ecdc4 0%, #ffe66d 50%, #ff6b6b 100%)' }} />
                 <div className="relative z-10">
                   <p className="text-xs uppercase tracking-wide mb-2" style={{ fontFamily: "'Comic Sans MS', cursive, sans-serif", color: '#666' }}>★ Welcome to Our Website ★</p>
-                  <h2 className="text-xl sm:text-3xl md:text-4xl leading-tight mb-2" style={{ fontFamily: "'Comic Sans MS', cursive, sans-serif", color: '#3a3a3a', fontWeight: 700, textShadow: '0 1px 0 rgba(255,255,255,0.5)' }}>
+                  <h2 className="text-xl sm:text-2xl md:text-4xl leading-tight mb-2" style={{ fontFamily: "'Comic Sans MS', cursive, sans-serif", color: '#3a3a3a', fontWeight: 700, textShadow: '0 1px 0 rgba(255,255,255,0.5)' }}>
                     Sunshine Daycare
                   </h2>
                   <p className="text-sm sm:text-lg mb-1" style={{ fontFamily: "'Comic Sans MS', cursive, sans-serif", color: '#666', fontStyle: 'italic' }}>
@@ -471,7 +471,6 @@ export default function BrightPlayfulDemo() {
                 animate={prefersReduced ? {} : { opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.8 }}
               >
-                Download Parent Handbook →
               </motion.p>
             </div>
             <motion.div
@@ -536,7 +535,7 @@ export default function BrightPlayfulDemo() {
             ].map((item) => (
               <Bounce key={item.label}>
                 <div
-                  className="rounded-2xl p-4 text-center"
+                  className="rounded-2xl p-4 text-center transition-all duration-200 hover:-translate-y-1 hover:shadow-lg"
                   style={{ backgroundColor: '#fff', border: `2px solid ${item.color}30`, boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}
                 >
                   <div className="text-2xl mb-2">{item.icon}</div>
@@ -552,7 +551,7 @@ export default function BrightPlayfulDemo() {
       <section id="schedule" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#fff' }}>
         <div className="max-w-5xl mx-auto">
           <Bounce>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-3" style={{ color: '#222' }}>
+            <h2 className="text-2xl md:text-4xl font-extrabold text-center mb-3" style={{ color: '#222' }}>
               A Day at Sunshine
             </h2>
             <p className="text-center text-sm mb-12" style={{ color: '#888' }}>
@@ -567,7 +566,7 @@ export default function BrightPlayfulDemo() {
                 {dailySchedule.map((block, i) => (
                   <div
                     key={block.time}
-                    className="rounded-2xl p-4 text-center flex-shrink-0 w-28 md:w-auto"
+                    className="rounded-2xl p-4 text-center flex-shrink-0 w-28 md:w-auto transition-all duration-200 hover:-translate-y-1 hover:shadow-md"
                     style={{ backgroundColor: block.color, border: '2px solid rgba(0,0,0,0.05)' }}
                   >
                     <p className="text-xs font-extrabold mb-1" style={{ color: '#555' }}>{block.time}</p>
@@ -585,7 +584,7 @@ export default function BrightPlayfulDemo() {
           </Bounce>
 
           {/* Activity photo gallery */}
-          <div className="grid grid-cols-3 gap-3 mt-10">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-10">
             {[
               { src: '/images/demos/gallery/bp-1.webp', alt: 'Art class activities at Sunshine Daycare' },
               { src: '/images/demos/gallery/bp-2.webp', alt: 'Children learning and playing' },
@@ -613,7 +612,7 @@ export default function BrightPlayfulDemo() {
         <Blob className="absolute -top-10 -right-10 w-40 h-40 opacity-[0.05]" color={PURPLE} />
         <div className="max-w-5xl mx-auto">
           <Bounce>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-3" style={{ color: '#222' }}>
+            <h2 className="text-2xl md:text-4xl font-extrabold text-center mb-3" style={{ color: '#222' }}>
               Programs by Age Group
             </h2>
             <p className="text-center text-sm mb-12" style={{ color: '#888' }}>
@@ -667,7 +666,7 @@ export default function BrightPlayfulDemo() {
             ].map((program) => (
               <Bounce key={program.age}>
                 <div
-                  className="rounded-3xl p-6 h-full"
+                  className="rounded-3xl p-6 h-full transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
                   style={{ backgroundColor: '#fff', border: `3px solid ${program.color}`, boxShadow: `0 4px 16px ${program.color}18` }}
                 >
                   <div className="flex items-center gap-3 mb-4">
@@ -704,7 +703,7 @@ export default function BrightPlayfulDemo() {
       <section id="educators" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#fff' }}>
         <div className="max-w-5xl mx-auto">
           <Bounce>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-3" style={{ color: '#222' }}>
+            <h2 className="text-2xl md:text-4xl font-extrabold text-center mb-3" style={{ color: '#222' }}>
               Meet Our Educators
             </h2>
             <p className="text-center text-sm mb-12" style={{ color: '#888' }}>
@@ -741,7 +740,7 @@ export default function BrightPlayfulDemo() {
             ].map((educator) => (
               <Bounce key={educator.name}>
                 <div
-                  className="rounded-3xl p-6 text-center"
+                  className="rounded-3xl p-6 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
                   style={{ backgroundColor: '#fff', border: `3px solid ${educator.color}30`, boxShadow: `0 4px 16px ${educator.color}12` }}
                 >
                   <div
@@ -769,7 +768,7 @@ export default function BrightPlayfulDemo() {
         <Blob className="absolute -top-10 -right-10 w-40 h-40 opacity-[0.06]" color={CORAL} />
         <div className="max-w-5xl mx-auto">
           <Bounce>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-4" style={{ color: '#222' }}>
+            <h2 className="text-2xl md:text-4xl font-extrabold text-center mb-4" style={{ color: '#222' }}>
               Watch Your Website Transform ✨
             </h2>
             <p className="text-center text-sm mb-12" style={{ color: '#aaa' }}>
@@ -787,7 +786,7 @@ export default function BrightPlayfulDemo() {
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#fff' }}>
         <div className="max-w-5xl mx-auto">
           <Bounce>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-3" style={{ color: '#222' }}>
+            <h2 className="text-2xl md:text-4xl font-extrabold text-center mb-3" style={{ color: '#222' }}>
               What Parents Are Saying 💛
             </h2>
             <p className="text-center text-sm mb-16" style={{ color: '#888' }}>
@@ -821,7 +820,7 @@ export default function BrightPlayfulDemo() {
             ].map((t) => (
               <Bounce key={t.author}>
                 <div
-                  className="rounded-3xl p-6 h-full"
+                  className="rounded-3xl p-6 h-full transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
                   style={{ border: `3px solid ${t.color}`, boxShadow: `0 4px 20px ${t.color}18` }}
                 >
                   <div className="text-3xl mb-4">{t.emoji}</div>
@@ -852,7 +851,7 @@ export default function BrightPlayfulDemo() {
         <Blob2 className="absolute -bottom-10 -right-10 w-48 h-48 opacity-[0.08]" color={PURPLE} />
         <div className="max-w-3xl mx-auto">
           <Bounce>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-3" style={{ color: '#222' }}>
+            <h2 className="text-2xl md:text-4xl font-extrabold text-center mb-3" style={{ color: '#222' }}>
               Questions From Parents 🙋
             </h2>
             <p className="text-center mb-12" style={{ color: '#999' }}>
@@ -904,7 +903,7 @@ export default function BrightPlayfulDemo() {
       <section id="contact" className="py-20 md:py-28 px-6" style={{ background: 'linear-gradient(135deg, #fffbeb 0%, #f0fffe 100%)' }}>
         <div className="max-w-6xl mx-auto">
           <Bounce>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-12" style={{ color: '#222' }}>
+            <h2 className="text-2xl md:text-4xl font-extrabold text-center mb-12" style={{ color: '#222' }}>
               Come Say Hi! 👋
             </h2>
           </Bounce>
@@ -1007,7 +1006,7 @@ export default function BrightPlayfulDemo() {
             </div>
           </div>
           <div className="border-t border-white/10 pt-6 text-center">
-            <span className="text-sm text-white/30">&copy; 2025 Sunshine Daycare. All rights reserved.</span>
+            <span className="text-sm text-white/30">&copy; {new Date().getFullYear()} Sunshine Daycare. All rights reserved.</span>
           </div>
         </div>
       </footer>
