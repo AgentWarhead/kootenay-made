@@ -722,8 +722,6 @@ export default function Home() {
       {/* ═══ VIDEO BACKGROUND — KOOTENAY ROOTS ═══ */}
       <VideoSection />
 
-      <GradientFade from="#1A1D20" to="#1A1D20" height="80px" />
-
       {/* ═══ FORCES OF NATURE — Interactive Stat Cards ═══ */}
       <ForcesOfNature />
 
