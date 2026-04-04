@@ -559,10 +559,10 @@ export default function AdventureOutdoorsDemo() {
             <div className="w-16 h-1 mx-auto mb-16" style={{ backgroundColor: '#f97316' }} />
           </Reveal>
 
-          {/* Vertical timeline */}
+          {/* Steps — stacked cards on mobile, alternating timeline on desktop */}
           <div className="relative">
-            {/* Vertical line */}
-            <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-px hidden sm:block"
+            {/* Vertical line — desktop only */}
+            <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px"
               style={{ backgroundColor: 'rgba(249,115,22,0.25)', transform: 'translateX(-50%)' }} />
 
             {[
@@ -573,23 +573,24 @@ export default function AdventureOutdoorsDemo() {
               { num: 5, title: 'SHARE YOUR STORY', icon: '📸', desc: 'We\'ll have photos and a trip summary waiting for you. Leave a review, tag us, or just tell one friend. That\'s how this community grows.' },
             ].map((step, i) => (
               <Reveal key={step.num} delay={i * 0.12}>
-                <div className={`relative flex items-start gap-6 md:gap-0 mb-12 last:mb-0 ${i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
-                  {/* Number circle — centered on the line */}
-                  <div className="flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center text-lg font-bold z-10 md:absolute md:left-1/2 md:top-0 md:-translate-x-1/2"
+                {/* Mobile: number on top, card below. Desktop: alternating timeline */}
+                <div className={`relative mb-8 md:mb-12 md:flex md:items-start md:gap-0 ${i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
+                  {/* Number circle */}
+                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center text-base md:text-lg font-bold z-10 mx-auto mb-4 md:mb-0 md:absolute md:left-1/2 md:top-0 md:-translate-x-1/2"
                     style={{ backgroundColor: '#f97316', color: '#fff', boxShadow: '0 0 0 4px rgba(249,115,22,0.15)' }}>
                     {step.num}
                   </div>
-                  {/* Content */}
-                  <div className={`flex-1 sm:pl-6 md:pl-0 ${i % 2 === 0 ? 'md:pr-16 md:text-right' : 'md:pl-16 md:text-left'} md:w-[calc(50%-3rem)]`}>
-                    <div className="p-6 rounded-xl" style={{ backgroundColor: 'rgba(249,115,22,0.07)', border: '1px solid rgba(249,115,22,0.15)' }}>
-                      <div className={`flex items-center gap-3 mb-3 ${i % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
-                        <span className="text-2xl">{step.icon}</span>
-                        <h3 className={`${heading.className} text-lg md:text-xl font-bold uppercase`} style={{ color: '#f97316' }}>{step.title}</h3>
+                  {/* Content card */}
+                  <div className={`md:flex-1 ${i % 2 === 0 ? 'md:pr-16 md:text-right' : 'md:pl-16 md:text-left'} md:w-[calc(50%-3rem)]`}>
+                    <div className="p-5 md:p-6 rounded-xl" style={{ backgroundColor: 'rgba(249,115,22,0.07)', border: '1px solid rgba(249,115,22,0.15)' }}>
+                      <div className={`flex items-center justify-center md:justify-start gap-3 mb-3 ${i % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
+                        <span className="text-xl md:text-2xl">{step.icon}</span>
+                        <h3 className={`${heading.className} text-base md:text-xl font-bold uppercase`} style={{ color: '#f97316' }}>{step.title}</h3>
                       </div>
-                      <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.6)' }}>{step.desc}</p>
+                      <p className="text-sm leading-relaxed text-center md:text-inherit" style={{ color: 'rgba(255,255,255,0.6)' }}>{step.desc}</p>
                     </div>
                   </div>
-                  {/* Spacer for alternating layout */}
+                  {/* Spacer for alternating layout — desktop only */}
                   <div className="hidden md:block flex-1" />
                 </div>
               </Reveal>
