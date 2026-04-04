@@ -8,9 +8,12 @@ import PageTransition from '@/components/PageTransition';
 export default function LayoutShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isDemo = pathname.startsWith('/styles/demos/');
+  const isDashboard = pathname.startsWith('/dashboard');
+  const isAdmin = pathname.startsWith('/admin');
+  const isAuth = pathname.startsWith('/login') || pathname.startsWith('/forgot-password');
 
-  if (isDemo) {
-    // Demo pages are self-contained — no KMD nav/footer
+  if (isDemo || isDashboard || isAdmin || isAuth) {
+    // These routes are self-contained — no KMD marketing nav/footer
     return <>{children}</>;
   }
 

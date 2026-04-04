@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400">
+  <defs>
+    <pattern id="topo" x="0" y="0" width="400" height="400" patternUnits="userSpaceOnUse">
+      <!-- Topographic contour lines — seamlessly tileable, designed for 0.03–0.08 opacity overlay -->
+      <path d="M0,80 C40,72 80,68 120,75 C160,82 200,90 240,85 C280,80 320,70 360,76 C380,79 390,81 400,80" fill="none" stroke="#C87941" stroke-width="0.8" opacity="0.6"/>
+      <path d="M0,80 C40,72 80,68 120,75 C160,82 200,90 240,85 C280,80 320,70 360,76 C380,79 390,81 400,80" fill="none" stroke="#C87941" stroke-width="0.8" opacity="0.6" transform="translate(0,400)"/>
+      
+      <path d="M0,160 C30,150 70,145 110,152 C150,159 190,168 230,163 C270,158 310,148 350,155 C370,158 385,161 400,160" fill="none" stroke="#C87941" stroke-width="0.8" opacity="0.6"/>
+      <path d="M0,160 C30,150 70,145 110,152 C150,159 190,168 230,163 C270,158 310,148 350,155 C370,158 385,161 400,160" fill="none" stroke="#C87941" stroke-width="0.8" opacity="0.6" transform="translate(0,400)"/>
+      
+      <path d="M0,240 C50,228 90,224 130,232 C170,240 210,250 250,244 C290,238 330,228 370,235 C385,238 393,240 400,240" fill="none" stroke="#C87941" stroke-width="0.8" opacity="0.6"/>
+      <path d="M0,240 C50,228 90,224 130,232 C170,240 210,250 250,244 C290,238 330,228 370,235 C385,238 393,240 400,240" fill="none" stroke="#C87941" stroke-width="0.8" opacity="0.6" transform="translate(0,-400)"/>
+      
+      <path d="M0,320 C45,308 85,304 125,312 C165,320 205,330 245,324 C285,318 325,308 365,315 C383,318 392,320 400,320" fill="none" stroke="#C87941" stroke-width="0.8" opacity="0.6"/>
+      <path d="M0,320 C45,308 85,304 125,312 C165,320 205,330 245,324 C285,318 325,308 365,315 C383,318 392,320 400,320" fill="none" stroke="#C87941" stroke-width="0.8" opacity="0.6" transform="translate(0,-400)"/>
+      
+      <!-- Tighter contours for mid-elevation feel -->
+      <path d="M0,120 C35,113 75,110 115,116 C155,122 195,130 235,125 C275,120 315,112 355,118 C373,121 387,122 400,120" fill="none" stroke="#C87941" stroke-width="0.5" opacity="0.4"/>
+      <path d="M0,120 C35,113 75,110 115,116 C155,122 195,130 235,125 C275,120 315,112 355,118 C373,121 387,122 400,120" fill="none" stroke="#C87941" stroke-width="0.5" opacity="0.4" transform="translate(0,400)"/>
+      
+      <path d="M0,200 C40,190 80,186 120,194 C160,202 200,212 240,206 C280,200 320,190 360,197 C378,200 390,201 400,200" fill="none" stroke="#C87941" stroke-width="0.5" opacity="0.4"/>
+      <path d="M0,200 C40,190 80,186 120,194 C160,202 200,212 240,206 C280,200 320,190 360,197 C378,200 390,201 400,200" fill="none" stroke="#C87941" stroke-width="0.5" opacity="0.4" transform="translate(0,-400)"/>
+      
+      <path d="M0,280 C42,270 82,266 122,274 C162,282 202,292 242,286 C282,280 322,270 362,277 C380,280 391,281 400,280" fill="none" stroke="#C87941" stroke-width="0.5" opacity="0.4"/>
+      <path d="M0,280 C42,270 82,266 122,274 C162,282 202,292 242,286 C282,280 322,270 362,277 C380,280 391,281 400,280" fill="none" stroke="#C87941" stroke-width="0.5" opacity="0.4" transform="translate(0,-400)"/>
+      
+      <path d="M0,360 C38,350 78,346 118,354 C158,362 198,372 238,366 C278,360 318,350 358,357 C376,360 389,361 400,360" fill="none" stroke="#C87941" stroke-width="0.5" opacity="0.4"/>
+      <path d="M0,360 C38,350 78,346 118,354 C158,362 198,372 238,366 C278,360 318,350 358,357 C376,360 389,361 400,360" fill="none" stroke="#C87941" stroke-width="0.5" opacity="0.4" transform="translate(0,-400)"/>
+      
+      <!-- Peak detail lines -->
+      <path d="M0,40 C60,34 100,32 140,38 C180,44 220,52 260,46 C300,40 340,32 380,38 C390,40 396,41 400,40" fill="none" stroke="#C87941" stroke-width="0.4" opacity="0.3"/>
+      <path d="M0,40 C60,34 100,32 140,38 C180,44 220,52 260,46 C300,40 340,32 380,38 C390,40 396,41 400,40" fill="none" stroke="#C87941" stroke-width="0.4" opacity="0.3" transform="translate(0,400)"/>
+    </pattern>
+  </defs>
+  <rect width="400" height="400" fill="url(#topo)"/>
+</svg>

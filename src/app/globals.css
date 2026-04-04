@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@import url('https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap');
+@import url('https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@variable&display=swap');
 
 /* Hide browser scrollbars visually but keep scroll space reserved to prevent jitter */
 html {
@@ -28,7 +30,6 @@ html::-webkit-scrollbar {
   font-style: italic;
 }
 
-@import url('https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap');
 
 @font-face {
   font-family: 'General Sans';
@@ -68,6 +69,23 @@ html::-webkit-scrollbar {
   --color-text-tertiary: #8A8D93;
   --color-dark-text: #F8F4F0;
   --color-dark-text-muted: #9A9DA3;
+  --font-cabinet: 'Cabinet Grotesk', 'Satoshi', system-ui, sans-serif;
+
+  /* Dashboard design tokens */
+  --color-dash-bg: #F5F1EC;
+  --color-dash-sidebar: #FDFAF7;
+  --color-dash-sidebar-border: #EAE4DC;
+  --color-dash-card: #FFFFFF;
+  --color-dash-card-hover: #FFFCFA;
+  --color-dash-copper: #C87941;
+  --color-dash-copper-muted: rgba(200, 121, 65, 0.12);
+  --color-dash-text: #1E1A16;
+  --color-dash-text-muted: #6B6460;
+  --color-dash-text-faint: #9E9894;
+  --color-dash-border: #E8E2DA;
+  --sidebar-width: 260px;
+  --sidebar-collapsed-width: 64px;
+  --topbar-height: 60px;
 }
 
 html {
