@@ -12,6 +12,15 @@ const sourceSans = Public_Sans({
 })
 
 /* ── Scroll reveal wrapper ── */
+/* ── Clean government divider — simple blue accent line ── */
+function GovDivider() {
+  return (
+    <div className="max-w-5xl mx-auto px-6">
+      <div className="h-px" style={{ background: 'linear-gradient(90deg, transparent 0%, #2563eb30 30%, #2563eb 50%, #2563eb30 70%, transparent 100%)' }} />
+    </div>
+  )
+}
+
 function Reveal({ children, className = '', delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
   const prefersReduced = useReducedMotion()
   return (
@@ -109,7 +118,7 @@ function LiveRedesign() {
                 <div className="absolute inset-0 opacity-[0.12]" style={{ background: 'linear-gradient(135deg, #1e3a5f 0%, #2563eb 50%, #93c5fd 100%)' }} />
                 <div className="relative z-10">
                   <p className="text-xs uppercase tracking-wide mb-2 sm:mb-4" style={{ fontFamily: 'Arial, sans-serif', color: '#666', letterSpacing: '0.15em' }}>&#9733; Welcome to Our Website &#9733;</p>
-                  <h2 className="text-xl sm:text-3xl md:text-4xl leading-tight mb-2 sm:mb-3" style={{ fontFamily: 'Georgia, serif', color: '#3a3a3a', fontWeight: 700 }}>West Kootenay Regional Parks</h2>
+                  <h2 className="text-xl sm:text-2xl md:text-4xl leading-tight mb-2 sm:mb-3" style={{ fontFamily: 'Georgia, serif', color: '#3a3a3a', fontWeight: 700 }}>West Kootenay Regional Parks</h2>
                   <p className="text-sm sm:text-lg mb-1 sm:mb-2" style={{ fontFamily: 'Georgia, serif', color: '#666', fontStyle: 'italic' }}>&ldquo;Welcome to the District Website.&rdquo;</p>
                   <p className="text-xs sm:text-sm mb-4 sm:mb-6" style={{ fontFamily: 'Arial, sans-serif', color: '#888' }}>Parks &bull; Recreation &bull; Permits &bull; Bylaws &bull; Council</p>
                   <div className="flex justify-center gap-2 sm:gap-3 mb-4 sm:mb-6 flex-wrap">
@@ -296,7 +305,7 @@ export default function GovernmentMunicipalPage() {
   const topoBg = `url("data:image/svg+xml,${encodeURIComponent(topoPattern)}")`
 
   return (
-    <div className={sourceSans.className} style={{ backgroundColor: C.pageBg, color: '#fff', minHeight: '100vh' }}>
+    <div className={`${sourceSans.className} overflow-x-hidden`} style={{ backgroundColor: C.pageBg, color: C.slate, minHeight: '100vh' }}>
       <style>{`
         @keyframes shimmer-border { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
         @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; } }
@@ -406,6 +415,7 @@ export default function GovernmentMunicipalPage() {
             </motion.div>
           </div>
         </section>
+        <GovDivider />
 
         {/* ═══ EMERGENCY CONTACTS STRIP ═══ */}
         <div className="py-4 px-6" style={{ backgroundColor: hc ? '#000000' : '#c0392b' }} role="alert" aria-label="Emergency contacts">
@@ -437,7 +447,7 @@ export default function GovernmentMunicipalPage() {
           <div className="max-w-6xl mx-auto">
             <Reveal className="text-center mb-10">
               <p className="text-sm font-bold uppercase tracking-widest mb-3" style={{ color: C.blue, letterSpacing: '0.15em' }}>Our Parks</p>
-              <h2 id="parks-heading" className="text-3xl md:text-4xl font-bold" style={{ color: '#fff' }}>Parks Directory</h2>
+              <h2 id="parks-heading" className="text-2xl md:text-4xl font-bold" style={{ color: '#fff' }}>Parks Directory</h2>
               <p className="mt-3 max-w-xl mx-auto text-base" style={{ color: C.slateLight }}>80% of visitors come here first. Find a park near you.</p>
             </Reveal>
             {/* Filter by amenity */}
@@ -490,7 +500,7 @@ export default function GovernmentMunicipalPage() {
           <div className="max-w-6xl mx-auto">
             <Reveal className="text-center mb-14">
               <p className="text-sm font-bold uppercase tracking-widest mb-3" style={{ color: C.blue, letterSpacing: '0.15em' }}>Self-Service</p>
-              <h2 id="services-heading" className="text-3xl md:text-4xl font-bold" style={{ color: '#fff' }}>Quick Services</h2>
+              <h2 id="services-heading" className="text-2xl md:text-4xl font-bold" style={{ color: '#fff' }}>Quick Services</h2>
               <p className="mt-3 max-w-xl mx-auto text-base" style={{ color: C.slateLight }}>Handle it online. No hold music. No wait times.</p>
             </Reveal>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
@@ -520,12 +530,13 @@ export default function GovernmentMunicipalPage() {
           </div>
         </section>
 
+        <GovDivider />
         {/* ═══ NEWS & ANNOUNCEMENTS ═══ */}
         <section className="py-20 md:py-28 px-6" style={{ backgroundColor: C.sectionAlt }} aria-labelledby="news-heading">
           <div className="max-w-5xl mx-auto">
             <Reveal className="text-center mb-14">
               <p className="text-sm font-bold uppercase tracking-widest mb-3" style={{ color: C.blue, letterSpacing: '0.15em' }}>Keep Informed</p>
-              <h2 id="news-heading" className="text-3xl md:text-4xl font-bold" style={{ color: '#fff' }}>News &amp; Announcements</h2>
+              <h2 id="news-heading" className="text-2xl md:text-4xl font-bold" style={{ color: '#fff' }}>News &amp; Announcements</h2>
             </Reveal>
             <div className="flex flex-col gap-5">
               {[
@@ -558,7 +569,7 @@ export default function GovernmentMunicipalPage() {
         <section className="py-20 md:py-28 px-6" style={{ backgroundColor: C.white }} aria-labelledby="gallery-heading">
           <div className="max-w-6xl mx-auto">
             <Reveal className="text-center mb-12">
-              <h2 id="gallery-heading" className="text-3xl md:text-4xl font-bold" style={{ color: '#fff' }}>Our Parks &amp; Facilities</h2>
+              <h2 id="gallery-heading" className="text-2xl md:text-4xl font-bold" style={{ color: '#fff' }}>Our Parks &amp; Facilities</h2>
               <p className="mt-4 max-w-xl mx-auto text-base" style={{ color: C.slateLight }}>From trail networks to indoor recreation centres — something for everyone.</p>
             </Reveal>
             <Reveal delay={0.1} className="mb-10">
@@ -588,7 +599,7 @@ export default function GovernmentMunicipalPage() {
           <div className="max-w-6xl mx-auto">
             <Reveal className="text-center mb-10">
               <p className="text-sm font-bold uppercase tracking-widest mb-3" style={{ color: C.blue, letterSpacing: '0.15em' }}>Better Serving Residents</p>
-              <h2 id="digital-heading" className="text-3xl md:text-4xl font-bold" style={{ color: '#fff' }}>Digital Services</h2>
+              <h2 id="digital-heading" className="text-2xl md:text-4xl font-bold" style={{ color: '#fff' }}>Digital Services</h2>
             </Reveal>
             <Reveal delay={0.05} className="text-center mb-14">
               <p className="text-base md:text-lg leading-relaxed max-w-2xl mx-auto" style={{ color: 'rgba(255,255,255,0.7)' }}>
@@ -614,13 +625,14 @@ export default function GovernmentMunicipalPage() {
             </div>
           </div>
         </section>
+        <GovDivider />
 
         {/* ═══ HOW IT WORKS ═══ */}
         <section className="py-20 md:py-28 px-6" style={{ backgroundColor: C.white }} aria-labelledby="hiw-heading">
           <div className="max-w-5xl mx-auto">
             <Reveal className="text-center mb-14">
               <p className="text-sm font-bold uppercase tracking-widest mb-3" style={{ color: C.blue, letterSpacing: '0.15em' }}>The Process</p>
-              <h2 id="hiw-heading" className="text-3xl md:text-4xl font-bold" style={{ color: '#fff' }}>How It Works</h2>
+              <h2 id="hiw-heading" className="text-2xl md:text-4xl font-bold" style={{ color: '#fff' }}>How It Works</h2>
             </Reveal>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
               {[
@@ -648,7 +660,7 @@ export default function GovernmentMunicipalPage() {
           <div className="max-w-5xl mx-auto">
             <Reveal className="text-center mb-12">
               <p className="text-sm font-bold uppercase tracking-widest mb-3" style={{ color: C.blue, letterSpacing: '0.15em' }}>The Transformation</p>
-              <h2 id="transform-heading" className={`${sourceSans.className} text-3xl md:text-4xl font-bold`} style={{ color: '#fff' }}>Watch Your Website Transform</h2>
+              <h2 id="transform-heading" className={`${sourceSans.className} text-2xl md:text-4xl font-bold`} style={{ color: '#fff' }}>Watch Your Website Transform</h2>
               <p className="mt-4 max-w-xl mx-auto text-base" style={{ color: C.slateLight }}>From dated to designed — in real time</p>
             </Reveal>
             <LiveRedesign />
@@ -660,7 +672,7 @@ export default function GovernmentMunicipalPage() {
           <div className="max-w-6xl mx-auto">
             <Reveal className="text-center mb-14">
               <p className="text-sm font-bold uppercase tracking-widest mb-3" style={{ color: C.blue, letterSpacing: '0.15em' }}>Community Feedback</p>
-              <h2 id="testimonials-heading" className="text-3xl md:text-4xl font-bold" style={{ color: '#fff' }}>What Residents Say</h2>
+              <h2 id="testimonials-heading" className="text-2xl md:text-4xl font-bold" style={{ color: '#fff' }}>What Residents Say</h2>
             </Reveal>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {[
@@ -696,7 +708,7 @@ export default function GovernmentMunicipalPage() {
           <div className="max-w-3xl mx-auto">
             <Reveal className="text-center mb-14">
               <p className="text-sm font-bold uppercase tracking-widest mb-3" style={{ color: C.blue, letterSpacing: '0.15em' }}>Questions &amp; Answers</p>
-              <h2 id="faq-heading" className="text-3xl md:text-4xl font-bold" style={{ color: '#fff' }}>Common Questions</h2>
+              <h2 id="faq-heading" className="text-2xl md:text-4xl font-bold" style={{ color: '#fff' }}>Common Questions</h2>
             </Reveal>
             <Reveal delay={0.1}>
               <FAQAccordion hc={hc} items={[
@@ -709,6 +721,7 @@ export default function GovernmentMunicipalPage() {
               ]} />
             </Reveal>
           </div>
+        <GovDivider />
         </section>
 
         {/* ═══ ABOUT ═══ */}
@@ -717,7 +730,7 @@ export default function GovernmentMunicipalPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-14 items-center">
               <Reveal>
                 <p className="text-sm font-bold uppercase tracking-widest mb-4" style={{ color: C.blue, letterSpacing: '0.15em' }}>About Us</p>
-                <h2 id="about-heading" className="text-3xl md:text-4xl font-bold mb-6" style={{ color: '#fff' }}>Committed to Our Communities Since 1980</h2>
+                <h2 id="about-heading" className="text-2xl md:text-4xl font-bold mb-6" style={{ color: '#fff' }}>Committed to Our Communities Since 1980</h2>
                 <p className="text-base leading-relaxed mb-5" style={{ color: 'rgba(255,255,255,0.7)' }}>
                   West Kootenay Parks &amp; Recreation has been enriching lives across the region for over four decades. From Nelson to Castlegar, Trail to Rossland, our team manages parks, trails, sports facilities, aquatic centres, and hundreds of recreation programs for all ages and abilities.
                 </p>
@@ -751,7 +764,7 @@ export default function GovernmentMunicipalPage() {
           <div className="max-w-6xl mx-auto">
             <Reveal className="text-center mb-14">
               <p className="text-sm font-bold uppercase tracking-widest mb-3" style={{ color: C.blue, letterSpacing: '0.15em' }}>Get in Touch</p>
-              <h2 id="contact-heading" className="text-3xl md:text-4xl font-bold" style={{ color: '#fff' }}>Contact West Kootenay Parks &amp; Rec</h2>
+              <h2 id="contact-heading" className="text-2xl md:text-4xl font-bold" style={{ color: '#fff' }}>Contact West Kootenay Parks &amp; Rec</h2>
             </Reveal>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
               <Reveal>
