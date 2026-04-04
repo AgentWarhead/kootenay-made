@@ -263,7 +263,7 @@ function SeasonItem({ name, note, status }: { name: string; note: string; status
   return (
     <div className="p-4 rounded-lg" style={{ backgroundColor: '#ffffff', border: '1px solid rgba(74,124,89,0.15)' }}>
       <div className="flex items-start justify-between gap-2 mb-2">
-        <span className={`${accent.className} text-lg font-bold`} style={{ color: '#fff' }}>{name}</span>
+        <span className={`${accent.className} text-lg font-bold`} style={{ color: '#4a7c59' }}>{name}</span>
         <span className="flex items-center gap-1 px-2 py-0.5 rounded-full text-xs whitespace-nowrap flex-shrink-0" style={{ backgroundColor: cfg.bg }}>
           <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ backgroundColor: cfg.dot }} />
           <span style={{ color: cfg.dot }}>{cfg.label}</span>
@@ -316,7 +316,7 @@ export default function FarmHarvestDemo() {
   }
 
   return (
-    <div className={body.className} style={{ fontFamily: 'Lato, sans-serif', backgroundColor: '#fefcf3', color: '#fff' }}>
+    <div className={body.className} style={{ fontFamily: 'Lato, sans-serif', backgroundColor: '#fefcf3', color: '#3d2e1f', overflowX: 'hidden' as const }}>
 
       <style>{`
       @import url('https://api.fontshare.com/v2/css?f[]=sentient@400,500,700&display=swap');
@@ -384,7 +384,7 @@ export default function FarmHarvestDemo() {
             <div className="flex flex-wrap gap-3 mb-8">
               {['Heirloom Tomatoes', 'Sweet Corn', 'Zucchini', 'Blueberries'].map((item) => (
                 <span key={item} className={`${accent.className} text-lg px-4 py-2 rounded-full`}
-                  style={{ backgroundColor: 'rgba(254,252,243,0.9)', color: '#fff' }}>
+                  style={{ backgroundColor: 'rgba(254,252,243,0.9)', color: '#4a7c59' }}>
                   {item}
                 </span>
               ))}
@@ -441,7 +441,7 @@ export default function FarmHarvestDemo() {
         <div className="max-w-5xl mx-auto">
           <Reveal>
             <div className="text-center mb-12">
-              <h2 className={`heading-font text-3xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>The Harvest Box</h2>
+              <h2 className={`heading-font text-2xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>The Harvest Box</h2>
               <div className="max-w-xs mx-auto"><WavyUnderline color="#4a7c59" /></div>
             </div>
           </Reveal>
@@ -456,7 +456,7 @@ export default function FarmHarvestDemo() {
                 style={{ backgroundColor: 'rgba(74,124,89,0.1)', color: '#4a7c59' }}>
                 This Week&apos;s CSA Box
               </span>
-              <h3 className={`${accent.className} text-3xl mb-4`} style={{ color: '#fff' }}>Summer Abundance Box</h3>
+              <h3 className={`${accent.className} text-3xl mb-4`} style={{ color: '#4a7c59' }}>Summer Abundance Box</h3>
               <div className="flex flex-wrap justify-center gap-2 mb-6">
                 {['Heirloom Tomatoes', 'Sweet Corn (3)', 'Zucchini (2)', 'Fresh Basil', 'Blueberries (pint)', 'Kale bunch'].map(item => (
                   <span key={item} className="px-3 py-1 rounded-full text-sm"
@@ -496,7 +496,7 @@ export default function FarmHarvestDemo() {
               ].map((s, i) => (
                 <div key={s.step} className="text-center p-6 rounded-lg" style={{ backgroundColor: '#f5f0e3' }}>
                   <div className={`${accent.className} text-4xl mb-3`} style={{ color: '#4a7c59' }}>{s.step}</div>
-                  <h4 className={`${accent.className} text-xl mb-2`} style={{ color: '#fff' }}>{s.title}</h4>
+                  <h4 className={`${accent.className} text-xl mb-2`} style={{ color: '#6b4226' }}>{s.title}</h4>
                   <p className="text-sm leading-relaxed" style={{ color: '#6b4226' }}>{s.desc}</p>
                 </div>
               ))}
@@ -511,7 +511,7 @@ export default function FarmHarvestDemo() {
         <div className="max-w-5xl mx-auto">
           <Reveal>
             <div className="text-center mb-8">
-              <h2 className={`heading-font text-3xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>What&apos;s Growing Now</h2>
+              <h2 className={`heading-font text-2xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>What&apos;s Growing Now</h2>
               <div className="max-w-xs mx-auto"><WavyUnderline color="#4a7c59" /></div>
             </div>
           </Reveal>
@@ -560,7 +560,7 @@ export default function FarmHarvestDemo() {
         <div className="max-w-6xl mx-auto">
           <Reveal>
             <div className="text-center mb-12">
-              <h2 className={`heading-font text-3xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>From Seed to Table</h2>
+              <h2 className={`heading-font text-2xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>From Seed to Table</h2>
               <div className="max-w-xs mx-auto"><WavyUnderline color="#4a7c59" /></div>
             </div>
           </Reveal>
@@ -598,7 +598,7 @@ export default function FarmHarvestDemo() {
         <div className="max-w-3xl mx-auto">
           <Reveal>
             <div className="text-center mb-8">
-              <h2 className={`heading-font text-3xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>Recipe of the Week</h2>
+              <h2 className={`heading-font text-2xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>Recipe of the Week</h2>
               <div className="max-w-xs mx-auto"><WavyUnderline color="#4a7c59" /></div>
             </div>
           </Reveal>
@@ -608,7 +608,7 @@ export default function FarmHarvestDemo() {
               <div className="flex items-center gap-3 mb-4">
                 <span className="text-3xl">🍅</span>
                 <div>
-                  <h3 className={`${accent.className} text-2xl`} style={{ color: '#fff' }}>Late Summer Bruschetta</h3>
+                  <h3 className={`${accent.className} text-2xl`} style={{ color: '#6b4226' }}>Late Summer Bruschetta</h3>
                   <p className="text-xs" style={{ color: '#888' }}>Featuring this week&apos;s heirloom tomatoes + fresh basil</p>
                 </div>
               </div>
@@ -643,7 +643,7 @@ export default function FarmHarvestDemo() {
         <div className="max-w-5xl mx-auto">
           <Reveal>
             <div className="text-center mb-8">
-              <h2 className={`heading-font text-3xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>What We Can Do For You</h2>
+              <h2 className={`heading-font text-2xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>What We Can Do For You</h2>
               <div className="max-w-xs mx-auto"><WavyUnderline color="#4a7c59" /></div>
             </div>
           </Reveal>
@@ -683,7 +683,7 @@ export default function FarmHarvestDemo() {
         <div className="max-w-5xl mx-auto">
           <Reveal>
             <div className="text-center mb-16">
-              <h2 className={`heading-font text-3xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>How It Works</h2>
+              <h2 className={`heading-font text-2xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>How It Works</h2>
               <div className="max-w-xs mx-auto"><WavyUnderline color="#4a7c59" /></div>
             </div>
           </Reveal>
@@ -697,7 +697,7 @@ export default function FarmHarvestDemo() {
                 <div className="text-center p-8 rounded-lg" style={{ backgroundColor: '#ffffff', border: '1px solid rgba(74,124,89,0.15)' }}>
                   <div className={`${accent.className} text-5xl mb-4`} style={{ color: '#4a7c59' }}>{step.num}</div>
                   <div className="w-12 h-0.5 mx-auto mb-5" style={{ backgroundColor: '#4a7c59', opacity: 0.4 }} />
-                  <h3 className={`${accent.className} text-2xl mb-3`} style={{ color: '#fff' }}>{step.title}</h3>
+                  <h3 className={`${accent.className} text-2xl mb-3`} style={{ color: '#6b4226' }}>{step.title}</h3>
                   <p className="leading-relaxed text-sm" style={{ color: '#6b4226' }}>{step.desc}</p>
                 </div>
               </Reveal>
@@ -712,7 +712,7 @@ export default function FarmHarvestDemo() {
         <div className="max-w-6xl mx-auto">
           <Reveal>
             <div className="text-center mb-12">
-              <h2 className={`heading-font text-3xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>From Our Farm</h2>
+              <h2 className={`heading-font text-2xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>From Our Farm</h2>
               <div className="max-w-xs mx-auto"><WavyUnderline color="#4a7c59" /></div>
             </div>
           </Reveal>
@@ -748,7 +748,7 @@ export default function FarmHarvestDemo() {
         <div className="max-w-5xl mx-auto">
           <Reveal>
             <div className="text-center mb-4">
-              <h2 className={`heading-font text-3xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>Watch Your Website Transform</h2>
+              <h2 className={`heading-font text-2xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>Watch Your Website Transform</h2>
               <div className="max-w-xs mx-auto"><WavyUnderline color="#4a7c59" /></div>
             </div>
             <p className="text-center mb-12 text-sm uppercase tracking-widest" style={{ color: 'rgba(61,46,31,0.5)' }}>From dated to designed — in real time</p>
@@ -764,7 +764,7 @@ export default function FarmHarvestDemo() {
         <div className="max-w-6xl mx-auto">
           <Reveal>
             <div className="text-center mb-16">
-              <h2 className={`heading-font text-3xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>What Farmers Say</h2>
+              <h2 className={`heading-font text-2xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>What Farmers Say</h2>
               <div className="max-w-xs mx-auto"><WavyUnderline color="#4a7c59" /></div>
             </div>
           </Reveal>
@@ -796,7 +796,7 @@ export default function FarmHarvestDemo() {
                     <div className="flex gap-1 mb-5 text-xl" style={{ color: '#e8a838' }}>
                       &#9733;&#9733;&#9733;&#9733;&#9733;
                     </div>
-                    <blockquote className={`${accent.className} flex-1 text-xl md:text-2xl leading-relaxed mb-6`} style={{ color: '#fff' }}>
+                    <blockquote className={`${accent.className} flex-1 text-xl md:text-2xl leading-relaxed mb-6`} style={{ color: '#6b4226' }}>
                       &ldquo;{t.quote}&rdquo;
                     </blockquote>
                     <div>
@@ -821,7 +821,7 @@ export default function FarmHarvestDemo() {
         <div className="max-w-4xl mx-auto">
           <Reveal>
             <div className="text-center mb-12">
-              <h2 className={`heading-font text-3xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>Common Questions</h2>
+              <h2 className={`heading-font text-2xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>Common Questions</h2>
               <div className="max-w-xs mx-auto"><WavyUnderline color="#4a7c59" /></div>
             </div>
           </Reveal>
@@ -842,7 +842,7 @@ export default function FarmHarvestDemo() {
       <section id="our-farm" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#fefcf3' }}>
         <div className="max-w-3xl mx-auto text-center">
           <Reveal>
-            <h2 className={`heading-font text-3xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>Our Story</h2>
+            <h2 className={`heading-font text-2xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>Our Story</h2>
             <div className="max-w-xs mx-auto mb-10"><WavyUnderline color="#4a7c59" /></div>
           </Reveal>
           <Reveal delay={0.15}>
@@ -859,7 +859,7 @@ export default function FarmHarvestDemo() {
         <div className="max-w-6xl mx-auto">
           <Reveal>
             <div className="text-center mb-16">
-              <h2 className={`heading-font text-3xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>Get In Touch</h2>
+              <h2 className={`heading-font text-2xl md:text-5xl mb-2`} style={{ color: '#4a7c59' }}>Get In Touch</h2>
               <div className="max-w-xs mx-auto"><WavyUnderline color="#4a7c59" /></div>
             </div>
           </Reveal>
@@ -884,19 +884,19 @@ export default function FarmHarvestDemo() {
                 <div>
                   <label className="block text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#4a7c59' }}>Name</label>
                   <input type="text" placeholder="Your name" className="w-full px-4 py-3 text-sm outline-none transition-all rounded-lg"
-                    style={{ backgroundColor: '#ffffff', border: '1px solid rgba(74,124,89,0.2)', color: '#fff' }}
+                    style={{ backgroundColor: '#ffffff', border: '1px solid rgba(74,124,89,0.2)', color: '#3d2e1f' }}
                     onFocus={(e) => (e.currentTarget.style.borderColor = '#4a7c59')} onBlur={(e) => (e.currentTarget.style.borderColor = 'rgba(74,124,89,0.2)')} />
                 </div>
                 <div>
                   <label className="block text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#4a7c59' }}>Email</label>
                   <input type="email" placeholder="you@example.com" className="w-full px-4 py-3 text-sm outline-none transition-all rounded-lg"
-                    style={{ backgroundColor: '#ffffff', border: '1px solid rgba(74,124,89,0.2)', color: '#fff' }}
+                    style={{ backgroundColor: '#ffffff', border: '1px solid rgba(74,124,89,0.2)', color: '#3d2e1f' }}
                     onFocus={(e) => (e.currentTarget.style.borderColor = '#4a7c59')} onBlur={(e) => (e.currentTarget.style.borderColor = 'rgba(74,124,89,0.2)')} />
                 </div>
                 <div>
                   <label className="block text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#4a7c59' }}>Message</label>
                   <textarea rows={4} placeholder="CSA sign-up, bulk orders, farm visits..." className="w-full px-4 py-3 text-sm outline-none transition-all resize-none rounded-lg"
-                    style={{ backgroundColor: '#ffffff', border: '1px solid rgba(74,124,89,0.2)', color: '#fff' }}
+                    style={{ backgroundColor: '#ffffff', border: '1px solid rgba(74,124,89,0.2)', color: '#3d2e1f' }}
                     onFocus={(e) => (e.currentTarget.style.borderColor = '#4a7c59')} onBlur={(e) => (e.currentTarget.style.borderColor = 'rgba(74,124,89,0.2)')} />
                 </div>
                 <button type="submit" className="w-full px-8 py-3.5 text-sm font-bold uppercase tracking-widest transition-all rounded-full"
@@ -936,7 +936,7 @@ export default function FarmHarvestDemo() {
             </div>
           </div>
           <div style={{ borderTop: '1px solid rgba(254,252,243,0.15)' }} className="pt-6 text-center">
-            <span className="text-sm" style={{ color: 'rgba(254,252,243,0.4)' }}>&copy; 2025 Valley Roots Farm. All rights reserved.</span>
+            <span className="text-sm" style={{ color: 'rgba(254,252,243,0.4)' }}>&copy; {new Date().getFullYear()} Valley Roots Farm. All rights reserved.</span>
           </div>
         </div>
       </footer>
@@ -946,7 +946,7 @@ export default function FarmHarvestDemo() {
         style={{ backgroundColor: 'rgba(254,252,243,0.92)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', borderTop: '2px solid #4a7c59' }}>
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
           <span className="text-sm text-center sm:text-left" style={{ color: '#6b4226' }}>
-            Sample design by <strong style={{ color: '#fff' }}>Kootenay Made Digital</strong>
+            Sample design by <strong style={{ color: '#4a7c59' }}>Kootenay Made Digital</strong>
           </span>
           <Link href="/contact?style=farm-harvest"
             className="inline-block px-6 py-2.5 text-sm font-bold uppercase tracking-wider transition-all whitespace-nowrap rounded-full"
