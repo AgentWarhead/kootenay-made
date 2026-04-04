@@ -518,8 +518,13 @@ export default function CleanProfessionalDemo() {
 
       {/* ═══════════ 2. HERO — Asymmetric authority layout ═══════════ */}
       <section className="relative overflow-hidden py-12 md:py-24" style={{ display: 'flex', alignItems: 'center', backgroundColor: '#1a365d' }}>
+        {/* Hero background image */}
+        <div className="absolute inset-0 z-0">
+          <Image src="/images/demos/clean-professional-hero.webp" alt="" fill className="object-cover" priority />
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, rgba(26,54,93,0.88) 0%, rgba(26,54,93,0.78) 50%, rgba(26,54,93,0.92) 100%)' }} />
+        </div>
         {/* Grid pattern */}
-        <div className="absolute inset-0 opacity-10"
+        <div className="absolute inset-0 z-[1] opacity-10"
           style={{
             backgroundImage: 'linear-gradient(rgba(255,255,255,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.15) 1px, transparent 1px)',
             backgroundSize: '60px 60px',
@@ -529,7 +534,7 @@ export default function CleanProfessionalDemo() {
         <div className="absolute right-0 top-0 bottom-0 w-1/3 hidden lg:block"
           style={{ background: 'linear-gradient(135deg, transparent 40%, rgba(37,99,235,0.15) 100%)' }} />
 
-        <div className="relative max-w-6xl mx-auto px-6 py-12 md:py-24 w-full">
+        <div className="relative z-10 max-w-6xl mx-auto px-6 py-12 md:py-24 w-full">
           <div className="flex flex-col lg:flex-row lg:items-center gap-12 lg:gap-16">
             {/* LEFT: Headline */}
             <div className="flex-1">

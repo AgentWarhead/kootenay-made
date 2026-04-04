@@ -401,10 +401,15 @@ export default function WarmNaturalDemo() {
 
         {/* ── HERO ── */}
         <section className="relative min-h-[60vh] md:min-h-screen flex items-center justify-center overflow-hidden" style={{  }}>
-          <div className="absolute inset-0">
+          {/* Hero background image */}
+          <div className="absolute inset-0 z-0">
+            <Image src="/images/demos/warm-natural-hero.webp" alt="" fill className="object-cover" priority />
+            <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(250,246,240,0.82) 0%, rgba(250,246,240,0.75) 50%, rgba(250,246,240,0.9) 100%)' }} />
+          </div>
+          <div className="absolute inset-0 z-[1]">
             <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse at 20% 30%, rgba(125,154,107,0.12) 0%, transparent 60%), radial-gradient(ellipse at 80% 60%, rgba(212,165,116,0.1) 0%, transparent 55%), radial-gradient(ellipse at 50% 90%, rgba(125,154,107,0.08) 0%, transparent 50%)' }} />
           </div>
-          <motion.div className="relative max-w-3xl mx-auto text-center px-6 py-28 md:py-40"
+          <motion.div className="relative z-10 max-w-3xl mx-auto text-center px-6 py-28 md:py-40"
             initial={prefersReduced ? {} : { opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: 'easeOut' }}>

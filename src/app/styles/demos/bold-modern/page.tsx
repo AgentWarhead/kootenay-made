@@ -329,13 +329,18 @@ export default function BoldModernDemo() {
 
       {/* ─── 2. HERO ────────────────────────────────────────── */}
       <section className="relative overflow-hidden min-h-screen flex items-center" style={{ backgroundColor: '#111111' }}>
+        {/* Hero background image */}
+        <div className="absolute inset-0 z-0">
+          <Image src="/images/demos/bold-modern-hero.webp" alt="" fill className="object-cover" priority />
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(17,17,17,0.82) 0%, rgba(17,17,17,0.7) 40%, rgba(17,17,17,0.9) 100%)' }} />
+        </div>
         <AngularDeco className="absolute top-10 right-10 opacity-60 hidden md:block" />
         <AngularDeco className="absolute bottom-32 right-1/4 opacity-40 rotate-180 hidden lg:block" />
         <DiamondDeco className="absolute top-1/3 right-20 opacity-50 hidden md:block" />
         <DiamondDeco className="absolute bottom-1/4 left-10 opacity-30" />
         {/* Orange diagonal accent */}
         <div className="absolute top-0 left-0 w-2 md:w-3" style={{ backgroundColor: '#ff6b00', height: '60%', clipPath: 'polygon(0 0, 100% 0, 100% 90%, 0 100%)' }} />
-        <div className="relative max-w-7xl mx-auto px-6 py-24 md:py-32 w-full">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 py-24 md:py-32 w-full">
           <div className="max-w-5xl">
             <motion.div className="w-24 h-1.5 mb-8" style={{ backgroundColor: '#ff6b00' }}
               initial={prefersReduced ? {} : { scaleX: 0, transformOrigin: 'left' }}
