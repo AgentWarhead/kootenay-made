@@ -1920,14 +1920,14 @@ export default function ServicesPage() {
               Ready to stand out online?
             </h2>
             <p className="text-dark-text-muted text-lg mb-10 max-w-xl mx-auto">
-              Start with a free audit. Zero pressure. We&apos;ll tell you exactly where you stand and what&apos;s worth doing.
+              Scan your site in 30 seconds — or book a free call with Brett. Zero pressure, zero cost.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/audit"
                 className="inline-flex items-center justify-center gap-2 bg-copper hover:bg-copper-light text-white font-medium px-8 py-4 rounded-xl transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] text-base"
               >
-                Book Your Free Audit <ArrowRight size={18} />
+                Scan Your Website Free <ArrowRight size={18} />
               </Link>
               <Link
                 href="/contact"
