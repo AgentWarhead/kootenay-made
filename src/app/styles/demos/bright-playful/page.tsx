@@ -1028,7 +1028,6 @@ export default function BrightPlayfulDemo() {
               Sample design by <strong style={{ color: '#333' }}>Kootenay Made Digital</strong>
             </span>
             <a href="tel:2505550000" className="hidden sm:inline text-sm font-extrabold" style={{ color: CORAL }}>
-              (250) 555-0000
             </a>
           </div>
           <Link

@@ -5,6 +5,7 @@ import { Lato } from 'next/font/google'
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion, useReducedMotion, AnimatePresence } from 'framer-motion'
+import { Hamburger, GameController, BeerStein, Dog, CaretDown } from '@phosphor-icons/react'
 
 const lato = Lato({
   subsets: ['latin'],
@@ -169,7 +170,7 @@ function LiveRedesign() {
                 <div className="absolute inset-0 opacity-[0.12]" style={{ background: 'linear-gradient(135deg, #6a8f3a 0%, #d4942a 50%, #f5e6c8 100%)' }} />
                 <div className="relative z-10">
                   <p className="text-xs uppercase tracking-wide mb-2" style={{ fontFamily: 'Arial, sans-serif', color: '#666' }}>★ Welcome to Our Website ★</p>
-                  <h2 className="text-xl sm:text-3xl md:text-4xl leading-tight mb-2" style={{ fontFamily: 'Georgia, serif', color: '#3d2b1f', fontWeight: 700, textShadow: '0 1px 0 rgba(255,255,255,0.5)' }}>
+                  <h2 className="text-xl sm:text-2xl md:text-4xl leading-tight mb-2" style={{ fontFamily: 'Georgia, serif', color: '#3d2b1f', fontWeight: 700, textShadow: '0 1px 0 rgba(255,255,255,0.5)' }}>
                     Kootenay Brewing Co.
                   </h2>
                   <p className="text-sm sm:text-lg mb-1" style={{ fontFamily: 'Georgia, serif', color: '#666', fontStyle: 'italic' }}>
@@ -498,7 +499,7 @@ export default function RusticCraftDemo() {
         <div className="relative z-10 max-w-5xl mx-auto">
           <StampIn className="text-center mb-12">
             <h2
-              className={`heading-font text-3xl md:text-5xl font-bold mb-2`}
+              className={`heading-font text-2xl md:text-5xl font-bold mb-2`}
               style={{ color: PARCHMENT }}
             >
               What&rsquo;s on Tap
@@ -535,7 +536,7 @@ export default function RusticCraftDemo() {
                     { name: 'Sloan IPA', style: 'West Coast IPA', abv: '6.4%', ibu: '65', swatch: '#c8a83a', note: 'Piney resin, tropical fruit, bold bitterness' },
                     { name: 'Seasonal Sour', style: 'Berliner Weisse', abv: '3.8%', ibu: '8', swatch: '#a0c87a', note: 'Tart raspberry, wheat base, refreshingly sour' },
                   ].map((beer) => (
-                    <div key={beer.name} className="flex items-start gap-4" style={{ borderBottom: `1px solid ${PARCHMENT}15`, paddingBottom: '1rem' }}>
+                    <div key={beer.name} className="flex items-start gap-4 transition-all duration-200 hover:bg-white/5" style={{ borderBottom: `1px solid ${PARCHMENT}15`, paddingBottom: '1rem' }}>
                       {/* Beer colour swatch */}
                       <div
                         className="flex-shrink-0 w-10 h-10 rounded-full mt-1"
@@ -574,7 +575,7 @@ export default function RusticCraftDemo() {
         <div className="relative z-10 max-w-5xl mx-auto">
           <StampIn className="text-center mb-12">
             <h2
-              className={`heading-font text-3xl md:text-4xl font-bold mb-2`}
+              className={`heading-font text-2xl md:text-4xl font-bold mb-2`}
               style={{ color: DARK_BROWN }}
             >
               Brewer&rsquo;s Pick This Week
@@ -637,7 +638,7 @@ export default function RusticCraftDemo() {
         <div className="relative z-10 max-w-5xl mx-auto">
           <StampIn className="text-center mb-12">
             <h2
-              className={`heading-font text-3xl md:text-5xl font-bold mb-2`}
+              className={`heading-font text-2xl md:text-5xl font-bold mb-2`}
               style={{ color: PARCHMENT }}
             >
               What to Expect
@@ -651,29 +652,29 @@ export default function RusticCraftDemo() {
           <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-6">
             {[
               {
-                icon: '🍔',
+                icon: 'hamburger',
                 title: 'Food',
                 detail: 'Weekly rotating food truck partner — check our events board for the schedule.',
               },
               {
-                icon: '🎮',
+                icon: 'game',
                 title: 'Games',
                 detail: 'Shuffleboard, cribbage, Jenga, and a library of 30+ board games. Always free.',
               },
               {
-                icon: '🍺',
+                icon: 'beer',
                 title: 'Tours',
                 detail: 'Brewery tours every Saturday at 2 PM. See the tanks, hear the story, taste the difference.',
               },
               {
-                icon: '🐕',
+                icon: 'dog',
                 title: 'Dogs',
                 detail: 'Dog-friendly patio, always. Water bowls provided. Four-legged regulars welcome.',
               },
             ].map((item) => (
               <FadeUp key={item.title}>
                 <div
-                  className="relative p-6 rounded-sm text-center overflow-hidden"
+                  className="relative p-6 rounded-sm text-center overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
                   style={{ backgroundColor: `${DARK_BROWN}cc`, border: `2px solid ${AMBER}33` }}
                 >
                   <div
@@ -681,7 +682,12 @@ export default function RusticCraftDemo() {
                     style={{ backgroundImage: WOODGRAIN }}
                   />
                   <div className="relative z-10">
-                    <div className="text-4xl mb-3">{item.icon}</div>
+                    <div className="mb-3 flex justify-center">
+                      {item.icon === 'hamburger' && <Hamburger size={32} weight="duotone" style={{ color: '#d4942a' }} />}
+                      {item.icon === 'game' && <GameController size={32} weight="duotone" style={{ color: '#d4942a' }} />}
+                      {item.icon === 'beer' && <BeerStein size={32} weight="duotone" style={{ color: '#d4942a' }} />}
+                      {item.icon === 'dog' && <Dog size={32} weight="duotone" style={{ color: '#d4942a' }} />}
+                    </div>
                     <h3 className={`heading-font font-bold text-lg mb-2`} style={{ color: AMBER }}>{item.title}</h3>
                     <p className="text-sm leading-relaxed" style={{ color: `${PARCHMENT}99` }}>{item.detail}</p>
                   </div>
@@ -694,7 +700,7 @@ export default function RusticCraftDemo() {
           <FadeUp delay={0.2} className="mt-10">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {['Kootenay Pale Ale', 'Cedar Stout', 'Trail Wheat', 'Seasonal Special'].map((beer, i) => (
-                <div key={beer} className="relative aspect-[4/3] rounded-sm overflow-hidden" style={{ border: `2px solid ${AMBER}44` }}>
+                <div key={beer} className="relative aspect-[4/3] rounded-sm overflow-hidden transition-all duration-300 hover:scale-[1.02]" style={{ border: `2px solid ${AMBER}44` }}>
                   <Image src={`/images/demos/gallery/rc-${i + 1}.webp`} alt={beer} fill className="object-cover" />
                   <div className="absolute bottom-0 left-0 right-0 p-2" style={{ background: 'linear-gradient(to top, rgba(61,43,31,0.8), transparent)' }}>
                     <span className={`${lato.className} text-xs font-bold`} style={{ color: PARCHMENT }}>{beer}</span>
@@ -716,7 +722,7 @@ export default function RusticCraftDemo() {
         <div className="relative z-10 max-w-4xl mx-auto">
           <StampIn className="text-center mb-12">
             <h2
-              className={`heading-font text-3xl md:text-4xl font-bold mb-2`}
+              className={`heading-font text-2xl md:text-4xl font-bold mb-2`}
               style={{ color: DARK_BROWN }}
             >
               Coming Up at the Taproom
@@ -764,7 +770,7 @@ export default function RusticCraftDemo() {
         <div className="relative z-10 max-w-5xl mx-auto">
           <StampIn className="text-center mb-12">
             <h2
-              className={`heading-font text-3xl md:text-5xl font-bold mb-2`}
+              className={`heading-font text-2xl md:text-5xl font-bold mb-2`}
               style={{ color: PARCHMENT }}
             >
               Garage to Taproom
@@ -797,7 +803,7 @@ export default function RusticCraftDemo() {
               },
             ].map((beat) => (
               <FadeUp key={beat.step}>
-                <div className="relative rounded-sm overflow-hidden" style={{ border: `2px solid ${AMBER}44` }}>
+                <div className="relative rounded-sm overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-lg" style={{ border: `2px solid ${AMBER}44` }}>
                   <div className="relative h-40 overflow-hidden">
                     <Image src={beat.img} alt={beat.title} fill className="object-cover" />
                     <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, transparent 40%, rgba(61,43,31,0.9))' }} />
@@ -832,7 +838,7 @@ export default function RusticCraftDemo() {
         <div className="relative z-10 max-w-5xl mx-auto">
           <StampIn className="text-center mb-4">
             <h2
-              className={`heading-font text-3xl md:text-5xl font-bold`}
+              className={`heading-font text-2xl md:text-5xl font-bold`}
               style={{ color: DARK_BROWN }}
             >
               Watch Your Website Transform
@@ -860,7 +866,7 @@ export default function RusticCraftDemo() {
         <div className="relative z-10 max-w-5xl mx-auto">
           <StampIn className="text-center mb-16">
             <h2
-              className={`heading-font text-3xl md:text-5xl font-bold`}
+              className={`heading-font text-2xl md:text-5xl font-bold`}
               style={{ color: PARCHMENT }}
             >
               Tasting Notes From Our Regulars
@@ -898,7 +904,7 @@ export default function RusticCraftDemo() {
               <FadeUp key={t.brewer}>
                 {/* Beer-label styled card */}
                 <div
-                  className="relative rounded-sm overflow-hidden"
+                  className="relative rounded-sm overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
                   style={{
                     backgroundColor: PARCHMENT,
                     border: `3px solid ${DARK_BROWN}`,
@@ -947,7 +953,7 @@ export default function RusticCraftDemo() {
         <div className="relative z-10 max-w-3xl mx-auto">
           <StampIn className="text-center mb-16">
             <h2
-              className={`heading-font text-3xl md:text-5xl font-bold`}
+              className={`heading-font text-2xl md:text-5xl font-bold`}
               style={{ color: DARK_BROWN }}
             >
               Common Questions
@@ -978,7 +984,7 @@ export default function RusticCraftDemo() {
         <div className="relative z-10 max-w-6xl mx-auto">
           <StampIn className="text-center mb-14">
             <h2
-              className={`heading-font text-3xl md:text-5xl font-bold`}
+              className={`heading-font text-2xl md:text-5xl font-bold`}
               style={{ color: PARCHMENT }}
             >
               Visit the Taproom
@@ -1147,7 +1153,6 @@ export default function RusticCraftDemo() {
               </span>
             </span>
             <a href="tel:2505550000" className="hidden sm:inline text-xs font-bold" style={{ color: AMBER }}>
-              (250) 555-0000
             </a>
           </div>
           <Link

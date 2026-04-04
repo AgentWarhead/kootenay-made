@@ -1744,7 +1744,6 @@ export default function HomeGardenDemo() {
               <strong style={{ color: C.cream }}>Kootenay Made Digital</strong>
             </span>
             <a href="tel:2505550000" className="hidden sm:inline text-sm font-bold" style={{ color: C.green }}>
-              (250) 555-0000
             </a>
           </div>
           <Link

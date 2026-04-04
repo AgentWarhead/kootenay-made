@@ -1051,7 +1051,6 @@ export default function SleekDarkDemo() {
               Sample design by <strong style={{ color: '#f5f0e8' }}>Kootenay Made Digital</strong>
             </span>
             <a href="tel:2505550000" className="text-sm font-bold hidden sm:inline" style={{ color: '#c9a96e' }}>
-              (250) 555-0000
             </a>
           </div>
           <Link

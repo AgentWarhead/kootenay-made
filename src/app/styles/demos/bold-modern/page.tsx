@@ -877,8 +877,6 @@ export default function BoldModernDemo() {
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 text-center sm:text-left">
             <span className="text-sm" style={{ color: 'rgba(255,255,255,0.7)' }}>Sample design by <strong className="text-white">Kootenay Made Digital</strong></span>
-            <span className="hidden sm:inline text-xs" style={{ color: 'rgba(255,107,0,0.5)' }}>·</span>
-            <span className="text-xs font-bold" style={{ color: '#ff6b00' }}>(250) 555-0000</span>
           </div>
           <Link href="/contact?style=bold-modern"
             className="inline-block px-6 py-2.5 text-sm font-bold uppercase tracking-wider transition-all whitespace-nowrap"

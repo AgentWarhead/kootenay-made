@@ -5,6 +5,7 @@ import { Nunito } from 'next/font/google'
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion, useReducedMotion, AnimatePresence, type Variants } from 'framer-motion'
+import { CalendarBlank, Clock, Person, Leaf, CaretDown } from '@phosphor-icons/react'
 
 
 const nunito = Nunito({ subsets: ['latin'], weight: ['400', '600'] })
@@ -279,9 +280,20 @@ function FAQAccordion({ items }: { items: { q: string; a: string }[] }) {
               <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </button>
-          {open === i && (
-            <div className="px-6 pb-5 text-sm leading-relaxed" style={{ color: '#4a3728', opacity: 0.8 }}>{item.a}</div>
-          )}
+          <AnimatePresence initial={false}>
+            {open === i && (
+              <motion.div
+                key="faq-answer"
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: 'auto', opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.3, ease: 'easeInOut' }}
+                style={{ overflow: 'hidden' }}
+              >
+                <div className="px-6 pb-5 text-sm leading-relaxed" style={{ color: '#4a3728', opacity: 0.8 }}>{item.a}</div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       ))}
     </div>
@@ -388,7 +400,7 @@ export default function WarmNaturalDemo() {
         </nav>
 
         {/* ── HERO ── */}
-        <section className="relative min-h-screen flex items-center justify-center overflow-hidden" style={{  }}>
+        <section className="relative min-h-[60vh] md:min-h-screen flex items-center justify-center overflow-hidden" style={{  }}>
           <div className="absolute inset-0">
             <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse at 20% 30%, rgba(125,154,107,0.12) 0%, transparent 60%), radial-gradient(ellipse at 80% 60%, rgba(212,165,116,0.1) 0%, transparent 55%), radial-gradient(ellipse at 50% 90%, rgba(125,154,107,0.08) 0%, transparent 50%)' }} />
           </div>
@@ -404,7 +416,7 @@ export default function WarmNaturalDemo() {
               style={{ backgroundColor: '#7d9a6b', boxShadow: '0 4px 20px rgba(125,154,107,0.3)' }}
               onMouseEnter={(e) => (e.currentTarget.style.transform = 'translateY(-2px)')}
               onMouseLeave={(e) => (e.currentTarget.style.transform = 'translateY(0)')}>
-              View This Week&rsquo;s Schedule
+              Book a Class
             </a>
           </motion.div>
         </section>
@@ -487,14 +499,19 @@ export default function WarmNaturalDemo() {
             </Reveal>
             <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-8">
               {[
-                { num: '1', icon: '📅', title: 'Browse the Schedule', desc: 'Find a class that fits your week. All Levels classes are the perfect starting point.' },
-                { num: '2', icon: '⏰', title: 'Arrive 10 Min Early', desc: 'A few minutes to settle in, meet the instructor, and let us know it\'s your first class.' },
-                { num: '3', icon: '🧘', title: 'We Provide Everything', desc: 'Mats, blocks, blankets, and props — all included. Just bring comfortable clothes.' },
-                { num: '4', icon: '🌿', title: 'Just Breathe', desc: 'There\'s no performing. No judgment. Your practice is yours, at your own pace.' },
+                { num: '1', icon: 'calendar', title: 'Browse the Schedule', desc: 'Find a class that fits your week. All Levels classes are the perfect starting point.' },
+                { num: '2', icon: 'clock', title: 'Arrive 10 Min Early', desc: 'A few minutes to settle in, meet the instructor, and let us know it\'s your first class.' },
+                { num: '3', icon: 'person', title: 'We Provide Everything', desc: 'Mats, blocks, blankets, and props — all included. Just bring comfortable clothes.' },
+                { num: '4', icon: 'leaf', title: 'Just Breathe', desc: 'There\'s no performing. No judgment. Your practice is yours, at your own pace.' },
               ].map((step, i) => (
                 <Reveal key={step.num} delay={i * 0.12}>
                   <div className="text-center p-6 rounded-2xl" style={{ backgroundColor: '#fffcf7', border: '1px solid rgba(125,154,107,0.15)', boxShadow: '0 2px 16px rgba(139,115,85,0.06)' }}>
-                    <div className="text-3xl mb-3">{step.icon}</div>
+                    <div className="mb-3 flex justify-center">
+                      {step.icon === 'calendar' && <CalendarBlank size={28} weight="duotone" style={{ color: '#7d9a6b' }} />}
+                      {step.icon === 'clock' && <Clock size={28} weight="duotone" style={{ color: '#7d9a6b' }} />}
+                      {step.icon === 'person' && <Person size={28} weight="duotone" style={{ color: '#7d9a6b' }} />}
+                      {step.icon === 'leaf' && <Leaf size={28} weight="duotone" style={{ color: '#7d9a6b' }} />}
+                    </div>
                     <div className="w-7 h-7 rounded-full flex items-center justify-center mx-auto mb-3" style={{ backgroundColor: '#7d9a6b' }}>
                       <span className={`${"heading-font"} text-sm font-bold text-white`}>{step.num}</span>
                     </div>
@@ -550,7 +567,7 @@ export default function WarmNaturalDemo() {
                       backgroundColor: pack.highlight ? '#fff' : '#7d9a6b',
                       color: pack.highlight ? '#7d9a6b' : '#fff',
                     }}>
-                    Get Started
+                    Book a Class
                   </a>
                 </motion.div>
               ))}
@@ -596,7 +613,7 @@ export default function WarmNaturalDemo() {
                 People choose a studio based on the teacher. Here&rsquo;s who&rsquo;ll be guiding your practice.
               </p>
             </Reveal>
-            <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-8">
               {[
                 { name: 'Priya Sharma', creds: 'RYT-500 · 8 Years', specialty: 'Vinyasa, Power Flow', quote: '"Yoga isn\'t about flexibility — it\'s about showing up."', img: '/images/demos/warm-natural-showcase.webp' },
                 { name: 'Mei Chen', creds: 'RYT-200 · Reiki Level 2', specialty: 'Yin, Restorative, Sound', quote: '"The mat is a safe place for whatever you\'re carrying."', img: '/images/demos/gallery/wn-1.webp' },
@@ -703,7 +720,7 @@ export default function WarmNaturalDemo() {
                   <button type="submit" className="w-full px-8 py-3.5 text-white font-semibold text-sm transition-all hover:shadow-lg" style={{ backgroundColor: '#7d9a6b', borderRadius: '35px 25px 30px 20px / 25px 30px 20px 35px', boxShadow: '0 4px 16px rgba(125,154,107,0.25)' }}
                     onMouseEnter={(e) => (e.currentTarget.style.transform = 'translateY(-1px)')}
                     onMouseLeave={(e) => (e.currentTarget.style.transform = 'translateY(0)')}>
-                    Send Message
+                    Book a Class
                   </button>
                 </form>
               </div>
@@ -737,7 +754,7 @@ export default function WarmNaturalDemo() {
               </div>
             </div>
             <div className="pt-8" style={{ borderTop: '1px solid rgba(250,246,240,0.15)' }}>
-              <p className="text-center text-xs" style={{ color: '#faf6f0', opacity: 0.45 }}>&copy; 2025 Mountain Flow Wellness. Sample site by Kootenay Made Digital.</p>
+              <p className="text-center text-xs" style={{ color: '#faf6f0', opacity: 0.45 }}>&copy; {new Date().getFullYear()} Mountain Flow Wellness. Sample site by Kootenay Made Digital.</p>
             </div>
           </div>
         </footer>
@@ -749,12 +766,10 @@ export default function WarmNaturalDemo() {
         <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 text-center sm:text-left">
             <span className="text-white/90 text-sm">Sample design by <strong>Kootenay Made Digital</strong></span>
-            <span className="hidden sm:inline text-white/40 text-xs">·</span>
-            <span className="text-white/80 text-xs font-semibold">(250) 555-0165</span>
           </div>
           <Link href="/contact?style=warm-natural"
             className="inline-block px-6 py-2.5 text-sm font-bold rounded-full transition-all hover:opacity-90 whitespace-nowrap"
-            style={{ color: '#a8d49a' }}>
+            style={{ backgroundColor: '#fff', color: '#4f6e40', padding: '0.5rem 1.25rem', borderRadius: '9999px', fontWeight: 700 }}>
             Like What You See? Let&rsquo;s Talk &rarr;
           </Link>
         </div>

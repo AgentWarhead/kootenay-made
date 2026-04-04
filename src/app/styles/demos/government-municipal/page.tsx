@@ -864,8 +864,6 @@ export default function GovernmentMunicipalPage() {
             <span className="text-sm" style={{ color: hc ? '#000000' : '#475569' }}>
               Sample design by <strong style={{ color: hc ? '#000000' : '#1e3a5f' }}>Kootenay Made Digital</strong>
             </span>
-            <span className="hidden sm:inline text-xs" style={{ color: hc ? '#000000' : '#2563eb', opacity: 0.5 }}>·</span>
-            <span className="text-xs font-bold" style={{ color: hc ? '#000000' : '#2563eb' }}>(250) 555-0116</span>
           </div>
           <Link href="/contact?style=government-municipal"
             className="gov-focusable inline-block px-6 py-2.5 text-sm font-bold rounded-lg transition-colors whitespace-nowrap"
