@@ -375,8 +375,8 @@ export default function WarmNaturalDemo() {
         <div className="absolute -bottom-40 right-1/4 w-[350px] h-[350px] rounded-full blur-3xl" style={{ backgroundColor: '#d4a574', opacity: 0.08 }} />
       </div>
 
-      {/* Floating botanicals */}
-      <div className="fixed inset-0 pointer-events-none z-[5] overflow-hidden">
+      {/* Floating botanicals — desktop only, hidden on mobile */}
+      <div className="hidden md:block fixed inset-0 pointer-events-none z-[5] overflow-hidden">
         <div className="botanical-float absolute top-[12%] left-[8%]" style={{ animation: prefersReduced ? 'none' : 'floatA 15s ease-in-out infinite' }}><LeafOne /></div>
         <div className="botanical-float absolute top-[30%] right-[6%]" style={{ animation: prefersReduced ? 'none' : 'floatB 20s ease-in-out infinite' }}><LeafTwo /></div>
         <div className="botanical-float absolute top-[55%] left-[4%]" style={{ animation: prefersReduced ? 'none' : 'floatC 25s ease-in-out infinite' }}><LeafThree /></div>
