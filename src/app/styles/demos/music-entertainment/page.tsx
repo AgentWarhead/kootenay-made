@@ -9,6 +9,17 @@ import { motion, useReducedMotion, AnimatePresence } from 'framer-motion'
 const dmSans = DM_Sans({ subsets: ['latin'], weight: ['400', '500', '700'] })
 
 /* ── Scroll-reveal wrapper ── */
+/* ── Neon glow divider ── */
+function NeonDivider({ color = '#e91e8a' }: { color?: string }) {
+  return (
+    <div className="py-4" style={{ backgroundColor: '#000000' }}>
+      <div className="max-w-5xl mx-auto px-6">
+        <div className="h-px" style={{ background: `linear-gradient(90deg, transparent 0%, ${color}40 20%, ${color} 50%, ${color}40 80%, transparent 100%)`, boxShadow: `0 0 12px ${color}40` }} />
+      </div>
+    </div>
+  )
+}
+
 function Reveal({ children, className = '', delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
   const prefersReduced = useReducedMotion()
   return (
@@ -101,7 +112,7 @@ function LiveRedesign() {
                 <div className="absolute inset-0 opacity-[0.12]" style={{ background: 'linear-gradient(135deg, #1a0a12 0%, #e91e8a 50%, #3b82f6 100%)' }} />
                 <div className="relative z-10">
                   <p className="text-xs uppercase tracking-wide mb-2 sm:mb-4" style={{ fontFamily: 'Arial, sans-serif', color: '#666', letterSpacing: '0.15em' }}>&#9733; Welcome to Our Website &#9733;</p>
-                  <h2 className="text-xl sm:text-3xl md:text-4xl leading-tight mb-2 sm:mb-3" style={{ fontFamily: 'Georgia, serif', color: '#3a3a3a', fontWeight: 700 }}>Neon Pines</h2>
+                  <h2 className="text-xl sm:text-2xl md:text-4xl leading-tight mb-2 sm:mb-3" style={{ fontFamily: 'Georgia, serif', color: '#3a3a3a', fontWeight: 700 }}>Neon Pines</h2>
                   <p className="text-sm sm:text-lg mb-1 sm:mb-2" style={{ fontFamily: 'Georgia, serif', color: '#666', fontStyle: 'italic' }}>&ldquo;Live Music Every Weekend!&rdquo;</p>
                   <p className="text-xs sm:text-sm mb-4 sm:mb-6" style={{ fontFamily: 'Arial, sans-serif', color: '#888' }}>Live Shows &bull; DJ Nights &bull; Private Events &bull; Merch &bull; Bar</p>
                   <div className="flex justify-center gap-2 sm:gap-3 mb-4 sm:mb-6 flex-wrap">
@@ -257,7 +268,7 @@ export default function MusicEntertainmentPage() {
   ]
 
   return (
-    <div className={dmSans.className} style={{ backgroundColor: '#000000', color: '#ffffff', minHeight: '100vh' }}>
+    <div className={`${dmSans.className} overflow-x-hidden`} style={{ backgroundColor: '#000000', color: '#ffffff', minHeight: '100vh' }}>
       <style>{`
       @import url('https://api.fontshare.com/v2/css?f[]=melodrama@400,500,700&display=swap');
       .heading-font { font-family: 'Melodrama', sans-serif; }
@@ -330,6 +341,7 @@ export default function MusicEntertainmentPage() {
         </div>
         <div className="relative z-10 flex justify-center pb-10 pt-12"><AudioVisualizer /></div>
       </section>
+      <NeonDivider />
 
       {/* ═══════════ 3. UPCOMING SHOWS ═══════════ */}
       <section id="shows" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#000000' }}>
@@ -337,7 +349,7 @@ export default function MusicEntertainmentPage() {
           <Reveal className="text-center mb-14">
             <p className={`heading-font text-sm tracking-[0.25em] mb-3`} style={{ color: '#e91e8a' }}>ON STAGE</p>
             <h2 className={`heading-font text-4xl md:text-6xl neon-heading-sm`} style={{ color: '#ffffff', letterSpacing: '0.04em' }}>Upcoming Shows</h2>
-            <p className="mt-4 text-sm" style={{ color: 'rgba(255,255,255,0.4)' }}>Direct tickets. No DMs. No Eventbrite fees.</p>
+            <p className="mt-4 text-sm" style={{ color: 'rgba(255,255,255,0.6)' }}>Direct tickets. No DMs. No Eventbrite fees.</p>
           </Reveal>
           <div className="flex flex-col gap-3">
             {upcomingShows.map((show, i) => (
@@ -364,7 +376,7 @@ export default function MusicEntertainmentPage() {
                   <div className="flex items-center gap-4 flex-shrink-0">
                     <span className={`heading-font text-2xl`} style={{ color: show.price === 'Free' ? '#3b82f6' : show.soldOut ? 'rgba(255,255,255,0.2)' : '#e91e8a', letterSpacing: '0.04em' }}>{show.soldOut ? '—' : show.price}</span>
                     {show.soldOut ? (
-                      <span className="text-xs font-bold uppercase tracking-widest px-4 py-2 rounded" style={{ backgroundColor: 'rgba(255,255,255,0.06)', color: 'rgba(255,255,255,0.2)', border: '1px solid rgba(255,255,255,0.08)' }}>Sold Out</span>
+                      <span className="text-xs font-bold uppercase tracking-widest px-4 py-2 rounded" style={{ backgroundColor: 'rgba(255,255,255,0.06)', color: 'rgba(255,255,255,0.45)', border: '1px solid rgba(255,255,255,0.08)' }}>Sold Out</span>
                     ) : (
                       <a href="#contact" className="text-xs font-bold uppercase tracking-widest px-4 py-2 transition-all duration-200" style={{ border: '1px solid rgba(233,30,138,0.4)', color: 'rgba(255,255,255,0.7)' }}
                         onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#e91e8a'; e.currentTarget.style.color = '#e91e8a'; e.currentTarget.style.boxShadow = '0 0 12px rgba(233,30,138,0.3)' }}
@@ -386,7 +398,7 @@ export default function MusicEntertainmentPage() {
           <Reveal className="text-center mb-14">
             <p className={`heading-font text-sm tracking-[0.25em] mb-3`} style={{ color: '#e91e8a' }}>THE SPACE</p>
             <h2 className={`heading-font text-4xl md:text-6xl neon-heading-sm`} style={{ color: '#ffffff', letterSpacing: '0.04em' }}>The Venue</h2>
-            <p className="mt-4 text-sm max-w-xl mx-auto" style={{ color: 'rgba(255,255,255,0.4)' }}>Everything booking agents and event planners need to know about the room.</p>
+            <p className="mt-4 text-sm max-w-xl mx-auto" style={{ color: 'rgba(255,255,255,0.6)' }}>Everything booking agents and event planners need to know about the room.</p>
           </Reveal>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mb-14">
             {[
@@ -413,6 +425,7 @@ export default function MusicEntertainmentPage() {
           </Reveal>
         </div>
       </section>
+      <NeonDivider color="#a855f7" />
 
       {/* ═══════════ 5. PAST SHOWS COLLAGE ═══════════ */}
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#000000' }}>
@@ -480,6 +493,7 @@ export default function MusicEntertainmentPage() {
           </div>
         </div>
       </section>
+      <NeonDivider />
 
       {/* ═══════════ ARTIST REVIEWS ═══════════ */}
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#000000' }}>
@@ -500,13 +514,13 @@ export default function MusicEntertainmentPage() {
                   <div className="text-xl mb-5" style={{ color: '#e91e8a' }}>&#9733;&#9733;&#9733;&#9733;&#9733;</div>
                   <blockquote className="text-base leading-relaxed mb-5 italic" style={{ color: 'rgba(255,255,255,0.8)' }}>&ldquo;{t.quote}&rdquo;</blockquote>
                   <p className={`heading-font text-lg tracking-wider`} style={{ color: '#e91e8a' }}>{t.name}</p>
-                  <p className="text-xs mt-1" style={{ color: 'rgba(255,255,255,0.25)' }}>{t.role}</p>
+                  <p className="text-xs mt-1" style={{ color: 'rgba(255,255,255,0.45)' }}>{t.role}</p>
                 </div>
               </Reveal>
             ))}
           </div>
           <Reveal delay={0.4} className="mt-6">
-            <p className="text-center text-xs" style={{ color: 'rgba(255,255,255,0.2)' }}>(Sample reviews &mdash; your real reviews go here)</p>
+            <p className="text-center text-xs" style={{ color: 'rgba(255,255,255,0.45)' }}>(Sample reviews &mdash; your real reviews go here)</p>
           </Reveal>
         </div>
       </section>
@@ -516,7 +530,7 @@ export default function MusicEntertainmentPage() {
         <div className="max-w-2xl mx-auto text-center">
           <Reveal>
             <p className={`heading-font text-sm tracking-[0.25em] mb-3`} style={{ color: '#e91e8a' }}>STAY IN THE LOOP</p>
-            <h2 className={`heading-font text-3xl md:text-5xl neon-heading-sm mb-4`} style={{ color: '#ffffff', letterSpacing: '0.04em' }}>Never Miss a Show</h2>
+            <h2 className={`heading-font text-2xl md:text-5xl neon-heading-sm mb-4`} style={{ color: '#ffffff', letterSpacing: '0.04em' }}>Never Miss a Show</h2>
             <p className="text-sm mb-8" style={{ color: 'rgba(255,255,255,0.45)' }}>New show alerts, presale codes, artist announcements. No spam. Ever.</p>
           </Reveal>
           <Reveal delay={0.1}>
@@ -533,6 +547,7 @@ export default function MusicEntertainmentPage() {
           </Reveal>
         </div>
       </section>
+      <NeonDivider color="#a855f7" />
 
       {/* ═══════════ THE TRANSFORMATION ═══════════ */}
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#000000' }}>
@@ -590,13 +605,14 @@ export default function MusicEntertainmentPage() {
               {[{ value: '200+', label: 'Shows/Year' }, { value: '300', label: 'Capacity' }, { value: '8+', label: 'Years Running' }].map((stat) => (
                 <div key={stat.label} className="text-center">
                   <div className={`heading-font text-4xl md:text-5xl neon-heading-sm`} style={{ color: '#e91e8a', letterSpacing: '0.04em' }}>{stat.value}</div>
-                  <div className="text-xs font-medium uppercase tracking-widest mt-1" style={{ color: 'rgba(255,255,255,0.4)' }}>{stat.label}</div>
+                  <div className="text-xs font-medium uppercase tracking-widest mt-1" style={{ color: 'rgba(255,255,255,0.6)' }}>{stat.label}</div>
                 </div>
               ))}
             </div>
           </Reveal>
         </div>
       </section>
+      <NeonDivider />
 
       {/* ═══════════ CONTACT ═══════════ */}
       <section id="contact" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#0a0a0a' }}>
@@ -660,7 +676,7 @@ export default function MusicEntertainmentPage() {
               <h4 className="text-xs font-bold uppercase tracking-[0.18em] mb-4" style={{ color: '#e91e8a' }}>Quick Links</h4>
               <div className="flex flex-col gap-2.5">
                 {['Shows', 'Venue', 'About', 'Contact'].map((link) => (
-                  <a key={link} href={`#${link.toLowerCase()}`} className="text-sm font-medium transition-colors duration-200" style={{ color: 'rgba(255,255,255,0.4)' }}
+                  <a key={link} href={`#${link.toLowerCase()}`} className="text-sm font-medium transition-colors duration-200" style={{ color: 'rgba(255,255,255,0.6)' }}
                     onMouseEnter={(e) => (e.currentTarget.style.color = '#e91e8a')}
                     onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.4)')}>{link}</a>
                 ))}
@@ -668,14 +684,14 @@ export default function MusicEntertainmentPage() {
             </div>
             <div>
               <h4 className="text-xs font-bold uppercase tracking-[0.18em] mb-4" style={{ color: '#e91e8a' }}>Info</h4>
-              <p className="text-sm mb-2" style={{ color: 'rgba(255,255,255,0.4)' }}>123 Sample St, Nelson, BC</p>
-              <p className="text-sm mb-2" style={{ color: 'rgba(255,255,255,0.4)' }}>(250) 555-0114</p>
-              <p className="text-sm mb-2" style={{ color: 'rgba(255,255,255,0.4)' }}>info@neonpines.ca</p>
-              <p className="text-sm" style={{ color: 'rgba(255,255,255,0.4)' }}>Capacity: 300 &middot; All Ages</p>
+              <p className="text-sm mb-2" style={{ color: 'rgba(255,255,255,0.6)' }}>123 Sample St, Nelson, BC</p>
+              <p className="text-sm mb-2" style={{ color: 'rgba(255,255,255,0.6)' }}>(250) 555-0114</p>
+              <p className="text-sm mb-2" style={{ color: 'rgba(255,255,255,0.6)' }}>info@neonpines.ca</p>
+              <p className="text-sm" style={{ color: 'rgba(255,255,255,0.6)' }}>Capacity: 300 &middot; All Ages</p>
             </div>
           </div>
           <div className="pt-6 flex flex-col md:flex-row items-center justify-between gap-3" style={{ borderTop: '1px solid rgba(233,30,138,0.1)' }}>
-            <span className="text-sm" style={{ color: 'rgba(255,255,255,0.2)' }}>&copy; {new Date().getFullYear()} Neon Pines Music Venue. All rights reserved.</span>
+            <span className="text-sm" style={{ color: 'rgba(255,255,255,0.45)' }}>&copy; {new Date().getFullYear()} Neon Pines Music Venue. All rights reserved.</span>
             <span className="text-xs" style={{ color: 'rgba(233,30,138,0.4)' }}>Est. 2016 &middot; Nelson, BC</span>
           </div>
         </div>
