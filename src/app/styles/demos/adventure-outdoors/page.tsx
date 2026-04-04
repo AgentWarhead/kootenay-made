@@ -342,7 +342,7 @@ export default function AdventureOutdoorsDemo() {
   const layer3Y = useTransform(scrollYProgress, [0, 1], ['0%', '35%'])
 
   return (
-    <div className={body.className} style={{ fontFamily: 'Inter, sans-serif', backgroundColor: '#1b2d1b', color: '#ffffff' }}>
+    <div className={`${body.className} overflow-x-hidden`} style={{ fontFamily: 'Inter, sans-serif', backgroundColor: '#1b2d1b', color: '#ffffff' }}>
 
       <style>{`
         @keyframes compassSpin {
