@@ -602,7 +602,7 @@ export default function GovernmentMunicipalPage() {
               <h2 id="digital-heading" className="text-2xl md:text-4xl font-bold" style={{ color: C.navy }}>Digital Services</h2>
             </Reveal>
             <Reveal delay={0.05} className="text-center mb-14">
-              <p className="text-base md:text-lg leading-relaxed max-w-2xl mx-auto" style={{ color: C.slateLight }}>
+              <p className="text-base md:text-lg leading-relaxed max-w-2xl mx-auto" style={{ color: '#475569' }}>
                 Residents call the office for basic information — program hours, pool schedules, trail closures. Your website should answer those questions before they pick up the phone.{' '}
                 <span style={{ color: C.blue, fontWeight: 700 }}>The municipality down the highway cut call volume by 40%. Yours can too.</span>
               </p>
