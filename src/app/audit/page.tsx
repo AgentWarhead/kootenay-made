@@ -518,9 +518,9 @@ function AuditTierSection() {
                 <span className="text-xs font-bold uppercase tracking-widest text-copper">The Deliverable</span>
                 <span className="text-xs bg-copper/15 text-copper px-2 py-0.5 rounded-full font-semibold">#10</span>
               </div>
-              <h3 className="font-[family-name:var(--font-satoshi)] text-lg font-bold text-slate mb-1">Branded PDF Report</h3>
+              <h3 className="font-[family-name:var(--font-satoshi)] text-lg font-bold text-slate mb-1">Instant Results</h3>
               <p className="text-text-secondary text-sm leading-relaxed">
-                All 9 areas scored, a prioritized &ldquo;fix this first&rdquo; action plan, and explained in plain English — no jargon.
+                Your scores appear on screen in 30 seconds — speed, SEO, accessibility, and best practices. Ready to talk about what they mean? Brett&apos;s a call away.
               </p>
             </div>
           </div>

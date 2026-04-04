@@ -100,7 +100,7 @@ const packages = [
     priceNote: null,
     monthlyHint: null,
     tagline: 'Every great website starts with an honest look.',
-    description: 'We run your entire online presence through a custom AI-powered audit — design, branding, Google visibility, competitor gaps, trust signals, the works. You get a plain-English report that tells you exactly what\'s working, what\'s not, and what to fix first. No sales pitch. No fluff. Just the truth.',
+    description: 'Paste your URL and get your speed, SEO, accessibility, and best practices scores in 30 seconds — powered by Google Lighthouse. See exactly where your site is strong and where it\'s losing you customers. No email required. No sales pitch. Just the truth.',
     featuresShort: [
       'Custom AI audit of your design & brand confidence',
       'How you show up on Google Maps, Search & Reviews',
