@@ -283,7 +283,7 @@ export default function PretextExplosion() {
         <div className="absolute bottom-5 left-1/2 -translate-x-1/2 pointer-events-none select-none">
           {/* Fuse line */}
           <div className="relative flex items-center justify-center gap-3">
-            <div className="h-[2px] w-16 sm:w-24" style={{
+            <div className="hidden sm:block h-[2px] w-24" style={{
               background: 'repeating-linear-gradient(90deg, #C17817 0px, #C17817 4px, transparent 4px, transparent 8px)',
               opacity: 0.5,
             }}>
@@ -292,12 +292,12 @@ export default function PretextExplosion() {
                 animation: 'fuseSpark 1.5s linear infinite',
               }} />
             </div>
-            <span className="text-copper font-[family-name:var(--font-satoshi)] font-black text-base sm:text-lg tracking-[0.3em] uppercase animate-pulse" style={{
+            <span className="text-copper font-[family-name:var(--font-satoshi)] font-black text-sm sm:text-lg tracking-[0.3em] uppercase animate-pulse whitespace-nowrap" style={{
               textShadow: '0 0 20px rgba(193,120,23,0.4), 0 0 40px rgba(193,120,23,0.2)',
             }}>
               CLICK TO DETONATE
             </span>
-            <div className="h-[2px] w-16 sm:w-24" style={{
+            <div className="hidden sm:block h-[2px] w-24" style={{
               background: 'repeating-linear-gradient(90deg, #C17817 0px, #C17817 4px, transparent 4px, transparent 8px)',
               opacity: 0.5,
             }} />
