@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import Link from 'next/link';
 import { motion, useScroll, useTransform, useInView, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Globe, Palette, ShoppingBag, Mail, Bot, Search, Shield, User, Gift } from 'lucide-react';
+import { ArrowRight, Globe, PaintBrush, Storefront, EnvelopeSimple, Robot, MagnifyingGlass, ShieldCheck, UserCircle, Gift, Wrench, Coffee as CoffeeIcon, Leaf, Mountains, ShoppingBag, Briefcase } from '@phosphor-icons/react';
 import ScrollReveal from '@/components/ScrollReveal';
 import RippleButton from '@/components/RippleButton';
 import TiltCard from '@/components/TiltCard';
@@ -72,10 +72,10 @@ function FloatingShapes() {
 }
 
 /* ── SVG Icon with stroke-draw animation ───── */
-function DrawIcon({ Icon, inView }: { Icon: React.ComponentType<{ size?: number; className?: string; strokeWidth?: number }>; inView: boolean }) {
+function DrawIcon({ Icon, inView }: { Icon: React.ComponentType<Record<string, unknown>>; inView: boolean }) {
   return (
     <div className={`draw-icon ${inView ? 'draw-icon-animate' : ''}`}>
-      <Icon size={22} className="text-copper" strokeWidth={1.5} />
+      <Icon size={22} className="text-copper" weight="regular" />
     </div>
   );
 }
@@ -158,11 +158,11 @@ function RiverScroll() {
 /* ── Services bento data ───────────────────── */
 const services = [
   { icon: Globe, name: 'Modern Website', price: 'From $1,500', desc: 'A website that works as hard as you do. Shows up on Google. Looks great on phones. Makes people call.', large: true },
-  { icon: Palette, name: 'Full Brand Build', price: 'From $4,000', desc: 'Logo, colours, business cards, the works. Walk into any meeting looking like you\'ve been around for 20 years.', large: true },
+  { icon: PaintBrush, name: 'Full Brand Build', price: 'From $4,000', desc: 'Logo, colours, business cards, the works. Walk into any meeting looking like you\'ve been around for 20 years.', large: true },
   { icon: ShoppingBag, name: 'Shopify Store', price: 'From $3,000', desc: 'Sell online while you\'re out on the lake. Your store never closes.' },
-  { icon: Mail, name: 'Email Marketing', price: 'From $750', desc: 'Stay in touch with customers without lifting a finger. Birthday discounts, follow-ups — all on autopilot.' },
-  { icon: Bot, name: 'AI Business Setup', price: '$1,500', desc: 'The tools the big companies use, set up for your business. Save hours every week on the stuff you hate doing.' },
-  { icon: Search, name: 'Google Domination', price: '$500', desc: 'When someone searches "plumber near me" or "best restaurant in Trail" — you show up.' },
+  { icon: EnvelopeSimple, name: 'Email Marketing', price: 'From $750', desc: 'Stay in touch with customers without lifting a finger. Birthday discounts, follow-ups — all on autopilot.' },
+  { icon: Robot, name: 'AI Business Setup', price: '$1,500', desc: 'The tools the big companies use, set up for your business. Save hours every week on the stuff you hate doing.' },
+  { icon: MagnifyingGlass, name: 'Google Domination', price: '$500', desc: 'When someone searches "plumber near me" or "best restaurant in Trail" — you show up.' },
 ];
 
 
@@ -191,56 +191,32 @@ const industries = [
   {
     name: 'Trades & Contractors',
     desc: 'Plumbers, electricians, builders — the backbone of the Kootenays.',
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M8 20L20 8" /><path d="M18 6l2-2 4 4-2 2" /><path d="M10 22l-2 2-4-4 2-2" />
-      </svg>
-    ),
+    icon: <Wrench size={28} weight="duotone" />,
   },
   {
     name: 'Restaurants & Cafés',
     desc: 'From Trail diners to Nelson bistros, get tables filled.',
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M6 14h12v8a3 3 0 01-3 3H9a3 3 0 01-3-3v-8z" /><path d="M18 16h2a3 3 0 010 6h-2" /><path d="M10 10c0-2 2-2 2-4" /><path d="M14 10c0-2 2-2 2-4" />
-      </svg>
-    ),
+    icon: <CoffeeIcon size={28} weight="duotone" />,
   },
   {
     name: 'Wellness & Health',
     desc: 'Yoga studios, therapists, naturopaths — your calm online presence.',
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
-        <path d="M7 24c0-10 7-17 14-17" /><path d="M21 7c0 10-7 17-14 17" /><path d="M7 24C11 20 17 14 21 7" />
-      </svg>
-    ),
+    icon: <Leaf size={28} weight="duotone" />,
   },
   {
     name: 'Tourism & Adventure',
     desc: 'Guides, resorts, outfitters — reach visitors before they arrive.',
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M3 24l7-12 4 5 6-10 5 17H3z" /><circle cx="22" cy="6" r="3" />
-      </svg>
-    ),
+    icon: <Mountains size={28} weight="duotone" />,
   },
   {
     name: 'Retail & Shops',
     desc: 'Boutiques, gift shops, galleries — sell online and in-store.',
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M6 10h16l-2 14H8L6 10z" /><path d="M10 10V7a4 4 0 018 0v3" />
-      </svg>
-    ),
+    icon: <ShoppingBag size={28} weight="duotone" />,
   },
   {
     name: 'Professional Services',
     desc: 'Accountants, lawyers, consultants — look as sharp as your work.',
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="3" y="10" width="22" height="13" rx="2" /><path d="M10 10V7a2 2 0 012-2h4a2 2 0 012 2v3" /><path d="M3 16h22" />
-      </svg>
-    ),
+    icon: <Briefcase size={28} weight="duotone" />,
   },
 ];
 
@@ -608,7 +584,7 @@ export default function Home() {
                     Drop in your website URL and get your speed, SEO, and accessibility scores in 30 seconds — right on screen. No email required.
                   </p>
                   <span className="text-xs text-text-secondary bg-cream-dark/80 px-3 py-1.5 rounded-full inline-flex items-center gap-1.5 mb-5">
-                    <Shield size={13} /> No credit card. No sales call. No catch.
+                    <ShieldCheck size={13} weight="regular" /> No credit card. No sales call. No catch.
                   </span>
                   <div className="mt-2">
                     <Link href="/audit" className="inline-flex items-center gap-1.5 text-copper hover:text-copper-dark font-medium text-sm transition-colors font-[family-name:var(--font-satoshi)]">
@@ -634,7 +610,7 @@ export default function Home() {
                     Your scores show exactly where your site is strong and where it&apos;s losing you customers — speed, search visibility, accessibility, and more. No guesswork.
                   </p>
                   <span className="text-xs text-text-secondary bg-cream-dark/80 px-3 py-1.5 rounded-full inline-flex items-center gap-1.5">
-                    <User size={13} /> Real data from Google&apos;s own testing tools.
+                    <UserCircle size={13} weight="regular" /> Real data from Google&apos;s own testing tools.
                   </span>
                 </div>
               </div>
@@ -655,7 +631,7 @@ export default function Home() {
                     Book a free 15-minute call with Brett. He&apos;ll walk you through your results and show you exactly what a new site could do for your business. Zero pressure.
                   </p>
                   <span className="text-xs text-text-secondary bg-cream-dark/80 px-3 py-1.5 rounded-full inline-flex items-center gap-1.5">
-                    <Gift size={13} /> No obligation. Just an honest conversation.
+                    <Gift size={13} weight="regular" /> No obligation. Just an honest conversation.
                   </span>
                 </div>
               </div>

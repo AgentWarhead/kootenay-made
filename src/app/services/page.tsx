@@ -1,7 +1,13 @@
 'use client';
 
 import Link from 'next/link';
-import { ArrowRight, Check, Code, DollarSign, Zap, GraduationCap, Bot, Handshake } from 'lucide-react';
+import {
+  ArrowRight, Check, Sparkle, Globe, Storefront, Robot, CastleTurret, ArrowsClockwise,
+  MagnifyingGlass, Plant, Mountains, Lightning, PaintBrush, Crown, TShirt, ChatCircleDots,
+  Shield, Rocket, Code, CurrencyDollar, GraduationCap, Handshake,
+  VideoCamera, Wrench, ChartLineUp, UsersThree, GameController,
+  ChatCircle, PencilSimple, CalendarBlank,
+} from '@phosphor-icons/react';
 import { motion, AnimatePresence, useReducedMotion, useInView } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
 import ScrollReveal from '@/components/ScrollReveal';
@@ -15,31 +21,31 @@ import BalancedText from '@/components/BalancedText';
 const categories = [
   {
     id: 'all',
-    emoji: '✨',
+    emoji: <Sparkle size={20} weight="duotone" />,
     label: 'Show All',
     desc: 'Browse everything we offer',
   },
   {
     id: 'websites',
-    emoji: '🌐',
+    emoji: <Globe size={20} weight="duotone" />,
     label: 'Get Online',
     desc: 'A website that works as hard as you do',
   },
   {
     id: 'ecommerce',
-    emoji: '🛒',
+    emoji: <Storefront size={20} weight="duotone" />,
     label: 'Sell Online',
     desc: 'Turn your products into online sales',
   },
   {
     id: 'ai',
-    emoji: '🤖',
+    emoji: <Robot size={20} weight="duotone" />,
     label: 'Work Smarter',
     desc: 'AI tools built for your actual workflow',
   },
   {
     id: 'gobig',
-    emoji: '🏰',
+    emoji: <CastleTurret size={20} weight="duotone" />,
     label: 'Go Big',
     desc: 'Full transformation, nothing held back',
   },
@@ -49,7 +55,7 @@ const categories = [
 const categoryCards = [
   {
     id: 'websites',
-    emoji: '🌐',
+    emoji: <Globe size={20} weight="duotone" />,
     label: 'Get Online',
     description: "Your business deserves to be found. We'll build you a website that makes you look as good online as you are in person.",
     image: '/images/categories/get-online.png',
@@ -57,7 +63,7 @@ const categoryCards = [
   },
   {
     id: 'ecommerce',
-    emoji: '🛒',
+    emoji: <Storefront size={20} weight="duotone" />,
     label: 'Sell Online',
     description: "Ready to sell beyond the counter? From Shopify stores to custom print-on-demand, we'll get your products in front of the world.",
     image: '/images/categories/sell-online.png',
@@ -65,7 +71,7 @@ const categoryCards = [
   },
   {
     id: 'ai',
-    emoji: '🤖',
+    emoji: <Robot size={20} weight="duotone" />,
     label: 'Work Smarter',
     description: "AI isn't just for tech companies. We'll set up tools that save you hours every week — and teach you how to use them.",
     image: '/images/categories/work-smarter.png',
@@ -73,7 +79,7 @@ const categoryCards = [
   },
   {
     id: 'gobig',
-    emoji: '🏰',
+    emoji: <CastleTurret size={20} weight="duotone" />,
     label: 'Go Big',
     description: "Full transformation. Brand, website, AI, marketing — everything your business needs to dominate, built by your neighbors.",
     image: '/images/categories/go-big.png',
@@ -81,7 +87,7 @@ const categoryCards = [
   },
   {
     id: 'retainers',
-    emoji: '🔄',
+    emoji: <ArrowsClockwise size={20} weight="duotone" />,
     label: 'Stay Growing',
     description: 'Your site is live. Now keep it safe, fast, and getting better every month.',
     image: '/images/categories/stay-growing.png',
@@ -94,7 +100,7 @@ const packages = [
   {
     id: 'audit',
     category: 'websites',
-    emoji: '🆓',
+    emoji: <MagnifyingGlass size={24} weight="duotone" />,
     name: 'The Audit',
     price: 'FREE',
     priceNote: null,
@@ -125,7 +131,7 @@ const packages = [
   {
     id: 'trailhead',
     category: 'websites',
-    emoji: '🌱',
+    emoji: <Plant size={24} weight="duotone" />,
     name: 'The Trailhead',
     price: '$1,500',
     priceNote: null,
@@ -159,7 +165,7 @@ const packages = [
   {
     id: 'foundation',
     category: 'websites',
-    emoji: '🏔️',
+    emoji: <Mountains size={24} weight="duotone" />,
     name: 'The Foundation',
     price: '$4,000',
     priceNote: null,
@@ -193,7 +199,7 @@ const packages = [
   {
     id: 'engine',
     category: 'websites',
-    emoji: '⚡',
+    emoji: <Lightning size={24} weight="duotone" />,
     name: 'The Engine',
     price: '$6,000',
     priceNote: null,
@@ -227,7 +233,7 @@ const packages = [
   {
     id: 'brand',
     category: 'websites',
-    emoji: '🎨',
+    emoji: <PaintBrush size={24} weight="duotone" />,
     name: 'Brand Identity',
     price: '$800',
     priceNote: '$800 as add-on · $1,200 standalone',
@@ -259,7 +265,7 @@ const packages = [
   {
     id: 'storefront',
     category: 'ecommerce',
-    emoji: '🛒',
+    emoji: <Storefront size={24} weight="duotone" />,
     name: 'The Storefront',
     price: '$4,500',
     priceNote: 'Shopify subscription: ~$50–$75 CAD/mo',
@@ -293,7 +299,7 @@ const packages = [
   {
     id: 'masterpiece',
     category: 'ecommerce',
-    emoji: '🎨',
+    emoji: <Crown size={24} weight="duotone" />,
     name: 'The Masterpiece',
     price: '$8,500',
     priceNote: 'Shopify subscription: ~$50–$75 CAD/mo',
@@ -329,7 +335,7 @@ const packages = [
   {
     id: 'pod',
     category: 'ecommerce',
-    emoji: '🖨️',
+    emoji: <TShirt size={24} weight="duotone" />,
     name: 'Print-on-Demand Setup',
     price: '$500',
     priceNote: 'Add-on with Storefront or Masterpiece',
@@ -359,7 +365,7 @@ const packages = [
   {
     id: 'ai-advantage',
     category: 'ai',
-    emoji: '🤖',
+    emoji: <Robot size={24} weight="duotone" />,
     name: 'The AI Advantage',
     price: '$2,000',
     priceNote: 'Claude subscription: ~$23–$135 CAD/mo',
@@ -391,7 +397,7 @@ const packages = [
   {
     id: 'openclaw',
     category: 'ai',
-    emoji: '🦞',
+    emoji: <ChatCircleDots size={24} weight="duotone" />,
     name: 'AI Assistant Setup',
     price: '$3,000',
     priceNote: null,
@@ -432,7 +438,7 @@ const packages = [
   {
     id: 'empire',
     category: 'gobig',
-    emoji: '🏰',
+    emoji: <CastleTurret size={24} weight="duotone" />,
     name: 'The Empire',
     price: '$15,000+',
     priceNote: 'Starting at — scope determines final price',
@@ -468,7 +474,7 @@ const packages = [
   {
     id: 'retainer-essentials',
     category: 'retainers',
-    emoji: '🛡️',
+    emoji: <Shield size={24} weight="duotone" />,
     name: 'Essentials',
     price: '$150',
     priceNote: '/mo',
@@ -499,7 +505,7 @@ const packages = [
   {
     id: 'retainer-growth',
     category: 'retainers',
-    emoji: '🚀',
+    emoji: <Rocket size={24} weight="duotone" />,
     name: 'Growth',
     price: '$350',
     priceNote: '/mo',
@@ -535,31 +541,37 @@ const packages = [
 const universalFeatures = [
   {
     icon: Code,
+    weight: 'bold' as const,
     title: 'Built From Scratch, Just For You',
     desc: 'No cookie-cutter templates. No WordPress. No Wix. Your site is as unique as your business — clean code that\'s fast, yours, and built to last.',
   },
   {
-    icon: DollarSign,
+    icon: CurrencyDollar,
+    weight: 'bold' as const,
     title: 'The Price You See Is The Price You Pay',
     desc: "No hidden fees, no 'oh by the way' invoices. Everything is included upfront. No surprises at the end.",
   },
   {
-    icon: Zap,
+    icon: Lightning,
+    weight: 'bold' as const,
     title: 'Need Something Changed? Done Today.',
     desc: "Most updates go live within hours. Your business doesn't wait — your website shouldn't either.",
   },
   {
     icon: GraduationCap,
+    weight: 'bold' as const,
     title: 'The Neighbours Dashboard',
     desc: "Every client gets lifetime access to our private members area — packed with step-by-step guides, troubleshooting manuals, video walkthroughs, and continued learning resources. Something breaks? The answer's probably already there. And if it's not, we are.",
   },
   {
-    icon: Bot,
+    icon: Robot,
+    weight: 'bold' as const,
     title: 'Help When You Need It',
     desc: 'Something break at midnight? Our AI support handles emergencies around the clock. (Coming soon)',
   },
   {
     icon: Handshake,
+    weight: 'bold' as const,
     title: "It's Yours. Period.",
     desc: "When it's done, you own everything — the code, the domain, the content. No hostage situations. We earn your business by being worth coming back to.",
   },
@@ -730,7 +742,7 @@ function ImmersivePackageShowcase() {
               className="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl shrink-0 font-bold"
               style={{ background: 'rgba(45,106,79,0.15)', border: '1px solid rgba(45,106,79,0.3)' }}
             >
-              🆓
+              <MagnifyingGlass size={24} weight="duotone" />
             </div>
             <div>
               <div className="flex items-center gap-2 mb-1">
@@ -980,12 +992,12 @@ function AIShowcase() {
 
 function AIReplacesSection() {
   const tasks = [
-    { task: 'Answering the same customer questions over and over', hours: '5-10 hrs/week', emoji: '💬' },
-    { task: 'Writing social media posts and emails', hours: '3-5 hrs/week', emoji: '✍️' },
-    { task: 'Scheduling appointments and follow-ups', hours: '2-4 hrs/week', emoji: '📅' },
-    { task: 'Updating your website and online listings', hours: '2-3 hrs/week', emoji: '🌐' },
-    { task: 'Researching competitors and market trends', hours: '2-4 hrs/week', emoji: '🔍' },
-    { task: 'Creating quotes, invoices, and proposals', hours: '2-3 hrs/week', emoji: '📄' },
+    { task: 'Answering the same customer questions over and over', hours: '5-10 hrs/week', emoji: <ChatCircle size={18} weight="regular" /> },
+    { task: 'Writing social media posts and emails', hours: '3-5 hrs/week', emoji: <PencilSimple size={18} weight="regular" /> },
+    { task: 'Scheduling appointments and follow-ups', hours: '2-4 hrs/week', emoji: <CalendarBlank size={18} weight="regular" /> },
+    { task: 'Updating your website and online listings', hours: '2-3 hrs/week', emoji: <Globe size={18} weight="regular" /> },
+    { task: 'Researching competitors and market trends', hours: '2-4 hrs/week', emoji: <MagnifyingGlass size={18} weight="regular" /> },
+    { task: 'Creating quotes, invoices, and proposals', hours: '2-3 hrs/week', emoji: <CurrencyDollar size={18} weight="regular" /> },
   ];
 
   return (
@@ -1041,7 +1053,7 @@ function AIPackageCard({ variant }: { variant: 'advantage' | 'assistant' }) {
   const isAssistant = variant === 'assistant';
 
   const advantageData = {
-    emoji: '🤖',
+    emoji: <Robot size={24} weight="duotone" />,
     name: 'The AI Advantage',
     price: '$2,000',
     priceNote: 'Claude subscription: ~$23–$135 CAD/mo',
@@ -1077,7 +1089,7 @@ function AIPackageCard({ variant }: { variant: 'advantage' | 'assistant' }) {
   };
 
   const assistantData = {
-    emoji: '🦞',
+    emoji: <ChatCircleDots size={24} weight="duotone" />,
     name: 'AI Assistant Setup',
     price: '$3,000',
     priceNote: null as string | null,
@@ -1479,14 +1491,14 @@ function PackageCard({ pkg, index }: { pkg: typeof packages[number]; index: numb
 
 /* ── Neighbours Dashboard — Mountain Trail Animation ── */
 // Add isEasterEgg to the type
-const dashboardFeatures: Array<{ emoji: string; title: string; desc: string; isEasterEgg?: boolean }> = [
-  { emoji: '📚', title: 'Step-by-Step Training Manuals', desc: 'Written in plain English. Every tool, every feature, every workflow — explained like a friend is sitting next to you.' },
-  { emoji: '🎬', title: 'Curated Video Library', desc: 'Hand-picked YouTube tutorials and walkthroughs for every skill you need. Learn at your own pace — pause, rewind, master.' },
-  { emoji: '🔧', title: 'Troubleshooting & Support', desc: 'Something not working? Search the knowledge base first — most answers are already there. If not, we are.' },
-  { emoji: '📈', title: 'Grow Your Business', desc: "Guides on SEO, social media, email marketing, and customer retention — updated regularly with what's actually working right now." },
-  { emoji: '🤖', title: 'AI Integration Guides', desc: 'As AI tools evolve, so does the dashboard. New workflows, new automations, new ways to save time — all explained step by step.' },
-  { emoji: '🤝', title: 'Connect With Other Customers', desc: 'A private community of business owners learning and growing together. Share wins, ask questions, find inspiration from people who get it.' },
-  { emoji: '🎮', title: 'One More Thing...', desc: 'We hid something fun in the footer. Think you can find it?', isEasterEgg: true },
+const dashboardFeatures: Array<{ emoji: React.ReactNode; title: string; desc: string; isEasterEgg?: boolean }> = [
+  { emoji: <Mountains size={20} weight="duotone" />, title: 'Step-by-Step Training Manuals', desc: 'Written in plain English. Every tool, every feature, every workflow — explained like a friend is sitting next to you.' },
+  { emoji: <VideoCamera size={20} weight="duotone" />, title: 'Curated Video Library', desc: 'Hand-picked YouTube tutorials and walkthroughs for every skill you need. Learn at your own pace — pause, rewind, master.' },
+  { emoji: <Wrench size={20} weight="duotone" />, title: 'Troubleshooting & Support', desc: 'Something not working? Search the knowledge base first — most answers are already there. If not, we are.' },
+  { emoji: <ChartLineUp size={20} weight="duotone" />, title: 'Grow Your Business', desc: "Guides on SEO, social media, email marketing, and customer retention — updated regularly with what's actually working right now." },
+  { emoji: <Robot size={20} weight="duotone" />, title: 'AI Integration Guides', desc: 'As AI tools evolve, so does the dashboard. New workflows, new automations, new ways to save time — all explained step by step.' },
+  { emoji: <UsersThree size={20} weight="duotone" />, title: 'Connect With Other Customers', desc: 'A private community of business owners learning and growing together. Share wins, ask questions, find inspiration from people who get it.' },
+  { emoji: <GameController size={20} weight="duotone" />, title: 'One More Thing...', desc: 'We hid something fun in the footer. Think you can find it?', isEasterEgg: true },
 ];
 
 /* ── Dashboard Card with staggered reveal ── */
@@ -1761,7 +1773,7 @@ export default function ServicesPage() {
                     className="group bg-slate/90 border border-white/8 rounded-2xl p-6 flex flex-col gap-4 h-full hover:shadow-xl hover:shadow-copper/10 transition-all duration-300 cursor-default"
                   >
                     <div className="w-12 h-12 rounded-xl bg-copper/15 flex items-center justify-center shrink-0 group-hover:bg-copper/25 transition-colors duration-300">
-                      <Icon size={22} className="text-copper" />
+                      <Icon size={22} weight={feat.weight} className="text-copper" />
                     </div>
                     <div>
                       <h3 className="font-[family-name:var(--font-satoshi)] font-bold text-white mb-2 leading-snug">{feat.title}</h3>

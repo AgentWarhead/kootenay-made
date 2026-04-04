@@ -8,18 +8,20 @@ import MountainDivider from '@/components/MountainDivider';
 import RiverWave from '@/components/RiverWave';
 import AmbientOrbs from '@/components/AmbientOrbs';
 import { motion, AnimatePresence } from 'framer-motion';
+import { CheckCircle2, AlertCircle } from 'lucide-react';
 import {
-  ChevronDown,
-  CheckCircle2,
-  AlertCircle,
-  Zap,
-  Search,
+  CaretDown as ChevronDown,
+  Lightning as Zap,
+  MagnifyingGlass as Search,
   ShieldCheck,
-  ClipboardList,
+  ClipboardText as ClipboardList,
   ArrowRight,
   Gauge,
   Eye,
-} from 'lucide-react';
+  Link as LinkIcon,
+  ChartBar,
+  Phone,
+} from '@phosphor-icons/react';
 
 /* ─────────────────────────────────────────────
    DATA
@@ -430,7 +432,9 @@ function WhatHappensNext() {
             <ScrollReveal key={i} delay={i * 0.15}>
               <div className="flex flex-col items-center text-center relative">
                 <div className="w-16 h-16 rounded-2xl bg-copper/10 border border-copper/20 flex items-center justify-center text-2xl mb-4 relative z-10">
-                  {step.icon}
+                  {i === 0 ? <LinkIcon size={24} weight="duotone" className="text-copper" /> :
+                   i === 1 ? <ChartBar size={24} weight="duotone" className="text-copper" /> :
+                   <Phone size={24} weight="duotone" className="text-copper" />}
                 </div>
                 <span className="font-[family-name:var(--font-satoshi)] text-copper font-bold text-xs tracking-widest mb-1">{step.num}</span>
                 <h3 className="font-[family-name:var(--font-satoshi)] font-bold text-slate mb-2">{step.title}</h3>

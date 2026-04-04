@@ -1,7 +1,8 @@
 'use client';
 
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { Mail, Clock, CheckCircle2, AlertCircle, CalendarDays, Globe, MapPin } from 'lucide-react';
+import { CheckCircle2, AlertCircle } from 'lucide-react';
+import { EnvelopeSimple as Mail, Clock, CalendarBlank as CalendarDays, Globe, MapPin, PencilSimpleLine, Coffee, Rocket } from '@phosphor-icons/react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -205,7 +206,9 @@ function WhatHappensNext() {
             <div className={`relative z-10 w-10 h-10 rounded-full flex items-center justify-center text-lg shrink-0 ${
               step.active ? 'bg-copper/20 ring-2 ring-copper' : 'bg-cream border border-cream-border'
             }`}>
-              {step.emoji}
+              {i === 0 ? <PencilSimpleLine size={20} weight="duotone" className="text-copper" /> :
+               i === 1 ? <Coffee size={20} weight="duotone" className="text-copper" /> :
+               <Rocket size={20} weight="duotone" className="text-copper" />}
             </div>
             <div className="sm:text-center">
               <p className={`text-sm font-medium leading-snug ${step.active ? 'text-slate' : 'text-text-secondary'}`}>{step.title}</p>
