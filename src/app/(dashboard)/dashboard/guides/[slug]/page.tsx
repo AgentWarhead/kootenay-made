@@ -199,42 +199,44 @@ export default function GuideReaderPage({ params }: { params: Promise<{ slug: st
     async function fetchGuide() {
       try {
         const supabase = createClient()
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const sb = supabase as any
 
         const { data: { user } } = await supabase.auth.getUser()
         if (user) setUserId(user.id)
 
-        const { data: guideData } = await supabase
+        const { data: guideData } = await sb
           .from('guides')
           .select('*')
           .eq('slug', slug)
-          .single()
+          .single() as { data: Guide | null }
 
         if (guideData) {
-          setGuide(guideData as any)
-          setGuideId((guideData as any).id)
+          setGuide(guideData)
+          setGuideId(guideData.id)
 
           // Fetch related guides in same milestone
-          const { data: relData } = await supabase
+          const { data: relData } = await sb
             .from('guides')
             .select('*')
             .eq('published', true)
             .neq('slug', slug)
-            .eq('trailhead_milestone', guideData.trailhead_milestone)
-            .limit(3)
+            .eq('trailhead_milestone', guideData.trailhead_milestone ?? 0)
+            .limit(3) as { data: Guide[] | null }
           setRelated(relData ?? [])
 
           // Check completion status
           if (user) {
-            const { data: progressData } = await supabase
+            const { data: progressData } = await sb
               .from('user_guide_progress')
               .select('completed')
               .eq('user_id', user.id)
               .eq('guide_id', guideData.id)
-              .single()
+              .single() as { data: { completed: boolean } | null }
             if (progressData?.completed) setCompleted(true)
 
             // Auto-create progress entry if doesn't exist
-            await supabase
+            await sb
               .from('user_guide_progress')
               .upsert(
                 { user_id: user.id, guide_id: guideData.id, progress_percent: 0, completed: false },
@@ -271,8 +273,9 @@ export default function GuideReaderPage({ params }: { params: Promise<{ slug: st
   async function markComplete() {
     if (!userId || !guideId) return
     setMarkingComplete(true)
-    const supabase = createClient()
-    await supabase
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const sb = createClient() as any
+    await sb
       .from('user_guide_progress')
       .upsert(
         {

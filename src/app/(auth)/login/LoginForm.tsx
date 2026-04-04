@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Loader2, Mountain, Mail, Lock } from 'lucide-react';
+import { Loader2, Mountain, Mail, Lock, ArrowLeft } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
 
 export default function LoginForm() {
@@ -36,6 +36,16 @@ export default function LoginForm() {
       className="min-h-screen flex flex-col items-center justify-center p-4 relative overflow-hidden"
       style={{ backgroundColor: 'var(--color-dash-bg)' }}
     >
+      {/* Back to main site */}
+      <Link
+        href="/"
+        className="absolute top-6 left-6 z-20 flex items-center gap-1.5 text-sm font-medium transition-colors duration-200"
+        style={{ color: 'var(--color-dash-text-muted)' }}
+      >
+        <ArrowLeft className="w-4 h-4" />
+        <span>Back to kootenaymade.ca</span>
+      </Link>
+
       {/* Topo lines background */}
       <div
         className="absolute inset-0 pointer-events-none"

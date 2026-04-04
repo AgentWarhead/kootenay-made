@@ -250,14 +250,17 @@ export default function TrailheadPage() {
         const supabase = createClient()
         const { data: { user } } = await supabase.auth.getUser()
 
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const sb = supabase as any
+
         // Fetch all published trail guides
-        const { data: guidesData } = await supabase
+        const { data: guidesData } = await sb
           .from('guides')
           .select('id, title, slug, trailhead_milestone')
           .eq('published', true)
           .eq('category', 'trailhead')
           .order('trailhead_milestone')
-          .order('trailhead_order')
+          .order('trailhead_order') as { data: Guide[] | null }
 
         const guides = guidesData ?? []
 

@@ -18,6 +18,7 @@ import {
   Menu,
   X,
   LogOut,
+  ExternalLink,
 } from 'lucide-react';
 import { useAuth } from '@/components/AuthProvider';
 
@@ -262,6 +263,15 @@ export default function DashboardShell({ children }: { children: React.ReactNode
               </span>
             </div>
           )}
+          <Link
+            href="/"
+            className="flex items-center gap-3 w-full px-3 py-2 rounded-lg text-sm transition-colors hover:bg-black/5"
+            style={{ color: 'var(--color-dash-text-faint)', fontFamily: 'var(--font-general)' }}
+            title={collapsed ? 'Back to kootenaymade.ca' : undefined}
+          >
+            <ExternalLink className="w-4 h-4 shrink-0" />
+            {!collapsed && <span>kootenaymade.ca</span>}
+          </Link>
           <button
             onClick={signOut}
             className="flex items-center gap-3 w-full px-3 py-2 rounded-lg text-sm transition-colors hover:bg-black/5"
