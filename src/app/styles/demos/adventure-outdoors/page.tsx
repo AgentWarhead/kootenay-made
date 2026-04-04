@@ -436,9 +436,16 @@ export default function AdventureOutdoorsDemo() {
                 <option>River Rafting</option>
                 <option>Multi-Day Camping</option>
               </select>
-              <input type="date"
-                className="flex-1 px-4 py-3 text-sm rounded-lg outline-none"
-                style={{ backgroundColor: 'rgba(255,255,255,0.95)', color: '#1b2d1b' }} />
+              <select className="flex-1 px-4 py-3 text-sm rounded-lg font-medium outline-none"
+                style={{ backgroundColor: 'rgba(255,255,255,0.95)', color: '#1b2d1b' }}
+                defaultValue="">
+                <option value="" disabled>When are you going?</option>
+                <option>This Weekend</option>
+                <option>Next Week</option>
+                <option>This Month</option>
+                <option>Next Month</option>
+                <option>I&apos;m Flexible</option>
+              </select>
               <button
                 className="px-6 py-3 text-sm font-bold uppercase tracking-wider rounded-lg whitespace-nowrap transition-all hover:scale-105"
                 style={{ backgroundColor: '#f97316', color: '#fff', boxShadow: '0 2px 12px rgba(249,115,22,0.4)' }}>
