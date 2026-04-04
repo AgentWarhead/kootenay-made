@@ -123,7 +123,7 @@ function LiveRedesign() {
                 <div className="absolute inset-0 opacity-[0.12]" style={{ background: 'linear-gradient(135deg, #2a5a2a 0%, #6aaa6a 50%, #f0e68c 100%)' }} />
                 <div className="relative z-10">
                   <p className="text-xs uppercase tracking-wide mb-2" style={{ fontFamily: 'Arial, sans-serif', color: '#666' }}>★ Welcome to Our Website ★</p>
-                  <h2 className="text-xl sm:text-3xl md:text-4xl leading-tight mb-2" style={{ fontFamily: 'Georgia, serif', color: '#3a3a3a', fontWeight: 700 }}>Powder Highway Adventures</h2>
+                  <h2 className="text-xl sm:text-2xl md:text-4xl leading-tight mb-2" style={{ fontFamily: 'Georgia, serif', color: '#3a3a3a', fontWeight: 700 }}>Powder Highway Adventures</h2>
                   <p className="text-sm sm:text-lg mb-1" style={{ fontFamily: 'Georgia, serif', color: '#666', fontStyle: 'italic' }}>&ldquo;Your Premier Adventure Destination!&rdquo;</p>
                   <p className="text-xs sm:text-sm mb-4" style={{ fontFamily: 'Arial, sans-serif', color: '#888' }}>Hiking &bull; Rafting &bull; Skiing &bull; Camping &bull; Mountain Biking &bull; And More!</p>
                   <div className="flex justify-center gap-2 mb-4 flex-wrap">
@@ -209,7 +209,7 @@ function LiveRedesign() {
                       Book Your Next Adventure
                       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
                     </a>
-                    <span className={`${body.className} text-sm`} style={{ color: 'rgba(255,255,255,0.35)' }}>No commitment required</span>
+                    <span className={`${body.className} text-sm`} style={{ color: 'rgba(255,255,255,0.55)' }}>No commitment required</span>
                   </motion.div>
                   <motion.div className="flex items-center justify-center sm:justify-start gap-4 sm:gap-6 mt-6 flex-wrap" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur, delay: stagger * 6 }}>
                     {['Certified Guides', '1000+ Trips', '5★ TripAdvisor'].map((badge) => (
@@ -466,14 +466,14 @@ export default function AdventureOutdoorsDemo() {
       <section id="adventures" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#1b2d1b' }}>
         <div className="max-w-6xl mx-auto">
           <Reveal>
-            <h2 className={`${heading.className} text-3xl md:text-5xl font-bold uppercase text-center mb-4`}>Choose Your Adventure</h2>
+            <h2 className={`${heading.className} text-2xl md:text-5xl font-bold uppercase text-center mb-4`}>Choose Your Adventure</h2>
             <div className="w-16 h-1 mx-auto mb-4" style={{ backgroundColor: '#f97316' }} />
-            <p className="text-center mb-12 text-sm uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.35)' }}>
+            <p className="text-center mb-12 text-sm uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.55)' }}>
               Tap a card to see trip details — hover on desktop
             </p>
           </Reveal>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-6">
             <TripCard
               image="/images/demos/gallery/ao-1.webp"
               title="Backcountry Skiing"
@@ -548,7 +548,7 @@ export default function AdventureOutdoorsDemo() {
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: 'rgba(27,45,27,0.95)', borderTop: '1px solid rgba(249,115,22,0.1)' }}>
         <div className="max-w-4xl mx-auto">
           <Reveal>
-            <h2 className={`${heading.className} text-3xl md:text-5xl font-bold uppercase text-center mb-4`}>How Your Trip Works</h2>
+            <h2 className={`${heading.className} text-2xl md:text-5xl font-bold uppercase text-center mb-4`}>How Your Trip Works</h2>
             <div className="w-16 h-1 mx-auto mb-16" style={{ backgroundColor: '#f97316' }} />
           </Reveal>
 
@@ -595,7 +595,7 @@ export default function AdventureOutdoorsDemo() {
       <section className="py-16 px-6" style={{ backgroundColor: '#1b2d1b' }}>
         <div className="max-w-5xl mx-auto">
           <Reveal>
-            <h2 className={`${heading.className} text-3xl md:text-4xl font-bold uppercase text-center mb-4`}>Trail Conditions & Forecast</h2>
+            <h2 className={`${heading.className} text-2xl md:text-4xl font-bold uppercase text-center mb-4`}>Trail Conditions & Forecast</h2>
             <div className="w-16 h-1 mx-auto mb-10" style={{ backgroundColor: '#f97316' }} />
           </Reveal>
           <Reveal delay={0.1}>
@@ -606,15 +606,15 @@ export default function AdventureOutdoorsDemo() {
                 { label: 'Conditions', value: 'Firm', sub: 'No mud, dry rock', icon: '⛰️' },
                 { label: 'Sunset', value: '7:42 PM', sub: 'Golden hour: 7:12', icon: '🌄' },
               ].map((item) => (
-                <div key={item.label} className="p-5 rounded-xl text-center"
+                <div key={item.label} className="p-5 rounded-xl text-center transition-all duration-200 hover:-translate-y-1 hover:shadow-lg"
                   style={{
                     backgroundColor: item.highlight ? 'rgba(249,115,22,0.1)' : 'rgba(255,255,255,0.04)',
                     border: `1px solid ${item.highlight ? 'rgba(249,115,22,0.3)' : 'rgba(249,115,22,0.1)'}`,
                   }}>
                   <div className="text-3xl mb-2">{item.icon}</div>
                   <div className={`${heading.className} text-xl md:text-2xl font-bold mb-1`} style={{ color: item.highlight ? '#f97316' : '#fff' }}>{item.value}</div>
-                  <div className="text-xs mb-1 uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.4)' }}>{item.label}</div>
-                  <div className="text-xs" style={{ color: 'rgba(255,255,255,0.35)' }}>{item.sub}</div>
+                  <div className="text-xs mb-1 uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.55)' }}>{item.label}</div>
+                  <div className="text-xs" style={{ color: 'rgba(255,255,255,0.55)' }}>{item.sub}</div>
                 </div>
               ))}
             </div>
@@ -629,7 +629,7 @@ export default function AdventureOutdoorsDemo() {
       <section className="py-10 px-6" style={{ backgroundColor: 'rgba(249,115,22,0.08)', borderTop: '1px solid rgba(249,115,22,0.15)', borderBottom: '1px solid rgba(249,115,22,0.15)' }}>
         <div className="max-w-5xl mx-auto">
           <Reveal>
-            <p className={`${heading.className} text-xs font-bold uppercase tracking-[0.3em] text-center mb-6`} style={{ color: 'rgba(255,255,255,0.4)' }}>
+            <p className={`${heading.className} text-xs font-bold uppercase tracking-[0.3em] text-center mb-6`} style={{ color: 'rgba(255,255,255,0.55)' }}>
               Our Guides Are Certified By
             </p>
             <div className="flex flex-wrap justify-center items-center gap-4 md:gap-8">
@@ -640,7 +640,7 @@ export default function AdventureOutdoorsDemo() {
                 { badge: 'SRT', name: 'Swiftwater\nRescue Tech' },
                 { badge: 'WASI', name: 'Wilderness Advanced\nSki Instructor' },
               ].map((cert) => (
-                <div key={cert.badge} className="flex items-center gap-3 px-5 py-3 rounded-xl"
+                <div key={cert.badge} className="flex items-center gap-3 px-5 py-3 rounded-xl transition-all duration-200 hover:bg-white/5"
                   style={{ backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(249,115,22,0.2)' }}>
                   <div className="w-10 h-10 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0"
                     style={{ backgroundColor: '#f97316', color: '#fff' }}>
@@ -658,7 +658,7 @@ export default function AdventureOutdoorsDemo() {
       <section id="gallery" className="py-20 md:py-28 px-6" style={{ backgroundColor: 'rgba(27,45,27,0.9)' }}>
         <div className="max-w-6xl mx-auto">
           <Reveal>
-            <h2 className={`${heading.className} text-3xl md:text-5xl font-bold uppercase text-center mb-4`}>Latest Adventures</h2>
+            <h2 className={`${heading.className} text-2xl md:text-5xl font-bold uppercase text-center mb-4`}>Latest Adventures</h2>
             <div className="w-16 h-1 mx-auto mb-12" style={{ backgroundColor: '#f97316' }} />
           </Reveal>
           <Reveal delay={0.1}>
@@ -714,9 +714,9 @@ export default function AdventureOutdoorsDemo() {
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#1b2d1b' }}>
         <div className="max-w-5xl mx-auto">
           <Reveal>
-            <h2 className={`${heading.className} text-3xl md:text-5xl font-bold uppercase text-center mb-4`}>Watch Your Website Transform</h2>
+            <h2 className={`${heading.className} text-2xl md:text-5xl font-bold uppercase text-center mb-4`}>Watch Your Website Transform</h2>
             <div className="w-16 h-1 mx-auto mb-4" style={{ backgroundColor: '#f97316' }} />
-            <p className="text-center mb-12 text-sm uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.35)' }}>From dated to designed — in real time</p>
+            <p className="text-center mb-12 text-sm uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.55)' }}>From dated to designed — in real time</p>
           </Reveal>
           <Reveal delay={0.1}>
             <LiveRedesign />
@@ -728,7 +728,7 @@ export default function AdventureOutdoorsDemo() {
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: 'rgba(27,45,27,0.95)' }}>
         <div className="max-w-6xl mx-auto">
           <Reveal>
-            <h2 className={`${heading.className} text-3xl md:text-5xl font-bold uppercase text-center mb-4`}>What Adventurers Say</h2>
+            <h2 className={`${heading.className} text-2xl md:text-5xl font-bold uppercase text-center mb-4`}>What Adventurers Say</h2>
             <div className="w-16 h-1 mx-auto mb-4" style={{ backgroundColor: '#f97316' }} />
             <div className="flex items-center justify-center gap-2 mb-12">
               <svg width="24" height="24" viewBox="0 0 100 100" fill="#00AF87">
@@ -763,7 +763,7 @@ export default function AdventureOutdoorsDemo() {
               },
             ].map((t, i) => (
               <Reveal key={i} delay={i * 0.15}>
-                <div className="p-6 rounded-2xl" style={{ backgroundColor: 'rgba(255,255,255,0.04)', border: '1px solid rgba(249,115,22,0.15)' }}>
+                <div className="p-6 rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:shadow-xl" style={{ backgroundColor: 'rgba(255,255,255,0.04)', border: '1px solid rgba(249,115,22,0.15)' }}>
                   <div className="flex items-center gap-1 mb-4" style={{ color: '#00AF87' }}>
                     {'★★★★★'.split('').map((s, j) => <span key={j} className="text-lg">{s}</span>)}
                   </div>
@@ -777,7 +777,7 @@ export default function AdventureOutdoorsDemo() {
                     </div>
                     <div>
                       <p className={`${heading.className} text-sm font-bold uppercase`} style={{ color: '#fff' }}>{t.name}</p>
-                      <p className="text-xs" style={{ color: 'rgba(255,255,255,0.4)' }}>{t.location} · {t.trip}</p>
+                      <p className="text-xs" style={{ color: 'rgba(255,255,255,0.55)' }}>{t.location} · {t.trip}</p>
                     </div>
                   </div>
                 </div>
@@ -796,7 +796,7 @@ export default function AdventureOutdoorsDemo() {
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#1b2d1b' }}>
         <div className="max-w-4xl mx-auto">
           <Reveal>
-            <h2 className={`${heading.className} text-3xl md:text-5xl font-bold uppercase text-center mb-4`}>Common Questions</h2>
+            <h2 className={`${heading.className} text-2xl md:text-5xl font-bold uppercase text-center mb-4`}>Common Questions</h2>
             <div className="w-16 h-1 mx-auto mb-12" style={{ backgroundColor: '#f97316' }} />
           </Reveal>
           <Reveal delay={0.1}>
@@ -817,7 +817,7 @@ export default function AdventureOutdoorsDemo() {
         <div className="max-w-3xl mx-auto text-center">
           <Reveal>
             <TrailMarker number={7} />
-            <h2 className={`${heading.className} text-3xl md:text-5xl font-bold uppercase mb-4`}>About Powder Highway</h2>
+            <h2 className={`${heading.className} text-2xl md:text-5xl font-bold uppercase mb-4`}>About Powder Highway</h2>
             <div className="w-16 h-1 mx-auto mb-10" style={{ backgroundColor: '#f97316' }} />
           </Reveal>
           <Reveal delay={0.15}>
@@ -832,7 +832,7 @@ export default function AdventureOutdoorsDemo() {
       <section id="book" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#1b2d1b' }}>
         <div className="max-w-6xl mx-auto">
           <Reveal>
-            <h2 className={`${heading.className} text-3xl md:text-5xl font-bold uppercase text-center mb-4`}>Book Your Adventure</h2>
+            <h2 className={`${heading.className} text-2xl md:text-5xl font-bold uppercase text-center mb-4`}>Book Your Adventure</h2>
             <div className="w-16 h-1 mx-auto mb-16" style={{ backgroundColor: '#f97316' }} />
           </Reveal>
 
@@ -930,7 +930,7 @@ export default function AdventureOutdoorsDemo() {
             </div>
           </div>
           <div className="border-t border-white/10 pt-6 text-center">
-            <span className="text-sm text-white/25">&copy; 2025 Powder Highway Adventures. All rights reserved.</span>
+            <span className="text-sm text-white/25">&copy; {new Date().getFullYear()} Powder Highway Adventures. All rights reserved.</span>
           </div>
         </div>
       </footer>
