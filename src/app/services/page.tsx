@@ -21,31 +21,31 @@ import BalancedText from '@/components/BalancedText';
 const categories = [
   {
     id: 'all',
-    emoji: <Sparkle size={20} weight="duotone" />,
+    emoji: <Sparkle size={20} weight="duotone" className="text-copper" />,
     label: 'Show All',
     desc: 'Browse everything we offer',
   },
   {
     id: 'websites',
-    emoji: <Globe size={20} weight="duotone" />,
+    emoji: <Globe size={20} weight="duotone" className="text-copper" />,
     label: 'Get Online',
     desc: 'A website that works as hard as you do',
   },
   {
     id: 'ecommerce',
-    emoji: <Storefront size={20} weight="duotone" />,
+    emoji: <Storefront size={20} weight="duotone" className="text-copper" />,
     label: 'Sell Online',
     desc: 'Turn your products into online sales',
   },
   {
     id: 'ai',
-    emoji: <Robot size={20} weight="duotone" />,
+    emoji: <Robot size={20} weight="duotone" className="text-copper" />,
     label: 'Work Smarter',
     desc: 'AI tools built for your actual workflow',
   },
   {
     id: 'gobig',
-    emoji: <CastleTurret size={20} weight="duotone" />,
+    emoji: <CastleTurret size={20} weight="duotone" className="text-copper" />,
     label: 'Go Big',
     desc: 'Full transformation, nothing held back',
   },
@@ -55,7 +55,7 @@ const categories = [
 const categoryCards = [
   {
     id: 'websites',
-    emoji: <Globe size={20} weight="duotone" />,
+    emoji: <Globe size={20} weight="duotone" className="text-copper" />,
     label: 'Get Online',
     description: "Your business deserves to be found. We'll build you a website that makes you look as good online as you are in person.",
     image: '/images/categories/get-online.png',
@@ -63,7 +63,7 @@ const categoryCards = [
   },
   {
     id: 'ecommerce',
-    emoji: <Storefront size={20} weight="duotone" />,
+    emoji: <Storefront size={20} weight="duotone" className="text-copper" />,
     label: 'Sell Online',
     description: "Ready to sell beyond the counter? From Shopify stores to custom print-on-demand, we'll get your products in front of the world.",
     image: '/images/categories/sell-online.png',
@@ -71,7 +71,7 @@ const categoryCards = [
   },
   {
     id: 'ai',
-    emoji: <Robot size={20} weight="duotone" />,
+    emoji: <Robot size={20} weight="duotone" className="text-copper" />,
     label: 'Work Smarter',
     description: "AI isn't just for tech companies. We'll set up tools that save you hours every week — and teach you how to use them.",
     image: '/images/categories/work-smarter.png',
@@ -79,7 +79,7 @@ const categoryCards = [
   },
   {
     id: 'gobig',
-    emoji: <CastleTurret size={20} weight="duotone" />,
+    emoji: <CastleTurret size={20} weight="duotone" className="text-copper" />,
     label: 'Go Big',
     description: "Full transformation. Brand, website, AI, marketing — everything your business needs to dominate, built by your neighbors.",
     image: '/images/categories/go-big.png',
@@ -87,7 +87,7 @@ const categoryCards = [
   },
   {
     id: 'retainers',
-    emoji: <ArrowsClockwise size={20} weight="duotone" />,
+    emoji: <ArrowsClockwise size={20} weight="duotone" className="text-copper" />,
     label: 'Stay Growing',
     description: 'Your site is live. Now keep it safe, fast, and getting better every month.',
     image: '/images/categories/stay-growing.png',
@@ -100,7 +100,7 @@ const packages = [
   {
     id: 'audit',
     category: 'websites',
-    emoji: <MagnifyingGlass size={24} weight="duotone" />,
+    emoji: <MagnifyingGlass size={24} weight="duotone" className="text-copper" />,
     name: 'The Audit',
     price: 'FREE',
     priceNote: null,
@@ -131,7 +131,7 @@ const packages = [
   {
     id: 'trailhead',
     category: 'websites',
-    emoji: <Plant size={24} weight="duotone" />,
+    emoji: <Plant size={24} weight="duotone" className="text-copper" />,
     name: 'The Trailhead',
     price: '$1,500',
     priceNote: null,
@@ -165,7 +165,7 @@ const packages = [
   {
     id: 'foundation',
     category: 'websites',
-    emoji: <Mountains size={24} weight="duotone" />,
+    emoji: <Mountains size={24} weight="duotone" className="text-copper" />,
     name: 'The Foundation',
     price: '$4,000',
     priceNote: null,
@@ -199,7 +199,7 @@ const packages = [
   {
     id: 'engine',
     category: 'websites',
-    emoji: <Lightning size={24} weight="duotone" />,
+    emoji: <Lightning size={24} weight="duotone" className="text-copper" />,
     name: 'The Engine',
     price: '$6,000',
     priceNote: null,
@@ -233,7 +233,7 @@ const packages = [
   {
     id: 'brand',
     category: 'websites',
-    emoji: <PaintBrush size={24} weight="duotone" />,
+    emoji: <PaintBrush size={24} weight="duotone" className="text-copper" />,
     name: 'Brand Identity',
     price: '$800',
     priceNote: '$800 as add-on · $1,200 standalone',
@@ -265,7 +265,7 @@ const packages = [
   {
     id: 'storefront',
     category: 'ecommerce',
-    emoji: <Storefront size={24} weight="duotone" />,
+    emoji: <Storefront size={24} weight="duotone" className="text-copper" />,
     name: 'The Storefront',
     price: '$4,500',
     priceNote: 'Shopify subscription: ~$50–$75 CAD/mo',
@@ -299,7 +299,7 @@ const packages = [
   {
     id: 'masterpiece',
     category: 'ecommerce',
-    emoji: <Crown size={24} weight="duotone" />,
+    emoji: <Crown size={24} weight="duotone" className="text-copper" />,
     name: 'The Masterpiece',
     price: '$8,500',
     priceNote: 'Shopify subscription: ~$50–$75 CAD/mo',
@@ -335,7 +335,7 @@ const packages = [
   {
     id: 'pod',
     category: 'ecommerce',
-    emoji: <TShirt size={24} weight="duotone" />,
+    emoji: <TShirt size={24} weight="duotone" className="text-copper" />,
     name: 'Print-on-Demand Setup',
     price: '$500',
     priceNote: 'Add-on with Storefront or Masterpiece',
@@ -365,7 +365,7 @@ const packages = [
   {
     id: 'ai-advantage',
     category: 'ai',
-    emoji: <Robot size={24} weight="duotone" />,
+    emoji: <Robot size={24} weight="duotone" className="text-copper" />,
     name: 'The AI Advantage',
     price: '$2,000',
     priceNote: 'Claude subscription: ~$23–$135 CAD/mo',
@@ -397,7 +397,7 @@ const packages = [
   {
     id: 'openclaw',
     category: 'ai',
-    emoji: <ChatCircleDots size={24} weight="duotone" />,
+    emoji: <ChatCircleDots size={24} weight="duotone" className="text-copper" />,
     name: 'AI Assistant Setup',
     price: '$3,000',
     priceNote: null,
@@ -438,7 +438,7 @@ const packages = [
   {
     id: 'empire',
     category: 'gobig',
-    emoji: <CastleTurret size={24} weight="duotone" />,
+    emoji: <CastleTurret size={24} weight="duotone" className="text-copper" />,
     name: 'The Empire',
     price: '$15,000+',
     priceNote: 'Starting at — scope determines final price',
@@ -474,7 +474,7 @@ const packages = [
   {
     id: 'retainer-essentials',
     category: 'retainers',
-    emoji: <Shield size={24} weight="duotone" />,
+    emoji: <Shield size={24} weight="duotone" className="text-copper" />,
     name: 'Essentials',
     price: '$150',
     priceNote: '/mo',
@@ -505,7 +505,7 @@ const packages = [
   {
     id: 'retainer-growth',
     category: 'retainers',
-    emoji: <Rocket size={24} weight="duotone" />,
+    emoji: <Rocket size={24} weight="duotone" className="text-copper" />,
     name: 'Growth',
     price: '$350',
     priceNote: '/mo',
@@ -742,7 +742,7 @@ function ImmersivePackageShowcase() {
               className="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl shrink-0 font-bold"
               style={{ background: 'rgba(45,106,79,0.15)', border: '1px solid rgba(45,106,79,0.3)' }}
             >
-              <MagnifyingGlass size={24} weight="duotone" />
+              <MagnifyingGlass size={24} weight="duotone" className="text-copper" />
             </div>
             <div>
               <div className="flex items-center gap-2 mb-1">
@@ -992,12 +992,12 @@ function AIShowcase() {
 
 function AIReplacesSection() {
   const tasks = [
-    { task: 'Answering the same customer questions over and over', hours: '5-10 hrs/week', emoji: <ChatCircle size={18} weight="regular" /> },
-    { task: 'Writing social media posts and emails', hours: '3-5 hrs/week', emoji: <PencilSimple size={18} weight="regular" /> },
-    { task: 'Scheduling appointments and follow-ups', hours: '2-4 hrs/week', emoji: <CalendarBlank size={18} weight="regular" /> },
-    { task: 'Updating your website and online listings', hours: '2-3 hrs/week', emoji: <Globe size={18} weight="regular" /> },
-    { task: 'Researching competitors and market trends', hours: '2-4 hrs/week', emoji: <MagnifyingGlass size={18} weight="regular" /> },
-    { task: 'Creating quotes, invoices, and proposals', hours: '2-3 hrs/week', emoji: <CurrencyDollar size={18} weight="regular" /> },
+    { task: 'Answering the same customer questions over and over', hours: '5-10 hrs/week', emoji: <ChatCircle size={18} weight="regular" className="text-copper" /> },
+    { task: 'Writing social media posts and emails', hours: '3-5 hrs/week', emoji: <PencilSimple size={18} weight="regular" className="text-copper" /> },
+    { task: 'Scheduling appointments and follow-ups', hours: '2-4 hrs/week', emoji: <CalendarBlank size={18} weight="regular" className="text-copper" /> },
+    { task: 'Updating your website and online listings', hours: '2-3 hrs/week', emoji: <Globe size={18} weight="regular" className="text-copper" /> },
+    { task: 'Researching competitors and market trends', hours: '2-4 hrs/week', emoji: <MagnifyingGlass size={18} weight="regular" className="text-copper" /> },
+    { task: 'Creating quotes, invoices, and proposals', hours: '2-3 hrs/week', emoji: <CurrencyDollar size={18} weight="regular" className="text-copper" /> },
   ];
 
   return (
@@ -1053,7 +1053,7 @@ function AIPackageCard({ variant }: { variant: 'advantage' | 'assistant' }) {
   const isAssistant = variant === 'assistant';
 
   const advantageData = {
-    emoji: <Robot size={24} weight="duotone" />,
+    emoji: <Robot size={24} weight="duotone" className="text-copper" />,
     name: 'The AI Advantage',
     price: '$2,000',
     priceNote: 'Claude subscription: ~$23–$135 CAD/mo',
@@ -1089,7 +1089,7 @@ function AIPackageCard({ variant }: { variant: 'advantage' | 'assistant' }) {
   };
 
   const assistantData = {
-    emoji: <ChatCircleDots size={24} weight="duotone" />,
+    emoji: <ChatCircleDots size={24} weight="duotone" className="text-copper" />,
     name: 'AI Assistant Setup',
     price: '$3,000',
     priceNote: null as string | null,
@@ -1492,13 +1492,13 @@ function PackageCard({ pkg, index }: { pkg: typeof packages[number]; index: numb
 /* ── Neighbours Dashboard — Mountain Trail Animation ── */
 // Add isEasterEgg to the type
 const dashboardFeatures: Array<{ emoji: React.ReactNode; title: string; desc: string; isEasterEgg?: boolean }> = [
-  { emoji: <Mountains size={20} weight="duotone" />, title: 'Step-by-Step Training Manuals', desc: 'Written in plain English. Every tool, every feature, every workflow — explained like a friend is sitting next to you.' },
-  { emoji: <VideoCamera size={20} weight="duotone" />, title: 'Curated Video Library', desc: 'Hand-picked YouTube tutorials and walkthroughs for every skill you need. Learn at your own pace — pause, rewind, master.' },
-  { emoji: <Wrench size={20} weight="duotone" />, title: 'Troubleshooting & Support', desc: 'Something not working? Search the knowledge base first — most answers are already there. If not, we are.' },
-  { emoji: <ChartLineUp size={20} weight="duotone" />, title: 'Grow Your Business', desc: "Guides on SEO, social media, email marketing, and customer retention — updated regularly with what's actually working right now." },
-  { emoji: <Robot size={20} weight="duotone" />, title: 'AI Integration Guides', desc: 'As AI tools evolve, so does the dashboard. New workflows, new automations, new ways to save time — all explained step by step.' },
-  { emoji: <UsersThree size={20} weight="duotone" />, title: 'Connect With Other Customers', desc: 'A private community of business owners learning and growing together. Share wins, ask questions, find inspiration from people who get it.' },
-  { emoji: <GameController size={20} weight="duotone" />, title: 'One More Thing...', desc: 'We hid something fun in the footer. Think you can find it?', isEasterEgg: true },
+  { emoji: <Mountains size={28} weight="duotone" className="text-copper" />, title: 'Step-by-Step Training Manuals', desc: 'Written in plain English. Every tool, every feature, every workflow — explained like a friend is sitting next to you.' },
+  { emoji: <VideoCamera size={28} weight="duotone" className="text-copper" />, title: 'Curated Video Library', desc: 'Hand-picked YouTube tutorials and walkthroughs for every skill you need. Learn at your own pace — pause, rewind, master.' },
+  { emoji: <Wrench size={28} weight="duotone" className="text-copper" />, title: 'Troubleshooting & Support', desc: 'Something not working? Search the knowledge base first — most answers are already there. If not, we are.' },
+  { emoji: <ChartLineUp size={28} weight="duotone" className="text-copper" />, title: 'Grow Your Business', desc: "Guides on SEO, social media, email marketing, and customer retention — updated regularly with what's actually working right now." },
+  { emoji: <Robot size={28} weight="duotone" className="text-copper" />, title: 'AI Integration Guides', desc: 'As AI tools evolve, so does the dashboard. New workflows, new automations, new ways to save time — all explained step by step.' },
+  { emoji: <UsersThree size={28} weight="duotone" className="text-copper" />, title: 'Connect With Other Customers', desc: 'A private community of business owners learning and growing together. Share wins, ask questions, find inspiration from people who get it.' },
+  { emoji: <GameController size={28} weight="duotone" className="text-copper" />, title: 'One More Thing...', desc: 'We hid something fun in the footer. Think you can find it?', isEasterEgg: true },
 ];
 
 /* ── Dashboard Card with staggered reveal ── */
@@ -1526,8 +1526,9 @@ function DashboardCard({ feat, index }: { feat: typeof dashboardFeatures[number]
         backdropFilter: 'blur(12px)',
       }}
     >
-      <motion.span
-        className="text-4xl inline-block"
+      <motion.div
+        className="w-12 h-12 rounded-xl flex items-center justify-center"
+        style={{ background: isEgg ? 'rgba(193,120,23,0.15)' : 'rgba(193,120,23,0.12)' }}
         animate={isEgg
           ? { y: [0, -6, 0] }
           : (isInView ? { scale: [0.5, 1.25, 1] } : { scale: 0.5 })}
@@ -1536,7 +1537,7 @@ function DashboardCard({ feat, index }: { feat: typeof dashboardFeatures[number]
           : { duration: 0.6, delay: index * 0.12 + 0.2, ease: [0.34, 1.56, 0.64, 1] }}
       >
         {feat.emoji}
-      </motion.span>
+      </motion.div>
       <h3 className="font-[family-name:var(--font-satoshi)] font-bold text-lg" style={{ color: isEgg ? '#C17817' : '#F5F0E8' }}>
         {feat.title}
       </h3>
@@ -1846,7 +1847,7 @@ export default function ServicesPage() {
           <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
             <div className="flex-1">
               <div className="flex items-center gap-3 mb-3">
-                <Lightning size={24} weight="duotone" />
+                <Lightning size={24} weight="duotone" className="text-copper" />
                 <span className="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full"
                   style={{ background: 'rgba(0,229,255,0.1)', border: '1px solid rgba(0,229,255,0.25)', color: '#00E5FF' }}>
                   Available With Any Package
@@ -1885,7 +1886,7 @@ export default function ServicesPage() {
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <ScrollReveal>
             <div className="inline-flex items-center gap-2 rounded-full px-5 py-2 mb-6" style={{ background: 'rgba(193,120,23,0.1)', border: '1px solid rgba(193,120,23,0.25)' }}>
-              <span className="text-copper text-sm font-semibold flex items-center gap-1.5"><CalendarBlank size={16} weight="duotone" /> Currently booking for May 2026</span>
+              <span className="text-copper text-sm font-semibold flex items-center gap-1.5"><CalendarBlank size={16} weight="duotone" className="text-copper" /> Currently booking for May 2026</span>
             </div>
             <p className="text-slate font-[family-name:var(--font-satoshi)] text-lg font-semibold mb-3">
               We take on 3–4 projects per month to ensure every client gets our full attention.

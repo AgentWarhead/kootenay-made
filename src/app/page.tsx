@@ -191,32 +191,32 @@ const industries = [
   {
     name: 'Trades & Contractors',
     desc: 'Plumbers, electricians, builders — the backbone of the Kootenays.',
-    icon: <Wrench size={28} weight="duotone" />,
+    icon: <Wrench size={28} weight="duotone" className="text-copper" />,
   },
   {
     name: 'Restaurants & Cafés',
     desc: 'From Trail diners to Nelson bistros, get tables filled.',
-    icon: <CoffeeIcon size={28} weight="duotone" />,
+    icon: <CoffeeIcon size={28} weight="duotone" className="text-copper" />,
   },
   {
     name: 'Wellness & Health',
     desc: 'Yoga studios, therapists, naturopaths — your calm online presence.',
-    icon: <Leaf size={28} weight="duotone" />,
+    icon: <Leaf size={28} weight="duotone" className="text-copper" />,
   },
   {
     name: 'Tourism & Adventure',
     desc: 'Guides, resorts, outfitters — reach visitors before they arrive.',
-    icon: <Mountains size={28} weight="duotone" />,
+    icon: <Mountains size={28} weight="duotone" className="text-copper" />,
   },
   {
     name: 'Retail & Shops',
     desc: 'Boutiques, gift shops, galleries — sell online and in-store.',
-    icon: <ShoppingBag size={28} weight="duotone" />,
+    icon: <ShoppingBag size={28} weight="duotone" className="text-copper" />,
   },
   {
     name: 'Professional Services',
     desc: 'Accountants, lawyers, consultants — look as sharp as your work.',
-    icon: <Briefcase size={28} weight="duotone" />,
+    icon: <Briefcase size={28} weight="duotone" className="text-copper" />,
   },
 ];
 
