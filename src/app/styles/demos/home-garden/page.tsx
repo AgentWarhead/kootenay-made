@@ -895,7 +895,6 @@ export default function HomeGardenDemo() {
             </span>
           ))}
         </div>
-      <GardenDivider topColor="#fdf8f0" bottomColor="#f0f5e8" />
       </section>
 
       {/* ═══════════ 4. DESIGN → BUILD → MAINTAIN JOURNEY ═══════════ */}
@@ -1117,7 +1116,6 @@ export default function HomeGardenDemo() {
           </div>
         </div>
       </section>
-      <GardenDivider topColor="#f0f5e8" bottomColor="#fdf8f0" />
 
       {/* ═══════════ 4b. WHAT'S IN SEASON STRIP ═══════════ */}
       <section
@@ -1247,7 +1245,6 @@ export default function HomeGardenDemo() {
             ))}
           </div>
         </div>
-      <GardenDivider topColor="#fdf8f0" bottomColor="#f0f5e8" />
       </section>
 
       {/* ═══════════ SEASONAL TABS ═══════════ */}
@@ -1329,7 +1326,6 @@ export default function HomeGardenDemo() {
           </div>
         </div>
       </section>
-      <GardenDivider topColor="#f0f5e8" bottomColor="#fdf8f0" />
 
       {/* ═══════════ 6. SEASONAL PORTFOLIO (tabbed) ═══════════ */}
       <section
@@ -1457,7 +1453,6 @@ export default function HomeGardenDemo() {
           </Reveal>
 
           <LiveRedesign />
-      <GardenDivider topColor="#fdf8f0" bottomColor="#f5f0e5" />
         </div>
       </section>
 
