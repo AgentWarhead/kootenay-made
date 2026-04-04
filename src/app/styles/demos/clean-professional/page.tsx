@@ -1062,7 +1062,7 @@ export default function CleanProfessionalDemo() {
       >
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
           <span className="text-white/90 text-sm text-center sm:text-left">
-            Sample design by <strong>Kootenay Made Digital</strong> &mdash; <span className="text-white/70 text-xs">Your website should look this good</span>
+            Sample design by <strong>Kootenay Made Digital</strong>
           </span>
           <Link
             href="/contact?style=clean-professional"

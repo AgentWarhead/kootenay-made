@@ -1743,8 +1743,6 @@ export default function HomeGardenDemo() {
               Sample design by{' '}
               <strong style={{ color: C.cream }}>Kootenay Made Digital</strong>
             </span>
-            <a href="tel:2505550000" className="hidden sm:inline text-sm font-bold" style={{ color: C.green }}>
-            </a>
           </div>
           <Link
             href="/contact?style=home-garden"

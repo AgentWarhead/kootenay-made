@@ -1050,8 +1050,6 @@ export default function SleekDarkDemo() {
             <span className="text-sm text-center sm:text-left" style={{ color: 'rgba(245,240,232,0.7)' }}>
               Sample design by <strong style={{ color: '#f5f0e8' }}>Kootenay Made Digital</strong>
             </span>
-            <a href="tel:2505550000" className="text-sm font-bold hidden sm:inline" style={{ color: '#c9a96e' }}>
-            </a>
           </div>
           <Link
             href="/contact?style=sleek-dark"

@@ -1160,8 +1160,6 @@ export default function RusticCraftDemo() {
                 Kootenay Made Digital
               </span>
             </span>
-            <a href="tel:2505550000" className="hidden sm:inline text-xs font-bold" style={{ color: AMBER }}>
-            </a>
           </div>
           <Link
             href="/contact?style=rustic-craft"

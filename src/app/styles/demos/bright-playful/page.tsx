@@ -1027,8 +1027,6 @@ export default function BrightPlayfulDemo() {
             <span className="text-sm text-center sm:text-left" style={{ color: '#666' }}>
               Sample design by <strong style={{ color: '#333' }}>Kootenay Made Digital</strong>
             </span>
-            <a href="tel:2505550000" className="hidden sm:inline text-sm font-extrabold" style={{ color: CORAL }}>
-            </a>
           </div>
           <Link
             href="/contact?style=bright-playful"

@@ -1139,7 +1139,6 @@ export default function EducationNonprofitPage() {
         <p className="text-xs md:text-sm" style={{ color: '#64748b' }}>
           Sample design by{' '}
           <span style={{ color: '#3b82f6', fontWeight: 600 }}>Kootenay Made Digital</span>
-          <span className="hidden sm:inline" style={{ color: '#94a3b8' }}> &mdash; Get a website for your organisation</span>
         </p>
         <Link
           href="/contact?style=education-nonprofit"
