@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useCallback } from 'react';
+import Link from 'next/link';
 import ScrollReveal from '@/components/ScrollReveal';
 import Breadcrumb from '@/components/Breadcrumb';
 import MountainDivider from '@/components/MountainDivider';
@@ -23,6 +24,7 @@ import {
   FileCheck,
   ClipboardList,
   ArrowDown,
+  ArrowRight,
   Gauge,
   Eye,
 } from 'lucide-react';
@@ -41,12 +43,8 @@ const faqs = [
     a: 'Absolutely. We\'ll review your current online presence — Google Business Profile, social media, competitor landscape — and give you a roadmap for getting started the right way.',
   },
   {
-    q: 'How is this different from the quick scan above?',
-    a: 'The quick scan checks 4 technical metrics. The full audit goes way deeper — we analyze your design, brand, competitors, content, trust signals, and local SEO. You get a complete PDF report with a prioritized action plan, not just numbers.',
-  },
-  {
-    q: 'How long does the audit take?',
-    a: 'We deliver your branded PDF report within 48 hours of your request.',
+    q: 'What do the scores mean?',
+    a: 'Your scan checks speed, SEO, accessibility, and best practices using Google\'s own Lighthouse tools. If any score is below 90, there\'s room to improve — and we can show you exactly how.',
   },
   {
     q: 'Will you try to sell me something?',
@@ -435,17 +433,15 @@ function URLScanner({ onScrollToForm }: { onScrollToForm: () => void }) {
                   className="border-t border-white/10 pt-6"
                 >
                   <p className="text-dark-text-muted text-sm text-center mb-4 leading-relaxed">
-                    This is just the surface. Your full audit covers design quality, competitor analysis, local SEO, trust signals, and a prioritized action plan —{' '}
-                    <span className="text-cream font-semibold">completely free.</span>
+                    Want to fix these scores? Brett can walk you through exactly what a new site would do for your business —{' '}
+                    <span className="text-cream font-semibold">free 15-minute call.</span>
                   </p>
-                  <motion.button
-                    onClick={onScrollToForm}
-                    animate={{ boxShadow: ['0 0 0px 0px #C1781700', '0 0 18px 4px #C1781755', '0 0 0px 0px #C1781700'] }}
-                    transition={{ repeat: Infinity, duration: 2.4, ease: 'easeInOut', delay: 1.2 }}
+                  <Link
+                    href="/contact"
                     className="w-full bg-copper hover:bg-copper-light text-white font-semibold px-6 py-3.5 rounded-lg transition-colors duration-200 hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2"
                   >
-                    Get My Full Audit <ArrowDown size={16} />
-                  </motion.button>
+                    Talk to Brett <ArrowRight size={16} />
+                  </Link>
                 </motion.div>
               </motion.div>
             )}
@@ -540,9 +536,9 @@ function AuditTierSection() {
 
 function WhatHappensNext() {
   const steps = [
-    { icon: '📝', num: '01', title: 'Submit your info below', desc: 'Takes 30 seconds. Just your name, business, and email.' },
-    { icon: '🔍', num: '02', title: 'Brett runs your audit', desc: 'Within 48 hours — thorough, personal, and specific to your business.' },
-    { icon: '📊', num: '03', title: 'Get your branded report', desc: 'No strings attached. The insights are yours to keep, forever.' },
+    { icon: '🔗', num: '01', title: 'Enter your website URL', desc: 'Takes 30 seconds. No email required — just paste your link.' },
+    { icon: '📊', num: '02', title: 'See your scores instantly', desc: 'Speed, SEO, accessibility, and best practices — powered by Google Lighthouse.' },
+    { icon: '📞', num: '03', title: 'Want help? Book a free call', desc: 'Brett walks you through the results and shows you what\'s possible.' },
   ];
 
   return (
@@ -703,7 +699,7 @@ export default function AuditPage() {
               Get your free audit
             </h2>
             <p className="text-dark-text-muted text-center mb-10">
-              Fill this out in 30 seconds. Brett will run your audit within 48 hours.
+              Paste your URL above and get your scores in 30 seconds. Want to chat about the results? Reach out anytime.
             </p>
 
             <AnimatePresence mode="wait">
@@ -774,7 +770,7 @@ export default function AuditPage() {
                   <div className="pt-2 border-t border-white/10 space-y-2">
                     {[
                       '100% free — no credit card, no catch',
-                      'Your report arrives within 48 hours',
+                      'Your scores are ready above',
                       'Zero obligation — the insights are yours to keep',
                     ].map((item, i) => (
                       <div key={i} className="flex items-center gap-2">

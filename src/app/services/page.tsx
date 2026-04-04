@@ -107,7 +107,7 @@ const packages = [
       'See what your competitors are doing that you\'re not',
       'Mobile & speed performance check',
       'Trust signals audit — does your site make people feel safe?',
-      'Branded PDF report with a prioritized action plan',
+      'Instant scores for speed, SEO, accessibility & best practices',
     ],
     featuresFull: [
       'Custom AI audit of your design & brand confidence',
@@ -115,10 +115,10 @@ const packages = [
       'See what your competitors are doing that you\'re not',
       'Mobile & speed performance check',
       'Trust signals audit — does your site make people feel safe?',
-      'Branded PDF report with a prioritized action plan',
+      'Instant scores for speed, SEO, accessibility & best practices',
     ],
     perfectFor: 'Any Kootenay business curious about where they stand online.',
-    delivery: 'Report in 48 hours',
+    delivery: 'Instant results',
     tier: 'free',
     popular: false,
   },
@@ -745,7 +745,7 @@ function ImmersivePackageShowcase() {
                 The Audit — Free Online Presence Report
               </h3>
               <p className="text-text-secondary text-sm mt-1 max-w-md">
-                Every great website starts with an honest look. Get a branded PDF with exactly what&apos;s working, what&apos;s not, and what to fix first. No pressure. Just truth.
+                Every great website starts with an honest look. Get your speed, SEO, and accessibility scores in 30 seconds — then talk to Brett about what&apos;s next.
               </p>
             </div>
           </div>

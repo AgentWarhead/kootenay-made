@@ -473,7 +473,7 @@ export default function ContactPage() {
                   <div className="mt-10 p-6 rounded-2xl bg-white border border-cream-border">
                     <h3 className="font-[family-name:var(--font-satoshi)] text-lg font-bold text-slate mb-2">Not sure where to start?</h3>
                     <p className="text-text-secondary text-sm leading-relaxed mb-4">
-                      Request a free website audit — we&apos;ll review your site and send you an honest, actionable report within 48 hours. No strings attached.
+                      Run a free instant website scan — see your speed, SEO, and accessibility scores in 30 seconds. No email required.
                     </p>
                     <Link
                       href="/audit"

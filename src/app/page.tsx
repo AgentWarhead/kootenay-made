@@ -619,7 +619,7 @@ export default function Home() {
               </div>
             </ScrollReveal>
 
-            {/* Card 2 — Brett Runs Your Audit */}
+            {/* Card 2 — See What's Holding You Back */}
             <ScrollReveal delay={0.15}>
               <div
                 className="relative ml-auto mr-0 max-w-2xl w-full rounded-2xl p-8 sm:p-10 bg-white/60 backdrop-blur-sm border border-cream-border/50 shadow-sm hover:shadow-md transition-all duration-300 group"
@@ -629,18 +629,18 @@ export default function Home() {
               >
                 <span className="absolute top-4 right-6 text-6xl font-black text-copper opacity-[0.08] font-[family-name:var(--font-satoshi)] select-none leading-none">2</span>
                 <div className="relative z-10">
-                  <h3 className="font-[family-name:var(--font-satoshi)] text-2xl font-bold text-slate mb-3">Want the Full Picture? Leave Your Info</h3>
+                  <h3 className="font-[family-name:var(--font-satoshi)] text-2xl font-bold text-slate mb-3">See What&apos;s Holding You Back</h3>
                   <p className="text-text-secondary text-base leading-relaxed mb-5 font-[family-name:var(--font-general)]">
-                    Want more than scores? Leave your name and email, and within 48 hours Brett personally reviews your online presence — competitors, quick wins, and everything the scan can&apos;t see.
+                    Your scores show exactly where your site is strong and where it&apos;s losing you customers — speed, search visibility, accessibility, and more. No guesswork.
                   </p>
                   <span className="text-xs text-text-secondary bg-cream-dark/80 px-3 py-1.5 rounded-full inline-flex items-center gap-1.5">
-                    <User size={13} /> AI-powered analysis, personally reviewed by Brett.
+                    <User size={13} /> Real data from Google&apos;s own testing tools.
                   </span>
                 </div>
               </div>
             </ScrollReveal>
 
-            {/* Card 3 — Get Your Game Plan */}
+            {/* Card 3 — Talk to Brett */}
             <ScrollReveal delay={0.3}>
               <div
                 className="relative ml-0 mr-auto max-w-2xl w-full rounded-2xl p-8 sm:p-10 bg-white/60 backdrop-blur-sm border border-cream-border/50 shadow-sm hover:shadow-md transition-all duration-300 group"
@@ -650,12 +650,12 @@ export default function Home() {
               >
                 <span className="absolute top-4 right-6 text-6xl font-black text-copper opacity-[0.08] font-[family-name:var(--font-satoshi)] select-none leading-none">3</span>
                 <div className="relative z-10">
-                  <h3 className="font-[family-name:var(--font-satoshi)] text-2xl font-bold text-slate mb-3">Get Your Branded Report</h3>
+                  <h3 className="font-[family-name:var(--font-satoshi)] text-2xl font-bold text-slate mb-3">Like What You See? Let&apos;s Talk</h3>
                   <p className="text-text-secondary text-base leading-relaxed mb-5 font-[family-name:var(--font-general)]">
-                    A custom PDF with your scores, what&apos;s working, what&apos;s not, and exactly what to do next. Yours to keep — whether you hire us or not.
+                    Book a free 15-minute call with Brett. He&apos;ll walk you through your results and show you exactly what a new site could do for your business. Zero pressure.
                   </p>
                   <span className="text-xs text-text-secondary bg-cream-dark/80 px-3 py-1.5 rounded-full inline-flex items-center gap-1.5">
-                    <Gift size={13} /> The report is yours. No strings attached.
+                    <Gift size={13} /> No obligation. Just an honest conversation.
                   </span>
                 </div>
               </div>
@@ -686,7 +686,7 @@ export default function Home() {
               Let&apos;s grab a coffee and talk about your business.
             </BalancedText>
             <p className="mt-6 text-dark-text-muted text-lg max-w-xl mx-auto leading-relaxed">
-              Run a free instant scan in 30 seconds — or leave your info and get a full branded audit from Brett within 48 hours. Either way, zero pressure and zero cost.
+              Find out how your website stacks up in 30 seconds — free. If the results surprise you, Brett&apos;s a phone call away.
             </p>
             <div className="mt-10">
               <RippleButton href="/audit">
