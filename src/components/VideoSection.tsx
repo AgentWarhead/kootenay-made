@@ -97,9 +97,9 @@ export default function VideoSection() {
         {/* Sub-text */}
         <motion.p
           {...fadeUp(0.4)}
-          className="mt-4 text-sm text-cream/60"
+          className="mt-6 text-base sm:text-lg text-cream/80 font-medium tracking-wide"
         >
-          We serve all of BC — but the Kootenays are home.
+          Built in the Kootenays. Trusted worldwide.
         </motion.p>
       </div>
     </section>
