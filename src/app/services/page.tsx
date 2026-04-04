@@ -1010,7 +1010,7 @@ function AIReplacesSection() {
     >
       <div className="p-8 sm:p-10">
         <div className="flex items-center gap-3 mb-2">
-          <span className="text-2xl">⏰</span>
+          <Lightning size={24} weight="duotone" className="text-copper" />
           <p className="text-copper font-semibold text-sm tracking-wider uppercase">Sound Familiar?</p>
         </div>
         <h3 className="font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl font-bold text-white mb-2">
@@ -1201,7 +1201,7 @@ function AIPackageCard({ variant }: { variant: 'advantage' | 'assistant' }) {
               <p className="text-xs text-text-secondary italic border-t border-cream-border pt-3">
                 <span className="font-semibold not-italic text-slate">Perfect for:</span> {data.perfectFor}
               </p>
-              <p className="text-xs text-copper font-medium mt-2">⏱ {data.delivery}</p>
+              <p className="text-xs text-copper font-medium mt-2">{data.delivery}</p>
             </motion.div>
           )}
           {activeTab === 'features' && (
@@ -1218,7 +1218,7 @@ function AIPackageCard({ variant }: { variant: 'advantage' | 'assistant' }) {
           )}
           {activeTab === 'tech' && (
             <motion.div key="tech" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}>
-              <p className="text-xs text-copper font-semibold uppercase tracking-wider mb-3">Under the Hood 🔧</p>
+              <p className="text-xs text-copper font-semibold uppercase tracking-wider mb-3">Under the Hood</p>
               <ul className="space-y-2">
                 {data.techDetails.map(f => (
                   <li key={f} className="flex items-start gap-2 text-sm">
@@ -1379,7 +1379,7 @@ function PackageCard({ pkg, index }: { pkg: typeof packages[number]; index: numb
                 </div>
               )}
 
-              <p className="text-xs text-copper font-medium mb-4">⏱ {pkg.delivery}</p>
+              <p className="text-xs text-copper font-medium mb-4">{pkg.delivery}</p>
 
               <div className="flex flex-col gap-2 mt-auto">
                 <Link
@@ -1434,7 +1434,7 @@ function PackageCard({ pkg, index }: { pkg: typeof packages[number]; index: numb
               <CardHeader />
 
               {/* Label */}
-              <p className="text-xs font-bold uppercase tracking-wider mb-2" style={{ color: '#C17817' }}>Under the Hood 🔧</p>
+              <p className="text-xs font-bold uppercase tracking-wider mb-2" style={{ color: '#C17817' }}>Under the Hood</p>
 
               <ul className="space-y-2 mb-4 flex-1">
                 {pkg.featuresFull.map((f) => (
@@ -1448,7 +1448,7 @@ function PackageCard({ pkg, index }: { pkg: typeof packages[number]; index: numb
               <p className="text-xs text-text-secondary italic mb-3 border-t pt-4" style={{ borderColor: 'rgba(193,120,23,0.2)' }}>
                 <span className="font-semibold not-italic text-slate">Perfect for:</span> {pkg.perfectFor}
               </p>
-              <p className="text-xs font-medium mb-4" style={{ color: '#C17817' }}>⏱ {pkg.delivery}</p>
+              <p className="text-xs font-medium mb-4" style={{ color: '#C17817' }}>{pkg.delivery}</p>
 
               <div className="flex flex-col gap-2 mt-auto">
                 <Link
@@ -1566,7 +1566,7 @@ function NeighboursDashboard() {
               className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-6"
               style={{ background: 'rgba(193,120,23,0.15)', border: '2px solid rgba(193,120,23,0.3)' }}
             >
-              <span className="text-3xl">🏔️</span>
+              <Mountains size={28} weight="duotone" className="text-copper" />
             </div>
             <span className="block text-copper font-semibold text-xs tracking-[0.2em] uppercase mb-3">
               Included With Every Package
@@ -1695,7 +1695,7 @@ export default function ServicesPage() {
               transition={{ duration: 0.6, ease: 'easeOut' }}
             >
               <p className="text-amber-100/80 font-semibold text-sm tracking-[0.25em] uppercase mb-4">
-                🌲 For West Kootenay Businesses
+                <Plant size={16} weight="duotone" className="inline-block mr-1" /> For West Kootenay Businesses
               </p>
               <h2 className="font-[family-name:var(--font-satoshi)] text-5xl sm:text-6xl md:text-7xl font-bold text-white mb-6 leading-tight"
                 style={{ textShadow: '0 2px 20px rgba(0,0,0,0.25)' }}>
@@ -1846,7 +1846,7 @@ export default function ServicesPage() {
           <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
             <div className="flex-1">
               <div className="flex items-center gap-3 mb-3">
-                <span className="text-2xl">⚡</span>
+                <Lightning size={24} weight="duotone" />
                 <span className="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full"
                   style={{ background: 'rgba(0,229,255,0.1)', border: '1px solid rgba(0,229,255,0.25)', color: '#00E5FF' }}>
                   Available With Any Package
@@ -1885,7 +1885,7 @@ export default function ServicesPage() {
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <ScrollReveal>
             <div className="inline-flex items-center gap-2 rounded-full px-5 py-2 mb-6" style={{ background: 'rgba(193,120,23,0.1)', border: '1px solid rgba(193,120,23,0.25)' }}>
-              <span className="text-copper text-sm font-semibold">📅 Currently booking for May 2026</span>
+              <span className="text-copper text-sm font-semibold flex items-center gap-1.5"><CalendarBlank size={16} weight="duotone" /> Currently booking for May 2026</span>
             </div>
             <p className="text-slate font-[family-name:var(--font-satoshi)] text-lg font-semibold mb-3">
               We take on 3–4 projects per month to ensure every client gets our full attention.
@@ -1894,7 +1894,7 @@ export default function ServicesPage() {
               Split any package into 2–3 payments — no interest, no fees.
             </p>
             <div className="inline-flex items-center gap-2 rounded-xl px-6 py-3" style={{ background: 'rgba(45,106,79,0.08)', border: '1px solid rgba(45,106,79,0.2)' }}>
-              <span className="text-lg">🏔️</span>
+              <Mountains size={20} weight="duotone" className="text-forest" />
               <span className="text-forest font-[family-name:var(--font-satoshi)] font-semibold text-sm">
                 Kootenay Neighbours Rate: 10% off any package for West Kootenay businesses
               </span>
