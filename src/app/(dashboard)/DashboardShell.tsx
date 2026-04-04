@@ -144,14 +144,15 @@ export default function DashboardShell({ children }: { children: React.ReactNode
         </div>
 
         <div className="ml-auto flex items-center gap-2">
-          {/* Notification bell */}
-          <button
+          {/* Notification bell — links to support/tickets */}
+          <Link
+            href="/dashboard/support"
             className="relative w-9 h-9 flex items-center justify-center rounded-lg transition-colors hover:bg-black/5"
             style={{ color: 'var(--color-dash-text-muted)' }}
-            aria-label="Notifications"
+            aria-label="Support & Notifications"
           >
             <Bell className="w-5 h-5" />
-          </button>
+          </Link>
 
           {/* Avatar */}
           <Link
