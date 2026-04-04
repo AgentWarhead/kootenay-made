@@ -143,7 +143,7 @@ function LiveRedesign() {
                 <div className="absolute inset-0 opacity-[0.12]" style={{ background: 'linear-gradient(135deg, #7d9a6b 0%, #d4a574 50%, #f0e0c0 100%)' }} />
                 <div className="relative z-10">
                   <p className="text-xs uppercase tracking-wide mb-2 sm:mb-4" style={{ fontFamily: 'Arial, sans-serif', color: '#666', letterSpacing: '0.15em' }}>&#9733; Welcome to Our Website &#9733;</p>
-                  <h2 className="text-xl sm:text-3xl md:text-4xl leading-tight mb-2 sm:mb-3" style={{ fontFamily: 'Georgia, serif', color: '#3a3a3a', fontWeight: 700, textShadow: '0 1px 0 rgba(255,255,255,0.5)' }}>Mountain Flow Wellness</h2>
+                  <h2 className="text-xl sm:text-2xl md:text-4xl leading-tight mb-2 sm:mb-3" style={{ fontFamily: 'Georgia, serif', color: '#3a3a3a', fontWeight: 700, textShadow: '0 1px 0 rgba(255,255,255,0.5)' }}>Mountain Flow Wellness</h2>
                   <p className="text-sm sm:text-lg mb-1 sm:mb-2" style={{ fontFamily: 'Georgia, serif', color: '#666', fontStyle: 'italic' }}>&ldquo;Yoga, Massage, and Holistic Healing. Namaste!&rdquo;</p>
                   <p className="text-xs sm:text-sm mb-4 sm:mb-6" style={{ fontFamily: 'Arial, sans-serif', color: '#888' }}>Yoga &bull; Massage &bull; Reiki &bull; Meditation &bull; Sound Healing</p>
                   <div className="flex justify-center gap-2 sm:gap-3 mb-4 sm:mb-6 flex-wrap">
@@ -439,7 +439,7 @@ export default function WarmNaturalDemo() {
         <section id="schedule" className="py-20 md:py-28 px-6" style={{  }}>
           <div className="max-w-6xl mx-auto">
             <Reveal className="text-center mb-4">
-              <h2 className={`${"heading-font"} text-3xl md:text-4xl font-bold`} style={{ color: '#4a3728' }}>This Week&rsquo;s Classes</h2>
+              <h2 className={`${"heading-font"} text-2xl md:text-4xl font-bold`} style={{ color: '#4a3728' }}>This Week&rsquo;s Classes</h2>
             </Reveal>
             <Reveal delay={0.05} className="text-center mb-12">
               <p className="text-sm max-w-md mx-auto" style={{ color: '#4a3728', opacity: 0.6 }}>
@@ -490,7 +490,7 @@ export default function WarmNaturalDemo() {
         <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#f5f0e8' }}>
           <div className="max-w-4xl mx-auto">
             <Reveal className="text-center mb-4">
-              <h2 className={`${"heading-font"} text-3xl md:text-4xl font-bold`} style={{ color: '#4a3728' }}>Your First Visit</h2>
+              <h2 className={`${"heading-font"} text-2xl md:text-4xl font-bold`} style={{ color: '#4a3728' }}>Your First Visit</h2>
             </Reveal>
             <Reveal delay={0.05} className="text-center mb-14">
               <p className="text-sm max-w-md mx-auto" style={{ color: '#4a3728', opacity: 0.6 }}>
@@ -529,7 +529,7 @@ export default function WarmNaturalDemo() {
         <section className="py-20 md:py-28 px-6" style={{  }}>
           <div className="max-w-5xl mx-auto">
             <Reveal className="text-center mb-4">
-              <h2 className={`${"heading-font"} text-3xl md:text-4xl font-bold`} style={{ color: '#4a3728' }}>Choose Your Practice</h2>
+              <h2 className={`${"heading-font"} text-2xl md:text-4xl font-bold`} style={{ color: '#4a3728' }}>Choose Your Practice</h2>
             </Reveal>
             <Reveal delay={0.05} className="text-center mb-14">
               <p className="text-sm max-w-md mx-auto" style={{ color: '#4a3728', opacity: 0.6 }}>Flexible options so you can show up whenever you need it most.</p>
@@ -579,7 +579,7 @@ export default function WarmNaturalDemo() {
         <div style={{ height: '60px', background: 'linear-gradient(to bottom, #faf6f0, #f5f0e8)' }} />
         <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#f5f0e8' }}>
           <div className="max-w-4xl mx-auto">
-            <h2 className={`${"heading-font"} text-3xl md:text-4xl font-bold text-center mb-4`} style={{ color: '#4a3728' }}>How It Works</h2>
+            <h2 className={`${"heading-font"} text-2xl md:text-4xl font-bold text-center mb-4`} style={{ color: '#4a3728' }}>How It Works</h2>
             <p className="text-center mb-16 max-w-md mx-auto text-sm" style={{ color: '#4a3728', opacity: 0.6 }}>Simple, gentle, no pressure. Just like your practice.</p>
             <div className="grid md:grid-cols-3 gap-10">
               {[
@@ -606,7 +606,7 @@ export default function WarmNaturalDemo() {
         <section id="about" className="py-20 md:py-28 px-6" style={{  }}>
           <div className="max-w-5xl mx-auto">
             <Reveal className="text-center mb-4">
-              <h2 className={`${"heading-font"} text-3xl md:text-4xl font-bold`} style={{ color: '#4a3728' }}>Meet Your Teachers</h2>
+              <h2 className={`${"heading-font"} text-2xl md:text-4xl font-bold`} style={{ color: '#4a3728' }}>Meet Your Teachers</h2>
             </Reveal>
             <Reveal delay={0.05} className="text-center mb-14">
               <p className="text-sm max-w-md mx-auto" style={{ color: '#4a3728', opacity: 0.6 }}>
@@ -664,7 +664,7 @@ export default function WarmNaturalDemo() {
         <section className="py-20 md:py-28 px-6" style={{  }}>
           <div className="max-w-5xl mx-auto">
             <Reveal>
-              <h2 className={`${"heading-font"} text-3xl md:text-4xl font-bold text-center mb-4`} style={{ color: '#4a3728' }}>Watch Your Website Transform</h2>
+              <h2 className={`${"heading-font"} text-2xl md:text-4xl font-bold text-center mb-4`} style={{ color: '#4a3728' }}>Watch Your Website Transform</h2>
               <p className="text-center mb-12 text-sm" style={{ color: '#4a3728', opacity: 0.6 }}>From dated to designed — in real time</p>
             </Reveal>
             <LiveRedesign />
@@ -675,7 +675,7 @@ export default function WarmNaturalDemo() {
         <div style={{ height: '60px', background: 'linear-gradient(to bottom, #faf6f0, #f5f0e8)' }} />
         <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#f5f0e8' }}>
           <div className="max-w-2xl mx-auto">
-            <h2 className={`${"heading-font"} text-3xl md:text-4xl font-bold text-center mb-4`} style={{ color: '#4a3728' }}>Questions &amp; Answers</h2>
+            <h2 className={`${"heading-font"} text-2xl md:text-4xl font-bold text-center mb-4`} style={{ color: '#4a3728' }}>Questions &amp; Answers</h2>
             <p className="text-center mb-12 text-sm" style={{ color: '#4a3728', opacity: 0.6 }}>Everything you need to know before your first class.</p>
             <FAQAccordion items={[
               { q: 'Do I need to book in advance?', a: 'We recommend booking online to guarantee your spot — popular classes fill up. Drop-ins are also welcome if space is available.' },
@@ -692,7 +692,7 @@ export default function WarmNaturalDemo() {
         <div style={{ height: '60px', background: 'linear-gradient(to bottom, #f5f0e8, #faf6f0)' }} />
         <section id="contact" className="py-20 md:py-28 px-6" style={{  }}>
           <div className="max-w-5xl mx-auto">
-            <h2 className={`${"heading-font"} text-3xl md:text-4xl font-bold text-center mb-16`} style={{ color: '#4a3728' }}>Get In Touch</h2>
+            <h2 className={`${"heading-font"} text-2xl md:text-4xl font-bold text-center mb-16`} style={{ color: '#4a3728' }}>Get In Touch</h2>
             <div className="grid md:grid-cols-2 gap-12 md:gap-16">
               <div>
                 <h3 className={`${"heading-font"} text-xl font-bold mb-6`} style={{ color: '#4a3728' }}>Contact Details</h3>
