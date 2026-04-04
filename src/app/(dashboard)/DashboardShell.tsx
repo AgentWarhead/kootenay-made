@@ -84,13 +84,20 @@ export default function DashboardShell({ children }: { children: React.ReactNode
     >
       {/* Top bar */}
       <header
-        className="fixed top-0 left-0 right-0 z-40 flex items-center gap-3 px-4 border-b"
+        className="fixed top-0 right-0 z-40 flex items-center gap-3 px-4 border-b transition-all duration-200"
         style={{
           height: 'var(--topbar-height)',
+          left: collapsed ? 'var(--sidebar-collapsed-width)' : 'var(--sidebar-width)',
           backgroundColor: 'var(--color-dash-sidebar)',
           borderColor: 'var(--color-dash-sidebar-border)',
         }}
       >
+        {/* Mobile: topbar spans full width */}
+        <style>{`
+          @media (max-width: 767px) {
+            header { left: 0 !important; }
+          }
+        `}</style>
         {/* Mobile menu button */}
         <button
           className="md:hidden flex items-center justify-center w-10 h-10 rounded-lg transition-colors"
@@ -284,18 +291,16 @@ export default function DashboardShell({ children }: { children: React.ReactNode
         className="flex-1 transition-all duration-200 pb-20 md:pb-0"
         style={{
           marginTop: 'var(--topbar-height)',
-          marginLeft: 0,
+          marginLeft: collapsed ? 'var(--sidebar-collapsed-width)' : 'var(--sidebar-width)',
         }}
       >
-        {/* Offset for sidebar on md+ */}
+        {/* Hide sidebar margin on mobile */}
         <style>{`
-          @media (min-width: 768px) {
-            main {
-              margin-left: ${collapsed ? 'var(--sidebar-collapsed-width)' : 'var(--sidebar-width)'};
-            }
+          @media (max-width: 767px) {
+            main { margin-left: 0 !important; }
           }
         `}</style>
-        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 py-6">
+        <div className="w-full max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-6">
           {children}
         </div>
       </main>

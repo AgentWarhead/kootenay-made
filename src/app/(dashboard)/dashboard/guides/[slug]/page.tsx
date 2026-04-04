@@ -20,8 +20,7 @@ interface Guide {
   published: boolean
 }
 
-const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://mimmncqzbfepzndlxdmd.supabase.co'
-const SUPABASE_ANON = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
+import { createClient } from '@/lib/supabase/client'
 
 const DIFFICULTY_LABELS: Record<string, { label: string; icon: string; color: string }> = {
   quick: { label: 'Quick Read', icon: '⚡', color: '#C87941' },
@@ -192,35 +191,55 @@ export default function GuideReaderPage({ params }: { params: Promise<{ slug: st
   const [markingComplete, setMarkingComplete] = useState(false)
   const [tocOpen, setTocOpen] = useState(false)
   const [activeHeading, setActiveHeading] = useState('')
+  const [userId, setUserId] = useState<string | null>(null)
+  const [guideId, setGuideId] = useState<string | null>(null)
   const contentRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     async function fetchGuide() {
       try {
-        const res = await fetch(
-          `${SUPABASE_URL}/rest/v1/guides?slug=eq.${slug}&select=*&limit=1`,
-          {
-            headers: {
-              apikey: SUPABASE_ANON,
-              Authorization: `Bearer ${SUPABASE_ANON}`,
-            },
-          }
-        )
-        if (res.ok) {
-          const data = await res.json()
-          if (data.length > 0) {
-            setGuide(data[0])
-            // Fetch related guides
-            const rel = await fetch(
-              `${SUPABASE_URL}/rest/v1/guides?select=*&published=eq.true&slug=neq.${slug}&trailhead_milestone=eq.${data[0].trailhead_milestone}&limit=3`,
-              {
-                headers: {
-                  apikey: SUPABASE_ANON,
-                  Authorization: `Bearer ${SUPABASE_ANON}`,
-                },
-              }
-            )
-            if (rel.ok) setRelated(await rel.json())
+        const supabase = createClient()
+
+        const { data: { user } } = await supabase.auth.getUser()
+        if (user) setUserId(user.id)
+
+        const { data: guideData } = await supabase
+          .from('guides')
+          .select('*')
+          .eq('slug', slug)
+          .single()
+
+        if (guideData) {
+          setGuide(guideData as any)
+          setGuideId((guideData as any).id)
+
+          // Fetch related guides in same milestone
+          const { data: relData } = await supabase
+            .from('guides')
+            .select('*')
+            .eq('published', true)
+            .neq('slug', slug)
+            .eq('trailhead_milestone', guideData.trailhead_milestone)
+            .limit(3)
+          setRelated(relData ?? [])
+
+          // Check completion status
+          if (user) {
+            const { data: progressData } = await supabase
+              .from('user_guide_progress')
+              .select('completed')
+              .eq('user_id', user.id)
+              .eq('guide_id', guideData.id)
+              .single()
+            if (progressData?.completed) setCompleted(true)
+
+            // Auto-create progress entry if doesn't exist
+            await supabase
+              .from('user_guide_progress')
+              .upsert(
+                { user_id: user.id, guide_id: guideData.id, progress_percent: 0, completed: false },
+                { onConflict: 'user_id,guide_id', ignoreDuplicates: true }
+              )
           }
         }
       } catch (e) {
@@ -250,9 +269,21 @@ export default function GuideReaderPage({ params }: { params: Promise<{ slug: st
   }, [guide])
 
   async function markComplete() {
+    if (!userId || !guideId) return
     setMarkingComplete(true)
-    // Would call Supabase here with user session
-    await new Promise(r => setTimeout(r, 800))
+    const supabase = createClient()
+    await supabase
+      .from('user_guide_progress')
+      .upsert(
+        {
+          user_id: userId,
+          guide_id: guideId,
+          completed: true,
+          progress_percent: 100,
+          completed_at: new Date().toISOString(),
+        },
+        { onConflict: 'user_id,guide_id' }
+      )
     setCompleted(true)
     setMarkingComplete(false)
   }

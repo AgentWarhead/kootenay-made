@@ -2,8 +2,9 @@
 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { BookOpen, Zap, Brain, CheckCircle, ArrowRight, Clock, ChevronRight } from 'lucide-react'
+import { BookOpen, CheckCircle, ArrowRight, Clock } from 'lucide-react'
 import Link from 'next/link'
+import { createClient } from '@/lib/supabase/client'
 
 interface Guide {
   id: string
@@ -31,9 +32,6 @@ const DIFFICULTY_LABELS: Record<string, { label: string; icon: string; color: st
   standard: { label: 'Standard', icon: '📖', color: '#4A7C8E' },
   advanced: { label: 'Advanced', icon: '🧠', color: '#7B5EA7' },
 }
-
-const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://mimmncqzbfepzndlxdmd.supabase.co'
-const SUPABASE_ANON = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
 
 function GuideCard({ guide, completed }: { guide: Guide; completed?: boolean }) {
   const diff = DIFFICULTY_LABELS[guide.difficulty] ?? DIFFICULTY_LABELS.quick
@@ -128,23 +126,35 @@ type TabId = typeof TABS[number]['id']
 export default function GuidesPage() {
   const [activeTab, setActiveTab] = useState<TabId>('trail')
   const [guides, setGuides] = useState<Guide[]>([])
+  const [completedIds, setCompletedIds] = useState<Set<string>>(new Set())
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    async function fetchGuides() {
+    async function fetchData() {
       try {
-        const res = await fetch(
-          `${SUPABASE_URL}/rest/v1/guides?select=*&published=eq.true&order=trailhead_milestone.asc,trailhead_order.asc`,
-          {
-            headers: {
-              apikey: SUPABASE_ANON,
-              Authorization: `Bearer ${SUPABASE_ANON}`,
-            },
-          }
-        )
-        if (res.ok) {
-          const data = await res.json()
-          setGuides(data)
+        const supabase = createClient()
+
+        // Fetch guides and user progress in parallel
+        const [{ data: guidesData }, { data: { user } }] = await Promise.all([
+          supabase
+            .from('guides')
+            .select('*')
+            .eq('published', true)
+            .order('trailhead_milestone')
+            .order('trailhead_order'),
+          supabase.auth.getUser(),
+        ])
+
+        setGuides(guidesData ?? [])
+
+        if (user) {
+          const { data: progressData } = await supabase
+            .from('user_guide_progress')
+            .select('guide_id')
+            .eq('user_id', user.id)
+            .eq('completed', true)
+
+          setCompletedIds(new Set((progressData ?? []).map((p: { guide_id: string }) => p.guide_id)))
         }
       } catch (e) {
         console.error('Failed to fetch guides', e)
@@ -152,7 +162,7 @@ export default function GuidesPage() {
         setLoading(false)
       }
     }
-    fetchGuides()
+    fetchData()
   }, [])
 
   const trailGuides = guides.filter(g => g.category === 'trailhead')
@@ -248,7 +258,11 @@ export default function GuidesPage() {
               className="space-y-8"
             >
               {trailGuides.length === 0 ? (
-                <EmptyState icon="🗺️" title="Trail guides loading..." desc="Brett is writing the trail guides now. Check back shortly." />
+                <EmptyState
+                  icon="🗺️"
+                  title="Every trail starts with a single step."
+                  desc="Pick your first guide below — Brett's writing the trail guides now. Check back shortly."
+                />
               ) : (
                 Object.entries(byMilestone)
                   .sort(([a], [b]) => Number(a) - Number(b))
@@ -273,7 +287,7 @@ export default function GuidesPage() {
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: i * 0.07 }}
                           >
-                            <GuideCard guide={guide} completed={guide.trailhead_milestone === 1} />
+                            <GuideCard guide={guide} completed={completedIds.has(guide.id)} />
                           </motion.div>
                         ))}
                       </div>
@@ -291,7 +305,7 @@ export default function GuidesPage() {
                 />
               ) : (
                 <div className="space-y-3">
-                  {quickGuides.map(g => <GuideCard key={g.id} guide={g} />)}
+                  {quickGuides.map(g => <GuideCard key={g.id} guide={g} completed={completedIds.has(g.id)} />)}
                 </div>
               )}
             </motion.div>
@@ -305,7 +319,7 @@ export default function GuidesPage() {
                 />
               ) : (
                 <div className="space-y-3">
-                  {deepGuides.map(g => <GuideCard key={g.id} guide={g} />)}
+                  {deepGuides.map(g => <GuideCard key={g.id} guide={g} completed={completedIds.has(g.id)} />)}
                 </div>
               )}
             </motion.div>

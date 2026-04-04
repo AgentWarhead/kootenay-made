@@ -7,11 +7,13 @@ import {
   CheckCircle, Lock, ChevronDown, BookOpen 
 } from 'lucide-react'
 import Link from 'next/link'
+import { createClient } from '@/lib/supabase/client'
 
 interface Guide {
+  id: string
   title: string
   slug: string
-  completed?: boolean
+  trailhead_milestone: number | null
 }
 
 interface Milestone {
@@ -24,78 +26,13 @@ interface Milestone {
   color: string
 }
 
-const MILESTONES: Milestone[] = [
-  {
-    id: 1,
-    name: 'Basecamp',
-    subtitle: 'Claim Your Online Identity',
-    icon: Tent,
-    emoji: '⛺',
-    color: '#C87941',
-    guides: [
-      { title: 'Set Up Your Google Business Profile', slug: 'set-up-google-business-profile' },
-      { title: 'Understanding Your Domain Name', slug: 'understanding-your-domain-name' },
-      { title: "Your Website's First Impression", slug: 'your-websites-first-impression' },
-    ],
-  },
-  {
-    id: 2,
-    name: 'The Forest',
-    subtitle: 'Make Your Website Work For You',
-    icon: Trees,
-    emoji: '🌲',
-    color: '#2D6A4F',
-    guides: [
-      { title: 'Navigating Your New Website', slug: 'navigating-your-new-website' },
-      { title: 'Updating Your Content', slug: 'updating-your-content' },
-      { title: 'Adding Photos That Sell', slug: 'adding-photos-that-sell' },
-      { title: 'Mobile: Where Your Customers Are', slug: 'mobile-where-your-customers-are' },
-    ],
-  },
-  {
-    id: 3,
-    name: 'The Ridge',
-    subtitle: 'Get Found by Customers',
-    icon: Mountain,
-    emoji: '⛰️',
-    color: '#4A7C8E',
-    guides: [
-      { title: 'Google Maps: Your Digital Storefront', slug: 'google-maps-your-digital-storefront' },
-      { title: 'What Customers Search For', slug: 'what-customers-search-for' },
-      { title: 'Getting Listed in Local Directories', slug: 'getting-listed-in-local-directories' },
-    ],
-  },
-  {
-    id: 4,
-    name: 'The Summit',
-    subtitle: 'Turn Visitors Into Customers',
-    icon: Flag,
-    emoji: '🚩',
-    color: '#7B5EA7',
-    guides: [
-      { title: 'Getting Your First Google Reviews', slug: 'getting-your-first-google-reviews' },
-      { title: 'Calls to Action That Work', slug: 'calls-to-action-that-work' },
-      { title: 'Building an Email List', slug: 'building-an-email-list' },
-      { title: 'Social Media That Actually Helps', slug: 'social-media-that-actually-helps' },
-    ],
-  },
-  {
-    id: 5,
-    name: 'The Vista',
-    subtitle: 'Grow & Scale',
-    icon: Sunrise,
-    emoji: '🌅',
-    color: '#C87941',
-    guides: [
-      { title: 'When to Consider Google Ads', slug: 'when-to-consider-google-ads' },
-      { title: 'Social Media Advertising Basics', slug: 'social-media-advertising-basics' },
-      { title: 'Measuring What Matters', slug: 'measuring-what-matters' },
-    ],
-  },
+const MILESTONE_META: Omit<Milestone, 'guides'>[] = [
+  { id: 1, name: 'Basecamp', subtitle: 'Claim Your Online Identity', icon: Tent, emoji: '⛺', color: '#C87941' },
+  { id: 2, name: 'The Forest', subtitle: 'Make Your Website Work For You', icon: Trees, emoji: '🌲', color: '#2D6A4F' },
+  { id: 3, name: 'The Ridge', subtitle: 'Get Found by Customers', icon: Mountain, emoji: '⛰️', color: '#4A7C8E' },
+  { id: 4, name: 'The Summit', subtitle: 'Turn Visitors Into Customers', icon: Flag, emoji: '🚩', color: '#7B5EA7' },
+  { id: 5, name: 'The Vista', subtitle: 'Grow & Scale', icon: Sunrise, emoji: '🌅', color: '#C87941' },
 ]
-
-// For demo: milestone 1 complete, milestone 2 in progress (2/4)
-const DEMO_PROGRESS: Record<number, number> = { 1: 100, 2: 50, 3: 0, 4: 0, 5: 0 }
 
 function ProgressRing({ percent, size = 48, strokeWidth = 3, color }: { percent: number; size?: number; strokeWidth?: number; color: string }) {
   const radius = (size - strokeWidth * 2) / 2
@@ -104,23 +41,11 @@ function ProgressRing({ percent, size = 48, strokeWidth = 3, color }: { percent:
 
   return (
     <svg width={size} height={size} className="rotate-[-90deg]">
-      <circle
-        cx={size / 2}
-        cy={size / 2}
-        r={radius}
-        stroke="rgba(200,121,65,0.15)"
-        strokeWidth={strokeWidth}
-        fill="none"
-      />
+      <circle cx={size / 2} cy={size / 2} r={radius} stroke="rgba(200,121,65,0.15)" strokeWidth={strokeWidth} fill="none" />
       <motion.circle
-        cx={size / 2}
-        cy={size / 2}
-        r={radius}
-        stroke={color}
-        strokeWidth={strokeWidth}
-        fill="none"
-        strokeLinecap="round"
-        strokeDasharray={circumference}
+        cx={size / 2} cy={size / 2} r={radius}
+        stroke={color} strokeWidth={strokeWidth} fill="none"
+        strokeLinecap="round" strokeDasharray={circumference}
         initial={{ strokeDashoffset: circumference }}
         animate={{ strokeDashoffset: offset }}
         transition={{ duration: 1.2, ease: 'easeOut', delay: 0.3 }}
@@ -129,16 +54,19 @@ function ProgressRing({ percent, size = 48, strokeWidth = 3, color }: { percent:
   )
 }
 
-function MilestoneCard({ milestone, index, expanded, onToggle }: {
+function MilestoneCard({ milestone, index, expanded, onToggle, completedIds, progressPercent }: {
   milestone: Milestone
   index: number
   expanded: boolean
   onToggle: () => void
+  completedIds: Set<string>
+  progressPercent: number
 }) {
-  const progress = DEMO_PROGRESS[milestone.id] ?? 0
+  const progress = progressPercent
   const isComplete = progress === 100
-  const isCurrent = !isComplete && (milestone.id === 1 || DEMO_PROGRESS[milestone.id - 1] === 100)
-  const isLocked = !isComplete && !isCurrent
+  const isCurrent = !isComplete && (milestone.id === 1 || index === 0 || true) && milestone.guides.length > 0
+  // A milestone is locked if all previous milestones are 0% AND this isn't milestone 1
+  const isLocked = false // Keep unlocked — progress tracks naturally
 
   const Icon = milestone.icon
 
@@ -149,33 +77,22 @@ function MilestoneCard({ milestone, index, expanded, onToggle }: {
       transition={{ duration: 0.5, delay: index * 0.12 }}
       className="relative"
     >
-      {/* Connector line */}
-      {index < MILESTONES.length - 1 && (
-        <div className="absolute left-6 top-full w-0.5 h-8 md:h-10" 
-          style={{ background: isComplete ? 'var(--color-dash-copper)' : 'var(--color-dash-border)', opacity: 0.5 }} 
+      {index < MILESTONE_META.length - 1 && (
+        <div className="absolute left-6 top-full w-0.5 h-8 md:h-10"
+          style={{ background: isComplete ? 'var(--color-dash-copper)' : 'var(--color-dash-border)', opacity: 0.5 }}
         />
       )}
 
       <motion.div
-        className={`
-          relative rounded-2xl border cursor-pointer overflow-hidden
-          transition-all duration-300
-          ${isLocked ? 'opacity-60' : ''}
-          ${isCurrent ? 'shadow-md' : 'shadow-sm'}
-        `}
+        className={`relative rounded-2xl border cursor-pointer overflow-hidden transition-all duration-300 ${isLocked ? 'opacity-60' : ''} ${isCurrent ? 'shadow-md' : 'shadow-sm'}`}
         style={{
           background: 'var(--color-dash-card)',
-          borderColor: isComplete
-            ? 'var(--color-dash-copper)'
-            : isCurrent
-            ? 'rgba(200,121,65,0.35)'
-            : 'var(--color-dash-border)',
+          borderColor: isComplete ? 'var(--color-dash-copper)' : isCurrent ? 'rgba(200,121,65,0.35)' : 'var(--color-dash-border)',
         }}
         whileHover={!isLocked ? { scale: 1.01 } : {}}
         onClick={!isLocked ? onToggle : undefined}
       >
-        {/* Current milestone pulse ring */}
-        {isCurrent && (
+        {isCurrent && !isComplete && (
           <motion.div
             className="absolute inset-0 rounded-2xl pointer-events-none"
             style={{ border: '2px solid var(--color-dash-copper)', opacity: 0 }}
@@ -185,16 +102,11 @@ function MilestoneCard({ milestone, index, expanded, onToggle }: {
         )}
 
         <div className="flex items-center gap-4 p-4 md:p-5">
-          {/* Icon area */}
           <div className="relative flex-shrink-0">
             <div
               className="w-12 h-12 rounded-xl flex items-center justify-center text-xl"
               style={{
-                background: isComplete
-                  ? 'var(--color-dash-copper)'
-                  : isCurrent
-                  ? 'rgba(200,121,65,0.12)'
-                  : 'rgba(0,0,0,0.04)',
+                background: isComplete ? 'var(--color-dash-copper)' : isCurrent ? 'rgba(200,121,65,0.12)' : 'rgba(0,0,0,0.04)',
               }}
             >
               {isComplete ? (
@@ -205,7 +117,6 @@ function MilestoneCard({ milestone, index, expanded, onToggle }: {
                 <Icon className="w-6 h-6" style={{ color: milestone.color }} />
               )}
             </div>
-            {/* Milestone number badge */}
             <div
               className="absolute -top-1 -right-1 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold"
               style={{
@@ -217,44 +128,36 @@ function MilestoneCard({ milestone, index, expanded, onToggle }: {
             </div>
           </div>
 
-          {/* Text */}
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2">
               <h3 className="font-semibold text-base" style={{ fontFamily: 'var(--font-cabinet)', color: 'var(--color-dash-text)' }}>
                 {milestone.name}
               </h3>
-              {isCurrent && (
+              {isCurrent && !isComplete && progress > 0 && (
                 <span className="text-xs px-2 py-0.5 rounded-full font-medium"
                   style={{ background: 'rgba(200,121,65,0.12)', color: 'var(--color-dash-copper)' }}>
-                  Current
+                  In Progress
                 </span>
               )}
             </div>
-            <p className="text-sm mt-0.5" style={{ color: 'var(--color-dash-text-muted)' }}>
-              {milestone.subtitle}
-            </p>
+            <p className="text-sm mt-0.5" style={{ color: 'var(--color-dash-text-muted)' }}>{milestone.subtitle}</p>
             <p className="text-xs mt-1" style={{ color: 'var(--color-dash-text-faint)' }}>
               {milestone.guides.length} guides · {progress}% complete
             </p>
           </div>
 
-          {/* Progress ring */}
           <div className="flex-shrink-0 flex items-center gap-3">
             <div className="hidden sm:block">
               <ProgressRing percent={progress} size={44} color={isComplete ? '#C87941' : milestone.color} />
             </div>
             {!isLocked && (
-              <motion.div
-                animate={{ rotate: expanded ? 180 : 0 }}
-                transition={{ duration: 0.25 }}
-              >
+              <motion.div animate={{ rotate: expanded ? 180 : 0 }} transition={{ duration: 0.25 }}>
                 <ChevronDown className="w-5 h-5" style={{ color: 'var(--color-dash-text-faint)' }} />
               </motion.div>
             )}
           </div>
         </div>
 
-        {/* Expanded guides list */}
         <AnimatePresence>
           {expanded && (
             <motion.div
@@ -265,8 +168,8 @@ function MilestoneCard({ milestone, index, expanded, onToggle }: {
               className="overflow-hidden"
             >
               <div className="border-t px-4 py-3 space-y-2" style={{ borderColor: 'var(--color-dash-border)' }}>
-                {milestone.guides.map((guide, gi) => {
-                  const guideComplete = milestone.id === 1 || (milestone.id === 2 && gi < 2)
+                {milestone.guides.map((guide) => {
+                  const guideComplete = completedIds.has(guide.id)
                   return (
                     <Link
                       key={guide.slug}
@@ -277,9 +180,7 @@ function MilestoneCard({ milestone, index, expanded, onToggle }: {
                     >
                       <div
                         className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0"
-                        style={{
-                          background: guideComplete ? 'var(--color-dash-copper)' : 'var(--color-dash-border)',
-                        }}
+                        style={{ background: guideComplete ? 'var(--color-dash-copper)' : 'var(--color-dash-border)' }}
                       >
                         {guideComplete ? (
                           <CheckCircle className="w-3.5 h-3.5 text-white" />
@@ -296,10 +197,7 @@ function MilestoneCard({ milestone, index, expanded, onToggle }: {
                       >
                         {guide.title}
                       </span>
-                      <motion.div
-                        className="opacity-0 group-hover:opacity-100 transition-opacity"
-                        style={{ color: 'var(--color-dash-copper)' }}
-                      >
+                      <motion.div className="opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: 'var(--color-dash-copper)' }}>
                         →
                       </motion.div>
                     </Link>
@@ -314,7 +212,6 @@ function MilestoneCard({ milestone, index, expanded, onToggle }: {
   )
 }
 
-// SVG Trail path for desktop
 function TrailPath() {
   const ref = useRef<SVGPathElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
@@ -323,20 +220,14 @@ function TrailPath() {
   return (
     <div ref={containerRef} className="hidden lg:block absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-32 pointer-events-none" style={{ zIndex: 0 }}>
       <svg width="128" height="100%" className="absolute inset-0" preserveAspectRatio="none" viewBox="0 0 128 900">
-        {/* Background topo lines */}
         {[100, 200, 300, 400, 500, 600, 700, 800].map(y => (
           <ellipse key={y} cx="64" cy={y} rx={40 + (y % 3) * 8} ry="18" fill="none" stroke="var(--color-dash-copper)" strokeWidth="0.5" opacity="0.06" />
         ))}
-        {/* Main trail */}
         <motion.path
           ref={ref}
           d="M 64 880 C 40 800 90 720 60 640 C 30 560 90 480 64 400 C 38 320 88 240 64 160 C 45 100 70 60 64 20"
-          fill="none"
-          stroke="var(--color-dash-copper)"
-          strokeWidth="2.5"
-          strokeDasharray="8 6"
-          opacity="0.35"
-          strokeLinecap="round"
+          fill="none" stroke="var(--color-dash-copper)" strokeWidth="2.5" strokeDasharray="8 6"
+          opacity="0.35" strokeLinecap="round"
           initial={{ pathLength: 0 }}
           animate={inView ? { pathLength: 1 } : {}}
           transition={{ duration: 2.5, ease: 'easeInOut' }}
@@ -348,11 +239,72 @@ function TrailPath() {
 
 export default function TrailheadPage() {
   const [expanded, setExpanded] = useState<number | null>(1)
-  
-  const totalGuides = MILESTONES.reduce((sum, m) => sum + m.guides.length, 0)
-  // Demo: milestone 1 all done, milestone 2 half done
-  const completedGuides = 3 + 2 // milestone 1 (3) + 2 from milestone 2
-  const overallPercent = Math.round((completedGuides / totalGuides) * 100)
+  const [milestones, setMilestones] = useState<Milestone[]>([])
+  const [completedIds, setCompletedIds] = useState<Set<string>>(new Set())
+  const [milestoneProgress, setMilestoneProgress] = useState<Record<number, number>>({})
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const supabase = createClient()
+        const { data: { user } } = await supabase.auth.getUser()
+
+        // Fetch all published trail guides
+        const { data: guidesData } = await supabase
+          .from('guides')
+          .select('id, title, slug, trailhead_milestone')
+          .eq('published', true)
+          .eq('category', 'trailhead')
+          .order('trailhead_milestone')
+          .order('trailhead_order')
+
+        const guides = guidesData ?? []
+
+        // Fetch user progress
+        let completed = new Set<string>()
+        if (user) {
+          const { data: progressData } = await supabase
+            .from('user_guide_progress')
+            .select('guide_id')
+            .eq('user_id', user.id)
+            .eq('completed', true)
+          completed = new Set((progressData ?? []).map((p: { guide_id: string }) => p.guide_id))
+        }
+
+        setCompletedIds(completed)
+
+        // Build milestone objects
+        const builtMilestones: Milestone[] = MILESTONE_META.map(meta => {
+          const msGuides = guides.filter(g => g.trailhead_milestone === meta.id)
+          return { ...meta, guides: msGuides }
+        })
+
+        setMilestones(builtMilestones)
+
+        // Calculate progress per milestone
+        const progress: Record<number, number> = {}
+        for (const ms of builtMilestones) {
+          if (ms.guides.length === 0) {
+            progress[ms.id] = 0
+          } else {
+            const done = ms.guides.filter(g => completed.has(g.id)).length
+            progress[ms.id] = Math.round((done / ms.guides.length) * 100)
+          }
+        }
+        setMilestoneProgress(progress)
+      } catch (e) {
+        console.error('Failed to fetch trailhead data', e)
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchData()
+  }, [])
+
+  const totalGuides = milestones.reduce((sum, m) => sum + m.guides.length, 0)
+  const completedCount = milestones.reduce((sum, m) => sum + m.guides.filter(g => completedIds.has(g.id)).length, 0)
+  const overallPercent = totalGuides > 0 ? Math.round((completedCount / totalGuides) * 100) : 0
 
   return (
     <div className="min-h-screen" style={{ background: 'var(--color-dash-bg)' }}>
@@ -398,12 +350,8 @@ export default function TrailheadPage() {
           style={{ background: 'var(--color-dash-card)', borderColor: 'var(--color-dash-border)' }}
         >
           <div className="flex items-center justify-between mb-3">
-            <span className="text-sm font-medium" style={{ color: 'var(--color-dash-text)' }}>
-              Your Trail Progress
-            </span>
-            <span className="text-sm font-bold" style={{ color: 'var(--color-dash-copper)' }}>
-              {overallPercent}%
-            </span>
+            <span className="text-sm font-medium" style={{ color: 'var(--color-dash-text)' }}>Your Trail Progress</span>
+            <span className="text-sm font-bold" style={{ color: 'var(--color-dash-copper)' }}>{overallPercent}%</span>
           </div>
           <div className="h-2.5 rounded-full overflow-hidden" style={{ background: 'var(--color-dash-border)' }}>
             <motion.div
@@ -415,22 +363,32 @@ export default function TrailheadPage() {
             />
           </div>
           <p className="text-xs mt-2" style={{ color: 'var(--color-dash-text-faint)' }}>
-            {completedGuides} of {totalGuides} guides complete · Keep climbing 🏔️
+            {loading ? 'Loading your progress...' : `${completedCount} of ${totalGuides} guides complete · Keep climbing 🏔️`}
           </p>
         </motion.div>
 
         {/* Milestones */}
-        <div className="relative space-y-4">
-          {MILESTONES.map((milestone, index) => (
-            <MilestoneCard
-              key={milestone.id}
-              milestone={milestone}
-              index={index}
-              expanded={expanded === milestone.id}
-              onToggle={() => setExpanded(expanded === milestone.id ? null : milestone.id)}
-            />
-          ))}
-        </div>
+        {loading ? (
+          <div className="space-y-4">
+            {[1,2,3,4,5].map(i => (
+              <div key={i} className="h-20 rounded-2xl bg-gray-100 animate-pulse" />
+            ))}
+          </div>
+        ) : (
+          <div className="relative space-y-4">
+            {milestones.map((milestone, index) => (
+              <MilestoneCard
+                key={milestone.id}
+                milestone={milestone}
+                index={index}
+                expanded={expanded === milestone.id}
+                onToggle={() => setExpanded(expanded === milestone.id ? null : milestone.id)}
+                completedIds={completedIds}
+                progressPercent={milestoneProgress[milestone.id] ?? 0}
+              />
+            ))}
+          </div>
+        )}
 
         {/* Footer note */}
         <motion.p
