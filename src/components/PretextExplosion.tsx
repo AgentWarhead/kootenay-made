@@ -280,10 +280,10 @@ export default function PretextExplosion() {
 
       {/* Fuse trail animation — spark traveling along a dotted line */}
       {hint && (
-        <div className="absolute bottom-5 left-1/2 -translate-x-1/2 pointer-events-none select-none">
+        <div className="absolute bottom-5 inset-x-0 flex justify-center pointer-events-none select-none">
           {/* Fuse line */}
-          <div className="relative flex items-center justify-center gap-3">
-            <div className="hidden sm:block h-[2px] w-24" style={{
+          <div className="relative flex items-center gap-3">
+            <div className="h-[2px] w-16 sm:w-24" style={{
               background: 'repeating-linear-gradient(90deg, #C17817 0px, #C17817 4px, transparent 4px, transparent 8px)',
               opacity: 0.5,
             }}>
@@ -297,7 +297,7 @@ export default function PretextExplosion() {
             }}>
               CLICK TO DETONATE
             </span>
-            <div className="hidden sm:block h-[2px] w-24" style={{
+            <div className="h-[2px] w-16 sm:w-24" style={{
               background: 'repeating-linear-gradient(90deg, #C17817 0px, #C17817 4px, transparent 4px, transparent 8px)',
               opacity: 0.5,
             }} />
