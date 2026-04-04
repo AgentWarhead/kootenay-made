@@ -660,7 +660,7 @@ export default function GovernmentMunicipalPage() {
           <div className="max-w-5xl mx-auto">
             <Reveal className="text-center mb-12">
               <p className="text-sm font-bold uppercase tracking-widest mb-3" style={{ color: C.blue, letterSpacing: '0.15em' }}>The Transformation</p>
-              <h2 id="transform-heading" className={`${sourceSans.className} text-2xl md:text-4xl font-bold`} style={{ color: '#fff' }}>Watch Your Website Transform</h2>
+              <h2 id="transform-heading" className={`${sourceSans.className} text-2xl md:text-4xl font-bold`} style={{ color: '#1e3a5f' }}>Watch Your Website Transform</h2>
               <p className="mt-4 max-w-xl mx-auto text-base" style={{ color: C.slateLight }}>From dated to designed — in real time</p>
             </Reveal>
             <LiveRedesign />
