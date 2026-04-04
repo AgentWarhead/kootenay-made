@@ -37,7 +37,7 @@ function AngularDivider({ topColor = '#2d2d2d', bottomColor = '#1a1a1a' }: { top
   return (
     <div style={{ backgroundColor: topColor, lineHeight: 0 }}>
       <svg viewBox="0 0 1440 60" preserveAspectRatio="none" className="w-full h-10 md:h-14 block">
-        <polygon fill={bottomColor} points="0,0 1440,30 1440,60 0,60" />
+        <polygon fill={bottomColor} points="0,0 720,45 1440,0 1440,60 0,60" />
       </svg>
     </div>
   )
@@ -93,14 +93,14 @@ function LiveRedesign() {
                     <span key={link} className="text-xs" style={{ fontFamily: 'Arial, sans-serif', color: 'rgba(255,255,255,0.7)', textDecoration: 'underline' }}>{link}</span>
                   ))}
                 </div>
-                <span className="sm:hidden text-xs" style={{ color: 'rgba(255,255,255,0.5)', fontFamily: 'Arial, sans-serif' }}>☰ Menu</span>
+                <span className="sm:hidden text-xs" style={{ color: 'rgba(255,255,255,0.6)', fontFamily: 'Arial, sans-serif' }}>☰ Menu</span>
               </div>
               {/* Hero */}
               <div className="relative px-5 sm:px-10 py-8 sm:py-14 text-center flex-1 flex flex-col justify-center">
                 <div className="absolute inset-0 opacity-[0.12]" style={{ background: 'linear-gradient(135deg, #5a8aaa 0%, #aaa 50%, #eee 100%)' }} />
                 <div className="relative z-10">
                   <p className="text-xs uppercase tracking-wide mb-2" style={{ fontFamily: 'Arial, sans-serif', color: '#666' }}>★ Welcome to Our Website ★</p>
-                  <h2 className="text-xl sm:text-3xl md:text-4xl leading-tight mb-2" style={{ fontFamily: 'Georgia, serif', color: '#3a3a3a', fontWeight: 700 }}>Kootenay Pro Plumbing</h2>
+                  <h2 className="text-xl sm:text-2xl md:text-4xl leading-tight mb-2" style={{ fontFamily: 'Georgia, serif', color: '#3a3a3a', fontWeight: 700 }}>Kootenay Pro Plumbing</h2>
                   <p className="text-sm sm:text-lg mb-1" style={{ fontFamily: 'Georgia, serif', color: '#666', fontStyle: 'italic' }}>&ldquo;Serving the Area for Over 20 Years!&rdquo;</p>
                   <p className="text-xs sm:text-sm mb-4" style={{ fontFamily: 'Arial, sans-serif', color: '#888' }}>Plumbing &bull; Heating &bull; Gas Fitting &bull; Drain Cleaning &bull; And More!</p>
                   <div className="flex justify-center gap-2 mb-4 flex-wrap">
@@ -138,7 +138,7 @@ function LiveRedesign() {
                 </motion.span>
                 <motion.div className="hidden sm:flex items-center gap-6" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur * 0.6, delay: stagger * 2 }}>
                   {['Services', 'Projects', 'About', 'Contact'].map((link) => (
-                    <span key={link} className={`${body.className} text-xs uppercase tracking-widest`} style={{ color: 'rgba(255,255,255,0.5)', fontWeight: 500 }}>{link}</span>
+                    <span key={link} className={`${body.className} text-xs uppercase tracking-widest`} style={{ color: 'rgba(255,255,255,0.6)', fontWeight: 500 }}>{link}</span>
                   ))}
                 </motion.div>
                 <motion.div className="sm:hidden flex flex-col gap-[5px]" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur * 0.6, delay: stagger }}>
@@ -173,7 +173,7 @@ function LiveRedesign() {
                       WE ANSWER.
                     </span>
                   </motion.h2>
-                  <motion.p className={`${body.className} text-sm sm:text-lg max-w-md sm:mx-0 mx-auto mb-6`} style={{ color: 'rgba(255,255,255,0.55)', lineHeight: 1.7 }}
+                  <motion.p className={`${body.className} text-sm sm:text-lg max-w-md sm:mx-0 mx-auto mb-6`} style={{ color: 'rgba(255,255,255,0.65)', lineHeight: 1.7 }}
                     initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 4 }}>
                     Licensed plumbing, heating &amp; gas fitting. Available when you need us most.
                   </motion.p>
@@ -233,7 +233,7 @@ function FAQAccordion({ items }: { items: { q: string; a: string }[] }) {
             <span className="text-xl ml-4 flex-shrink-0" style={{ color: '#ff6a00' }}>{open === i ? '−' : '+'}</span>
           </button>
           {open === i && (
-            <div className="px-6 pb-5" style={{ color: 'rgba(255,255,255,0.55)', borderTop: '1px solid rgba(138,155,176,0.15)' }}>
+            <div className="px-6 pb-5" style={{ color: 'rgba(255,255,255,0.65)', borderTop: '1px solid rgba(138,155,176,0.15)' }}>
               <p className="leading-relaxed pt-4">{item.a}</p>
             </div>
           )}
@@ -257,7 +257,7 @@ export default function TradesIndustrialDemo() {
   const drawLength = useTransform(toolsScroll, [0, 0.5], [1, 0])
 
   return (
-    <div className={body.className} style={{ fontFamily: 'Inter, sans-serif', backgroundColor: '#2d2d2d', color: '#ffffff' }}>
+    <div className={`${body.className} overflow-x-hidden`} style={{ fontFamily: 'Inter, sans-serif', backgroundColor: '#2d2d2d', color: '#ffffff' }}>
 
       <style>{`
         @media (prefers-reduced-motion: reduce) {
@@ -390,7 +390,7 @@ export default function TradesIndustrialDemo() {
                   style={{ backgroundColor: 'rgba(255,106,0,0.2)', color: '#ff6a00', border: '1px solid rgba(255,106,0,0.4)' }}>
                   24/7 EMERGENCY RESPONSE
                 </span>
-                <h2 className={`${heading.className} text-3xl md:text-5xl font-bold uppercase mb-6 leading-tight`} style={{ color: '#ffffff' }}>
+                <h2 className={`${heading.className} text-2xl md:text-5xl font-bold uppercase mb-6 leading-tight`} style={{ color: '#ffffff' }}>
                   PIPES BURST?<br />
                   <span style={{ color: '#ff6a00' }}>HEAT OUT?</span><br />
                   GAS LEAK?
@@ -468,7 +468,7 @@ export default function TradesIndustrialDemo() {
                     {item.job}
                   </span>
                   <span className="text-sm whitespace-nowrap" style={{ color: '#555' }}>—</span>
-                  <span className="text-sm whitespace-nowrap" style={{ color: 'rgba(255,255,255,0.5)' }}>{item.location}</span>
+                  <span className="text-sm whitespace-nowrap" style={{ color: 'rgba(255,255,255,0.6)' }}>{item.location}</span>
                   <span className="text-sm whitespace-nowrap" style={{ color: '#555' }}>—</span>
                   <span className="text-sm whitespace-nowrap font-bold" style={{ color: '#ff6a00' }}>{item.time}</span>
                 </div>
@@ -492,7 +492,7 @@ export default function TradesIndustrialDemo() {
 
         <div className="max-w-7xl mx-auto">
           <Reveal>
-            <h2 className={`${heading.className} text-3xl md:text-5xl font-bold uppercase mb-4`}>OUR SERVICES</h2>
+            <h2 className={`${heading.className} text-2xl md:text-5xl font-bold uppercase mb-4`}>OUR SERVICES</h2>
             <div className="w-20 h-1.5 mb-12" style={{ backgroundColor: '#ff6a00' }} />
           </Reveal>
 
@@ -533,14 +533,14 @@ export default function TradesIndustrialDemo() {
               { title: 'Commercial', icon: '🏢', desc: 'Tenant build-outs, multi-unit, industrial service' },
             ].map((card, i) => (
               <Reveal key={card.title} delay={0.1 + i * 0.08}>
-                <div className="p-6 h-full transition-all cursor-default"
+                <div className="p-6 h-full transition-all cursor-default hover:-translate-y-1 hover:shadow-xl"
                   style={{ backgroundColor: '#1a1a1a', borderTop: '3px solid #ff6a00', border: '1px solid #333', borderTopWidth: '3px' }}
                   onMouseEnter={(e) => (e.currentTarget.style.boxShadow = '0 0 20px rgba(255,106,0,0.2)')}
                   onMouseLeave={(e) => (e.currentTarget.style.boxShadow = 'none')}
                 >
                   <div className="text-2xl mb-3">{card.icon}</div>
                   <h3 className={`${heading.className} text-base md:text-lg font-bold uppercase mb-2`} style={{ color: '#ff6a00' }}>{card.title}</h3>
-                  <p className="text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.5)' }}>{card.desc}</p>
+                  <p className="text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.6)' }}>{card.desc}</p>
                 </div>
               </Reveal>
             ))}
@@ -554,8 +554,8 @@ export default function TradesIndustrialDemo() {
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#1a1a1a' }}>
         <div className="max-w-5xl mx-auto">
           <Reveal>
-            <h2 className={`${heading.className} text-3xl md:text-5xl font-bold uppercase mb-4`}>RESPONSE ZONE</h2>
-            <p className="mb-4" style={{ color: 'rgba(255,255,255,0.5)' }}>We cover the West Kootenays — from Salmo to Nakusp, we come to you.</p>
+            <h2 className={`${heading.className} text-2xl md:text-5xl font-bold uppercase mb-4`}>RESPONSE ZONE</h2>
+            <p className="mb-4" style={{ color: 'rgba(255,255,255,0.6)' }}>We cover the West Kootenays — from Salmo to Nakusp, we come to you.</p>
             <div className="w-20 h-1.5 mb-12" style={{ backgroundColor: '#ff6a00' }} />
           </Reveal>
           <Reveal delay={0.1}>
@@ -608,7 +608,7 @@ export default function TradesIndustrialDemo() {
             </div>
           </Reveal>
           <Reveal delay={0.2}>
-            <p className="mt-6 text-center text-sm" style={{ color: 'rgba(255,255,255,0.4)' }}>
+            <p className="mt-6 text-center text-sm" style={{ color: 'rgba(255,255,255,0.65)' }}>
               Don&apos;t see your town? Call us — if you&apos;re in the West Kootenays, we come to you.
             </p>
           </Reveal>
@@ -621,7 +621,7 @@ export default function TradesIndustrialDemo() {
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#2d2d2d' }}>
         <div className="max-w-5xl mx-auto">
           <Reveal>
-            <h2 className={`${heading.className} text-3xl md:text-5xl font-bold uppercase mb-4`}>HOW IT WORKS</h2>
+            <h2 className={`${heading.className} text-2xl md:text-5xl font-bold uppercase mb-4`}>HOW IT WORKS</h2>
             <div className="w-20 h-1.5 mb-16" style={{ backgroundColor: '#ff6a00' }} />
           </Reveal>
 
@@ -632,10 +632,10 @@ export default function TradesIndustrialDemo() {
               { num: '03', title: 'PROBLEM SOLVED', desc: 'We fix it right the first time. Clean up the workspace when we\'re done. You get a warranty on every job, signed invoice, and receipt.' },
             ].map((step, i) => (
               <Reveal key={step.num} delay={i * 0.2}>
-                <div className="text-center p-8" style={{ backgroundColor: '#1a1a1a', borderTop: '4px solid #ff6a00' }}>
+                <div className="text-center p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg" style={{ backgroundColor: '#1a1a1a', borderTop: '4px solid #ff6a00' }}>
                   <div className={`${heading.className} text-5xl font-bold mb-4`} style={{ color: '#ff6a00' }}>{step.num}</div>
                   <h3 className={`${heading.className} text-2xl font-bold uppercase mb-4`} style={{ color: '#ffffff' }}>{step.title}</h3>
-                  <p className="leading-relaxed text-sm" style={{ color: 'rgba(255,255,255,0.55)' }}>{step.desc}</p>
+                  <p className="leading-relaxed text-sm" style={{ color: 'rgba(255,255,255,0.65)' }}>{step.desc}</p>
                 </div>
               </Reveal>
             ))}
@@ -649,7 +649,7 @@ export default function TradesIndustrialDemo() {
       <section className="py-16 md:py-20 px-6" style={{ backgroundColor: '#1a1a1a' }}>
         <div className="max-w-5xl mx-auto">
           <Reveal>
-            <h2 className={`${heading.className} text-3xl md:text-4xl font-bold uppercase mb-4`}>Jobs We&apos;ve Completed</h2>
+            <h2 className={`${heading.className} text-2xl md:text-4xl font-bold uppercase mb-4`}>Jobs We&apos;ve Completed</h2>
             <div className="w-20 h-1.5 mb-10" style={{ backgroundColor: '#ff6a00' }} />
           </Reveal>
           <div className="grid md:grid-cols-3 gap-4">
@@ -684,9 +684,9 @@ export default function TradesIndustrialDemo() {
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#1a1a1a' }}>
         <div className="max-w-5xl mx-auto">
           <Reveal>
-            <h2 className={`${heading.className} text-3xl md:text-5xl font-bold uppercase mb-4`}>Watch Your Website Transform</h2>
+            <h2 className={`${heading.className} text-2xl md:text-5xl font-bold uppercase mb-4`}>Watch Your Website Transform</h2>
             <div className="w-20 h-1.5 mb-4" style={{ backgroundColor: '#ff6a00' }} />
-            <p className="mb-12 text-sm uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.4)' }}>From dated to designed — in real time</p>
+            <p className="mb-12 text-sm uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.65)' }}>From dated to designed — in real time</p>
           </Reveal>
           <Reveal delay={0.1}>
             <LiveRedesign />
@@ -700,7 +700,7 @@ export default function TradesIndustrialDemo() {
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#2d2d2d' }}>
         <div className="max-w-6xl mx-auto">
           <Reveal>
-            <h2 className={`${heading.className} text-3xl md:text-5xl font-bold uppercase mb-4`}>WHAT CUSTOMERS SAY</h2>
+            <h2 className={`${heading.className} text-2xl md:text-5xl font-bold uppercase mb-4`}>WHAT CUSTOMERS SAY</h2>
             <div className="w-20 h-1.5 mb-16" style={{ backgroundColor: '#ff6a00' }} />
           </Reveal>
 
@@ -729,7 +729,7 @@ export default function TradesIndustrialDemo() {
               },
             ].map((t, i) => (
               <Reveal key={i} delay={i * 0.15}>
-                <div className="p-8 h-full flex flex-col" style={{ backgroundColor: '#1a1a1a', borderTop: '4px solid #ff6a00' }}>
+                <div className="p-8 h-full flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-xl" style={{ backgroundColor: '#1a1a1a', borderTop: '4px solid #ff6a00' }}>
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex gap-1">
                       {Array.from({ length: 5 }).map((_, j) => (
@@ -748,7 +748,7 @@ export default function TradesIndustrialDemo() {
                     <div className="flex items-center justify-between">
                       <div>
                         <p className={`${heading.className} font-bold uppercase text-sm`} style={{ color: '#ff6a00' }}>{t.name}</p>
-                        <p className="text-xs" style={{ color: 'rgba(255,255,255,0.4)' }}>{t.location}</p>
+                        <p className="text-xs" style={{ color: 'rgba(255,255,255,0.65)' }}>{t.location}</p>
                       </div>
                       <span className={`${heading.className} text-sm font-bold`} style={{ color: '#22c55e' }}>{t.highlight}</span>
                     </div>
@@ -771,7 +771,7 @@ export default function TradesIndustrialDemo() {
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#1a1a1a' }}>
         <div className="max-w-4xl mx-auto">
           <Reveal>
-            <h2 className={`${heading.className} text-3xl md:text-5xl font-bold uppercase mb-4`}>COMMON QUESTIONS</h2>
+            <h2 className={`${heading.className} text-2xl md:text-5xl font-bold uppercase mb-4`}>COMMON QUESTIONS</h2>
             <div className="w-20 h-1.5 mb-12" style={{ backgroundColor: '#ff6a00' }} />
           </Reveal>
           <Reveal delay={0.1}>
@@ -793,7 +793,7 @@ export default function TradesIndustrialDemo() {
       <section id="about" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#2d2d2d' }}>
         <div className="max-w-4xl mx-auto">
           <Reveal>
-            <h2 className={`${heading.className} text-3xl md:text-5xl font-bold uppercase mb-4`}>ABOUT SUMMIT</h2>
+            <h2 className={`${heading.className} text-2xl md:text-5xl font-bold uppercase mb-4`}>ABOUT SUMMIT</h2>
             <div className="w-20 h-1.5 mb-10" style={{ backgroundColor: '#ff6a00' }} />
           </Reveal>
           <Reveal delay={0.15}>
@@ -810,7 +810,7 @@ export default function TradesIndustrialDemo() {
       <section id="contact" className="relative py-20 md:py-28 px-6" style={{ backgroundColor: '#1a1a1a' }}>
         <div className="max-w-7xl mx-auto">
           <Reveal>
-            <h2 className={`${heading.className} text-3xl md:text-5xl font-bold uppercase mb-4`}>GET IN TOUCH</h2>
+            <h2 className={`${heading.className} text-2xl md:text-5xl font-bold uppercase mb-4`}>GET IN TOUCH</h2>
             <div className="w-20 h-1.5 mb-16" style={{ backgroundColor: '#ff6a00' }} />
           </Reveal>
 
@@ -841,19 +841,19 @@ export default function TradesIndustrialDemo() {
             <Reveal delay={0.15}>
               <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
                 <div>
-                  <label className="block text-sm font-bold uppercase tracking-wider mb-2" style={{ color: 'rgba(255,255,255,0.5)' }}>NAME</label>
+                  <label className="block text-sm font-bold uppercase tracking-wider mb-2" style={{ color: 'rgba(255,255,255,0.6)' }}>NAME</label>
                   <input type="text" placeholder="Your name" className="w-full px-4 py-3 text-white placeholder-white/30 outline-none transition-all"
                     style={{ backgroundColor: '#2d2d2d', border: '1px solid rgba(138,155,176,0.2)' }}
                     onFocus={(e) => (e.currentTarget.style.borderColor = '#ff6a00')} onBlur={(e) => (e.currentTarget.style.borderColor = 'rgba(138,155,176,0.2)')} />
                 </div>
                 <div>
-                  <label className="block text-sm font-bold uppercase tracking-wider mb-2" style={{ color: 'rgba(255,255,255,0.5)' }}>EMAIL</label>
+                  <label className="block text-sm font-bold uppercase tracking-wider mb-2" style={{ color: 'rgba(255,255,255,0.6)' }}>EMAIL</label>
                   <input type="email" placeholder="your@email.com" className="w-full px-4 py-3 text-white placeholder-white/30 outline-none transition-all"
                     style={{ backgroundColor: '#2d2d2d', border: '1px solid rgba(138,155,176,0.2)' }}
                     onFocus={(e) => (e.currentTarget.style.borderColor = '#ff6a00')} onBlur={(e) => (e.currentTarget.style.borderColor = 'rgba(138,155,176,0.2)')} />
                 </div>
                 <div>
-                  <label className="block text-sm font-bold uppercase tracking-wider mb-2" style={{ color: 'rgba(255,255,255,0.5)' }}>MESSAGE</label>
+                  <label className="block text-sm font-bold uppercase tracking-wider mb-2" style={{ color: 'rgba(255,255,255,0.6)' }}>MESSAGE</label>
                   <textarea rows={4} placeholder="Describe your plumbing or heating issue..." className="w-full px-4 py-3 text-white placeholder-white/30 outline-none transition-all resize-none"
                     style={{ backgroundColor: '#2d2d2d', border: '1px solid rgba(138,155,176,0.2)' }}
                     onFocus={(e) => (e.currentTarget.style.borderColor = '#ff6a00')} onBlur={(e) => (e.currentTarget.style.borderColor = 'rgba(138,155,176,0.2)')} />
@@ -877,26 +877,26 @@ export default function TradesIndustrialDemo() {
           <div className="grid md:grid-cols-3 gap-10 mb-10">
             <div>
               <h3 className={`${heading.className} text-xl font-bold uppercase mb-3`} style={{ color: '#ff6a00' }}>Summit Plumbing &amp; Heating</h3>
-              <p className="text-sm" style={{ color: 'rgba(255,255,255,0.4)' }}>Kootenay reliable. Licensed plumbing, heating &amp; gas fitting.</p>
+              <p className="text-sm" style={{ color: 'rgba(255,255,255,0.65)' }}>Kootenay reliable. Licensed plumbing, heating &amp; gas fitting.</p>
             </div>
             <div>
               <h4 className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: '#ff6a00' }}>Quick Links</h4>
               <div className="flex flex-col gap-2">
                 {['Services', 'Projects', 'About', 'Contact'].map((link) => (
-                  <a key={link} href={`#${link.toLowerCase()}`} className="text-sm transition-colors" style={{ color: 'rgba(255,255,255,0.4)' }}
+                  <a key={link} href={`#${link.toLowerCase()}`} className="text-sm transition-colors" style={{ color: 'rgba(255,255,255,0.65)' }}
                     onMouseEnter={(e) => (e.currentTarget.style.color = '#ff6a00')} onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.4)')}>{link}</a>
                 ))}
               </div>
             </div>
             <div>
               <h4 className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: '#ff6a00' }}>Info</h4>
-              <p className="text-sm mb-1" style={{ color: 'rgba(255,255,255,0.4)' }}>24/7 Emergency Service</p>
-              <p className="text-sm mb-1" style={{ color: 'rgba(255,255,255,0.4)' }}>West Kootenays</p>
-              <p className="text-sm" style={{ color: 'rgba(255,255,255,0.4)' }}>(250) 555-0142</p>
+              <p className="text-sm mb-1" style={{ color: 'rgba(255,255,255,0.65)' }}>24/7 Emergency Service</p>
+              <p className="text-sm mb-1" style={{ color: 'rgba(255,255,255,0.65)' }}>West Kootenays</p>
+              <p className="text-sm" style={{ color: 'rgba(255,255,255,0.65)' }}>(250) 555-0142</p>
             </div>
           </div>
           <div style={{ borderTop: '1px solid rgba(138,155,176,0.1)' }} className="pt-6 text-center">
-            <span className="text-sm" style={{ color: 'rgba(255,255,255,0.25)' }}>&copy; 2025 Summit Plumbing &amp; Heating. All rights reserved.</span>
+            <span className="text-sm" style={{ color: 'rgba(255,255,255,0.25)' }}>&copy; {new Date().getFullYear()} Summit Plumbing &amp; Heating. All rights reserved.</span>
           </div>
         </div>
       </footer>
