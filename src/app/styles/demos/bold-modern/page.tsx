@@ -458,7 +458,7 @@ export default function BoldModernDemo() {
       <section id="services" className="relative py-20 md:py-28 px-6" style={{ backgroundColor: '#111111' }}>
         <div className="max-w-7xl mx-auto">
           <Reveal>
-            <h2 className="text-3xl md:text-5xl font-bold uppercase mb-4">WHAT WE POWER</h2>
+            <h2 className="text-2xl md:text-5xl font-bold uppercase mb-4">WHAT WE POWER</h2>
             <div className="w-20 h-1.5 mb-12" style={{ backgroundColor: '#ff6b00' }} />
           </Reveal>
 
@@ -484,9 +484,9 @@ export default function BoldModernDemo() {
                     </span>
                   )}
                   <div className="mb-3">{svc.icon}</div>
-                  <div className="flex items-baseline gap-3 mb-2">
-                    <h3 className="text-base md:text-lg font-bold uppercase tracking-wide" style={{ color: '#ffffff' }}>{svc.label}</h3>
-                    <span className="text-sm font-bold" style={{ color: 'rgba(255,107,0,0.8)' }}>{svc.count} completed</span>
+                  <div className="mb-2">
+                    <h3 className="text-sm md:text-lg font-bold uppercase tracking-wide" style={{ color: '#ffffff' }}>{svc.label}</h3>
+                    <span className="text-xs md:text-sm font-bold" style={{ color: 'rgba(255,107,0,0.8)' }}>{svc.count} completed</span>
                   </div>
                   <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.65)' }}>{svc.desc}</p>
                 </motion.div>
@@ -503,7 +503,7 @@ export default function BoldModernDemo() {
         <AngularDeco className="absolute top-8 right-8 opacity-40 hidden lg:block" />
         <div className="max-w-7xl mx-auto">
           <Reveal>
-            <h2 className="text-3xl md:text-5xl font-bold uppercase mb-4">RECENT PROJECTS</h2>
+            <h2 className="text-2xl md:text-5xl font-bold uppercase mb-4">RECENT PROJECTS</h2>
             <div className="w-20 h-1.5 mb-4" style={{ backgroundColor: '#ff6b00' }} />
             <p className="mb-12 text-sm" style={{ color: 'rgba(255,255,255,0.6)' }}>
               Commercial clients want capability. Here&rsquo;s what we&rsquo;ve delivered.
@@ -557,9 +557,9 @@ export default function BoldModernDemo() {
       <section className="relative py-20 md:py-28 px-6" style={{ backgroundColor: '#111111' }}>
         <div className="max-w-5xl mx-auto">
           <Reveal>
-            <div className="flex items-center gap-4 mb-4">
-              <h2 className="text-3xl md:text-5xl font-bold uppercase">FUTURE-PROOF YOUR PROPERTY</h2>
-              <span className="text-xs font-bold uppercase tracking-wider px-3 py-1.5 flex-shrink-0" style={{ backgroundColor: '#ff6b00', color: '#111111' }}>GROWTH SERVICES</span>
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 mb-4">
+              <h2 className="text-2xl md:text-5xl font-bold uppercase">FUTURE-PROOF YOUR PROPERTY</h2>
+              <span className="text-xs font-bold uppercase tracking-wider px-3 py-1.5 w-fit flex-shrink-0" style={{ backgroundColor: '#ff6b00', color: '#111111' }}>GROWTH SERVICES</span>
             </div>
             <div className="w-20 h-1.5 mb-12" style={{ backgroundColor: '#ff6b00' }} />
           </Reveal>
@@ -631,7 +631,7 @@ export default function BoldModernDemo() {
       <section id="estimate" className="relative py-20 md:py-28 px-6" style={{ backgroundColor: '#0a0a0a' }}>
         <div className="max-w-4xl mx-auto">
           <Reveal>
-            <h2 className="text-3xl md:text-5xl font-bold uppercase mb-4">GET YOUR ESTIMATE</h2>
+            <h2 className="text-2xl md:text-5xl font-bold uppercase mb-4">GET YOUR ESTIMATE</h2>
             <div className="w-20 h-1.5 mb-4" style={{ backgroundColor: '#ff6b00' }} />
             <p className="mb-12 text-sm" style={{ color: 'rgba(255,255,255,0.6)' }}>
               Fill this in and we call you back the same day. No auto-responders. A real person.
@@ -695,7 +695,7 @@ export default function BoldModernDemo() {
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#111111' }}>
         <div className="max-w-4xl mx-auto">
           <Reveal className="mb-12">
-            <h2 className="text-3xl md:text-5xl font-bold uppercase mb-4">WATCH YOUR WEBSITE TRANSFORM</h2>
+            <h2 className="text-2xl md:text-5xl font-bold uppercase mb-4">WATCH YOUR WEBSITE TRANSFORM</h2>
             <div className="w-20 h-1.5 mb-4" style={{ backgroundColor: '#ff6b00' }} />
             <p className="text-sm" style={{ color: 'rgba(255,255,255,0.6)' }}>From dated to designed — in real time</p>
           </Reveal>
@@ -711,7 +711,7 @@ export default function BoldModernDemo() {
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#0a0a0a' }}>
         <div className="max-w-6xl mx-auto">
           <Reveal className="mb-12">
-            <h2 className="text-3xl md:text-5xl font-bold uppercase mb-4">WHAT CLIENTS SAY</h2>
+            <h2 className="text-2xl md:text-5xl font-bold uppercase mb-4">WHAT CLIENTS SAY</h2>
             <div className="w-20 h-1.5" style={{ backgroundColor: '#ff6b00' }} />
           </Reveal>
           <div className="grid md:grid-cols-3 gap-6">
@@ -747,7 +747,7 @@ export default function BoldModernDemo() {
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#111111' }}>
         <div className="max-w-3xl mx-auto">
           <Reveal className="mb-12">
-            <h2 className="text-3xl md:text-5xl font-bold uppercase mb-4">COMMON QUESTIONS</h2>
+            <h2 className="text-2xl md:text-5xl font-bold uppercase mb-4">COMMON QUESTIONS</h2>
             <div className="w-20 h-1.5" style={{ backgroundColor: '#ff6b00' }} />
           </Reveal>
           <Reveal delay={0.1}>
@@ -770,7 +770,7 @@ export default function BoldModernDemo() {
         <DiamondDeco className="absolute bottom-10 right-10 opacity-30 hidden md:block" />
         <div className="max-w-4xl mx-auto">
           <Reveal>
-            <h2 className="text-3xl md:text-5xl font-bold uppercase mb-4">ABOUT VOLT ELECTRIC</h2>
+            <h2 className="text-2xl md:text-5xl font-bold uppercase mb-4">ABOUT VOLT ELECTRIC</h2>
             <div className="w-20 h-1.5 mb-10" style={{ backgroundColor: '#ff6b00' }} />
           </Reveal>
           <Reveal delay={0.15}>
@@ -807,7 +807,7 @@ export default function BoldModernDemo() {
       <section id="contact" className="relative py-20 md:py-28 px-6" style={{ backgroundColor: '#111111' }}>
         <div className="max-w-7xl mx-auto">
           <Reveal>
-            <h2 className="text-3xl md:text-5xl font-bold uppercase mb-4">GET IN TOUCH</h2>
+            <h2 className="text-2xl md:text-5xl font-bold uppercase mb-4">GET IN TOUCH</h2>
             <div className="w-20 h-1.5 mb-16" style={{ backgroundColor: '#ff6b00' }} />
           </Reveal>
           <div className="grid md:grid-cols-2 gap-12 md:gap-16">
