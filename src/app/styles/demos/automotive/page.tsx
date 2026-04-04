@@ -241,7 +241,7 @@ function LiveRedesign() {
                 <div className="absolute inset-0 opacity-[0.12]" style={{ background: 'linear-gradient(135deg, #888 0%, #ccc 50%, #eee 100%)' }} />
                 <div className="relative z-10">
                   <p className="text-xs uppercase tracking-wide mb-2" style={{ fontFamily: 'Arial, sans-serif', color: '#666', letterSpacing: '0.15em' }}>★ Welcome to Our Website ★</p>
-                  <h2 className="text-xl sm:text-3xl md:text-4xl leading-tight mb-2" style={{ fontFamily: 'Georgia, serif', color: '#3a3a3a', fontWeight: 700 }}>Iron Horse Garage</h2>
+                  <h2 className="text-xl sm:text-2xl md:text-4xl leading-tight mb-2" style={{ fontFamily: 'Georgia, serif', color: '#3a3a3a', fontWeight: 700 }}>Iron Horse Garage</h2>
                   <p className="text-sm sm:text-lg mb-1" style={{ fontFamily: 'Georgia, serif', color: '#666', fontStyle: 'italic' }}>&ldquo;Your #1 Choice for Car Repairs Since 1998!&rdquo;</p>
                   <p className="text-xs sm:text-sm mb-4" style={{ fontFamily: 'Arial, sans-serif', color: '#888' }}>Oil Changes &bull; Brake Jobs &bull; Tire Rotations &bull; Inspections &bull; And More!</p>
                   <div className="flex justify-center gap-2 mb-4 flex-wrap">
@@ -399,7 +399,7 @@ export default function AutomotiveDemo() {
   const prefersReduced = useReducedMotion()
 
   return (
-    <div className={body.className} style={{ fontFamily: 'Inter, sans-serif', backgroundColor: '#111', color: '#ffffff' }}>
+    <div className={`${body.className} overflow-x-hidden`} style={{ fontFamily: 'Inter, sans-serif', backgroundColor: '#111', color: '#ffffff' }}>
 
       <style>{`
         @media (prefers-reduced-motion: reduce) {
@@ -566,7 +566,7 @@ export default function AutomotiveDemo() {
               SHOP INSPECTION REPORT
             </h2>
             <div className="w-20 h-1.5 mb-4" style={{ backgroundColor: '#dc2626' }} />
-            <p className="text-sm uppercase tracking-widest mb-12" style={{ color: 'rgba(255,255,255,0.35)' }}>Iron Horse Garage — Service Menu</p>
+            <p className="text-sm uppercase tracking-widest mb-12" style={{ color: 'rgba(255,255,255,0.55)' }}>Iron Horse Garage — Service Menu</p>
           </Reveal>
           <Reveal delay={0.1}>
             <div style={{ backgroundColor: '#111', border: '1px solid #2a2a2a', borderTop: '4px solid #dc2626' }}>
@@ -636,7 +636,7 @@ export default function AutomotiveDemo() {
                   <div className="flex items-start justify-between mb-3">
                     <div>
                       <h3 className={`${heading.className} text-xl tracking-wider`} style={{ color: '#ffffff' }}>{item.vehicle}</h3>
-                      <p className="text-xs mt-1" style={{ color: 'rgba(255,255,255,0.4)' }}>{item.job}</p>
+                      <p className="text-xs mt-1" style={{ color: 'rgba(255,255,255,0.6)' }}>{item.job}</p>
                     </div>
                     <span className="text-xs font-bold px-2 py-1 rounded whitespace-nowrap ml-2" style={{ backgroundColor: 'rgba(220,38,38,0.1)', color: item.statusColor, border: `1px solid ${item.statusColor}40` }}>
                       {item.status}
@@ -707,7 +707,7 @@ export default function AutomotiveDemo() {
               Watch Your Website Transform
             </h2>
             <div className="w-20 h-1.5 mb-4" style={{ backgroundColor: '#dc2626' }} />
-            <p className="mb-12 text-sm uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.4)' }}>From dated to designed — in real time</p>
+            <p className="mb-12 text-sm uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.6)' }}>From dated to designed — in real time</p>
           </Reveal>
           <Reveal delay={0.1}>
             <LiveRedesign />
@@ -898,19 +898,19 @@ export default function AutomotiveDemo() {
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
             <div>
               <span className={`${heading.className} text-2xl tracking-wider block mb-3`} style={chromeGradient}>IRON HORSE GARAGE</span>
-              <p className="text-sm" style={{ color: 'rgba(255,255,255,0.4)' }}>Full-service auto repair &amp; custom builds. Trail, BC.</p>
+              <p className="text-sm" style={{ color: 'rgba(255,255,255,0.6)' }}>Full-service auto repair &amp; custom builds. Trail, BC.</p>
             </div>
             <div className="flex flex-col sm:flex-row gap-6">
               {['Services', 'Work', 'About', 'Contact'].map((link) => (
-                <a key={link} href={`#${link.toLowerCase()}`} className="text-sm font-medium uppercase tracking-widest transition-colors" style={{ color: 'rgba(255,255,255,0.4)' }}
+                <a key={link} href={`#${link.toLowerCase()}`} className="text-sm font-medium uppercase tracking-widest transition-colors" style={{ color: 'rgba(255,255,255,0.6)' }}
                   onMouseEnter={(e) => (e.currentTarget.style.color = '#dc2626')} onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.4)')}>{link}</a>
               ))}
             </div>
           </div>
           <div className="mt-10 pt-6" style={{ borderTop: '1px solid #1a1a1a' }}>
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-              <span className="text-sm" style={{ color: 'rgba(255,255,255,0.25)' }}>&copy; 2025 Iron Horse Garage. All rights reserved.</span>
-              <span className="text-sm" style={{ color: 'rgba(255,255,255,0.25)' }}>Serving Trail, Rossland &amp; the West Kootenays</span>
+              <span className="text-sm" style={{ color: 'rgba(255,255,255,0.45)' }}>&copy; {new Date().getFullYear()} Iron Horse Garage. All rights reserved.</span>
+              <span className="text-sm" style={{ color: 'rgba(255,255,255,0.45)' }}>Serving Trail, Rossland &amp; the West Kootenays</span>
             </div>
           </div>
         </div>
