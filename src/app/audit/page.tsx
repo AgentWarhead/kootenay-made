@@ -303,7 +303,7 @@ function URLScanner() {
               value={url}
               onChange={(e) => { setUrl(e.target.value); setScores(null); setError(''); }}
               placeholder="yourwebsite.ca"
-              className="flex-1 min-w-0 bg-slate-card border border-white/10 rounded-lg px-4 py-3 text-cream placeholder:text-dark-text-muted/40 focus:outline-none focus:border-copper focus:ring-1 focus:ring-copper/40 transition-all text-sm"
+              className="flex-1 min-w-0 bg-cream-dark border border-copper/20 rounded-lg px-4 py-3 text-slate placeholder:text-text-secondary/50 focus:outline-none focus:border-copper focus:ring-1 focus:ring-copper/40 transition-all text-sm"
               onKeyDown={(e) => e.key === 'Enter' && !scanning && handleScan()}
             />
             <button
