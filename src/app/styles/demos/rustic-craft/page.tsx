@@ -467,6 +467,13 @@ export default function RusticCraftDemo() {
             </a>
           </FadeUp>
         </div>
+        <motion.div
+          className="absolute bottom-8 left-1/2 -translate-x-1/2"
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+        >
+          <CaretDown size={24} weight="bold" style={{ color: `${AMBER}66` }} />
+        </motion.div>
       </section>
 
       {/* ── 3. TRUST BAR ──────────────────────────────────────── */}
@@ -1010,13 +1017,9 @@ export default function RusticCraftDemo() {
                   <p style={{ color: `${PARCHMENT}cc` }}>Sun–Thu: 12–9 PM<br />Fri–Sat: 12–11 PM</p>
                 </div>
 
-                <div
-                  className="rounded-sm h-48 flex items-center justify-center"
-                  style={{ backgroundColor: `${DARK_BROWN}88`, border: `2px dashed ${PARCHMENT}33` }}
-                >
-                  <span className="text-sm font-bold uppercase tracking-widest" style={{ color: `${PARCHMENT}44` }}>
-                    Taproom Map
-                  </span>
+                <div className="rounded-sm p-4" style={{ backgroundColor: `${DARK_BROWN}88`, border: `1px solid ${PARCHMENT}22` }}>
+                  <p className="text-sm font-bold mb-1" style={{ color: PARCHMENT }}>Find Us</p>
+                  <p className="text-xs leading-relaxed" style={{ color: `${PARCHMENT}88` }}>Corner of Sample St &amp; Main — look for the amber glow and the dog out front.</p>
                 </div>
 
                 <a
@@ -1125,7 +1128,7 @@ export default function RusticCraftDemo() {
           </div>
           <div className="border-t pt-8 text-center" style={{ borderColor: `${PARCHMENT}22` }}>
             <p className="text-xs" style={{ color: `${PARCHMENT}66` }}>
-              &copy; 2025 Kootenay Brewing Collective. All rights reserved.
+              &copy; {new Date().getFullYear()} Kootenay Brewing Collective. All rights reserved.
             </p>
           </div>
         </div>
