@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import Link from 'next/link';
 import { motion, useScroll, useTransform, useInView, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Globe, Palette, ShoppingBag, Mail, Bot, Search } from 'lucide-react';
+import { ArrowRight, Globe, Palette, ShoppingBag, Mail, Bot, Search, Shield, User, Gift } from 'lucide-react';
 import ScrollReveal from '@/components/ScrollReveal';
 import RippleButton from '@/components/RippleButton';
 import TiltCard from '@/components/TiltCard';
@@ -244,36 +244,7 @@ const industries = [
   },
 ];
 
-/* ── Process steps (How It Works) ────────────── */
-const processSteps = [
-  {
-    title: 'Free Check-Up',
-    desc: 'We look at where you are online and give you an honest plan. Takes 30 minutes. Costs nothing.',
-    icon: (
-      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="4" y="6" width="16" height="12" rx="2" /><path d="M8 22h8" /><path d="M12 18v4" /><circle cx="23" cy="15" r="5" /><path d="M27 19l3 3" />
-      </svg>
-    ),
-  },
-  {
-    title: 'We Build',
-    desc: 'You approve the plan, we get to work. You see progress along the way and give feedback.',
-    icon: (
-      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M10 28l-6-6 12-12 6 6z" /><path d="M22 4l6 6-3 3" /><path d="M18 8l6 6" />
-      </svg>
-    ),
-  },
-  {
-    title: 'You Grow',
-    desc: 'Your new site launches. Customers start finding you. We stick around to help you grow.',
-    icon: (
-      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
-        <path d="M16 28V14" /><path d="M16 20c-6-1-8-6-8-10 4 0 7 3 8 6" /><path d="M16 14c4-1 6-5 6-8-3 0-5 2-6 5" /><path d="M10 28h12" />
-      </svg>
-    ),
-  },
-];
+
 
 /* ── Kootenay towns data ─────────────────────── */
 const towns = [
@@ -350,9 +321,7 @@ export default function Home() {
   const bentoRef = useRef<HTMLDivElement>(null);
   const bentoInView = useInView(bentoRef, { once: true, margin: '-80px' });
 
-  // Trail timeline animation
-  const trailRef = useRef<HTMLDivElement>(null);
-  const trailInView = useInView(trailRef, { once: true, margin: '-100px' });
+
 
   return (
     <>
@@ -610,65 +579,122 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
           <ScrollReveal>
             <div className="text-center">
-              <p className="text-copper font-medium text-sm tracking-wider uppercase mb-3">Simple as 1-2-3</p>
+              <p className="text-copper font-medium text-sm tracking-wider uppercase mb-3">Zero Risk, Zero Pressure</p>
               <h2 className="font-[family-name:var(--font-satoshi)] text-3xl sm:text-4xl md:text-5xl font-bold text-slate leading-tight">
                 Here&apos;s How It Works
               </h2>
             </div>
           </ScrollReveal>
 
-          <div className="mt-16 relative" ref={trailRef}>
-            {/* Hand-drawn trail — desktop */}
-            <svg className="hidden md:block absolute top-[23px] left-[16.67%] w-[66.66%] h-[20px] z-0 overflow-visible" preserveAspectRatio="none">
-              <path
-                d="M0,10 C50,2 100,18 150,10 C200,2 250,18 300,10 C350,2 400,18 450,10 C500,2 550,18 600,10"
-                fill="none"
-                stroke="rgba(193,120,23,0.2)"
-                strokeWidth="2"
-                strokeDasharray="6 4"
-                vectorEffect="non-scaling-stroke"
-              />
+          <div className="mt-16 flex flex-col gap-8 relative">
+            {/* SVG connecting trails — desktop only */}
+            <svg className="hidden md:block absolute inset-0 w-full h-full pointer-events-none z-0" preserveAspectRatio="none">
+              <path d="M 620 180 C 650 220, 680 260, 650 300" fill="none" stroke="#C17817" strokeWidth="2" strokeDasharray="6 4" opacity="0.15" />
+              <path d="M 380 480 C 350 520, 320 560, 350 600" fill="none" stroke="#C17817" strokeWidth="2" strokeDasharray="6 4" opacity="0.15" />
             </svg>
-            <motion.svg className="hidden md:block absolute top-[23px] left-[16.67%] w-[66.66%] h-[20px] z-0 overflow-visible" preserveAspectRatio="none">
-              <motion.path
-                d="M0,10 C50,2 100,18 150,10 C200,2 250,18 300,10 C350,2 400,18 450,10 C500,2 550,18 600,10"
-                fill="none"
-                stroke="#C17817"
-                strokeWidth="2"
-                vectorEffect="non-scaling-stroke"
-                initial={{ pathLength: 0 }}
-                animate={trailInView ? { pathLength: 1 } : {}}
-                transition={{ duration: 1.5, ease: 'easeInOut' }}
-              />
-            </motion.svg>
 
-            {/* Mobile: no vertical line — numbered circles provide sequence, line cuts through text */}
-
-            {/* Steps */}
-            <div className="flex flex-col md:flex-row gap-16 md:gap-8">
-              {processSteps.map((step, i) => (
-                <div key={step.title} className="flex-1 flex flex-col items-center text-center relative z-10">
-                  {/* Node circle */}
-                  <motion.div
-                    className="w-12 h-12 rounded-full border-2 flex items-center justify-center mb-6 relative"
-                    style={{ backgroundColor: '#C17817', borderColor: '#C17817' }}
-                    initial={{ y: -20, opacity: 0, scale: 0.8 }}
-                    animate={trailInView ? { y: 0, opacity: 1, scale: 1 } : {}}
-                    transition={{ delay: 0.3 + i * 0.4, duration: 0.5, type: 'spring', stiffness: 300, damping: 15 }}
-                  >
-                    <span className="text-sm font-bold font-[family-name:var(--font-satoshi)] text-cream">
-                      {i + 1}
-                    </span>
-                  </motion.div>
-                  {/* Icon */}
-                  <div className={`w-16 h-16 rounded-2xl bg-[#E2DDD7] flex items-center justify-center mb-5 text-copper ${i === 0 ? 'step-sweep' : i === 1 ? 'step-rock' : 'step-grow'}`}>
-                    {step.icon}
+            {/* Card 1 — Tell Us About Your Business */}
+            <ScrollReveal delay={0}>
+              <div
+                className="relative ml-0 mr-auto max-w-2xl w-full rounded-2xl p-8 sm:p-10 bg-white/60 backdrop-blur-sm border border-cream-border/50 shadow-sm hover:shadow-md transition-all duration-300 group"
+                style={{ backgroundColor: 'rgba(193,120,23,0.04)' }}
+                onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-4px)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; }}
+              >
+                <span className="absolute top-4 left-6 text-6xl font-black text-copper opacity-[0.08] font-[family-name:var(--font-satoshi)] select-none leading-none">1</span>
+                <div className="relative z-10">
+                  <h3 className="font-[family-name:var(--font-satoshi)] text-2xl font-bold text-slate mb-3">Tell Us About Your Business</h3>
+                  <p className="text-text-secondary text-base leading-relaxed mb-5 font-[family-name:var(--font-general)]">
+                    30 seconds. Seriously. Just your name, your website (if you have one), and what you do. That&apos;s it.
+                  </p>
+                  {/* Mini form preview */}
+                  <div className="flex flex-col gap-2.5 mb-5 max-w-xs">
+                    {['Name', 'Website', 'Email'].map((label) => (
+                      <div key={label} className="bg-white/50 border border-cream-border rounded-lg px-4 py-2.5">
+                        <span className="text-xs text-text-secondary/50 font-[family-name:var(--font-general)]">{label}</span>
+                      </div>
+                    ))}
                   </div>
-                  <h3 className="font-[family-name:var(--font-satoshi)] text-xl font-bold text-slate mb-3">{step.title}</h3>
-                  <p className="text-text-secondary text-sm leading-relaxed max-w-xs">{step.desc}</p>
+                  <span className="text-xs text-text-secondary bg-cream-dark/80 px-3 py-1.5 rounded-full inline-flex items-center gap-1.5 mb-5">
+                    <Shield size={13} /> No credit card. No sales call. No catch.
+                  </span>
+                  <div className="mt-2">
+                    <Link href="/audit" className="inline-flex items-center gap-1.5 text-copper hover:text-copper-dark font-medium text-sm transition-colors font-[family-name:var(--font-satoshi)]">
+                      Start Your Free Audit <ArrowRight size={15} />
+                    </Link>
+                  </div>
                 </div>
-              ))}
-            </div>
+              </div>
+            </ScrollReveal>
+
+            {/* Card 2 — Brett Runs Your Audit */}
+            <ScrollReveal delay={0.15}>
+              <div
+                className="relative ml-auto mr-0 max-w-2xl w-full rounded-2xl p-8 sm:p-10 bg-white/60 backdrop-blur-sm border border-cream-border/50 shadow-sm hover:shadow-md transition-all duration-300 group"
+                style={{ backgroundColor: 'rgba(74,144,164,0.04)' }}
+                onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-4px)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; }}
+              >
+                <span className="absolute top-4 left-6 text-6xl font-black text-copper opacity-[0.08] font-[family-name:var(--font-satoshi)] select-none leading-none">2</span>
+                <div className="relative z-10">
+                  <h3 className="font-[family-name:var(--font-satoshi)] text-2xl font-bold text-slate mb-3">Brett Runs Your Audit</h3>
+                  <p className="text-text-secondary text-base leading-relaxed mb-5 font-[family-name:var(--font-general)]">
+                    Within 48 hours, Brett personally reviews your online presence — your website speed, how you show up on Google, what your competitors are doing, and where the quick wins are.
+                  </p>
+                  {/* Mini scanning animation */}
+                  <div className="relative w-40 h-24 border border-cream-border/80 rounded-lg bg-white/30 mb-5 overflow-hidden">
+                    {/* Wireframe lines */}
+                    <div className="absolute top-3 left-3 right-3 h-2 bg-cream-border/40 rounded" />
+                    <div className="absolute top-8 left-3 right-8 h-1.5 bg-cream-border/30 rounded" />
+                    <div className="absolute top-12 left-3 right-12 h-1.5 bg-cream-border/30 rounded" />
+                    <div className="absolute top-16 left-3 right-6 h-1.5 bg-cream-border/20 rounded" />
+                    {/* Scanning line */}
+                    <div className="audit-scan-line absolute left-0 right-0 h-[2px] bg-copper/60 top-0" />
+                  </div>
+                  <span className="text-xs text-text-secondary bg-cream-dark/80 px-3 py-1.5 rounded-full inline-flex items-center gap-1.5">
+                    <User size={13} /> A real person. Not a bot. Not a template.
+                  </span>
+                </div>
+              </div>
+            </ScrollReveal>
+
+            {/* Card 3 — Get Your Game Plan */}
+            <ScrollReveal delay={0.3}>
+              <div
+                className="relative ml-0 mr-auto max-w-2xl w-full rounded-2xl p-8 sm:p-10 bg-white/60 backdrop-blur-sm border border-cream-border/50 shadow-sm hover:shadow-md transition-all duration-300 group"
+                style={{ backgroundColor: 'rgba(45,106,79,0.04)' }}
+                onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-4px)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; }}
+              >
+                <span className="absolute top-4 left-6 text-6xl font-black text-copper opacity-[0.08] font-[family-name:var(--font-satoshi)] select-none leading-none">3</span>
+                <div className="relative z-10">
+                  <h3 className="font-[family-name:var(--font-satoshi)] text-2xl font-bold text-slate mb-3">Get Your Game Plan</h3>
+                  <p className="text-text-secondary text-base leading-relaxed mb-5 font-[family-name:var(--font-general)]">
+                    You get a branded report with exactly what&apos;s working, what&apos;s not, and what to do next. It&apos;s yours to keep — whether you hire us or not.
+                  </p>
+                  {/* Mini document with page-flip on scroll */}
+                  <motion.div
+                    className="w-28 h-36 border border-cream-border/80 rounded-lg bg-white/40 mb-5 p-3 flex flex-col gap-1.5"
+                    initial={{ rotateY: 0 }}
+                    whileInView={{ rotateY: [0, 5, 0] }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8, ease: [0.34, 1.56, 0.64, 1] }}
+                    style={{ perspective: 600 }}
+                  >
+                    <div className="h-2 w-16 bg-copper/20 rounded" />
+                    <div className="h-1.5 w-full bg-cream-border/40 rounded" />
+                    <div className="h-1.5 w-20 bg-cream-border/30 rounded" />
+                    <div className="h-1.5 w-full bg-cream-border/30 rounded" />
+                    <div className="h-1.5 w-14 bg-cream-border/20 rounded" />
+                    <div className="h-1.5 w-full bg-cream-border/30 rounded mt-1" />
+                    <div className="h-1.5 w-18 bg-cream-border/20 rounded" />
+                  </motion.div>
+                  <span className="text-xs text-text-secondary bg-cream-dark/80 px-3 py-1.5 rounded-full inline-flex items-center gap-1.5">
+                    <Gift size={13} /> The report is yours. No strings attached.
+                  </span>
+                </div>
+              </div>
+            </ScrollReveal>
           </div>
         </div>
       </section>

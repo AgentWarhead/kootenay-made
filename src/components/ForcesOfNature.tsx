@@ -44,6 +44,27 @@ function AuroraCard({ inView }: { inView: boolean }) {
       {/* Gradient overlay — heavier at bottom for text readability */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10 z-[1]" />
       
+      {/* Twinkling stars */}
+      {inView && (
+        <div className="absolute inset-0 z-[1]" style={{
+          boxShadow: `
+            ${Array.from({ length: 30 }, () => 
+              `${Math.floor(Math.random() * 100)}% ${Math.floor(Math.random() * 60)}% 0 ${Math.random() > 0.7 ? '1px' : '0.5px'} rgba(255,255,255,${0.4 + Math.random() * 0.5})`
+            ).join(', ')}
+          `,
+        }}>
+          <div className="absolute inset-0 animate-[twinkle_3s_ease-in-out_infinite]" style={{
+            boxShadow: `
+              15% 8% 0 1px rgba(255,255,255,0.8),
+              45% 22% 0 1px rgba(255,255,255,0.7),
+              72% 12% 0 1px rgba(255,255,255,0.9),
+              88% 35% 0 1px rgba(255,255,255,0.6),
+              33% 48% 0 1px rgba(255,255,255,0.8)
+            `,
+          }} />
+        </div>
+      )}
+
       {/* Aurora glow bands */}
       <div className={`absolute inset-0 z-[2] transition-opacity duration-[2000ms] ${inView ? 'opacity-60' : 'opacity-0'}`}>
         <div className="aurora-band aurora-band-1" />
@@ -159,19 +180,41 @@ function SnowfallCard({ inView }: { inView: boolean }) {
 
 /* ── Card 3: Forest Growth — '2-4 Week Delivery' ── */
 function ForestGrowthCard({ inView }: { inView: boolean }) {
+  const fireflies = useMemo(
+    () => Array.from({ length: 12 }, (_, i) => ({
+      id: i,
+      left: `${10 + Math.random() * 80}%`,
+      size: 2 + Math.random() * 3,
+      duration: 4 + Math.random() * 6,
+      delay: Math.random() * 5,
+      drift: -20 + Math.random() * 40,
+    })),
+    []
+  );
+
   return (
     <div className="relative aspect-square rounded-2xl overflow-hidden border border-white/5 group hover:-translate-y-1 transition-transform duration-300">
       <Image src="/images/stats/forest-bg.webp" alt="Misty Kootenay forest" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent z-[1]" />
 
-      {/* Morning fog */}
+      {/* Fireflies */}
       {inView && (
-        <div
-          className="absolute bottom-0 left-0 right-0 h-1/3 z-[2] fog-layer pointer-events-none"
-          style={{
-            background: 'linear-gradient(to top, rgba(248,244,240,0.15) 0%, transparent 100%)',
-          }}
-        />
+        <div className="absolute inset-0 z-[2] overflow-hidden pointer-events-none">
+          {fireflies.map((f) => (
+            <div
+              key={f.id}
+              className="firefly"
+              style={{
+                left: f.left,
+                width: `${f.size}px`,
+                height: `${f.size}px`,
+                animationDuration: `${f.duration}s`,
+                animationDelay: `${f.delay}s`,
+                '--firefly-drift': `${f.drift}px`,
+              } as React.CSSProperties}
+            />
+          ))}
+        </div>
       )}
 
       <div className="absolute inset-0 z-[3] flex flex-col items-center justify-end pb-10 sm:pb-12 text-center px-6">
@@ -202,6 +245,15 @@ function MountainSummitCard({ inView }: { inView: boolean }) {
     <div className="relative aspect-square rounded-2xl overflow-hidden border border-white/5 group hover:-translate-y-1 transition-transform duration-300">
       <Image src="/images/stats/mountain-bg.webp" alt="Kootenay mountain summit" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent z-[1]" />
+
+      {/* Drifting clouds */}
+      {inView && (
+        <div className="absolute inset-0 z-[2] overflow-hidden pointer-events-none">
+          <div className="mountain-cloud mountain-cloud-1" />
+          <div className="mountain-cloud mountain-cloud-2" />
+          <div className="mountain-cloud mountain-cloud-3" />
+        </div>
+      )}
 
       <div className="absolute inset-0 z-[3] flex flex-col items-center justify-end pb-10 sm:pb-12 text-center px-6">
         <motion.span

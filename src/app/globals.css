@@ -959,6 +959,81 @@ input:focus, textarea:focus, select:focus {
   }
 }
 
+/* Fireflies for forest card */
+.firefly {
+  position: absolute;
+  bottom: 20%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,200,50,0.9) 0%, rgba(255,200,50,0) 70%);
+  pointer-events: none;
+  animation: firefly-float linear infinite;
+  box-shadow: 0 0 6px 2px rgba(255,200,50,0.3);
+}
+
+@keyframes firefly-float {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  15% { opacity: 0.8; }
+  50% { opacity: 0.3; }
+  65% { opacity: 0.9; }
+  85% { opacity: 0.4; }
+  100% {
+    transform: translateY(-180px) translateX(var(--firefly-drift, 0px));
+    opacity: 0;
+  }
+}
+
+/* Drifting clouds for mountain card */
+.mountain-cloud {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(255,255,255,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.mountain-cloud-1 {
+  width: 60%;
+  height: 25%;
+  top: 20%;
+  left: -20%;
+  animation: cloud-drift-1 20s ease-in-out infinite;
+}
+.mountain-cloud-2 {
+  width: 45%;
+  height: 20%;
+  top: 30%;
+  left: 60%;
+  animation: cloud-drift-2 25s ease-in-out infinite;
+}
+.mountain-cloud-3 {
+  width: 50%;
+  height: 18%;
+  top: 15%;
+  left: 20%;
+  animation: cloud-drift-3 30s ease-in-out infinite;
+}
+
+@keyframes cloud-drift-1 {
+  0%, 100% { transform: translateX(0); opacity: 0.5; }
+  50% { transform: translateX(80%); opacity: 0.8; }
+}
+@keyframes cloud-drift-2 {
+  0%, 100% { transform: translateX(0); opacity: 0.6; }
+  50% { transform: translateX(-60%); opacity: 0.4; }
+}
+@keyframes cloud-drift-3 {
+  0%, 100% { transform: translateX(0); opacity: 0.3; }
+  50% { transform: translateX(50%); opacity: 0.6; }
+}
+
+/* Reduced motion: forces of nature card effects */
+@media (prefers-reduced-motion: reduce) {
+  .firefly { animation: none; display: none; }
+  .mountain-cloud { animation: none; }
+}
+
 /* Tree growth animation */
 .tree-svg .tree-trunk {
   stroke-dasharray: 220;
@@ -1275,4 +1350,20 @@ input:focus, textarea:focus, select:focus {
   .step-sweep, .step-rock, .step-grow { animation: none; }
   .typewriter-cursor { animation: none; opacity: 1; }
   .industry-card::after { transition: none; transform: scaleX(1); }
+}
+
+/* Scanning line animation for How It Works */
+@keyframes audit-scan {
+  0%, 100% { transform: translateY(0); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(100%); opacity: 0; }
+}
+.audit-scan-line {
+  animation: audit-scan 3s ease-in-out infinite;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .audit-scan-line { animation: none; opacity: 0.5; transform: translateY(50%); }
 }
