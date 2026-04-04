@@ -5,6 +5,7 @@ import { Space_Grotesk } from 'next/font/google'
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion, useReducedMotion, AnimatePresence } from 'framer-motion'
+import { Lightning, House, Buildings, Factory, SolarPanel, Siren, Medal, Certificate, HardHat, CaretDown } from '@phosphor-icons/react'
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -195,7 +196,7 @@ function LiveRedesign() {
                       Waiting For?
                     </span>
                   </motion.h2>
-                  <motion.p className={`${spaceGrotesk.className} text-sm sm:text-base max-w-sm mx-auto sm:mx-0 mb-6`} style={{ color: 'rgba(255,255,255,0.45)', lineHeight: 1.7 }}
+                  <motion.p className={`${spaceGrotesk.className} text-sm sm:text-base max-w-sm mx-auto sm:mx-0 mb-6`} style={{ color: 'rgba(255,255,255,0.65)', lineHeight: 1.7 }}
                     initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: dur * 0.8, delay: stagger * 4 }}>
                     Licensed electrical contractors. Bold results. Same-day quotes.
                   </motion.p>
@@ -206,7 +207,7 @@ function LiveRedesign() {
                       Let&rsquo;s Build It
                       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                     </a>
-                    <span className={`${spaceGrotesk.className} text-sm`} style={{ color: 'rgba(255,255,255,0.25)' }}>No commitment required</span>
+                    <span className={`${spaceGrotesk.className} text-sm`} style={{ color: 'rgba(255,255,255,0.45)' }}>No commitment required</span>
                   </motion.div>
                   <motion.div className="flex items-center justify-center sm:justify-start gap-4 sm:gap-6 mt-6 flex-wrap"
                     initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: dur, delay: stagger * 6 }}>
@@ -254,9 +255,20 @@ function FAQAccordion({ items }: { items: { q: string; a: string }[] }) {
               <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </button>
-          {open === i && (
-            <div className="px-6 pb-5" style={{ color: 'rgba(255,255,255,0.6)' }}>{item.a}</div>
-          )}
+          <AnimatePresence initial={false}>
+            {open === i && (
+              <motion.div
+                key={`faq-${i}`}
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: 'auto', opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.3, ease: 'easeInOut' }}
+                style={{ overflow: 'hidden' }}
+              >
+                <div className="px-6 pb-5" style={{ color: 'rgba(255,255,255,0.65)' }}>{item.a}</div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       ))}
     </div>
@@ -344,7 +356,7 @@ export default function BoldModernDemo() {
               ].map((stat) => (
                 <div key={stat.n} className="pr-6" style={{ borderRight: '1px solid #333' }}>
                   <p className="text-2xl md:text-3xl font-bold" style={{ color: '#ff6b00' }}>{stat.n}</p>
-                  <p className="text-xs uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.4)' }}>{stat.label}</p>
+                  <p className="text-xs uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.6)' }}>{stat.label}</p>
                 </div>
               ))}
             </motion.div>
@@ -395,6 +407,13 @@ export default function BoldModernDemo() {
             <rect x="60" y="60" width="80" height="80" stroke="#ff6b00" strokeWidth="1" transform="rotate(45 100 100)" />
           </svg>
         </div>
+        <motion.div
+          className="absolute bottom-8 left-1/2 -translate-x-1/2"
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+        >
+          <CaretDown size={24} weight="bold" style={{ color: 'rgba(255,107,0,0.6)' }} />
+        </motion.div>
       </section>
 
       {/* ─── 3. TRUST BAR ───────────────────────────────────── */}
@@ -417,15 +436,15 @@ export default function BoldModernDemo() {
             </p>
             <div className="flex flex-wrap justify-center gap-6 md:gap-10">
               {[
-                { label: 'Master Electrician', sub: 'Licence #BC-0042817', icon: '🏅' },
-                { label: 'ESA Certified', sub: 'Electrical Safety Authority', icon: '⚡' },
-                { label: 'ECRA Member', sub: 'Electrical Contractors Reg.', icon: '📋' },
-                { label: 'WorkSafeBC', sub: 'Certificate of Recognition', icon: '🦺' },
+                { label: 'Master Electrician', sub: 'Licence #BC-0042817', icon: <Medal size={28} weight="duotone" className="text-orange-500" /> },
+                { label: 'ESA Certified', sub: 'Electrical Safety Authority', icon: <Lightning size={28} weight="duotone" className="text-orange-500" /> },
+                { label: 'ECRA Member', sub: 'Electrical Contractors Reg.', icon: <Certificate size={28} weight="duotone" className="text-orange-500" /> },
+                { label: 'WorkSafeBC', sub: 'Certificate of Recognition', icon: <HardHat size={28} weight="duotone" className="text-orange-500" /> },
               ].map((cred) => (
                 <div key={cred.label} className="text-center">
-                  <div className="text-2xl mb-2">{cred.icon}</div>
+                  <div className="flex justify-center mb-2">{cred.icon}</div>
                   <p className="text-sm font-bold uppercase tracking-wider" style={{ color: '#ffffff' }}>{cred.label}</p>
-                  <p className="text-xs mt-1" style={{ color: 'rgba(255,255,255,0.35)' }}>{cred.sub}</p>
+                  <p className="text-xs mt-1" style={{ color: 'rgba(255,255,255,0.55)' }}>{cred.sub}</p>
                 </div>
               ))}
             </div>
@@ -445,12 +464,12 @@ export default function BoldModernDemo() {
 
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
             {[
-              { icon: '🏠', label: 'RESIDENTIAL', count: '150+', desc: 'Rewires, panel upgrades, outlets, lighting — everything for your home.', isNew: false },
-              { icon: '🏢', label: 'COMMERCIAL', count: '90+', desc: 'Tenant improvements, new construction, retail fit-outs, office builds.', isNew: false },
-              { icon: '🏭', label: 'INDUSTRIAL', count: '40+', desc: 'Heavy equipment, machine wiring, 3-phase power, manufacturing plants.', isNew: false },
-              { icon: '⚡', label: 'EV CHARGERS', count: '75+', desc: 'Level 2 home chargers and commercial fleet charging stations.', isNew: true },
-              { icon: '🌞', label: 'SOLAR', count: '20+', desc: 'Grid-tied solar installations and battery storage system integration.', isNew: true },
-              { icon: '🚨', label: 'EMERGENCY', count: '24/7', desc: 'We answer. Always. Power failures, electrical faults, arc flash.', isNew: false },
+              { icon: <House size={32} weight="duotone" className="text-orange-500" />, label: 'RESIDENTIAL', count: '150+', desc: 'Rewires, panel upgrades, outlets, lighting — everything for your home.', isNew: false },
+              { icon: <Buildings size={32} weight="duotone" className="text-orange-500" />, label: 'COMMERCIAL', count: '90+', desc: 'Tenant improvements, new construction, retail fit-outs, office builds.', isNew: false },
+              { icon: <Factory size={32} weight="duotone" className="text-orange-500" />, label: 'INDUSTRIAL', count: '40+', desc: 'Heavy equipment, machine wiring, 3-phase power, manufacturing plants.', isNew: false },
+              { icon: <Lightning size={32} weight="duotone" className="text-orange-500" />, label: 'EV CHARGERS', count: '75+', desc: 'Level 2 home chargers and commercial fleet charging stations.', isNew: true },
+              { icon: <SolarPanel size={32} weight="duotone" className="text-orange-500" />, label: 'SOLAR', count: '20+', desc: 'Grid-tied solar installations and battery storage system integration.', isNew: true },
+              { icon: <Siren size={32} weight="duotone" className="text-red-500" />, label: 'EMERGENCY', count: '24/7', desc: 'We answer. Always. Power failures, electrical faults, arc flash.', isNew: false },
             ].map((svc) => (
               <Reveal key={svc.label}>
                 <motion.div
@@ -464,12 +483,12 @@ export default function BoldModernDemo() {
                       NEW
                     </span>
                   )}
-                  <div className="text-3xl mb-3">{svc.icon}</div>
+                  <div className="mb-3">{svc.icon}</div>
                   <div className="flex items-baseline gap-3 mb-2">
                     <h3 className="text-base md:text-lg font-bold uppercase tracking-wide" style={{ color: '#ffffff' }}>{svc.label}</h3>
                     <span className="text-sm font-bold" style={{ color: 'rgba(255,107,0,0.8)' }}>{svc.count} completed</span>
                   </div>
-                  <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.45)' }}>{svc.desc}</p>
+                  <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.65)' }}>{svc.desc}</p>
                 </motion.div>
               </Reveal>
             ))}
@@ -486,7 +505,7 @@ export default function BoldModernDemo() {
           <Reveal>
             <h2 className="text-3xl md:text-5xl font-bold uppercase mb-4">RECENT PROJECTS</h2>
             <div className="w-20 h-1.5 mb-4" style={{ backgroundColor: '#ff6b00' }} />
-            <p className="mb-12 text-sm" style={{ color: 'rgba(255,255,255,0.4)' }}>
+            <p className="mb-12 text-sm" style={{ color: 'rgba(255,255,255,0.6)' }}>
               Commercial clients want capability. Here&rsquo;s what we&rsquo;ve delivered.
             </p>
           </Reveal>
@@ -548,7 +567,7 @@ export default function BoldModernDemo() {
           <div className="grid md:grid-cols-2 gap-8">
             {[
               {
-                icon: '⚡',
+                icon: <Lightning size={40} weight="duotone" className="text-orange-500" />,
                 title: 'EV CHARGER INSTALLATION',
                 sub: 'Residential & Commercial',
                 points: [
@@ -561,7 +580,7 @@ export default function BoldModernDemo() {
                 cta: 'Get EV Quote',
               },
               {
-                icon: '🌞',
+                icon: <SolarPanel size={40} weight="duotone" className="text-orange-500" />,
                 title: 'SOLAR INSTALLATIONS',
                 sub: 'Grid-Tied & Battery Storage',
                 points: [
@@ -577,10 +596,10 @@ export default function BoldModernDemo() {
               <Reveal key={svc.title}>
                 <div className="p-8 h-full" style={{ backgroundColor: '#0a0a0a', border: '1px solid rgba(255,107,0,0.2)', borderTop: '4px solid #ff6b00' }}>
                   <div className="flex items-center gap-3 mb-6">
-                    <span className="text-4xl">{svc.icon}</span>
+                    {svc.icon}
                     <div>
                       <h3 className="text-lg font-bold uppercase tracking-wide" style={{ color: '#ff6b00' }}>{svc.title}</h3>
-                      <p className="text-xs" style={{ color: 'rgba(255,255,255,0.4)' }}>{svc.sub}</p>
+                      <p className="text-xs" style={{ color: 'rgba(255,255,255,0.6)' }}>{svc.sub}</p>
                     </div>
                   </div>
                   <ul className="space-y-3 mb-8">
@@ -614,7 +633,7 @@ export default function BoldModernDemo() {
           <Reveal>
             <h2 className="text-3xl md:text-5xl font-bold uppercase mb-4">GET YOUR ESTIMATE</h2>
             <div className="w-20 h-1.5 mb-4" style={{ backgroundColor: '#ff6b00' }} />
-            <p className="mb-12 text-sm" style={{ color: 'rgba(255,255,255,0.4)' }}>
+            <p className="mb-12 text-sm" style={{ color: 'rgba(255,255,255,0.6)' }}>
               Fill this in and we call you back the same day. No auto-responders. A real person.
             </p>
           </Reveal>
@@ -678,7 +697,7 @@ export default function BoldModernDemo() {
           <Reveal className="mb-12">
             <h2 className="text-3xl md:text-5xl font-bold uppercase mb-4">WATCH YOUR WEBSITE TRANSFORM</h2>
             <div className="w-20 h-1.5 mb-4" style={{ backgroundColor: '#ff6b00' }} />
-            <p className="text-sm" style={{ color: 'rgba(255,255,255,0.4)' }}>From dated to designed — in real time</p>
+            <p className="text-sm" style={{ color: 'rgba(255,255,255,0.6)' }}>From dated to designed — in real time</p>
           </Reveal>
           <Reveal delay={0.1}>
             <LiveRedesign />
@@ -711,7 +730,7 @@ export default function BoldModernDemo() {
                   </div>
                   <blockquote className="text-base leading-relaxed mb-6" style={{ color: 'rgba(255,255,255,0.8)' }}>&ldquo;{t.quote}&rdquo;</blockquote>
                   <p className="text-sm font-bold uppercase tracking-wider" style={{ color: '#ff6b00' }}>&mdash; {t.name}</p>
-                  <p className="text-xs mt-1" style={{ color: 'rgba(255,255,255,0.3)' }}>{t.biz} &middot; {t.town}</p>
+                  <p className="text-xs mt-1" style={{ color: 'rgba(255,255,255,0.5)' }}>{t.biz} &middot; {t.town}</p>
                 </div>
               </Reveal>
             ))}
@@ -773,7 +792,7 @@ export default function BoldModernDemo() {
                 ].map((stat) => (
                   <div key={stat.n} className="p-6 text-center" style={{ backgroundColor: '#111111', borderTop: '3px solid #ff6b00' }}>
                     <p className="text-3xl font-bold mb-1" style={{ color: '#ff6b00' }}>{stat.n}</p>
-                    <p className="text-xs uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.4)' }}>{stat.label}</p>
+                    <p className="text-xs uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.6)' }}>{stat.label}</p>
                   </div>
                 ))}
               </div>
@@ -845,11 +864,11 @@ export default function BoldModernDemo() {
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
             <div>
               <span className="text-xl font-bold uppercase tracking-tight block mb-3">VOLT ELECTRIC CO.</span>
-              <p className="text-sm" style={{ color: 'rgba(255,255,255,0.4)' }}>Licensed electrical contractors serving the West Kootenays.</p>
+              <p className="text-sm" style={{ color: 'rgba(255,255,255,0.6)' }}>Licensed electrical contractors serving the West Kootenays.</p>
             </div>
             <div className="flex flex-col sm:flex-row gap-6">
               {['SERVICES', 'PROJECTS', 'ABOUT', 'CONTACT'].map((link) => (
-                <a key={link} href={`#${link.toLowerCase()}`} className="text-sm font-medium uppercase tracking-widest transition-colors" style={{ color: 'rgba(255,255,255,0.4)' }}
+                <a key={link} href={`#${link.toLowerCase()}`} className="text-sm font-medium uppercase tracking-widest transition-colors" style={{ color: 'rgba(255,255,255,0.6)' }}
                   onMouseEnter={(e) => (e.currentTarget.style.color = '#ff6b00')}
                   onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.4)')}>{link}</a>
               ))}
@@ -857,8 +876,8 @@ export default function BoldModernDemo() {
           </div>
           <div className="mt-10 pt-6" style={{ borderTop: '1px solid #1a1a1a' }}>
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-              <span className="text-sm" style={{ color: 'rgba(255,255,255,0.25)' }}>&copy; 2025 Volt Electric Co. All rights reserved.</span>
-              <span className="text-sm" style={{ color: 'rgba(255,255,255,0.25)' }}>Serving Nelson, Castlegar, Trail &amp; the West Kootenays</span>
+              <span className="text-sm" style={{ color: 'rgba(255,255,255,0.45)' }}>&copy; {new Date().getFullYear()} Volt Electric Co. All rights reserved.</span>
+              <span className="text-sm" style={{ color: 'rgba(255,255,255,0.45)' }}>Serving Nelson, Castlegar, Trail &amp; the West Kootenays</span>
             </div>
           </div>
         </div>
