@@ -161,8 +161,8 @@ export default function StylesPage() {
                       <Image
                         src={`/images/styles/${style.slug}.webp`}
                         alt={style.name}
-                        width={600}
-                        height={400}
+                        width={800}
+                        height={600}
                         className="w-full h-auto transition-transform duration-300 group-hover:scale-105"
                       />
                       {/* Hover overlay */}
