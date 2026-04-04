@@ -386,7 +386,7 @@ function URLScanner() {
                 >
                   <p className="text-dark-text-muted text-sm text-center mb-4 leading-relaxed">
                     Want to fix these scores? Brett can walk you through exactly what a new site would do for your business —{' '}
-                    <span className="text-cream font-semibold">free 15-minute call.</span>
+                    <span className="text-cream font-semibold">free call with Brett.</span>
                   </p>
                   <Link
                     href="/contact"
@@ -547,7 +547,7 @@ export default function AuditPage() {
               Like what you see? Let&apos;s talk.
             </h2>
             <p className="text-dark-text-muted text-base mb-8 max-w-lg mx-auto">
-              Your scan tells you where you stand. A quick call with Brett shows you where you could be. 15 minutes, zero pressure.
+              Your scan tells you where you stand. A quick call with Brett shows you where you could be. Zero pressure, take as long as you need.
             </p>
             <Link
               href="/contact"

@@ -628,7 +628,7 @@ export default function Home() {
                 <div className="relative z-10">
                   <h3 className="font-[family-name:var(--font-satoshi)] text-2xl font-bold text-slate mb-3">Like What You See? Let&apos;s Talk</h3>
                   <p className="text-text-secondary text-base leading-relaxed mb-5 font-[family-name:var(--font-general)]">
-                    Book a free 15-minute call with Brett. He&apos;ll walk you through your results and show you exactly what a new site could do for your business. Zero pressure.
+                    Book a free call with Brett. He&apos;ll walk you through your results and show you exactly what a new site could do for your business. Zero pressure.
                   </p>
                   <span className="text-xs text-text-secondary bg-cream-dark/80 px-3 py-1.5 rounded-full inline-flex items-center gap-1.5">
                     <Gift size={13} weight="regular" /> No obligation. Just an honest conversation.
