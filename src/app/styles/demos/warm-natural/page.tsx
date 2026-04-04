@@ -52,6 +52,25 @@ const staggerContainer: Variants = {
   visible: { transition: { staggerChildren: 0.15 } },
 }
 
+/* ── Organic flowing wave dividers ── */
+const wavePaths = [
+  "M0,40 C160,60 320,10 480,35 C640,60 800,15 960,40 C1120,65 1280,20 1440,45 L1440,60 L0,60 Z",
+  "M0,35 C180,55 360,15 540,40 C720,65 900,20 1080,45 C1200,55 1320,25 1440,38 L1440,60 L0,60 Z",
+  "M0,45 C120,20 240,55 400,30 C560,5 720,50 880,25 C1040,0 1200,45 1440,30 L1440,60 L0,60 Z",
+  "M0,30 C200,50 400,20 600,45 C800,70 1000,25 1200,50 C1350,60 1400,35 1440,40 L1440,60 L0,60 Z",
+]
+let waveIdx = 0
+function OrganicWave({ topColor = '#faf6f0', bottomColor = '#f5f0e8' }: { topColor?: string; bottomColor?: string }) {
+  const pathIndex = waveIdx++ % wavePaths.length
+  return (
+    <div style={{ backgroundColor: topColor, lineHeight: 0 }}>
+      <svg viewBox="0 0 1440 60" preserveAspectRatio="none" className="w-full h-8 md:h-12 block">
+        <path fill={bottomColor} d={wavePaths[pathIndex]} />
+      </svg>
+    </div>
+  )
+}
+
 function Reveal({ children, className = '', delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
   const prefersReduced = useReducedMotion()
   return (
@@ -440,7 +459,7 @@ export default function WarmNaturalDemo() {
         </div>
 
         {/* ── WEEKLY CLASS SCHEDULE ── */}
-        <div style={{ height: '60px', background: 'linear-gradient(to bottom, #d4a574, #faf6f0)' }} />
+        <OrganicWave topColor="#d4a574" bottomColor="#faf6f0" />
         <section id="schedule" className="py-20 md:py-28 px-6" style={{  }}>
           <div className="max-w-6xl mx-auto">
             <Reveal className="text-center mb-4">
@@ -491,7 +510,7 @@ export default function WarmNaturalDemo() {
         </section>
 
         {/* ── YOUR FIRST VISIT GUIDE ── */}
-        <div style={{ height: '60px', background: 'linear-gradient(to bottom, #faf6f0, #f5f0e8)' }} />
+        <OrganicWave topColor="#faf6f0" bottomColor="#f5f0e8" />
         <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#f5f0e8' }}>
           <div className="max-w-4xl mx-auto">
             <Reveal className="text-center mb-4">
@@ -530,7 +549,7 @@ export default function WarmNaturalDemo() {
         </section>
 
         {/* ── CLASS PACKS ── */}
-        <div style={{ height: '60px', background: 'linear-gradient(to bottom, #f5f0e8, #faf6f0)' }} />
+        <OrganicWave topColor="#f5f0e8" bottomColor="#faf6f0" />
         <section className="py-20 md:py-28 px-6" style={{  }}>
           <div className="max-w-5xl mx-auto">
             <Reveal className="text-center mb-4">
@@ -581,7 +600,7 @@ export default function WarmNaturalDemo() {
         </section>
 
         {/* ── HOW IT WORKS ── */}
-        <div style={{ height: '60px', background: 'linear-gradient(to bottom, #faf6f0, #f5f0e8)' }} />
+        <OrganicWave topColor="#faf6f0" bottomColor="#f5f0e8" />
         <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#f5f0e8' }}>
           <div className="max-w-4xl mx-auto">
             <h2 className={`${"heading-font"} text-2xl md:text-4xl font-bold text-center mb-4`} style={{ color: '#4a3728' }}>How It Works</h2>
@@ -607,7 +626,7 @@ export default function WarmNaturalDemo() {
         </section>
 
         {/* ── MEET YOUR TEACHERS ── */}
-        <div style={{ height: '60px', background: 'linear-gradient(to bottom, #f5f0e8, #faf6f0)' }} />
+        <OrganicWave topColor="#f5f0e8" bottomColor="#faf6f0" />
         <section id="about" className="py-20 md:py-28 px-6" style={{  }}>
           <div className="max-w-5xl mx-auto">
             <Reveal className="text-center mb-4">
@@ -645,7 +664,7 @@ export default function WarmNaturalDemo() {
         </section>
 
         {/* ── TESTIMONIAL — Single linen-textured ── */}
-        <div style={{ height: '60px', background: 'linear-gradient(to bottom, #faf6f0, #ede8de)' }} />
+        <OrganicWave topColor="#faf6f0" bottomColor="#ede8de" />
         <section className="py-24 md:py-36 px-6 relative overflow-hidden" style={{ backgroundColor: '#ede8de' }}>
           {/* Subtle linen texture overlay */}
           <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='4' height='4' fill='%23e8dfd2'/%3E%3Crect x='0' y='0' width='1' height='1' fill='%23ddd4c4' opacity='0.5'/%3E%3Crect x='2' y='2' width='1' height='1' fill='%23ddd4c4' opacity='0.3'/%3E%3C/svg%3E")`, opacity: 0.6 }} />
@@ -665,7 +684,7 @@ export default function WarmNaturalDemo() {
         </section>
 
         {/* ═══════════ THE TRANSFORMATION ═══════════ */}
-        <div style={{ height: '60px', background: 'linear-gradient(to bottom, #ede8de, #faf6f0)' }} />
+        <OrganicWave topColor="#ede8de" bottomColor="#faf6f0" />
         <section className="py-20 md:py-28 px-6" style={{  }}>
           <div className="max-w-5xl mx-auto">
             <Reveal>
@@ -677,7 +696,7 @@ export default function WarmNaturalDemo() {
         </section>
 
         {/* ── FAQ ── */}
-        <div style={{ height: '60px', background: 'linear-gradient(to bottom, #faf6f0, #f5f0e8)' }} />
+        <OrganicWave topColor="#faf6f0" bottomColor="#f5f0e8" />
         <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#f5f0e8' }}>
           <div className="max-w-2xl mx-auto">
             <h2 className={`${"heading-font"} text-2xl md:text-4xl font-bold text-center mb-4`} style={{ color: '#4a3728' }}>Questions &amp; Answers</h2>
@@ -694,7 +713,7 @@ export default function WarmNaturalDemo() {
         </section>
 
         {/* ── CONTACT ── */}
-        <div style={{ height: '60px', background: 'linear-gradient(to bottom, #f5f0e8, #faf6f0)' }} />
+        <OrganicWave topColor="#f5f0e8" bottomColor="#faf6f0" />
         <section id="contact" className="py-20 md:py-28 px-6" style={{  }}>
           <div className="max-w-5xl mx-auto">
             <h2 className={`${"heading-font"} text-2xl md:text-4xl font-bold text-center mb-16`} style={{ color: '#4a3728' }}>Get In Touch</h2>

@@ -34,15 +34,26 @@ function Reveal({ children, className = '', delay = 0 }: { children: React.React
 
 /* ── Trail marker number ── */
 /* ── Mountain ridge divider ── */
+const ridgePaths = [
+  // Jagged alpine peaks
+  "M0,55 L80,25 L160,42 L280,8 L380,38 L480,15 L600,45 L720,10 L840,35 L960,5 L1060,40 L1180,18 L1300,42 L1440,12 L1440,60 L0,60 Z",
+  // Rolling foothills
+  "M0,50 L120,30 L240,45 L400,20 L560,40 L700,25 L840,42 L1000,18 L1120,38 L1280,22 L1440,35 L1440,60 L0,60 Z",
+  // Dramatic single peak
+  "M0,55 L200,40 L400,48 L600,20 L720,5 L840,20 L1040,48 L1240,40 L1440,55 L1440,60 L0,60 Z",
+  // Sawtooth ridgeline
+  "M0,52 L100,20 L200,45 L300,15 L400,42 L500,10 L600,38 L700,8 L800,35 L900,12 L1000,40 L1100,18 L1200,44 L1300,14 L1440,38 L1440,60 L0,60 Z",
+  // Gentle mountain pass
+  "M0,48 L180,35 L360,50 L540,22 L720,42 L900,15 L1080,45 L1260,28 L1440,48 L1440,60 L0,60 Z",
+]
+
+let ridgeIndex = 0
 function RidgeDivider({ flip = false, topColor = '#1b2d1b', bottomColor = 'rgba(27,45,27,0.95)' }: { flip?: boolean; topColor?: string; bottomColor?: string }) {
+  const pathIndex = ridgeIndex++ % ridgePaths.length
   return (
     <div style={{ backgroundColor: topColor, lineHeight: 0 }}>
-      <svg viewBox="0 0 1440 60" preserveAspectRatio="none" className="w-full h-10 md:h-14 block">
-        {flip ? (
-          <path fill={bottomColor} d="M0,0 L180,30 L360,10 L540,35 L720,5 L900,28 L1080,12 L1260,32 L1440,8 L1440,60 L0,60 Z" />
-        ) : (
-          <path fill={bottomColor} d="M0,60 L0,30 L180,50 L360,20 L540,45 L720,15 L900,38 L1080,22 L1260,42 L1440,18 L1440,0 L0,0 Z" />
-        )}
+      <svg viewBox="0 0 1440 60" preserveAspectRatio="none" className="w-full h-10 md:h-16 block" style={{ transform: flip ? 'scaleY(-1)' : 'none' }}>
+        <path fill={bottomColor} d={ridgePaths[pathIndex]} />
       </svg>
     </div>
   )
