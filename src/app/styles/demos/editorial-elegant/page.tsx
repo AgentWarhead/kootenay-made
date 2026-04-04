@@ -31,7 +31,7 @@ function Reveal({ children, className = '', delay = 0 }: { children: React.React
 function EditorialTitle({ children, subtitle }: { children: React.ReactNode; subtitle?: string }) {
   return (
     <div className="text-center mb-16">
-      <h2 className={`heading-font text-3xl md:text-5xl mb-4`} style={{ color: '#1a1a1a', fontWeight: 400 }}>
+      <h2 className={`heading-font text-2xl md:text-5xl mb-4`} style={{ color: '#1a1a1a', fontWeight: 400 }}>
         {children}
       </h2>
       <div className="flex items-center justify-center gap-4 mb-4">
@@ -113,7 +113,7 @@ function LiveRedesign() {
                 <div className="absolute inset-0 opacity-[0.10]" style={{ background: 'linear-gradient(135deg, #4a3728 0%, #c9a96e 50%, #f0e8d8 100%)' }} />
                 <div className="relative z-10">
                   <p className="text-xs uppercase tracking-wide mb-2" style={{ fontFamily: 'Arial, sans-serif', color: '#666', letterSpacing: '0.15em' }}>&#9733; Welcome to Our Website &#9733;</p>
-                  <h2 className="text-xl sm:text-3xl md:text-4xl leading-tight mb-2" style={{ fontFamily: "'Times New Roman', serif", color: '#3a3a3a', fontWeight: 700 }}>
+                  <h2 className="text-xl sm:text-2xl md:text-4xl leading-tight mb-2" style={{ fontFamily: "'Times New Roman', serif", color: '#3a3a3a', fontWeight: 700 }}>
                     Pinnacle Real Estate
                   </h2>
                   <p className="text-sm sm:text-lg mb-1 sm:mb-2" style={{ fontFamily: "'Times New Roman', serif", color: '#666', fontStyle: 'italic' }}>
@@ -419,10 +419,11 @@ export default function EditorialElegantDemo() {
 
       {/* ═══════════ 2. HERO ═══════════ */}
       <section className="relative overflow-hidden" style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', backgroundColor: '#1a1a1a' }}>
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%)' }} />
-        <div className="absolute top-0 left-0 w-1 h-full" style={{ backgroundColor: '#b8860b' }} />
+        {/* Hero background image */}
+        <div className="absolute inset-0 z-0"><Image src="/images/demos/editorial-elegant-hero.webp" alt="" fill className="object-cover" priority /><div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(26,26,26,0.82) 0%, rgba(26,26,26,0.7) 40%, rgba(26,26,26,0.88) 100%)" }} /></div>
+        <div className="absolute top-0 left-0 w-1 h-full z-[1]" style={{ backgroundColor: '#b8860b' }} />
 
-        <div className="relative max-w-4xl mx-auto text-center px-6 py-32 md:py-44 w-full">
+        <div className="relative z-10 max-w-4xl mx-auto text-center px-6 py-32 md:py-44 w-full">
           <motion.p
             className="text-sm uppercase tracking-[0.3em] mb-6"
             style={{ color: '#b8860b' }}
@@ -587,9 +588,9 @@ export default function EditorialElegantDemo() {
                       <div className={`heading-font text-base font-semibold`} style={{ color: '#b8860b' }}>{prop.price}</div>
                     </div>
                     <div className="flex items-center gap-3 mt-3 pt-3" style={{ borderTop: '1px solid #e8e6e1' }}>
-                      <span className="text-xs" style={{ color: '#6b6b6b' }}>🛏 {prop.beds}</span>
-                      <span className="text-xs" style={{ color: '#6b6b6b' }}>🚿 {prop.baths}</span>
-                      <span className="text-xs" style={{ color: '#6b6b6b' }}>📐 {prop.sqft}</span>
+                      <span className="text-xs" style={{ color: '#6b6b6b' }}>Beds: {prop.beds}</span>
+                      <span className="text-xs" style={{ color: '#6b6b6b' }}>Baths: {prop.baths}</span>
+                      <span className="text-xs" style={{ color: '#6b6b6b' }}>sqft: {prop.sqft}</span>
                     </div>
                   </div>
                 </div>
@@ -698,7 +699,7 @@ export default function EditorialElegantDemo() {
                 <p className={`${body.className} text-xs uppercase tracking-[0.25em] font-semibold mb-4`} style={{ color: '#b8860b' }}>
                   Meet Your Agent
                 </p>
-                <h2 className={`heading-font text-3xl md:text-4xl mb-2`} style={{ color: '#1a1a1a', fontWeight: 400 }}>Amanda Chen</h2>
+                <h2 className={`heading-font text-2xl md:text-4xl mb-2`} style={{ color: '#1a1a1a', fontWeight: 400 }}>Amanda Chen</h2>
                 <p className={`${body.className} text-sm mb-6`} style={{ color: '#6b6b6b' }}>REALTOR® &mdash; Luxury & Residential Specialist</p>
 
                 <div className="w-8 h-px mb-8" style={{ backgroundColor: '#b8860b' }} />
@@ -803,7 +804,7 @@ export default function EditorialElegantDemo() {
               <Reveal key={i} delay={i * 0.15}>
                 <div
                   className="relative p-8 md:p-12"
-                  style={{ backgroundColor: '#ffffff', border: '1px solid #e8e6e1', borderLeft: `4px solid #b8860b` }}
+                  style={{ backgroundColor: '#ffffff', border: '1px solid #e8e6e1', borderLeft: `4px solid #b8860b`, transition: "all 0.3s" }}
                 >
                   {/* Large quotemark */}
                   <div
@@ -960,7 +961,7 @@ export default function EditorialElegantDemo() {
             </div>
           </div>
           <div className="border-t border-white/10 pt-6 text-center">
-            <span className="text-sm text-white/25">&copy; 2025 Pinnacle Real Estate. All rights reserved.</span>
+            <span className="text-sm text-white/25">&copy; {new Date().getFullYear()} Pinnacle Real Estate. All rights reserved.</span>
           </div>
         </div>
       </footer>
