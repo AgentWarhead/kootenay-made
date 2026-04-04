@@ -30,19 +30,23 @@ import {
 const faqs = [
   {
     q: 'Is this really free? What\'s the catch?',
-    a: 'No catch. We use the audit to show you what we can do — and to learn about local businesses. If you like what you see and want help, great. If not, you still walk away with real, actionable insights. Zero pressure.',
+    a: 'No catch. The instant scan takes 30 seconds, scores your site on the spot, and costs you nothing — not even an email. We built it so local businesses can see where they stand without any strings attached.',
   },
   {
     q: 'I don\'t have a website yet. Can I still do this?',
-    a: 'Not yet? No problem — reach out to Brett directly and he\'ll point you in the right direction. The scan needs a URL, but a conversation doesn\'t.',
+    a: 'The scanner needs a URL to check, so not quite — but reach out to Brett directly and he\'ll walk you through your options. A conversation is always free.',
   },
   {
     q: 'What do the scores mean?',
-    a: 'Your scan checks speed, SEO, accessibility, and best practices using Google\'s own Lighthouse tools. If any score is below 90, there\'s room to improve — and we can show you exactly how.',
+    a: 'The scan checks your speed, findability, accessibility, and best practices using Google\'s own tools. You\'ll see four scores on screen instantly. Anything below 90 means there\'s room to improve — and we can show you how.',
   },
   {
     q: 'Will you try to sell me something?',
-    a: 'We\'ll tell you what we found and what we\'d recommend. If you ask about our services, we\'re happy to explain them. But we won\'t push.',
+    a: 'Nope. The scan results are yours — no follow-up emails, no sales calls. If you want to chat about what the scores mean or how to improve them, Brett\'s always happy to help. But that\'s your call.',
+  },
+  {
+    q: 'How is this different from a full audit?',
+    a: 'The instant scan gives you a quick snapshot in 30 seconds — think of it as a health check. If you want the full picture, leave your info and Brett will personally review your site within 48 hours and send you a detailed branded report.',
   },
 ];
 
