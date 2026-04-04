@@ -499,7 +499,6 @@ export default function EducationNonprofitPage() {
             initial={prefersReduced ? {} : { opacity: 0, y: 16 }}
             animate={prefersReduced ? {} : { opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6 }}
-      <CommunityWave topColor="#1e40af" bottomColor="#ffffff" />
           >
             <a href="#programs" className="inline-block px-8 py-4 rounded-full text-base font-semibold transition-all duration-250" style={{ background: '#facc15', color: '#1e3a5f', textDecoration: 'none', boxShadow: '0 6px 24px rgba(250,204,21,0.35)' }} onMouseEnter={(e) => { e.currentTarget.style.background = '#fbbf24'; e.currentTarget.style.transform = 'translateY(-2px)' }} onMouseLeave={(e) => { e.currentTarget.style.background = '#facc15'; e.currentTarget.style.transform = 'translateY(0)' }}>
               Explore Programs
@@ -511,6 +510,7 @@ export default function EducationNonprofitPage() {
         </div>
       </section>
 
+      <CommunityWave topColor="#1e40af" bottomColor="#ffffff" />
       {/* ═══════════════════════════════════
           3. PROGRAMS CATEGORY GRID
       ═══════════════════════════════════ */}
@@ -593,6 +593,7 @@ export default function EducationNonprofitPage() {
           4. IMPACT STORIES — gallery reimagined
       ═══════════════════════════════════ */}
       <CommunityWave topColor="#ffffff" bottomColor="#eff6ff" />
+      <CommunityWave topColor="#ffffff" bottomColor="#eff6ff" />
       <section id="impact" className="relative overflow-hidden px-6 md:px-10 py-20 md:py-28" style={{ background: '#eff6ff' }}>
         <Blob size={280} color="#3b82f6" opacity={0.07} top={-80} right={-60} />
         <Blob size={220} color="#facc15" opacity={0.10} bottom={-60} left={-40} />
@@ -668,6 +669,7 @@ export default function EducationNonprofitPage() {
         </div>
       </section>
 
+      <CommunityWave topColor="#eff6ff" bottomColor="#ffffff" />
       <CommunityWave topColor="#eff6ff" bottomColor="#ffffff" />
       {/* ═══════════════════════════════════
           5. DONATION THERMOMETER
@@ -815,6 +817,7 @@ export default function EducationNonprofitPage() {
         </div>
       </section>
 
+      <CommunityWave topColor="#1e40af" bottomColor="#ffffff" />
       <CommunityWave topColor="#1e40af" bottomColor="#ffffff" />
       {/* ═══════════════════════════════════
           7. COMMUNITY CALENDAR
