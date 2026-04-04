@@ -605,17 +605,34 @@ export default function Home() {
           <div ref={bentoRef} className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {services.map((s, i) => (
               <TiltCard key={s.name} index={i} featured={s.large && i < 2}>
-                <div className="group relative glass-card-light rounded-2xl p-8 h-full" style={{ transform: 'translateZ(0)' }}>
-                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-copper/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <div className="relative z-10">
-                    <div className="w-12 h-12 rounded-xl bg-cream-dark flex items-center justify-center mb-5 group-hover:bg-copper/10 transition-colors">
-                      <DrawIcon Icon={s.icon} inView={bentoInView} />
+                {s.large && i < 2 ? (
+                  <div className="group relative rounded-2xl p-[2px] h-full">
+                    <div className="absolute inset-0 rounded-2xl animated-gradient-border" />
+                    <div className="relative glass-card-light rounded-2xl p-8 h-full" style={{ transform: 'translateZ(0)', ...(i % 2 === 1 ? { background: 'linear-gradient(to bottom right, rgba(193,120,23,0.02), transparent), rgba(255,255,255,0.7)' } : {}) }}>
+                      <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-copper/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      <div className="relative z-10">
+                        <div className="w-12 h-12 rounded-xl bg-cream-dark flex items-center justify-center mb-5 group-hover:bg-copper/10 transition-colors">
+                          <DrawIcon Icon={s.icon} inView={bentoInView} />
+                        </div>
+                        <h3 className="font-[family-name:var(--font-satoshi)] text-xl font-bold text-slate mb-2">{s.name}</h3>
+                        <p className="text-text-secondary text-sm leading-relaxed mb-4">{s.desc}</p>
+                        <p className="font-[family-name:var(--font-satoshi)] text-copper font-semibold text-sm">{s.price}</p>
+                      </div>
                     </div>
-                    <h3 className="font-[family-name:var(--font-satoshi)] text-xl font-bold text-slate mb-2">{s.name}</h3>
-                    <p className="text-text-secondary text-sm leading-relaxed mb-4">{s.desc}</p>
-                    <p className="font-[family-name:var(--font-satoshi)] text-copper font-semibold text-sm">{s.price}</p>
                   </div>
-                </div>
+                ) : (
+                  <div className="group relative glass-card-light rounded-2xl p-8 h-full" style={{ transform: 'translateZ(0)', ...(i % 2 === 1 ? { background: 'linear-gradient(to bottom right, rgba(193,120,23,0.02), transparent), rgba(255,255,255,0.7)' } : {}) }}>
+                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-copper/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="relative z-10">
+                      <div className="w-12 h-12 rounded-xl bg-cream-dark flex items-center justify-center mb-5 group-hover:bg-copper/10 transition-colors">
+                        <DrawIcon Icon={s.icon} inView={bentoInView} />
+                      </div>
+                      <h3 className="font-[family-name:var(--font-satoshi)] text-xl font-bold text-slate mb-2">{s.name}</h3>
+                      <p className="text-text-secondary text-sm leading-relaxed mb-4">{s.desc}</p>
+                      <p className="font-[family-name:var(--font-satoshi)] text-copper font-semibold text-sm">{s.price}</p>
+                    </div>
+                  </div>
+                )}
               </TiltCard>
             ))}
           </div>
@@ -630,32 +647,49 @@ export default function Home() {
         </div>
       </section>
 
-      <CopperRule />
+      <MountainDivider variant={2} fillColor="#EFEBE6" bgColor="#F8F4F0" />
 
       {/* ═══ HOW IT WORKS ═══ */}
-      <section className="bg-cream cedar-texture py-24 sm:py-32 relative">
+      <section className="bg-[#EFEBE6] map-texture py-24 sm:py-32 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
           <ScrollReveal>
-            <p className="text-copper font-medium text-sm tracking-wider uppercase mb-3">Simple as 1-2-3</p>
-            <h2 className="font-[family-name:var(--font-satoshi)] text-3xl sm:text-4xl md:text-5xl font-bold text-slate leading-tight">
-              Here&apos;s How It Works
-            </h2>
+            <div className="text-center">
+              <p className="text-copper font-medium text-sm tracking-wider uppercase mb-3">Simple as 1-2-3</p>
+              <h2 className="font-[family-name:var(--font-satoshi)] text-3xl sm:text-4xl md:text-5xl font-bold text-slate leading-tight">
+                Here&apos;s How It Works
+              </h2>
+            </div>
           </ScrollReveal>
 
           <div className="mt-16 relative" ref={trailRef}>
-            {/* Trail line — desktop (horizontal dashed bg) */}
-            <div className="hidden md:block absolute top-[23px] left-[16.67%] w-[66.66%] border-t-2 border-dashed border-copper/20" />
-            <motion.div
-              className="hidden md:block absolute top-[23px] left-[16.67%] h-[2px] bg-copper origin-left"
-              initial={{ width: 0 }}
-              animate={trailInView ? { width: '66.66%' } : {}}
-              transition={{ duration: 1.5, ease: 'easeInOut' }}
-            />
+            {/* Hand-drawn trail — desktop */}
+            <svg className="hidden md:block absolute top-[23px] left-[16.67%] w-[66.66%] h-[20px] z-0 overflow-visible" preserveAspectRatio="none">
+              <path
+                d="M0,10 C50,2 100,18 150,10 C200,2 250,18 300,10 C350,2 400,18 450,10 C500,2 550,18 600,10"
+                fill="none"
+                stroke="rgba(193,120,23,0.2)"
+                strokeWidth="2"
+                strokeDasharray="6 4"
+                vectorEffect="non-scaling-stroke"
+              />
+            </svg>
+            <motion.svg className="hidden md:block absolute top-[23px] left-[16.67%] w-[66.66%] h-[20px] z-0 overflow-visible" preserveAspectRatio="none">
+              <motion.path
+                d="M0,10 C50,2 100,18 150,10 C200,2 250,18 300,10 C350,2 400,18 450,10 C500,2 550,18 600,10"
+                fill="none"
+                stroke="#C17817"
+                strokeWidth="2"
+                vectorEffect="non-scaling-stroke"
+                initial={{ pathLength: 0 }}
+                animate={trailInView ? { pathLength: 1 } : {}}
+                transition={{ duration: 1.5, ease: 'easeInOut' }}
+              />
+            </motion.svg>
 
             {/* Trail line — mobile (vertical dashed bg) */}
-            <div className="md:hidden absolute left-1/2 -translate-x-[1px] top-6 bottom-6 border-l-2 border-dashed border-copper/20" />
+            <div className="md:hidden absolute left-1/2 -translate-x-[1px] top-6 bottom-6 border-l-2 border-dashed border-copper/20 z-0" />
             <motion.div
-              className="md:hidden absolute left-1/2 -translate-x-[1px] top-6 w-[2px] bg-copper origin-top"
+              className="md:hidden absolute left-1/2 -translate-x-[1px] top-6 w-[2px] bg-copper origin-top z-0"
               initial={{ height: 0 }}
               animate={trailInView ? { height: 'calc(100% - 48px)' } : {}}
               transition={{ duration: 1.5, ease: 'easeInOut' }}
@@ -667,22 +701,18 @@ export default function Home() {
                 <div key={step.title} className="flex-1 flex flex-col items-center text-center relative z-10">
                   {/* Node circle */}
                   <motion.div
-                    className="w-12 h-12 rounded-full border-2 flex items-center justify-center mb-6"
-                    style={{ backgroundColor: '#F8F4F0', borderColor: '#C17817' }}
-                    animate={trailInView ? { backgroundColor: '#C17817' } : {}}
-                    transition={{ delay: 0.3 + i * 0.4, duration: 0.5 }}
+                    className="w-12 h-12 rounded-full border-2 flex items-center justify-center mb-6 relative"
+                    style={{ backgroundColor: '#C17817', borderColor: '#C17817' }}
+                    initial={{ y: -20, opacity: 0, scale: 0.8 }}
+                    animate={trailInView ? { y: 0, opacity: 1, scale: 1 } : {}}
+                    transition={{ delay: 0.3 + i * 0.4, duration: 0.5, type: 'spring', stiffness: 300, damping: 15 }}
                   >
-                    <motion.span
-                      className="text-sm font-bold font-[family-name:var(--font-satoshi)]"
-                      style={{ color: '#C17817' }}
-                      animate={trailInView ? { color: '#F8F4F0' } : {}}
-                      transition={{ delay: 0.3 + i * 0.4, duration: 0.5 }}
-                    >
+                    <span className="text-sm font-bold font-[family-name:var(--font-satoshi)] text-cream">
                       {i + 1}
-                    </motion.span>
+                    </span>
                   </motion.div>
                   {/* Icon */}
-                  <div className="w-16 h-16 rounded-2xl bg-cream-dark flex items-center justify-center mb-5 text-copper">
+                  <div className={`w-16 h-16 rounded-2xl bg-[#E2DDD7] flex items-center justify-center mb-5 text-copper ${i === 0 ? 'step-sweep' : i === 1 ? 'step-rock' : 'step-grow'}`}>
                     {step.icon}
                   </div>
                   <h3 className="font-[family-name:var(--font-satoshi)] text-xl font-bold text-slate mb-3">{step.title}</h3>
