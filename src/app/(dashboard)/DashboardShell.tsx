@@ -17,7 +17,9 @@ import {
   Mountain,
   Menu,
   X,
+  LogOut,
 } from 'lucide-react';
+import { useAuth } from '@/components/AuthProvider';
 
 const NAV_ITEMS = [
   { href: '/dashboard', label: 'Dashboard', icon: Home, emoji: '🏠' },
@@ -46,6 +48,15 @@ export default function DashboardShell({ children }: { children: React.ReactNode
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { profile, signOut } = useAuth();
+
+  const businessName = profile?.business_name ?? 'Your Business';
+  const initials = businessName
+    .split(' ')
+    .map((w) => w[0])
+    .slice(0, 2)
+    .join('')
+    .toUpperCase() || 'YB';
 
   // Collapse sidebar on tablet by default
   useEffect(() => {
@@ -135,12 +146,15 @@ export default function DashboardShell({ children }: { children: React.ReactNode
           </button>
 
           {/* Avatar */}
-          <div
+          <button
             className="w-8 h-8 rounded-full flex items-center justify-center font-semibold text-sm text-white"
             style={{ backgroundColor: 'var(--color-dash-copper)' }}
+            title={businessName}
+            onClick={signOut}
+            aria-label="Sign out"
           >
-            Y
-          </div>
+            {initials}
+          </button>
         </div>
       </header>
 
@@ -219,6 +233,38 @@ export default function DashboardShell({ children }: { children: React.ReactNode
             })}
           </ul>
         </nav>
+
+        {/* Business name + Logout */}
+        <div
+          className="relative px-3 py-3 border-t"
+          style={{ borderColor: 'var(--color-dash-sidebar-border)' }}
+        >
+          {!collapsed && (
+            <div className="flex items-center gap-2 mb-2 px-1">
+              <div
+                className="w-7 h-7 rounded-full flex items-center justify-center font-semibold text-xs text-white shrink-0"
+                style={{ backgroundColor: 'var(--color-dash-copper)' }}
+              >
+                {initials}
+              </div>
+              <span
+                className="text-xs font-medium truncate"
+                style={{ color: 'var(--color-dash-text-muted)', fontFamily: 'var(--font-general)' }}
+              >
+                {businessName}
+              </span>
+            </div>
+          )}
+          <button
+            onClick={signOut}
+            className="flex items-center gap-3 w-full px-3 py-2 rounded-lg text-sm transition-colors hover:bg-black/5"
+            style={{ color: 'var(--color-dash-text-faint)', fontFamily: 'var(--font-general)' }}
+            title={collapsed ? 'Sign out' : undefined}
+          >
+            <LogOut className="w-4 h-4 shrink-0" />
+            {!collapsed && <span>Sign out</span>}
+          </button>
+        </div>
 
         {/* Collapse button — desktop only */}
         <div className="relative hidden md:flex justify-end px-3 py-4 border-t" style={{ borderColor: 'var(--color-dash-sidebar-border)' }}>

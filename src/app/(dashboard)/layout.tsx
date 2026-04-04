@@ -1,4 +1,6 @@
 import DashboardShell from './DashboardShell';
+import { AuthProvider } from '@/components/AuthProvider';
+import { createClient } from '@/lib/supabase/server';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -9,6 +11,13 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function DashboardLayout({ children }: { children: React.ReactNode }) {
-  return <DashboardShell>{children}</DashboardShell>;
+export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+
+  return (
+    <AuthProvider initialUser={user}>
+      <DashboardShell>{children}</DashboardShell>
+    </AuthProvider>
+  );
 }

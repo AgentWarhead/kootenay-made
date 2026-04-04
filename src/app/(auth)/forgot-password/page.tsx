@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { Mountain, Mail, Loader2, ArrowLeft } from 'lucide-react';
+import { createClient } from '@/lib/supabase/client';
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState('');
@@ -12,8 +13,11 @@ export default function ForgotPasswordPage() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
-    // TODO: Wire Supabase auth — password reset
-    await new Promise((r) => setTimeout(r, 1000));
+    const supabase = createClient();
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || window.location.origin;
+    await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${siteUrl}/dashboard/account`,
+    });
     setLoading(false);
     setSent(true);
   }
