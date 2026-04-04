@@ -12,6 +12,17 @@ const font = DM_Sans({
 })
 
 /* ── Section reveal ── */
+/* ── Clean medical wave divider ── */
+function MedicalDivider({ topColor = '#ffffff', bottomColor = '#f0f7ff' }: { topColor?: string; bottomColor?: string }) {
+  return (
+    <div style={{ backgroundColor: topColor, lineHeight: 0 }}>
+      <svg viewBox="0 0 1440 40" preserveAspectRatio="none" className="w-full h-6 md:h-10 block">
+        <path fill={bottomColor} d="M0,40 L0,25 Q180,35 360,20 Q540,5 720,20 Q900,35 1080,20 Q1260,5 1440,25 L1440,40 Z" />
+      </svg>
+    </div>
+  )
+}
+
 function Reveal({ children, className = '', delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
   const prefersReduced = useReducedMotion()
   return (
@@ -266,7 +277,7 @@ function TreatmentIcon({ icon, label, detail, price }: { icon: string; label: st
   const [expanded, setExpanded] = useState(false)
   return (
     <button
-      className="flex flex-col items-center p-4 rounded-2xl text-center transition-all w-full"
+      className="flex flex-col items-center p-4 rounded-2xl text-center transition-all w-full hover:-translate-y-1 hover:shadow-lg"
       style={{
         backgroundColor: expanded ? '#0891b2' : '#f0f7ff',
         border: `1.5px solid ${expanded ? '#0891b2' : 'rgba(8,145,178,0.15)'}`,
@@ -327,7 +338,7 @@ export default function MedicalDentalDemo() {
   ]
 
   return (
-    <div className={font.className} style={{ fontFamily: 'DM Sans, sans-serif', backgroundColor: '#ffffff', color: '#1e293b' }}>
+    <div className={`${font.className} overflow-x-hidden`} style={{ fontFamily: 'DM Sans, sans-serif', backgroundColor: '#ffffff', color: '#1e293b' }}>
 
       <style>{`
       @import url('https://api.fontshare.com/v2/css?f[]=ranade@400,500,700&display=swap');
@@ -474,11 +485,12 @@ export default function MedicalDentalDemo() {
         </div>
       </div>
 
+      <MedicalDivider topColor="#0891b2" bottomColor="#ffffff" />
       {/* ═══════════ 4. YOUR FIRST VISIT JOURNEY (UNIQUE SECTION) ═══════════ */}
       <section id="first-visit" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#ffffff' }}>
         <div className="max-w-5xl mx-auto">
           <Reveal>
-            <h2 className="text-3xl md:text-5xl font-bold text-center mb-4" style={{ color: '#1e293b' }}>
+            <h2 className="text-2xl md:text-5xl font-bold text-center mb-4" style={{ color: '#1e293b' }}>
               Your First Visit
             </h2>
             <p className="text-center mb-4 max-w-xl mx-auto text-lg" style={{ color: '#64748b' }}>
@@ -557,11 +569,12 @@ export default function MedicalDentalDemo() {
         </div>
       </section>
 
+      <MedicalDivider topColor="#ffffff" bottomColor="#f0f7ff" />
       {/* ═══════════ 5. TREATMENT ICONS (NO PHOTOS — tap to expand) ═══════════ */}
       <section id="services" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#f0f7ff' }}>
         <div className="max-w-5xl mx-auto">
           <Reveal>
-            <h2 className="text-3xl md:text-5xl font-bold text-center mb-4" style={{ color: '#1e293b' }}>
+            <h2 className="text-2xl md:text-5xl font-bold text-center mb-4" style={{ color: '#1e293b' }}>
               Treatments We Offer
             </h2>
             <p className="text-center mb-4 max-w-xl mx-auto" style={{ color: '#64748b' }}>
@@ -583,11 +596,12 @@ export default function MedicalDentalDemo() {
         </div>
       </section>
 
+      <MedicalDivider topColor="#f0f7ff" bottomColor="#ffffff" />
       {/* ═══════════ 6. MEET DR. PATEL ═══════════ */}
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#ffffff' }}>
         <div className="max-w-5xl mx-auto">
           <Reveal>
-            <h2 className="text-3xl md:text-5xl font-bold text-center mb-4" style={{ color: '#1e293b' }}>
+            <h2 className="text-2xl md:text-5xl font-bold text-center mb-4" style={{ color: '#1e293b' }}>
               Meet Dr. Patel
             </h2>
             <div className="w-16 h-1 rounded-full mx-auto mb-12" style={{ backgroundColor: '#0891b2' }} />
@@ -628,6 +642,7 @@ export default function MedicalDentalDemo() {
         </div>
       </section>
 
+      <MedicalDivider topColor="#ffffff" bottomColor="#f0f7ff" />
       {/* ═══════════ 7. INSURANCE & PAYMENT ═══════════ */}
       <section className="py-10 px-6" style={{ backgroundColor: '#0891b2' }}>
         <div className="max-w-5xl mx-auto">
@@ -658,11 +673,12 @@ export default function MedicalDentalDemo() {
         </div>
       </section>
 
+      <MedicalDivider topColor="#f0f7ff" bottomColor="#ffffff" />
       {/* ═══════════ 8. SMILE GALLERY — Before/After ═══════════ */}
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#f0f7ff' }}>
         <div className="max-w-5xl mx-auto">
           <Reveal>
-            <h2 className="text-3xl md:text-5xl font-bold text-center mb-4" style={{ color: '#1e293b' }}>
+            <h2 className="text-2xl md:text-5xl font-bold text-center mb-4" style={{ color: '#1e293b' }}>
               Smile Gallery
             </h2>
             <p className="text-center mb-12" style={{ color: '#64748b' }}>
@@ -697,11 +713,12 @@ export default function MedicalDentalDemo() {
         </div>
       </section>
 
+      <MedicalDivider topColor="#ffffff" bottomColor="#f0f7ff" />
       {/* ═══════════ 9. THE TRANSFORMATION ═══════════ */}
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#ffffff' }}>
         <div className="max-w-5xl mx-auto">
           <Reveal>
-            <h2 className={`heading-font text-3xl md:text-5xl font-bold text-center mb-4`} style={{ color: '#1e293b' }}>
+            <h2 className={`heading-font text-2xl md:text-5xl font-bold text-center mb-4`} style={{ color: '#1e293b' }}>
               Watch Your Website Transform
             </h2>
             <p className={`${font.className} text-center mb-12`} style={{ color: '#64748b' }}>
@@ -714,11 +731,12 @@ export default function MedicalDentalDemo() {
         </div>
       </section>
 
+      <MedicalDivider topColor="#f0f7ff" bottomColor="#ffffff" />
       {/* ═══════════ 10. PATIENT STORIES (Testimonials) ═══════════ */}
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#f0f7ff' }}>
         <div className="max-w-6xl mx-auto">
           <Reveal>
-            <h2 className="text-3xl md:text-5xl font-bold text-center mb-4" style={{ color: '#1e293b' }}>
+            <h2 className="text-2xl md:text-5xl font-bold text-center mb-4" style={{ color: '#1e293b' }}>
               Patient Stories
             </h2>
             <p className="text-center mb-16" style={{ color: '#64748b' }}>The most honest words come from people who were nervous before their first visit</p>
@@ -766,11 +784,12 @@ export default function MedicalDentalDemo() {
         </div>
       </section>
 
+      <MedicalDivider topColor="#ffffff" bottomColor="#f0f7ff" />
       {/* ═══════════ 11. FAQ ═══════════ */}
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#ffffff' }}>
         <div className="max-w-3xl mx-auto">
           <Reveal>
-            <h2 className="text-3xl md:text-5xl font-bold text-center mb-4" style={{ color: '#1e293b' }}>
+            <h2 className="text-2xl md:text-5xl font-bold text-center mb-4" style={{ color: '#1e293b' }}>
               Frequently Asked Questions
             </h2>
             <p className="text-center mb-12" style={{ color: '#64748b' }}>
@@ -798,7 +817,7 @@ export default function MedicalDentalDemo() {
       <section id="about" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#f0f7ff' }}>
         <div className="max-w-3xl mx-auto text-center">
           <Reveal>
-            <h2 className="text-3xl md:text-5xl font-bold mb-4" style={{ color: '#1e293b' }}>
+            <h2 className="text-2xl md:text-5xl font-bold mb-4" style={{ color: '#1e293b' }}>
               About Our Practice
             </h2>
             <div className="flex justify-center mb-10">
@@ -817,7 +836,7 @@ export default function MedicalDentalDemo() {
       <section id="book-now" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#ffffff' }}>
         <div className="max-w-6xl mx-auto">
           <Reveal>
-            <h2 className="text-3xl md:text-5xl font-bold text-center mb-4" style={{ color: '#1e293b' }}>
+            <h2 className="text-2xl md:text-5xl font-bold text-center mb-4" style={{ color: '#1e293b' }}>
               Book an Appointment
             </h2>
             <p className="text-center mb-16" style={{ color: '#64748b' }}>
@@ -932,7 +951,7 @@ export default function MedicalDentalDemo() {
             </div>
           </div>
           <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)' }} className="pt-6 text-center">
-            <span className="text-sm" style={{ color: 'rgba(255,255,255,0.25)' }}>&copy; 2025 Kootenay Family Dental. All rights reserved.</span>
+            <span className="text-sm" style={{ color: 'rgba(255,255,255,0.45)' }}>&copy; {new Date().getFullYear()} Kootenay Family Dental. All rights reserved.</span>
           </div>
         </div>
       </footer>
