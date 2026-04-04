@@ -282,7 +282,7 @@ export default function PretextExplosion() {
       {hint && (
         <div className="absolute bottom-5 left-1/2 -translate-x-1/2 pointer-events-none select-none">
           {/* Fuse line */}
-          <div className="relative flex items-center gap-3">
+          <div className="relative flex items-center justify-center gap-3">
             <div className="h-[2px] w-16 sm:w-24" style={{
               background: 'repeating-linear-gradient(90deg, #C17817 0px, #C17817 4px, transparent 4px, transparent 8px)',
               opacity: 0.5,

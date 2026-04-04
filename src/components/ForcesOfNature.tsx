@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState, useMemo } from 'react';
+import { useEffect, useRef, useState, useMemo, useCallback } from 'react';
 import Image from 'next/image';
 import { motion, useInView } from 'framer-motion';
 import ScrollReveal from '@/components/ScrollReveal';
@@ -49,6 +49,7 @@ function AuroraCard({ inView }: { inView: boolean }) {
         <div className="aurora-band aurora-band-1" />
         <div className="aurora-band aurora-band-2" />
         <div className="aurora-band aurora-band-3" />
+        <div className="aurora-band aurora-band-4" />
       </div>
 
       {/* Content — bottom aligned */}
@@ -76,6 +77,18 @@ function AuroraCard({ inView }: { inView: boolean }) {
 
 /* ── Card 2: Snowfall — 'Under 3 Seconds' ── */
 function SnowfallCard({ inView }: { inView: boolean }) {
+  const [windX, setWindX] = useState(0);
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  const handleMouseMove = useCallback((e: React.MouseEvent) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width;
+    setWindX((x - 0.5) * 30); // ±15px
+  }, []);
+
+  const handleMouseLeave = useCallback(() => setWindX(0), []);
+
   const snowflakes = useMemo(
     () => Array.from({ length: 24 }, (_, i) => ({
       id: i,
@@ -90,7 +103,12 @@ function SnowfallCard({ inView }: { inView: boolean }) {
   );
 
   return (
-    <div className="relative aspect-square rounded-2xl overflow-hidden border border-white/5 group hover:-translate-y-1 transition-transform duration-300">
+    <div
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className="relative aspect-square rounded-2xl overflow-hidden border border-white/5 group hover:-translate-y-1 transition-transform duration-300"
+    >
       <Image src="/images/stats/snow-bg.webp" alt="Snowy Kootenay night" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10 z-[1]" />
 
@@ -109,6 +127,8 @@ function SnowfallCard({ inView }: { inView: boolean }) {
                 animationDuration: `${f.duration}s`,
                 animationDelay: `${f.delay}s`,
                 '--snow-drift': `${f.drift}px`,
+                transform: `translateX(${windX * f.opacity}px)`,
+                transition: 'transform 0.5s ease-out',
               } as React.CSSProperties}
             />
           ))}
@@ -143,6 +163,16 @@ function ForestGrowthCard({ inView }: { inView: boolean }) {
     <div className="relative aspect-square rounded-2xl overflow-hidden border border-white/5 group hover:-translate-y-1 transition-transform duration-300">
       <Image src="/images/stats/forest-bg.webp" alt="Misty Kootenay forest" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent z-[1]" />
+
+      {/* Morning fog */}
+      {inView && (
+        <div
+          className="absolute bottom-0 left-0 right-0 h-1/3 z-[2] fog-layer pointer-events-none"
+          style={{
+            background: 'linear-gradient(to top, rgba(248,244,240,0.15) 0%, transparent 100%)',
+          }}
+        />
+      )}
 
       <div className="absolute inset-0 z-[3] flex flex-col items-center justify-end pb-10 sm:pb-12 text-center px-6">
         <motion.span
@@ -195,6 +225,38 @@ function MountainSummitCard({ inView }: { inView: boolean }) {
   );
 }
 
+/* ── Typewriter closing tagline ── */
+function TypewriterTagline() {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: '-40px' });
+  const [displayText, setDisplayText] = useState('');
+  const fullText = "Every effect you just scrolled through? We built it. Imagine what we'll build for you.";
+  const hasTyped = useRef(false);
+
+  useEffect(() => {
+    if (!inView || hasTyped.current) return;
+    hasTyped.current = true;
+    let i = 0;
+    const interval = setInterval(() => {
+      i++;
+      setDisplayText(fullText.slice(0, i));
+      if (i >= fullText.length) clearInterval(interval);
+    }, 40);
+    return () => clearInterval(interval);
+  }, [inView]);
+
+  return (
+    <div ref={ref} className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-16 mt-10 sm:mt-14 text-center">
+      <p className="text-copper/80 italic text-base sm:text-lg font-[family-name:var(--font-general)] min-h-[2em]">
+        {displayText}
+        {displayText.length < fullText.length && inView && (
+          <span className="typewriter-cursor" />
+        )}
+      </p>
+    </div>
+  );
+}
+
 /* ══════════════════════════════════════════════
    FORCES OF NATURE — Main Section
    ══════════════════════════════════════════════ */
@@ -213,10 +275,19 @@ export default function ForcesOfNature() {
 
   return (
     <section ref={sectionRef} className="bg-[#0a0c0e] relative py-20 sm:py-28 overflow-hidden">
+      {/* Mountain ridge silhouette at top */}
+      <div className="absolute top-0 left-0 right-0 pointer-events-none opacity-[0.07]">
+        <svg viewBox="0 0 1440 60" preserveAspectRatio="none" className="w-full h-[40px] sm:h-[60px]">
+          <path d="M0,60 L100,20 L200,45 L350,5 L500,35 L650,15 L800,40 L950,8 L1100,30 L1250,18 L1440,42 L1440,60 L0,60 Z" fill="#111315" />
+        </svg>
+      </div>
+      {/* Warm radial glow behind cards */}
+      <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse 60% 40% at 50% 50%, rgba(193,120,23,0.04) 0%, transparent 70%)' }} />
+
       {/* Section header */}
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-16 mb-12 sm:mb-16">
         <ScrollReveal>
-          <p className="text-copper font-[family-name:var(--font-satoshi)] font-semibold text-sm tracking-[0.2em] uppercase mb-3">Forces of Nature</p>
+          <p className="text-copper font-[family-name:var(--font-satoshi)] font-semibold text-xs tracking-[0.15em] uppercase mb-3">Forces of Nature</p>
           <h2 className="font-[family-name:var(--font-satoshi)] text-3xl sm:text-4xl md:text-5xl font-bold text-cream leading-tight">
             What We Bring to the Table
           </h2>
@@ -239,12 +310,7 @@ export default function ForcesOfNature() {
         </motion.div>
       </div>
 
-      {/* Closing tagline */}
-      <ScrollReveal>
-        <p className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-16 mt-10 sm:mt-14 text-copper/80 italic text-center text-base sm:text-lg font-[family-name:var(--font-general)]">
-          Every effect you just scrolled through? We built it. Imagine what we&apos;ll build for you.
-        </p>
-      </ScrollReveal>
+      <TypewriterTagline />
     </section>
   );
 }

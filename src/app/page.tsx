@@ -545,7 +545,7 @@ export default function Home() {
       {/* ═══ WHO WE HELP ═══ */}
       <section className="bg-slate grain py-24 sm:py-32 relative overflow-hidden">
         {/* Topographic contour pattern */}
-        <div className="absolute inset-0 opacity-[0.04] pointer-events-none">
+        <div className="absolute inset-0 opacity-[0.09] pointer-events-none">
           <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <pattern id="topo-lines" x="0" y="0" width="200" height="200" patternUnits="userSpaceOnUse">
@@ -557,6 +557,7 @@ export default function Home() {
             <rect width="100%" height="100%" fill="url(#topo-lines)" />
           </svg>
         </div>
+        <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse 40% 80% at 10% 50%, rgba(193,120,23,0.06) 0%, transparent 70%)' }} />
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
           <ScrollReveal>
@@ -571,12 +572,12 @@ export default function Home() {
 
           <div className="mt-16 grid grid-cols-2 lg:grid-cols-3 gap-5">
             {industries.map((ind, i) => (
-              <ScrollReveal key={ind.name} delay={i * 0.08}>
+              <ScrollReveal key={ind.name} delay={(Math.floor(i / 3) + (i % 3)) * 0.08}>
                 <motion.div
                   whileHover={{ y: -6 }}
-                  className="group glass-card-dark rounded-2xl p-6 border border-white/5 hover:border-copper/20 transition-all duration-300 h-full"
+                  className="group glass-card-dark rounded-2xl p-6 border border-white/5 hover:border-copper/20 transition-all duration-300 h-full industry-card"
                 >
-                  <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center mb-4 group-hover:bg-copper/10 transition-colors text-copper group-hover:drop-shadow-[0_0_8px_rgba(193,120,23,0.5)]">
+                  <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center mb-4 group-hover:bg-copper/10 transition-colors text-copper group-hover:drop-shadow-[0_0_8px_rgba(193,120,23,0.5)] icon-power-on">
                     {ind.icon}
                   </div>
                   <h3 className="font-[family-name:var(--font-satoshi)] text-base sm:text-lg font-bold text-cream mb-2">{ind.name}</h3>
@@ -592,6 +593,7 @@ export default function Home() {
 
       {/* ═══ SERVICES BENTO — Interactive 3D Grid ═══ */}
       <section id="services" className="bg-cream py-24 sm:py-32 cedar-texture relative">
+        <div className="absolute inset-0 pointer-events-none z-0" style={{ background: 'linear-gradient(135deg, rgba(193,120,23,0.03) 0%, transparent 50%, rgba(74,144,164,0.02) 100%)' }} />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
           <ScrollReveal>
             <p className="text-copper font-medium text-sm tracking-wider uppercase mb-3">What We Can Build For You</p>
