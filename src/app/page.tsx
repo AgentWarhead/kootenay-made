@@ -162,7 +162,7 @@ const services = [
   { icon: ShoppingBag, name: 'Shopify Store', price: 'From $3,000', desc: 'Sell online while you\'re out on the lake. Your store never closes.' },
   { icon: EnvelopeSimple, name: 'Email Marketing', price: 'From $750', desc: 'Stay in touch with customers without lifting a finger. Birthday discounts, follow-ups — all on autopilot.' },
   { icon: Robot, name: 'AI Business Setup', price: '$1,500', desc: 'The tools the big companies use, set up for your business. Save hours every week on the stuff you hate doing.' },
-  { icon: MagnifyingGlass, name: 'Google Domination', price: '$500', desc: 'When someone searches "plumber near me" or "best restaurant in Trail" — you show up.' },
+  { icon: MagnifyingGlass, name: 'Google & SEO', price: 'Included', desc: 'Every site we build is optimized for Google from day one. Local SEO, speed, mobile — all baked in.' },
 ];
 
 

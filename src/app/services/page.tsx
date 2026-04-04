@@ -584,7 +584,7 @@ const comparisonRows = [
   { feature: 'Mobile Optimization', other: '"Responsive add-on"', us: '✅ Always' },
   { feature: 'Analytics Setup', other: '$200 extra', us: '✅ Included' },
   { feature: 'Training & Handoff', other: 'Rarely offered', us: '✅ Always' },
-  { feature: 'AI Integration', other: '$15,000+ (enterprise only)', us: '✅ From $2,000' },
+  { feature: 'AI Integration', other: '$5,000+ (if offered at all)', us: '✅ From $2,000' },
 ];
 
 /* ── Immersive Category Card ── */
