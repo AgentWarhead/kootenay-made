@@ -61,7 +61,8 @@ function TicketCard({ ticket, userId }: { ticket: TicketRow; userId: string }) {
   const sendReply = async () => {
     if (!replyText.trim()) return;
     setSending(true);
-    await supabase.from('ticket_replies').insert({ ticket_id: ticket.id, user_id: userId, message: replyText.trim(), is_admin: false });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    await (supabase as any).from('ticket_replies').insert({ ticket_id: ticket.id, user_id: userId, message: replyText.trim(), is_admin: false });
     setReplyText('');
     await loadReplies();
     setSending(false);
@@ -160,7 +161,8 @@ export default function SupportPage() {
   const submitTicket = async () => {
     if (!subject.trim() || !message.trim() || !userId) return;
     setSubmitState('loading');
-    const { error } = await supabase.from('tickets').insert({ user_id: userId, subject: subject.trim(), message: message.trim(), status: 'open' });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { error } = await (supabase as any).from('tickets').insert({ user_id: userId, subject: subject.trim(), message: message.trim(), status: 'open' });
     if (error) { setSubmitState('error'); return; }
     setSubmitState('success');
     setSubject('');
