@@ -40,7 +40,7 @@ function GardenDivider({ topColor = '#fdf8f0', bottomColor = '#f0f5e8' }: { topC
   const pathIndex = leafIdx++ % leafPaths.length
   return (
     <div style={{ backgroundColor: topColor, lineHeight: 0 }}>
-      <svg viewBox="0 0 1440 50" preserveAspectRatio="none" className="w-full h-6 md:h-10 block">
+      <svg viewBox="0 0 1440 50" preserveAspectRatio="none" className="w-full h-4 md:h-8 block">
         <path fill={bottomColor} d={leafPaths[pathIndex]} />
       </svg>
     </div>
@@ -874,7 +874,6 @@ export default function HomeGardenDemo() {
           >
             Request a Free Quote
           </motion.a>
-      <GardenDivider topColor="#2d3b2d" bottomColor="#fdf8f0" />
         </div>
       </section>
 
