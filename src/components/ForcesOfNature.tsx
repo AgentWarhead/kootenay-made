@@ -163,7 +163,7 @@ function SnowfallCard({ inView }: { inView: boolean }) {
           transition={{ duration: 0.8, delay: 0.3, type: 'spring', stiffness: 200 }}
           className="font-[family-name:var(--font-satoshi)] text-6xl sm:text-8xl md:text-9xl font-black text-white drop-shadow-[0_4px_20px_rgba(255,255,255,0.2)]"
         >
-          $0
+          AI
         </motion.span>
         <motion.p
           initial={{ opacity: 0, y: 10 }}
@@ -171,7 +171,7 @@ function SnowfallCard({ inView }: { inView: boolean }) {
           transition={{ delay: 0.8 }}
           className="text-cream/90 text-xl sm:text-2xl mt-2 font-semibold tracking-wide font-[family-name:var(--font-satoshi)]"
         >
-          Customers Find You For Free
+          Powered, Human Led
         </motion.p>
       </div>
     </div>
