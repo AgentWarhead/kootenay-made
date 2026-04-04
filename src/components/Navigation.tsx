@@ -132,13 +132,13 @@ export default function Navigation() {
                   </Link>
                 </Fragment>
               ))}
-              {/* Free Scan CTA */}
+              {/* Free Audit CTA */}
               <div className="ml-6">
                 <Link
                   href="/audit"
                   className="inline-flex items-center gap-2 bg-copper hover:bg-copper-light text-white text-[11px] xl:text-[13px] font-semibold uppercase tracking-[0.1em] px-4 xl:px-6 py-2 xl:py-2.5 rounded-lg border border-copper/30 transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] pulse-glow group"
                 >
-                  Free Scan
+                  Free Audit
                   <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-0.5" />
                 </Link>
               </div>
@@ -203,7 +203,7 @@ export default function Navigation() {
                 onClick={() => setMobileOpen(false)}
                 className="mt-4 inline-flex items-center gap-2 bg-copper text-white text-lg font-semibold uppercase tracking-wide px-8 py-3 rounded-lg pulse-glow"
               >
-                Free Scan <ArrowRight size={18} />
+                Free Audit <ArrowRight size={18} />
               </Link>
             </motion.div>
           </motion.div>
