@@ -1722,8 +1722,8 @@ export default function ServicesPage() {
           </ScrollReveal>
 
           <p className="text-text-tertiary text-sm text-center mb-8 italic">
-            The average Canadian web agency charges $7,000–$30,000 for a custom website.
-            We deliver the same quality — hand-coded, not templated — at a fraction of that.
+            Big agencies charge $7,000–$30,000 and hand you a WordPress template.
+            We hand-code every pixel, powered by AI — higher quality, faster delivery, and a price that actually makes sense.
           </p>
 
           <ScrollReveal delay={0.05}>
