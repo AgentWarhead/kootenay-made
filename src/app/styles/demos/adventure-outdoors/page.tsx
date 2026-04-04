@@ -33,6 +33,21 @@ function Reveal({ children, className = '', delay = 0 }: { children: React.React
 }
 
 /* ── Trail marker number ── */
+/* ── Mountain ridge divider ── */
+function RidgeDivider({ flip = false, topColor = '#1b2d1b', bottomColor = 'rgba(27,45,27,0.95)' }: { flip?: boolean; topColor?: string; bottomColor?: string }) {
+  return (
+    <div style={{ backgroundColor: topColor, lineHeight: 0 }}>
+      <svg viewBox="0 0 1440 60" preserveAspectRatio="none" className="w-full h-10 md:h-14 block">
+        {flip ? (
+          <path fill={bottomColor} d="M0,0 L180,30 L360,10 L540,35 L720,5 L900,28 L1080,12 L1260,32 L1440,8 L1440,60 L0,60 Z" />
+        ) : (
+          <path fill={bottomColor} d="M0,60 L0,30 L180,50 L360,20 L540,45 L720,15 L900,38 L1080,22 L1260,42 L1440,18 L1440,0 L0,0 Z" />
+        )}
+      </svg>
+    </div>
+  )
+}
+
 function TrailMarker({ number }: { number: number }) {
   return (
     <div className="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-6 text-lg font-bold"
@@ -469,6 +484,7 @@ export default function AdventureOutdoorsDemo() {
         </div>
       </div>
 
+      <RidgeDivider topColor="#f97316" bottomColor="#1b2d1b" />
       {/* ═══════════ 4. CHOOSE YOUR ADVENTURE — Trip Cards ═══════════ */}
       <section id="adventures" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#1b2d1b' }}>
         <div className="max-w-6xl mx-auto">
@@ -551,6 +567,7 @@ export default function AdventureOutdoorsDemo() {
         </div>
       </section>
 
+      <RidgeDivider topColor="#1b2d1b" bottomColor="rgba(27,45,27,0.95)" />
       {/* ═══════════ 5. TRAIL-MARKER VERTICAL TIMELINE ═══════════ */}
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: 'rgba(27,45,27,0.95)', borderTop: '1px solid rgba(249,115,22,0.1)' }}>
         <div className="max-w-4xl mx-auto">
@@ -599,6 +616,7 @@ export default function AdventureOutdoorsDemo() {
         </div>
       </section>
 
+      <RidgeDivider flip topColor="rgba(27,45,27,0.95)" bottomColor="#1b2d1b" />
       {/* ═══════════ 6. CONDITIONS & FORECAST ═══════════ */}
       <section className="py-16 px-6" style={{ backgroundColor: '#1b2d1b' }}>
         <div className="max-w-5xl mx-auto">
@@ -633,6 +651,7 @@ export default function AdventureOutdoorsDemo() {
         </div>
       </section>
 
+      <RidgeDivider topColor="#1b2d1b" bottomColor="rgba(249,115,22,0.08)" />
       {/* ═══════════ 7. GUIDE CREDENTIALS ═══════════ */}
       <section className="py-10 px-6" style={{ backgroundColor: 'rgba(249,115,22,0.08)', borderTop: '1px solid rgba(249,115,22,0.15)', borderBottom: '1px solid rgba(249,115,22,0.15)' }}>
         <div className="max-w-5xl mx-auto">
@@ -662,6 +681,7 @@ export default function AdventureOutdoorsDemo() {
         </div>
       </section>
 
+      <RidgeDivider flip topColor="rgba(249,115,22,0.08)" bottomColor="rgba(27,45,27,0.9)" />
       {/* ═══════════ 8. LATEST ADVENTURES — Asymmetric Photo Mosaic ═══════════ */}
       <section id="gallery" className="py-20 md:py-28 px-6" style={{ backgroundColor: 'rgba(27,45,27,0.9)' }}>
         <div className="max-w-6xl mx-auto">
@@ -718,6 +738,7 @@ export default function AdventureOutdoorsDemo() {
         </div>
       </section>
 
+      <RidgeDivider topColor="rgba(27,45,27,0.9)" bottomColor="#1b2d1b" />
       {/* ═══════════ 9. THE TRANSFORMATION ═══════════ */}
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#1b2d1b' }}>
         <div className="max-w-5xl mx-auto">
@@ -732,6 +753,7 @@ export default function AdventureOutdoorsDemo() {
         </div>
       </section>
 
+      <RidgeDivider flip topColor="#1b2d1b" bottomColor="rgba(27,45,27,0.95)" />
       {/* ═══════════ 10. TESTIMONIALS — TripAdvisor Style ═══════════ */}
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: 'rgba(27,45,27,0.95)' }}>
         <div className="max-w-6xl mx-auto">
@@ -800,6 +822,7 @@ export default function AdventureOutdoorsDemo() {
         </div>
       </section>
 
+      <RidgeDivider topColor="rgba(27,45,27,0.95)" bottomColor="#1b2d1b" />
       {/* ═══════════ 11. FAQ ═══════════ */}
       <section className="py-20 md:py-28 px-6" style={{ backgroundColor: '#1b2d1b' }}>
         <div className="max-w-4xl mx-auto">
@@ -820,6 +843,7 @@ export default function AdventureOutdoorsDemo() {
         </div>
       </section>
 
+      <RidgeDivider flip topColor="#1b2d1b" bottomColor="rgba(27,45,27,0.9)" />
       {/* ═══════════ 12. ABOUT ═══════════ */}
       <section id="about" className="py-20 md:py-28 px-6" style={{ backgroundColor: 'rgba(27,45,27,0.9)' }}>
         <div className="max-w-3xl mx-auto text-center">
@@ -836,6 +860,7 @@ export default function AdventureOutdoorsDemo() {
         </div>
       </section>
 
+      <RidgeDivider topColor="rgba(27,45,27,0.9)" bottomColor="#1b2d1b" />
       {/* ═══════════ 13. CONTACT ═══════════ */}
       <section id="book" className="py-20 md:py-28 px-6" style={{ backgroundColor: '#1b2d1b' }}>
         <div className="max-w-6xl mx-auto">
