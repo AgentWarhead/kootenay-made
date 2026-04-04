@@ -29,6 +29,24 @@ const C = {
 }
 
 /* ─── Reveal on scroll ──────────────────────────────────────── */
+/* ── Organic leaf-vine divider ── */
+const leafPaths = [
+  "M0,35 Q180,10 360,30 Q540,50 720,25 Q900,0 1080,30 Q1260,55 1440,28 L1440,50 L0,50 Z",
+  "M0,28 Q240,48 480,22 Q720,0 960,28 Q1200,50 1440,22 L1440,50 L0,50 Z",
+  "M0,40 Q200,15 400,35 Q600,55 800,20 Q1000,0 1200,35 Q1350,48 1440,30 L1440,50 L0,50 Z",
+]
+let leafIdx = 0
+function GardenDivider({ topColor = '#fdf8f0', bottomColor = '#f0f5e8' }: { topColor?: string; bottomColor?: string }) {
+  const pathIndex = leafIdx++ % leafPaths.length
+  return (
+    <div style={{ backgroundColor: topColor, lineHeight: 0 }}>
+      <svg viewBox="0 0 1440 50" preserveAspectRatio="none" className="w-full h-6 md:h-10 block">
+        <path fill={bottomColor} d={leafPaths[pathIndex]} />
+      </svg>
+    </div>
+  )
+}
+
 function Reveal({
   children,
   className = '',
@@ -222,7 +240,7 @@ function LiveRedesign() {
                   &#9733; Welcome to Our Website &#9733;
                 </p>
                 <h2
-                  className="text-xl sm:text-3xl md:text-4xl lg:text-5xl leading-tight mb-2 sm:mb-3"
+                  className="text-xl sm:text-2xl md:text-4xl lg:text-5xl leading-tight mb-2 sm:mb-3"
                   style={{
                     fontFamily: 'Georgia, serif',
                     color: '#3a3a3a',
@@ -726,7 +744,7 @@ export default function HomeGardenDemo() {
 
   return (
     <div
-      className={body.className}
+      className={`${body.className} overflow-x-hidden`}
       style={{ fontFamily: 'Inter, sans-serif', backgroundColor: C.cream, color: C.darkGreen }}
     >
       {/* ─── Global styles ──────────────────────────────────── */}
@@ -856,6 +874,7 @@ export default function HomeGardenDemo() {
           >
             Request a Free Quote
           </motion.a>
+      <GardenDivider topColor="#2d3b2d" bottomColor="#fdf8f0" />
         </div>
       </section>
 
@@ -877,6 +896,7 @@ export default function HomeGardenDemo() {
             </span>
           ))}
         </div>
+      <GardenDivider topColor="#fdf8f0" bottomColor="#f0f5e8" />
       </section>
 
       {/* ═══════════ 4. DESIGN → BUILD → MAINTAIN JOURNEY ═══════════ */}
@@ -890,7 +910,7 @@ export default function HomeGardenDemo() {
         <div className="max-w-7xl mx-auto">
           <Reveal>
             <h2
-              className={`${heading.className} text-3xl md:text-4xl font-bold mb-3`}
+              className={`${heading.className} text-2xl md:text-4xl font-bold mb-3`}
               style={{ color: C.darkGreen }}
             >
               How a Landscape Comes to Life
@@ -1098,6 +1118,7 @@ export default function HomeGardenDemo() {
           </div>
         </div>
       </section>
+      <GardenDivider topColor="#f0f5e8" bottomColor="#fdf8f0" />
 
       {/* ═══════════ 4b. WHAT'S IN SEASON STRIP ═══════════ */}
       <section
@@ -1170,7 +1191,7 @@ export default function HomeGardenDemo() {
         <div className="max-w-4xl mx-auto">
           <Reveal>
             <h2
-              className={`${heading.className} text-3xl md:text-4xl font-bold text-center mb-3`}
+              className={`${heading.className} text-2xl md:text-4xl font-bold text-center mb-3`}
               style={{ color: C.darkGreen }}
             >
               How It Works
@@ -1227,6 +1248,7 @@ export default function HomeGardenDemo() {
             ))}
           </div>
         </div>
+      <GardenDivider topColor="#fdf8f0" bottomColor="#f0f5e8" />
       </section>
 
       {/* ═══════════ SEASONAL TABS ═══════════ */}
@@ -1238,7 +1260,7 @@ export default function HomeGardenDemo() {
         <div className="max-w-4xl mx-auto">
           <Reveal>
             <h2
-              className={`${heading.className} text-3xl md:text-4xl font-bold text-center mb-10`}
+              className={`${heading.className} text-2xl md:text-4xl font-bold text-center mb-10`}
               style={{ color: C.darkGreen }}
             >
               Services for Every Season
@@ -1308,6 +1330,7 @@ export default function HomeGardenDemo() {
           </div>
         </div>
       </section>
+      <GardenDivider topColor="#f0f5e8" bottomColor="#fdf8f0" />
 
       {/* ═══════════ 6. SEASONAL PORTFOLIO (tabbed) ═══════════ */}
       <section
@@ -1319,7 +1342,7 @@ export default function HomeGardenDemo() {
         <div className="max-w-7xl mx-auto">
           <Reveal>
             <h2
-              className={`${heading.className} text-3xl md:text-4xl font-bold mb-3`}
+              className={`${heading.className} text-2xl md:text-4xl font-bold mb-3`}
               style={{ color: C.darkGreen }}
             >
               Seasonal Portfolio
@@ -1424,7 +1447,7 @@ export default function HomeGardenDemo() {
         <div className="max-w-5xl mx-auto">
           <Reveal>
             <h2
-              className={`${heading.className} text-3xl md:text-4xl font-bold text-center mb-3`}
+              className={`${heading.className} text-2xl md:text-4xl font-bold text-center mb-3`}
               style={{ color: C.darkGreen }}
             >
               Watch Your Website Transform
@@ -1435,6 +1458,7 @@ export default function HomeGardenDemo() {
           </Reveal>
 
           <LiveRedesign />
+      <GardenDivider topColor="#fdf8f0" bottomColor="#f5f0e5" />
         </div>
       </section>
 
@@ -1447,7 +1471,7 @@ export default function HomeGardenDemo() {
         <div className="max-w-5xl mx-auto">
           <Reveal>
             <h2
-              className={`${heading.className} text-3xl md:text-4xl font-bold mb-3`}
+              className={`${heading.className} text-2xl md:text-4xl font-bold mb-3`}
               style={{ color: C.darkGreen }}
             >
               What Clients Say
@@ -1524,7 +1548,7 @@ export default function HomeGardenDemo() {
         <div className="max-w-3xl mx-auto">
           <Reveal>
             <h2
-              className={`${heading.className} text-3xl md:text-4xl font-bold mb-3`}
+              className={`${heading.className} text-2xl md:text-4xl font-bold mb-3`}
               style={{ color: C.darkGreen }}
             >
               Common Questions
@@ -1552,7 +1576,7 @@ export default function HomeGardenDemo() {
         <div className="max-w-4xl mx-auto">
           <Reveal>
             <h2
-              className={`${heading.className} text-3xl md:text-4xl font-bold mb-3`}
+              className={`${heading.className} text-2xl md:text-4xl font-bold mb-3`}
               style={{ color: C.darkGreen }}
             >
               Grown from the Ground Up
@@ -1588,7 +1612,7 @@ export default function HomeGardenDemo() {
         <div className="max-w-7xl mx-auto">
           <Reveal>
             <h2
-              className={`${heading.className} text-3xl md:text-4xl font-bold mb-3`}
+              className={`${heading.className} text-2xl md:text-4xl font-bold mb-3`}
               style={{ color: C.darkGreen }}
             >
               Let&rsquo;s Talk About Your Space
@@ -1721,7 +1745,7 @@ export default function HomeGardenDemo() {
           </div>
           <div className="pt-6 text-center" style={{ borderTop: '1px solid rgba(253,248,240,0.1)' }}>
             <span className="text-xs" style={{ color: 'rgba(253,248,240,0.22)' }}>
-              &copy; 2026 Cedarview Landscaping. All rights reserved.
+              &copy; {new Date().getFullYear()} Cedarview Landscaping. All rights reserved.
             </span>
           </div>
         </div>
