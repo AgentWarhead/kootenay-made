@@ -715,7 +715,7 @@ function ImmersivePackageShowcase() {
 
   const handleBack = () => {
     setSelectedCategory(null);
-    window.scrollTo({ top: packagesRef.current?.offsetTop ?? 0 - 200, behavior: 'smooth' });
+    packagesRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
   const selectedCat = categoryCards.find(c => c.id === selectedCategory);
@@ -724,7 +724,7 @@ function ImmersivePackageShowcase() {
     : [];
 
   return (
-    <div ref={packagesRef} className="relative">
+    <div ref={packagesRef} className="relative scroll-mt-24">
       {/* Free Audit Banner — always visible */}
       <motion.div
         initial={{ opacity: 0, y: -12 }}
