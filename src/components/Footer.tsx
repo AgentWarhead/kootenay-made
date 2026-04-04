@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Mail, MapPin, Mountain } from 'lucide-react';
+import { Mail, MapPin, Mountain, ArrowRight } from 'lucide-react';
 
 function TripleClickLogo() {
   const clickCount = useRef(0);
@@ -127,7 +127,6 @@ const footerLinks = [
   { href: '/about', label: 'About' },
   { href: '/contact', label: 'Contact' },
   { href: '/audit', label: 'Free Audit' },
-  { href: '/login', label: 'Client Login' },
   { href: '/play', label: 'play', isGame: true },
 ];
 
@@ -242,7 +241,26 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-3 text-center sm:text-left">
+        {/* Client Portal — VIP section */}
+        <div className="mt-12 pt-8 border-t border-white/10 flex items-center justify-between">
+          <Link
+            href="/login"
+            className="group flex items-center gap-3 px-5 py-3 rounded-xl border border-copper/20 hover:border-copper/40 transition-all duration-300 hover:bg-copper/5"
+          >
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-copper/10 group-hover:bg-copper/20 transition-colors">
+              <Mountain size={16} className="text-copper" />
+            </div>
+            <div>
+              <p className="text-cream text-sm font-semibold" style={{ fontFamily: 'var(--font-satoshi)' }}>
+                Neighbours Dashboard
+              </p>
+              <p className="text-dark-text-muted text-xs">Client portal &middot; Guides, support &amp; community</p>
+            </div>
+            <ArrowRight size={14} className="text-copper/50 group-hover:text-copper group-hover:translate-x-0.5 transition-all ml-2" />
+          </Link>
+        </div>
+
+        <div className="mt-8 pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-3 text-center sm:text-left">
           <p className="text-dark-text-muted text-xs">
             &copy; {new Date().getFullYear()} Kootenay Made Digital. All rights reserved.
           </p>
