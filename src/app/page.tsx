@@ -11,7 +11,6 @@ import CampfireStories from '@/components/CampfireStories';
 import VideoSection from '@/components/VideoSection';
 import MountainDivider from '@/components/MountainDivider';
 import RiverWave from '@/components/RiverWave';
-import GradientFade from '@/components/GradientFade';
 import CopperRule from '@/components/CopperRule';
 import AmbientOrbs from '@/components/AmbientOrbs';
 import PineTreeline from '@/components/PineTreeline';
@@ -497,7 +496,7 @@ export default function Home() {
       {/* ═══ CAMPFIRE STORIES ═══ */}
       <CampfireStories stories={painPoints} />
 
-      <GradientFade from="#1A1D20" to="#1A1D20" height="80px" />
+      <MountainDivider variant={3} fillColor="#1A1D20" bgColor="#1A1D20" />
 
       {/* ═══ WHO WE HELP ═══ */}
       <section className="bg-slate grain py-24 sm:py-32 relative overflow-hidden">
@@ -685,7 +684,7 @@ export default function Home() {
       {/* ═══ MARQUEE ═══ */}
       <Marquee />
 
-      <RiverWave fillColor="#1A1D20" bgColor="#1e2226" />
+      <RiverWave fillColor="#1A1D20" bgColor="#1A1D20" />
 
       {/* ═══ FINAL CTA ═══ */}
       <section className="aurora-bg grain py-24 sm:py-32 relative">
