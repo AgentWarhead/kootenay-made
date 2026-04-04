@@ -9,6 +9,17 @@ import { motion, useInView, useReducedMotion, AnimatePresence } from 'framer-mot
 const generalSansFont = "'General Sans', sans-serif"
 
 /* ── Scroll reveal wrapper ── */
+/* ── Gentle community wave divider ── */
+function CommunityWave({ topColor = '#ffffff', bottomColor = '#eff6ff' }: { topColor?: string; bottomColor?: string }) {
+  return (
+    <div style={{ backgroundColor: topColor, lineHeight: 0 }}>
+      <svg viewBox="0 0 1440 48" preserveAspectRatio="none" className="w-full h-6 md:h-10 block">
+        <path fill={bottomColor} d="M0,48 L0,20 Q360,0 720,20 Q1080,40 1440,20 L1440,48 Z" />
+      </svg>
+    </div>
+  )
+}
+
 function Reveal({ children, className = '', delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
   const prefersReduced = useReducedMotion()
   return (
@@ -150,7 +161,7 @@ function LiveRedesign() {
                 <div className="absolute inset-0 opacity-[0.12]" style={{ background: 'linear-gradient(135deg, #334e6e 0%, #facc15 50%, #eff6ff 100%)' }} />
                 <div className="relative z-10">
                   <p className="text-xs uppercase tracking-wide mb-2" style={{ fontFamily: 'Arial, sans-serif', color: '#666', letterSpacing: '0.15em' }}>&#9733; Welcome to Our Website &#9733;</p>
-                  <h2 className="text-xl sm:text-3xl md:text-4xl leading-tight mb-2" style={{ fontFamily: 'Georgia, serif', color: '#3a3a3a', fontWeight: 700 }}>
+                  <h2 className="text-xl sm:text-2xl md:text-4xl leading-tight mb-2" style={{ fontFamily: 'Georgia, serif', color: '#3a3a3a', fontWeight: 700 }}>
                     Kootenay Community Learning Centre
                   </h2>
                   <p className="text-sm sm:text-lg mb-1 sm:mb-2" style={{ fontFamily: 'Georgia, serif', color: '#666', fontStyle: 'italic' }}>
@@ -342,7 +353,7 @@ export default function EducationNonprofitPage() {
   ]
 
   return (
-    <div className={`${"font-heading"} min-h-screen`} style={{ background: '#ffffff', color: '#1e3a5f' }}>
+    <div className={`${"font-heading"} min-h-screen overflow-x-hidden`} style={{ background: '#ffffff', color: '#1e3a5f' }}>
       <style>{`
         @import url('https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap');
         .font-heading { font-family: 'General Sans', sans-serif; }
@@ -488,6 +499,7 @@ export default function EducationNonprofitPage() {
             initial={prefersReduced ? {} : { opacity: 0, y: 16 }}
             animate={prefersReduced ? {} : { opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6 }}
+      <CommunityWave topColor="#1e40af" bottomColor="#ffffff" />
           >
             <a href="#programs" className="inline-block px-8 py-4 rounded-full text-base font-semibold transition-all duration-250" style={{ background: '#facc15', color: '#1e3a5f', textDecoration: 'none', boxShadow: '0 6px 24px rgba(250,204,21,0.35)' }} onMouseEnter={(e) => { e.currentTarget.style.background = '#fbbf24'; e.currentTarget.style.transform = 'translateY(-2px)' }} onMouseLeave={(e) => { e.currentTarget.style.background = '#facc15'; e.currentTarget.style.transform = 'translateY(0)' }}>
               Explore Programs
@@ -506,7 +518,7 @@ export default function EducationNonprofitPage() {
         <div className="max-w-6xl mx-auto">
           <Reveal className="text-center mb-14">
             <span className="inline-block text-sm font-semibold uppercase tracking-widest mb-3" style={{ color: '#fb923c' }}>What We Offer</span>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: '#1e3a5f' }}>Our Programs</h2>
+            <h2 className="text-2xl md:text-4xl font-bold mb-4" style={{ color: '#1e3a5f' }}>Our Programs</h2>
             <p className="text-base max-w-xl mx-auto" style={{ color: '#64748b' }}>
               From literacy to food security — community support in every direction
             </p>
@@ -580,6 +592,7 @@ export default function EducationNonprofitPage() {
       {/* ═══════════════════════════════════
           4. IMPACT STORIES — gallery reimagined
       ═══════════════════════════════════ */}
+      <CommunityWave topColor="#ffffff" bottomColor="#eff6ff" />
       <section id="impact" className="relative overflow-hidden px-6 md:px-10 py-20 md:py-28" style={{ background: '#eff6ff' }}>
         <Blob size={280} color="#3b82f6" opacity={0.07} top={-80} right={-60} />
         <Blob size={220} color="#facc15" opacity={0.10} bottom={-60} left={-40} />
@@ -587,7 +600,7 @@ export default function EducationNonprofitPage() {
         <div className="relative z-10 max-w-6xl mx-auto">
           <Reveal className="text-center mb-14">
             <span className="inline-block text-sm font-semibold uppercase tracking-widest mb-3" style={{ color: '#3b82f6' }}>Stories of Change</span>
-            <h2 className="text-3xl md:text-4xl font-bold" style={{ color: '#1e3a5f' }}>Behind Every Number is a Person</h2>
+            <h2 className="text-2xl md:text-4xl font-bold" style={{ color: '#1e3a5f' }}>Behind Every Number is a Person</h2>
           </Reveal>
 
           <div className="grid md:grid-cols-3 gap-8">
@@ -619,7 +632,7 @@ export default function EducationNonprofitPage() {
             ].map((story, i) => (
               <Reveal key={story.name} delay={i * 0.1}>
                 <div
-                  className="edu-card overflow-hidden flex flex-col"
+                  className="edu-card hover:-translate-y-1 hover:shadow-xl overflow-hidden flex flex-col"
                   style={{ border: '1px solid #dbeafe' }}
                 >
                   {/* Photo */}
@@ -655,6 +668,7 @@ export default function EducationNonprofitPage() {
         </div>
       </section>
 
+      <CommunityWave topColor="#eff6ff" bottomColor="#ffffff" />
       {/* ═══════════════════════════════════
           5. DONATION THERMOMETER
       ═══════════════════════════════════ */}
@@ -662,7 +676,7 @@ export default function EducationNonprofitPage() {
         <div className="max-w-4xl mx-auto">
           <Reveal className="text-center mb-12">
             <span className="inline-block text-sm font-semibold uppercase tracking-widest mb-3" style={{ color: '#22c55e' }}>Annual Fund</span>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: '#1e3a5f' }}>Help Us Cross the Finish Line</h2>
+            <h2 className="text-2xl md:text-4xl font-bold mb-4" style={{ color: '#1e3a5f' }}>Help Us Cross the Finish Line</h2>
             <p className="text-base max-w-xl mx-auto" style={{ color: '#64748b' }}>
               We&rsquo;re {progressPct}% of the way to our annual goal. You can put us over the top.
             </p>
@@ -753,7 +767,7 @@ export default function EducationNonprofitPage() {
         <div className="relative z-10 max-w-4xl mx-auto">
           <Reveal className="text-center mb-12">
             <span className="text-4xl mb-4 block">🙌</span>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: '#ffffff' }}>Give an Hour. Change a Life.</h2>
+            <h2 className="text-2xl md:text-4xl font-bold mb-4" style={{ color: '#ffffff' }}>Give an Hour. Change a Life.</h2>
             <p className="text-lg max-w-xl mx-auto" style={{ color: 'rgba(255,255,255,0.75)' }}>
               No experience needed. Just time and heart. Our volunteers make everything possible.
             </p>
@@ -801,6 +815,7 @@ export default function EducationNonprofitPage() {
         </div>
       </section>
 
+      <CommunityWave topColor="#1e40af" bottomColor="#ffffff" />
       {/* ═══════════════════════════════════
           7. COMMUNITY CALENDAR
       ═══════════════════════════════════ */}
@@ -808,7 +823,7 @@ export default function EducationNonprofitPage() {
         <div className="max-w-6xl mx-auto">
           <Reveal className="text-center mb-12">
             <span className="inline-block text-sm font-semibold uppercase tracking-widest mb-3" style={{ color: '#fb923c' }}>What&rsquo;s Coming Up</span>
-            <h2 className="text-3xl md:text-4xl font-bold" style={{ color: '#1e3a5f' }}>Community Calendar</h2>
+            <h2 className="text-2xl md:text-4xl font-bold" style={{ color: '#1e3a5f' }}>Community Calendar</h2>
           </Reveal>
 
           <div className="grid md:grid-cols-3 gap-6">
@@ -872,7 +887,7 @@ export default function EducationNonprofitPage() {
         <Blob size={180} color="#3b82f6" opacity={0.08} bottom={-50} left="8%" />
         <div className="relative z-10 max-w-5xl mx-auto">
           <Reveal className="text-center mb-12">
-            <h2 className={`${"font-heading"} text-3xl md:text-4xl font-bold`} style={{ color: '#1e3a5f' }}>Watch Your Website Transform</h2>
+            <h2 className={`${"font-heading"} text-2xl md:text-4xl font-bold`} style={{ color: '#1e3a5f' }}>Watch Your Website Transform</h2>
             <p className={`${"font-heading"} text-base mt-4`} style={{ color: '#64748b' }}>From dated to designed — in real time</p>
           </Reveal>
           <Reveal delay={0.1}>
@@ -888,7 +903,7 @@ export default function EducationNonprofitPage() {
         <div className="max-w-6xl mx-auto">
           <Reveal className="text-center mb-14">
             <span className="inline-block text-sm font-semibold uppercase tracking-widest mb-3" style={{ color: '#fb923c' }}>Community Voices</span>
-            <h2 className="text-3xl md:text-4xl font-bold" style={{ color: '#1e3a5f' }}>What Organisations Are Saying</h2>
+            <h2 className="text-2xl md:text-4xl font-bold" style={{ color: '#1e3a5f' }}>What Organisations Are Saying</h2>
           </Reveal>
 
           <div className="grid md:grid-cols-3 gap-8">
@@ -960,7 +975,7 @@ export default function EducationNonprofitPage() {
             </div>
 
             <span className="inline-block text-sm font-semibold uppercase tracking-widest mb-3" style={{ color: '#3b82f6' }}>Digital Services</span>
-            <h2 className="text-3xl md:text-4xl font-bold" style={{ color: '#1e3a5f' }}>Grow your mission online</h2>
+            <h2 className="text-2xl md:text-4xl font-bold" style={{ color: '#1e3a5f' }}>Grow your mission online</h2>
           </Reveal>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -989,7 +1004,7 @@ export default function EducationNonprofitPage() {
               },
             ].map((service, i) => (
               <Reveal key={service.title} delay={i * 0.1}>
-                <div className="edu-card p-8 h-full" style={{ borderTop: `4px solid ${service.color}` }}>
+                <div className="edu-card hover:-translate-y-1 hover:shadow-xl p-8 h-full" style={{ borderTop: `4px solid ${service.color}` }}>
                   <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-6" style={{ background: `${service.color}15` }}>
                     {service.icon}
                   </div>
@@ -1010,7 +1025,7 @@ export default function EducationNonprofitPage() {
         <div className="relative z-10 max-w-3xl mx-auto">
           <Reveal className="text-center mb-12">
             <span className="inline-block text-sm font-semibold uppercase tracking-widest mb-3" style={{ color: '#3b82f6' }}>FAQ</span>
-            <h2 className="text-3xl md:text-4xl font-bold" style={{ color: '#1e3a5f' }}>Frequently Asked Questions</h2>
+            <h2 className="text-2xl md:text-4xl font-bold" style={{ color: '#1e3a5f' }}>Frequently Asked Questions</h2>
           </Reveal>
           <Reveal delay={0.1}>
             <FAQAccordion items={faqItems} />
@@ -1043,7 +1058,7 @@ export default function EducationNonprofitPage() {
         <div className="relative z-10 max-w-6xl mx-auto">
           <Reveal className="text-center mb-14">
             <span className="inline-block text-sm font-semibold uppercase tracking-widest mb-3" style={{ color: '#fb923c' }}>Get in Touch</span>
-            <h2 className="text-3xl md:text-4xl font-bold" style={{ color: '#1e3a5f' }}>We&rsquo;d love to hear from you</h2>
+            <h2 className="text-2xl md:text-4xl font-bold" style={{ color: '#1e3a5f' }}>We&rsquo;d love to hear from you</h2>
           </Reveal>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
