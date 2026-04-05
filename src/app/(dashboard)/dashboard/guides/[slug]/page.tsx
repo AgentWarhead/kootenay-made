@@ -1,11 +1,12 @@
 'use client'
 
-import { useState, useEffect, useRef, use } from 'react'
-import { motion, useScroll, useSpring, AnimatePresence } from 'framer-motion'
+import { useState, useEffect, useRef, use, useMemo } from 'react'
+import { motion, useScroll, useSpring, useMotionValueEvent, AnimatePresence } from 'framer-motion'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import Link from 'next/link'
-import { ArrowLeft, Clock, CheckCircle, ChevronDown, List, BookOpen } from 'lucide-react'
+import { ArrowLeft, Clock, CheckCircle, ChevronDown, List, BookOpen, ArrowRight } from 'lucide-react'
+import { createClient } from '@/lib/supabase/client'
 
 interface Guide {
   id: string
@@ -15,12 +16,11 @@ interface Guide {
   excerpt: string
   category: string
   trailhead_milestone: number | null
+  trailhead_order: number | null
   difficulty: 'quick' | 'standard' | 'advanced'
   read_time_minutes: number
   published: boolean
 }
-
-import { createClient } from '@/lib/supabase/client'
 
 const DIFFICULTY_LABELS: Record<string, { label: string; icon: string; color: string }> = {
   quick: { label: 'Quick Read', icon: '⚡', color: '#C87941' },
@@ -48,25 +48,52 @@ function extractHeadings(markdown: string): Heading[] {
   return headings
 }
 
-function ScrollProgress() {
+/* ─── Reading Progress Bar (3px copper gradient) ─── */
+function ReadingProgressBar() {
   const { scrollYProgress } = useScroll()
   const scaleX = useSpring(scrollYProgress, { stiffness: 200, damping: 30 })
 
   return (
     <motion.div
-      className="fixed top-0 left-0 right-0 h-0.5 origin-left z-50"
-      style={{ scaleX, background: 'var(--color-dash-copper)' }}
+      className="fixed top-0 left-0 right-0 origin-left z-50"
+      style={{
+        scaleX,
+        height: '3px',
+        background: 'linear-gradient(90deg, #C87941, #E0A06A, #C87941)',
+      }}
     />
   )
 }
 
+/* ─── Reading Time Countdown ─── */
+function ReadingTimeCountdown({ totalMinutes }: { totalMinutes: number }) {
+  const { scrollYProgress } = useScroll()
+  const [remaining, setRemaining] = useState(totalMinutes)
+
+  useMotionValueEvent(scrollYProgress, 'change', (v) => {
+    const left = Math.max(1, Math.ceil(totalMinutes * (1 - v)))
+    setRemaining(left)
+  })
+
+  return (
+    <span className="flex items-center gap-1 text-xs" style={{ color: 'var(--color-dash-text-faint)' }}>
+      <Clock className="w-3.5 h-3.5" />
+      {remaining} min left
+    </span>
+  )
+}
+
+/* ─── Table of Contents ─── */
 function TableOfContents({ headings, activeId }: { headings: Heading[]; activeId: string }) {
   return (
     <nav className="space-y-1">
-      <p className="text-xs font-semibold uppercase tracking-wider mb-3" style={{ color: 'var(--color-dash-text-faint)' }}>
+      <p
+        className="text-xs font-semibold uppercase tracking-wider mb-3"
+        style={{ color: 'var(--color-dash-text-faint)' }}
+      >
         On This Page
       </p>
-      {headings.map(h => (
+      {headings.map((h) => (
         <a
           key={h.id}
           href={`#${h.id}`}
@@ -77,7 +104,7 @@ function TableOfContents({ headings, activeId }: { headings: Heading[]; activeId
             fontWeight: activeId === h.id ? '600' : '400',
             borderLeft: activeId === h.id ? '2px solid var(--color-dash-copper)' : '2px solid transparent',
           }}
-          onClick={e => {
+          onClick={(e) => {
             e.preventDefault()
             document.getElementById(h.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
           }}
@@ -89,7 +116,7 @@ function TableOfContents({ headings, activeId }: { headings: Heading[]; activeId
   )
 }
 
-// Custom markdown components
+/* ─── Markdown Content ─── */
 function MarkdownContent({ content }: { content: string }) {
   const makeId = (text: string) =>
     String(text).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
@@ -99,36 +126,72 @@ function MarkdownContent({ content }: { content: string }) {
       remarkPlugins={[remarkGfm]}
       components={{
         h1: ({ children }) => (
-          <h1 id={makeId(String(children))} className="guide-h1">{children}</h1>
+          <h1 id={makeId(String(children))} className="guide-h1">
+            {children}
+          </h1>
         ),
         h2: ({ children }) => (
-          <h2 id={makeId(String(children))} className="guide-h2">{children}</h2>
+          <h2 id={makeId(String(children))} className="guide-h2">
+            {children}
+          </h2>
         ),
         h3: ({ children }) => (
-          <h3 id={makeId(String(children))} className="guide-h3">{children}</h3>
+          <h3 id={makeId(String(children))} className="guide-h3">
+            {children}
+          </h3>
         ),
-        p: ({ children }) => <p className="guide-p">{children}</p>,
+        p: ({ children }) => {
+          // Check if this paragraph starts with 💡 for Brett's Tips
+          const text = String(children)
+          if (text.startsWith('💡')) {
+            return (
+              <div
+                className="rounded-r-xl my-6"
+                style={{
+                  borderLeft: '4px solid var(--color-dash-copper)',
+                  background: 'rgba(200,121,65,0.06)',
+                  padding: '16px 20px',
+                }}
+              >
+                <div
+                  className="text-xs font-bold uppercase tracking-wider mb-1.5"
+                  style={{ color: 'var(--color-dash-copper)', fontFamily: 'var(--font-cabinet)' }}
+                >
+                  Brett&apos;s Tip
+                </div>
+                <div
+                  className="text-base leading-relaxed"
+                  style={{ color: 'var(--color-dash-text)', fontFamily: 'var(--font-general)' }}
+                >
+                  {children}
+                </div>
+              </div>
+            )
+          }
+          return <p className="guide-p">{children}</p>
+        },
         ul: ({ children }) => <ul className="guide-ul">{children}</ul>,
         ol: ({ children }) => <ol className="guide-ol">{children}</ol>,
         li: ({ children }) => <li className="guide-li">{children}</li>,
         blockquote: ({ children }) => {
-          // Check if it's a Brett's Tip (starts with 💡)
           const text = String(children)
           const isTip = text.includes('💡')
           return (
             <blockquote
-              className="guide-blockquote"
+              className="guide-blockquote rounded-r-xl"
               style={{
                 borderLeft: `4px solid var(--color-dash-copper)`,
                 background: isTip ? 'rgba(200,121,65,0.06)' : 'rgba(0,0,0,0.03)',
-                borderRadius: '0 12px 12px 0',
-                padding: '12px 16px',
+                padding: '16px 20px',
                 margin: '24px 0',
                 fontStyle: isTip ? 'normal' : 'italic',
               }}
             >
               {isTip && (
-                <div className="text-xs font-semibold mb-1" style={{ color: 'var(--color-dash-copper)' }}>
+                <div
+                  className="text-xs font-bold uppercase tracking-wider mb-1.5"
+                  style={{ color: 'var(--color-dash-copper)', fontFamily: 'var(--font-cabinet)' }}
+                >
                   Brett&apos;s Tip
                 </div>
               )}
@@ -159,7 +222,9 @@ function MarkdownContent({ content }: { content: string }) {
                 margin: '20px 0',
               }}
             >
-              <code style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '14px' }}>{children}</code>
+              <code style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '14px' }}>
+                {children}
+              </code>
             </pre>
           ),
         strong: ({ children }) => (
@@ -182,13 +247,37 @@ function MarkdownContent({ content }: { content: string }) {
   )
 }
 
+/* ─── Checkmark Animation ─── */
+function CompletionCheckmark() {
+  return (
+    <motion.div
+      className="w-16 h-16 rounded-full flex items-center justify-center"
+      style={{ background: 'var(--color-dash-copper)' }}
+      initial={{ scale: 0 }}
+      animate={{ scale: 1 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 15 }}
+    >
+      <motion.div
+        initial={{ pathLength: 0, opacity: 0 }}
+        animate={{ pathLength: 1, opacity: 1 }}
+        transition={{ delay: 0.2, duration: 0.4 }}
+      >
+        <CheckCircle className="w-9 h-9 text-white" />
+      </motion.div>
+    </motion.div>
+  )
+}
+
+/* ─── Page ─── */
 export default function GuideReaderPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params)
   const [guide, setGuide] = useState<Guide | null>(null)
+  const [nextGuide, setNextGuide] = useState<Guide | null>(null)
   const [related, setRelated] = useState<Guide[]>([])
   const [loading, setLoading] = useState(true)
   const [completed, setCompleted] = useState(false)
   const [markingComplete, setMarkingComplete] = useState(false)
+  const [justCompleted, setJustCompleted] = useState(false)
   const [tocOpen, setTocOpen] = useState(false)
   const [activeHeading, setActiveHeading] = useState('')
   const [userId, setUserId] = useState<string | null>(null)
@@ -202,46 +291,67 @@ export default function GuideReaderPage({ params }: { params: Promise<{ slug: st
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const sb = supabase as any
 
-        const { data: { user } } = await supabase.auth.getUser()
+        const {
+          data: { user },
+        } = await supabase.auth.getUser()
         if (user) setUserId(user.id)
 
-        const { data: guideData } = await sb
+        const { data: guideData } = (await sb
           .from('guides')
           .select('*')
           .eq('slug', slug)
-          .single() as { data: Guide | null }
+          .single()) as { data: Guide | null }
 
         if (guideData) {
           setGuide(guideData)
           setGuideId(guideData.id)
 
+          // Fetch next guide in the trail (same milestone, next order; or next milestone)
+          const { data: nextData } = (await sb
+            .from('guides')
+            .select('*')
+            .eq('published', true)
+            .eq('category', guideData.category)
+            .neq('slug', slug)
+            .order('trailhead_milestone')
+            .order('trailhead_order')) as { data: Guide[] | null }
+
+          if (nextData && nextData.length > 0) {
+            // Find the guide that comes after the current one
+            const currentMs = guideData.trailhead_milestone ?? 0
+            const currentOrd = guideData.trailhead_order ?? 0
+            const next = nextData.find(
+              (g) =>
+                (g.trailhead_milestone ?? 0) > currentMs ||
+                ((g.trailhead_milestone ?? 0) === currentMs && (g.trailhead_order ?? 0) > currentOrd)
+            )
+            setNextGuide(next ?? null)
+          }
+
           // Fetch related guides in same milestone
-          const { data: relData } = await sb
+          const { data: relData } = (await sb
             .from('guides')
             .select('*')
             .eq('published', true)
             .neq('slug', slug)
             .eq('trailhead_milestone', guideData.trailhead_milestone ?? 0)
-            .limit(3) as { data: Guide[] | null }
+            .limit(3)) as { data: Guide[] | null }
           setRelated(relData ?? [])
 
           // Check completion status
           if (user) {
-            const { data: progressData } = await sb
+            const { data: progressData } = (await sb
               .from('user_guide_progress')
               .select('completed')
               .eq('user_id', user.id)
               .eq('guide_id', guideData.id)
-              .single() as { data: { completed: boolean } | null }
+              .single()) as { data: { completed: boolean } | null }
             if (progressData?.completed) setCompleted(true)
 
-            // Auto-create progress entry if doesn't exist
-            await sb
-              .from('user_guide_progress')
-              .upsert(
-                { user_id: user.id, guide_id: guideData.id, progress_percent: 0, completed: false },
-                { onConflict: 'user_id,guide_id', ignoreDuplicates: true }
-              )
+            await sb.from('user_guide_progress').upsert(
+              { user_id: user.id, guide_id: guideData.id, progress_percent: 0, completed: false },
+              { onConflict: 'user_id,guide_id', ignoreDuplicates: true }
+            )
           }
         }
       } catch (e) {
@@ -256,7 +366,7 @@ export default function GuideReaderPage({ params }: { params: Promise<{ slug: st
   // Track active heading
   useEffect(() => {
     const observer = new IntersectionObserver(
-      entries => {
+      (entries) => {
         for (const entry of entries) {
           if (entry.isIntersecting) {
             setActiveHeading(entry.target.id)
@@ -266,7 +376,7 @@ export default function GuideReaderPage({ params }: { params: Promise<{ slug: st
       { rootMargin: '-20% 0px -70% 0px' }
     )
     const headingEls = contentRef.current?.querySelectorAll('h1,h2,h3') ?? []
-    headingEls.forEach(el => observer.observe(el))
+    headingEls.forEach((el) => observer.observe(el))
     return () => observer.disconnect()
   }, [guide])
 
@@ -275,25 +385,30 @@ export default function GuideReaderPage({ params }: { params: Promise<{ slug: st
     setMarkingComplete(true)
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const sb = createClient() as any
-    await sb
-      .from('user_guide_progress')
-      .upsert(
-        {
-          user_id: userId,
-          guide_id: guideId,
-          completed: true,
-          progress_percent: 100,
-          completed_at: new Date().toISOString(),
-        },
-        { onConflict: 'user_id,guide_id' }
-      )
+    await sb.from('user_guide_progress').upsert(
+      {
+        user_id: userId,
+        guide_id: guideId,
+        completed: true,
+        progress_percent: 100,
+        completed_at: new Date().toISOString(),
+      },
+      { onConflict: 'user_id,guide_id' }
+    )
     setCompleted(true)
+    setJustCompleted(true)
     setMarkingComplete(false)
   }
 
+  const headings = useMemo(() => (guide ? extractHeadings(guide.content) : []), [guide])
+  const diff = guide ? (DIFFICULTY_LABELS[guide.difficulty] ?? DIFFICULTY_LABELS.quick) : DIFFICULTY_LABELS.quick
+
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center" style={{ background: 'var(--color-dash-bg)' }}>
+      <div
+        className="min-h-screen flex items-center justify-center"
+        style={{ background: 'var(--color-dash-bg)' }}
+      >
         <div className="flex flex-col items-center gap-4">
           <motion.div
             className="w-8 h-8 rounded-full border-2"
@@ -301,7 +416,9 @@ export default function GuideReaderPage({ params }: { params: Promise<{ slug: st
             animate={{ rotate: 360 }}
             transition={{ duration: 0.8, repeat: Infinity, ease: 'linear' }}
           />
-          <p className="text-sm" style={{ color: 'var(--color-dash-text-muted)' }}>Stoking the fire...</p>
+          <p className="text-sm" style={{ color: 'var(--color-dash-text-muted)' }}>
+            Stoking the fire...
+          </p>
         </div>
       </div>
     )
@@ -309,10 +426,16 @@ export default function GuideReaderPage({ params }: { params: Promise<{ slug: st
 
   if (!guide) {
     return (
-      <div className="min-h-screen flex items-center justify-center" style={{ background: 'var(--color-dash-bg)' }}>
+      <div
+        className="min-h-screen flex items-center justify-center"
+        style={{ background: 'var(--color-dash-bg)' }}
+      >
         <div className="text-center">
           <div className="text-5xl mb-4">🏔️</div>
-          <h2 className="text-xl font-semibold mb-2" style={{ fontFamily: 'var(--font-cabinet)', color: 'var(--color-dash-text)' }}>
+          <h2
+            className="text-xl font-semibold mb-2"
+            style={{ fontFamily: 'var(--font-cabinet)', color: 'var(--color-dash-text)' }}
+          >
             Guide not found
           </h2>
           <p className="mb-6 text-sm" style={{ color: 'var(--color-dash-text-muted)' }}>
@@ -330,14 +453,10 @@ export default function GuideReaderPage({ params }: { params: Promise<{ slug: st
     )
   }
 
-  const headings = extractHeadings(guide.content)
-  const diff = DIFFICULTY_LABELS[guide.difficulty] ?? DIFFICULTY_LABELS.quick
-
   return (
     <>
-      <ScrollProgress />
+      <ReadingProgressBar />
 
-      {/* JetBrains Mono */}
       <style>{`
         @import url('https://api.fontshare.com/v2/css?f[]=jet-brains-mono@400,700&display=swap');
         .guide-h1 { font-family: var(--font-cabinet); font-size: 28px; font-weight: 700; line-height: 1.25; color: var(--color-dash-text); margin: 32px 0 16px; }
@@ -380,12 +499,12 @@ export default function GuideReaderPage({ params }: { params: Promise<{ slug: st
                 >
                   {diff.icon} {diff.label}
                 </span>
-                <span className="flex items-center gap-1 text-xs" style={{ color: 'var(--color-dash-text-faint)' }}>
-                  <Clock className="w-3.5 h-3.5" />
-                  {guide.read_time_minutes} min read
-                </span>
+                <ReadingTimeCountdown totalMinutes={guide.read_time_minutes} />
                 {guide.trailhead_milestone && (
-                  <span className="text-xs px-2 py-0.5 rounded-full" style={{ background: 'rgba(200,121,65,0.1)', color: 'var(--color-dash-copper)' }}>
+                  <span
+                    className="text-xs px-2 py-0.5 rounded-full"
+                    style={{ background: 'rgba(200,121,65,0.1)', color: 'var(--color-dash-copper)' }}
+                  >
                     Milestone {guide.trailhead_milestone}
                   </span>
                 )}
@@ -406,11 +525,14 @@ export default function GuideReaderPage({ params }: { params: Promise<{ slug: st
 
               {/* Mobile TOC toggle */}
               {headings.length > 0 && (
-                <div className="lg:hidden mb-6 rounded-xl border overflow-hidden" style={{ borderColor: 'var(--color-dash-border)', background: 'var(--color-dash-card)' }}>
+                <div
+                  className="lg:hidden mb-6 rounded-xl border overflow-hidden"
+                  style={{ borderColor: 'var(--color-dash-border)', background: 'var(--color-dash-card)' }}
+                >
                   <button
                     onClick={() => setTocOpen(!tocOpen)}
                     className="flex items-center justify-between w-full px-4 py-3 text-sm font-medium"
-                    style={{ color: 'var(--color-dash-text)' }}
+                    style={{ color: 'var(--color-dash-text)', minHeight: '44px' }}
                   >
                     <span className="flex items-center gap-2">
                       <List className="w-4 h-4" />
@@ -450,85 +572,161 @@ export default function GuideReaderPage({ params }: { params: Promise<{ slug: st
               <div className="h-px my-10" style={{ background: 'var(--color-dash-border)' }} />
 
               {/* Mark as Complete */}
-              <div className="rounded-2xl border p-6 text-center" style={{ borderColor: 'var(--color-dash-border)', background: 'var(--color-dash-card)' }}>
-                {completed ? (
-                  <motion.div
-                    initial={{ scale: 0.8, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    className="flex flex-col items-center gap-3"
-                  >
-                    <div className="w-14 h-14 rounded-full flex items-center justify-center" style={{ background: 'var(--color-dash-copper)' }}>
-                      <CheckCircle className="w-8 h-8 text-white" />
-                    </div>
-                    <h3 className="font-semibold text-lg" style={{ fontFamily: 'var(--font-cabinet)', color: 'var(--color-dash-text)' }}>
-                      Guide Complete! 🎉
-                    </h3>
-                    <p className="text-sm" style={{ color: 'var(--color-dash-text-muted)' }}>
-                      Great work. Keep climbing the trail.
-                    </p>
-                    <Link
-                      href="/dashboard/guides"
-                      className="mt-2 inline-flex items-center gap-1.5 text-sm font-medium"
-                      style={{ color: 'var(--color-dash-copper)' }}
+              <motion.div
+                className="rounded-2xl border p-6 text-center"
+                style={{ borderColor: 'var(--color-dash-border)', background: 'var(--color-dash-card)' }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+              >
+                <AnimatePresence mode="wait">
+                  {completed ? (
+                    <motion.div
+                      key="completed"
+                      initial={{ scale: 0.8, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      className="flex flex-col items-center gap-3"
                     >
-                      Back to Guides →
-                    </Link>
-                  </motion.div>
-                ) : (
-                  <>
-                    <p className="text-sm mb-4" style={{ color: 'var(--color-dash-text-muted)' }}>
-                      Done reading? Mark this guide complete to track your progress.
-                    </p>
-                    <button
-                      onClick={markComplete}
-                      disabled={markingComplete}
-                      className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-200 disabled:opacity-60"
-                      style={{ background: 'var(--color-dash-copper)', color: 'white' }}
-                    >
-                      {markingComplete ? (
-                        <>
-                          <motion.div
-                            className="w-4 h-4 rounded-full border-2 border-white border-t-transparent"
-                            animate={{ rotate: 360 }}
-                            transition={{ duration: 0.8, repeat: Infinity, ease: 'linear' }}
-                          />
-                          Saving...
-                        </>
-                      ) : (
-                        <>
-                          <CheckCircle className="w-4 h-4" />
-                          Mark as Complete
-                        </>
+                      {justCompleted ? <CompletionCheckmark /> : (
+                        <div
+                          className="w-16 h-16 rounded-full flex items-center justify-center"
+                          style={{ background: 'var(--color-dash-copper)' }}
+                        >
+                          <CheckCircle className="w-9 h-9 text-white" />
+                        </div>
                       )}
-                    </button>
-                  </>
-                )}
-              </div>
+                      <h3
+                        className="font-semibold text-lg"
+                        style={{ fontFamily: 'var(--font-cabinet)', color: 'var(--color-dash-text)' }}
+                      >
+                        Guide Complete!
+                      </h3>
+                      <p className="text-sm" style={{ color: 'var(--color-dash-text-muted)' }}>
+                        Great work. Keep climbing the trail.
+                      </p>
+
+                      {/* Next Guide Prompt */}
+                      {nextGuide ? (
+                        <Link
+                          href={`/dashboard/guides/${nextGuide.slug}`}
+                          className="mt-3 flex items-center gap-3 px-5 py-3 rounded-xl border transition-all duration-200 group"
+                          style={{
+                            background: 'rgba(200,121,65,0.06)',
+                            borderColor: 'rgba(200,121,65,0.2)',
+                            minHeight: '44px',
+                          }}
+                        >
+                          <div className="flex-1 text-left">
+                            <p
+                              className="text-xs font-semibold uppercase tracking-wider mb-0.5"
+                              style={{ color: 'var(--color-dash-copper)' }}
+                            >
+                              Continue the trail
+                            </p>
+                            <p className="text-sm font-medium" style={{ color: 'var(--color-dash-text)' }}>
+                              {nextGuide.title}
+                            </p>
+                          </div>
+                          <ArrowRight
+                            className="w-5 h-5 group-hover:translate-x-1 transition-transform"
+                            style={{ color: 'var(--color-dash-copper)' }}
+                          />
+                        </Link>
+                      ) : (
+                        <Link
+                          href="/dashboard/guides"
+                          className="mt-2 inline-flex items-center gap-1.5 text-sm font-medium"
+                          style={{ color: 'var(--color-dash-copper)', minHeight: '44px' }}
+                        >
+                          Back to Guides →
+                        </Link>
+                      )}
+                    </motion.div>
+                  ) : (
+                    <motion.div key="incomplete">
+                      <p className="text-sm mb-4" style={{ color: 'var(--color-dash-text-muted)' }}>
+                        Done reading? Mark this guide complete to track your progress.
+                      </p>
+                      <button
+                        onClick={markComplete}
+                        disabled={markingComplete}
+                        className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl font-semibold text-sm transition-all duration-200 disabled:opacity-60"
+                        style={{
+                          background: 'var(--color-dash-copper)',
+                          color: 'white',
+                          minHeight: '44px',
+                        }}
+                      >
+                        {markingComplete ? (
+                          <>
+                            <motion.div
+                              className="w-4 h-4 rounded-full border-2 border-white border-t-transparent"
+                              animate={{ rotate: 360 }}
+                              transition={{ duration: 0.8, repeat: Infinity, ease: 'linear' }}
+                            />
+                            Saving...
+                          </>
+                        ) : (
+                          <>
+                            <CheckCircle className="w-5 h-5" />
+                            Mark as Complete
+                          </>
+                        )}
+                      </button>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
 
               {/* Related guides */}
-              {related.length > 0 && (
-                <div className="mt-10">
-                  <h2 className="text-lg font-semibold mb-4" style={{ fontFamily: 'var(--font-cabinet)', color: 'var(--color-dash-text)' }}>
+              {related.length > 0 && !completed && (
+                <motion.div
+                  className="mt-10"
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true }}
+                >
+                  <h2
+                    className="text-lg font-semibold mb-4"
+                    style={{ fontFamily: 'var(--font-cabinet)', color: 'var(--color-dash-text)' }}
+                  >
                     Up Next on the Trail
                   </h2>
                   <div className="space-y-3">
-                    {related.map(r => (
+                    {related.map((r) => (
                       <Link
                         key={r.id}
                         href={`/dashboard/guides/${r.slug}`}
-                        className="flex items-center gap-3 p-4 rounded-xl border group transition-colors hover:border-copper"
-                        style={{ background: 'var(--color-dash-card)', borderColor: 'var(--color-dash-border)' }}
+                        className="flex items-center gap-3 p-4 rounded-xl border group transition-all duration-200"
+                        style={{
+                          background: 'var(--color-dash-card)',
+                          borderColor: 'var(--color-dash-border)',
+                          minHeight: '44px',
+                        }}
+                        onMouseEnter={(e) => {
+                          ;(e.currentTarget as HTMLAnchorElement).style.borderColor = 'rgba(200,121,65,0.3)'
+                        }}
+                        onMouseLeave={(e) => {
+                          ;(e.currentTarget as HTMLAnchorElement).style.borderColor = 'var(--color-dash-border)'
+                        }}
                       >
                         <BookOpen className="w-4 h-4 flex-shrink-0" style={{ color: 'var(--color-dash-copper)' }} />
                         <div className="flex-1 min-w-0">
-                          <p className="text-sm font-medium" style={{ color: 'var(--color-dash-text)' }}>{r.title}</p>
-                          <p className="text-xs" style={{ color: 'var(--color-dash-text-faint)' }}>{r.read_time_minutes} min read</p>
+                          <p className="text-sm font-medium" style={{ color: 'var(--color-dash-text)' }}>
+                            {r.title}
+                          </p>
+                          <p className="text-xs" style={{ color: 'var(--color-dash-text-faint)' }}>
+                            {r.read_time_minutes} min read
+                          </p>
                         </div>
-                        <ArrowLeft className="w-4 h-4 rotate-180 opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: 'var(--color-dash-copper)' }} />
+                        <ArrowRight
+                          className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity"
+                          style={{ color: 'var(--color-dash-copper)' }}
+                        />
                       </Link>
                     ))}
                   </div>
-                </div>
+                </motion.div>
               )}
             </motion.article>
 
@@ -540,7 +738,10 @@ export default function GuideReaderPage({ params }: { params: Promise<{ slug: st
                 transition={{ duration: 0.5, delay: 0.2 }}
                 className="hidden lg:block w-56 flex-shrink-0 sticky top-24"
               >
-                <div className="rounded-2xl border p-4" style={{ background: 'var(--color-dash-card)', borderColor: 'var(--color-dash-border)' }}>
+                <div
+                  className="rounded-2xl border p-4"
+                  style={{ background: 'var(--color-dash-card)', borderColor: 'var(--color-dash-border)' }}
+                >
                   <TableOfContents headings={headings} activeId={activeHeading} />
                 </div>
               </motion.aside>
