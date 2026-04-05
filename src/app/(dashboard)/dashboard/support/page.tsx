@@ -28,9 +28,9 @@ function timeAgo(dateStr: string) {
 
 function StatusPill({ status }: { status: string }) {
   const map: Record<string, { label: string; color: string; bg: string; icon: React.ReactNode }> = {
-    open: { label: 'Open', color: '#D97706', bg: 'rgba(217,119,6,0.12)', icon: <AlertCircle className="w-3 h-3" /> },
-    in_progress: { label: 'In Progress', color: '#2563EB', bg: 'rgba(37,99,235,0.10)', icon: <Clock className="w-3 h-3" /> },
-    resolved: { label: 'Resolved', color: '#16A34A', bg: 'rgba(22,163,74,0.10)', icon: <CheckCircle className="w-3 h-3" /> },
+    open: { label: 'Open', color: '#C87941', bg: 'rgba(200,121,65,0.12)', icon: <AlertCircle className="w-3 h-3" /> },
+    in_progress: { label: 'In Progress', color: '#A0612F', bg: 'rgba(200,121,65,0.08)', icon: <Clock className="w-3 h-3" /> },
+    resolved: { label: 'Resolved', color: '#6B8E5A', bg: 'rgba(107,142,90,0.10)', icon: <CheckCircle className="w-3 h-3" /> },
   };
   const s = map[status] ?? map.open;
   return (
@@ -304,9 +304,9 @@ export default function SupportPage() {
           </div>
 
           {submitState === 'success' ? (
-            <div className="rounded-lg p-4 text-center" style={{ backgroundColor: 'rgba(22,163,74,0.08)', border: '1px solid rgba(22,163,74,0.2)' }}>
-              <CheckCircle className="w-8 h-8 mx-auto mb-2" style={{ color: '#16A34A' }} />
-              <p className="font-medium text-sm" style={{ color: '#16A34A' }}>Message sent. Brett will get back to you soon.</p>
+            <div className="rounded-lg p-4 text-center" style={{ backgroundColor: 'rgba(107,142,90,0.08)', border: '1px solid rgba(107,142,90,0.2)' }}>
+              <CheckCircle className="w-8 h-8 mx-auto mb-2" style={{ color: '#6B8E5A' }} />
+              <p className="font-medium text-sm" style={{ color: '#6B8E5A' }}>Message sent. Brett will get back to you soon.</p>
             </div>
           ) : (
             <div className="space-y-3">

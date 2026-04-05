@@ -40,8 +40,8 @@ const MILESTONES = [
 
 const DIFFICULTY_LABELS: Record<string, { label: string; icon: string; color: string }> = {
   quick: { label: 'Quick', icon: '⚡', color: '#C87941' },
-  standard: { label: 'Standard', icon: '📖', color: '#4A7C8E' },
-  advanced: { label: 'Advanced', icon: '🧠', color: '#7B5EA7' },
+  standard: { label: 'Standard', icon: '📖', color: '#C87941' },
+  advanced: { label: 'Advanced', icon: '🧠', color: '#C87941' },
 }
 
 /* ─── Trail Map SVG ─── */
@@ -76,8 +76,8 @@ function TrailMap({
   const fullPath = pathSegments.join(' ')
 
   return (
-    <div className="w-full overflow-x-auto pb-2 -mx-4 px-4">
-      <svg viewBox="0 0 780 90" className="w-full min-w-[600px]" style={{ height: 90 }}>
+    <div className="w-full overflow-x-auto pb-2 -mx-4 px-4 no-scrollbar">
+      <svg viewBox="0 0 780 90" className="w-full min-w-[480px] sm:min-w-[600px]" style={{ height: 90 }}>
         {/* Full trail line - grey dashed background */}
         <path d={fullPath} fill="none" stroke="var(--color-dash-border)" strokeWidth="3" strokeDasharray="8 6" />
 
@@ -194,7 +194,7 @@ function GuideCard({ guide, completed }: { guide: Guide; completed?: boolean }) 
     <Link href={`/dashboard/guides/${guide.slug}`}>
       <motion.div
         whileHover={{ y: -2 }}
-        className="group rounded-2xl border p-4 transition-all duration-200 cursor-pointer"
+        className="group rounded-xl border p-4 transition-all duration-200 cursor-pointer"
         style={{
           background: 'var(--color-dash-card)',
           borderColor: completed ? 'rgba(200,121,65,0.3)' : 'var(--color-dash-border)',
@@ -283,7 +283,7 @@ function GuideCard({ guide, completed }: { guide: Guide; completed?: boolean }) 
 function EmptyMilestoneState({ name }: { name: string }) {
   return (
     <div
-      className="rounded-2xl border border-dashed py-10 px-6 text-center"
+      className="rounded-xl border border-dashed py-10 px-6 text-center"
       style={{ borderColor: 'var(--color-dash-border)', background: 'rgba(255,255,255,0.5)' }}
     >
       <div className="text-3xl mb-3 opacity-30">🏔️</div>
@@ -429,13 +429,13 @@ export default function GuidesPage() {
           <div className="flex items-center gap-2 mb-2">
             <span className="text-2xl">📚</span>
             <h1
-              className="text-3xl font-bold"
+              className="text-xl sm:text-2xl md:text-3xl font-bold"
               style={{ fontFamily: 'var(--font-cabinet)', color: 'var(--color-dash-text)' }}
             >
               Guides
             </h1>
           </div>
-          <p className="text-base" style={{ color: 'var(--color-dash-text-muted)' }}>
+          <p className="text-sm sm:text-base" style={{ color: 'var(--color-dash-text-muted)' }}>
             Plain-language guides written for Kootenay business owners. No tech jargon, just useful stuff.
           </p>
         </motion.div>
@@ -477,7 +477,7 @@ export default function GuidesPage() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="rounded-2xl border p-4 mb-8"
+            className="rounded-xl border p-4 mb-8"
             style={{ background: 'var(--color-dash-card)', borderColor: 'var(--color-dash-border)' }}
           >
             <TrailMap milestoneStatus={milestoneStatus} onMilestoneClick={scrollToMilestone} />
@@ -485,7 +485,7 @@ export default function GuidesPage() {
         )}
 
         {/* Tabs — pill buttons */}
-        <div className="flex gap-2 mb-8 overflow-x-auto pb-1">
+        <div className="flex gap-2 mb-8 overflow-x-auto pb-1 no-scrollbar">
           {TABS.map((tab) => {
             const isActive = activeTab === tab.id
             return (

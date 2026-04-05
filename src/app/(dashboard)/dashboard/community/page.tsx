@@ -53,9 +53,9 @@ function catLabel(cat: string) {
 function catColor(cat: string): { bg: string; text: string } {
   const map: Record<string, { bg: string; text: string }> = {
     wins: { bg: 'rgba(200,121,65,0.12)', text: '#C87941' },
-    questions: { bg: 'rgba(59,130,246,0.10)', text: '#3B82F6' },
-    tips: { bg: 'rgba(34,197,94,0.10)', text: '#16A34A' },
-    'show-work': { bg: 'rgba(168,85,247,0.10)', text: '#9333EA' },
+    questions: { bg: 'rgba(200,121,65,0.08)', text: '#A0612F' },
+    tips: { bg: 'rgba(200,121,65,0.10)', text: '#B5703A' },
+    'show-work': { bg: 'rgba(200,121,65,0.08)', text: '#C87941' },
   };
   return map[cat] ?? { bg: 'rgba(200,121,65,0.12)', text: '#C87941' };
 }

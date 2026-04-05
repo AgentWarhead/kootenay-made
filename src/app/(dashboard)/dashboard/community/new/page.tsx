@@ -91,7 +91,7 @@ export default function NewPostPage() {
         {/* Category — clickable cards */}
         <div>
           <label className="block text-sm font-medium mb-3" style={{ color: 'var(--color-dash-text)' }}>What kind of post?</label>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {CATEGORIES.map(cat => (
               <button key={cat.value} onClick={() => setCategory(cat.value)}
                 className="p-3.5 rounded-xl text-left transition-all duration-200"

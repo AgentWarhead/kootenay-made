@@ -24,8 +24,8 @@ interface Guide {
 
 const DIFFICULTY_LABELS: Record<string, { label: string; icon: string; color: string }> = {
   quick: { label: 'Quick Read', icon: '⚡', color: '#C87941' },
-  standard: { label: 'Standard', icon: '📖', color: '#4A7C8E' },
-  advanced: { label: 'Deep Dive', icon: '🧠', color: '#7B5EA7' },
+  standard: { label: 'Standard', icon: '📖', color: '#C87941' },
+  advanced: { label: 'Deep Dive', icon: '🧠', color: '#C87941' },
 }
 
 interface Heading {
@@ -459,15 +459,23 @@ export default function GuideReaderPage({ params }: { params: Promise<{ slug: st
 
       <style>{`
         @import url('https://api.fontshare.com/v2/css?f[]=jet-brains-mono@400,700&display=swap');
-        .guide-h1 { font-family: var(--font-cabinet); font-size: 28px; font-weight: 700; line-height: 1.25; color: var(--color-dash-text); margin: 32px 0 16px; }
-        .guide-h2 { font-family: var(--font-cabinet); font-size: 22px; font-weight: 600; line-height: 1.3; color: var(--color-dash-text); margin: 28px 0 12px; }
-        .guide-h3 { font-family: var(--font-cabinet); font-size: 18px; font-weight: 600; line-height: 1.4; color: var(--color-dash-text); margin: 24px 0 10px; }
-        .guide-p { font-family: var(--font-general); font-size: 18px; line-height: 1.8; color: var(--color-dash-text); margin: 0 0 18px; }
-        .guide-ul { margin: 0 0 18px; padding-left: 0; list-style: none; }
-        .guide-ol { margin: 0 0 18px; padding-left: 20px; }
-        .guide-li { font-family: var(--font-general); font-size: 18px; line-height: 1.8; color: var(--color-dash-text); margin-bottom: 6px; padding-left: 24px; position: relative; }
+        .guide-h1 { font-family: var(--font-cabinet); font-size: 24px; font-weight: 700; line-height: 1.25; color: var(--color-dash-text); margin: 28px 0 14px; }
+        .guide-h2 { font-family: var(--font-cabinet); font-size: 20px; font-weight: 600; line-height: 1.3; color: var(--color-dash-text); margin: 24px 0 10px; }
+        .guide-h3 { font-family: var(--font-cabinet); font-size: 17px; font-weight: 600; line-height: 1.4; color: var(--color-dash-text); margin: 20px 0 8px; }
+        .guide-p { font-family: var(--font-general); font-size: 16px; line-height: 1.8; color: var(--color-dash-text); margin: 0 0 16px; }
+        .guide-ul { margin: 0 0 16px; padding-left: 0; list-style: none; }
+        .guide-ol { margin: 0 0 16px; padding-left: 20px; }
+        .guide-li { font-family: var(--font-general); font-size: 16px; line-height: 1.8; color: var(--color-dash-text); margin-bottom: 6px; padding-left: 24px; position: relative; }
         .guide-ul .guide-li::before { content: '•'; color: var(--color-dash-copper); position: absolute; left: 6px; font-weight: bold; }
-        .guide-blockquote p { margin: 0; font-size: 16px; line-height: 1.7; }
+        .guide-blockquote p { margin: 0; font-size: 15px; line-height: 1.7; }
+        @media (min-width: 640px) {
+          .guide-h1 { font-size: 28px; margin: 32px 0 16px; }
+          .guide-h2 { font-size: 22px; margin: 28px 0 12px; }
+          .guide-h3 { font-size: 18px; margin: 24px 0 10px; }
+          .guide-p { font-size: 18px; margin: 0 0 18px; }
+          .guide-li { font-size: 18px; }
+          .guide-blockquote p { font-size: 16px; }
+        }
       `}</style>
 
       <div className="min-h-screen" style={{ background: 'var(--color-dash-bg)' }}>
@@ -482,7 +490,7 @@ export default function GuideReaderPage({ params }: { params: Promise<{ slug: st
             Back to Guides
           </Link>
 
-          <div className="flex gap-12 items-start">
+          <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start">
             {/* Main content */}
             <motion.article
               initial={{ opacity: 0, y: 20 }}
@@ -512,7 +520,7 @@ export default function GuideReaderPage({ params }: { params: Promise<{ slug: st
 
               {/* Title */}
               <h1
-                className="text-3xl md:text-4xl font-bold leading-tight mb-4"
+                className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold leading-tight mb-4"
                 style={{ fontFamily: 'var(--font-cabinet)', color: 'var(--color-dash-text)' }}
               >
                 {guide.title}
@@ -573,7 +581,7 @@ export default function GuideReaderPage({ params }: { params: Promise<{ slug: st
 
               {/* Mark as Complete */}
               <motion.div
-                className="rounded-2xl border p-6 text-center"
+                className="rounded-xl border p-6 text-center"
                 style={{ borderColor: 'var(--color-dash-border)', background: 'var(--color-dash-card)' }}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -739,7 +747,7 @@ export default function GuideReaderPage({ params }: { params: Promise<{ slug: st
                 className="hidden lg:block w-56 flex-shrink-0 sticky top-24"
               >
                 <div
-                  className="rounded-2xl border p-4"
+                  className="rounded-xl border p-4"
                   style={{ background: 'var(--color-dash-card)', borderColor: 'var(--color-dash-border)' }}
                 >
                   <TableOfContents headings={headings} activeId={activeHeading} />

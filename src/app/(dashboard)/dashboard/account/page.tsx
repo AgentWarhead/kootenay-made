@@ -213,7 +213,7 @@ export default function AccountPage() {
             </div>
             <button onClick={saveProfile} disabled={profileSaving}
               className="flex items-center gap-2 px-5 py-2.5 rounded-lg text-white text-sm font-medium disabled:opacity-60 transition-all"
-              style={{ backgroundColor: profileSaved ? '#2D6A4F' : 'var(--color-dash-copper)', minHeight: 44 }}>
+              style={{ backgroundColor: profileSaved ? '#6B8E5A' : 'var(--color-dash-copper)', minHeight: 44 }}>
               {profileSaved ? <><CheckCircle className="w-4 h-4" />Saved!</> : profileSaving ? <><div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />Saving...</> : <><Save className="w-4 h-4" />Save Profile</>}
             </button>
           </div>
@@ -315,8 +315,8 @@ export default function AccountPage() {
 
           {pwState === 'success' ? (
             <div className="rounded-lg p-4 flex items-center gap-3" style={{ backgroundColor: 'rgba(45,106,79,0.08)', border: '1px solid rgba(45,106,79,0.2)' }}>
-              <CheckCircle className="w-5 h-5" style={{ color: '#2D6A4F' }} />
-              <p className="text-sm font-medium" style={{ color: '#2D6A4F' }}>New locks on the cabin. You&apos;re all set.</p>
+              <CheckCircle className="w-5 h-5" style={{ color: '#6B8E5A' }} />
+              <p className="text-sm font-medium" style={{ color: '#6B8E5A' }}>New locks on the cabin. You&apos;re all set.</p>
             </div>
           ) : (
             <div className="space-y-3">

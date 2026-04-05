@@ -1474,6 +1474,10 @@ input:focus, textarea:focus, select:focus {
   transform: translateY(-2px);
 }
 
+/* Hide scrollbar but allow scrolling */
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
 /* Reduced motion overrides for dashboard */
 @media (prefers-reduced-motion: reduce) {
   .skeleton-copper { animation: none; }
