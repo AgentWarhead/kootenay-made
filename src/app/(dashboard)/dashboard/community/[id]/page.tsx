@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, type Variants } from 'framer-motion';
-import { ArrowLeft, ThumbsUp, Send } from 'lucide-react';
+import { ArrowLeft, Heart, Send, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 import { use } from 'react';
 import { createClient } from '@/lib/supabase/client';
@@ -26,8 +26,23 @@ function timeAgo(dateStr: string) {
 }
 
 function catLabel(cat: string) {
-  const map: Record<string, string> = { wins: '🏆 Win', questions: '❓ Question', tips: '💡 Tip', 'show-work': '📸 Show Your Work' };
+  const map: Record<string, string> = { wins: '🏆 Win', questions: '❓ Question', tips: '💡 Tip', 'show-work': '🎨 Show Your Work' };
   return map[cat] ?? cat;
+}
+
+function catColor(cat: string): { bg: string; text: string } {
+  const map: Record<string, { bg: string; text: string }> = {
+    wins: { bg: 'rgba(200,121,65,0.12)', text: '#C87941' },
+    questions: { bg: 'rgba(59,130,246,0.10)', text: '#3B82F6' },
+    tips: { bg: 'rgba(34,197,94,0.10)', text: '#16A34A' },
+    'show-work': { bg: 'rgba(168,85,247,0.10)', text: '#9333EA' },
+  };
+  return map[cat] ?? { bg: 'rgba(200,121,65,0.12)', text: '#C87941' };
+}
+
+function initials(name?: string) {
+  if (!name) return '?';
+  return name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
 }
 
 type Post = {
@@ -91,8 +106,21 @@ export default function PostDetailPage({ params }: { params: Promise<{ id: strin
 
   if (loading) return (
     <div className="max-w-3xl space-y-4">
-      <div className="h-8 w-32 rounded bg-gray-100 animate-pulse" />
-      <div className="h-40 rounded-xl bg-gray-100 animate-pulse" />
+      <div className="h-4 w-48 rounded animate-pulse" style={{ backgroundColor: 'var(--color-dash-border)' }} />
+      <div className="rounded-xl border p-6 space-y-4" style={{ borderColor: 'var(--color-dash-border)', backgroundColor: 'white' }}>
+        <div className="flex items-center gap-3">
+          <div className="w-11 h-11 rounded-full animate-pulse" style={{ backgroundColor: 'var(--color-dash-border)' }} />
+          <div className="space-y-1.5">
+            <div className="h-3.5 w-32 rounded animate-pulse" style={{ backgroundColor: 'var(--color-dash-border)' }} />
+            <div className="h-3 w-20 rounded animate-pulse" style={{ backgroundColor: 'var(--color-dash-border)' }} />
+          </div>
+        </div>
+        <div className="h-6 w-2/3 rounded animate-pulse" style={{ backgroundColor: 'var(--color-dash-border)' }} />
+        <div className="space-y-2">
+          <div className="h-3.5 w-full rounded animate-pulse" style={{ backgroundColor: 'var(--color-dash-border)' }} />
+          <div className="h-3.5 w-4/5 rounded animate-pulse" style={{ backgroundColor: 'var(--color-dash-border)' }} />
+        </div>
+      </div>
     </div>
   );
 
@@ -103,29 +131,42 @@ export default function PostDetailPage({ params }: { params: Promise<{ id: strin
     </div>
   );
 
+  const cc = catColor(post.category);
+
   return (
     <div className="space-y-6 max-w-3xl" style={{ fontFamily: 'var(--font-general)' }}>
-      {/* Back */}
-      <motion.div custom={0} variants={fadeUp} initial="hidden" animate="show">
-        <Link href="/dashboard/community" className="inline-flex items-center gap-2 text-sm hover:underline" style={{ color: 'var(--color-dash-text-muted)' }}>
-          <ArrowLeft className="w-4 h-4" />Back to The Campfire
-        </Link>
-      </motion.div>
+      {/* Breadcrumb */}
+      <motion.nav custom={0} variants={fadeUp} initial="hidden" animate="show" className="flex items-center gap-1.5 text-sm flex-wrap">
+        <Link href="/dashboard/community" className="hover:underline" style={{ color: 'var(--color-dash-text-muted)' }}>Community</Link>
+        <ChevronRight className="w-3.5 h-3.5" style={{ color: 'var(--color-dash-text-faint)' }} />
+        <span className="truncate max-w-[240px]" style={{ color: 'var(--color-dash-text)' }}>{post.title}</span>
+      </motion.nav>
 
       {/* Post */}
       <motion.div custom={1} variants={fadeUp} initial="hidden" animate="show"
         className="rounded-xl border bg-white p-6" style={{ borderColor: 'var(--color-dash-border)', boxShadow: '0 1px 4px rgba(0,0,0,0.04)' }}>
-        <div className="flex flex-wrap items-center gap-2 mb-3">
-          <span className="font-semibold text-sm" style={{ color: 'var(--color-dash-text)' }}>
-            {post.profiles?.business_name ?? 'A neighbour'}
-          </span>
-          {post.profiles?.is_admin && (
-            <span className="text-xs font-bold px-1.5 py-0.5 rounded" style={{ backgroundColor: 'var(--color-dash-copper)', color: 'white' }}>KMD</span>
-          )}
-          <span className="text-xs px-2 py-0.5 rounded-full" style={{ backgroundColor: 'var(--color-dash-copper-muted)', color: 'var(--color-dash-copper)' }}>
-            {catLabel(post.category)}
-          </span>
-          <span className="text-xs" style={{ color: 'var(--color-dash-text-faint)' }}>{timeAgo(post.created_at)}</span>
+        {/* Author card */}
+        <div className="flex items-center gap-3 mb-5 pb-4" style={{ borderBottom: '1px solid var(--color-dash-border)' }}>
+          <div className="w-11 h-11 rounded-full flex items-center justify-center shrink-0 text-sm font-bold text-white"
+            style={{ backgroundColor: 'var(--color-dash-copper)' }}>
+            {initials(post.profiles?.business_name)}
+          </div>
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="font-semibold text-sm" style={{ color: 'var(--color-dash-text)' }}>
+                {post.profiles?.business_name ?? 'A neighbour'}
+              </span>
+              {post.profiles?.is_admin && (
+                <span className="text-[10px] font-bold px-1.5 py-0.5 rounded" style={{ backgroundColor: 'var(--color-dash-copper)', color: 'white' }}>Guide</span>
+              )}
+            </div>
+            <div className="flex items-center gap-2 mt-0.5">
+              <span className="text-xs font-medium px-2 py-0.5 rounded-full" style={{ backgroundColor: cc.bg, color: cc.text }}>
+                {catLabel(post.category)}
+              </span>
+              <span className="text-xs" style={{ color: 'var(--color-dash-text-faint)' }}>{timeAgo(post.created_at)}</span>
+            </div>
+          </div>
         </div>
         <h1 className="text-xl sm:text-2xl font-bold mb-3" style={{ fontFamily: 'var(--font-cabinet)', color: 'var(--color-dash-text)' }}>{post.title}</h1>
         <p className="text-sm leading-relaxed whitespace-pre-wrap" style={{ color: 'var(--color-dash-text-muted)' }}>{post.content}</p>
@@ -137,59 +178,73 @@ export default function PostDetailPage({ params }: { params: Promise<{ id: strin
           {replies.length} {replies.length === 1 ? 'Reply' : 'Replies'}
         </h2>
         <div className="space-y-3">
-          {replies.map((reply, i) => (
-            <motion.div key={reply.id} custom={i + 3} variants={fadeUp} initial="hidden" animate="show"
-              className="rounded-xl border bg-white p-4" style={{ borderColor: reply.profiles?.is_admin ? 'rgba(200,121,65,0.3)' : 'var(--color-dash-border)', boxShadow: '0 1px 4px rgba(0,0,0,0.04)' }}>
-              <div className="flex items-start justify-between gap-3">
-                <div className="flex-1">
-                  <div className="flex flex-wrap items-center gap-2 mb-2">
-                    <span className="font-semibold text-xs" style={{ color: 'var(--color-dash-text)' }}>
+          {replies.map((reply, i) => {
+            const isAdmin = reply.profiles?.is_admin;
+            return (
+              <motion.div key={reply.id} custom={i + 3} variants={fadeUp} initial="hidden" animate="show"
+                className={`flex ${isAdmin ? 'justify-end' : 'justify-start'}`}>
+                <div className="max-w-[85%] rounded-xl p-4"
+                  style={{
+                    backgroundColor: isAdmin ? 'rgba(200,121,65,0.08)' : 'white',
+                    border: `1px solid ${isAdmin ? 'rgba(200,121,65,0.25)' : 'var(--color-dash-border)'}`,
+                    boxShadow: '0 1px 4px rgba(0,0,0,0.04)',
+                    borderBottomLeftRadius: isAdmin ? 12 : 4,
+                    borderBottomRightRadius: isAdmin ? 4 : 12,
+                  }}>
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold text-white shrink-0"
+                      style={{ backgroundColor: isAdmin ? 'var(--color-dash-copper)' : 'var(--color-dash-text-faint)' }}>
+                      {initials(reply.profiles?.business_name)}
+                    </div>
+                    <span className="font-semibold text-xs" style={{ color: isAdmin ? 'var(--color-dash-copper)' : 'var(--color-dash-text)' }}>
                       {reply.profiles?.business_name ?? 'A neighbour'}
                     </span>
-                    {reply.profiles?.is_admin && (
-                      <span className="text-xs font-bold px-1.5 py-0.5 rounded" style={{ backgroundColor: 'var(--color-dash-copper)', color: 'white' }}>KMD</span>
+                    {isAdmin && (
+                      <span className="text-[9px] font-bold px-1 py-0.5 rounded" style={{ backgroundColor: 'var(--color-dash-copper)', color: 'white' }}>Guide</span>
                     )}
                     <span className="text-xs" style={{ color: 'var(--color-dash-text-faint)' }}>{timeAgo(reply.created_at)}</span>
                   </div>
                   <p className="text-sm leading-relaxed whitespace-pre-wrap" style={{ color: 'var(--color-dash-text-muted)' }}>{reply.content}</p>
+                  <div className="mt-2 pt-2 flex justify-end" style={{ borderTop: '1px solid var(--color-dash-border)' }}>
+                    <button
+                      onClick={() => markHelpful(reply.id)}
+                      disabled={helpfulVoted.has(reply.id)}
+                      className="flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full transition-all"
+                      style={{
+                        minHeight: 32,
+                        border: `1px solid ${helpfulVoted.has(reply.id) ? 'var(--color-dash-copper)' : 'var(--color-dash-border)'}`,
+                        color: helpfulVoted.has(reply.id) ? 'var(--color-dash-copper)' : 'var(--color-dash-text-faint)',
+                        backgroundColor: helpfulVoted.has(reply.id) ? 'var(--color-dash-copper-muted)' : 'transparent',
+                      }}>
+                      <Heart className="w-3.5 h-3.5" style={{ fill: helpfulVoted.has(reply.id) ? 'var(--color-dash-copper)' : 'none' }} />
+                      Helpful{reply.helpful_count > 0 ? ` · ${reply.helpful_count}` : ''}
+                    </button>
+                  </div>
                 </div>
-                <button
-                  onClick={() => markHelpful(reply.id)}
-                  disabled={helpfulVoted.has(reply.id)}
-                  className="flex items-center gap-1 text-xs px-2 py-1 rounded-lg border transition-all shrink-0"
-                  style={{
-                    minHeight: 44, minWidth: 44,
-                    borderColor: helpfulVoted.has(reply.id) ? 'var(--color-dash-copper)' : 'var(--color-dash-border)',
-                    color: helpfulVoted.has(reply.id) ? 'var(--color-dash-copper)' : 'var(--color-dash-text-faint)',
-                    backgroundColor: helpfulVoted.has(reply.id) ? 'var(--color-dash-copper-muted)' : 'transparent',
-                  }}>
-                  <ThumbsUp className="w-3.5 h-3.5" />
-                  {reply.helpful_count > 0 && reply.helpful_count}
-                </button>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            );
+          })}
         </div>
       </motion.section>
 
       {/* Reply form */}
       {userId && (
         <motion.div custom={replies.length + 3} variants={fadeUp} initial="hidden" animate="show"
-          className="rounded-xl border bg-white p-4" style={{ borderColor: 'var(--color-dash-border)', boxShadow: '0 1px 4px rgba(0,0,0,0.04)' }}>
-          <h3 className="text-sm font-semibold mb-3" style={{ color: 'var(--color-dash-text)' }}>Add a reply</h3>
-          <div className="flex gap-2">
-            <textarea
-              value={replyText}
-              onChange={e => setReplyText(e.target.value)}
-              placeholder="Share your thoughts..."
-              rows={3}
-              className="flex-1 rounded-lg border p-3 text-sm resize-none focus:outline-none focus:ring-2"
-              style={{ borderColor: 'var(--color-dash-border)', color: 'var(--color-dash-text)', fontFamily: 'var(--font-general)', '--tw-ring-color': 'var(--color-dash-copper)' } as React.CSSProperties}
-            />
+          className="rounded-xl border bg-white p-5" style={{ borderColor: 'var(--color-dash-border)', boxShadow: '0 1px 4px rgba(0,0,0,0.04)' }}>
+          <h3 className="text-sm font-semibold mb-3" style={{ color: 'var(--color-dash-text)', fontFamily: 'var(--font-cabinet)' }}>Join the conversation</h3>
+          <textarea
+            value={replyText}
+            onChange={e => setReplyText(e.target.value)}
+            placeholder="Share your experience or a helpful thought…"
+            rows={3}
+            className="w-full rounded-lg border p-3 text-sm resize-none focus:outline-none focus:ring-2 mb-3"
+            style={{ borderColor: 'var(--color-dash-border)', color: 'var(--color-dash-text)', fontFamily: 'var(--font-general)', '--tw-ring-color': 'var(--color-dash-copper)' } as React.CSSProperties}
+          />
+          <div className="flex justify-end">
             <button onClick={submitReply} disabled={sending || !replyText.trim()}
-              className="px-3 rounded-lg text-white disabled:opacity-50 transition-opacity"
-              style={{ backgroundColor: 'var(--color-dash-copper)', minWidth: 44 }}>
-              <Send className="w-4 h-4" />
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-white text-sm font-medium disabled:opacity-50 transition-opacity"
+              style={{ backgroundColor: 'var(--color-dash-copper)', minHeight: 44 }}>
+              <Send className="w-4 h-4" />{sending ? 'Posting…' : 'Reply'}
             </button>
           </div>
         </motion.div>
