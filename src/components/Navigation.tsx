@@ -173,7 +173,7 @@ export default function Navigation() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.4 }}
-            className="fixed inset-0 z-40 bg-slate flex flex-col items-center justify-center gap-6 overflow-hidden"
+            className="fixed inset-0 z-40 bg-slate flex flex-col items-center justify-center gap-4 overflow-y-auto py-24 px-4"
           >
             {/* Mountain silhouette at bottom */}
             <div className="absolute bottom-0 left-0 right-0 opacity-[0.04]">
@@ -192,7 +192,7 @@ export default function Navigation() {
                 <Link
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
-                  className={`font-[family-name:var(--font-satoshi)] text-2xl sm:text-3xl font-bold uppercase tracking-wide transition-colors py-2 px-4 min-h-[44px] flex items-center ${
+                  className={`font-[family-name:var(--font-satoshi)] text-xl sm:text-2xl font-bold uppercase tracking-wide transition-colors py-1.5 px-4 min-h-[44px] flex items-center ${
                     isActive(link.href) ? 'text-copper' : 'text-cream hover:text-copper'
                   }`}
                 >
